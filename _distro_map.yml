@@ -1,0 +1,11 @@
+---
+fedora:
+  name: Fedora Quick Docs
+  author: Fedora Documentation Project <docs@lists.fedoraproject.org>
+  site: main
+  site_name: Home
+  site_url: https://docs.fedoraproject.org/
+  branches:
+    master:
+      name: quick-docs
+      dir: quick-docs
