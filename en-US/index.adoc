@@ -4,7 +4,9 @@ Fedora Quick Docs
 This repository represents asciidoc documents roughly converted from the top
 50 document-like pages in the Fedora Wiki. We want to move away from
 exposing users to the wild territory of workspace wikis and to a nice,
-topic-oriented wiki. So, this is kind of a seed project. Your help wanted!
+topic-oriented format with a PR-based workflow.
+
+So, this is kind of a seed project. *Your help wanted!*
 
 Please:
 
