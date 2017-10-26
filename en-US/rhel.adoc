@@ -1,0 +1,286 @@
+= Red Hat Enterprise Linux
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/Red_Hat_Enterprise_Linux
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+*Red Hat Enterprise Linux* (or RHEL) is a commercially supported
+derivative of Fedora tailored to meet the requirements of enterprise
+customers. It is a commercial product from Red Hat which also sponsors
+Fedora as a community project. Fedora is upstream for Red Hat Enterprise
+Linux but there are several other link:Derived_distributions[Derived
+distributions] available too.
+
+[[whats-the-difference-between-fedora-and-red-hat-enterprise-linux]]
+What's the difference between Fedora and Red Hat Enterprise Linux?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Watch a video from
+http://www.redhatmagazine.com/2008/09/16/video-the-history-of-fedora/[Red
+Hat Magazine].
+
+Both Fedora and Red Hat Enterprise Linux are open source. Fedora is a
+free distribution and community project and upstream for Red Hat
+Enterprise Linux. Fedora is a general purpose system that gives Red Hat
+and the rest of its contributor community the chance to innovate rapidly
+with new technologies. Red Hat Enterprise Linux is a commercial
+enterprise operating system and has its own set of test phases including
+alpha and beta releases which are separate and distinct from Fedora
+development.
+
+The cost of Red Hat Enterprise Linux comes from the subscription, which
+provides assorted certifications and support for additional
+architectures, as well as 7 years and more of enterprise support. Red
+Hat also enhances its Red Hat Enterprise Linux offerings with additional
+software and with certification programs.
+
+More information on the release history and lineage is available at
+link:History_of_Red_Hat_Linux[History of Red Hat Linux].
+
+When you purchase Red Hat Enterprise Linux, you are also helping to
+support Fedora. Since Red Hat sponsors Fedora, what is good for Red Hat
+is usually good for Fedora. The major differences are:
+
+* Support and associated services: Red Hat Enterprise Linux is a
+commercially supported product by Red Hat and provides service level
+agreements that is important for enterprise customers. This support
+involves both product assistance (hand holding) as well as
+prioritization of bug fixes and feature requests, certified hardware and
+software among other things. Fedora is supported by a wide community of
+developers and users but it is not commercially supported by Red Hat.
+Red Hat does http://fedoraproject.org/sponsors[sponsor] a large number
+of resources and link:Accounting[ funds] to the Fedora project including
+engineering, marketing and other services.
+
+* link:LifeCycle[Lifecycle]: A new version of Red Hat Enterprise Linux
+comes out every few years and is supported for up to 10 years and can
+even be
+http://www.redhat.com/rhel/server/extended_lifecycle_support/[extended]
+to 13 years or more with additional subscriptions. New Fedora releases
+are available about every six months and every release gets updates for
+about 13 months.
+
+* Software Packages: Software in Red Hat Enterprise Linux is a limited
+subset of Fedora and has about 4000 binary packages (RHEL 6). These are
+the ones enterprise customers demand and are supported by Red Hat.
+Fedora offers a wide range of software packages and the latest release
+has well over 25000 unique (not counting updates in Fedora 15) binary
+software packages available in the repository.
+
+* Software Updates: Post release updates of software in Red Hat
+Enterprise Linux are usually limited to backported security and bug
+fixes, although enhancements are also offered usually via the major
+scheduled updates. Red Hat also offers
+http://www.press.redhat.com/2008/12/18/red-hat-increases-service-levels-and-reduces-costs-for-customers-with-extended-update-support/[extended
+update support] for customers wishing to stick to a single point release
+for a longer amount of time. Red Hat also aims to provide ABI
+compatibility within a release, whereas this is not guaranteed by the
+Fedora Project. Fedora software packages and updates are close to
+link:Staying_close_to_upstream_projects[ upstream] and include new
+features routinely.
+
+* New Releases: Subscriptions are for a specified time period and not
+for a particular release. So you can move to any currently supported
+release of Red Hat Enterprise Linux including new versions of RHEL
+
+Red Hat has a page explaining the benefits of the
+https://www.redhat.com/rhel/benefits/[subscription] in more detail. It
+also provides https://www.redhat.com/software/rhelorfedora/[an older
+comparison between the two options].
+
+[[what-about-packages-not-part-of-red-hat-enterprise-linux-what-is-epel]]
+What about packages not part of Red Hat Enterprise Linux? What is EPEL?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In order to focus Red Hat's efforts and limit support costs, only a
+selected subset of packages found in Fedora are included in the
+commercially supported product line. The Fedora Project has a community
+of people maintaining add-on packages for Red Hat Enterprise Linux and
+compatible rebuilds called link:EPEL[Extra Packages for Enterprise
+Linux], or EPEL.
+
+[[what-is-the-release-cycle-of-red-hat-enterprise-linux]]
+What is the release cycle of Red Hat Enterprise Linux?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There is no fixed release schedule for new releases. Red Hat Enterprise
+Linux is usually released approximately every 18 to 36 months and each
+release is http://www.redhat.com/security/updates/errata/[maintained for
+7 years] and can be
+http://www.redhat.com/rhel/server/extended_lifecycle_support/[extended]
+up to 10 years. Red Hat also offers
+http://www.press.redhat.com/2008/12/18/red-hat-increases-service-levels-and-reduces-costs-for-customers-with-extended-update-support/[extended
+update support] for customers wishing to stick to a single point release
+for a longer amount of time.
+
+[[what-is-the-update-policy-for-red-hat-enterprise-linux]]
+What is the update policy for Red Hat Enterprise Linux?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Red Hat Enterprise Linux updates are more conservative and generally
+focus on security and bug fixes . Hardware enablement and targeted
+enhancements are delivered via scheduled minor updates and the policy is
+described in much more detail
+https://access.redhat.com/support/policy/updates/errata/[here]
+
+Fedora's Updates_Policy is more liberal compared to Red Hat Enterprise
+Linux.
+
+[[is-red-hat-enterprise-linux-available-for-free-or-low-cost]]
+Is Red Hat Enterprise Linux available for free or low cost?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It is a commercial product and not available for free. There is a
+evaluation version for free download at
+https://www.redhat.com/rhel/details/eval/ and a version targeted at
+developers for 99$ at
+
+https://www.redhat.com/apps/store/developers/rhel_developer_suite.html
+
+Academic editions are available at a low cost as well
+
+http://www.redhat.com/solutions/education/academic/
+
+http://www.redhat.com/solutions/education/academic/individual/
+
+[[is-red-hat-enterprise-linux-a-open-source-product]]
+Is Red Hat Enterprise Linux a open source product?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Yes. Binaries and updates are part of the
+http://www.gnu.org/philosophy/selling.html[commercial] subscription from
+Red Hat to its customers. The complete source code in the form of source
+RPM's is available publicly at Red Hat's
+ftp://ftp.redhat.com/pub/redhat/linux/enterprise/[ftp mirror], which is
+above and beyond the requirements of any of the free and open source
+licenses. Red Hat participates in the CentOS project and the sources are
+available from
+http://community.redhat.com/centos-faq/#_git_centos_org[their] site as
+well. Red Hat also provides a complementary repository containing small
+number of additional packages which are licensed from its partners under
+different licensing terms.
+
+[[is-it-possible-to-use-the-publicly-available-source-rpms-to-rebuild-the-distribution]]
+Is it possible to use the publicly available source RPMs to rebuild the
+distribution?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Absolutely. All the SRPMS are under free and open source licenses that
+permit this. There are several such rebuilds and derivatives of Red Hat
+Enterprise Linux available. http://centos.org[CentOS] and
+https://www.scientificlinux.org/[Scientific Linux] are popular ones.
+
+[[whats-the-difference-between-rebuilds-and-red-hat-enterprise-linux]]
+What's the difference between rebuilds and Red Hat Enterprise Linux ?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Red Hat Enterprise Linux is commercially supported by Red Hat, and
+offers a range of software and hardware certifications including third
+party ISV applications. Rebuilds often have a substantial
+http://lwn.net/Articles/345028/[delay in releasing updates] and
+especially for releasing rebuilds for
+https://lwn.net/Articles/435744/[major releases] of RHEL or minor point
+updates following that. Red Hat also offers other management features
+via a web service called http://rhn.redhat.com[Red Hat Network] that is
+not available to such rebuilds. Also, layered products such as Red Hat
+Application Stack, Red Hat Directory Server and Red Hat Satellite are
+only supported on top of Red Hat Enterprise Linux subscriptions. Many
+hardware, software and security certifications are only valid on Red Hat
+Enterprise Linux and not the rebuilds. Much of the technical content of
+Red Hat http://kbase.redhat.com[knowledge base] and
+http://access.redhat.com[customer support portal] is only available to
+Red Hat customers as well.
+
+[[whats-the-relationship-between-centos-and-red-hat]]
+What's the relationship between CentOS and Red Hat?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Red Hat has explained this in detail at
+http://community.redhat.com/centos-faq/
+
+[[history]]
+History
+~~~~~~~
+
+Red Hat first offered an enterprise Linux support subscription for Red
+Hat Linux 6.1. It was not a separate product but the subscription level
+was branded as Red Hat 6.2E. Subsequently, Red Hat started creating a
+separate product with commercial service level agreements and longer
+lifecyle based on Red Hat Linux and later on Fedora. This was initially
+called as Advanced Server and rebranded as Red Hat Enterprise Linux in
+2003. The following table gives the lineage:
+
+[cols=",,,",options="header",]
+|=======================================================================
+|Release |Codename |Release Date |Based on
+|Red Hat Linux 6.2E |Zoot |2000-03-27 |Red Hat Linux 6.2
+
+|Red Hat Enterprise Linux 2.1 |Pensacola (AS)/ Panama (ES) |2002-03-26
+(AS) |Red Hat Linux 7.2
+
+|Red Hat Enterprise Linux 3 |Taroon |2003-10-22 |Red Hat Linux 9
+
+|Red Hat Enterprise Linux 4 |Nahant |2005-02-15 |Fedora Core 3
+
+|Red Hat Enterprise Linux 5 |Tikanga |2007-03-14 |Fedora Core 6
+
+|Red Hat Enterprise Linux 6 |Santiago |2010-11-10 |Mix of Fedora 12
+Fedora 13 and several modifications
+
+|Red Hat Enterprise Linux 7 |Maipo |2014-06-10 |Primarily Fedora 19 with
+several changes from 20 and later
+|=======================================================================
+
+Note that while during the release, the releases of Red Hat Enterprise
+Linux have similarities to the corresponding Fedora releases, the update
+cycle is very different between these distributions and hence they
+diverge drastically over time. Rebuilds of Red Hat Enterprise Linux
+itself such as CentOS and Scientific Linux tend to mirror it quite
+closely. If you are looking for packages that are available in Fedora
+but not in Red Hat Enterprise Linux, EPEL repository is a good place to
+start with.
+
+* http://www.redhat.com/rhel/
+* link:Red_Hat_contributions[Red Hat contributions]
+
+[[articles]]
+Articles
+^^^^^^^^
+
+* http://www.redhat.com/magazine/019may06/features/fedora_rhel_1/
+* http://www.redhat.com/magazine/020jun06/features/fedora_rhel_2/
+* http://www.redhat.com/magazine/021jul06/features/fedora_rhel_3/
+* http://www.redhat.com/magazine/022aug06/features/fedora_rhel_4/
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

@@ -1,0 +1,262 @@
+= Kernel
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/Kernel
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+Assorted information related to the Fedora Linux kernel.
+
+[[current-versions]]
+Current versions
+----------------
+
+[cols=",,,",]
+|=======================================================================
+|Release |Version |MotM |Comments
+
+|F25 |4.13.x |labbott |
+
+|F26 |4.13.x |labbott |
+
+|F27 |4.13.x |labbott |
+
+|Rawhide |Latest mainline (4.14.x) |jforbes |Pretty much always the
+latest mainline tree.
+|=======================================================================
+
+Each upstream major kernel release has a maintainer that follows the
+release through from merge window until it is no longer in a supported
+Fedora release. The field above shows which kernel releases match up
+with current Fedora releases, and who is maintaining that particular
+kernel. For example, labbott is maintaining 4.4 kernels in Fedora 22 and
+23, jforbes is maintaining 4.5 kernels in F24, and will maintain F22 and
+F23 as they are rebased to 4.5. If in doubt, send mail to the kernel
+list (info below) rather than individuals. The maintainers are part of
+the link:Fedora_Engineering[Fedora Engineering] team.
+
+[[fedora-kernel-mailing-list]]
+Fedora kernel mailing list
+--------------------------
+
+For discussion about Fedora related kernel package issues only. For "my
+kernel module doesn't work" type messages, see the
+http://kernelnewbies.org list, or linux-kernel.
+
+[[irc]]
+IRC
+---
+
+Join the channel on freenode.net.
+
+[[source-checkout-info]]
+Source checkout info
+--------------------
+
+....
+fedpkg co kernel
+....
+
+This gets you the git checkout and sets up branches for the current
+releases and master (devel). Once you have switched to the branch you
+care about (with git checkout branchname), fedpkg prep will create a
+tree.
+
+You'll then be left with a kernel-3.X.? directory, containing both an
+unpatched 'vanilla-3.X.?' dir, and a linux-3.X.?-noarch hardlinked dir
+which has the Fedora patches applied.
+
+The above command will require you to have SSH access to the Fedora
+pkg-git archives. If you want to do an anonymous checkout of the
+sources, you can use:
+
+....
+fedpkg co -a kernel
+....
+
+[[contributing-to-the-fedora-kernel]]
+Contributing to the Fedora kernel
+---------------------------------
+
+* If you are sending patches for the first time, there is a
+link:Kernel/FirstKernelPatch[ guide] to help you.
+* For one-off fixes, send them to the Fedora kernel mailing list, or if
+they are relevant upstream, send them directly to
+linux-kernel@vger.kernel.org and Fedora will inherit them on the next
+rebase
+* If you are sending lots of changes to the Fedora kernel, then it may
+make more sense for you to get commit access. (Note, for most things,
+sending them upstream is far more preferable).
+* To request commit access to the Fedora kernel:
+* Get a link:PackageMaintainers/Join[fedora account] if you don't
+already have one
+* Visit https://admin.fedoraproject.org/pkgdb/acls/name/kernel[the
+package db entry for the kernel] and request access for the branch(es)
+which interest you.
+* *Please* subscribe to the mailing list above. Important announcements
+regarding rebases, builds, patches being disabled, and much more happen
+there.
+* If you're interested in adding an out-of-tree driver or similar to the
+Fedora kernel, please read KernelDriverPolicy first. See
+KernelStagingPolicy also.
+* Here is a brief overview of the link:Kernel/Spec[kernel.spec] file
+
+[[building]]
+Building
+--------
+
+Fedora's kernels are signed during the build via the pesign client on a
+specific set of machines. To limit exposure of officially signed builds,
+only certain people can successfully submit builds that will be tagged
+into the various koji target tags. If you are not in this ACL then your
+build will start, but it will fail in the final tagging step. Scratch
+builds are not subject to this, so it is recommended to use that. If you
+want the ability to build kernels that go out to end-users when you
+'fedpkg build', you need to be in the ACLs that allow builds to be
+tagged.
+
+Please note the caveats on official builds.
+
+* The kernel package currently builds many rpms, which means it ties up
+the build system for hours at a time. For this reason, coordinate with
+other developers on irc/fedora-kernel-list to be sure there isn't more
+than one build happening at once.
+* Rawhide gets pushed once a day. If you think a build may occur later
+in the day for some reason, hold off on building. If in doubt, ask.
+* If you are checking in patches for any branch other than rawhide, the
+build won't automatically go out to users, it needs to be processed
+through http://bodhi.fedoraproject.org[bodhi] . Consider the negative
+effect of flooding end-users with too many updates, and coordinate your
+builds with others so that we push updates containing more than one fix.
+* For the end-user who wants to build a custom kernel, we offer a
+separate wiki page link:Building_a_custom_kernel[ with complete
+instructions].
+
+[[updates]]
+Updates
+-------
+
+[[process]]
+Process
+^^^^^^^
+
+As mentioned above, updates have to go through bodhi. Below is the
+process we use for filing a kernel update in bodhi.
+
+* Fill in the package NVR, the bugs it fixes, and any notes you would
+like to include. Normally this is simply "The stable update contains a
+number of important fixes across the tree", or for a rebase "The rebase
+contains improved hardware support, a number of new features, and many
+important fixes across the tree."
+* Ensure 'Suggest Reboot' is selected
+* Ensure 'Enable karma automatism' is *not* selected
+* Watch the commentary on the update, ensure bugs are filed for negative
+karma, etc
+* After the update has been in updates-testing for a decent amount of
+time and has significantly positive karma (these are relative), push it
+to stable.
+
+With the wide variety of hardware and use cases Fedora users have, we
+have found that enabling auto-karma can be detrimental. Often testers
+will give positive karma for their use cases, hit the auto-karma limit,
+and the update will be queued for stable before it even hits
+updates-testing. That significantly reduces the tester pool and can
+cause an update that introduces issues for a significant number of
+people to be pushed to stable. We delay intentionally to try and catch
+these cases. While we will never achieve a perfect update, it has helped
+quite a bit.
+
+[[schedule]]
+Schedule
+^^^^^^^^
+
+For stable Fedora branches, the updates essentially follow the upstream
+stable release schedule. Those tend to be released once a week or
+slightly less frequently. We do the minor update, build and submit,
+making sure that the N-1 update is in stable before pushing that release
+(unless N-1 is very broken.) E.g. When 3.19.2 is released, we push it to
+testing and make sure 3.19.1 is at least queued for stable. That way
+bodhi doesn't obsolete the 3.19.1 update. When we have a major rebase
+for a stable Fedora branch, we follow the same guidelines as above but
+simply allow more time for people to test.
+
+For a Fedora release in link:Releases/Branched[Branched] state, we tend
+to file updates at each relevant upstream milestone release. E.g. if
+that branch is working through the 4.0-rcX releases, we file an update
+once per -rc. As the Fedora release gets closer to GA, the kernel being
+shipped will transition to a stable upstream release. Then we
+essentially follow the same steps as above.
+
+As mentioned in the previous section, Rawhide does not use bodhi for
+updates.
+
+[[policies]]
+Policies
+--------
+
+Below are some of the policies we use when it comes to various aspects
+of the Fedora kernel
+
+* KernelRebases
+* KernelDriverPolicy
+* KernelStagingPolicy
+* KernelBuiltinPolicy
+* Information on the various debugging options used in Fedora kernels
+can be found at KernelDebugStrategy
+
+[[other-handy-links]]
+Other handy links
+-----------------
+
+* link:Kernel/TaskWishList[ Contribution ideas for the Fedora kernel ]
+* link:Kernel/SubmittingUpstream[ How to submit a patch upstream]
+* link:Kernel/DayToDay[ How to do various day to day tasks]
+* KernelCommonProblems
+* KernelBugTriage
+* link:Building_a_custom_kernel[Building a custom kernel]
+* link:Building_a_custom_kernel#Building_a_non-debugging_kernel[
+Building a non-debugging kernel ]
+* link:How_to_use_kdump_to_debug_kernel_crashes[How to use kdump to
+debug kernel crashes]
+* link:Kernel/EarlyDebugging[ How to debug very early kernel panics]
+* Information on building upstream kernels by hand for testing can be
+found at link:Building_a_custom_kernel#Building_Vanilla_upstream_kernel[
+Building a vanilla kernel]
+* https://admin.fedoraproject.org/updates/kernel[Kernel Updates]
+* KernelTestingInitiative
+* QA:Testcase_kernel_regression
+* RawhideKernelNodebug The repository for rawhide kernels built without
+debugging enabled.
+* link:Kernel/UsbmonOuput[ Capturing USBMON output]
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

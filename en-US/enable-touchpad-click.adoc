@@ -1,0 +1,134 @@
+= How to enable touchpad click
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/How_to_enable_touchpad_click
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+[[scope]]
+Scope
+~~~~~
+
+Fedora tries to make various desktop environments available to its
+users. Since Fedora tries to
+link:Staying_close_to_upstream_projects[stay as close to upstream] as
+possible, we follow the various defaults selected by the desktop
+environment upstreams. Generally, this entails a disabled touchpad click
+by default. This wiki page tries to compile the different methods that
+can be used to enable "tapping" on various desktop environments.
+
+*Please note that this is only a resource to aid our users. For
+discussions on this setting, please talk to the relevant DE upstream.
+Fedora does not intend to make any changes to upstream defaults.*
+
+[[desktop-configurations]]
+Desktop configurations
+~~~~~~~~~~~~~~~~~~~~~~
+
+This wiki page has more information about
+link:Input_device_configuration[Input Device configuration]. An example
+xorg.conf.d snippet to enable tapping is given
+Input_device_configuration#Example:_Tap-to-click[here].
+
+[[gnome]]
+GNOME
+^^^^^
+
+The "*mouse and touchpad*" utility can be used to enable tapping and set
+scrolling options in GNOME.
+
+http://library.gnome.org/users/gnome-help/stable/mouse-touchpad-click.html.en[Official
+GNOME documentation]
+
+[[kde-plasma-workspaces]]
+KDE Plasma Workspaces
+^^^^^^^^^^^^^^^^^^^^^
+
+1.  enter KDE System Settings
+2.  choose Hardware / Input Devices / Touchpad (If it's not there,
+install kcm_touchpad first, then restart System Settings. It's installed
+by default.)
+3.  select the Tapping tab
+4.  check the "Enable tapping" checkbox
+5.  set some tapping actions under "Buttons" below, the default is to do
+nothing
+
+Alternatively, the systemwide method described under
+link:#Other_window_managers[Other window managers] can also be used.
+
+[[xfce]]
+XFCE
+^^^^
+
+1.  Enter XFCE Settings
+2.  Select the Mouse and Touchpad settings
+3.  If necessary, select your Touchpad device
+4.  In the General section, enable "Tap touchpad to click"
+
+[[other-window-managers]]
+Other window managers
+^^^^^^^^^^^^^^^^^^^^^
+
+Create a new file named
+/etc/X11/xorg.conf.d/99-synaptics-overrides.conf.
+
+Then, in your favourite text editor, modify this file as such:
+
+....
+Section  "InputClass"
+    Identifier  "touchpad overrides"
+    # This makes this snippet apply to any device with the "synaptics" driver
+    # assigned
+    MatchDriver  "synaptics"
+
+    ####################################
+    ## The lines that you need to add ##
+    # Enable left mouse button by tapping
+    Option  "TapButton1"  "1"
+    # Enable vertical scrolling
+    Option  "VertEdgeScroll"  "1"
+    # Enable right mouse button by tapping lower right corner
+    Option "RBCornerButton" "3"
+    ####################################
+
+EndSection
+....
+
+For more information on tweaking xorg.conf.d files, please read the man
+page:
+
+....
+man xorg.conf
+....
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

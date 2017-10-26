@@ -1,0 +1,116 @@
+= How to enable nested virtualization in KVM
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/How_to_enable_nested_virtualization_in_KVM
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+Nested virtualization allows you to run a virtual machine (VM) inside
+another VM while still using hardware acceleration from the host.
+
+[[nested-virt-support]]
+Nested virt support
+~~~~~~~~~~~~~~~~~~~
+
+Check if your system supports it:
+
+1.  For Intel processors, look into
+`/sys/module/kvm_intel/parameters/nested`, for AMD processors into
+`/sys/module/kvm_amd/parameters/nested`. You should receive `1` or `Y`,
+if nested virt is supported, `0` or `N` otherwise. AMD processors should
+have it enabled by default, (certain) Intel processors might not.
+Example:
++
+....
+$ cat /sys/module/kvm_intel/parameters/nested
+Y
+....
+2.  If your host system does not have nested virt enabled (most probably
+just Intel case), try to enable it by booting with `kvm-intel.nested=1`
+argument on the kernel command line and check it again.
+
+If your system still doesn't advertise support for nested virt, your
+hardware might be too old, or your distribution version outdated. Try
+booting latest Fedora.
+
+[[configuration-in-virt-manager]]
+Configuration in virt-manager
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Configure your VM to use nested virt:
+
+1.  Make sure your VM is shut down
+2.  Open virt-manager, go to the VM details page for that VM.
+3.  Click on the Processor page.
+4.  In the Configuration section, there are two options - either type
+`host-passthrough` into to Model field or enable Copy host CPU
+configuration checkbox (that fills `host-model` value into the Model
+field). Click Apply.
+* The difference between those two values is complicated, some details
+are in https://bugzilla.redhat.com/show_bug.cgi?id=1055002[bug 1055002].
+For nested virt, you'll probably want to use host-passthrough until
+issues with host-model are worked out. Be aware though, that
+host-passthrough is not recommended for general usage, just for nested
+virt purposes.
+
+[[test-nested-virt]]
+Test nested virt
+~~~~~~~~~~~~~~~~
+
+1.  Start the VM
+2.  Inside the VM, run `sudo dnf group install virtualization`
+3.  Verify that the guest has virt correctly setup with:
+`sudo virt-host-validate` . The check for hardware virtualization should
+pass:
++
+....
+$ sudo virt-host-validate 
+  QEMU: Checking for hardware virtualization                                 : PASS
+  QEMU: Checking for device /dev/kvm                                         : PASS
+  QEMU: Checking for device /dev/vhost-net                                   : PASS
+  QEMU: Checking for device /dev/net/tun                                     : PASS
+   LXC: Checking for Linux >= 2.6.26                                         : PASS
+....
+
+[[see-also]]
+See Also
+~~~~~~~~
+
+* QA:Testcase_KVM_nested_virt[QA:Testcase KVM nested virt]
+* https://bugzilla.redhat.com/show_bug.cgi?id=1055002
+* http://kashyapc.wordpress.com/2012/01/14/nested-virtualization-with-kvm-intel/
+* https://kashyapc.wordpress.com/2012/01/18/nested-virtualization-with-kvm-and-amd/
+
+Category:Virtualization
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

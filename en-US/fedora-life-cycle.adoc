@@ -1,0 +1,330 @@
+= Fedora Release Life Cycle
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+The Fedora Project releases a new version of Fedora approximately every
+6 months and provides updated packages (maintenance) to these releases
+for approximately 13 months. This allows users to "skip a release" while
+still being able to always have a system that is still receiving
+updates.
+
+[[development-schedule]]
+Development Schedule
+~~~~~~~~~~~~~~~~~~~~
+
+We say _approximately every 6 months_ because like many things, they
+don't always go exactly as planned. The schedule is not strictly
+time-based, but a hybrid of time and quality. The milestone releases are
+QA:Release_validation_test_plan[tested] for compliance with the
+link:Fedora_Release_Criteria[Fedora Release Criteria], and releases will
+be delayed if this is not the case.
+
+The schedule for the release currently under development, , is on its
+link:Releases/{{FedoraVersion[|next}}/Schedule| release schedule] page.
+Alpha, Beta, and General Availability (final) releases happen at 14:00
+UTC.
+
+[[development-planning]]
+Development Planning
+^^^^^^^^^^^^^^^^^^^^
+
+Fedora development planning is handled by the
+link:Changes/Policy[Release Planning Process]. So-called _Changes_ are
+proposed, initially reviewed, and monitored through the development
+process by the link:Fedora_Engineering_Steering_Committee[engineering
+steering committee].
+
+[[development-process]]
+Development Process
+^^^^^^^^^^^^^^^^^^^
+
+Fedora uses a system involving two 'development' trees.
+link:Releases/Rawhide[Rawhide] is a constantly rolling development tree.
+No releases are built directly from Rawhide. 14 weeks before the planned
+date of a Fedora release, a tree for that release is
+"link:Releases/Branched[Branched]" from the Rawhide tree. At that point
+the Rawhide tree is moving towards the release _after_ the new Branched
+release, and the pending release is stabilized in the Branched tree.
+
+After the link:Updates_Policy#Bodhi_enabling[Bodhi enabling point], the
+Bodhi system is permanently active on the Branched release (all the way
+until it goes EOL), and requirements for updates to be marked as
+_stable_ are set out in the link:Updates_Policy[Updates Policy].
+Packages must go through the
+link:Repositories#updates-testing[_updates-testing_] repository for the
+release before entering its link:Repositories#stable[_stable_]
+repository, according to rules defined in the updates policy: these
+rules tighten gradually from Alpha through to post-GA (Final), but the
+basic process does not change.
+
+For some time prior to a milestone (Alpha, Beta, Final) release a
+link:Milestone_freezes[freeze] is in effect which prevents packages
+moving from _updates-testing_ to _stable_ except in accordance with the
+QA:SOP_blocker_bug_process[blocker] and
+QA:SOP_freeze_exception_bug_process[freeze exception] bug policies. This
+freeze is lifted once the milestone is finished, and so packages begin
+to move from _updates-testing_ to _stable_ as normal again, until the
+next milestone's freeze date.
+
+[[schedule-methodology]]
+Schedule Methodology
+^^^^^^^^^^^^^^^^^^^^
+
+Fedora release schedules are proposed by the
+link:Fedora_Program_Management[Fedora Program Manager] and ratified by
+the link:FESCo[ Fedora Engineering Steering Committee (FESCo)], with
+input from other groups. FESCo is responsible for overseeing the
+technical direction of the Fedora distribution. A core schedule is
+created using the key tasks listed below. Detailed team schedules are
+built around these dates.
+
+[cols=",,",options="header",]
+|=======================================================================
+|Task/Milestone |Start Day (Tuesdays or Thursdays) |Length
+|Planning and Development |_Branch point_ of _previous release_ plus
+*one day* |Variable
+
+|link:Changes/Policy#For_Developers[Changes Checkpoint #1: Proposal
+deadline] |Tue: _Branch point_ minus *3 months* |n/a
+
+|link:Releases/Branched[Branch point] |Tue: _Alpha Freeze_ minus *2
+weeks* |n/a
+
+|link:Changes/Policy#For_Developers[Changes Checkpoint #2: Feature
+completion deadline] |Tue: *Same day* as _Branch point_ |N/A
+
+|QA:SOP_compose_request[Alpha test composes] |Any time after _Branch
+point_ |Until _Alpha release candidates_
+
+|link:Milestone_freezes[ Alpha Freeze] |Tue: _Alpha Release_ minus *2
+weeks* |QA:SOP_freeze_exception_bug_process and
+QA:SOP_blocker_bug_process in effect until _Alpha Release_
+
+|link:Updates_Policy#Bodhi_activation[Bodhi activation point] |Tue:
+*Same day* as _Alpha Freeze_ |Bodhi enabled and Updates_Policy
+requirements in effect until _EOL_
+
+|String Freeze |Tue: *Same day* as _Alpha Freeze_
+|link:Software_String_Freeze_Policy[Software String Freeze Policy] in
+effect until _GA Release_
+
+|QA:SOP_compose_request[Alpha release candidates] |Any time after _Alpha
+Freeze_ |Until _Alpha Release_
+
+|Alpha Go_No_Go_Meeting |*Thu* @ 13:00 E\{D,S}T: planned _Alpha Release_
+*minus five days* (repeats if No-Go) |n/a
+
+|Alpha Release |Tue: _Beta Release_ minus *5 weeks*, _Alpha Freeze_ plus
+*2 weeks* |Live until _Beta Release_
+
+|QA:SOP_compose_request[Beta test composes] |Tue: _Beta Freeze_ minus *2
+weeks*, _Alpha Release_ plus *1 week* |Until _Beta release candidates_
+
+|link:Milestone_freezes[ Beta Freeze] |Tue: _Beta Release_ minus *2
+weeks*, _Alpha Release_ plus *3 weeks*
+|QA:SOP_freeze_exception_bug_process and QA:SOP_blocker_bug_process in
+effect until _Beta Release_
+
+|QA:SOP_compose_request[Beta release candidates] |Any time after _Beta
+Freeze_ |Until _Beta Release_
+
+|link:Changes/Policy#For_Developers[Changes Checkpoint #3: 100% code
+complete deadline ] |Tue: *Same day* as _Beta Freeze_ |N/A
+
+|Beta Go_No_Go_Meeting |*Thu* @ 13:00 E\{D,S}T: planned _Beta Release_
+*minus five days* (repeats if No-Go) |n/a
+
+|Beta Release |Tue: _Beta Freeze_ plus *2 weeks*, _GA Release_ minus *5
+weeks* |Live until _GA release_
+
+|QA:SOP_compose_request[Final test composes] |Tue: _Final Freeze_ minus
+*2 weeks*, _Beta Release_ plus *1 week* |Until _Final release
+candidates_
+
+|link:Milestone_freezes[ Final Freeze] |Tue: _Final Release_ minus *2
+weeks*, _Beta Release_ plus *3 weeks*
+|QA:SOP_freeze_exception_bug_process and QA:SOP_blocker_bug_process in
+effect until _GA Release_
+
+|QA:SOP_compose_request[Final release candidates] |Any time after _Final
+Freeze_ |Until _GA Release_
+
+|Final Go_No_Go_Meeting |*Thu* @ 13:00 E\{D,S}T: planned _GA Release_
+*minus five days* (repeats if No-Go) |n/a
+
+|GA Release |Tue: *Primary date* from which rest of schedule derives
+|n/a
+
+|Maintenance |Tue: *Same day* as _GA release_ |~**13 Months**
+
+|End of Life |_GA of next-but-one release_ plus *one month* |n/a
+|=======================================================================
+
+[[steps-to-construct-a-new-schedule]]
+Steps to Construct a New Schedule
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This is admittedly an unusual methodology, but it is fairly easy to
+generate using the the
+[https://fedorapeople.org/groups/schedule/f-%7B%7BFedoraVersionNumber%7Cnext%7D}
+TaskJuggler schedules] the Fedora Program Manager maintains.
+
+1.  Pick _GA release_ date (the Tuesday before May 1st or October 31st)
+* Check with Fedora PR to ensure that planned dates do not conflict with
+other ecosystem planned events (so we get the maximum press benefit)
+2.  Work backwards using consistent spacing for freezes, composes, and
+releases for Alpha, Beta, and Final, as described above, to the _Branch
+point_
+3.  Set the link:Changes/Policy[change proposal checkpoint/deadline]
+working backwards from the _Branch point_
+4.  The time before the _change proposal checkpoint/deadline_ and after
+the _Branch point of the previous release_ is the time dedicated to
+_development_
+* Development time varies from from release to release based on when the
+previous release branched
+* The stabilization and testing time (from _Branch point_ until _GA
+release_) is held constant from release to release
+
+Schedule draft is submitted to FESCo via its ticketing system for the
+approval. Initially, all milestones except "Change Checkpoint: Proposal
+submission deadline (System Wide Changes)" are scheduled as so called
+"no earlier than". Final schedule is set after the FESCo's review of
+proposed and accepted Changes proposals and "no earlier than" note is
+removed from schedule. This gives us opportunity to properly plan
+release, especially for changes with high impact on the release.
+
+[[development-schedule-rationale]]
+Development Schedule Rationale
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Fedora generally develops new releases over a six month period to
+provide a regular and predictable release schedule. The bi-annual
+targeted release dates are _May Day_ (May 1st) and _Halloween_ (October
+31) making them easy to remember and avoiding significant holiday
+breaks. Changes to this standard must be approved by the
+community-elected link:FESCo[ Fedora Engineering Steering Committee
+(FESCo)].
+
+A six month release schedule also follows the precedence of Red Hat
+Linux (precursor to Fedora). Former Red Hat software engineer Havoc
+Pennington offers a historical perspective
+http://article.gmane.org/gmane.linux.redhat.fedora.advisory-board/1475/[here].
+GNOME started following a time based release based on the ideas and
+success of Red Hat Linux and other distributions following Fedora having
+adopted a similar release cycle. Several other major components,
+including the Linux kernel, Openoffice.org, Xorg, have started following
+a time based release schedule. While the exact release schedules vary
+between these components and other upstream projects, the interactions
+between these components and Fedora makes a six month time based release
+schedule a good balance.
+
+Although due to how planning process and release validation works,
+Fedora is not a strictly time based distribution but uses combination of
+both time and feature based release paradigms. This way we can react to
+bigger changes aka new installed, way how we release bits (Fedora.Next)
+etc.
+
+[[schedule-contingency-planning]]
+Schedule Contingency Planning
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If the Alpha, Beta, or Final link:Go_No_Go_Meeting[Go_No_Go_Meetings]
+result in a "No Go" determination, that milestone and subsequent
+milestones will be pushed back by one week.
+
+One week is added to the schedule to maintain the practice of releasing
+on Tuesdays. Tuesdays are the designated release day because they are
+good days for news coverage and the established day we synchronize our
+content with the mirrors that carry our releases. Be aware of holidays
+and of possible PR conflicts (contact Fedora PR) with the new proposed
+final date.
+
+Go/No Go meetings receive input from representatives of
+link:Fedora_Engineering_Steering_Committee[FESCo],
+link:ReleaseEngineering[Release Engineering], and link:QA[Quality
+Assurance].
+
+[[maintenance-schedule]]
+Maintenance Schedule
+~~~~~~~~~~~~~~~~~~~~
+
+We say maintained for _approximately 13 months_ because the supported
+period for releases is dependent on the date the release under
+development goes final. As a result, _Release X_ is supported until one
+month after the release of _Release X+2_.
+
+This translates into:
+
+* will be maintained until 1 month after the release of .
+* will be maintained until 1 month after the release of .
+
+[[maintenance-schedule-rationale]]
+Maintenance Schedule Rationale
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Fedora is link:Objectives[ focused] on free and open source software
+link:Red_Hat_contributions[ innovations] and moves quickly. If you want
+a distribution that moves slower but has a longer lifecycle, Red Hat
+Enterprise Linux, which is derivative of Fedora or free rebuilds of that
+such as CentOS might be more suitable for you. Refer to the RHEL page
+for more details.
+
+Historically, the Fedora Project has found supporting two releases plus
+Rawhide and the pre-release Branched code to be a manageable work load.
+
+[[end-of-life-eol]]
+End of Life (EOL)
+~~~~~~~~~~~~~~~~~
+
+When a release reaches the point where it is no longer supported nor
+updates are created for it, then it is considered _End of Life_ (EOL).
+Branches for new packages in the SCM are not allowed for distribution X
+after the Fedora X+2 release and new builds are no longer allowed.
+
+The tasks performed at EOL are documented in the
+link:End_of_life_SOP[End of life SOP].
+
+[[additional-release-schedule-information]]
+Additional Release Schedule Information
+---------------------------------------
+
+* Overview of Releases, including currently supported releases
+* link:End_of_life[ Unsupported Releases]
+* link:Releases/HistoricalSchedules[ Historical Release Information]
+
+Category:Distribution
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

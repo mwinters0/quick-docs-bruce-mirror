@@ -1,0 +1,126 @@
+= OpenH264
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/OpenH264
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+This page contains information on the Cisco
+http://www.openh264.org/[OpenH264] codec.
+
+[[background]]
+Background
+----------
+
+Cisco provides an OpenH264 codec (as a source and a binary), which is
+their of implementation H.264 codec, and they cover all licensing fees
+for all parties using their binary. This codec allows you to use H.264
+in WebRTC with gstreamer and Firefox. It does *not* enable generic H.264
+playback, only WebRTC (see Mozilla
+https://bugzilla.mozilla.org/show_bug.cgi?id=1057646[bug 1057646]).
+
+The code source is available at https://github.com/cisco/openh264 under
+a BSD license. The binary is released under this agreement from Cisco:
+http://www.openh264.org/BINARY_LICENSE.txt
+
+Upstream Firefox versions download and install the OpenH264 plugin by
+default automatically. Due to it's binary nature, Fedora disables this
+automatic download.
+
+[[installation-from-fedora-cisco-openh264-repository]]
+Installation from fedora-cisco-openh264 repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A `fedora-cisco-openh264` repository is distributed since Fedora 24 by
+default (if you have at least `fedora-repos-24-0.5` package or newer).
+It contains OpenH264 binary link:Non-distributable-rpms[built inside the
+Fedora infrastructure], but distributed by Cisco, so that the all
+licensing fees are still covered by them. This repository also contains
+OpenH264 plugins for gstreamer and Firefox. It is disabled by default.
+In order to install OpenH264, you first need to enable it:
+
+....
+$ sudo dnf config-manager --set-enabled fedora-cisco-openh264
+....
+
+and then install the plugins:
+
+....
+$ sudo dnf install gstreamer1-plugin-openh264 mozilla-openh264
+....
+
+Afterwards you need open Firefox, go to menu -> Add-ons -> Plugins and
+enable OpenH264 plugin.
+
+You can do a simple test whether your H.264 works in RTC on
+https://mozilla.github.io/webrtc-landing/pc_test.html[this page] (check
+_Require H.264 video_).
+
+[[manual-install-of-binary]]
+Manual install of binary
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+* View and agree to the http://www.openh264.org/BINARY_LICENSE.txt
+* Download the appropriate binary for your system here:
+https://github.com/cisco/openh264/releases
+
+Example installation for version 1.1:
+
+`wget `http://ciscobinary.openh264.org/openh264-linux64-v1.1-Firefox33.zip[`http://ciscobinary.openh264.org/openh264-linux64-v1.1-Firefox33.zip`] +
+`mkdir -p ~/.mozilla/firefox/``/gmp-gmpopenh264/1.1/` +
+`cd ~/.mozilla/firefox/``/gmp-gmpopenh264/1.1/` +
+`unzip ~/openh264-linux64-v1.1-Firefox33.zip`
+
+[[firefox-config-changes]]
+Firefox config changes
+^^^^^^^^^^^^^^^^^^^^^^
+
+Type about:config into the Firefox address/URL field and accept the
+warning.
+
+* From the Search field type in 264 and a handful of options will
+appear. Give the following Preference Names a value of true by
+double-clicking on false:
+
+` media.gmp-gmpopenh264.autoupdate` +
+` media.gmp-gmpopenh264.enabled` +
+` media.gmp-gmpopenh264.provider.enabled` +
+` media.peerconnection.video.h264_enabled`
+
+* Restart Firefox
+* After restarting, the following string in about:config will change to
+the current version that has been installed from the web:
+
+` media.gmp-gmpopenh264.version`
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

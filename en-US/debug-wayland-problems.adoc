@@ -1,0 +1,552 @@
+= How to debug Wayland problems
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/How_to_debug_Wayland_problems
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+https://en.wikipedia.org/wiki/Wayland_%28display_server_protocol%29[Wayland]
+is intended as a simpler replacement for
+https://en.wikipedia.org/wiki/X_Window_System[X11]. It changes the
+design of a Linux desktop architecture considerably. Unlike X11, there
+is no dedicated standalone server in Wayland. What was previously done
+between the app, its toolkit, the Xserver and the window manager is now
+shared between the app, its toolkit and the Wayland compositor which
+manages the compositing, input, windows management, etc. The apps and
+toolkits are now in charge of their own rendering and decorations
+(client side decorations), so any issues usually sit between the toolkit
+(e.g. GTK+) and the Wayland compositor (e.g. mutter).
+
+You can read more about Wayland on the GNOME
+https://wiki.gnome.org/Initiatives/Wayland[Wayland initiative] wiki
+page. You can read more about the current state of Wayland features on
+link:Wayland_features[Wayland features] page.
+
+[[identifying-wayland-problems]]
+Identifying Wayland problems
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[are-you-running-a-wayland-session]]
+Are you running a Wayland session?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In *GNOME*, there's a gear button at the login screen which can be used
+to either log into a Wayland session (simply called _GNOME_, it's the
+default option), or a legacy X11 session (called _GNOME on Xorg_). If
+you have a password-less user account, you won't see the gear icon, it
+is displayed only when the password prompt appears. Use the gear button
+to determine type of session you're logging into. If you want to start
+your session in a different way, read
+https://wiki.gnome.org/Initiatives/Wayland/TryingIt[the advanced
+techniques for trying Wayland].
+
+image:gdm-pick-wayland.png[gdm-pick-wayland.png,title="gdm-pick-wayland.png",width=400]
+
+In *KDE*, there is support for running a nested Wayland session inside
+your X11 session. You'll need to install `kwin-wayland` package and then
+follow up with https://community.kde.org/KWin/Wayland[this howto]. There
+doesn't seem to be out-of-the-box support for running a full Wayland
+session at the moment.
+
+Other desktop environments are not currently capable of running a
+Wayland session.
+
+[[identifying-the-session-type-in-runtime]]
+Identifying the session type in runtime
+
+If you want to figure out which type of session you're running right
+now, without logging out and in again, you can use several ways to
+figure it out:
+
+* Wayland session should have `WAYLAND_DISPLAY` variable set, X11
+session should not have it:
++
+....
+$ echo $WAYLAND_DISPLAY 
+wayland-0
+....
+* `loginctl` can give you this information. First run `loginctl` and
+find your session number (if should be an integer number, with your
+username and seat assigned). Then look at the session type (`x11` or
+`wayland`):
++
+....
+$ loginctl show-session <YOUR_NUMBER> -p Type
+Type=x11
+....
+
+If you're running an X11 session, not a Wayland session, your problems
+are not related to Wayland. It's a bug either in that particular
+application, or X11 itself, see link:How_to_debug_Xorg_problems[How to
+debug Xorg problems].
+
+[[does-your-application-run-on-wayland-natively-or-uses-xwayland-x11-compatibility-layer]]
+Does your application run on Wayland natively, or uses XWayland (X11
+compatibility layer)?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It is important to know whether the problematic application is a native
+Wayland application, or runs through XWayland, which allows legacy
+applications to still run on top of Xorg server, but display in a
+Wayland session.
+
+There are several ways how to identify whether an application is using
+Wayland or XWayland:
+
+* Select the window using `xwininfo` or `xprop`. Run:
++
+....
+$ xwininfo
+....
++
+Your mouse pointer should change to a cross under X11, it doesn't seem
+to change under Wayland. Now click anywhere inside the app window you
+want to test. If the `xwininfo` command finishes (it should print window
+properties into the terminal), the app under test is running under
+XWayland. If nothing happens (the `xwininfo` command is still waiting
+until you select a window), the app under test is running under Wayland
+(you can close the command with `Ctrl+C`). +
+You can also use `xprop` command using the same instructions.
+* XWayland applications are listed in `xlsclients` output. Run:
++
+....
+$ xlsclients
+....
++
+However, this list of not always entirely reliable, some apps might be
+missing.
+* You can try to run the app while unsetting `DISPLAY` environment
+variable:
++
+....
+$ DISPLAY='' command
+....
++
+If the application runs OK, it should be using Wayland natively.
+* You can run the app with `WAYLAND_DEBUG=1` environment variable:
++
+....
+$ WAYLAND_DEBUG=1 command
+....
++
+If you see loads of output (when compared to a standard run), the app is
+using Wayland natively.
+* Under GNOME, you can determine this using
+http://blog.bodhizazen.net/linux/how-to-determine-if-an-application-is-using-wayland-or-xwayland/[integrated
+Looking Glass tool]. Hit `Alt+F2`, run:
++
+....
+lg
+....
++
+click on _Windows_ in the upper right corner of the tool and select
+desired window by clicking on its name. If you see `MetaWindowWayland`
+in the first line, this app is running under Wayland. If you see
+`MetaWindowX11` in the first line, this app is running under X11.
+
+If you have identified the problem to be in a XWayland application, try
+to reproduce the issue in a standard X11 session. If it happens as well,
+it is not related to Wayland, it's a bug either in that particular
+application, or Xorg server, see link:How_to_debug_Xorg_problems[How to
+debug Xorg problems]. If the problem happens only under XWayland but not
+in an X11 session, it should still be reported against Xorg server (
+package), because XWayland is included in it (as
+`xorg-x11-server-Xwayland` subpackage).
+
+[[identifying-problem-component]]
+Identifying problem component
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wayland itself is a protocol and the problem is rarely in the protocol
+itself. Rather, the problem is likely to be in the app or its toolkit,
+or in the compositor.
+
+The most notable Wayland-ready toolkits are:
+
+* https://en.wikipedia.org/wiki/GTK%2B[GTK+ 3] - default apps in GNOME
+environment use almost exclusively this toolkit. Please note that apps
+using older GTK+ 2 are not Wayland-ready.
+* https://en.wikipedia.org/wiki/Qt_%28software%29[QT 5] - many apps in
+KDE environment use this toolkit. Please note that apps using older QT 4
+are not Wayland-ready.
+
+The most notable Wayland compositors are:
+
+* https://en.wikipedia.org/wiki/Wayland_%28display_server_protocol%29#Weston[Weston]
+- the reference implementation of a Wayland compositor, maintained
+directly by the Wayland project
+* https://en.wikipedia.org/wiki/Mutter_%28software%29[Mutter] -
+compositor in GNOME. If you run GNOME, it is using this compositor.
+* https://community.kde.org/KWin/Wayland[Kwin] - compositor in KDE. If
+you run KDE, it is using this compositor.
+
+[[testing-under-different-compositors]]
+Testing under different compositors
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you experience a problem with a Wayland app, it is very useful to
+know whether the problem is present under just a single compositor (in
+that case it's likely a compositor bug) or under multiple compositors
+(in that case it's likely an app/toolkit bug).
+
+Please run your session with the reference Weston compositor and try to
+reproduce the issue. You can either run Weston as a nested window, or as
+a full session. First, install package (you can read many useful
+information in its man page):
+
+`$ sudo dnf install weston`
+
+Then create a config file which will specify that you want to have
+XWayland support enabled in your weston sessions. Create
+`~/.config/weston.ini` with this contents:
+
+`[core]` +
+`modules=xwayland.so`
+
+Now you can start weston either as nested window or as a full session.
+
+* To start a nested Weston window, run this from a terminal:
++
+....
+$ weston
+....
++
+A Weston window should open and you should see and a terminal icon in
+its top left corner. Use that icon to launch a terminal and from that
+you can run apps and other commands using Weston. Exit the compositor by
+simply closing the window or killing the `weston` process.
+* To start a full Weston session (not nested inside another X11 or
+Wayland session), switch to a free VT (Ctrl+Alt+Fx) and run:
++
+....
+$ weston-launch
+....
++
+You can exit the session by pressing Control+Alt+Backspace shortcut.
+
+If you can reproduce the issue with Weston, file an issue against the
+app or its toolkit (gtk+, qt, etc). Otherwise file the issue against the
+compositor your environment uses (mutter, kwin, etc). If the problem
+occurs only with XWayland apps but not native Wayland apps, report a bug
+against Xorg server.
+
+[[reporting-the-issue]]
+Reporting the issue
+~~~~~~~~~~~~~~~~~~~
+
+[[using-up-to-date-software]]
+Using up-to-date software
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Before reporting the bug, please make sure you use the latest available
+software. You need to run on *Fedora 23 or later*, older Fedora versions
+are not going to get updated with latest Wayland fixes. Make sure there
+are no system updates waiting:
+
+`$ sudo dnf update`
+
+If there are (and the available updates look plausibly related to the
+components you're seeing issues with), please update the system and
+verify whether the issue is still present or has been fixed.
+
+[[looking-for-similar-reports]]
+Looking for similar reports
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In order to avoid duplicate reports and also wasting your time debugging
+something someone has maybe already debugged, please search through the
+existing reports first. The most visible issues or concerns are listed
+in
+link:#Known_issues.2C_frequent_complaints.2C_fundamental_changes[Known
+issues, frequent complaints, fundamental changes]. If you don't see it
+there, you need to search deeper. You can find Wayland related issues
+most likely in here:
+
+* [https://bugzilla.gnome.org/buglist.cgi?bug_status=UNCONFIRMED&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&bug_status=NEEDINFO&component=Backend%3A%20Wayland&component=wayland&list_id=74680&order=changeddate%20DESC%2Cbug_status%2Cpriority%2Cassigned_to%2Cbug_id&product=gtk%2B&product=mutter&query_based_on=&query_format=advanced
+mutter/wayland and GTK+/wayland in GNOME Bugzilla]
+* https://bugzilla.gnome.org/showdependencytree.cgi?id=757579&hide_resolved=1[Wayland-related
+issues tracker across GNOME Bugzilla]
+* https://bugzilla.redhat.com/showdependencytree.cgi?id=WaylandRelated&hide_resolved=1[Wayland-related
+issues tracker across Red Hat Bugzilla]
+(https://bugzilla.redhat.com/showdependencytree.cgi?id=KDEWaylandRelated&hide_resolved=1[KDE
+tracker])
+* [https://bugzilla.redhat.com/buglist.cgi?classification=Fedora&component=wayland&list_id=4118943&order=changeddate%20DESC%2Cbug_status%2Cpriority%2Cassigned_to%2Cbug_id&product=Fedora&query_based_on=&query_format=advanced&resolution=---
+Wayland in Red Hat Bugzilla]
+* [https://bugs.freedesktop.org/buglist.cgi?list_id=561109&order=changeddate%20DESC%2Cbug_status%2Cpriority%2Cassigned_to%2Cbug_id&product=Wayland&query_based_on=&query_format=advanced&resolution=---
+Wayland in Freedesktop Bugzilla]
+* Google search
+
+[[filing-a-bug]]
+Filing a bug
+^^^^^^^^^^^^
+
+After you've identified against which component to (most probably)
+report the issue and found no existing report of it, there are several
+places where to report it:
+
+* https://bugzilla.redhat.com/[Red Hat Bugzilla] - recommended for
+issues related to wayland itself, weston compositor, non-GNOME apps, KDE
+project, QT toolkit
+* https://bugzilla.gnome.org/[GNOME Bugzilla] - recommended for issues
+related to mutter compositor, GTK+ toolkit, applications under the GNOME
+project (most of default apps in Fedora Workstation)
+
+When reporting the issue, please make your report block our tracker, so
+that we have a good overall picture of what is broken across many
+different components. In your bug report, set *Blocks: WaylandRelated*
+or *Blocks: KDEWaylandRelated* (you might need to toggle showing
+advanced fields to see the _Blocks:_ field). That will make it block one
+of these trackers, depending where you reported the bug:
+
+* https://bugzilla.redhat.com/show_bug.cgi?id=1277927[Wayland Tracker in
+Red Hat Bugzilla]
+(https://bugzilla.redhat.com/show_bug.cgi?id=1298494[KDE tracker])
+* https://bugzilla.gnome.org/show_bug.cgi?id=757579[Wayland Tracker in
+GNOME Bugzilla]
+
+[[information-to-include-in-your-bug-report]]
+Information to include in your bug report
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+1.  System journal. Since there is no unique server like the X11 server,
+most of the important information will come from the the Wayland
+compositor and the apps. All of that should be in system journal
+nowadays. You can save a full journal since last boot like this:
++
+....
+$ journalctl -ab > journal.log
+....
++
+You can also edit the file and according to the timestamps remove
+everything long prior to when the issue occurred, in order to make the
+log more succinct.
+* If your system crashed or became unresponsive so that you had to
+reboot it, you can see the journal from the previous boot using
+`journalctl -a -b -1` instead.
+2.  Wayland debug output. If you can reproduce the issue, please run the
+problematic app like this:
++
+....
+$ WAYLAND_DEBUG=1 command |& tee debug.out
+....
++
+You should see loads of output being printed out. It will involve all
+communication between the app and the compositor.
+3.  Information whether the same problem occurs when you run the app
+using XWayland instead of Wayland. For GTK+ 3 apps, you can force a
+native Wayland app to run using XWayland like this:
++
+....
+$ GDK_BACKEND=x11 command
+....
++
+Vice versa, you can also force a XWayland app to run using Wayland (in
+case it has just experimental support):
++
+....
+$ GDK_BACKEND=wayland command
+....
++
+QT 5 apps run with XWayland by default. You can force Wayland backend:
++
+....
+$ QT_QPA_PLATFORM=wayland-egl command
+....
++
+All of this applies to just GTK+ 3 and QT 5 apps.
+4.  Hardware description is useful for some hardware-related bugs:
++
+....
+$ lspci -nn > lspci.out
+....
+5.  Package versions. You can collect the list and versions of all your
+packages installed using:
++
+....
+$ rpm -qa | sort > packages.out
+....
+6.  The
+link:Bugs_and_feature_requests#Things_Every_Bug_Should_Have[usual
+information] that every bug report should have.
+
+[[debugging-gnome-shell]]
+Debugging gnome-shell
+^^^^^^^^^^^^^^^^^^^^^
+
+If gnome-shell gets stuck and unresponsive, it's very helpful to obtain
+a backtrace from its process and attach it to the report. If this
+happens, switch to a different VT if possible (`Ctrl+Alt+F3` through
+`F7`), or log in using ssh. First install debug symbols:
+
+....
+$ sudo dnf debuginfo-install `rpm -q gnome-shell`
+....
+
+Then attach gdb debugger to your gnome-shell process:
+
+....
+$ gdb -p `pgrep -U $(id -un) -x gnome-shell`
+...
+(gdb) set logging on
+(gdb) thread apply all backtrace full
+... press Enter until the whole backtrace is displayed ...
+(gdb) quit
+....
+
+You should have the backtrace saved in `gdb.txt` file.
+
+[[debugging-mutter]]
+Debugging mutter
+^^^^^^^^^^^^^^^^
+
+You can debug mutter (used in gnome-shell) by setting its
+https://developer.gnome.org/meta/stable/running-mutter.html[environment
+variables]. These need to be set prior to run gnome-shell, so if you
+want to log into GNOME from GDM, you need to create a wrapper script
+called from a desktop file in `/usr/share/wayland-sessions`.
+
+*FIXME: Putting the wrapper script and desktop file here would be
+helpful.*
+
+[[known-issues-frequent-complaints-fundamental-changes]]
+Known issues, frequent complaints, fundamental changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Here we will list high-profile issues which are known to be broken, not
+yet implemented, or intentionally behaving differently from regular X11
+apps. Also please look at link:Wayland_features[Wayland features] which
+lists all current missing or in-progress features and their details.
+
+To see all known issues, look at Bugzilla reports as mentioned in
+link:#Looking_for_similar_reports[Looking for similar reports].
+
+[[graphical-applications-cant-be-run-as-root-from-terminal]]
+Graphical applications can't be run as root from terminal
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It is not possible to start graphical apps under the root account from
+terminal when using `su` or `sudo`. Apps which use polkit to request
+administrator permissions for just certain operations and only when
+needed are not affected (they are not started as root right away). The
+discussion is ongoing about the best approach to take, see
+https://bugzilla.redhat.com/show_bug.cgi?id=1274451[bug 1274451] and
+https://lists.fedoraproject.org/archives/list/devel%40lists.fedoraproject.org/thread/A6VXI4WAGSIIWGOTAVNDBVS4VFYXITHA/#2YU2RBYCXQSCGHGP772W5LRXUMTSINHA["On
+running gui applications as root" thread in fedora-devel mailing list].
+
+[[many-well-known-x11-utilities-dont-work]]
+Many well-known X11 utilities don't work
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Power users are familiar with a large range of X11-related utilities,
+like `xkill`, `xrandr`, `xdotool`, `xsel`. These tools won't work under
+Wayland session, or will only work with XWayland applications but not
+Wayland applications. Some tools might have a replacement which allows
+to perform similar tasks.
+
+*FIXME: add some Wayland-ready replacements for popular X11 tools*
+
+[[games-and-other-apps-cant-change-monitor-resolution]]
+Games and other apps can't change monitor resolution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It is no longer possible for an app to change monitor resolution.
+Usually this was done by games to increase performance. Wayland-based
+games will use a different approach - scaling its output. But for X11
+games (running through XWayland) this solution is not available. This
+results in a number of different types of behavior, based on how the
+game is written - the game might be fixed in the desktop resolution, or
+rendered as a small centered image with black bars around it, or crash
+on startup, or something different. See
+https://bugzilla.redhat.com/show_bug.cgi?id=1289714[bug 1289714].
+
+For some games, a possible workaround is to manually set custom monitor
+resolution before running the game, if you really need it. It will not
+help always, though.
+
+[[screen-capture-is-not-available-with-usual-apps]]
+Screen capture is not available with usual apps
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+One of the features of Wayland is its security design, which helps to
+guard the user against malicious apps. Apps can no longer see everything
+on the screen and spy on you. But that also means you cannot run a
+common application (like or ) and use it to make a screenshot or a
+screencast of your desktop - it will see only its own window, but
+nothing else (or it might crash right away). System (trusted) apps need
+to be used to perform these actions.
+
+In GNOME, you can use Screenshot tool (available in overview or as
+`Printscreen` hotkey or as `gnome-screenshot` command) to capture a
+screenshot of the full desktop or a particular window. You can press
+`Ctrl+Alt+Shift+R` keyboard shortcut to start video recording of the
+whole desktop (stop it by pressing the same shortcut again, there's an
+indicator in the upper right corner, or it stops automatically after 30
+seconds by default) and find the screencast in `~/Videos`. For
+screencast, you can also use
+https://extensions.gnome.org/extension/690/easyscreencast/[EasyScreenCast]
+gnome-shell extension.
+
+[[mouse-pointer-is-laggingstuttering-under-load]]
+Mouse pointer is lagging/stuttering under load
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If your computer is under load, your mouse pointer movement might stop
+being fluent, but start lagging (get stuck in a place for a short time,
+then jump to a different place instantly). This is probably more
+noticeable on slow systems/systems with fewer CPU cores. See
+https://bugzilla.gnome.org/show_bug.cgi?id=745032[bug 745032].
+
+[[keyboard-events-are-sometimes-quickly-repeated]]
+Keyboard events are sometimes quickly repeated
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There is a rare issue when you press a key to type a letter and you'll
+see multiple copies of the letter typed in. See
+https://bugzilla.gnome.org/show_bug.cgi?id=757942[bug 757942] and
+https://bugzilla.gnome.org/show_bug.cgi?id=777693[bug 777693].
+
+[[not-all-keys-can-be-sent-to-a-remote-desktop-or-a-virtual-machine]]
+Not all keys can be sent to a remote desktop or a virtual machine
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Some applications forward all input, including system-specific
+keys/shortcuts like or , to a remote system. This is mostly remote
+desktop viewers like _vncviewer_ or virtual machine managers like
+_virt-manager_ or _boxes_. Under Wayland, some of these shortcuts can't
+be intercepted, and therefore are used in the host system, not the
+remote/guest system. See
+https://bugzilla.redhat.com/show_bug.cgi?id=1285770[bug 1285770].
+
+Category:Debugging[W] Category:How_to[Category:How to] Category:Wayland
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

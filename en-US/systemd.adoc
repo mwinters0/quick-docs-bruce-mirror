@@ -1,0 +1,423 @@
+= Systemd
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/Systemd
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+systemd is a system and service manager for Linux, compatible with SysV
+and LSB init scripts. systemd provides aggressive parallelization
+capabilities, uses socket and D-Bus activation for starting services,
+offers on-demand starting of daemons, keeps track of processes using
+Linux cgroups, supports snapshotting and restoring of the system state,
+maintains mount and automount points and implements an elaborate
+transactional dependency-based service control logic. It can work as a
+drop-in replacement for sysvinit. For more information, watch the video
+at http://www.youtube.com/watch?v=TyMLi8QF6sw
+
+[[why-systemd]]
+Why systemd?
+~~~~~~~~~~~~
+
+http://0pointer.de/blog/projects/why.html
+
+[[systemd-documentation]]
+systemd documentation
+~~~~~~~~~~~~~~~~~~~~~
+
+systemd has very comprehensive documentation. Refer to
+
+http://0pointer.de/blog/projects/systemd-docs.html
+
+[[boot-kernel-command-line]]
+Boot Kernel Command Line
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+On boot *systemd* activates (by default), the target unit
+_default.target_ whose job is to activate services and other units by
+pulling them in via dependencies.
+
+To override the unit to activate, *systemd* parses its own kernel
+command line arguments via the `systemd.unit=` command line option. This
+may be used to temporarily boot into a different boot unit. The
+classical run-levels are replaced as following:
+
+`systemd.unit=rescue.target` is a special target unit for setting up the
+base system and a rescue shell (similar to run level 1);
+`systemd.unit=emergency.target`, is very similar to passing
+`init=/bin/sh` but with the option to boot the full system from there;
+`systemd.unit=multi-user.target` for setting up a non-graphical
+multi-user system; `systemd.unit=graphical.target` for setting up a
+graphical login screen.
+
+For details about these special systemd boot units, view the man
+`systemd.special` page. it scripts
+
+[[what-is-the-tool-to-manage-services-with-systemd]]
+What is the tool to manage services with systemd?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+systemctl is the primary tool to use. It combines the functionality of
+both service and chkconfig into a single tool that you can use for
+instance to enable/disable services permanently or only for the current
+session.
+
+list all running services etc:
+
+....
+ systemctl 
+....
+
+Refer to man systemctl for more details. systemd-cgls lists the running
+process in a tree format. It can recursively show the content of any
+given control group. Refer to man systemd-cgls for more details.
+
+[[how-do-i-startstop-or-enabledisable-services]]
+How do I start/stop or enable/disable services?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Activates a service immediately:
+
+....
+  systemctl start foo 
+....
+
+Deactivates a service immediately:
+
+....
+  systemctl stop foo 
+....
+
+Restarts a service:
+
+....
+ systemctl restart foo 
+....
+
+Shows status of a service including whether it is running or not:
+
+....
+ systemctl status foo 
+....
+
+Enables a service to be started on bootup:
+
+....
+ systemctl enable foo 
+....
+
+Disables a service to not start during bootup:
+
+....
+ systemctl disable foo 
+....
+
+Prevent a service from starting dynamically or even manually unless
+unmasked:
+
+....
+ systemctl mask foo 
+....
+
+Check whether a service is already enabled or not:
+
+....
+ systemctl is-enabled foo
+....
+
+Refer to man systemctl for more details.
+
+[[how-do-i-change-the-target-runlevel]]
+How do I change the target (runlevel)?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+systemd has the concept of targets which is a more flexible replacement
+for runlevels in sysvinit.
+
+Run level 3 is emulated by multi-user.target. Run level 5 is emulated by
+graphical.target. runlevel3.target is a symbolic link to
+multi-user.target and runlevel5.target is a symbolic link to
+graphical.target.
+
+You can switch to 'runlevel 3' by running
+
+....
+ systemctl isolate multi-user.target 
+....
+
+You can switch to 'runlevel 5' by running
+
+....
+ systemctl isolate graphical.target 
+....
+
+[[how-do-i-change-the-default-target]]
+How do I change the default target?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+....
+ systemctl set-default <name of target>.target 
+....
+
+graphical.target is the default. You might want multi-user.target for
+the equivalent of non graphical (runlevel 3) from sysv init. The full
+list of targets can be accessed via systemctl list-units --type=target
+
+systemd does not use /etc/inittab file.
+
+[[how-do-i-know-the-current-target]]
+How do I know the current target?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+....
+ systemctl get-default 
+....
+
+[[how-to-power-off-the-machine]]
+How to power off the machine?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can use
+
+....
+ poweroff 
+....
+
+Some more possibilities are: `halt -p`, `init 0`, `shutdown -P now`
+
+Note that `halt` used to work the same as `poweroff` in previous Fedora
+releases, but systemd distinguishes between the two, so `halt` without
+parameters now does exactly what it says - it merely stops the system
+without turning it off.
+
+[[does-service-command-work-with-systemd]]
+Does service command work with systemd?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Yes. It has been modified to call systemctl automatically when dealing
+with systemd service files. So either of the following commands does the
+same thing
+
+....
+ systemctl stop NetworkManager 
+....
+
+(or)
+
+....
+ service NetworkManager stop 
+....
+
+[[does-chkconfig-command-work-with-systemd]]
+Does chkconfig command work with systemd?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Yes, for turning on/off services, compatibility has been provided both
+ways. chkconfig has been modified to call systemctl when dealing with
+systemd service files. Also systemctl automatically calls chkconfig when
+dealing with a traditional sysv init file.
+
+So either of the following commands does the same thing
+
+....
+ systemctl disable NetworkManager 
+....
+
+(or)
+
+....
+ chkconfig NetworkManager off 
+....
+
+chkconfig --list doesn't list systemd services, only Sys V services. The
+output of chkconfig takes note of this, along with supplying additional
+information.
+
+[[does-system-config-services-work-with-systemd]]
+Does system-config-services work with systemd?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Yes. It does.
+
+[[how-do-i-change-the-number-of-gettys-running-by-default]]
+How do I change the number of gettys running by default?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The simplest way is to edit /etc/systemd/logind.conf
+([http://www.freedesktop.org/software/systemd/man/logind.conf.html#NAutoVTs=
+man page]):
+
+....
+[Login]
+...
+NAutoVTs=8
+....
+
+This setting will take effect after reboot.
+
+Alternatively, getty@.services which open the login prompt can be
+enabled and started individually.
+
+To add another getty:
+
+....
+systemctl enable getty@tty8
+systemctl start getty@tty8
+....
+
+To remove a getty:
+
+....
+systemctl disable getty@tty8
+systemctl stop getty@tty8
+....
+
+systemd does not use /etc/inittab file.
+
+[[how-do-i-set-automatic-login-on-a-virtual-console-terminal]]
+How do I set automatic login on a virtual console terminal?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+First create a new service similar to getty@.service:
+
+....
+# cp /lib/systemd/system/getty@.service \
+     /etc/systemd/system/autologin@.service
+# ln -s /etc/systemd/system/autologin@.service \
+        /etc/systemd/system/getty.target.wants/getty@tty8.service
+....
+
+then edit ExecStart, Restart and Alias values, like this:
+
+....
+...
+ExecStart=-/sbin/mingetty --autologin USERNAME %I
+Restart=no
+...
+Alias=getty.target.wants/getty@tty8.service
+....
+
+and finally reload daemon and start the service:
+
+....
+systemctl daemon-reload
+systemctl start getty@tty8.service
+....
+
+Note that if you exit tty8 session, you wont be able to use it until
+next reboot or manual start by systemctl, except if you leave Restart as
+‘always’, but I highly recommend to avoid this according to security
+reasons.
+
+[[how-do-i-customize-a-unit-file-add-a-custom-unit-file]]
+How do I customize a unit file/ add a custom unit file?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The best way to customize unit files is to add
+/etc/systemd/system/foobar.service.d/*.conf where foobar.service is the
+name of the service you want to customize. If a directory doesn't
+already exist, create one and drop a conf file with the settings you
+want to override. For example,
+
+/etc/systemd/system/httpd.service.d/restart.conf
+
+....
+[Service]
+Restart=always
+RestartSec=30
+....
+
+Refer to man
+http://www.freedesktop.org/software/systemd/man/systemd.unit.html[systemd.unit]
+page for more details.
+
+Special care must be taken when overriding options which can be set
+muliple times (`ExecStart`, `ExecStartPre`, `ExecStartPost` are a common
+example). Assigning some value to the option _appends_ to the existing
+list, while assiging the _empty_ value _resets_ the list.
+
+For example, let's say we have a service file like this:
+
+....
+[Service]
+ExecStart=/bin/echo execstart1
+ExecStart=
+ExecStart=/bin/echo execstart2
+ExecStartPost=/bin/echo post1
+ExecStartPost=/bin/echo post2
+....
+
+When started, this service will print
+
+....
+execstart2
+post1
+post2
+....
+
+The same rules apply to snippets in `.d` directories. This means that
+snippets which override `ExecStart` and similar settings, often should
+start with the empty assignment `ExecStart=`, followed by the new
+setting.
+
+[[how-do-i-debug-systemd-issues]]
+How do I debug systemd issues?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Refer to How_to_debug_Systemd_problems
+
+[[man-pages]]
+Man pages
+---------
+
+systemd comes with extensive documentation including several man pages.
+
+On the web: http://www.freedesktop.org/software/systemd/man/[list of all
+systemd man pages],
+http://www.freedesktop.org/software/systemd/man/systemd.directives.html[index
+of all settings].
+
+[[references]]
+References
+----------
+
+* http://www.freedesktop.org/wiki/Software/systemd[Project homepage]
+* http://0pointer.de/blog/projects/ - Lennart's blog has lots of
+information about systemd. Lennart is the primary systemd developer
+* http://www.freedesktop.org/wiki/Software/systemd/FrequentlyAskedQuestions
+* http://www.freedesktop.org/wiki/Software/systemd/TipsAndTricks
+* link:Features/systemd[ Features Fedora 15:systemd]
+* http://fosdem.org/2011/interview/lennart-poettering.html[Interview
+with the developer]
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

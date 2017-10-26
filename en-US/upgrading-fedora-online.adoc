@@ -1,0 +1,358 @@
+= Upgrading Fedora using package manager
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/Upgrading_Fedora_using_package_manager
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+This page contains information explaining how to upgrade Fedora online
+using (without the DNF system upgrade plugin).
+
+[[upgrading-fedora-using-dnf-directly]]
+Upgrading Fedora using dnf directly
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[participate]]
+Participate
+~~~~~~~~~~~
+
+If you are upgrading using Dnf and it shows any general dependency
+issues, please file them in http://bugzilla.redhat.com[Bugzilla]. But
+please read this page, all references pages and search the mailing list
+archives before filing bugs. And of course, please help keep this page
+updated.
+
+If you want to help make live upgrades work smoothly, join the
+link:SIGs/LiveUpgrade[ Live Upgrade Special Interest Group].
+
+[[upgrading-across-multiple-releases]]
+Upgrading across multiple releases
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you need to upgrade across several releases, it is generally
+recommended to go one release at a time: for example, rather than going
+directly from to , first go to and then from there to . This tends to
+reduce the number of package dependency issues you may encounter. If you
+are upgrading from an link:End_of_life[End of life] release, please also
+see link:#eol[the end-of-life section].
+
+[[instructions-to-upgrade-using-dnf]]
+Instructions to upgrade using dnf
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[backup-your-system]]
+1. Backup your system
+^^^^^^^^^^^^^^^^^^^^^
+
+Backup any personal data to an external hard drive or to another
+machine. If there is some unrecoverable error that requires a fresh
+install, you don't want to lose any data.
+
+[[read-about-common-problems]]
+2. Read about common problems
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Further down in this page there is a list of common problems specific to
+dnf upgrades for specific versions. Some of them require attention
+before the upgrade.
+
+General advice on upgrading Fedora can be found on the Upgrading page.
+You should also read the
+http://docs.fedoraproject.org/install-guide/[Installation Guide] and
+http://docs.fedoraproject.org/release-notes/[Release Notes] for the
+version you plan to upgrade to - they contain important information
+regarding upgrading issues. Finally, check the list of
+link:Common_bugs[Common bugs].
+
+[[clean-stuff]]
+3. Clean Stuff
+^^^^^^^^^^^^^^
+
+Review and remove all .rpmsave and .rpmnew files before and after
+upgrading. (And if you have selinux enabled then remember to check
+security context if you move config files around.)
+
+Now is a good time to remove packages you don't use - especially
+non-standard packages.
+
+[[do-the-upgrade]]
+4. Do the upgrade
+^^^^^^^^^^^^^^^^^
+
+If you have 3rd party repositories configured, you may need to adjust
+them for the new Fedora version. If you switch from one Fedora release
+to another there is often nothing that needs to be done. If you switch
+to Rawhide from a standard Fedora release (or vice versa) then most of
+the time you will need to install the Rawhide release RPMs from the 3rd
+party repository as well (or the standard ones, if switching back).
+
+Note that the upgrade is likely to fail if there are outdated
+dependencies from packages not backed by a dnf repository or backed by a
+repository which isn't ready for the new version.
+
+It is a good idea to do the upgrade outside the graphical environment.
+Log out of your graphical desktop and then
+
+[[fedora-upgrade]]
+fedora-upgrade
+++++++++++++++
+
+A small script named fedora-upgrade is available which aims to automate
+the process outlined below. To run it, do the following
+
+....
+$ sudo dnf install fedora-upgrade 
+$ sudo fedora-upgrade
+....
+
+When performing upgrade via remote shell, it is good idea to use screen
+or tmux utility to be able to get back to running transaction in case
+your connection drops.
+
+Alternatively, follow the manual steps:
+
+[[go-to-a-text-console]]
+Go to a text console
+++++++++++++++++++++
+
+....
+ctrl + alt + F2
+....
+
+(or)
+
+log in as root, and go into multi-user.target
+
+....
+systemctl isolate multi-user.target
+....
+
+[[fully-update-your-current-fedora-install]]
+Fully update your current Fedora install
+++++++++++++++++++++++++++++++++++++++++
+
+....
+# dnf upgrade
+....
+
+[[install-the-package-signing-key-for-the-release-you-are-upgrading-to]]
+Install the package signing key for the release you are upgrading to
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+If you are upgrading across two releases or fewer from Fedora 20 or
+later, this step should be unnecessary. If you are upgrading from an
+older Fedora or upgrading across three or more releases, you may need to
+import the signing key for the target release.
+
+If it turns out not to be, you should be able to import keys like so:
+
+....
+ # rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-23-x86_64
+....
+
+, replacing "23" and "x86_64" with the new Fedora version and your
+architecture, respectively.
+
+You can also find package signing keys for currently-supported releases
+https://getfedora.org/keys/[here]. Keys for EOL releases can be found
+https://getfedora.org/keys/obsolete.html[here]. Click _Primary_ (or
+_Secondary_, if you are using a secondary architecture), and you will
+see _Get it from: Fedora Project_, where _Fedora Project_ is a link.
+Copy that URL, and run:
+
+....
+ # rpm --import (url)
+....
+
+to install the key. On old releases, may have trouble doing this; if
+that happens, download the file with or and import the downloaded file.
+
+[[clean-the-cache]]
+Clean the cache
++++++++++++++++
+
+Then remove all traces of the version you are leaving from the dnf cache
+in `/var/cache/dnf`.
+
+....
+# dnf clean all
+....
+
+[[upgrade-all-packages]]
+Upgrade all packages
+++++++++++++++++++++
+
+Run the upgrade command:
+
+....
+# dnf --releasever=<target_release_number> --setopt=deltarpm=false distro-sync
+....
+
+[[make-sure-fedora-is-upgraded]]
+5. Make sure Fedora is upgraded
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Distro-sync will usually take care of upgrades for the third party
+repositories you have enabled as well. Confirm with after the upgrade
+process is over. `dnf` might complain about conflicts or requirements.
+That is probably because you have used non-standard repositories or
+installed non-standard packages manually. Try to guess which packages
+cause the problem (or at least is a part of the dependency chain) -
+uninstall them and try again. Remember to install the packages again if
+they are essential.
+
+Ensure that all (new) essential packages from the new version are
+installed with
+
+....
+# dnf groupupdate 'Minimal Install'
+....
+
+You might want to update other groups too, see
+
+....
+# dnf grouplist
+....
+
+For example
+
+....
+# dnf groupupdate "GNOME Desktop" \
+    "Development Tools" "Sound and Video" \
+    "Games and Entertainment" "Administration Tools" \
+    "Office/Productivity" "System Tools"
+....
+
+[[preparing-for-reboot]]
+6. Preparing for reboot
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Before booting you should usually install the bootloader from your new
+grub by running
+
+....
+/usr/sbin/grub2-install BOOTDEVICE
+....
+
+- where BOOTDEVICE is often , or for some virtual machine installs. If
+you have more than one hard disk, make sure you use the correct device!
+
+If you get an error (e.g. ) from that, then try ).
+
+It might also be necessary to update the grub config file:
+
+....
+cp --backup=numbered -a /boot/grub2/grub.cfg{,.bak} # create backup copy
+/usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg # update config file
+....
+
+[[cleanup-your-system]]
+7. Cleanup your system
+^^^^^^^^^^^^^^^^^^^^^^
+
+Again, cleanup your system as described in section 2. Also you might
+want to remove some cache files that are no longer used, for example
+files from older Fedora releases in the following directories:
+
+* /var/cache/dnf
+* /var/cache/mock
+* /var/lib/mock
+
+[[release-specific-notes]]
+Release specific notes
+~~~~~~~~~~~~~~~~~~~~~~
+
+Note: the release-specific notes for link:End_of_life[End of life]
+releases are on the
+link:Upgrading_from_EOL_Fedora_using_package_manager[EOL packager
+manager upgrade page].
+
+[[from-pre-release]]
+From pre-release
+^^^^^^^^^^^^^^^^
+
+If you are upgrading to a final release from an Alpha, Beta, or release
+candidate, please see link:Upgrading_from_pre-release_to_final[Upgrading
+from pre-release to final].
+
+[[to-rawhide]]
+To Rawhide
+^^^^^^^^^^
+
+See the link:Releases/Rawhide[Rawhide] release page for more information
+on Rawhide.
+
+....
+# dnf upgrade
+# dnf install dnf-plugins-core fedora-repos-rawhide
+# dnf config-manager --set-disabled fedora updates updates-testing
+# dnf config-manager --set-enabled rawhide
+# dnf clean -q dbcache packages metadata
+# dnf --releasever=rawhide --setopt=deltarpm=false distro-sync --nogpgcheck
+
+## Optional: it is generally advised to do a selinux autorelabel and reboot
+# touch /.autorelabel
+....
+
+[[fedora-25]]
+Fedora 25
+^^^^^^^^^
+
+No special instructions. Follow the above instructions.
+
+[[fedora-24]]
+Fedora 24
+^^^^^^^^^
+
+No special instructions. Follow the above instructions.
+
+[[upgrading-from-legacy-end-of-life-eol-fedora-releases]]
+Upgrading from legacy end of life (EOL) Fedora releases
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Note that Fedora strongly recommends against ever running an end-of-life
+release on any production system, or any system connected to the public
+internet, in any circumstances. You should never allow a production
+Fedora deployment to reach end-of-life in the first place.
+
+With that in mind, if you do have an end-of-life release installed on a
+system you cannot just discard or re-deploy, you can attempt to upgrade
+it, though this is a less-tested and less-supported operation.
+
+For detailed instructions on upgrades from EOL releases, please read
+link:Upgrading_from_EOL_Fedora_using_package_manager[Upgrading from EOL
+Fedora using package manager].
+
+Category:FAQ Category:How_to[Category:How to] Category:Documentation
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

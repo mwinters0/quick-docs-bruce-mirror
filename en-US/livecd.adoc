@@ -1,0 +1,158 @@
+= FedoraLiveCD
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/FedoraLiveCD
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+[[download-and-create-live-image-or-live-usb]]
+Download and Create Live image or Live USB
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To download a pre-built Fedora Live image, visit
+https://getfedora.org/[the download page]. Then you can either:
+
+* Burn the ISO to a CD or DVD. See
+http://docs.fedoraproject.org/readme-burning-isos/[here] for burning
+instructions.
+* Learn link:how_to_create_and_use_Live_USB[how to create and use Live
+USB].
+
+If you want to build and then burn your own custom ISO, see
+link:How_to_create_and_use_a_Live_CD[How to create and use a Live CD].
+
+[[advantages-and-limitations]]
+Advantages and Limitations
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Benefits:
+
+* You can demonstrate features or try out a release, including testing
+hardware functionality, before hard disk/SSD installation.
+* Live USB/CD/DVD installation is faster than regular installation. Live
+USB/SD installation typically takes only a few minutes and can be
+configured with persistent storage.
+* You can use Live CD technology for backup and recovery of your
+installed hard drive.
+
+Limitations:
+
+* It is not possible to choose packages during installation. Live images
+typically have fewer packages than a regular installation image.
+* It is not possible to do an upgrade via the Anaconda installer. If you
+have a separate /home partition, you can just not format it during the
+installation and thus preserve your settings and /home content.
+* It is not possible to choose a non-default filesystem.
+* Once you shutdown a computer running from a Live CD, you will lose any
+settings or packages installed, but Live USB/SD installations may be
+configured with persistent storage.
+
+[[fedora-live-image-features]]
+Fedora Live image features
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Current features:
+
+1.  A booted Live CD uses a temporary, in-memory, read-write rootfs, so
+it's possible to install software for use while the Live CD is running.
+2.  Data persistence options available on Live USB/SD installations.
+3.  Install to hard disks or USB/SD drives.
+4.  Uses SELinux in enforcing mode and other security features by
+default.
+5.  Includes best of breed software on the media.
+6.  Stay as close to a normal desktop install with regard to features,
+or try specialized http://spins.fedoraproject.org/[Spins].
+7.  Ability to create normal CD-ROM and CD-R media (less than 700 MB) or
+DVD images.
+8.  Make it easy to do a derived Live CD with your own repositories,
+packages, and artwork.
+9.  API used by LTSP, appliance creator and others.
+
+[[contributors]]
+Contributors
+~~~~~~~~~~~~
+
+* DavidZeuthen - Primary developer and maintainer of
+http://hal.freedesktop.org[HAL] and OLPC contributor.
+* JeremyKatz - Fedora Ninja. Adds backend for installing from a live
+image into link:Anaconda[ Anaconda].
+* DouglasMcClendon - LiveOS device mapper trickster.
+
+[[communicate]]
+Communicate
+~~~~~~~~~~~
+
+Fedora Live image users and developers can participate and contribute in
+the discussions happening in the Fedora list.
+(http://www.redhat.com/mailman/listinfo/fedora-livecd-list[predecessor
+list archives])
+
+[[finding-the-code]]
+Finding the Code
+~~~~~~~~~~~~~~~~
+
+The source code for the Live CD tools is maintained in git. The
+repository is at https://github.com/rhinstaller/livecd-tools/ . You can
+install it easily by installing the 'livecd-tools' package.
+
+Kickstart files are in the spin-kickstarts.noarch package.
+
+[[hard-drive-installation]]
+Hard Drive Installation
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The ability to install to a hard drive is available releases since
+Fedora 7. After the live media boots, click on the install icon on your
+desktop to start the installation. Installation from live image requires
+that GRUB and the /boot directory be installed onto a drive with an
+MSDOS partition label, or that the current machine supports EFI booting.
+If a pc-clone machine has only GPT hard drives, then you may need to use
+something such as a USB2.0 flash memory device (with an MSDOS partition
+label) as an intermediate destination.
+
+In Fedora 15, instead of clicking the desktop icon, choose
+Applications->System Tools->Install to Hard Drive from the menu along
+the top of the screen.
+
+[[references]]
+References
+~~~~~~~~~~
+
+* https://web.archive.org/web/20080611062804/http://www-128.ibm.com/developerworks/linux/library/l-fedora-livecd/index.html[Mayank
+Sharma "IBM Developer Works: Build a Fedora Live CD" (archive.org
+version from June 2008)]
+* link:LiveOS_image[LiveOS image]
+
+Category:LiveMedia
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

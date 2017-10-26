@@ -1,0 +1,315 @@
+= Anaconda
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/Anaconda
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+image:DSC_3217.JPG[ 400px | Entering Anaconda, Montana. A city probably
+named after this installation program. David Cantrell took this picture
+in 2011. His grey VW Jetta is parked in the
+background.,title=" 400px | Entering Anaconda, Montana. A city probably named after this installation program. David Cantrell took this picture in 2011. His grey VW Jetta is parked in the background."]
+
+Anaconda is the installation program used by Fedora, Red Hat Enterprise
+Linux and link:Anaconda/Distros[ some other distributions].
+
+During installation, a target computer's hardware is identified and
+configured, and the appropriate file systems for the system's
+architecture are created. Finally, anaconda allows the user to install
+the operating system software on the target computer. anaconda can also
+upgrade existing installations of earlier versions of the same
+distribution. After the installation is complete, you can reboot into
+your installed system and continue doing customization using
+https://fedoraproject.org/wiki/InitialSetup[initial setup].
+
+anaconda is a fairly sophisticated installer. It supports installation
+from local and remote sources such as CDs and DVDs, images stored on a
+hard drive, NFS, HTTP, and FTP. Installation can be scripted with
+link:Anaconda/Kickstart[ kickstart] to provide a fully unattended
+installation that can be duplicated on scores of machines. It can also
+be run over VNC on headless machines. A variety of advanced storage
+devices including LVM, RAID, iSCSI, and multipath are supported from the
+partitioning program. anaconda provides advanced debugging features such
+as remote logging, access to the python interactive debugger, and remote
+saving of exception dumps.
+
+[[users]]
+Users
+~~~~~
+
+If you are a user having problems with anaconda, please use the user
+support forum for your distribution such as
+http://forums.fedoraforum.org/forumdisplay.php?f=6[Fedora Forum] or
+https://admin.fedoraproject.org/mailman/listinfo/users[fedora-users].
+
+From time to time, we may distribute updates for anaconda to fix
+problems in Fedora releases. The link:Anaconda/Updates[ updates] wiki
+page explains how to use these updates images.
+
+Need to see what's changed from release to release? See our
+link:Anaconda/Changes[migration guide] which summarizes changes for
+users, rebuilders, and contributors.
+
+[[advanced-users]]
+Advanced Users
+~~~~~~~~~~~~~~
+
+If you are an advanced user of anaconda, you should check out
+https://anaconda-installer.readthedocs.io/en/latest/boot-options.html[our
+reference to anaconda command line
+options],https://anaconda-installer.readthedocs.io/en/latest/kickstart.html[our
+kickstart file format documentation] and link:Anaconda/Logging[ our
+reference to logging capabilities of anaconda].
+
+There is a mailing list devoted to the use of kickstart. You can find
+the list signup and archive information at
+http://www.redhat.com/mailman/listinfo/kickstart-list[kickstart list] .
+This is the best place to share tips and tricks about kickstart.
+
+[[distribution-builders]]
+Distribution Builders
+~~~~~~~~~~~~~~~~~~~~~
+
+For information on how to customize anaconda and trees created with it,
+please see link:Anaconda/ProductImage[ product.img],
+link:Anaconda/BuildDocProject[ BuildDocProject] and
+link:Anaconda/Customization[ Customization].
+
+[[mailing-lists]]
+Mailing Lists
+~~~~~~~~~~~~~
+
+There are two mailing lists for Anaconda. The first is the development
+mailing list. This list is used to discuss development issues, submit
+patches, and other activities related to extending anaconda. The sign up
+for the development list is located at
+https://listman.redhat.com/mailman/listinfo/anaconda-devel-list[anaconda
+development list site] . Past discussions can be found in the
+https://www.redhat.com/archives/anaconda-devel-list[anaconda development
+archives] .
+
+The second list is a user oriented list on how to create kickstart
+files. The kickstart list is the place to discuss automated installation
+issues. The sign up for the kickstart list is located at
+https://www.redhat.com/mailman/listinfo/kickstart-list[anaconda
+kickstart list site] . Past discussions can be found in the
+https://www.redhat.com/archives/kickstart-list[anaconda kickstart
+archives] .
+
+Patch review used to take place on a mailing list dedicated to
+submitting and reviewing patches. Patch review now takes place on
+https://github.com/rhinstaller/anaconda/pulls[GitHub] via pull requests.
+Past discussions of patches can be found in the
+https://lists.fedorahosted.org/pipermail/anaconda-patches/[anaconda-patches
+archives], which is the main purpose this mailing list now serves.
+
+[[irc]]
+IRC
+~~~
+
+There is also an IRC channel on http://freenode.net. This resource is
+for discussion of anaconda development, not for distribution
+customization questions.
+
+[[how-to-contribute]]
+How to Contribute
+~~~~~~~~~~~~~~~~~
+
+For how to contribute to Anaconda and related projects, see the
+https://fedoraproject.org/wiki/Anaconda/Contribute[Contributing to
+Anaconda and related projects] documentation.
+
+Please note that useful contributions are not limited to submitting
+patches for source code. You can also help with
+https://anaconda-installer.readthedocs.io/en/latest/testing.html[testing],
+reporting bugs, improving translations or extending the Anaconda
+documentation.
+
+[[developers-guide]]
+Developers' Guide
+~~~~~~~~~~~~~~~~~
+
+anaconda is now almost entirely written in Python 3. The graphical front
+end uses GTK+ 3 via gobject-introspection, and as much of the interface
+as possible is written using the glade interface builder. The earliest
+parts of anaconda are in shell for integration with dracut, and there's
+still a little bit of C thrown in for interfacing with certain
+libraries.
+
+Here are some documents if you are planning on working on anaconda. More
+are in the works:
+
+* Anaconda/Devel/Translation
+
+* If you want to work on Anaconda, you should start with the
+link:Anaconda/SourceOverview[Source Overview], which contains a high
+level discussion of the source files and what they do. Then look at the
+https://anaconda-installer.readthedocs.io/en/latest/[online
+documentation] for information on how to test, debug, and develop
+anaconda.
+
+Familiarize yourself with the tools that anaconda uses. Check out the
+following external reference documents:
+
+* https://developer.gnome.org/gtk3/stable/[GTK+ reference]
+* https://docs.python.org/2/tutorial/[Python tutorial]
+* https://docs.python.org/2/py-modindex.html[Python module reference]
+
+[[getting-the-source]]
+Getting the Source
+~~~~~~~~~~~~~~~~~~
+
+The primary methods of distributing the anaconda source are source RPMs
+in the
+http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/source/SRPMS/[Fedora
+development tree] and git. To access the current source code in in
+non-rpm format, you'll need to install git.
+
+`dnf install git`
+
+Note that several related packages will be installed as well. After the
+git source code management tool has been installed, then you use
+anonymous git access to the Anaconda repository.
+
+`git clone `https://github.com/rhinstaller/anaconda.git[`https://github.com/rhinstaller/anaconda.git`]
+
+The output may look similar to the following:
+
+`Initialized empty Git repository in /home/drkludge/anacondatest/anaconda/.git/` +
+`remote: Generating pack...` +
+`remote: Counting objects: 10861` +
+`remote: Done counting 91222 objects.` +
+`remote: Deltifying 91222 objects...` +
+`remote:  100% (91222/91222) done` +
+`Indexing 91222 objects...` +
+`100% (91222/91222) done` +
+`remote: Total 91222 (delta 68785), reused 90187 (delta 68059)` +
+`Resolving 68785 deltas...` +
+`100% (68785/68785) done` +
+`Checking 543 files out...` +
+`100% (543/543) done`
+
+If you have committer access to anaconda, then you will want to use the
+git+ssh access url.
+
+`git clone git+ssh://git@github.com/rhinstaller/anaconda.git`
+
+Once you've committed changes locally, you can push them with
+
+`git push`
+
+If you would just like to browse the Anaconda git repository via the
+web, then please use the following
+https://github.com/rhinstaller/anaconda.git[Anaconda git URLs].
+
+https://github.com/rhinstaller/anaconda
+
+Anaconda has an https://github.com/rhinstaller/kickstart-tests[extensive
+suite of tests] that is still growing. If you contribute new
+functionality, it's good practice to include some tests along with that.
+We have a
+https://anaconda-installer.readthedocs.io/en/latest/testing.html[document
+that outlines the test suite infratructure and describes how to run
+tests].
+
+To contribute you should read our
+https://anaconda-installer.readthedocs.io/en/latest/contributing.html[guidelines
+for contributing].
+
+[[reporting-problems]]
+Reporting Problems
+~~~~~~~~~~~~~~~~~~
+
+If you are having difficulty installing, please file the problem report
+with your distribution vendor.
+
+Before filing a bug, please read up on
+link:How_to_debug_installation_problems[How to debug installation
+problems], which will tell you how to fill out useful bug reports that
+will help us quickly solve your problem. Also try searching bugzilla for
+other reports about your problem, as some bugs are often filed by
+several people.
+
+link:Anaconda/AnacondaBugWorkflow[ AnacondaBugWorkflow] is a guideline
+to how Fedora anaconda bugs pass through bugzilla, and what all the
+various statuses really mean. This is *only* for Fedora.
+
+[[anaconda-team]]
+Anaconda Team
+~~~~~~~~~~~~~
+
+image:20170607-brq-anaconda-group-photo02.jpg[ 500px,title=" 500px"]
+
+From left to right, the following people are the anaconda team and are
+responsible for the majority of commits. Of course, we get help from
+other people both from Red Hat and from the volunteer community as well.
+
+* Jiri Konecny (jkonecny): DUD, CI, UX, stuff.
+* User:Rvykydal[Radek Vykydal] (rvykydal): Networking, Atomic,
+packaging.
+* User:M4rtink[Martin Kolman] (mkolman): initial-setup, password stuff,
+UX, other stuff.
+* User:sbueno[Samantha N. Bueno] (sbueno): Manager.
+* Vendula Poncova (vponcova): s390x, storage tweaks, UX, other stuff.
+
+[[anaconda-team-emeritus]]
+Anaconda Team Emeritus
+~~~~~~~~~~~~~~~~~~~~~~
+
+* User:Clumens[Chris Lumens] (clumens)
+* User:Pjones[Peter Jones] (pjones)
+* User:Bcl[Brian Lane] (bcl)
+* User:Dcantrel[David Cantrell] (dcantrell)
+* User:Wwoods[Will Woods] (wwoods)
+* User:Dlehman[Dave Lehman] (dlehman)
+* User:vpodzime[Vratislav Podzimek] (vpodzime):
+* User:dshea[David Shea] (dshea)
+* User:katzj[Jeremy Katz] (katzj)
+* Joel Andres Granados (jgranado)
+* Hans de Goede (hansg)
+* User:Akozumpl[Ales Kozumplik] (akozumpl)
+* User:Mgracik[Martin Gracik] (mgracik)
+* User:jkeating[Jesse Keating] (jlk)
+* User:Msivak[Martin Sivak] (msivak)
+
+[[design]]
+Design
+~~~~~~
+
+* link:Anaconda/UX_Redesign[ Anaconda UX Redesign]
+* link:How_to_Create_an_Anaconda_Banner[ How to Create an Anaconda
+Banner]
+
+Category:Anaconda
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

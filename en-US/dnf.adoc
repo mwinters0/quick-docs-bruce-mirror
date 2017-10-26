@@ -1,0 +1,203 @@
+= DNF
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/DNF
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+*DNF* is a software package manager that installs, updates, and removes
+link:package[packages] on RPM-based Linux distributions. It
+automatically computes dependencies and determines the actions required
+to install packages. DNF also makes it easier to maintain groups of
+machines, eliminating the need to manually update each one using rpm.
+Introduced in Fedora 18, it has been the default package manager since
+Fedora 22.
+
+DNF or Dandified yum is the next generation version of yum. It roughly
+maintains CLI compatibility with yum and defines a strict API for
+extensions and plugins. Plugins can modify or extend features of DNF or
+provide additional CLI commands on top of those mentioned below. If you
+know the name of such a command (including commands mentioned bellow),
+you may find/install the package which provides it using the appropriate
+virtual provide in the form of dnf-command() where is the name of the
+command; e.g. dnf-command(repoquery) for a repoquery command (the same
+applies to specifying dependencies of packages that require a particular
+command).
+
+[[features]]
+Features
+~~~~~~~~
+
+* Support for multiple repositories
+* Simple configuration
+* Dependency calculation based on modern depsolving technology
+* Faster and less memory-intensive operation
+* RPM-consistent behavior
+* Package group support, including multiple-repository groups
+* Simple interface
+* Documented, solid Python API
+* DNF runs in both Python 2 and Python 3
+* C bindings for lower level libraries:
+** hawkey for package querying and depsolving. PackageKit is already
+making use of hawkey
+** librepo for repo operations. PackageKit is already making use of
+librepo
+** libcomps for comps operations
+
+[[available-commands]]
+Available commands
+~~~~~~~~~~~~~~~~~~
+
+autoremove
+
+check-update
+
+clean
+
+distro-sync
+
+downgrade
+
+group
+
+help
+
+history
+
+info
+
+install
+
+list
+
+makecache
+
+mark
+
+provides
+
+reinstall
+
+remove
+
+repolist
+
+repository-packages
+
+search
+
+updateinfo
+
+upgrade
+
+upgrade-to
+
+[[installation]]
+Installation
+~~~~~~~~~~~~
+
+DNF comes with Fedora since version 18, but DNF can installed by using
+the yum Command:
+
+....
+# yum install dnf
+....
+
+As of Fedora 22, yum has been replaced with DNF and doesn't need to be
+install.
+
+[[usage]]
+Usage
+~~~~~
+
+In the basic methods, DNF can be used almost exactly as yum to search,
+install or remove packages:
+
+....
+# dnf search audacity 
+....
+
+....
+# dnf install audacity 
+....
+
+....
+# dnf remove audacity 
+....
+
+[[automatic-updates]]
+Automatic Updates
+^^^^^^^^^^^^^^^^^
+
+The DNF-Automatic RPM package as a DNF component provides a service for
+automatic download and installation of updates. It can automatically
+monitor and report via email availability of updates, or send a log
+about downloaded packages and installed updates. See AutoUpdates section
+or http://dnf.readthedocs.org/en/latest/automatic.html[DNF-Automatic]
+page.
+
+[[system-upgrades]]
+System Upgrades
+^^^^^^^^^^^^^^^
+
+Fedora Products can be upgraded with DNF system upgrade plugin or
+directly with DNF. See Upgrade section.
+
+[[language-support-using-dnf]]
+Language Support Using Dnf
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+DNF can be used to install or remove Language Support. A detailed
+description with a list of available languages can be found on
+https://fedoraproject.org/wiki/I18N/Language_Support_Using_Dnf[Language
+Support Using Dnf] page.
+
+[[documentation]]
+Documentation
+~~~~~~~~~~~~~
+
+\1. http://dnf.readthedocs.org/[Documentation Index]
+
+\2. http://dnf.readthedocs.org/en/latest/command_ref.html[Command
+Reference]
+
+\3. http://dnf.baseurl.org/[DNF blog]
+
+\4. https://github.com/rpm-software-management/dnf/wiki[DNF wiki]
+
+\5. Changes/DNF-2.0
+
+Category:Documentation Category:Software_Management[Category:Software
+Management]
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

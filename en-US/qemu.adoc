@@ -1,0 +1,168 @@
+= How to use qemu
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/How_to_use_qemu
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+[[how-to-use-qemu]]
+How to use QEMU
+---------------
+
+QEMU is a very flexible virtualization technology however it is quite
+slow and it is recommended that you understand and evaluate alternative
+solutions before picking this one. Refer to
+link:Getting_started_with_virtualization[Getting started with
+virtualization]
+
+[[qemu]]
+Qemu
+~~~~
+
+QEMU is a generic and open source processor emulator which achieves a
+good emulation speed by using dynamic translation.
+
+QEMU has two operating modes:
+
+* Full system emulation. In this mode, QEMU emulates a full system (for
+example a PC), including a processor and various peripherials. It can be
+used to launch different Operating Systems without rebooting the PC or
+to debug system code.
+* User mode emulation (Linux host only). In this mode, QEMU can launch
+Linux processes compiled for one CPU on another CPU.
+
+[[download]]
+Download
+~~~~~~~~
+
+QEMU is available on Fedora repository. It can be installed by using
+link:dnf[DNF]:
+
+....
+$ su -c "dnf install qemu"
+....
+
+Or with YUM:
+
+....
+$ su -c "yum install qemu"
+....
+
+[[qemu-commands-since-f]]
+Qemu commands since F?+
+~~~~~~~~~~~~~~~~~~~~~~~
+
+To discover the qemu commands that are installed perform the following:
+
+....
+$ ls /usr/bin/qemu-*
+....
+
+In the following examples where "qemu" is, substitute your command for
+executing qemu. E.g.
+
+....
+qemu-system-i386
+....
+
+or
+
+....
+qemu-i386
+....
+
+Of course, this does not apply to "qemu-img".
+
+[[qemu-virtual-machine-installation]]
+Qemu virtual machine installation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Create the virtual image for the system:
+
+....
+$ qemu-img create fedora.qcow 5G
+....
+
+Of course you are not obliged to take 5GB.
+
+Note: Even if you take 10GB this does NOT mean that the image does
+really HAVE the size of 10GB. It just means that your new system is
+limited up to 10GB - if the new system takes only 1,2 GB also the image
+will only be at 1,2GB.
+
+now let's install the OS. Put in the install CD and type into your
+konsole (all in one line without break):
+
+....
+$ qemu -cdrom /dev/cdrom -hda fedora.qcow -boot d -net nic -net user -m 196 -localtime
+....
+
+"-user -net" is important to have internet access within your new
+system. "-m 196" is the Set virtual RAM size (megabytes), default is 128
+MB, I chose 196.
+
+The install may take some time. After the install, qemu will try to boot
+the new OS itself. Maybe this may fail (was the case for me) - but don't
+worry. If that happens: just close the qemu window and type the
+following command into your konsole to launch your new OS:
+
+....
+$qemu fedora.qcow -boot c -net nic -net user -m 196 -localtime
+....
+
+[[testing-iso-images]]
+Testing ISO Images
+~~~~~~~~~~~~~~~~~~
+
+Type, in the proper directory
+
+....
+$ qemu -m 512M -cdrom <isoname>.iso
+....
+
+[[debugging]]
+Debugging
+~~~~~~~~~
+
+To get kernel output dumped to a file outside the virtual system, add
+e.g. "-serial file:/tmp/qemu-output.log" to the qemu command line. When
+booting the virtual system, add "console=ttyS0" to the kernel boot
+parameters.
+
+This output is particularly helpful if you are having trouble booting
+the system, in which case you may also wish to remove "rhgb" and "quiet"
+from the kernel boot parameters.
+
+Category:How_to
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

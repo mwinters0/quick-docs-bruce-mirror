@@ -1,0 +1,64 @@
+= How to create xorg.conf
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/How_to_create_xorg.conf
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+Fedora releases since do not create a file, used to configure the X
+server, by default. The X configuration is automatically determined each
+time X is started. In most cases, this works well and there is no need
+to manually specify X configuration information.
+
+If you need to make manual changes to X configuration for any reason,
+you will first need to create a file.
+
+[[xorg--configure]]
+Xorg -configure
+~~~~~~~~~~~~~~~
+
+You can create a basic using the X executable itself. As root run:
+
+....
+Xorg :1 -configure
+....
+
+This will create the file , which you can then copy to :
+
+....
+cp /root/xorg.conf.new /etc/X11/xorg.conf
+....
+
+and edit according to your needs.
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

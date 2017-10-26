@@ -1,0 +1,1193 @@
+= Firewalld
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/Firewalld
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+[[dynamic-firewall-with-firewalld]]
+Dynamic firewall with firewalld
+-------------------------------
+
+firewalld provides a dynamically managed firewall with support for
+network/firewall zones to define the trust level of network connections
+or interfaces. It has support for IPv4, IPv6 firewall settings and for
+ethernet bridges and has a separation of runtime and permanent
+configuration options. It also supports an interface for services or
+applications to add firewall rules directly.
+
+The former firewall model with system-config-firewall/lokkit was static
+and every change required a complete firewall restart. This included
+also to unload the firewall netfilter kernel modules and to load the
+modules that are needed for the new configuration. The unload of the
+modules was breaking stateful firewalling and established connections.
+
+The firewall daemon on the other hand manages the firewall dynamically
+and applies changes without restarting the whole firewall. Therefore
+there is no need to reload all firewall kernel modules. But using a
+firewall daemon requires that all firewall modifications are done with
+that daemon to make sure that the state in the daemon and the firewall
+in kernel are in sync. The firewall daemon can not parse firewall rules
+added by the ip*tables and ebtables command line tools.
+
+The daemon provides information about the current active firewall
+settings via D-BUS and also accepts changes via D-BUS using PolicyKit
+authentication methods.
+
+The official firewalld homepage is at
+http://firewalld.org/[firewalld.org]
+
+[[the-daemon]]
+The Daemon
+~~~~~~~~~~
+
+Applications, daemons and the user can request to enable a firewall
+feature over D-BUS. A feature could either be one of the predefined
+firewall features like services, port and protocol combinations,
+port/packet forwarding, masquerading or icmp blocking. The feature can
+be enabled for a certain amount of time or can be disabled by again.
+
+With the so called direct interface other services (like for example
+libvirt) are able to add own rules using iptables arguments and
+parameters.
+
+The netfilter firewall helpers, that are for example used for amanda,
+ftp, samba and tftp services, are also handled by the daemon as long as
+they are part of a predefined service. Loading of additional helpers is
+not part of the current interface. For some of the helpers unloading is
+only possible after all connections that are handled by the module are
+closed. Therefore connection tracking information is important here and
+needs to be taken into account.
+
+[[static-firewall-system-config-firewalllokkit]]
+Static Firewall (system-config-firewall/lokkit)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The actual static firewall model with system-config-firewall and lokkit
+will still be available and usable, but not at the same time as the
+daemon is running. The user or admin can decide which firewall solution
+should be used by enabling the corresponding services.
+
+It is planned to add a selector for the firewall solution to be used at
+install time or in first boot. The configuration of the other solution
+will stay intact and can be enabled simply by switching to the other
+model.
+
+The firewall daemon is independent to system-config-firewall, but should
+not be used at the same time.
+
+[[using-static-firewall-rules-with-the-iptables-and-ip6tables-services]]
+Using static firewall rules with the iptables and ip6tables services
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to use your own static firewall rules with the iptables and
+ip6tables services, install iptables-services and disable firewalld and
+enable iptables and ip6tables:
+
+`dnf install iptables-services` +
+`systemctl mask firewalld.service` +
+`systemctl enable iptables.service` +
+`systemctl enable ip6tables.service`
+
+Use /etc/sysconfig/iptables and /etc/sysconfig/ip6tables for your static
+firewall rules.
+
+Note: The package iptables and iptables-services do not provide firewall
+rules for use with the services. The services are available for
+compatibility and people that want to use their own firewall rules. You
+can install and use system-config-firewall to create rules with the
+services though. To be able to use system-config-firewall, you have to
+stop firewalld.
+
+After creating rules for use with the services stop firewalld and start
+the iptables and ip6tables services:
+
+`systemctl stop firewalld.service` +
+`systemctl start iptables.service` +
+`systemctl start ip6tables.service`
+
+[[what-is-a-zone]]
+What is a zone?
+~~~~~~~~~~~~~~~
+
+A network zone defines the level of trust for network connections. This
+is a one to many relation, which means that a connection can only be
+part of one zone, but a zone can be used for many network connections.
+
+[[predefined-services]]
+Predefined services
+^^^^^^^^^^^^^^^^^^^
+
+A service is a combination of port and/or protocol entries. Optionally
+netfilter helper modules can be added and also a IPv4 and IPv6
+destination address.
+
+[[ports-and-protocols]]
+Ports and protocols
+^^^^^^^^^^^^^^^^^^^
+
+Definition of tcp or udp ports, where ports can be a single port or a
+port range.
+
+[[icmp-blocks]]
+ICMP blocks
+^^^^^^^^^^^
+
+Selected Internet Control Message Protocol (ICMP) messages. These
+messages are either information requests or created as a reply to
+information requests or in error conditions.
+
+[[masquerading]]
+Masquerading
+^^^^^^^^^^^^
+
+The addresses of a private network are mapped to and hidden behind a
+public IP address. This is a form of address translation.
+
+[[forward-ports]]
+Forward ports
+^^^^^^^^^^^^^
+
+A port is either mapped to another port and/or to another host.
+
+[[which-zones-are-available]]
+Which zones are available?
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+These are the zones provided by firewalld sorted according to the
+default trust level of the zones from untrusted to trusted:
+
+[[drop]]
+drop
+^^^^
+
+Any incoming network packets are dropped, there is no reply. Only
+outgoing network connections are possible.
+
+[[block]]
+block
+^^^^^
+
+Any incoming network connections are rejected with an
+icmp-host-prohibited message for IPv4 and icmp6-adm-prohibited for IPv6.
+Only network connections initiated within this system are possible.
+
+[[public]]
+public
+^^^^^^
+
+For use in public areas. You do not trust the other computers on
+networks to not harm your computer. Only selected incoming connections
+are accepted.
+
+[[external]]
+external
+^^^^^^^^
+
+For use on external networks with masquerading enabled especially for
+routers. You do not trust the other computers on networks to not harm
+your computer. Only selected incoming connections are accepted.
+
+[[dmz]]
+dmz
+^^^
+
+For computers in your demilitarized zone that are publicly-accessible
+with limited access to your internal network. Only selected incoming
+connections are accepted.
+
+[[work]]
+work
+^^^^
+
+For use in work areas. You mostly trust the other computers on networks
+to not harm your computer. Only selected incoming connections are
+accepted.
+
+[[home]]
+home
+^^^^
+
+For use in home areas. You mostly trust the other computers on networks
+to not harm your computer. Only selected incoming connections are
+accepted.
+
+[[internal]]
+internal
+^^^^^^^^
+
+For use on internal networks. You mostly trust the other computers on
+the networks to not harm your computer. Only selected incoming
+connections are accepted.
+
+[[trusted]]
+trusted
+^^^^^^^
+
+All network connections are accepted.
+
+[[which-zone-should-be-used]]
+Which zone should be used?
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A public WIFI network connection for example should be mainly untrusted,
+a wired home network connection should be fairly trusted. Select the
+zone that best matches the network you are using.
+
+[[how-to-configure-or-add-zones]]
+How to configure or add zones?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To configure or add zones you can either use one of the firewalld
+interfaces to handle and change the configuration. These are the
+graphical configuration tool firewall-config, the command line tool
+firewall-cmd or the D-BUS interface. Or you can create or copy a zone
+file in one of the configuration directories.
+@PREFIX@/lib/firewalld/zones is used for default and fallback
+configurations and /etc/firewalld/zones is used for user created and
+customized configuration files.
+
+[[how-to-set-or-change-a-zone-for-a-connection]]
+How to set or change a zone for a connection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The zone is stored into the ifcfg of the connection with the ZONE=
+option. If the option is missing or empty, the default zone set in
+firewalld is used.
+
+If the connection is controlled by NetworkManager, you can also use
+nm-connection-editor to change the zone.
+
+[[network-connections-handled-by-networkmanager]]
+Network connections handled by NetworkManager
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The firewall is not able to handle network connections with the name
+shown by NetworkManager, it can only handle network interfaces.
+Therefore NetworkManager tells firewalld to put the network interfaces
+related to the connections in the zones defined by the config file
+(ifcfg) of the connection before the connection comes up. If the zone is
+not set in the config file, the interfaces will be put in the default
+zone set by firewalld. If a connection has more than one interfaces,
+both will be supplied to firewalld. Also changes in the names of
+interfaces will be handled by NetworkManager and supplied to firewalld.
+
+To simplify this connections will be used as related to zones from now
+on.
+
+NetworkManager also tells firewalld to remove connections from zones
+again if the connection went down.
+
+If firewalld gets started or restarted by systemd or init scripts,
+firewalld notifies NetworkManager and the connections will be added to
+the zones.
+
+[[network-connections-handled-by-network-scripts]]
+Network connections handled by network scripts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For connections handled by network scripts there a limitations: There is
+no daemon that can tell firewalld to add connections to zones. This is
+done in the ifcfg-post script only. Therefore changes in names after
+this can not be supplied to firewalld. Also starting or restarting
+firewalld if the connections are active already results in the loss of
+the relation. There are ideas to fix this also. The simplest is to push
+all connections to the default zone that are not set otherwise.
+
+The zone defines the firewall features that are enabled in this zone.
+
+[[working-with-firewalld]]
+Working with firewalld
+~~~~~~~~~~~~~~~~~~~~~~
+
+To enable or disable firewall features for example in zones, you can
+either use the graphical configuration tool *firewall-config* or the
+command line client *firewall-cmd*
+
+[[using-firewall-cmd]]
+Using firewall-cmd
+^^^^^^^^^^^^^^^^^^
+
+The command line client *firewall-cmd* supports all firewall features.
+For status and query modes, there is no output, but the command returns
+the state.
+
+[[generic-use]]
+Generic use
++++++++++++
+
+* Get the status of firewalld
+
+` firewall-cmd --state`
+
+This returns the status of firewalld, there is no output. To get a
+visual state use:
+
+` firewall-cmd --state && echo "Running" || echo "Not running"`
+
+As of Fedora 19, the status seems printed just fine:
+
+` # rpm -qf $( which firewall-cmd )` +
+` firewalld-0.3.3-2.fc19.noarch` +
+` # firewall-cmd --state` +
+` not running`
+
+* Reload the firewall without losing state information:
+
+` firewall-cmd --reload`
+
+If you are using *--complete-reload* instead, the state information will
+be lost. This option should only be used in case of severe firewall
+problems for example if there are state information problems that no
+connection can be established but the firewall rules are correct.
+
+* Get a list of all supported zones
+
+` firewall-cmd --get-zones`
+
+This command prints a space separated list.
+
+* Get a list of all supported services
+
+` firewall-cmd --get-services`
+
+This command prints a space separated list.
+
+* Get a list of all supported icmptypes
+
+` firewall-cmd --get-icmptypes`
+
+This command prints a space separated list.
+
+* List all zones with the enabled features.
+
+` firewall-cmd --list-all-zones`
+
+The output format is:
+
+` ` +
+`   interfaces: `` ..` +
+`   services: `` ..` +
+`   ports: `` ..` +
+`   forward-ports: `` ..` +
+`   icmp-blocks: `` ..` +
+`   ` +
+`   ..`
+
+* Print zone with the enabled features. If zone is omitted, the default
+zone will be used.
+
+` firewall-cmd [--zone=``] --list-all`
+
+* Get the default zone set for network connections
+
+` firewall-cmd --get-default-zone`
+
+* Set the default zone
+
+` firewall-cmd --set-default-zone=`
+
+All interfaces that are located in the default zone will be pushed in
+the new default zone, that defines the limitations for new external
+initiated connection attempts. Active connections are not affected.
+
+* Get active zones
+
+` firewall-cmd --get-active-zones`
+
+The command prints the interfaces that are set to be part of a zone in
+this form:
+
+` ``: `` `` ..` +
+` ``: `` ..`
+
+* Get zone related to an interface
+
+` firewall-cmd --get-zone-of-interface=`
+
+This prints the zone name, if the interface is part of a zone
+
+* Add an interface to a zone
+
+` firewall-cmd [--zone=``] --add-interface=`
+
+Add an interface to a zone, if it was not in a zone before. If the zone
+options is omitted, the default zone will be used. The interfaces are
+reapplied after reloads.
+
+* Change the zone an interface belongs to
+
+` firewall-cmd [--zone=``] --change-interface=`
+
+This is similar to the --add-interface options, but pushes the interface
+in the new zone even if it was in another zone before.
+
+* Remove an interface from a zone
+
+` firewall-cmd [--zone=``] --remove-interface=`
+
+* Query if an interface is in a zone
+
+` firewall-cmd [--zone=``] --query-interface=`
+
+Returns if the interface is in the zone. There is no output.
+
+* List the enabled services in a zone
+
+` firewall-cmd [ --zone=`` ] --list-services`
+
+* Enable panic mode to block all network traffic in case of emergency
+
+` firewall-cmd --panic-on`
+
+* Disable panic mode
+
+` firewall-cmd --panic-off`
+
+* Query panic mode
+
+` firewall-cmd --query-panic`
+
+This returns the state of the panic mode, there is no output. To get a
+visual state use
+
+` firewall-cmd --query-panic && echo "On" || echo "Off"`
+
+[[runtime-zone-handling]]
+Runtime zone handling
++++++++++++++++++++++
+
+In the runtime mode the changes to zones are not permanent. The changes
+will be gone after reload or restart.
+
+* Enable a service in a zone
+
+` firewall-cmd [--zone=``] --add-service=`` [--timeout=``]`
+
+This enables a service in a zone. If zone is not set, the default zone
+will be used. If timeout is set, the service will only be enabled for
+the amount of seconds in the zone. If the service is already active,
+there will be no warning message.
+
+* *Example:* Enable ipp-client service for 60 seconds in the home zone:
+
+` firewall-cmd --zone=home --add-service=ipp-client --timeout=60`
+
+* *Example:* Enable the http service in the default zone:
+
+` firewall-cmd --add-service=http`
+
+* Disable a service in a zone
+
+` firewall-cmd [--zone=``] --remove-service=`
+
+This disables a service in a zone. If zone is not set, the default zone
+will be used.
+
+* *Example:* Disable http service in the home zone:
+
+` firewall-cmd --zone=home --remove-service=http`
+
+The service will be disabled in the zone. If the service is not enabled
+in the zone, there will be an warning message.
+
+* Query if a service is enabled in a zone
+
+` firewall-cmd [--zone=``] --query-service=`
+
+This returns 1 if the service is enabled in the zone, otherwise 0. There
+is no output.
+
+* Enable a port and protocol combination in a zone
+
+` firewall-cmd [--zone=``] --add-port=``[-``]/`` [--timeout=``]`
+
+This enables a port and protocol combination. The port can be a single
+port or a port range -. The protocol can be either *tcp* or *udp*.
+
+* Disable a port and protocol combination in a zone
+
+` firewall-cmd [--zone=``] --remove-port=``[-``]/`
+
+* Query if a port and protocol combination in enabled in a zone
+
+` firewall-cmd [--zone=``] --query-port=``[-``]/`
+
+This command returns if it is enabled, there is no output.
+
+* Enable masquerading in a zone
+
+` firewall-cmd [--zone=``] --add-masquerade`
+
+This enables masquerading for the zone. The addresses of a private
+network are mapped to and hidden behind a public IP address. This is a
+form of address translation and mostly used in routers. Masquerading is
+IPv4 only because of kernel limitations.
+
+* Disable masquerading in a zone
+
+` firewall-cmd [--zone=``] --remove-masquerade`
+
+* Query masquerading in a zone
+
+` firewall-cmd [--zone=``] --query-masquerade`
+
+This command returns if it is enabled, there is no output.
+
+* Enable ICMP blocks in a zone
+
+` firewall-cmd [--zone=``] --add-icmp-block=`
+
+This enabled the block of a selected Internet Control Message Protocol
+(ICMP) message. ICMP messages are either information requests or created
+as a reply to information requests or in error conditions.
+
+* Disable ICMP blocks in a zone
+
+` firewall-cmd [--zone=``] --remove-icmp-block=`
+
+* Query ICMP blocks in a zone
+
+` firewall-cmd [--zone=``] --query-icmp-block=`
+
+This command returns if it is enabled, there is no output.
+
+* *Example:* Block echo-reply messages in the public zone:
+
+` firewall-cmd --zone=public --add-icmp-block=echo-reply`
+
+* Enable port forwarding or port mapping in a zone
+
+` firewall-cmd [--zone=``] --add-forward-port=port=``[-``]:proto=`` { :toport=``[-``] | :toaddr=`
+
+| :toport=[-]:toaddr=
+
+}
+
+The port is either mapped to the same port on another host or to another
+port on the same host or to another port on another host. The port can
+be a singe port or a port range -. The protocol is either *tcp* or
+*udp*. toport is either port or a port range -. toaddr is an IPv4
+address. Port forwarding is IPv4 only because of kernel limitations.
+
+* Disable port forwarding or port mapping in a zone
+
+` firewall-cmd [--zone=``] --remove-forward-port=port=``[-``]:proto=`` { :toport=``[-``] | :toaddr=`
+
+| :toport=[-]:toaddr=
+
+}
+
+* Query port forwarding or port mapping in a zone
+
+` firewall-cmd [--zone=``] --query-forward-port=port=``[-``]:proto=`` { :toport=``[-``] | :toaddr=`
+
+| :toport=[-]:toaddr=
+
+}
+
+This command returns if it is enabled, there is no output.
+
+* *Example:* Forward ssh to host 127.0.0.2 in the home zone
+
+` firewall-cmd --zone=home --add-forward-port=port=22:proto=tcp:toaddr=127.0.0.2`
+
+[[permanent-zone-handling]]
+Permanent zone handling
++++++++++++++++++++++++
+
+The permanent options are not affecting runtime directly. These options
+are only available after a reload or restart. To have runtime and
+permanent setting, you need to supply both. The *--permanent* option
+needs to be the first option for all permanent calls.
+
+* Get a list of supported permanent services
+
+` firewall-cmd --permanent --get-services`
+
+* Get a list of supported permanent icmptypes
+
+` firewall-cmd --permanent --get-icmptypes`
+
+* Get a list of supported permanent zones
+
+` firewall-cmd --permanent --get-zones`
+
+* Enable a service in a zone
+
+` firewall-cmd --permanent [--zone=``] --add-service=`
+
+This enables the service in the zone permanently. If the zone option is
+omitted, the default zone is used.
+
+* Disable a service in a zone
+
+` firewall-cmd --permanent [--zone=``] --remove-service=`
+
+* Query if a service is enabled in a zone
+
+` firewall-cmd --permanent [--zone=``] --query-service=`
+
+This command returns if it is enabled, there is no output.
+
+* *Example:* Enable service ipp-client permanently in the home zone
+
+` firewall-cmd --permanent --zone=home --add-service=ipp-client`
+
+* Enable a port and protocol combination permanently in a zone
+
+` firewall-cmd --permanent [--zone=``] --add-port=``[-``]/`
+
+* Disable a port and protocol combination permanently in a zone
+
+` firewall-cmd --permanent [--zone=``] --remove-port=``[-``]/`
+
+* Query if a port and protocol combination is enabled permanently in a
+zone
+
+` firewall-cmd --permanent [--zone=``] --query-port=``[-``]/`
+
+This command returns if it is enabled, there is no output.
+
+* *Example:* Enable port 443/tcp for https permanently in the home zone
+
+` firewall-cmd --permanent --zone=home --add-port=443/tcp`
+
+* Enable masquerading permanently in a zone
+
+` firewall-cmd --permanent [--zone=``] --add-masquerade`
+
+This enables masquerading for the zone. The addresses of a private
+network are mapped to and hidden behind a public IP address. This is a
+form of address translation and mostly used in routers. Masquerading is
+IPv4 only because of kernel limitations.
+
+* Disable masquerading permanently in a zone
+
+` firewall-cmd --permanent [--zone=``] --remove-masquerade`
+
+* Query masquerading permanently in a zone
+
+` firewall-cmd --permanent [--zone=``] --query-masquerade`
+
+This command returns if it is enabled, there is no output.
+
+* Enable ICMP blocks permanently in a zone
+
+` firewall-cmd --permanent [--zone=``] --add-icmp-block=`
+
+This enabled the block of a selected Internet Control Message Protocol
+(ICMP) message. ICMP messages are either information requests or created
+as a reply to information requests or in error conditions.
+
+* Disable ICMP blocks permanently in a zone
+
+` firewall-cmd --permanent [--zone=``] --remove-icmp-block=`
+
+* Query ICMP blocks permanently in a zone
+
+` firewall-cmd --permanent [--zone=``] --query-icmp-block=`
+
+This command returns if it is enabled, there is no output.
+
+* *Example:* Block echo-reply messages in the public zone:
+
+` firewall-cmd --permanent --zone=public --add-icmp-block=echo-reply`
+
+* Enable port forwarding or port mapping permanently in a zone
+
+` firewall-cmd --permanent [--zone=``] --add-forward-port=port=``[-``]:proto=`` { :toport=``[-``] | :toaddr=`
+
+| :toport=[-]:toaddr=
+
+}
+
+The port is either mapped to the same port on another host or to another
+port on the same host or to another port on another host. The port can
+be a singe port or a port range -. The protocol is either *tcp* or
+*udp*. toport is either port or a port range -. toaddr is an IPv4
+address. Port forwarding is IPv4 only because of kernel limitations.
+
+* Disable port forwarding or port mapping permanently in a zone
+
+` firewall-cmd --permanent [--zone=``] --remove-forward-port=port=``[-``]:proto=`` { :toport=``[-``] | :toaddr=`
+
+| :toport=[-]:toaddr=
+
+}
+
+* Query port forwarding or port mapping permanently in a zone
+
+` firewall-cmd --permanent [--zone=``] --query-forward-port=port=``[-``]:proto=`` { :toport=``[-``] | :toaddr=`
+
+| :toport=[-]:toaddr=
+
+}
+
+This command returns if it is enabled, there is no output.
+
+* *Example:* Forward ssh to host 127.0.0.2 in the home zone
+
+` firewall-cmd --permanent --zone=home --add-forward-port=port=22:proto=tcp:toaddr=127.0.0.2`
+
+[[direct-options]]
+Direct options
+++++++++++++++
+
+The direct options give a more direct access to the firewall. These
+options require user to know basic iptables concepts, i.e. table
+(filter/mangle/nat/...), chain (INPUT/OUTPUT/FORWARD/...), commands
+(-A/-D/-I/...), parameters (-p/-s/-d/-j/...) and targets
+(ACCEPT/DROP/REJECT/...). Direct options should be used only as a last
+resort when it's not possible to use for example --add-service=service
+or --add-rich-rule='rule'. The first argument of each option has to be
+*ipv4* or *ipv6* or *eb*. With *ipv4* it will be for IPv4 (iptables(8)),
+with *ipv6* for IPv6 (ip6tables(8)) and with *eb* for ethernet bridges
+(ebtables(8)).
+
+* Pass a command through to the firewall. can be all iptables, ip6tables
+and ebtables command line arguments
+
+` firewall-cmd --direct --passthrough { ipv4 | ipv6 | eb } <args>`
+
+* Add a new chain to a table <table>.
+
+` firewall-cmd [--permanent] --direct --add-chain { ipv4 | ipv6 | eb } <table> <chain>`
+
+* Remove a chain with name from table <table>.
+
+` firewall-cmd [--permanent] --direct --remove-chain { ipv4 | ipv6 | eb } <table> <chain>`
+
+* Query if a chain with name exists in table <table>. Returns 0 if true,
+1 otherwise.
+
+` firewall-cmd [--permanent] --direct --query-chain { ipv4 | ipv6 | eb } <table> <chain>`
+
+This command returns if it is enabled, there is no output.
+
+* Get all chains added to table <table> as a space separated list.
+
+` firewall-cmd [--permanent] --direct --get-chains { ipv4 | ipv6 | eb } <table>`
+
+* Add a rule with the arguments to chain in table <table> with priority
+.
+
+` firewall-cmd [--permanent] --direct --add-rule { ipv4 | ipv6 | eb } <table> <chain> <priority> <args>`
+
+* Remove a rule with the arguments from chain in table <table>.
+
+` firewall-cmd [--permanent] --direct --remove-rule { ipv4 | ipv6 | eb } <table> <chain> <args>`
+
+* Query if a rule with the arguments exists in chain in table <table>.
+Returns 0 if true, 1 otherwise.
+
+` firewall-cmd [--permanent] --direct --query-rule { ipv4 | ipv6 | eb } <table> <chain> <args>`
+
+This command returns if it is enabled, there is no output.
+
+* Get all rules added to chain in table <table> as a newline separated
+list of arguments.
+
+` firewall-cmd [--permanent] --direct --get-rules { ipv4 | ipv6 | eb } <table> <chain>`
+
+[[the-current-firewalld-features]]
+The current firewalld features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[d-bus-interface]]
+D-BUS Interface
+^^^^^^^^^^^^^^^
+
+The D-BUS interface gives information about the firewall state and makes
+it possible to enable, disable and query firewall settings.
+
+[[zones]]
+Zones
+^^^^^
+
+A network or firewall zone defines the trust level of the interface used
+for a connection. There are several pre-defined zones provided by
+firewalld. Zone configuration options and generic file information are
+described in the firewalld.zone(5) man page.
+
+[[services]]
+Services
+^^^^^^^^
+
+A service can be a list of local ports and destinations and additionally
+also a list of firewall helper modules automatically loaded if a service
+is enabled. The use of predefined services makes it easier for the user
+to enable and disable access to a service. Service configuration options
+and generic file information are described in the firewalld.service(5)
+man page.
+
+[[icmp-types]]
+ICMP types
+^^^^^^^^^^
+
+The Internet Control Message Protocol (ICMP) is used to exchange
+information and also error messages in the Internet Protocol (IP). ICMP
+types can be used in firewalld to limit the exchange of these messages.
+ICMP type configuration options and generic file information are
+described in the firewalld.icmptype(5) man page.
+
+[[direct-interface]]
+Direct interface
+^^^^^^^^^^^^^^^^
+
+The direct interface is mainly used by services or applications to add
+specific firewall rules.
+
+[[runtime-configuration]]
+Runtime configuration
+^^^^^^^^^^^^^^^^^^^^^
+
+The runtime configuration is not permanent and will only be restored for
+a reload. After restart or stop of the service or a system reboot, these
+options will be gone.
+
+[[permanent-configuration]]
+Permanent configuration
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The permanent configuration is stored in config files and will be
+restored with every machine boot or service reload or restart.
+
+[[tray-applet]]
+Tray Applet
+^^^^^^^^^^^
+
+The tray applet *firewall-applet* visualizes the firewall state and also
+problems with the firewall for the user. It can also be used to
+configure settings by calling *firewall-config*.
+
+[[graphical-configuration-tool]]
+Graphical Configuration Tool
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The configuration tool *firewall-config* is the main configuration tool
+for the firewall daemon. It supports all features of the firewall
+besides the direct interface, this is handled by the service/application
+that added the rules.
+
+[[command-line-client]]
+Command Line client
+^^^^^^^^^^^^^^^^^^^
+
+The command line client *firewall-cmd* supports all firewall features.
+For status and query modes, there is no output, but the command returns
+the state.
+
+For offline use there is also *firewall-offline-cmd*. This command line
+client is creating firewalld configuration files directly and is not
+using firewalld or the D-Bus interface. It is for example used in the
+system installation process to create an initial firewall configuration
+from the kickstart settings.
+
+[[support-for-ebtables]]
+Support for ebtables
+^^^^^^^^^^^^^^^^^^^^
+
+ebtables support is needed to fulfill all needs of the libvirt daemon
+and to prevent access problems between ip*tables and ebtables on kernel
+netfilter level. All these commands are accessing the same structures
+and therefore they should not be used at the same time.
+
+[[defaultfallback-configuration-in-usrlibfirewalld]]
+Default/Fallback configuration in /usr/lib/firewalld
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This directory contains the default and fallback configuration provided
+by firewalld for icmptypes, services and zones. The files provided with
+the firewalld package should not get changed and the changes are gone
+with an update of the firewalld package. Additional icmptypes, services
+and zones can be provided with packages or by creating files.
+
+[[system-configuration-settings-in-etcfirewalld]]
+System configuration settings in /etc/firewalld
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The system or user configuration stored here is either created by the
+system administrator or by customization with the configuration
+interface of firewalld or by hand. The files will overload the default
+configuration files.
+
+To manually change settings of pre-defined icmptypes, zones or services,
+copy the file from the default configuration directory to the
+corresponding directory in the system configuration directory and change
+it accordingly.
+
+If you are loading the defaults for a zone that has a default or
+fallback file, the file in /etc/firewalld will be renamed to .old and
+the fallback will be used again.
+
+[[work-in-progress-features]]
+Work in Progress Features
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[rich-language]]
+Rich Language
+^^^^^^^^^^^^^
+
+The rich language provides a high level language to be able to have more
+complex firewall rules for IPv4 and IPv6 without the knowledge of
+iptables syntax.
+
+Fedora 19 provides milestone 2 of the rich language with D-Bus and
+command line client support. The milestone 3 will also provide support
+within firewall-config, the graphical configuration program.
+
+For more information on this, please have a look at:
+https://fedoraproject.org/wiki/Features/FirewalldRichLanguage[firewalld
+Rich Language]
+
+[[lockdown]]
+Lockdown
+^^^^^^^^
+
+Lockdown adds a simple configuration setting for firewalld to be able to
+lock down configuration changes from local applications or services. It
+is a very light version of application policies.
+
+Fedora 19 provides milestone 2 of the lockdown feature with D-Bus and
+command line client support. The milestone 3 will also provide support
+within firewall-config, the graphical configuration program.
+
+For more information on this, please have a look at:
+https://fedoraproject.org/wiki/Features/FirewalldLockdown[firewalld
+Lockdown]
+
+[[permanent-direct-rules]]
+Permanent Direct Rules
+^^^^^^^^^^^^^^^^^^^^^^
+
+This feature is in early state. It provides the ability to permanently
+save direct rules and chains. Passthorough rules are not part of this.
+See link:Direct_options[Direct options] for more information on direct
+rules.
+
+[[migration-from-iptables-and-ebtables-services]]
+Migration from ip*tables and ebtables services
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This feature is in an very early state. It will provide a conversion
+script that creates direct permanent rules from the iptables, ip6tables
+and ebtables service configurations as far as possible. A limitation
+here might be the integration into the direct chains firewalld provides.
+
+This needs lots of tests at best also from more complex firewall
+configurations.
+
+[[planned-and-proposed-features]]
+Planned and Proposed Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[firewall-abstraction-model]]
+Firewall Abstraction Model
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Adding an abstraction layer on top of ip*tables and ebtables firewall
+rules makes adding rules simple and more intuitive. The abstraction
+layer needs to be powerful, but also simple, which makes this not an
+easy task. A firewall language has to gen invented for this. Firewall
+rules have a fixed position and querying generic information about
+access state, access policies for ports and other firewall features is
+possible.
+
+[[support-for-conntrack]]
+Support for conntrack
+^^^^^^^^^^^^^^^^^^^^^
+
+Conntrack is needed to be able to terminate established connections for
+features that get disabled. For some use cases it might not be good to
+terminate the connection: Enabling of a firewall service for a limited
+time to establish a persistent external connection.
+
+[[user-interaction-mode]]
+User interaction mode
+^^^^^^^^^^^^^^^^^^^^^
+
+This is a special mode of in the firewall the user or admin can enable.
+All requests of applications to alter the firewall are directed to the
+user to get notified and granted or denied. It is possible to set a time
+limit for the acceptance of a connection and to limit it to hosts,
+networks or connections. It can be saved to behave the same in the
+future without notification.
+
+An additional feature of this mode is direct external connection
+attempts on preselected services or ports to the user with the same
+features as the application initiated requests. The limitation on
+services and ports will also limit the amount of requests sent to the
+user.
+
+[[user-policy-support]]
+User policy support
+^^^^^^^^^^^^^^^^^^^
+
+The administrator can define which users are able to use the User
+Interaction Mode and can also limit the firewall features, that can be
+used with it.
+
+[[port-metadata-information-proposed-by-lennart-poettering]]
+Port metadata information (proposed by Lennart Poettering)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To have a port independent metadata information would be good to have.
+The current model with a static assignment of ports and protocols from
+/etc/services is not a good solution and is not reflecting current use
+cases. Ports in applications or services are dynamic and therefore the
+port itself does not describe the use case.
+
+This metadata information could be used to form simple rules for the
+firewall. Here are some examples:
+
+` allow external access to file sharing applications or services` +
+` allow external access to music sharing applications or services` +
+` allow external access to all sharing applications or services` +
+` allow external access to torrent file sharing applications or services` +
+` allow external access to http web services`
+
+The metadata information here could not only be application specific,
+but also a group of use cases. For example the "all sharing" group or
+the "file sharing" group could match all sharing or file sharing
+applications, for example torrent file sharing. These are examples,
+therefore it might be that they are not useful.
+
+There are two possible solutions to get metadata information in the
+firewall:
+
+The first is to add it to netfilter (kernel space). This has the
+advantage, that it can be used by everyone, but also limits the use. To
+get user or system specific information into account, all these need to
+be implemented in kernel space also.
+
+The other one would be to add this to a firewall daemon. These abstract
+rules could be used together with information like the trust level of
+the network connections, the user decision to share with as specific
+person/host or the hard rule of the administrator to forbid sharing
+completely.
+
+The second solution would have the advantage that new metadata groups or
+changes in incorporation of trust levels, user preferences or
+administrator rules would not require to push a new kernel. Adding these
+kind of abstract rules to a firewall daemon would make it much more
+flexible. Even new security levels would be easy to add without kernel
+updates.
+
+[[sysctld]]
+sysctld
+^^^^^^^
+
+At the moment there are sysctl settings that are not properly applied.
+This happens if the module providing the setting is not loaded at boot
+time when rc.sysinit runs or it the module gets reloaded at runtime.
+Another example is net.ipv4.ip_forward, which is needed for example for
+specific firewall settings, libvirt and also user/admin changes. If
+there are two apps or daemons enabling ip_forwarding only if needed,
+then it could happen that one of them is turning it off again without
+knowing that there is another one, that still needs it turned on.
+
+The sysctl daemon could solve this by having an internal use count for
+settings, that will make it possible to turn it off or go to the
+previous setting again if the requester reverted the request to change
+it.
+
+[[firewall-rules]]
+Firewall Rules
+~~~~~~~~~~~~~~
+
+Netfilter firewalls are always susceptible to rule ordering issues,
+because a rule does not have a fixed position in a chain. The position
+can change if other rules are added or removed in a position before that
+rule.
+
+In the static firewall model a firewall change is recreating a clean and
+sane firewall setup limited to the features directly supported by
+system-config-firewall / lokkit. Firewall rules created by other
+applications are not integrated and s-c-fw / lokkit does not know about
+them if the customs rules file feature is not in use. Default chains are
+used and there is no safe way to add and remove rules without
+interfering with others.
+
+The dynamic model has additional chains for the firewall features. These
+specific chains are called in a defined ordering and rules added to a
+chain could not interfere with reject or drop rules in chains that were
+called before. This makes it possible to have a more sane firewall
+configuration.
+
+Here are example rules created by the daemon in the filter table with
+ssh, ipp-client and mdns enabled in the public zone, all other zones
+have been removed to simplify and shorten the output:
+
+` *filter` +
+` :INPUT ACCEPT [0:0]` +
+` :FORWARD ACCEPT [0:0]` +
+` :OUTPUT ACCEPT [0:0]` +
+` :FORWARD_ZONES - [0:0]` +
+` :FORWARD_direct - [0:0]` +
+` :INPUT_ZONES - [0:0]` +
+` :INPUT_direct - [0:0]` +
+` :IN_ZONE_public - [0:0]` +
+` :IN_ZONE_public_allow - [0:0]` +
+` :IN_ZONE_public_deny - [0:0]` +
+` :OUTPUT_direct - [0:0]` +
+` -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT` +
+` -A INPUT -i lo -j ACCEPT` +
+` -A INPUT -j INPUT_direct` +
+` -A INPUT -j INPUT_ZONES` +
+` -A INPUT -p icmp -j ACCEPT` +
+` -A INPUT -j REJECT --reject-with icmp-host-prohibited` +
+` -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT` +
+` -A FORWARD -i lo -j ACCEPT` +
+` -A FORWARD -j FORWARD_direct` +
+` -A FORWARD -j FORWARD_ZONES` +
+` -A FORWARD -p icmp -j ACCEPT` +
+` -A FORWARD -j REJECT --reject-with icmp-host-prohibited` +
+` -A OUTPUT -j OUTPUT_direct` +
+` -A IN_ZONE_public -j IN_ZONE_public_deny` +
+` -A IN_ZONE_public -j IN_ZONE_public_allow` +
+` -A IN_ZONE_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT` +
+` -A IN_ZONE_public_allow -d 224.0.0.251/32 -p udp -m udp --dport 5353 -m conntrack --ctstate NEW -j ACCEPT` +
+` -A IN_ZONE_public_allow -p udp -m udp --dport 631 -m conntrack --ctstate NEW -j ACCEPT`
+
+Used is a deny/allow model to have a clear behaviour and at best no rule
+interferences. Icmp blocks for example will go to the
+IN_ZONE_public_deny chain if set for the public zone and will be handled
+before the rules in the IN_ZONE_public_allow chain.
+
+This model makes it more easy to add or remove rules from a specific
+block without interfering with accept or drop rules from another block.
+
+Category:FirewallD
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

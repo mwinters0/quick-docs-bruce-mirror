@@ -1,0 +1,75 @@
+= Configuring Sudo
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/Configuring_Sudo
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+Fedora users should use a regular user account for regular day to day
+activities and a root account only for system administration. Use the
+personal account you created following the installation process, at
+first boot, for daily use. Use the root account only for administration
+of your system.
+
+To run as root use the or commands. Avoid using root for any
+non-administration usage, since the root account makes it easy to create
+security or data risks. If you frequently use a single user desktop, you
+may find it convenient to configure so you can use the same password to
+access root as you use for your regular account. To do this, select to
+be added to the Administration group during installation. To do it
+later, or to add a different user, follow this procedure:
+
+1.  Become the root user using the command. Enter the password for the
+root account when prompted.
++
+....
+su -
+....
+2.  Run this command, using your user account name in the place of
+"sampleusername":
++
+....
+usermod sampleusername -a -G wheel
+....
++
+You must now log off and back on in order to have access to the wheel
+group. Note that when prompts you for a password, it expects your user
+password, not root's.
+
+[[reference]]
+Reference
+~~~~~~~~~
+
+http://fedorasolved.org/post-install-solutions/sudo
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

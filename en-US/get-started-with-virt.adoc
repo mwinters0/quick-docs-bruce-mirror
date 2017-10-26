@@ -1,0 +1,436 @@
+= Getting started with virtualization
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/Getting_started_with_virtualization
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+This page deals with using Fedora to host virtual guests. For
+information the different virtualization technologies available in
+Fedora, see the link:Tools/Virtualization[dedicated page].
+
+[[using-virtualization-on-fedora]]
+Using virtualization on Fedora
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Fedora uses the libvirt family of tools as its virtualization solution.
+By default libvirt on Fedora will use Qemu to run guest instances.
+
+For information on other virtualization platforms, refer to
+http://virt.kernelnewbies.org/TechComparison.
+
+Qemu can emulate a host machine in software, or given a CPU with
+hardware support (see below) can use http://www.linux-kvm.org[KVM] to
+provide a fast full virtualization.
+
+Other virtualization products and packages are available but are not
+covered by this guide.
+
+[[installing-and-configuring-fedora-for-virtualized-guests]]
+Installing and configuring Fedora For virtualized guests
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This section covers setting up libvirt on your system. After the
+successful completion of this section you will be able to create
+virtualized guest operating systems.
+
+[[system-requirements]]
+System requirements
+^^^^^^^^^^^^^^^^^^^
+
+The common system requirements for virtualization on Fedora are:
+
+* At least 600MB of hard disk storage per guest. A minimal command-line
+Fedora system requires 600MB of storage. Standard fedora desktop guests
+require at least 3GB of space.
+* At least 256MB of RAM per guest plus 256 for the base OS. At least
+756MB is recommended for each guest of a modern operating system. A good
+rule of thumb is to think about how much memory is required for the
+operating system normally and allocate that much to the virtualized
+guest.
+
+KVM requires a CPU with virtualization extensions, found on most
+consumer CPUs made in the past couple years. These extensions are called
+Intel VT or AMD-V. To check whether you have proper CPU support, run the
+command:
+
+....
+$ egrep '^flags.*(vmx|svm)' /proc/cpuinfo 
+....
+
+If NOTHING is printed, your system does not support the relevant
+extensions. You can still use the QEMU/KVM, but the emulator will fall
+back to software virtualization, which is FAR FAR slower.
+
+[[installing-the-virtualization-packages]]
+Installing the virtualization packages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When installing Fedora, the virtualization packages can be installed by
+selecting *Virtualization* in the Base Group in the installer. (This may
+http://docs.fedoraproject.org/en-US/Fedora/13/html/Installation_Guide/s1-pkgselection-x86.html[no
+longer apply to your installation method] though).
+
+For existing Fedora installations, QEMU, KVM, and other virtualization
+tools can be installed by running the following command which installs
+the virtualization group:
+
+[[fedora-22-to-current]]
+Fedora 22 to current:
+~~~~~~~~~~~~~~~~~~~~~
+
+For Fedora 21 or previous installations, replace "dnf" with "yum." Yum
+is now a deprecated package manager and is replaced by DNF on
+installations of Fedora 22 and onward.
+
+....
+su -c "dnf install @virtualization"
+....
+
+This will install below Mandatory and Default packages.
+
+....
+$ dnf groupinfo virtualization
+
+Group: Virtualisation
+ Group-Id: virtualization
+ Description: These packages provide a virtualisation environment.
+ Mandatory Packages:
+   =virt-install
+ Default Packages:
+   =libvirt-daemon-config-network
+   =libvirt-daemon-kvm
+   =qemu-kvm
+   =virt-manager
+   =virt-viewer
+ Optional Packages:
+   guestfs-browser
+   libguestfs-tools
+   python-libguestfs
+   virt-top
+....
+
+This will install Mandatory, Default and Optional Packages.
+
+....
+su -c "dnf group install with-optional virtualization"
+....
+
+To start the service:
+
+....
+su -c "systemctl start libvirtd"
+....
+
+To start the service on boot:
+
+....
+su -c "systemctl enable libvirtd"
+....
+
+Verify that the kvm kernel modules were properly loaded:
+
+....
+$ lsmod | grep kvm
+kvm_amd                55563  0 
+kvm                   419458  1 kvm_amd
+....
+
+If that command did not list kvm_intel or kvm_amd, KVM is not properly
+configured. See
+link:How_to_debug_Virtualization_problems#Ensuring_system_is_KVM_capable[
+Ensuring system is KVM capable] for troubleshooting tips.
+
+[[networking-support]]
+Networking Support
+^^^^^^^^^^^^^^^^^^
+
+By default libvirt will create a private network for your guests on the
+host machine. This private network will use a 192.168.x.x subnet and not
+be reachable directly from the network the host machine is on, but
+virtual guests can use the host machine as a gateway and can connect out
+via it. If you need to provide services on your guests that are
+reachable via other machines on your host network you can use iptables
+DNAT rules to forward in specific ports, or you can setup a Bridged env.
+
+See the http://wiki.libvirt.org/page/Networking[libvirt networking setup
+page] for more information on how to setup a Bridged network.
+
+[[creating-a-fedora-guest]]
+Creating a Fedora guest
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The installation of Fedora guests using anaconda is supported. The
+installation can be started on the command line via the `virt-install`
+program or in the GUI program `virt-manager`.
+
+[[creating-a-guest-with-virt-install]]
+Creating a guest with virt-install
+++++++++++++++++++++++++++++++++++
+
+`virt-install` is a command line based tool for creating virtualized
+guests. Refer to
+http://virt-tools.org/learning/install-with-command-line/ for
+understanding how to use this tool. Execute `virt-install --help` for
+command line help.
+
+`virt-install` can use kickstart files, for example
+`virt-install -x ks=kickstart-file-name.ks`.
+
+If graphics were enabled, a VNC window will open and present the
+graphical installer. If graphics were not enabled, a text installer will
+appear. Proceed with the fedora installation.
+
+[[creating-a-guest-with-virt-manager]]
+Creating a guest with virt-manager
+++++++++++++++++++++++++++++++++++
+
+Start the GUI Virtual Machine Manager by selecting it from the
+"Applications-->System Tools" menu, or by running the following command:
+
+....
+su -c "virt-manager"
+....
+
+If you encounter an error along the lines of "Failed to contact
+configuration server; some possible causes are that you need to enable
+TCP/IP networking for ORBit, or you have stale NFS locks due to a system
+crash", trying running `virt-manager` not as root (without the `su -c`).
+The GUI will prompt for the root password.
+
+1.  Open a connection to a hypervisor by choosing File-->Add
+connection...
+2.  Choose "qemu" for KVM, or "Xen" for Xen.
+3.  Choose "local" or select a method to connect to a remote hypervisor
+4.  After a connection is opened, click the new icon next to the
+hypervisor, or right click on the active hypervisor and select "New"
+(Note - the new icon is going to be improved to make it easier to see)
+5.  A wizard will present the same questions as appear with the
+`virt-install` command-line utility (see descriptions above). The wizard
+assumes that a graphical installation is desired and does not prompt for
+this option.
+6.  On the last page of the wizard there is a "Finish" button. When this
+is clicked, the guest OS is provisioned. After a few moments a VNC
+window should appear. Proceed with the installation as normal.
+
+[[remote-management]]
+Remote management
+^^^^^^^^^^^^^^^^^
+
+The following remote management options are available:
+
+* (easiest) If using non-root users via SSH, then setup instructions are
+at: http://wiki.libvirt.org/page/SSHSetup
+* If using root for access via SSH, then create SSH keys for root, and
+use `ssh-agent` and `ssh-add` before launching `virt-manager`.
+* To use TLS, set up a local certificate authority and issue x509 certs
+to all servers and clients. For information on configuring this option,
+refer to http://wiki.libvirt.org/page/TLSSetup.
+
+[[guest-system-administration]]
+Guest system administration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When the installation of the guest operating system is complete, it can
+be managed using the GUI `virt-manager` program or on the command line
+using `virsh`.
+
+[[managing-guests-with-virt-manager]]
+Managing guests with virt-manager
++++++++++++++++++++++++++++++++++
+
+Start the Virtual Machine Manager. Virtual Machine Manager is in the
+"Applications-->System Tools" menu, or execute:
+
+....
+su -c "virt-manager"
+....
+
+\{1} If you are not root, you will be prompted to enter the root
+password. Choose`Run unprivileged` to operate in a read-only non-root
+mode.
+
+* Choose the host you wish to manage and click "Connect" in the "Open
+Connection" dialog window.
+* The list of virtual machines is displayed in the main window. Guests
+that are running will display a ">" icon. Guests that are not running
+will be greyed out.
+* To manage a particular guest, double click on it, or right click and
+select "Open".
+* A new window for the guest will open that will allow you to use its
+console, see information about its virtual hardware and start/stop/pause
+it.
+
+For further information about `virt-manager` consult the
+http://virt-manager.et.redhat.com/[project website]
+
+Bugs in the `virt-manager` tool should be reported in
+http://bugzilla.redhat.com[BugZilla] against the 'virt-manager'
+component
+
+[[managing-guests-with-virsh]]
+Managing guests with virsh
+++++++++++++++++++++++++++
+
+The `virsh` command line utility that allows you to manage virtual
+machines. Guests can be managed on the command line with the `virsh`
+utility. The `virsh` utility is built around the libvirt management
+APIl:
+
+* `virsh` has a stable set of commands whose syntax and semantics are
+preserved across updates to the underlying virtualization platform.
+* `virsh` can be used as an unprivileged user for read-only operations
+(e.g. listing domains, listing domain statistics).
+* `virsh` can manage domains running under Xen, Qemu/KVM, esx or other
+backends with no perceptible difference to the user
+
+To start a virtual machine:
+
+....
+su -c "virsh create <name of virtual machine>"
+....
+
+To list the virtual machines currently running:
+
+....
+su -c "virsh list"
+....
+
+To list all virtual machines, running or not:
+
+....
+su -c "virsh list --all"
+....
+
+To gracefully power off a guest:
+
+....
+su -c "virsh shutdown <virtual machine (name | id | uuid)>"
+....
+
+To non gracefully power off a guest:
+
+....
+su -c "virsh destroy <virtual machine (name | id | uuid)>"
+....
+
+To save a snapshot of the machine to a file:
+
+....
+su -c "virsh save <virtual machine (name | id | uuid)> <filename>"
+....
+
+To restore a previously saved snapshot:
+
+....
+su -c "virsh restore <filename>"
+....
+
+To export the configuration file of a virtual machine:
+
+....
+su -c "virsh dumpxml <virtual machine (name | id | uuid)"
+....
+
+For a complete list of commands available for use with `virsh`:
+
+....
+su -c "virsh help"
+....
+
+Or consult the manual page: `man 1 virsh`
+
+Bugs in the `virsh` tool should be reported in
+http://bugzilla.redhat.com[BugZilla] against the 'libvirt' component.
+
+[[other-virtualization-options]]
+Other virtualization options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[qemukvm-without-libvirt]]
+QEMU/KVM without Libvirt
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+QEMU/KVM can be invoked directly without libvirt, however you won't be
+able to use tools such as virt-manager, virt-install, or virsh. Plain
+QEMU (without KVM) can also virtualize other processor architectures
+like ARM or PowerPC. See link:How_to_use_qemu[How to use qemu]
+
+[[xen]]
+Xen
+^^^
+
+Fedora can run as a Xen Guest OS and also be used as a Xen host (with
+the latter being true from Fedora 16; for using an earlier version of
+Fedora as a Xen Host, check out the experimental repo available at
+http://myoung.fedorapeople.org/dom0). For a guide on how to install and
+setup a Fedora Xen host, look at the
+http://wiki.xen.org/wiki/Fedora_Host_Installation[Fedora Host
+Installation] page on the Xen Project wiki.
+
+[[openstack]]
+OpenStack
+^^^^^^^^^
+
+OpenStack consists of a number services for running IaaS clouds. They
+are the Object Store (Swift), Compute (Nova) and Image (Glance)
+services. It is a link:Features/OpenStack[Fedora 16 feature].
+
+[[opennebula]]
+OpenNebula
+^^^^^^^^^^
+
+link:Features/OpenNebula[OpenNebula] is an Open Source Toolkit for Data
+Center Virtualization.
+
+[[ovirt]]
+oVirt
+^^^^^
+
+The https://www.ovirt.org/[oVirt project] is an open virtualization
+project providing a feature-rich, end to end, server virtualization
+management system with advanced capabilities for hosts and guests,
+including high availability, live migration, storage management, system
+scheduler, and more.
+
+[[troubleshooting-bug-reporting-and-known-issues]]
+Troubleshooting, bug reporting, and known issues
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For a list of known unresolved issues, as well as troubleshooting tips,
+please see link:How_to_debug_Virtualization_problems[How to debug
+virtualization problems]
+
+Category:Documentation Category:Virtualization
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.

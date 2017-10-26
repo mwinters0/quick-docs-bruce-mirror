@@ -1,0 +1,273 @@
+= Windows Virtio Drivers
+
+'''
+
+[NOTE]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/Windows_Virtio_Drivers
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not covert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Please fix it, remove this notice, and then add to `_topic_map.yml`
+
+Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+
+Once that is live, go to the original wiki page and add an `{{old}}`
+tag, followed by a note like
+
+....
+{{admon/note|This page has a new home!|
+This wiki page is no longer maintained. Please find the up-to-date
+version at: https://docs.fedoraproject.org/whatever-the-url
+}}
+....
+
+======
+
+'''
+
+
+[[overview]]
+Overview
+~~~~~~~~
+
+This page describes how to obtain and use virtio drivers for Windows
+virtual machines running on KVM, and additional software agents for
+Windows VMs.
+
+[[yumdnf-repo]]
+Yum|Dnf Repo
+~~~~~~~~~~~~
+
+There is a yum|dnf repo shipping 'virtio-win' RPMs. The RPMs install
+driver binaries and agent installers on your host machine into
+/usr/share. These bits can then be shared with Windows VMs.
+
+Install the repo file:
+
+`sudo wget `https://fedorapeople.org/groups/virt/virtio-win/virtio-win.repo[`https://fedorapeople.org/groups/virt/virtio-win/virtio-win.repo`]` -O /etc/yum.repos.d/virtio-win.repo`
+
+Then install the virtio-win package with link:dnf[DNF] or YUM:
+
+`sudo dnf install virtio-win` +
+`sudo yum install virtio-win`
+
+The .repo file provides two different repositories:
+
+* virtio-win-stable
+** This provides builds of virtio-win that roughly correlates to what
+was shipped with the most recent RHEL release, meaning they have
+received a decent chunk of testing.
+** This repo is enabled by default.
+
+* virtio-win-latest
+** This provides the latest driver builds. They may be development
+quality, or bug free, or complete broken. Caveat emptor :)
+** This repo is disabled by default. If you want to update from
+virtio-win-stable to the latest bits, do:
+`sudo yum --enablerepo=virtio-win-latest update virtio-win`
+
+or with dnf:
+`sudo dnf --enablerepo=virtio-win-latest upgrade virtio-win`
+
+[[rpm-contents]]
+RPM contents
+^^^^^^^^^^^^
+
+* /usr/share/virtio-win/*.iso: ISO CDROM containing all the drivers. See
+details below
+* /usr/share/virtio-win/*.vfd: VFD floppy images for using during
+install of Windows XP
+* /usr/share/virtio-win/drivers: Copy of the extracted VFD driver
+contents
+* /usr/share/guest-agent/*.msi: QEMU Guest Agent 32bit and 64bit MSI
+installers
+
+[[iso-contents]]
+ISO contents
+^^^^^^^^^^^^
+
+The .iso contains the following bits:
+
+* NetKVM/: Virtio Network driver
+* viostor/: Virtio Block driver
+* vioscsi/: Virtio SCSI driver
+* viorng/: Virtio RNG driver
+* vioser/: Virtio serial driver
+* Balloon/: Virtio Memory Balloon driver
+* qxl/: QXL graphics driver for Windows 7 and earlier. (build
+virtio-win-0.1.103-1 and later)
+* qxldod/: QXL graphics driver for Windows 8 and later. (build
+virtio-win-0.1.103-2 and later)
+* pvpanic/:
+https://github.com/qemu/qemu/blob/master/docs/specs/pvpanic.txt[QEMU
+pvpanic] device driver (build virtio-win-0.1.103-2 and later)
+* guest-agent/: QEMU Guest Agent 32bit and 64bit MSI installers
+* qemupciserial/:
+https://github.com/qemu/qemu/blob/master/docs/qemupciserial.inf[QEMU PCI
+serial] device driver
+* ** .vfd: VFD floppy images for using during install of Windows XP
+
+[[direct-download]]
+Direct download
+~~~~~~~~~~~~~~~
+
+Direct downloads are available for the .iso, .vfd, and qemu-ga
+installers.
+
+* Stable virtio-win iso:
+https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso
+* Stable virtio-win x86 floppy:
+https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win_x86.vfd
+* Stable virtio-win amd64 floppy:
+https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win_amd64.vfd
+* Latest virtio-win iso:
+https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso
+* Latest virtio-win x86 floppy:
+https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win_x86.vfd
+* Latest virtio-win amd64 floppy:
+https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win_amd64.vfd
+* Latest qemu-ga files:
+https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-qemu-ga/
+* Full archive:
+https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/
+* Changelog: https://fedorapeople.org/groups/virt/virtio-win/CHANGELOG
+
+If you previously used isos from alt.fedoraproject.org, note that these
+new isos have a different file layout (matching RHEL isos). If you need
+to access the old isos you can do so
+https://fedorapeople.org/groups/virt/virtio-win/deprecated-isos/[here].
+However these isos are deprecated and only kept around for back
+compatability. No new isos will be added there.
+
+[[faq]]
+FAQ
+~~~
+
+[[what-license-are-these-drivers]]
+What license are these drivers?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The drivers are licensed under the GPLv2.
+
+[[why-arent-the-drivers-shipped-as-part-of-fedora]]
+Why aren't the drivers shipped as part of Fedora?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The drivers cannot be shipped as part of Fedora because they can't be
+built in Fedora's build system; the only way to build the drivers is on
+a Windows machine. Shipping pre-compiled sources is generally against
+Fedora policies. There's likely other objections as well.
+
+[[where-do-the-builds-come-from]]
+Where do the builds come from?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+All the windows binaries are scooped up from builds done on Red Hat's
+internal build system, which are generated using publicly available
+code.
+
+See the README in this repo for some more details about how the RPM and
+repo are built: https://github.com/crobinso/virtio-win-pkg-scripts
+
+[[what-is-the-reasoning-behind-the-rpmiso-layout]]
+What is the reasoning behind the RPM/ISO layout?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For starters, the primary purpose of the RPM/ISO is to mirror exactly
+the layout that is shipped with the latest RHEL release. This is so
+user/developers don't have to deal with differences between the two
+distros.
+
+(Note: Historically the .iso files shipped on alt.fedoraproject.org did
+_not_ match the layout of the .iso shipped in RHEL. This changed in
+April 2015)
+
+* The .iso directories are named after the driver code directories from
+the upstream driver git tree. There isn't much more to it than that.
+* Below the driver directories, the $winversion/$arch/ directory naming
+is a windows convention.
+* The RPM layout is kind of arbitrary in that it ships the .vfd content
+in the drivers/ dir, but not many of the other drivers from the .iso.
+This seems to be an historical oversight and should probably be fixed.
+
+[[are-these-drivers-signed]]
+Are these drivers signed?
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+These drivers are cryptographically signed with Red Hat's vendor
+signature. However they are not signed with
+https://msdn.microsoft.com/en-us/library/windows/hardware/ff553976%28v=vs.85%29.aspx[Microsoft's
+WHQL signature].
+
+[[how-are-these-drivers-different-from-what-is-shipped-with-rhel]]
+How are these drivers different from what is shipped with RHEL?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The RPMs from the stable repository are the same driver builds as what
+is shipped in RHEL. However, the public drivers are not signed with
+https://msdn.microsoft.com/en-us/library/windows/hardware/ff553976%28v=vs.85%29.aspx[Microsoft's
+WHQL signature].
+
+[[how-does-lack-of-whql-signature-affect-use-of-these-drivers]]
+How does lack of WHQL signature affect use of these drivers?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+FIXME: Lack of WHQL signature causes windows to complain, need to
+explicitly document how
+
+[[bugs]]
+Bugs
+~~~~
+
+Please file any bug reports against
+https://bugzilla.redhat.com/enter_bug.cgi?product=Virtualization%20Tools&component=virtio-win[Product=Virtualization
+Tools Component=virtio-win]
+
+When filing a bug, please provide the following info:
+
+* The virtio-win version
+* The host distro
+* The qemu version
+* If using libvirt: sudo virsh dumpxml $vmname
+* The qemu command line. If using libvirt this can be found at
+/var/log/libvirt/qemu/$vmname.log
+
+Questions/Comments about the RPMs or yum|dnf repos should be sent to
+regular fedora virt locations:
+https://fedoraproject.org/wiki/Virtualization#Mailing_list_and_IRC
+Questions/Comments about the actual drivers are probably best send to
+the upstream
+https://lists.nongnu.org/mailman/listinfo/qemu-devel[qemu-devel] or
+http://www.linux-kvm.org/page/Lists,_IRC[kvm] mailing lists
+
+[[links]]
+Links
+~~~~~
+
+* KVM windows guest drivers upstream code:
+https://github.com/virtio-win/kvm-guest-drivers-windows
+* QXL XDDM driver code: http://cgit.freedesktop.org/spice/win32/qxl
+* QXL WDDM driver code: https://github.com/vrozenfe/qxl-dod
+* Tree used by gnome-boxes for automatic driver installation:
+https://zeenix.fedorapeople.org/drivers/
+* Windows spice agent git repo:
+http://cgit.freedesktop.org/spice/win32/vd_agent
+* Spice guest tools installer code:
+http://cgit.freedesktop.org/~teuf/spice-nsis/
+* spice-guest-tools downloads:
+http://www.spice-space.org/download/binaries/spice-guest-tools/
+* Fedora virtio-win build scripts:
+https://github.com/crobinso/virtio-win-pkg-scripts
+
+Category:Virtualization
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.
