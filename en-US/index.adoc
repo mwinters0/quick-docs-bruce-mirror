@@ -5,5 +5,12 @@ This repository represents asciidoc documents roughly converted from the top
 50 document-like pages in the Fedora Wiki. We want to move away from
 exposing users to the wild territory of workspace wikis and to a nice,
 topic-oriented wiki. So, this is kind of a seed project. Your help wanted!
-Please grab a file, make an edit, submit a PR, and then update the wiki page
-with `{{old}}` and a link to the shiny new document.
+
+Please:
+
+1. Pick a document to update
+2. Fork the https://pagure.io/fedora-docs/quick-docs repo
+3. Make your changes to the `.adoc` file you want to improve
+4. Update `_topic_map.yml` to remove `(FIX ME!)`
+5. Submit a pull request with your improvements
+6. Update the original wiki page with `{{old}}` and a link to the shiny new document
