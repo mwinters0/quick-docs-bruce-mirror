@@ -2,7 +2,7 @@
 
 '''
 
-[NOTE]
+[IMPORTANT]
 ======
 
 This page was automatically converted from https://fedoraproject.org/wiki/How_to_debug_Systemd_problems

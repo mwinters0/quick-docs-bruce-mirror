@@ -2,7 +2,7 @@
 
 '''
 
-[NOTE]
+[IMPORTANT]
 ======
 
 This page was automatically converted from https://fedoraproject.org/wiki/Getting_started_with_virtualization
