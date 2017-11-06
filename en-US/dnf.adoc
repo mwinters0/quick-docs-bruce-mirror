@@ -10,7 +10,7 @@ This page was automatically converted from https://fedoraproject.org/wiki/DNF
 It is probably
 
 * Badly formatted
-* Missing graphics and tables that do not covert well from mediawiki
+* Missing graphics and tables that do not convert well from mediawiki
 * Out-of-date
 * In need of other love
 
