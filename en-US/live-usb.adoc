@@ -33,7 +33,7 @@ version at: https://docs.fedoraproject.org/whatever-the-url
 '''
 
 
-image:mediawriter-icon.png‎[mediawriter-icon.png‎,title="mediawriter-icon.png‎"]
+image:mediawriter-icon.png[mediawriter-icon.png‎,title="mediawriter-icon.png‎"]
 
 This page explains *how to create and use Fedora USB media*. You can
 write all https://getfedora.org/[Fedora ISO images] to a USB stick,
@@ -488,7 +488,7 @@ Testing a USB stick using qemu
 
 You can test your stick using QEMU as shown in the screenshot below.
 
-image:Screenshot_qemu_gtk3.png‎[`Screenshot_qemu_gtk3.png‎`,title="Screenshot_qemu_gtk3.png‎"]
+image:Screenshot_qemu_gtk3.png[`Screenshot_qemu_gtk3.png‎`,title="Screenshot_qemu_gtk3.png‎"]
 
 For example, you could type the following commands:
 
