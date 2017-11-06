@@ -341,7 +341,7 @@ list of standard "Trusted" services. Select the services you want to
 trust (ports to open) and press *Forward* (which means 'next', it is not
 port forwarding):
 
-image:Firewall_TUI_Trusted_services..PNG[Editing trusted service with
+image:Firewall_TUI_Trusted_services.PNG[Editing trusted service with
 firewall tui
 interface.,title="Editing trusted service with firewall tui interface.",width=700]
 
@@ -357,7 +357,7 @@ To add other ports, specify one port or a port range, and choose between
 *tcp* or *udp* for the protocol. The port range format is _beginningPort
 - endingPort_.
 
-image:Firewall_TUI_adding_other_ports[Adding other ports on firewall
+image:Firewall_TUI_adding_other_ports.PNG[Adding other ports on firewall
 configuration by TUI
 interface.,title="Adding other ports on firewall configuration by TUI interface.",width=700]
 
