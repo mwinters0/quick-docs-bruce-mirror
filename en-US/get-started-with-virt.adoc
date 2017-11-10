@@ -16,7 +16,7 @@ It is probably
 
 Please fix it, remove this notice, and then add to `_topic_map.yml`
 
-Pull requests accepted at https://pagure.io/fedora-docs/fedora-howto
+Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
 
 Once that is live, go to the original wiki page and add an `{{old}}`
 tag, followed by a note like
@@ -433,4 +433,4 @@ Category:Documentation Category:Virtualization
 '''
 
 See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/fedora-howto.
+improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
