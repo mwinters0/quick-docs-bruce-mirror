@@ -1,0 +1,89 @@
+= Installing GRUB2 on a UEFI system
+[[installing-grub-2-configuration-on-uefi-system]]
+
+Normally, *GRUB2* will be installed and set up by the installer, *Anaconda*, during the installation process. You will probably never have to deal with manual installation of *GRUB2*. However, in certain situations , you will want to install *GRUB2* manually, especially if you need to repair the existing *GRUB2* installation or you want to change its configuration.
+
+This procedure shows the steps to install *GRUB2* on a UEFI system on Fedora 18 or newer. The procedure consists of three parts.
+
+== Creating an EFI System Partition
+[[create-an-esp]]
+
+The UEFI firmware requires to boot from an _EFI System Partition_ on
+a disk with a GPT label. To create such a partition: 
+
+. List available block devices to find a place to create your ESP.
++
+----
+$ lsblk
+----
+
+. Create at least a 128 MiB disk partition using a GPT label on the primary hard disk.
++
+----
+$ sudo gdisk /dev/sda
+----
++
+For the sake of this procedure, we assume that the created partition is recognized as `/dev/sda1`.
+
+. Format the partition with the _FAT32_ file system.
++
+----
+$ sudo mkfs.vfat /dev/sda1
+----
+
+. Create the `/boot/efi` directory as a mount point for the new partition.
++
+----
+$ sudo mkdir /boot/efi
+----
+
+. Mount the partition to the `/boot/efi` mount point. 
++
+----
+$ sudo mount /dev/sda1 /boot/efi
+----
+
+. Proceed to the next part.
+
+
+== Install the bootloader files
+[[install-the-bootloader-files]]
+
+In order to use *GRUB2* with on the UEFI systems, you need to install or re-install appropriate packages:
+
+
+. Re-install the necessary packages.
++
+----
+dnf reinstall grub2-efi grub2-efi-modules shim
+----
+
+. If the above command ends with an error, install the packages.
++
+----
+dnf install grub2-efi grub2-efi-modules shim
+----
+
+.More information
+
+* This installs the signed *shim* and the *GRUB2* binary.
+
+== Create a GRUB2 configuration
+[[create-a-grub-2-configuration]]
+
+
+If you already have a working *GRUB2* EFI configuration file, you do not need to do anything else. 
+
+Otherwise, create the configuration file using the `grub2-mkconfig` command. 
+
+----
+$ sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+----
+
+.More information
+* Under EFI, *GRUB2* looks for its configuration in
+`/boot/efi/EFI/fedora/grub.cfg`. 
+* For newly installed kernels to work,
+`grubby` expects `/etc/grub2-efi.cfg` to be a symlink to the real
+grub.cfg (for example `/boot/efi/EFI/fedora/grub.cfg`).
+
