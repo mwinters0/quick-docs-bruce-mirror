@@ -17,15 +17,13 @@ insmod lvm
 grub2> ls
 ----
 
-. Study the output for the partition table of the `/dev/sda` device. It may look similar to the following example on a dos partition table with three partitons.
-will look something like this:
+. Examine the output to understand the partition table of the `/dev/sda` device. The following example shows a DOS partition table with three partitions:
 +
 ----
 (hd0) (hd0,msdos3) (hd0,msdos2) (hd0,msdos1)
 ----
 +
-or similar to this output on a gpt partition table of the `/dev/sda` device with four
-partitions.
+A GPT partition table of the `/dev/sda` device with four partitions could look like this:
 +
 ----
 (hd0) (hd0,gpt4) (hd0,gpt3)  (hd0,gpt2) (hd0,gpt1)
@@ -37,13 +35,15 @@ partitions.
 ls (hd0,1)/ 
 ----
 +
-The outcome of the previous command will list the files on `/dev/sda1`. If this partition contains the `/boot` directory, it will show the full name of `vmlinuz` and `initramfs`.
+The outcome of the previous command will list the files on `/dev/sda1`. The partition that contains the `/boot` directory is the correct one. There you will search for the full names of the `vmlinuz` and `initramfs` files.
 
 . Set the root partition.
 +
 ----
 grub> set root=(hd0,3)
 ----
++
+This command tells the bootloader, that the root partition is the third partition on the first drive. This would correspond to the `/dev/sda3` device.
 
 . Set the desired kernel.
 +
