@@ -1,51 +1,10 @@
 
-[[setting-default-entry]]
-== Setting default entry
+. Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
 
-Due to `grub2-mkconfig` (and *os-prober*) we cannot predict the order of
-the entries in `/boot/grub2/grub.cfg`, so we set the default by
-name/title instead.
 
-.Before you start
 
-. Open `/etc/default/grub` and make sure these lines exist in the file.
-+
-----
-GRUB_DEFAULT=saved
-GRUB_SAVEDEFAULT=false
-----
 
-. Apply the changes to `grub.cfg` by running.
-+
-----
-$sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-----
 
-.Procedure
 
-. List all possible menu entries.
-+
-----
-$sudo grep -P "submenu|^menuentry" /boot/grub2/grub.cfg | cut -d "'" -f2
-----
 
-. Set the desired default menu entry
-+
-----
-$sudo grub2-set-default "<submenu title><menu entry title>"
-----
 
-. Verify the default menu entry
-+
-----
-$sudo grub2-editenv list
-----
-
-.More information
-If you understand the risks involved, you can manually modify the
-`/boot/grub2/grub.cfg` file. In that case, set the number of the default operating system using the `set default` variable. 
-
-For example:
-----
-set default="5"
-----

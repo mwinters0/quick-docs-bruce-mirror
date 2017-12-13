@@ -20,6 +20,12 @@ $ dnf list installed | grep grub
 
 .Procedure
 
+. Create a configuration file for *GRUB2*.
++
+----
+$ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+----
+
 . List block devices available on the system.
 +
 ----
@@ -32,12 +38,6 @@ $ lsblk
 +
 ----
 $ sudo grub2-install /dev/sda
-----
-
-. Create a configuration file for *GRUB2*.
-+
-----
-$ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
 
 . Reboot your computer to boot with the newly installed bootloader.

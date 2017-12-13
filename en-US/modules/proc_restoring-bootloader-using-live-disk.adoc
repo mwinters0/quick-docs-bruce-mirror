@@ -1,0 +1,72 @@
+= Restoring the bootloader using the Live disk.
+[[restoring-bootloader-using-live-disk]]
+
+Sometimes, especially after a secondary operating systems has been installed, the master boot record gets damaged which then prevents the original Linux system from booting.
+
+If this happens, it is necessary to reinstall *GRUB2* to recreate the original settings. The process not only discovers all installed operating systems, but usually adds them to the *GRUB2* configuration files, so they will all become bootable by *GRUB2*.
+
+.Before you start
+
+* Get the Fedora Live ISO from link:https://download.fedoraproject.org/pub/fedora/linux/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso[getfedora.org].
+* Prepare a bootable device using the downloaded ISO, either a CD or a USB.
+
+.Procedure
+
+. Boot the Fedora live system from the bootable device you have created.
+
+. Open the terminal.
+
+. Examine the partition layout and identify the `boot` and the `root` partition.
++
+----
+$ sudo fdisk -l
+----
++
+If you are using the default Fedora layout, there will be one `/dev/sda1` partition that holds the `/boot` directory and one `/dev/mapper/fedora-root` that holds the root file system.
+
+. Create the mount point for the root partition.
++
+----
+$ sudo mkdir -p /mnt/root
+---- 
+
+. Mount the root partition on the mount point.
++
+----
+$ sudo mount /dev/mapper/fedora-root /mnt/root
+----
+
+. Mount the boot partition in the `boot` directory of the filesystem that you have mounted in the previous step.
++
+----
+$ sudo mount /dev/sda1 /mnt/root/boot/
+----
+
+. Mount system processes and devices into the root filesystem in `/mnt/root`.
++
+----
+$ sudo mount -o bind /dev /mnt/root/dev
+$ sudo mount -o bind /proc /mnt/root/proc
+$ sudo mount -o bind /sys /mnt/root/sys
+$ sudo mount -o bind /run /mnt/root/run
+----
+
+. Change your filesystem into the one mounted under `/mnt/root`.
++
+----
+$ sudo chroot /mnt/root
+----
+
+. Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
+
+. Exit this temporary root filesystem.
++
+----
+$ exit
+----
+
+. Your bootloader should be now restored. Reboot your computer to boot into your normal system.
++
+----
+$ sudo systemctl reboot
+----
