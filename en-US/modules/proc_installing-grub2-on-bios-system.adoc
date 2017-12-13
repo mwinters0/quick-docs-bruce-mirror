@@ -1,0 +1,54 @@
+= Installing GRUB2 on a BIOS system
+[[installing-grub-2-on-a-bios-system]]
+
+Normally, *GRUB2* will be installed and set up by the installer, *Anaconda*, during the installation process. You will probably never have to deal with manual installation of *GRUB2*. However, in certain situations , you will want to install *GRUB2* manually, especially if you need to repair the existing *GRUB2* installation or you want to change its configuration.
+
+This procedure shows the steps to install *GRUB2* on your _Master Boot Record_ (MBR) of your primary hard disk.
+
+Before you start:
+
+
+.Before you start
+
+* Make sure you have the the *GRUB2* packages and the `os-prober` package installed in your system:
++   
+----
+$ dnf list installed | grep grub
+----
+
+* To automatically collect information about your disks and operating systems installed on them, the `os-prober` package needs to be installed on your system.
+
+.Procedure
+
+. Create a configuration file for *GRUB2*.
++
+----
+$ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+----
+
+. List block devices available on the system.
++
+----
+$ lsblk
+----  
+
+. Identify the primary hard disk. Usually, it is the `sda` device.
+
+. Install *GRUB2* in the MBR of the primary hard disk.
++
+----
+$ sudo grub2-install /dev/sda
+----
+
+. Reboot your computer to boot with the newly installed bootloader.
+
+.More information
+
+* The `grub2-mkconfig` command creates a new configuration based on the currently
+running system. It collects information from the `/boot` partition (or directory), from the `/etc/default/grub` file, and the customizable scripts in `/etc/grub.d/`. 
+* The configuration format is changing with time, and a new configuration
+file can become slightly incompatible with the older versions of the bootloader. Always run `grub2-install` before you create the configuration file with `grub2-mkconfig`.
+* In Fedora, it is generally safe to edit `/boot/grub2/grub.cfg` manually. *Grubby* in Fedora patches the configuration when a kernel update is performed and will try to not make any other changes than what is necessary. Manual changes can be overwritten with `grub2-mkconfig` when the system gets upgraded with
+*Anaconda*. Customizations placed in `/etc/grub.d/40_custom` or
+`/boot/grub2/custom.cfg` files will survive running the `grub2-mkconfig` command.
+

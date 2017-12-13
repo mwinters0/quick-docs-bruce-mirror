@@ -1,0 +1,61 @@
+= Setting default entry for *GRUB2*
+[[setting-default-entry]]
+
+Since `grub2-mkconfig` (and *os-prober*) cannot estimate which operating system, of those it finds, is to be marked as default, we usually are unable to predict the order of
+the entries in `/boot/grub2/grub.cfg`. To change the default layout, we need to set the default based on the `name` or `title`.
+
+.Before you start
+
+. Open `/etc/default/grub` and make sure these lines exist in the file.
++
+----
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=false
+----
+
+. If you needed to change the content of the `/etc/default/grub`, apply the changes to `grub.cfg`.
++
+----
+$ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+----
+
+.Procedure
+
+. List all possible menu entries.
++
+----
+$ sudo grep -P "^menuentry" /boot/grub2/grub.cfg | cut -d "'" -f2
+----
+
+. Select one of the displayed options and use it as an argument to set the default menu entry.
++
+----
+$ sudo grub2-set-default <menuentry>
+----
+
+. Verify the default menu entry
++
+----
+$ sudo grub2-editenv list
+----
+
+. Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
+
+
+
+.More information
+
+If you understand the risks involved, you can manually modify the
+`/boot/grub2/grub.cfg` file. In that case, set the number of the default operating system using the `set default` variable.
+
+For example:
+----
+set default="5"
+----
+
+[NOTE]
+====
+If you edit the configuration file manually, the settings will be overwritten each time the `grub2-mkconfig` command runs.
+==== 
+
+
