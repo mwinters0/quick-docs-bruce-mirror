@@ -1,8 +1,8 @@
 :md: ./modules
 
 
-= Installing *GRUB2*
-[[installing-grub2]]
+= Bootloading with *GRUB2*
+[[bootloading-with-grub2]]
 
 *GRUB2* is the latest version of *GNU GRUB*, the _GRand Unified Bootloader_.
 A bootloader is the first software program that runs when a computer

@@ -1,0 +1,19 @@
+= Enabling Serial Console in GRUB2
+[[enabling-serial-console-grub]]
+
+To enable Serial console in grub: 
+
+.Procedure
+
+. Edit the `/etc/default/grub` file.
+
+. Adjust `baudrate`, `parity`, `bits`, and `flow` controls to fit your environment and cables, see the example.
++
+----
+GRUB_CMDLINE_LINUX='console=tty0 console=ttyS0,115200n8'
+GRUB_TERMINAL=serial
+GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"
+----
+
+. Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
+

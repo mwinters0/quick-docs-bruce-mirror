@@ -3,7 +3,7 @@
 
 Normally, *GRUB2* will be installed and set up by the installer, *Anaconda*, during the installation process. You will probably never have to deal with manual installation of *GRUB2*. However, in certain situations , you will want to install *GRUB2* manually, especially if you need to repair the existing *GRUB2* installation or you want to change its configuration.
 
-This procedure shows the steps to install *GRUB2* on a UEFI system on Fedora 18 or newer. The procedure consists of three parts.
+This procedure shows the steps to install *GRUB2* on a UEFI system on Fedora 18 or newer. The procedure consists of four parts.
 
 == Creating an EFI System Partition
 [[create-an-esp]]
@@ -86,4 +86,41 @@ $ sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 * For newly installed kernels to work,
 `grubby` expects `/etc/grub2-efi.cfg` to be a symlink to the real
 grub.cfg (for example `/boot/efi/EFI/fedora/grub.cfg`).
+
+== Solving problems with UEFI bootloader
+[[solving-problems-with-uefi-bootloader]]
+
+When you power on your system, your firmware will look for EFI variables that tell it how to boot. On running systems, which have booted into the EFI mode and their EFI runtime services are working correctly, you can configure your boot menu with `efibootmgr`. 
+
+If not, `shim` can help you bootstrap. The EFI program
+`/boot/efi/EFI/BOOT/fallback.efi` will look for files called `BOOT.CSV`
+in your ESP and will add boot entries corresponding to them. The `shim` command 
+provides its own `BOOT.CSV` file that will add an entry for `grub2-efi`. 
+
+During the boot process, you can use the *EFI Shell* to invoke the `fallback.efi` profile to boot the system: 
+
+. Enter the boot partition.
++
+----
+> fs0:
+----
+
+. Navigate into the `EFI\BOOT` directory.
++
+----
+> cd EFI\BOOT
+----
+
+. Invoke the `fallback.efi` profile.
++
+----
+> fallback.efi
+----
+
+.More information
+* If you have no boot entries at all, then just booting off your disk in
+UEFI mode should automatically invoke `/boot/efi/EFI/BOOT/BOOTX64.EFI`,
+which will, in turn, invoke `fallback.efi`.
+* If you already have incorrect boot entries, you'll either need to delete
+them or to modify `BOOT.CSV` to create new entries with different names.
 
