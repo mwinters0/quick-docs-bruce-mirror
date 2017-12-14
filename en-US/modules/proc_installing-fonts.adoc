@@ -12,15 +12,14 @@ Review the fonts on your system. Fedora includes many fonts by default, to see w
 
 .Procedure
  
-To install fonts from the Fedora repository:
-
-. Run the following command to list available fonts:
+. To install fonts from the Fedora repository:
+.. Run the following command to list available fonts:
 +
 ----
 $ dnf search font
 ----
-. Copy the name of the font you want to install.
-. Run the following command to install the font:
+.. Copy the name of the font you want to install.
+.. Run the following command to install the font:
 +
 ----
 $ dnf install <font name>
@@ -31,23 +30,18 @@ For example:
 ----
 $ dnf install google-noto-mono-fonts.noarch
 ----
-
-
-.Procedure
-
-To install fonts from the filesystem:
-
-. Locate the font file using the *Nautilus* file manager.
-. Double-click the font file to open the font in *GNOME Font Viewer*. A preview of the font is displayed.
-. Click *Install* to install the font.
+. To install fonts from the filesystem:
+.. Locate the font file using the *Nautilus* file manager.
+.. Double-click the font file to open the font in *GNOME Font Viewer*. A preview of the font is displayed.
+.. Click *Install* to install the font.
 
 
 [NOTE]
 ====
-If you use this procedure to install fonts, those fonts are only available to the current user.
+If you use *GNOME Font Viewer* to install fonts, those fonts are only available to the current user.
 ==== 
 
-.More information
+.Additional resources
 
 * The help included with *Fontmatrix* provides an introduction to the Fedora font system.
 * link:https://docs-old.fedoraproject.org/en-US/Fedora/12/html/Deployment_Guide/s1-x-fonts.html[Fedora documentation] regarding fonts.
