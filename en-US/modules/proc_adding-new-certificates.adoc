@@ -1,0 +1,28 @@
+[[sec-Adding-New-Certificates]]
+= Adding New Certificates
+
+.Before you start
+
+.Procedure
+
+To add a certificate in the simple PEM or DER file formats to the list of CAs trusted on the system, copy the certificate file to the `/usr/share/pki/ca-trust-source/anchors/` or `/etc/pki/ca-trust/source/anchors/` directory, for example:
+
+[subs="macros"]
+----
+# cp pass:quotes[_~/certificate-trust-examples/Cert-trust-test-ca.pem_] pass:quotes[_/usr/share/pki/ca-trust-source/anchors/_]
+----
+
+To update system-wide trust store configuration, use the [command]`update-ca-trust` command:
+
+----
+# update-ca-trust
+----
+
+[NOTE]
+====
+
+While the Firefox browser is able to use an added certificate without executing [command]`update-ca-trust`, it is recommended to run [command]`update-ca-trust` after a CA change. Also note that browsers, such as Firefox, Epiphany, or Chromium, cache files, and you might need to clear browser's cache or restart your browser to load current system certificates configuration.
+
+====
+
+.More information

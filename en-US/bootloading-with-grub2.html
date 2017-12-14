@@ -1000,16 +1000,14 @@ insmod lvm</pre>
 </div>
 </li>
 <li>
-<p>Study the output for the partition table of the <code>/dev/sda</code> device. It may look similar to the following example on a dos partition table with three partitons.
-will look something like this:</p>
+<p>Examine the output to understand the partition table of the <code>/dev/sda</code> device. The following example shows a DOS partition table with three partitions:</p>
 <div class="listingblock">
 <div class="content">
 <pre>(hd0) (hd0,msdos3) (hd0,msdos2) (hd0,msdos1)</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>or similar to this output on a gpt partition table of the <code>/dev/sda</code> device with four
-partitions.</p>
+<p>A GPT partition table of the <code>/dev/sda</code> device with four partitions could look like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1025,7 +1023,7 @@ partitions.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The outcome of the previous command will list the files on <code>/dev/sda1</code>. If this partition contains the <code>/boot</code> directory, it will show the full name of <code>vmlinuz</code> and <code>initramfs</code>.</p>
+<p>The outcome of the previous command will list the files on <code>/dev/sda1</code>. The partition that contains the <code>/boot</code> directory is the correct one. There you will search for the full names of the <code>vmlinuz</code> and <code>initramfs</code> files.</p>
 </div>
 </li>
 <li>
@@ -1034,6 +1032,9 @@ partitions.</p>
 <div class="content">
 <pre>grub&gt; set root=(hd0,3)</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>This command tells the bootloader, that the root partition is the third partition on the first drive. This would correspond to the <code>/dev/sda3</code> device.</p>
 </div>
 </li>
 <li>
@@ -1273,7 +1274,7 @@ improved? Edit this document at <a href="https://pagure.io/fedora-docs/quick-doc
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-13 11:39:02 CET
+Last updated 2017-12-14 09:44:46 CET
 </div>
 </div>
 </body>
