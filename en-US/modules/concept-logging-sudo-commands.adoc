@@ -1,0 +1,20 @@
+[id="concept-logging-sudo-commands"]
+= Logging sudo commands
+
+Each successful authentication using the [command]`sudo` command is logged to the [filename]`/var/log/messages` file. For each authentication, the [filename]`/var/log/secure` file lists the user name and command run. 
+
+For additional logging, use the `pam_tty_audit` module to enable TTY auditing for specific users. TTY auditing prints the file name of the terminal connected to the standard I/O. To enable TTY auditing, add the following line to your [filename]`/etc/pam.d/system-auth` file:
+
+----
+session required pam_tty_audit.so disable=pattern enable=PATTERN
+----
+
+Replace _PATTERN_ with a comma-separated list of users (and globs, if needed).
+
+For example, the following command enables TTY auditing for the root user and disables it for all other users:
+
+----
+session required pam_tty_audit.so disable=* enable=root
+----
+
+Using the `pam_tty_audit` PAM module for auditing only records TTY input. As a result, when the audited user logs in, `pam_tty_audit` records the user’s exact keystrokes and saves them in [filename]`/var/log/audit/audit.log`. For more information, see the *pam_tty_audit(8)* manual page.
