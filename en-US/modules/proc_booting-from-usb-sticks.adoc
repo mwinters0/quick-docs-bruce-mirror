@@ -1,0 +1,43 @@
+[id='booting_from_USB_sticks']
+== Booting from USB sticks
+Almost all modern PCs can boot from USB sticks. However, how you tell the system to boot from a USB stick varies substantially from system to system. Initially, you can try this: 
+
+. Power off the computer.
+. Plug the USB drive into a USB port.
+. Remove all other portable media, such as CDs, DVDs, floppy disks or other USB sticks.
+. Power on the computer.
+. If the computer is configured to automatically boot from the USB drive, you will see a screen that says "Automatic boot in 10 seconds..." with a countdown. 
++
+If you do a native UEFI boot, where you will see a rather more minimal boot menu.
+
+If the computer starts to boot off the hard drive as normal, you'll need to manually configure it to boot off the USB drive. Usually, that should work like this: 
+    
+. Wait for a safe point to reboot.
+. As the machine starts to reboot, watch carefully for instructions on which key to press. Usually a function key, `Escape`, `Tab` or `Delete` is to be pressed to enter the boot device selection menu, `BIOS setup`, `firmware`, or `UEFI`. Press and hold that key. If you miss the window of opportunity, often only a few seconds, then reboot and try again.
+. Use the firmware, `BIOS`, interface or the boot device menu to put your USB drive first in the boot sequence. It might be listed as a hard drive rather than a removable drive. Each hardware manufacturer has a slightly different method for doing so.
++
+IMPORTANT: Your computer could become unbootable or lose functionality if you change any other settings. Though these settings can be reverted, you'll need to remember what you changed in order to do so.
+. Save the changes, exit, and the computer should boot from the USB drive.
+
+If your system has a UEFI firmware, it will usually allow you to boot the stick in UEFI native mode or BIOS compatibility mode. If you boot in UEFI native mode and perform a Fedora installation, you will get a UEFI native Fedora installation. If you boot in BIOS compatibility mode and perform a Fedora installation, you will get a BIOS compatibility mode Fedora installation. 
+
+For more information on all this, see the http://fedoraproject.org/wiki/Unified_Extensible_Firmware_Interface[UEFI page]. USB sticks written from `x86_64` images with link:using-fedora-media-writer[Fedora Media Writer], `GNOME Disk Utility`, dd, other dd-style utilities, and link:how-to-create-and-use-a-live-CD[livecd-iso-to-disk] with --efi should be UEFI native bootable. Sticks written with other utilities may not be UEFI native bootable, and sticks written from i686 images will never be UEFI bootable. 
+
+[id='identifying_stick']
+== Identifying a stick on Linux
+Most of the writing methods will require you to know the `/dev` name for your USB stick, e.g. `/dev/sdc`, when using them on Linux. You do not need to know this in order to use `Fedora Media Writer`. To find this out:
+
+. Insert the USB stick into a USB port.
+. Open a terminal and run dmesg.
+. Near the end of the output, you will see something like:
++
+[options="nowrap"]
+----
+[32656.573467] sd 8:0:0:0: [sdX] Attached SCSI removable disk
+----
++
+`sdX` will be `sdb`, `sdc`, `sdd`, etc. 
+
+[NOTE]
+====
+This is the name of the disk you will use. We'll call it `sdX` from now on. If you have connected more than one USB stick to the system, be careful that you identify the correct one, often you will see a manufacturer name or capacity in the output which you can use to make sure you identified the correct stick.
