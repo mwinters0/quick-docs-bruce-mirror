@@ -1,0 +1,53 @@
+[[creating-a-fedora-guest]]
+== Creating a Fedora guest
+
+The installation of Fedora guests using Anaconda is supported. The
+installation can be started on the command-line using the `virt-install`
+program or in the user interface program `virt-manager`.
+
+[[creating-a-guest-with-virt-install]]
+Creating a guest with virt-install
+
+
+`virt-install` is a command-line based tool for creating virtualized
+guests. Refer to
+http://virt-tools.org/learning/install-with-command-line/ for
+understanding how to use this tool. Execute `virt-install --help` for
+command line help.
+
+`virt-install` can use kickstart files, for example
+`virt-install -x ks=kickstart-file-name.ks`.
+
+If graphics were enabled, a VNC window will open and present the
+graphical installer. If graphics were not enabled, a text installer will
+appear. Proceed with the Fedora installation.
+
+[[creating-a-guest-with-virt-manager]]
+=== Creating a guest with virt-manager
+
+. Start Virtual Machine Manager by navigating to
+menu:Applications[System Tools], or by running the following command:
++
+----
+$ su -c "virt-manager"
+----
++
+[NOTE]
+====
+If you encounter an error message when starting Virtual Machine Manager, run the above command as a non-root user, without the `su -c`.
+The user interface will prompt for the root password.
+====
++
+. Open a connection to a hypervisor by navigating to menu:File[Add
+connection].
+. Choose *qemu* for KVM, or *Xen* for Xen.
+. Choose *local* or select a method to connect to a remote hypervisor.
+. After a connection is opened, click the new icon next to the
+hypervisor, or right-click on the active hypervisor and select *New*.
+. Configure the virtual machine following the steps in the *New VM* wizard.
+. Click *Finish* at the end of the wizard to provision the guest operating system. After a few moments a VNC
+window will appear. Proceed with the Fedora installation.
+
+
+
+
