@@ -14,7 +14,7 @@ By adding systemwide fonts manually, you will not be able to control them with t
 [[installing-new-fonts-with-dnf]]
 == Installing new fonts with `dnf`
 
-Whenever you can add new fonts by installing a font package with the `dnf` package manager, you should do so. This method gives you enough control over the font package in the future, such as updating the package and removing it from the system.
+Whenever you can add new fonts by installing a font package with the `dnf` package manager, you should do so. This method gives you control over the font package in the future, such as updating the package and removing it from the system.
 
 To install a font package with `dnf`:
 
