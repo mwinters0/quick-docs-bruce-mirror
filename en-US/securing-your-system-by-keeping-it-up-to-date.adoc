@@ -1,7 +1,9 @@
+:experimental:
+
 [id='securing-the-system-by-keeping-it-up-to-date']
 = Securing the system by keeping it up-to-date
 
-This section explains ... 
+This section explains why 
 
 include::modules/con_why-is-important-keeping-your-system-up-to-date.adoc[leveloffest=+1]
 

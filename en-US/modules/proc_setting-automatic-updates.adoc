@@ -18,7 +18,7 @@ Use the following commands as the `root` user or under the `sudo` utility.
 # dnf install dnf-atomatic
 ----
 
-* Edit the [filename]`/etc/dnf/automatic.conf` configuration file as needed. See the http://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation for details. 
+. Edit the [filename]`/etc/dnf/automatic.conf` configuration file as needed. See the http://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation for details. 
 
 . Enable and start the `systemd` timer:
 +
