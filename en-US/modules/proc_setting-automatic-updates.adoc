@@ -1,0 +1,67 @@
+[id='setting-automatic-updates']
+= Setting automatic updates
+
+This section describes how to use the DNF Automatic application to automatically:
+
+* Download and install any new updates
+* Only download the updates
+* Get notified about the updates
+
+[discrete]
+== Procedure
+
+Use the following commands as the `root` user or under the `sudo` utility.
+
+. Install the [package]`dnf-automatic` package:
++
+----
+# dnf install dnf-atomatic
+----
+
+* Edit the [filename]`/etc/dnf/automatic.conf` configuration file as needed. See the http://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation for details. 
+
+. Enable and start the `systemd` timer:
++
+[literal,subs="+quotes,attributes"]
+----
+# systemctl enable _timer_
+# systemctl start _timer_
+----
++
+Replace _timer_ with one of following ones depending on what action you want to do:
++
+--
+* `dnf-automatic-install.timer` to download and install packages
+* `dnf-automatic-download.timer` to only download packages
+* `dnf-automatic-notifyonly.timer` to only get a notification using configured emitters in the [filename]`/etc/dnf/automatic.dnf` file.
+--
++
+For example:
++
+----
+# systemctl enable dnf-automatic-install.timer
+Created symlink /etc/systemd/system/basic.target.wants/dnf-automatic-download.timer → /usr/lib/systemd/system/dnf-automatic-download.timer.
+# systemctl start dnf-automatic-install.timer
+----
+
+. Ensure that the timer has been successfully enabled and started:
++
+----
+# systemctl status _timer_
+----
++
+Replace _timer_ with the timer from the previous step, for example:
++
+----
+# systemctl status dnf-automatic-install.timer
+● dnf-automatic-download.timer - dnf-automatic-download timer
+   Loaded: loaded (/usr/lib/systemd/system/dnf-automatic-download.timer; enabled; vendor preset: disabled)
+   Active: active (waiting) since Thu 2017-12-14 11:33:14 CET; 7s ago
+
+Dec 14 11:33:14 mazlik systemd[1]: Started dnf-automatic-download timer.
+----
+
+[discrete]
+== Additional Resources
+
+* The http://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation

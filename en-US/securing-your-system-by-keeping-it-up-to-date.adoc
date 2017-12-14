@@ -3,16 +3,16 @@
 
 This section explains ... 
 
-include::con_why-is-important-keeping-your-system-up-to-date.adoc[leveloffest=+1]
+include::modules/con_why-is-important-keeping-your-system-up-to-date.adoc[leveloffest=+1]
 
-include::proc_manual-updating-using-gui.adoc[leveloffset=+1]
+include::modules/proc_manual-updating-using-gui.adoc[leveloffset=+1]
 
-include::proc_manual-updating-using-cli.adoc[leveloffset=+1]
+include::modules/proc_manual-updating-using-cli.adoc[leveloffset=+1]
 
-include::proc_setting-automatic-updates.adoc[leveloffset=+1]
+include::modules/proc_setting-automatic-updates.adoc[leveloffset=+1]
 
-include::proc_setting-repositories-for-update-checks[leveloffset=+1]
+include::modules/proc_setting-repositories-for-update-checks[leveloffset=+1]
 
 == Additional Resources
 
-* TODO - add here link to Ioanna and Aneta's section
+* TODO - add here link to Ioanna's and Aneta's section
