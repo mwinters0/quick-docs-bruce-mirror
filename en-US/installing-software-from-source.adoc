@@ -1,0 +1,18 @@
+:md: ./modules
+
+= Installing Software from Source
+[[installing-software-from-source]]
+
+The following section contains guidelines and best practices for installing software form source on Fedora.
+The instructions below are not prescriptive, but following them minimizes the risk of errors occurring during installation.
+
+// include package management concept
+include::{md}/concept_fedora-package-management.adoc[leveloffset=2]
+
+// proc: downloading application source code
+
+
+// proc:  setting up a development and compilation environment
+//  - this includes installing missing dev packages using DNF
+
+// proc:  installing the software using make
