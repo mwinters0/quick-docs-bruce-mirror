@@ -1,0 +1,15 @@
+[id='enabling-third-party-repository']
+= Enabling Third party repositories 
+
+Once you have downloaded the rpm, you can enable the repository.
+
+== To enable repo:
+
+. Login as root:
+`#su`
+
+. Create a file in */etc/yum.repos.d/* directory to enable third party repository. This file must end with *.repo* . The repository file contains the URL of the the repository, a name, enabled, gpgcheck.
+
+. To enable repo, use the following command:
+`#dnf --enablerepo=<reponame>`
+
