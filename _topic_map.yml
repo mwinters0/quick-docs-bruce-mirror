@@ -88,8 +88,8 @@ Topics:
     File: reset-root-password
   - Name: (FIX ME!) Red Hat Enterprise Linux
     File: rhel
-  - Name: (FIX ME!) Spotify
-    File: spotify
+  - Name: Installing Spotify
+    File: procedures/spotify.adoc
   - Name: (FIX ME!) Switching Desktop Environments
     File: switch-desktop-env
   - Name: (FIX ME!) Systemd
