@@ -1,0 +1,13 @@
+[[concept-sudo-timeout]]
+= sudo timeout
+
+By default, [command]`sudo` stores the password for a five minute timeout period. Any subsequent uses of the command during this period will not prompt you for a password. This could be exploited by an attacker if you leave your workstation unattended and unlocked while still being logged in. You can change this behavior by adding the following line to the `/etc/sudoers` configuration file: 
+
+------------
+Defaults    timestamp_timeout=VALUE
+------------
+Here, _VALUE_ is the desired timeout length in minutes. Setting the value to 0 causes [command]`sudo` to require a password every time. 
+
+If an account is compromised, an attacker can use [command]`sudo` to open a new shell with administrative privileges. 
+
+Opening a new shell as a root user in this way allows an attacker administrative access for a theoretically unlimited period of time and bypasses the timeout period specified in the `/etc/sudoers` file. Using this method, the attacker *does not* need to provide a password for [command]`sudo` again until the session ends.
