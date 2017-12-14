@@ -1,0 +1,15 @@
+= Configuration nested virtualization in virt-manager
+[[configuration-nested-virtualization-in-virt-manager]]
+
+Configure your VM to use nested virtualization:
+
+. Open *virt-manager*, double-click the VM, and click the *Show virtual hardware details* icon. 
+. Click *CPUs* in the side menu. In the *Configuration* section, there are two options - either type
+`host-passthrough` in the *Model:* field or select *Copy host CPU
+configuration* check box (that fills the `host-model` value in the Model
+field). 
++
+[NOTE]
+Using host-passthrough is not recommended for general usage and just for nested virtualization purposes.
+. Click Apply. 
+

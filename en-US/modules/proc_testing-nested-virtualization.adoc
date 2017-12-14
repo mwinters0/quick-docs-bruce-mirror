@@ -1,0 +1,17 @@
+= Testing nested virtualization
+[[testing-nested-virtualization]]
+
+. Start the virtual machine.
+. On the virtual machine, run `sudo dnf group install virtualization`.
+. Verify that the virtual machine has virtualization correctly set up:
+----
+$ sudo virt-host-validate
+  QEMU: Checking for hardware virtualization                                 : PASS
+  QEMU: Checking for device /dev/kvm                                         : PASS
+  QEMU: Checking for device /dev/vhost-net                                   : PASS
+  QEMU: Checking for device /dev/net/tun                                     : PASS
+  LXC: Checking for Linux >= 2.6.26                                          : PASS
+----
+
+
+
