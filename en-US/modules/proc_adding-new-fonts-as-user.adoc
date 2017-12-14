@@ -1,0 +1,60 @@
+[[adding-new-fonts-as-user]]
+= Adding new fonts as a user
+
+When you do not have superuser access to install fonts on the system level, or you only need to install a font that will be available to your user account only, there are two methods to do it. 
+
+[[adding-new-local-fonts-with-gfv]]
+== Adding new local fonts with the *Gnome Font Viewer*
+
+The *Gnome Font Viewer* is an application to display the fonts installed on the system. Besides that, it also allows you to locally install fonts. To add a new font file with *Gnome Font Viewer*:
+
+.Before you start
+
+* Make sure you have installed the `gnome-font-viewer` package.
+
+.Procedure
+
+. Open a file manager.
+
+. Double-click on a font file to open it in the *Gnome Font Viewer*.
+
+. Click on the blue btn:[Install] button on the top bar.
++
+[NOTE]
+====
+Currently, there is a bug in the application. When you click on the btn:[Install] button, it does not inform you back about the result of the operation, but the font is already installed.
+====
+
+.More information
+
+* *Gnome Font Viewer* copies the font files to a font directory in the current user's directory `.local/share/fonts` and updates the font cache.
+
+[[adding-new-local-fonts-manually]] 
+== Adding new local fonts manually  
+
+If you do not want to use any tools to add new fonts, you can do it manually. You have to copy the font files in the `.fonts` directory placed in the user's directory and update the font cache. 
+
+.Before you start
+
+* If it does not exist, create a `.fonts` directory in your user's home directory.
+
+
+.Procedure
+
+. In the `.local/share/fonts` directory, create a new directory to place your fonts files.
++
+---- 
+$ mkdir ~/.local/share/fonts/robofont
+----
+
+. Copy the font file in the newly created directory.
++
+----
+$ cp robofont.ttf ~/.local/share/fonts/robofont
+----
+
+. Update the font cache.
++
+----
+$ fc-cache -v
+----
