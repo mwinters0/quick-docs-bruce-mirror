@@ -11,3 +11,5 @@ This section describes how to manually download and install new updates by using
 . Click the btn:[Updates] button.
 
 . After the updates are downloaded click the btn:[Restart & Update] button.
+
+image::../images/software-updates.png[Updating by using the Software application]
