@@ -1,0 +1,23 @@
+[id='manual-updating-using-cli']
+= Manual updating using CLI
+
+This section describes how to manually download and install new updates by using the DNF
+package manager.
+
+[discrete]
+== Procedure
+
+Use the following commands as the `root` user or under the `sudo` utility.
+
+* Upgrade the system:
++
+----
+# dnf upgrade
+----
++
+Confirm to download the available packages.
+
+[discrete]
+== Additional Resources
+
+* The `dnf(8)` manual page
