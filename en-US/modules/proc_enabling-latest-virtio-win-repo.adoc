@@ -1,0 +1,14 @@
+[[enabling-latest-virtio-win-repo]]
+= Enabling the latest Windows VirtIO Repository
+
+By default, the `virtio-win-latest` repository is disabled and `virtio-win-stable` repo is enabled.
+
+To enable the `virtio-win-latest` repo with DNF:
+
+`sudo dnf --enablerepo=virtio-win-latest upgrade virtio-win`
+
+NOTE: As of Fedora 22, yum has been replaced with dandified yum https://fedoraproject.org/wiki/DNF[(DNF)] the next generation of yum.
+
+To enable the `virtio-win-latest` repo with yum:
+
+`sudo yum --enablerepo=virtio-win-latest update virtio-win`

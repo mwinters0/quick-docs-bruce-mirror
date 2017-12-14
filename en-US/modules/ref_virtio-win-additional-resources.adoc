@@ -1,0 +1,11 @@
+[[virtio-win-additional-resources]]
+= VirtIO Additional Resources
+
+* KVM windows guest drivers upstream code: https://github.com/virtio-win/kvm-guest-drivers-windows
+* QXL XDDM driver code: http://cgit.freedesktop.org/spice/win32/qxl
+* QXL WDDM driver code: https://github.com/vrozenfe/qxl-dod
+* Tree used by gnome-boxes for automatic driver installation: https://zeenix.fedorapeople.org/drivers/
+* Windows spice agent git repo: http://cgit.freedesktop.org/spice/win32/vd_agent
+* Spice guest tools installer code: http://cgit.freedesktop.org/~teuf/spice-nsis/
+* spice-guest-tools downloads: http://www.spice-space.org/download/binaries/spice-guest-tools/
+* Fedora virtio-win build scripts: https://github.com/crobinso/virtio-win-pkg-scripts
