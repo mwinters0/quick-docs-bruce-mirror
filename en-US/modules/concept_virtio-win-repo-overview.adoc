@@ -1,0 +1,10 @@
+[[virtio-win-repo-overview]]
+= VirtIO-Win Repo Overview
+
+There is a yum|dnf repo available via the RPM package manager (RPM) that ships virtio-win packages. You can use these RPMs to install driver binaries and agent installers into the `/usr/share` directory on your host machine. You can then share the bits with Windows VMs running on the host.
+
+The .repo file provides two different repositories:
+
+* *virtio-win-stable* - This repository provides builds of virtio-win that roughly correlate to what was shipped with the most recent Red Hat Enterprise Linux release, meaning these builds have undergone testing and are considered stable. This repo is enabled by default.
+
+* *virtio-win-latest* - This repository provides the latest driver builds. The builds may be bug free, development quality, or completely broken. https://en.wikipedia.org/wiki/Caveat_emptor[Caveat emptor]. This repo is disabled by default. 

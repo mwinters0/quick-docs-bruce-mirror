@@ -1,0 +1,42 @@
+[[installing-desktop-environments]]
+= Installing additional desktop environments
+
+.Before you start
+
+.Procedure
+
+List available desktop environments:
+
+----
+$ dnf grouplist -v
+Available Environment Groups:
+   Fedora Custom Operating System (custom-environment)
+   Minimal Install (minimal-environment)
+   Fedora Server Edition (server-product-environment)
+   Fedora Workstation (workstation-product-environment)
+   Fedora Cloud Server (cloud-server-environment)
+   KDE Plasma Workspaces (kde-desktop-environment)
+   Xfce Desktop (xfce-desktop-environment)
+   LXDE Desktop (lxde-desktop-environment)
+   Hawaii Desktop (hawaii-desktop-environment)
+   LXQt Desktop (lxqt-desktop-environment)
+   Cinnamon Desktop (cinnamon-desktop-environment)
+   MATE Desktop (mate-desktop-environment)
+   Sugar Desktop Environment (sugar-desktop-environment)
+   Development and Creative Workstation (developer-workstation-environment)
+   Web Server (web-server-environment)
+   Infrastructure Server (infrastructure-server-environment)
+   Basic Desktop (basic-desktop-environment)
+Installed Groups:
+   KDE (K Desktop Environment) (kde-desktop)
+[output has been truncated]
+----
+
+Install the selected desktop environment using the dnf install command. Ensure to prefix with
+the `@` sign, for example:
+
+----
+# dnf install @kde-desktop-environment
+----
+
+.More information

@@ -1,0 +1,86 @@
+[[sec-Managing-Trusted-System-Certificates]]
+= Managing Trusted System Certificates
+
+.Before you start
+
+
+
+.Procedure
+
+To list, extract, add, remove, or change trust anchors, use the [command]`trust` command. To see the built-in help for this command, enter it without any argument or with the [option]`--help` directive:
+
+[subs="quotes, macros"]
+----
+$ [command]`trust`
+usage: trust command &lt;args&gt;...
+
+Common trust commands are:
+  list             List trust or certificates
+  extract          Extract certificates and trust
+  extract-compat   Extract trust compatibility bundles
+  anchor           Add, remove, change trust anchors
+  dump             Dump trust objects in internal format
+
+See 'trust &lt;command&gt; --help' for more information
+----
+
+To list all system trust anchors and certificates, use the [command]`trust list` command:
+
+[subs="quotes, macros"]
+----
+$ [command]`trust list`
+pkcs11:id=%d2%87%b4%e3%df%37%27%93%55%f6%56%ea%81%e5%36%cc%8c%1e%3f%bd;type=cert
+    type: certificate
+    label: ACCVRAIZ1
+    trust: anchor
+    category: authority
+
+pkcs11:id=%a6%b3%e1%2b%2b%49%b6%d7%73%a1%aa%94%f5%01%e7%73%65%4c%ac%50;type=cert
+    type: certificate
+    label: ACEDICOM Root
+    trust: anchor
+    category: authority
+...
+[output has been truncated]
+----
+
+
+
+To store a trust anchor into the system-wide trust store, use the [command]`trust anchor` sub-command and specify a _path.to_ a certificate, for example:
+
+[subs="macros"]
+----
+# trust anchor pass:quotes[_path.to/certificate.crt_]
+----
+
+To remove a certificate, use either a _path.to_ a certificate or an ID of a certificate:
+
+[subs="macros"]
+----
+# trust anchor --remove pass:quotes[_path.to/certificate.crt_]
+# trust anchor --remove pass:quotes[_"pkcs11:id=%AA%BB%CC%DD%EE;type=cert"_]
+----
+
+.More information
+
+All sub-commands of the [command]`trust` commands offer a detailed built-in help, for example:
+
+----
+$ trust list --help
+usage: trust list --filter=<what>
+
+  --filter=<what>     filter of what to export
+                        ca-anchors        certificate anchors
+                        blacklist         blacklisted certificates
+                        trust-policy      anchors and blacklist (default)
+                        certificates      all certificates
+                        pkcs11:object=xx  a PKCS#11 URI
+  --purpose=<usage>   limit to certificates usable for the purpose
+                        server-auth       for authenticating servers
+                        client-auth       for authenticating clients
+                        email             for email protection
+                        code-signing      for authenticating signed code
+                        1.2.3.4.5...      an arbitrary object id
+  -v, --verbose       show verbose debug output
+  -q, --quiet         suppress command output
+----

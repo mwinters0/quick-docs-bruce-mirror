@@ -35,10 +35,9 @@ version at: https://docs.fedoraproject.org/whatever-the-url
 
 *Red Hat Enterprise Linux* (or RHEL) is a commercially supported
 derivative of Fedora tailored to meet the requirements of enterprise
-customers. It is a commercial product from Red Hat which also sponsors
-Fedora as a community project. Fedora is upstream for Red Hat Enterprise
-Linux but there are several other link:Derived_distributions[Derived
-distributions] available too.
+customers. RHEL is a commercial product distributed by Red Hat (Red Hat also sponsors
+Fedora as a community project). Fedora is an upstream source for RHEL, but there are many other link:Derived_distributions[Derived
+distributions] that are based on Fedora.
 
 [[whats-the-difference-between-fedora-and-red-hat-enterprise-linux]]
 What's the difference between Fedora and Red Hat Enterprise Linux?
@@ -48,7 +47,7 @@ Watch a video from
 http://www.redhatmagazine.com/2008/09/16/video-the-history-of-fedora/[Red
 Hat Magazine].
 
-Both Fedora and Red Hat Enterprise Linux are open source. Fedora is a
+Both Fedora and Red Hat Enterprise Linux are open source operating systems. Fedora is a
 free distribution and community project and upstream for Red Hat
 Enterprise Linux. Fedora is a general purpose system that gives Red Hat
 and the rest of its contributor community the chance to innovate rapidly

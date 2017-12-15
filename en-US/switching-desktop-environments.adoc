@@ -1,0 +1,16 @@
+:md: ./modules
+:imagesdir: ./images
+
+[[switching-desktop-environments]]
+= Switching desktop environments
+
+Fedora's default desktop environment is GNOME 3 in the Workstation spin, but it is very easy to try any of the many other desktop environments that are available without affecting your current desktop environment.
+
+include::{md}/proc_installing-additional-desktop-enviroments.adoc[leveloffset=+1]
+
+include::{md}/proc_switching-desktop-enviroments-using-gui.adoc[leveloffset=+1]
+
+include::{md}/proc_switching-desktop-enviroments-using-cli.adoc[leveloffset=+1]
+
+[[switching-desktop-environments-additional-resources]]
+== Additional resources

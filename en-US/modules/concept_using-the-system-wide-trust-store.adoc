@@ -1,0 +1,14 @@
+[[using-the-system-wide-trust-store]]
+= Using the System-wide Trust Store
+
+In Fedora, the consolidated system-wide trust store is located in the `/etc/pki/ca-trust/` and `/usr/share/pki/ca-trust-source/` directories. The trust settings in `/usr/share/pki/ca-trust-source/` are processed with lower priority than settings in `/etc/pki/ca-trust/`.
+
+Certificate files are treated depending on the subdirectory they are installed to:
+
+* `/usr/share/pki/ca-trust-source/anchors/` or `/etc/pki/ca-trust/source/anchors/` - for trust anchors.
+
+* `/usr/share/pki/ca-trust-source/blacklist/` or `/etc/pki/ca-trust/source/blacklist/` - for distrusted certificates.
+
+* `/usr/share/pki/ca-trust-source/` or `/etc/pki/ca-trust/source/` - for certificates in the extended BEGIN TRUSTED file format.
+
+NOTE: In a hierarchical cryptographic system, a trust anchor is an authoritative entity which is assumed to be trustworthy. For example, in X.509 architecture, a root certificate is a trust anchor from which a chain of trust is derived. The trust anchor must be put in the possession of the trusting party beforehand to make path validation possible.

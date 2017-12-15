@@ -1,0 +1,23 @@
+[id='java']
+= Using Java
+
+Java provides a platform for creating and running applications. You can install various versions of Java to suit your requirements.
+
+include::con_java.adoc[leveloffset=+1]
+include::proc_installing_openjdk.adoc[leveloffset=+1]
+include::proc_installing_oracle_java.adoc[leveloffset=+1]
+
+
+
+.Additional resources
+
+For more information about Java, see:
+
+* link:https://en.wikipedia.org/wiki/Java_(programming_language)[Wikipedia page for Java]
+* link:http://openjdk.java.net/[OpenJDK homepage]
+* link:http://oracle.com/java/[Oracle homepage for Java]
+If you want to develop Java applications, you might consider the following open source IDEs:
+
+* link:https://netbeans.org/[NetBeans]
+* link:https://eclipse.org/[Eclipse]
+* link:https://www.jetbrains.com/idea/[IntelliJ IDEA]

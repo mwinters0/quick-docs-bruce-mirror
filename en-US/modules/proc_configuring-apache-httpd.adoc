@@ -1,0 +1,141 @@
+= Configuring Apache HTTPD
+[id='configuring-apache-httpd']
+
+`/etc/httpd/conf/httpd.conf` is the main Apache configuration file. Custom confirguration files are specified under `/etc/httpd/conf.d/*.conf`. If the same settings are specified in both `/etc/httpd/conf/httpd.conf` and a `.conf` file in `/etc/httpd/conf.d/`, the setting from the `/etc/httpd/conf.d/` file will be used.
+
+Files in `/etc/httpd/conf.d/` are read in alphabetical order: a setting from `/etc/httpd/conf.d/z-foo.conf` will be used over a setting from `/etc/httpd/conf.d/foo.conf`. Similarly, a setting from `/etc/httpd/conf.d/99-foo.conf`, will be used over a setting from `/etc/httpd/conf.d/00-foo.conf`.
+
+As a best practice, do not modify `/etc/httpd/conf/httpd.conf` or any of the `/etc/httpd/conf.d` files shipped by Fedora packages directly. If you make any local changes to these files, then any changes to them in newer package versions will not be directly applied. Instead, a `.rpmnew` file will be created, and you will have to merge the changes manually.
+
+It is recommended to create a new file in `/etc/httpd/conf.d` which will take precedence over the file you wish to modify, and edit the required settings. For instance, to change a setting specified in `/etc/httpd/conf.d/foo.conf` you could create the file `/etc/httpd/conf.d/z-foo-local.conf`, and place your setting in that file.
+
+[NOTE]
+====
+After making any changes to your server configuration, execute the following command:
+----
+# apachectl reload
+----
+
+Certain changes may require Apache to be fully restarted. To fully restart Apache, execute the following command:
+----
+# systemctl restart httpd.service
+----
+====
+
+== Enabling access to web applications
+[id='enabling-access-to-web-applications']
+
+By default Fedora-packaged web applications are usually configured such that, access is allowed only from the localhost. This is defined by the file `/etc/httpd/conf.d/webapp.conf` which contains the following settings:
+----
+<Directory /usr/share/webapp>
+    <IfModule mod_authz_core.c>
+        # Apache 2.4
+        Require local
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        # Apache 2.2
+        Order Deny,Allow
+        Deny from all
+        Allow from 127.0.0.1
+        Allow from ::1
+    </IfModule>
+</Directory>
+----
+
+Before allowing general access to the webapp, ensure to do the following:
+
+* [*] Webapp has been configured correctly
+* [*] Administration interface and other sensitive areas are not accessible without appropriate authentication
+* [*] Database configuration is secure, if the application uses a database
+
+To broaden access to the application, create a file `/etc/httpd/conf.d/z-webapp-allow.conf`. To allow access to all systems on a typical local network, add the following lines into the file:
+
+----
+<Directory /usr/share/webapp>
+    <IfModule mod_authz_core.c>
+        # Apache 2.4
+        Require local
+        Require ip 192.168.1
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        # Apache 2.2
+        Order Deny,Allow
+        Deny from all
+        Allow from 127.0.0.1
+        Allow from ::1
+        Allow from 192.168.1
+    </IfModule>
+</Directory>
+----
+
+Once the application is correctly configured, add the following configuration to allow access from any host:
+
+----
+<Directory /usr/share/webapp>
+    <IfModule mod_authz_core.c>
+        # Apache 2.4
+        Require all granted
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        # Apache 2.2
+        Order Deny,Allow
+        Allow from all
+    </IfModule>
+</Directory>
+----
+
+== Opening firewall ports
+[id='opening-firewall-ports']
+
+IMPORTANT: This exposes your computer to the Internet and potential attackers. Secure your system and your Apache installation properly before exposing your server to the Internet.
+
+Apache uses port 80 for plain http connections and port 443 for TLS/SSL connections by default. To make this service available from other computers or the Internet, allow Apache through the firewall using any one the following commands:
+
+To allow Apache through the firewall at each boot:
+
+* For plain HTTP connections:
++
+----
+# firewall-cmd --permanent --add-service=http
+----
+
+* For TLS/SSL connections:
++
+----
+# firewall-cmd --permanent --add-service=https
+----
+
+To allow Apache through the firewall instantly:
+
+* For plain HTTP connections:
++
+----
+# firewall-cmd --add-service=http
+----
+
+* For TLS/SSL connections:
++
+----
+# firewall-cmd --add-service=https
+----
+
+NOTE: If your server is running in a network with a NAT router, you will also need to configure your router to forward the HTTP and HTTPS ports to your server, if you wish to allow access from outside your local network.
+
+== Disabling Test Page
+[id='disabling-test-page']
+
+To disable the test page, comment out all the lines in the file `/etc/httpd/conf.d/welcome.conf` using `pass:[#]` as follows:
+
+----
+# <LocationMatch "^/+$">
+#    Options -Indexes
+#    ErrorDocument 403 /.noindex.html
+# </LocationMatch>
+
+# <Directory /usr/share/httpd/noindex>
+#    AllowOverride None
+#    Require all granted
+# </Directory>
+
+# Alias /.noindex.html /usr/share/httpd/noindex/index.html
+----

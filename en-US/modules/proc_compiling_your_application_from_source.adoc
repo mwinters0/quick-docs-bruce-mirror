@@ -1,0 +1,18 @@
+[[compiling-your-application-from-source]]
+= Compiling Your Application
+
+// Note: It is preferable to use DNF to using source install. DNF can track what packages you have installed on your system. It facilitates updates and makes it easier to completely remove your files from your system
+
+. Navigate to the directory containing your source:
++
+[bash,subs="attributes+"]
+----
+cd <your_source_dir>
+----
++
+. Run the following command to compile and install your application:
++
+[bash,subs="attributes+"]
+----
+./configure && make && make install
+----

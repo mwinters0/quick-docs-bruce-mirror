@@ -1,0 +1,13 @@
+[id='downloading-fedora']
+= Downloading Fedora
+
+You can download Fedora from https://getfedora.org/.
+
+There are multiple desktops available for use with Fedora. Each has a slightly different look and feel and offers varying levels of customization. Visit http://fedoraproject.org/en/get-fedora-options#desktops[Fedora Desktops] to know more.
+
+Fedora spins are alternate versions of Fedora, tailored for various types of users, using hand-picked application sets and other customizations. Visit http://fedoraproject.org/en/get-fedora-options#spins[Fedora Spins] to know more.  
+
+[NOTE]
+====
+Please refer to https://docs.fedoraproject.org/f27/install-guide/index.html[Fedora Installation Guide] for getting help on the process of installing Fedora.
+====

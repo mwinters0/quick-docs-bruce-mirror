@@ -1,0 +1,119 @@
+= Securing Apache HTTPD
+[id='securing-apache-httpd']
+
+To enable TLS/SSL support, download and install one of the following packages:
+
+* https://apps.fedoraproject.org/packages/mod_ssl[mod_ssl], based on https://www.openssl.org[OpenSSL]
+* https://apps.fedoraproject.org/packages/mod_gnutls[mod_gnutls], based on https://www.gnutls.org/[GnuTLS]
+* https://apps.fedoraproject.org/packages/mod_nss[mod_nss], based on https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS[NSS]
+
+== Using mod_ssl
+[id='using-mod-ssl']
+
+=== Installing mod_ssl
+[id='installing-mod-ssl']
+
+The https://apps.fedoraproject.org/packages/mod_ssl[mod_ssl] package will be automatically enabled post installation. Install the https://apps.fedoraproject.org/packages/mod_ssl[mod_ssl] package using the following command:
+
+----
+$ dnf install mod_ssl -y
+----
+
+=== Generating a new certificate
+[id='generating-new-certificate']
+
+
+To generate a new certificate, refer to https://fedoraproject.org/wiki/Https#openssl[Create a certificate using OpenSSL].
+// The topic ID can be used here instead of the absolute link. Have used absolute link as the destination content in question is in a topic that may not be a part of this activity.
+
+=== Installing an existing certificate
+[id='installing-existing-certificate']
+
+If you already have a certificate generated on another computer, do the following:
+
+. Move the certificate and the key file to the correct folder
++
+----
+# mv key_file.key /etc/pki/tls/private/myhost.com.key
+
+# mv certificate.crt /etc/pki/tls/certs/myhost.com.crt
+----
+
+. Ensure that the following parameters are correct:
++
+.. SELinux contexts
++
+----
+# restorecon /etc/pki/tls/private/myhost.com.key
+
+# restorecon /etc/pki/tls/certs/myhost.com.crt
+----
+
+.. Ownership
++
+----
+# chown root.root /etc/pki/tls/private/myhost.com.key
+
+# chown root.root /etc/pki/tls/certs/myhost.com.crt
+----
+
+.. Permissions
++
+----
+# chmod 0600 /etc/pki/tls/private/myhost.com.key
+
+# chmod 0600 /etc/pki/tls/certs/myhost.com.crt
+----
+
+After installing the existing certificate, setup the certificate using link:mod-ssl-configuration[mod_ssl configuration]
+
+=== mod_ssl configuration
+[id='mod-ssl-configuration']
+
+The default TLS/SSL configuration is contained in the file `/etc/httpd/conf.d/ssl.conf`. In the `ssl.conf` file, following are the directives that specify where the TLS/SSL certificate and key are located:
+
+----
+SSLCertificateFile /etc/pki/tls/certs/localhost.crt
+SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+----
+
+These directives are enclosed in a block defining a https://httpd.apache.org/docs/current/vhosts/[virtual host]:
+
+----
+<VirtualHost _default_:443>
+...
+SSLCertificateFile /etc/pki/tls/certs/localhost.crt
+...
+SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+...
+</VirtualHost>
+----
+
+To define a different location for these files, do the following:
+
+. Create a copy of the `/etc/httpd/conf.d/ssl.conf` file and renew the file to `z-ssl-local.conf`.
++
+. Edit the following lines in the `z-ssl-local.conf` file:
+
+----
+<VirtualHost _default_:443>
+SSLCertificateFile /etc/pki/tls/certs/www.myhost.org.crt
+SSLCertificateKeyFile /etc/pki/tls/private/www.myhost.org.key
+</VirtualHost>
+----
+
+This file will override the two settings for the `pass:[_default_]:443` virtual host; all other settings from `ssl.conf` will be retained.
+
+=== Settings for individual virtual hosts
+[id='settings-individual-virtual-hosts']
+
+To use SSL/TLS for a specific virtual host with a different certificate as default, do the following:
+
+. Open that virtual host's configuration file `/etc/httpd/conf.d/hostname.conf`
++
+. Insert these lines between `<VirtualHost hostname:port>` and `</VirtualHost>`:
+----
+SSLEngine on
+SSLCertificateFile /etc/pki/tls/certs/hostname.crt
+SSLCertificateKeyFile /etc/pki/tls/private/hostname.key</pre>
+----

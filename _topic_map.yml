@@ -16,8 +16,16 @@ Topics:
     File: build-custom-kernel
   - Name: (FIX ME!) Bumblebee
     File: bumblebee
-  - Name: (FIX ME!) Chromium
-    File: chromium
+  - Name: Chromium Web Browser
+    File: /modules/concept_chromium-web-browser
+  - Name: Installing Chromium Web Browser
+    File: /modules/proc_installing-chromium-web-browser
+  - Name: Enabling Chromium Packages
+    File: /modules/proc_enabling-chromium-packages
+  - Name: Third party repositories
+    File: /modules/concept_third-party-repositories
+  - Name: Enabling Third party repositories
+    File: /modules/proc_enabling-third-party-repository
   - Name: (FIX ME!) Configuring Sudo
     File: configure-sudo
   - Name: (FIX ME!) How to create and use a Live CD
@@ -28,8 +36,8 @@ Topics:
     File: create-gpg-keys
   - Name: (FIX ME!) How to create a GNU Hello RPM package
     File: create-hello-world-rpm
-  - Name: (FIX ME!) How to create xorg.conf
-    File: create-xorg-conf
+  - Name: Creating an xorg.conf file
+    File: create-xorg-conf.adoc
   - Name: (FIX ME!) How to debug Dracut problems
     File: debug-dracut-problems
   - Name: (FIX ME!) How to debug Systemd problems
@@ -60,14 +68,24 @@ Topics:
     File: jdk
   - Name: (FIX ME!) Kernel
     File: kernel
-  - Name: (FIX ME!) FedoraLiveCD
-    File: livecd
-  - Name: (FIX ME!) How to create and use Live USB
-    File: live-usb
+  - Name: Downloading Fedora
+    File: /modules/proc_downloading-fedora
+  - Name: How to create and use Live USB
+    File: /modules/proc_create-and-use-liveusb
+  - Name: Booting from USB sticks
+    File: /modules/proc_booting-from-usb-sticks
+  - Name: Troubleshooting a live USB
+    File: /modules/proc_troubleshooting-live-usb
+  - Name: How to create and use a live CD
+    File: /modules/proc_create-and-use-livecd
   - Name: (FIX ME!) Mirroring
     File: mirroring
-  - Name: (FIX ME!) How to enable nested virtualization in KVM
-    File: nested-virt-in-kvm
+  - Name: Enabling nested virtualization in KVM
+    File: /modules/proc_enabling-nested-virtualization-in-kvm
+  - Name: Configuration nested virtualization in virt-manager
+    File: /modules/proc_configuration-nested-virtualization-in-virt-manager
+  - Name: Testing nested virtualization
+    File: /modules/proc_testing-nested-virtualization
   - Name: (FIX ME!) CLI
     File: networking-cli
   - Name: (FIX ME!) OpenH264
@@ -86,8 +104,8 @@ Topics:
     File: repositories
   - Name: (FIX ME!) How to reset a root password
     File: reset-root-password
-  - Name: (FIX ME!) Red Hat Enterprise Linux
-    File: rhel
+  - Name: Understanding the relation between Fedora and Red Hat Enterprise Linux
+    File: modules/con_RHEL
   - Name: (FIX ME!) Spotify
     File: spotify
   - Name: (FIX ME!) Switching Desktop Environments
@@ -102,7 +120,7 @@ Topics:
     File: upgrading
   - Name: (FIX ME!) Upgrading Fedora using package manager
     File: upgrading-fedora-online
-  - Name: (FIX ME!) Windows Virtio Drivers
+  - Name: Windows Virtio Drivers
     File: windows-virtio-drivers
   - Name: (FIX ME!) Wine
     File: wine
