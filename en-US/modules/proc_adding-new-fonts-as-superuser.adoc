@@ -1,14 +1,14 @@
 [[adding-new-fonts-as-superuser]]
 = Adding new fonts as the superuser
 
-System fonts are available to all system users. If you need to add system fonts, you have two ways to do it:
+System fonts are available to all system users. If you need to add system fonts, there are two ways:
 
-. You can use the `dnf` package manager to install font packages,
-. or you can manually add fonts to the system and update the font cache to make them available to the users.
+. Use the `dnf` package manager to install font packages,
+. Manually add fonts to the system and update the font cache to make them available to the users.
 
 [WARNING]
 ====
-By adding systemwide fonts manually, you will not be able to control them with the package manager. If the font is provided as a distribution package, you should always use the package manager to install it. 
+If you manually add system-wide fonts, you will not be able to control them with the package manager. If the font is provided as a distribution package, you should always use the package manager to install it. 
 ====
 
 [[installing-new-fonts-with-dnf]]
@@ -43,7 +43,7 @@ $ sudo dnf install libreoffice-opensymbol-fonts.noarch
 
 .More information
 
-* The `dnf search fonts` command lists all available font packages, as well as a their descriptions.
+* The `dnf search fonts` command lists all available font packages, as well as their descriptions.
 
 [[installing-new-fonts-manually]]
 == Installing new fonts manually

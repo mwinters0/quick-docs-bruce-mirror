@@ -4,9 +4,9 @@
 When you do not have superuser access to install fonts on the system level, or you only need to install a font that will be available to your user account only, there are two methods to do it. 
 
 [[adding-new-local-fonts-with-gfv]]
-== Adding new local fonts with the *Gnome Font Viewer*
+== Adding new local fonts with the Gnome Font Viewer
 
-The *Gnome Font Viewer* is an application to display the fonts installed on the system. Besides that, it also allows you to locally install fonts. To add a new font file with *Gnome Font Viewer*:
+The *Gnome Font Viewer* is an application to display the fonts installed on the system. It also allows you to locally install fonts. To add a new font file with *Gnome Font Viewer*:
 
 .Before you start
 
@@ -22,7 +22,7 @@ The *Gnome Font Viewer* is an application to display the fonts installed on the 
 +
 [NOTE]
 ====
-Currently, there is a bug in the application. When you click on the btn:[Install] button, it does not inform you back about the result of the operation, but the font is already installed.
+Currently, there is a bug in the application. When you click on the btn:[Install] button, it does not inform whether the installation succeeded. 
 ====
 
 .More information
@@ -32,7 +32,7 @@ Currently, there is a bug in the application. When you click on the btn:[Install
 [[adding-new-local-fonts-manually]] 
 == Adding new local fonts manually  
 
-If you do not want to use any tools to add new fonts, you can do it manually. You have to copy the font files in the `.fonts` directory placed in the user's directory and update the font cache. 
+If you do not want to use any tools to add new fonts, you can do it manually. Copy the font files in the `.fonts` directory placed in the user's directory and update the font cache. 
 
 .Before you start
 
@@ -47,7 +47,7 @@ If you do not want to use any tools to add new fonts, you can do it manually. Yo
 $ mkdir ~/.local/share/fonts/robofont
 ----
 
-. Copy the font file in the newly created directory.
+. Copy the font file into the newly created directory.
 +
 ----
 $ cp robofont.ttf ~/.local/share/fonts/robofont
