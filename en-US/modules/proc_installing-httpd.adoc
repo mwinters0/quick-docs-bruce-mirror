@@ -1,0 +1,34 @@
+= Installing HTTPD
+[id='installing-httpd']
+
+This procedure describes the steps to install Apache *HTTPD* on Fedora.
+
+.Procedure
+
+. Login as root user.
++
+----
+$ su
+----
+
+. Install *HTTPD* packages.
++
+----
+$ dnf install httpd -y
+----
+
+. Start the *HTTPD* service.
++
+----
+$ systemctl start httpd.service
+----
+
+[NOTE]
+====
+To enable auto start of *HTTPD* service at boot, execute the following command:
+----
+$ systemctl enable httpd.service
+----
+====
+
+Navigate to http://localhost to access the Apache test page. You may not be able to access the server from any other host. To access the server from other hosts, refer to link:proc_opening-firewall-ports[Opening firewall ports].
