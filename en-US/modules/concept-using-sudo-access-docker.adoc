@@ -1,0 +1,8 @@
+[id="concept-using-sudo-access-docker"]
+= Using sudo to access Docker
+
+Docker has the ability to change the group ownership of the Docker socket to allow users added to the Docker group to be able to run Docker containers without having to execute the [command]`sudo` or [command]`su` command to become root.
+
+Enabling access to the Docker daemon from non-root users is a problem from a security perspective. It is a security issue for Fedora, because if a user can talk to the Docker socket they can execute a command which gives them full root access to the host system. Docker has no auditing or logging built in, while [command]`sudo` does.
+
+It is recommended that sudo rules are implemented to permit access to the Docker daemon. This allows [command]`sudo` to provide logging and audit functionality.

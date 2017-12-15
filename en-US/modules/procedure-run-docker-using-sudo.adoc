@@ -1,0 +1,9 @@
+[[procedure-run-docker-using-sudo]]
+= Run Docker using [command]`sudo`
+
+. Set up [command]`sudo` as shown in *Using sudo to give/limit admin privileges*
+. Create an alias for running the docker command:
+----
+alias docker="sudo /usr/bin/docker"
+----
+When the user executes the docker command as non-root, sudo will be used to manage access and provide logging.

@@ -20,8 +20,6 @@ Topics:
     File: chromium
   - Name: (FIX ME!) Configuring Sudo
     File: configure-sudo
-  - Name: (FIX ME!) How to create and use a Live CD
-    File: create-and-use-livecd
   - Name: (FIX ME!) How to create an RPM package
     File: create-an-rpm
   - Name: (FIX ME!) Creating GPG Keys
@@ -60,14 +58,24 @@ Topics:
     File: jdk
   - Name: (FIX ME!) Kernel
     File: kernel
-  - Name: (FIX ME!) FedoraLiveCD
-    File: livecd
-  - Name: (FIX ME!) How to create and use Live USB
-    File: live-usb
+  - Name: Downloading Fedora
+    File: /modules/proc_downloading-fedora
+  - Name: How to create and use Live USB
+    File: /modules/proc_create-and-use-liveusb
+  - Name: Booting from USB sticks
+    File: /modules/proc_booting-from-usb-sticks
+  - Name: Troubleshooting a live USB
+    File: /modules/proc_troubleshooting-live-usb
+  - Name: How to create and use a live CD
+    File: /modules/proc_create-and-use-livecd
   - Name: (FIX ME!) Mirroring
     File: mirroring
-  - Name: (FIX ME!) How to enable nested virtualization in KVM
-    File: nested-virt-in-kvm
+  - Name: Enabling nested virtualization in KVM
+    File: /modules/proc_enabling-nested-virtualization-in-kvm
+  - Name: Configuration nested virtualization in virt-manager
+    File: /modules/proc_configuration-nested-virtualization-in-virt-manager
+  - Name: Testing nested virtualization
+    File: /modules/proc_testing-nested-virtualization
   - Name: (FIX ME!) CLI
     File: networking-cli
   - Name: (FIX ME!) OpenH264

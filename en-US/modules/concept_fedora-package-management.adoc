@@ -1,0 +1,12 @@
+[[package-management-system]]
+= Package management system
+
+Fedora is a distribution that uses a package management system. This
+system is based on the http://rpm.org[RPM Package Manager], with
+several higher-level tools built on top of it, most notably
+https://www.freedesktop.org/software/PackageKit/[PackageKit] (the default
+GUI package management tool) and the link:Yum[yum] (command line tool).
+As of Fedora 22, yum has
+been replaced by link:Dnf[ dnf].
+The Gnome Package Manager is another
+GUI package manager.

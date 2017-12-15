@@ -1,0 +1,125 @@
+[[managing-virtual-machines]]
+== Managing Virtual Machines
+
+When the installation of the guest operating system is complete, it can
+be managed using the `virt-manager` program or via command line
+using `virsh`.
+
+[[managing-guests-with-virt-manager]]
+=== Managing guests with virt-manager
+
+. Start the Virtual Machine Manager by navigating to
+menu:[Applications]System Tools, or run:
++
+----
+$ su -c "virt-manager"
+----
++
+If you are not root, you will be prompted to enter the root
+password. Choose `Run unprivileged` to operate in read-only non-root
+mode.
++
+. Choose the host you wish to manage and click *Connect* in the "Open
+Connection" dialog window.
+. The list of virtual machines is displayed in the main window. Guests
+that are running will display a ">" icon. Guests that are not running
+will be greyed out.
+. To manage a particular guest, double click on it, or right click and
+select "Open".
+. A new window for the guest will open that will allow you to use its
+console, see information about its virtual hardware and start, stop, and pause
+it.
+
+For further information about `virt-manager`, see
+http://virt-manager.et.redhat.com/.
+
+Bugs in the `virt-manager` tool should be reported in
+http://bugzilla.redhat.com[Bugzilla] against the `virt-manager`
+component.
+
+[[managing-guests-with-virsh]]
+=== Managing guests with virsh
+
+The `virsh` command line utility allows you to manage virtual
+machines on the command line. The `virsh` utility is built around the libvirt management API:
+
+* `virsh` has a stable set of commands whose syntax and semantics are
+preserved across updates to the underlying virtualization platform.
+* `virsh` can be used as an unprivileged user for read-only operations
+(e.g. listing domains, listing domain statistics).
+* `virsh` can manage domains running under Xen, QEMU/KVM, ESX or other
+back-ends with no perceptible difference to the user.
+
+To start a virtual machine:
++
+----
+$ su -c "virsh create <name of virtual machine>"
+----
+
+
+To list the virtual machines currently running:
++
+----
+$ su -c "virsh list"
+----
+
+To list all virtual machines, running or not:
++
+----
+$ su -c "virsh list --all"
+----
+
+To gracefully power off a guest:
++
+----
+$ su -c "virsh shutdown <virtual machine (name | id | uuid)>"
+----
+
+To non gracefully power off a guest:
++
+----
+$ su -c "virsh destroy <virtual machine (name | id | uuid)>"
+----
+
+To save a snapshot of the machine to a file:
++
+----
+$ su -c "virsh save <virtual machine (name | id | uuid)> <filename>"
+----
+
+To restore a previously saved snapshot:
++
+----
+$ su -c "virsh restore <filename>"
+----
+
+To export the configuration file of a virtual machine:
++
+----
+$ su -c "virsh dumpxml <virtual machine (name | id | uuid)"
+----
+
+For a complete list of commands available for use with `virsh`:
++
+----
+$ su -c "virsh help"
+----
+
+Or consult the manual page: `man virsh`
+
+Bugs in the `virsh` tool should be reported in
+http://bugzilla.redhat.com[Bugzilla] against the `libvirt` component.
+
+
+[[remote-management]]
+=== Remote management
+
+The following remote management options are available:
+
+* If using non-root users via SSH, see the setup instructions in http://wiki.libvirt.org/page/SSHSetup
+* If using root for access via SSH, then create SSH keys for root, and
+use `ssh-agent` and `ssh-add` before launching `virt-manager`.
+* To use TLS, set up a local certificate authority and issue x509 certs
+to all servers and clients. For information on configuring this option,
+see  http://wiki.libvirt.org/page/TLSSetup.
+

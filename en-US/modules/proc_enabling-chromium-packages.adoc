@@ -1,0 +1,31 @@
+[id='enabling-chromium-packages']
+= Enabling Chromium Packages   
+
+== To enable *widevine* plugin:
+
+Fedora's Chromium package is built to support the *widevine* plugin (but does not include it). 
+
+. Copy *libwidevinecdm.so* and *libwidevinecdmadapter.so* from the Google Chrome package into */usr/lib64/chromium-plugins*
+
+. Restart chromium. You can see *Widevine Content Decryption Module* in *chrome://flags*.
+
+== Using the *Pepper Plugin Application Programming Interface (PPAPI)* flash plugin:
+
+. Click the following link to download the flash plugin: https://get.adobe.com/flashplayer/otherversions/ . 
+
+. Select *Linux 64-bit* from *https://get.adobe.com/flashplayer/otherversions/[Step 1]*, and select *FP 22.0* (or later) for *Linux 64-bit(.tar.gz)-PPAPI* from *https://get.adobe.com/flashplayer/otherversions/[Step 2]*. You will then have flash_player_ppapi_linux.x86_64.tar.gz. 
+
+. Unpack the tar into */usr/lib64/chromium-browser/PepperFlash/*. 
+
+. Restart chromium. You can see *Adobe Flash Player* in *chrome://plugins*.
+
+[NOTE]
+====
+To enable speech synthesis support, pass the `--enable-speech-dispatcher` flag to chromium-browser.
+====
+
+== Additional Resources
+
+* https://get.adobe.com/flashplayer/otherversions/
+
+* https://fedoraproject.org/wiki/Chromium
