@@ -34,8 +34,8 @@ Topics:
     File: create-gpg-keys
   - Name: (FIX ME!) How to create a GNU Hello RPM package
     File: create-hello-world-rpm
-  - Name: (FIX ME!) How to create xorg.conf
-    File: create-xorg-conf
+  - Name: Creating an xorg.conf file
+    File: create-xorg-conf.adoc
   - Name: (FIX ME!) How to debug Dracut problems
     File: debug-dracut-problems
   - Name: (FIX ME!) How to debug Systemd problems
