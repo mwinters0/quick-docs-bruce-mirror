@@ -94,10 +94,10 @@ Topics:
     File: repositories
   - Name: (FIX ME!) How to reset a root password
     File: reset-root-password
-  - Name: (FIX ME!) Red Hat Enterprise Linux
-    File: rhel
-  - Name: Installing Spotify
-    File: procedures/spotify.adoc
+  - Name: Understanding the relation between Fedora and Red Hat Enterprise Linux
+    File: modules/con_RHEL
+  - Name: (FIX ME!) Spotify
+    File: spotify
   - Name: (FIX ME!) Switching Desktop Environments
     File: switch-desktop-env
   - Name: (FIX ME!) Systemd
