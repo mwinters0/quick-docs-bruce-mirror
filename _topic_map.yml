@@ -22,7 +22,7 @@ Topics:
     File: configure-sudo
   - Name: (FIX ME!) How to create and use a Live CD
     File: create-and-use-livecd
-  - Name: (FIX ME!) How to create an RPM package
+  - Name: How to create an RPM package
     File: create-an-rpm
   - Name: (FIX ME!) Creating GPG Keys
     File: create-gpg-keys
