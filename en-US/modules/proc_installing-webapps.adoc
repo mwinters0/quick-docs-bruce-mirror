@@ -1,0 +1,24 @@
+= Installing webapps
+[id='installing-webapps']
+
+You probably want to run something on your web server. Many of the most popular web applications are packaged for Fedora. Using the packaged versions of web applications is recommended. These packages will be configured following the distribution's best practices which help to ensure the security of the installation.
+
+For instance, by installing static files to locations the web server does not have the ability to write to, and doing access control with configuration files rather than `.htaccess` files, which are slightly more vulnerable to attack.
+
+Packaged web applications will also be configured to work with SELinux, which provides significant security benefits.
+
+You will also receive updates through the usual Fedora update process, making it easier to keep your installation up to date.
+
+They will also often have the default configuration tweaked according to Fedora's conventions, meaning you have to do less work to get the application up and running.
+
+Most web applications are simply packaged according to their name. For instance, you can install Wordpress by executing the following command:
+
+----
+# dnf install wordpress
+----
+
+Packaged web applications will usually provide Fedora-specific instructions in a documentation file. For instance, Wordpress provides the files `/usr/share/doc/wordpress/README.fedora` and `/usr/share/doc/wordpress/README.fedora-multiuser`.
+
+Packaged web applications usually restrict access by default so you can access them only from the server host itself, to ensure you can run all initial configuration safely and things like administration interfaces are not left accessible to the public. For information on how to broaden access, see link:enabling-access-to-web-applications[Enabling access to web applications].
+
+Web applications commonly require the use of a database server. This wiki contains information on installing and configuring https://fedoraproject.org/wiki/PostgreSQL[PostgreSQL] and https://fedoraproject.org/wiki/MariaDB[MariaDB] on Fedora.

@@ -1,0 +1,8 @@
+= References
+[id='ref_apache-http-server']
+
+* https://httpd.apache.org/docs/current/[Apache Documentation]
+* https://httpd.apache.org/docs/current/getting-started.html[Apache "Getting Started"]
+* https://httpd.apache.org/docs/current/ssl/[Apache TLS/SSL documentation]
+* https://httpd.apache.org/docs/current/misc/security_tips.html[Apache security tips]
+* https://fedoraproject.org/wiki/OwnCloud[OwnCloud]
