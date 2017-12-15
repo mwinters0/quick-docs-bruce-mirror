@@ -1,0 +1,43 @@
+[[preparing-your-system]]
+== Preparing your system to create RPM packages
+
+Before you create RPM packages on Fedora, you must install packaging tools and set up any accounts that you want to use.
+
+For general information about preparing your environment, understanding source code, building and patching software, see the https://rpm-packaging-guide.github.io/#preparing-software-for-packaging[Preparing Software for Packaging] section in the RPM packaging guide. 
+
+This installs the utilities that you require to work with and build packages in the same manner as official Fedora packages, including the tool that the package reviewers use to check package quality.
+
+To prepare your build environment to create RPM packages, complete the following steps: 
+
+[NOTE]
+You must run the following two commands as the root user. 
+
+. To install the `fedora-packager` and `fedora-review` tools, enter the following command: 
++
+------------
+# dnf install fedora-packager fedora-review`
+------------
++
+. To add yourself to the mock group, run the following command:
++
+-----------
+# usermod -a -G mock yourusername
+-----------
++
+. Change from the root user to your user name and enter the `newgrp`  command or log in and out for this change to take effect:
++
+-------------
+$ newgrp
+------------- 
++
+. Run the `id` command to verify that the "mock" group appears in your group list, enter the following command:
++
+----------------
+$ id
+----------------
++
+
+
+[NOTE]
+You can also create a separate user and use it for doing RPM development. Ensure that the user is part of the "mock"
+group and enters the `fedora-packager-setup` command.
