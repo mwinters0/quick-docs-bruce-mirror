@@ -1,0 +1,13 @@
+
+[[how-does-lack-of-whql-signature-affect-use-of-these-drivers]]
+How does lack of WHQL signature affect use of these drivers?
+
+IXME: Lack of WHQL signature on virtio-win packages causes Windows to complain, need to explicitly document how.
+
+The RPMs from the stable repository are the same driver builds as what
+is shipped in Red Hat Enterprise Linux. However, the public drivers are not signed with
+https://msdn.microsoft.com/en-us/library/windows/hardware/ff553976%28v=vs.85%29.aspx[Microsoft's
+WHQL signature].
+
+
+F

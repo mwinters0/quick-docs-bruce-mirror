@@ -1,0 +1,16 @@
+[[filing-virtio-win-bugs]]
+= Filing Windows VirtIO Bugs
+
+Please file any bug reports in Bugzilla against https://bugzilla.redhat.com/enter_bug.cgi?product=Virtualization%20Tools&component=virtio-win[Product=Virtualization Tools Component=virtio-win].
+
+When filing a bug, please provide the following information:
+
+* The virtio-win version
+* The host distro
+* The qemu version
+** If using libvirt: `sudo virsh dumpxml $vmname`
+* The qemu command log
+** If using libvirt this can be found at `/var/log/libvirt/qemu/$vmname.log`
+
+Questions/Comments about the RPMs or the yum|dnf repos should be sent to the regular Fedora virt https://fedoraproject.org/wiki/Virtualization#Mailing_list_and_IRC[mailing list and IRC] channels.
+Questions/Comments about the actual drivers are best send to the upstream https://lists.nongnu.org/mailman/listinfo/qemu-devel[qemu-devel] or http://www.linux-kvm.org/page/Lists,_IRC[kvm] mailing lists.
