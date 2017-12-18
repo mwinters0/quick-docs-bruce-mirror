@@ -2,6 +2,7 @@
 [[finding-installing-applications]]
 
 :md: ./modules
+:imagesdir: ./images
 
 Many powerful software applications are available on the Linux operating system. You can find alternatives to most of the popular applications used on other systems.
 
