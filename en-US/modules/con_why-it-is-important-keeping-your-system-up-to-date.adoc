@@ -1,0 +1,6 @@
+[id='why-it-is-important-keeping-your-system-up-to-date']
+= Why it is important keeping your system up-to-date
+
+This section explains the importance of updating your system on a regular basis.
+
+_TODO_

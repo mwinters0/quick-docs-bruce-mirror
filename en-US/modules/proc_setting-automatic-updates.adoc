@@ -46,6 +46,7 @@ Created symlink /etc/systemd/system/basic.target.wants/dnf-automatic-download.ti
 
 . Ensure that the timer has been successfully enabled and started:
 +
+[literal,subs="+quotes,attributes"]
 ----
 # systemctl status _timer_
 ----
