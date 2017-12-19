@@ -1,0 +1,47 @@
+[[other-virtualization-options]]
+== Other virtualization options
+
+[[qemukvm-without-libvirt]]
+=== QEMU/KVM without libvirt
+
+QEMU/KVM can be invoked directly without libvirt, however you cannot to use tools such as `virt-manager`, `virt-install`, or `virsh`. Plain
+QEMU (without KVM) can also virtualize other processor architectures
+like ARM or PowerPC. 
+
+[[xen]]
+=== Xen
+
+Fedora can run as a Xen guest operating system and also be used as a Xen host (with the latter being true from Fedora 16; for using an earlier version of
+Fedora as a Xen host, check out the experimental repo available at
+http://myoung.fedorapeople.org/dom0). For a guide on how to install and
+setup a Fedora Xen host, see http://wiki.xen.org/wiki/Fedora_Host_Installation[Fedora Host Installation] page on the Xen Project wiki.
+
+[[openstack]]
+=== OpenStack
+
+OpenStack consists of a number of services for running infrastructure as a service (IaaS) clouds. They are the Object Store (Swift), Compute (Nova) and Image (Glance) services.
+
+[[opennebula]]
+=== OpenNebula
+
+OpenNebula is an open source toolkit for data center virtualization.
+
+[[ovirt]]
+=== oVirt
+
+The https://www.ovirt.org/[oVirt project] is an open virtualization
+project providing a end-to-end, server virtualization
+management system with advanced capabilities for hosts and guests,
+including high availability, live migration, storage management, system
+scheduler, and more.
+
+[[troubleshooting-and-known-issues]]
+== Troubleshooting and known issues
+
+For a list of known unresolved issues, as well as troubleshooting tips,
+see link:How_to_debug_Virtualization_problems[How to debug
+virtualization problems]
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
+

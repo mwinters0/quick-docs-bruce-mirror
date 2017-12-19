@@ -1,0 +1,11 @@
+:experimental:
+:md: ./modules
+
+[[adding-new-fonts-fedora]]
+= Adding new fonts in Fedora
+
+The default installation of the Fedora Linux (Fedora) includes several basic fonts. If you plan to use Fedora for activities such as typesetting and graphic design, you may wish to add additional fonts. 
+
+include::{md}/proc_adding-new-fonts-as-superuser.adoc[leveloffset=+1]
+
+include::{md}/proc_adding-new-fonts-as-user.adoc[leveloffset=+1] 

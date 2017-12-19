@@ -1,0 +1,91 @@
+== Installing Spotify on Fedora
+link:https://www.spotify.com/[Spotify] is a cross-platform proprietary music streaming service. Spotify is a freemium service, with advertisements which can be removed by purchasing a subscription.
+Although Spotify is not officially supported on Fedora it can be installed on Fedora by:
+
+* Using unofficial repositories such as xref:install-spotify-using-negativo17[Negativo17] and xref:install-spotify-using-rpmfusion[RPMFusion].
+* Using xref:install-spotify-using-flatpak[flatpak].
+
+=== Installing Spotify using third-party repositories
+
+[id='install-spotify-using-negativo17']
+==== Using the Negativo17.org repository
+The Negativo17.org repository provides a link:https://negativo17.org/spotify-client/[Spotify client] which contains the following packages features:
+
+* Libraries for enabling local files playback
+* File upload to personal playlists
+* Firewalld rules for enabling local service discovery
+* Spotify Connect (control other devices & output location)
+
+To install Spotify using the Negativo17.org repository:
+
+. Add the Negativo17.org repository:
++
+[source,bash]
+----
+$ sudo dnf config-manager --add-repo=http://negativo17.org/repos/fedora-spotify.repo
+----
+
+. Install Spotify:
++
+[source,bash]
+----
+$ sudo dnf install spotify
+----
+
+[id='install-spotify-using-rpmfusion']
+==== Using the RPMFusion repository
+RPMFusion provides software that the Fedora Project do not ship. That software is provided as precompiled RPMs for all current Fedora versions.
+
+To install Spotify using the RPMFusion repository:
+
+. Add the RPMFusion repository
++
+[source,bash]
+----
+$ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+----
+
+. Install Spotify
++
+[source,bash]
+----
+$ sudo dnf install spotify
+----
+
+[id='install-spotify-using-flatpak']
+=== Installing Spotify using Flatpak
+To install Spotify using link:https://flatpak.org/index.html[Flatpak]:
+
+. Install Flatpak using dnf:
++
+[source,bash]
+----
+$ sudo dnf install -y flatpak
+----
+
+. Install Spotify using Flatpak:
++
+[source,bash]
+----
+$ sudo flatpak install -y --from https://flathub.org/repo/appstream/com.spotify.Client.flatpakref
+----
+
+. To run Spotify:
++
+[source,bash]
+----
+$ flatpak run com.spotify.Client
+----
+
+. (Optional) Add a menu shortcut for Spotify:
++
+[source,bash]
+----
+sudo echo "
+[Desktop Entry]
+	Name=Spotify
+	Exec=flatpak run com.spotify.Client
+	Icon=/var/lib/flatpak/exports/share/icons/hicolor/256x256/apps/com.spotify.Client.png
+	Type=Application" > ~/.local/share/applications/Spotify.desktop
+
+----

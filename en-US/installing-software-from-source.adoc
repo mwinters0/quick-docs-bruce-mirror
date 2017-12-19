@@ -1,0 +1,33 @@
+:md: ./modules
+
+= Installing Software from Source
+[[installing-software-from-source]]
+
+The following section contains guidelines and best practices for installing software form source on Fedora.
+The instructions below are not prescriptive, but following them minimizes the risk of errors occurring during installation.
+
+// include package management concept
+include::{md}/concept_fedora-package-management.adoc[leveloffset=2]
+
+//proc:  setting up a development and compilation environment
+//  - this includes installing missing dev packages using DNF
+include::{md}/proc_setting-up-your-local-dev-and-compilation-environment.adoc[leveloffset=2]
+
+// proc: downloading the application source code
+include::{md}/proc_downloading-source-code.adoc[leveloffset=2]
+
+include::{md}/proc_compiling_your_application_from_source.adoc[leveloffset=2]
+
+// proc:  installing the software using make
+
+
+////
+Fedora defaualt install is to /usr/local/
+
+When make complains about missing devel packages, it is preferable to use dnf to install those packages as opposed to (the way make recommends) compiling those packages.
+
+
+for troubleshooting red the debug output
+
+Development Tools dnf group
+////

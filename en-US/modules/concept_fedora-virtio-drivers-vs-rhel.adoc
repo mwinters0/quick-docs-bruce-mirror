@@ -1,0 +1,16 @@
+[[fedora-virtio-drivers-vs-rhel]]
+= Fedora VirtIO Drivers vs. RHEL VirtIO Drivers
+
+The RPMs in the *virtio-win-stable* repository are the same driver builds as what is shipped with Red Hat Enterprise Linux.  All the Windows binaries are from builds done on Red Hat's internal build system, which are generated using publicly available code.  For more details about how the RPM and repo are built, see the  https://github.com/crobinso/virtio-win-pkg-scripts[README for this repo]. 
+
+The drivers are cryptographically signed with Red Hat's vendor signature. However they are not signed with Microsoft's https://docs.microsoft.com/en-us/windows-hardware/drivers/install/whql-release-signature[WHQL signature].
+
+NOTE: Historically the .iso files shipped on alt.fedoraproject.org did _not_ match the layout of the .iso shipped with Red Hat Enterprise Linux. This changed in April 2015.
+
+The current Fedora RPM/ISO directory structure is laid out to mirror exactly the layout that is shipped with the latest release of Red Hat Enterprise Linux. This is so that users and developers don't seen any differences between the two distros.
+
+* The .iso directories are named after the driver code directories from the upstream driver git tree. 
+* Below the driver directories, the $winversion/$arch/ directory naming
+is a Windows convention.
+* The RPM layout is arbitrary in that it ships the .vfd content in the drivers/ dir, but not many of the other drivers from the .iso.
+This seems to be an historical oversight and should probably be fixed.
