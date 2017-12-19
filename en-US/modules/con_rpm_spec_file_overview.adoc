@@ -41,10 +41,10 @@ The full URL basename is used when looking in the `SOURCES` directory. If possib
 
 If there is more than one source, name them `Source1`, `Source2`. 
 
-If you add whole new files in addition to the pristine sources, list them as sources after the pristine sources. A copy of each of these sources is included in any source RPM(SRPM) you create, unless you specifically direct otherwise. For more information on special cases, for example, revision control, see https://fedoraproject.org/wiki/Packaging:SourceURL?rd=Packaging/SourceURL[Source URL]. 
+If you add whole new files in addition to the pristine sources, list them as sources after the pristine sources. A copy of each of these sources is included in any source RPM (SRPM) you create, unless you specifically direct otherwise. For more information on special cases, for example, revision control, see https://fedoraproject.org/wiki/Packaging:SourceURL?rd=Packaging/SourceURL[Source URL]. 
 
 .Patch0 
-Enter the name of the first patch to apply to the source code. If you must patch the files after you extract them, edit the files and save their differences as a "patch" file in your `~/rpmbuild/SOURCES` directory. Patches must make only one logical change each, so it's quite possible to have multiple patch files.
+Enter the name of the first patch to apply to the source code. If you must patch the files after you extract them, edit the files and save their differences as a `.patch` file in your `~/rpmbuild/SOURCES` directory. Patches must make only one logical change each, so it's quite possible to have multiple patch files.
 
 .BuildArch
 If you package files that are architecture-independent, for example shell scripts, data files, then add `BuildArch: noarch`. The architecture for the binary RPM is then `noarch`.

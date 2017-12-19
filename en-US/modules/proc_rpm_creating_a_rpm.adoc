@@ -80,7 +80,7 @@ files there.
 . Save your edits and to run a local build, enter the following command:
 +
 -----
-$ fedpkg --release f`` local
+$ fedpkg --release f27 local
 -----
 
 This updates the two RPMs. 
@@ -98,7 +98,7 @@ BuildArch: noarch
 . Delete the existing `.rpm` files in this directory and run another local build:
 +
 -----
-$ fedpkg --release f`` local
+$ fedpkg --release f27 local
 -----
 
 .Result
@@ -113,7 +113,7 @@ After you complete the procedure, ensure that you have the following two files:
 Validate your RPM package with RPM lint, using the following command: 
 
 ----
-fedpkg --release f`` lint
+fedpkg --release f27 lint
 ----
 
 At this stage, there are four or more errors because of the lack of `%prep`, `%build` sections, and `URL` tag.

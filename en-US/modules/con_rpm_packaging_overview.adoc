@@ -11,13 +11,11 @@ Guide]. It is archived.
 
 [NOTE]
 This document is not an official Fedora packaging guideline. This page
-is open for editing by the general Fedora packaging community, while the
-actual packaging guidelines are managed by the
-https://fedoraproject.org/wiki/Packaging_Committee?rd=Packaging:Committee[Packaging Committee]. 
+is open for editing by the general Fedora packaging community. For a general-purpose RPM building guide for packagers on Fedora, CentOS and Red Hat Enterprise Linux, see the https://rpm-packaging-guide.github.io/[RPM Packaging Guide]. 
 
 For more information about packaging guidelines, see the following guides:
 
-* https://rpm-packaging-guide.github.io/#introduction[Packaging Guidelines]
+* https://fedoraproject.org/wiki/Packaging:Guidelines[Packaging Guidelines]
 * http://fedoraproject.org/wiki/Packaging:LicensingGuidelines[Licensing Guidelines]
 * http://fedoraproject.org/wiki/Packaging:Naming[ Package Naming Guidelines]
 * http://fedoraproject.org/wiki/Packaging:DistTag[ Dist Tag Guidelines]
@@ -55,7 +53,7 @@ For a full list of guidelines related to macros, see http://fedoraproject.org/wi
 
 
 .mock
-A system for building RPMs within their own separate small Fedora installation. This avoids the need to install a full set of build dependencies on your operating system installation, and allows you to build packages for different Fedora releases.
+A system for building RPMs locally within your own Fedora installation. This avoids the need to install a full set of build dependencies on your operating system installation, and allows you to build packages for different Fedora releases.
 
 .koji
 The main Fedora build system: https://koji.fedoraproject.org[1].
