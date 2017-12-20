@@ -1,0 +1,93 @@
+[#converting-sysvinit-services]
+= Converting SysVinit services
+
+Older versions of Fedora use SysVinit scripts to manage services. This section provides some guidelines on how to convert a SysVinit script to a Systemd equivalent.
+
+.Prerequisites
+
+* You are logged in as a user with administrator-level permissions.
+
+* You have a custom SysVinit script to convert to a Systemd configuration.
+
+.Procedure
+
+. Identify the runlevels in your SysVinit script. This is usually defined with `chkconfig` directive in the commented section at the beginning of the script. For example, the following indicates the service is using runlevels 3, 4, and 5:
++
+----
+# chkconfig: 235 20 80
+----
++
+Systemd uses targets instead of runlevels. Use the table in <<#converting-sysvinit-services>> to map the runlevels to targets. In this example, runlevels 2, 3, and 5 are all multi-user runlevels, so the Systemd service can use the following:
++
+----
+[Install]
+WantedBy=multi-user.target
+----
++
+If you enable the custom Systemd service to start at boot (`systemctl enable foo.service`), Systemd loads the service when loading the `multi-user.target` at boot time.
+
+. Identify the dependent services and targets. For example, if the custom service requires network connectivity, specify the `network.target` as a dependency:
++
+----
+[Unit]
+Description=My custom service
+Requires=network.target
+----
+
+. Identify the command used to start the service in the SysVinit script and convert this to the Systemd equivalent. For example, the script might contain a `start` function in the following format:
++
+----
+start() {
+	echo "Starting My Custom Service..."
+  /usr/bin/myservice -D
+}
+----
++
+In this example, the `/usr/bin/myservice` command is the custom service command set to daemonize with the `-D` option. Set the `ExecStart` parameter to use this command:
++
+----
+[Service]
+ExecStart=/usr/bin/myservice -D
+----
+
+. Check the SysVinit script to see if the service uses a special command to restart the service. For example, the script might contain a `reboot` function that reloads the service:
++
+----
+reboot() {
+	echo "Reloading My Custom Service..."
+  /usr/bin/myservice reload
+}
+----
++
+In this example, the `/usr/bin/myservice` command is the custom service command and reloads the service using the `reload` subcommand. Set the `ExecReload` parameter to use this command:
++
+----
+[Service]
+ExecReload=/usr/bin/myservice reload
+----
++
+Alternatively, you can omit `ExecReload` and use the default behavior, which kills the service and starts it again.
+
+. Check the SysVinit script to see if the service uses a special command to stop the service. For example, the script might contain a `stop` function that reloads the service:
++
+----
+reboot() {
+	echo "Stopping My Custom Service..."
+  /usr/bin/myservice shutdown
+}
+----
++
+In this example, the `/usr/bin/myservice` command is the custom service command and stop the service gracefully using the `shutdown` subcommand. Set the `ExecStop` parameter to use this command:
++
+----
+[Service]
+ExecStop=/usr/bin/myservice shutdown
+----
++
+Alternatively, you can omit `ExecStop` and use the default behavior, which kills the service.
+
+. Review the SysVinit script and identify any additional parameters or functions. Use Systemd parameters to replicate any identified SysVinit functions that might be relevant to your service.
+
+.Related Information
+
+* See <<#common-service-parameters>> for more information about the parameters used in this procedure.

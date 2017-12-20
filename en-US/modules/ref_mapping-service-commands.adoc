@@ -1,0 +1,62 @@
+[#mapping-service-commands]
+= Mapping service commands
+
+The following table demonstrates the Systemd equivalent of SysVinit commands.
+
+[NOTE]
+All recent versions of systemctl assume the '.service' suffix if left off the service name. For example, 'systemctl start frobozz.service' is the same as 'systemctl start frobozz'
+
+[cols=",,",options="header",]
+|===
+|Sysvinit Command |Systemd Command |Notes
+|service frobozz start |systemctl start frobozz |Used to start a service
+(not reboot persistent)
+
+|service frobozz stop |systemctl stop frobozz |Used to stop a service
+(not reboot persistent)
+
+|service frobozz restart |systemctl restart frobozz |Used to stop and
+then start a service
+
+|service frobozz reload |systemctl reload frobozz |When supported,
+reloads the config file without interrupting pending operations.
+
+|service frobozz condrestart |systemctl condrestart frobozz |Restarts if
+the service is already running.
+
+|service frobozz status |systemctl status frobozz |Tells whether a
+service is currently running.
+
+|ls /etc/rc.d/init.d/ |systemctl (or) systemctl list-unit-files
+--type=service (or) +
+ls /lib/systemd/system/*.service /etc/systemd/system/*.service |Used to
+list the services that can be started or stopped +
+Used to list all the services and other units
+
+|chkconfig frobozz on |systemctl enable frobozz |Turn the service on,
+for start at next boot, or other trigger.
+
+|chkconfig frobozz off |systemctl disable frobozz |Turn the service off
+for the next reboot, or any other trigger.
+
+|chkconfig frobozz |systemctl is-enabled frobozz |Used to check whether
+a service is configured to start or not in the current environment.
+
+|chkconfig --list |systemctl list-unit-files --type=service (or) ls
+/etc/systemd/system/*.wants/ |Print a table of services that lists which
+runlevels each is configured on or off
+
+|chkconfig --list | grep 5:on |systemctl list-dependencies
+graphical.target |Print a table of services that will be started when
+booting into graphical mode
+
+|chkconfig frobozz --list |ls
+/etc/systemd/system/*.wants/frobozz.service |Used to list what levels
+this service is configured on or off
+
+|chkconfig frobozz --add |systemctl daemon-reload |Used when you create
+a new service file or modify any configuration
+|===
+
+[NOTE]
+All `/sbin/service` and `/sbin/chkconfig` commands listed in the table continue to work on Systemd-based systems and are translated to native equivalents as necessary. The only exception is `chkconfig --list`.

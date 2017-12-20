@@ -1,0 +1,64 @@
+[#starting-stopping-and-querying-systemd-services]
+= Starting, stopping, and querying Systemd services
+
+You can perform various management tasks to control Systemd services using the `systemctl` command. The following is a set of example commands to demonstrate how to use `systemctl` to manage Systemd services.
+
+.Prerequisites
+
+* You are logged in as a user with administrator-level permissions.
+
+.Procedure
+
+The following commands control the `foo` service:
+
+* Activate a service immediately:
++
+----
+$ sudo systemctl start foo 
+----
+
+* Deactivate a service immediately:
++
+----
+$ sudo systemctl stop foo 
+----
+
+* Restart a service:
++
+----
+$ sudo systemctl restart foo 
+----
+
+* Show the status of a service including if it is running or not:
++
+----
+$ sudo systemctl status foo 
+----
+
+* Enable a service to be started on bootup:
++
+----
+$ sudo systemctl enable foo 
+----
+
+* Disable a service to not start during bootup:
++
+----
+$ sudo systemctl disable foo 
+----
+
+* Prevent a service from starting dynamically or even manually unless unmasked:
++
+----
+$ sudo systemctl mask foo 
+----
+
+* Check if a service is already enabled or not:
++
+----
+$ sudo systemctl is-enabled foo
+----
+
+.Related Information
+
+* Run `man systemctl` for more details.

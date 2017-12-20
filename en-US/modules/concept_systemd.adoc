@@ -1,0 +1,51 @@
+[#systemd]
+= Systemd
+
+Systemd is a system and service manager for Linux, compatible with SysV and LSB init scripts. Systemd provides:
+
+* Aggressive parallelization capabilities
+* Uses socket and D-Bus activation for starting services
+* Offers on-demand starting of daemons, keeps track of processes using Linux cgroups
+* Supports snapshotting and restoring of the system state
+* Maintains mount and automount points
+* Implements an elaborate transactional dependency-based service control logic.
+
+The `systemctl` command is the primary tool to manage Systemd. It combines the functionality of SysVinit's `service` and `chkconfig` commands into a single tool you can use to enable and disable services permanently or only for the current session.
+
+Systemd manages _units_, which are representations of system resources and services. This following list shows the unit types that Systemd can manage:
+
+service::
+  A service on the system, including instructions for starting, restarting, and stopping the service.
+
+socket::
+  A network socket associated with a service.
+
+device::
+  A device specifically managed with Systemd.
+
+mount::
+  A mountpoint managed with Systemd.
+
+automount::
+  A mountpoint automatically mounted on boot.
+  
+swap::
+  Swap space on the system.
+
+target::
+  A synchronization point for other units. Usually used to start enabled services on boot.
+
+path::
+  A path for path-based activation. For example, you can start services based on the state of a certain path, such as whether it exists or not.
+
+timer::
+  A timer to schedule activation of another unit.
+
+snapshot::
+  A snapshot of the current Systemd state. Usually used to rollback after making temporary changes to Systemd.
+
+slice::
+  Restrivtion of resources through Linux Control Group nodes (cgroups).
+
+scope::
+  Information from Systemd bus interfaces. Usually used to manage external system processes.
