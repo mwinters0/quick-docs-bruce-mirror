@@ -13,6 +13,6 @@ To install any packages on your Fedora system, you need to have the root passwor
 . Find a software package in one of the following ways:
 ** Click one of the suggested categories, for example, *Productivity*. Then review the suggested packages. To see more packages, select items in the menu in the left-hand part of the window. For example, for the Productivity category, you can select *Calendar*, *Database*, *Finance*, *Word Processor*. 
 ** Choose one of the *Editor's Picks* or other recommended software in the window.
-** Click the image:packages_icon_search.png[Search] icon, then enter a keyword or a name of the application. Review the suggested packages.
+** Click the image:packages_icon_search.png[Search] icon, then enter a keyword or the name of the application. Review the suggested packages.
 . Click a package to read its description.
 . To install the package, click the *Install* button. When prompted, provide the root password.
