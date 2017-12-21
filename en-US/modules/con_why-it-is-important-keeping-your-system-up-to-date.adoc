@@ -1,6 +1,8 @@
 [id='why-it-is-important-keeping-your-system-up-to-date']
 = Why it is important keeping your system up-to-date
 
-This section explains the importance of updating your system on a regular basis.
+// Bara: This section is based on https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/chap-keeping_your_system_up-to-date
 
-_TODO_
+This section briefly explains the importance of updating your system on a regular basis.
+
+All software contains bugs. Often, these bugs can result in a vulnerability that can expose your system to malicious users. Packages that have not been updated are a common cause of computer intrusions. Implement a plan for installing security patches in a timely manner to quickly eliminate discovered vulnerabilities, so they cannot be exploited.
