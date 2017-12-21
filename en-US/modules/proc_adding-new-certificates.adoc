@@ -12,7 +12,7 @@ To add a certificate in the simple PEM or DER file formats to the list of CAs tr
 # cp pass:quotes[_~/certificate-trust-examples/Cert-trust-test-ca.pem_] pass:quotes[_/usr/share/pki/ca-trust-source/anchors/_]
 ----
 
-To update system-wide trust store configuration, use the [command]`update-ca-trust` command:
+To update the system-wide trust store configuration, use the [command]`update-ca-trust` command:
 
 ----
 # update-ca-trust
@@ -21,7 +21,7 @@ To update system-wide trust store configuration, use the [command]`update-ca-tru
 [NOTE]
 ====
 
-While the Firefox browser is able to use an added certificate without executing [command]`update-ca-trust`, it is recommended to run [command]`update-ca-trust` after a CA change. Also note that browsers, such as Firefox, Epiphany, or Chromium, cache files, and you might need to clear browser's cache or restart your browser to load current system certificates configuration.
+While the Firefox browser is able to use an added certificate without executing [command]`update-ca-trust`, it is recommended to run [command]`update-ca-trust` after a CA change. Also note that browsers, such as Firefox, Epiphany, or Chromium, cache files, and you might need to clear the browser's cache or restart your browser to load the current system certificates configuration.
 
 ====
 
