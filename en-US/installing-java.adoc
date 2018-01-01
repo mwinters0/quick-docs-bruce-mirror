@@ -3,7 +3,7 @@
 
 Java provides a platform for creating and running applications. You can install various versions of Java to suit your requirements.
 
-include::modules/con_java.adoc[leveloffset=+1]
+include::modules/con_about-java.adoc[leveloffset=+1]
 
 include::modules/proc_installing-openjdk.adoc[leveloffset=+1]
 

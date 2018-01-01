@@ -1,0 +1,10 @@
+[id='about-java']
+= About Java
+
+Java is a popular programming language that allows you run programs on many platforms, including Fedora. If you want to create Java programs, you need to install a JDK (Java Development Kit). If you want to run a Java program, you can do that on a JVM (Java Virtual Machine), which is provided with the JRE (Java Runtime Environment). If in doubt, install the JDK because this is sometimes required even if the intention is not to write Java programs. 
+
+Many flavors of Java exist and also many versions of each flavor. If you want to just run a specific application, check the documentation of that software to see what versions of Java are supported or have been tested. Most Java applications run on one of the following:
+
+* OpenJDK -- an open-source implementation of the Java Platform, Standard Edition
+* Oracle Java SE -- a free JDK from Oracle
+
