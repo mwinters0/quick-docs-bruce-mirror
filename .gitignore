@@ -7,3 +7,4 @@ diag-*.png.cache
 
 ## Project-specific ignores
 
+*.html

@@ -1,0 +1,10 @@
+[id='setting-repositories-for-update-checks']
+= Setting repositories for update checks
+
+This section describes how to add, enable, or disable a software repository with the DNF application.
+
+include::modules/proc_adding-repositories.adoc[leveloffset=+1]
+
+include::modules/proc_enabling-repositories.adoc[leveloffset=+1]
+
+include::modules/proc_disabling-repositories.adoc[leveloffset=+1]

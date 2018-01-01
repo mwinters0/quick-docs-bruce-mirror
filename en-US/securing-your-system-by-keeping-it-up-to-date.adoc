@@ -1,0 +1,25 @@
+:experimental:
+
+[id='securing-the-system-by-keeping-it-up-to-date']
+= Securing the system by keeping it up-to-date
+
+This section explains:
+
+* Why it is important to update your system regularly (xref:why-it-is-important-keeping-your-system-up-to-date[])
+* How to apply updates manually by using GUI or CLI (xref:manual-updating-using-gui[], xref:manual-updating-using-cli[])
+* How to enable automatic updates (xref:setting-automatic-updates[])
+* How to add, enable, or disable software repositories (xref:setting-repositories-for-update-checks[])
+
+include::modules/con_why-it-is-important-keeping-your-system-up-to-date.adoc[leveloffset=+1]
+
+include::modules/proc_manual-updating-using-gui.adoc[leveloffset=+1]
+
+include::modules/proc_manual-updating-using-cli.adoc[leveloffset=+1]
+
+include::modules/proc_setting-automatic-updates.adoc[leveloffset=+1]
+
+include::setting-repositories-for-update-checks.adoc[leveloffset=+1]
+
+== Additional Resources
+
+* The https://docs-old.fedoraproject.org/en-US/Fedora/26/html/System_Administrators_Guide/ch-DNF.html[DNF] chapter in the Fedora System Administrator's Guide
