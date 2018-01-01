@@ -8,8 +8,8 @@ Topics:
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda
     File: anaconda
-  - Name: (FIX ME!) Apache HTTP Server
-    File: apache-httpd
+  - Name: Getting started with Apache HTTP Server
+    File: getting-started-with-apache-http-server
   - Name: (FIX ME!) AutoUpdates
     File: autoupdates
   - Name: (FIX ME!) Building a custom kernel
