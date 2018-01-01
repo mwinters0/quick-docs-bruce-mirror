@@ -62,8 +62,8 @@ Topics:
     File: get-started-with-virt
   - Name: (FIX ME!) GRUB 2
     File: grub2
-  - Name: (FIX ME!) Java
-    File: java
+  - Name: Installing Java
+    File: installing-java
   - Name: (FIX ME!) JDK on Fedora
     File: jdk
   - Name: (FIX ME!) Kernel
