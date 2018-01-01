@@ -1,0 +1,118 @@
+[#common-service-parameters]
+= Common service parameters
+
+.Unit Parameters
+
+This section contains parameters you can use in the `[Unit]` section of a service. These parameters are common to other Systemd units.
+
+This list is a summarized version. For a full list of these parameters and their descriptions, run `man systemd.unit`.
+
+Description::
+  A free-form string describing the service. 
+
+Documentation::
+  A space-separated list of URIs referencing documentation for this service or its configuration. Accepted are only URIs of the following types: `http://`, `https://`, `file:`, `info:`, `man:`. 
+
+Requires::
+  Configures requirement dependencies on other services. If this service gets activated, the units listed here are activated too. If one of the dependent services fails to activate, Systemd does not start this service. This option may be specified more than once or you can specify multiple space-separated units.
+
+Wants::
+  Similar to `Requires`, except failed units do not have any effect on the service.
+
+BindsTo::
+  Similar to `Requires`, except stopping the dependent units also stops the service.
+
+PartOf::
+  Similar to `Requires`, except the stopping and restarting dependent units also stop and restart the service.
+
+Conflicts::
+  A space-separated list of unit names that, if running, cause the service not to run.
+
+Before, After::
+  A space-separated list of unit names that configures the ordering of dependencies between services.
+
+OnFailure::
+  A space-separated list of unit names that are activated when this service enters a failed state.
+
+.Install Parameters
+
+This section contains parameters you can use in the `[Install]` section of a service. These parameters are common to other Systemd units.
+
+This list is a summarized version. For a full list of these parameters and their descriptions, run `man systemd.unit`.
+
+Alias::
+    A space-separated list of additional names this service shall be installed under. The names listed here must have the same suffix (i.e. type) as the service filename.
+
+RequiredBy, WantedBy::
+    Defines the service as dependent of another service. This usually define the target to trigger an enabled service to run. These options are analogous to the `Requires` and `Wants` in the `[Units]` section.
+
+Also::
+    Additional units to install or uninstall when this service is installed or uninstalled.
+
+.Service Parameters
+
+This section contains parameters you can use in the `[Service]` section of a service unit. These parameters are specific only to Systemd service units.
+
+This list is a summarized version. For a full list of these parameters and their descriptions, run `man systemd.unit`.
+
+Type::
+  Configures the process start-up type for this service service:
++
+* `simple` - The service starts as the main process. This is the default.
+* `forking` - The service calls forked processes and run as part of the main daemon.
+* `oneshot` - Similar to `simple`, except the process must exits before Systemd starts follow-up services.
+* `dbus` - Similar to `simple`, except the daemon acquires a name of the D-Bus bus.
+* `notify` - Similar to `simple`, except the daemon sends a motification message using `sd_notify` or an equivalent call after starting up.
+* `idle` - Similar to `simple`, except the execution of the service is delayed until all active jobs are dispatched.
+
+RemainAfterExit::
+  A boolean value that specifies whether the service shall be considered active even if all its processes exited. Defaults to no.
+
+GuessMainPID::
+  A boolean value that specifies whether Systemd should guess the main PID of a service if it cannot be determined reliably. This option is ignored unless `Type=forking` is set and `PIDFile` is not set. Defaults to yes.
+
+PIDFile::
+  An absolute filename pointing to the PID file of this daemon. Use of this option is recommended for services where `Type=forking`. Systemd reads the PID of the main process of the daemon after start-up of the service. Systemd does not write to the file configured here, although it removes the file after the service has shut down. 
+
+BusName::
+  A D-Bus bus name to reach this service. This option is mandatory for services where `Type=dbus`.
+
+ExecStart::
+  The commands and arguments executed when the service starts.
+
+ExecStartPre, ExecStartPost::
+  Additional commands that are executed before or after the command in `ExecStart`.
+
+ExecReload::
+  The commands and arguments to execute when the service reloads.
+
+ExecStop::
+  The commands and arguments to execute when the service stops. 
+
+ExecStopPost::
+  Additional commands to executed after the service stops.
+
+RestartSec::
+  The time in seconds to sleep before restarting a service.
+
+TimeoutStartSec::
+  The time in seconds to wait for the service to start.
+
+TimeoutStopSec::
+  The time in seconds to wait for the service to stop.
+
+TimeoutSec::
+  A shorthand for configuring both `TimeoutStartSec` and `TimeoutStopSec` simultaneously. 
+
+RuntimeMaxSec::
+  A maximum time in seconds for the service to run. Pass `infinity` (the default) to configure no runtime limit.
+
+Restart::
+  Configures whether to restart the service when the service's process exits, is killed, or reaches a timeout:
++
+* `no` - The service will not be restarted. This is the default.
+* `on-success` - Restart only when the service process exits cleanly (exit code 0).
+* `on-failure` - Restart only when the service process does not exit cleanly (node-zero exit code).
+* `on-abnormal` - Restart if the process terminates with a signal or when a timeout occurs.
+* `on-abort` - Restart if the process exits due to an uncaught signal not specified as a clean exit status.
+* `always` - Always restart.

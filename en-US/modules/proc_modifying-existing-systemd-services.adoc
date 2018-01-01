@@ -1,0 +1,44 @@
+[#modifying-existing-systemd-services]
+= Modifying existing Systemd services
+
+This example shows how to modify an existing service. The files for service modification are stored in a directory within `/etc/systemd/system`. This directory is named after the service. For example, this procedure modifies the `httpd` service.
+
+.Prerequisites
+
+* You are logged in as a user with administrator-level permissions.
+
+* You have a configured `httpd` server running through Systemd.
+
+.Procedure
+
+. Create a directory for the service modification in the following format: `[SERVICE NAME].service.d`. For example, the directory for the `httpd.service` modification is `httpd.service.d`:
++
+----
+$ sudo mkdir /etc/systemd/system/httpd.service.d/
+----
+
+. Create a configuration file within this directory:
++
+----
+$ sudo vi /etc/systemd/system/httpd.service.d/custom.conf
+----
+
+. Add your custom configuration. For example:
++
+----
+[Service]
+Restart=always
+RestartSec=30
+----
+
+. Save the file.
+
+. Restart the `httpd` service:
++
+----
+$ sudo systemctl restart httpd
+----
+
+.Related Information
+
+* See <<#common-service-parameters>> for more information about the parameters used in this procedure.
