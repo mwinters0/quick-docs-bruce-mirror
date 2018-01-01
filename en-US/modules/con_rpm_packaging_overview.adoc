@@ -1,0 +1,60 @@
+[[introduction]]
+== RPM Packaging Overview
+
+Use this guide to create RPM packages and `.spec` files. Despite the focus on Fedora, you can apply much of this document to other RPM-based
+distributions.
+
+Fedora Documentation had released a draft guide for packagers, see
+http://docs-old.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/Packagers_Guide[Packagers
+Guide]. It is archived.
+
+
+[NOTE]
+This document is not an official Fedora packaging guideline. This page
+is open for editing by the general Fedora packaging community. For a general-purpose RPM building guide for packagers on Fedora, CentOS and Red Hat Enterprise Linux, see the https://rpm-packaging-guide.github.io/[RPM Packaging Guide]. 
+
+For more information about packaging guidelines, see the following guides:
+
+* https://fedoraproject.org/wiki/Packaging:Guidelines[Packaging Guidelines]
+* http://fedoraproject.org/wiki/Packaging:LicensingGuidelines[Licensing Guidelines]
+* http://fedoraproject.org/wiki/Packaging:Naming[ Package Naming Guidelines]
+* http://fedoraproject.org/wiki/Packaging:DistTag[ Dist Tag Guidelines]
+* http://fedoraproject.org/wiki/Packaging:ReviewGuidelines[ Package Review Guidelines]
+* http://fedoraproject.org/wiki/Packaging:Scriptlets[ Recipes for RPM scriptlets]
+
+
+If you plan to submit a package to the official Fedora repository, follow the procedure in http://fedoraproject.org/wiki/Join_the_package_collection_maintainers[Join the package collection
+maintainers].
+
+Before you begin, select a text editor that you want to use, and ensure that you understand the following terminology. 
+
+[[some-terminology]]
+== RPM terminology
+
+.RPM
+The package manager used by Fedora, Red Hat Enterprise Linux, Mageia, OpenSUSE and others. Originally RPM stood for "Red Hat Package Manager" but now it is a recursive acronym "RPM Package Manager".
+
+.spec file
+A plain text file that contains information about a package and instructions that RPM uses for compiling the package's software. To name the file, use the name of the package with the file extension `.spec`.
+
+.tag
+A string, generally capitalized and followed by a colon, which appears at the top of the `.spec` file to provide some important data about the RPM, such as `Name:`, `Version:` or `Summary:`.
+
+.section
+A segment of the `.spec` file that tells RPM how to perform some portion of the package construction process. Many, but not all, sections contain code that is simply passed to the shell, though RPM has significant flexibility around this that is outside of the scope of this document.
+
+.section header
+A short string, starting with `%` at the beginning of a line, which introduces a section. Examples include `%description`, `%prep` and `%files`.
+
+.macro
+A short string, always prefixed by `%` and generally surrounded by curly brackets `{}` which RPM converts to a different and usually longer string. Some macros can take arguments and some arguments are quite complex. Some macros are provided by RPM, some are part of https://apps.fedoraproject.org/packages/redhat-rpm-config[redhat-rpm-config] and https://apps.fedoraproject.org/packages/fedora-rpm-macros[fedora-rpm-macros] packages, but many other packages also provide macros. You can run `rpm --showrc` to view all of the macros currently available on your system, but you do not need to run most of the macros you see there. 
+  +
+For a full list of guidelines related to macros, see http://fedoraproject.org/wiki/Packaging:Guidelines#Macros[Macros] in the Packaging Guidelines.
+
+
+.mock
+A system for building RPMs locally within your own Fedora installation. This avoids the need to install a full set of build dependencies on your operating system installation, and allows you to build packages for different Fedora releases.
+
+.koji
+The main Fedora build system: https://koji.fedoraproject.org[1].
+

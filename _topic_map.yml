@@ -28,7 +28,9 @@ Topics:
     File: /modules/proc_enabling-third-party-repository
   - Name: (FIX ME!) Configuring Sudo
     File: configure-sudo
-  - Name: (FIX ME!) How to create an RPM package
+  - Name: (FIX ME!) How to create and use a Live CD
+    File: create-and-use-livecd
+  - Name: How to create an RPM package
     File: create-an-rpm
   - Name: (FIX ME!) Creating GPG Keys
     File: create-gpg-keys

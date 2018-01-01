@@ -1,0 +1,1514 @@
+[[building-in-mock]]
+Building in mock
+^^^^^^^^^^^^^^^^
+
+The next interesting thing to do would be to see if our package will
+build in the way that the Fedora build system would do it. To do this,
+just run:
+
+`fedpkg --release f`` mockbuild`
+
+This will build your package in . Running mock will set up a complete
+minimal Fedora installation inside a directory and then build the
+package within that.
+
+The end result should be a significant amount of output, a results_howdy
+directory, and a couple of levels deep a three log files and two
+packages. Feel free to look at those.
+
+You can also build for other releases in this manner, by changing what
+you pass to the `--release` option. This can be useful for testing, but
+it takes another big download so we'll skip that now.
+
+[[building-in-koji]]
+Building in koji
+^^^^^^^^^^^^^^^^
+
+If you had your Fedora account set up at the time you started following
+this document, you can build your package in the central Fedora build
+system, though the syntax can be a bit odd:
+
+`fedpkg --release f`` scratch-build --target f`` --srpm`
+
+This will create a source package, upload it to the build servers, and
+give you some output including a URL you can visit to watch the process
+and download the built packages afterwards. This can be useful to test
+that your package builds on the various different architectures that
+Fedora supports, although your current test package doesn't need such
+testing.
+
+[[running-fedora-review]]
+Running fedora-review
+^^^^^^^^^^^^^^^^^^^^^
+
+Package reviewers use as part of the process of accepting new packages
+into the distribution. You can run this tool yourself as a useful set of
+informative checks. First, clean up your package directory:
+
+`rm -rf *rpm results*`
+
+Then create a source package and run the utility:
+
+`fedpkg --release f`` srpm` +
+`fedora-review -n howdy`
+
+This will use mock to build your package and run a number of checks on
+it. It will be silent while mock runs, so it may appear as if it has
+hung when in reality it is doing a large amount of downloading. You can
+add `-v` to make it somewhat more verbose.
+
+When done, you should have a `review-howdy` directory with various files
+and directories. `rpmlint.txt` should have some additional rpmlint
+output for you. `review.txt` is the template that a reviewer would fill
+in (in addition to checking the functionality of the software in your
+package, etc.) Most of that is probably not of interest to you, but it
+doesn't hurt to have a look.
+
+[[on-to-a-more-complex-program]]
+On to a more complex program
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Now that we've covered the absolute basics, we can move on to packaging
+something more complicated, which comes from a real upstream and has to
+be unpacked and built. A good package to use as an example is
+https://www.gnu.org/software/hello/[GNU Hello]. Have a look there, note
+the current version of Hello (2.10 as this document is being written)
+and the download URL, licensing information and such. It's helpful to
+keep that page open for referenceLet's create a directory and work in
+it:
+
+` mkdir -p ~/packaging-work/hello` +
+` cd ~/packaging-work/hello`
+
+And create the following specfile named `hello.spec`:
+
+....
+Name:    hello
+Version: 2.10
+Release: 1%{?dist}
+Summary: GNU Hello
+URL:     https://www.gnu.org/software/hello/
+License: GPLv3+
+
+Source0: https://ftp.gnu.org/gnu/hello/hello-%{version}.tar.gz
+
+%description
+The GNU hello program produces a familiar, friendly greeting. It allows
+nonprogrammers to use a classic computer science tool which would otherwise be
+unavailable to them. Because it is protected by the GNU General Public License,
+users are free (in perpetuity) to share and change it.
+
+%prep
+
+%build
+
+%install
+
+%files
+
+%changelog
+....
+
+We've filled in a few things here. There's now a `URL:` tag, pointing to
+the Hello homepage. The `%description` was cribbed from the homepage.
+The `License:` tag has changed, since the bottom of the homepage says
+that the license is "under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 3 of the
+License, or (at your option) any later version.". Licensing is a
+difficult subject, and we'll cover it in more depth later, but for now
+it's sufficient to note that Fedora indicates this type of license with
+"GPLv3+".
+
+Perhaps the most interesting change is to the `Source0:` tag. It now has
+a URL instead of a filename: using a URL tells everyone, including the
+relevant Fedora utilities, where to actually get the source. And there's
+a macro in there: `%{version}` is automatically set to whatever you used
+for the `Version:` tag. Combining the two lets things automatically get
+an updated copy of the source whenever the version changes. But how do
+we actually get that source, since now we can't cut and paste that URL?
+Try `spectool`:
+
+`spectool -g *spec`
+
+This quickly grabs all of the sources mentioned in the spec, and will
+leave us with `hello-2.10.tar.gz` in our package directory. Have a look
+with that file:
+
+`less *tar.gz`
+
+and we see that everything in there unpacks unto a single directory
+named `hello-2.10`. We'll need to tell RPM how to unpack that archive
+and how to find the files within. Add this to the `%prep` section:
+
+`%autosetup`
+
+This is a rather complicated macro which RPM will replace with plain old
+shell code to unpack the archive, change into a directory and fix up
+some permissions. It by default expects the directory to be named
+`%{name}-%{version}` (where `%{name}` is, you guessed it, what you gave
+for the `Name:` tag). This can be changed by passing the `-n` option,
+but in our case the default is just what we need. You can see exactly
+what it does by executing the `%prep` section with:
+
+`fedpkg --release f`` prep`
+
+This will call just the `%prep` section of your specfile, and should
+leave you with a directory named `hello-2.10` in your package directory.
+Have a look around in there. You'll see this is a standard GNU package
+with a `configure` file, and that tells us most of what we need to know
+in order to build it. Add this to the `%build` section:
+
+`%configure` +
+`%make_build`
+
+This just calls the `configure` file with all of the arguments necessary
+to build in Fedora, and then calls `make` with the necessary options.
+And while we're at it, let's add this to `%install`:
+
+`%make_install`
+
+This calls the usual `make install` with Fedora's special macros to get
+everything into the buildroot. If you do a mockbuild at this point,
+you'll see that the build fails, just like with the previous package,
+there are installed but unpackaged files. The list of files below the
+error heading in the output, tells us what we need to do next, but
+because there's an info page, a manpage and some locale files, we have a
+few different rules to follow.
+
+[[old-document-below]]
+Old document below
+~~~~~~~~~~~~~~~~~~
+
+If there are special programs that are required to build or run the
+program you are packaging, install those other programs and write down
+what they are.
+
+To package a program for the Fedora repository, you must package
+pristine (original) sources, along with the patches and build
+instructions; it's *not* okay to start with pre-compiled code. Install
+the file with the original source (usually a `.tar.gz` file) in the
+`~/rpmbuild/SOURCES` directory (of the RPM building user account).
+
+Read through the manual installation instructions for your program. It's
+often a good idea to do a "dry run" by manually building the program
+before attempting to do so via RPM. With a few exceptions, all binaries
+and libraries included in Fedora packages must be built from the source
+code that is included in the source package.
+
+[[creating-a-spec-file]]
+Creating a SPEC file
+~~~~~~~~~~~~~~~~~~~~
+
+You now need to create a SPEC file in the `~/rpmbuild/SPECS` directory.
+You should name it after the program name (e.g. "`program.spec`"). Use
+the archive name or the name advocated by the software author where you
+can, but be sure to follow the link:Packaging/NamingGuidelines[Package
+Naming Guidelines].
+
+[[spec-templates-and-examples]]
+SPEC templates and examples
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[[templates]]
+Templates
++++++++++
+
+You may use the `rpmdev-newspec` command to create a SPEC file for you.
+`rpmdev-newspec <package-name>` can create an initial SPEC file for a
+new package, tailored to various types of packages. It will guess what
+kind of template to use based on the package name, or you can specify a
+particular template. See `/etc/rpmdevtools/spectemplate-*.spec` for
+available templates, and see `rpmdev-newspec --help` for more
+information. For example, to create a new SPEC file for a python module:
+
+`cd ~/rpmbuild/SPECS` +
+`rpmdev-newspec python-antigravity` +
+`vim python-antigravity.spec`
+
+According to the
+Packaging:Guidelines#Writing_a_package_from_scratch[packaging
+guidelines], new spec files should be created this way. Vim and emacs
+can automatically create simple templates, but these are different than
+those made with `rpmdev-newspec`. This is especially true for templates
+with names beginning with `python-` or `-perl`.
+
+Here is an example auto-generated `.spec` template:
+
+`Name:           testprogram` +
+`Version:        ` +
+`Release:        1%{?dist}` +
+`Summary:        ` +
+ +
+`License:        ` +
+`URL:            ` +
+`Source0:        ` +
+ +
+`BuildRequires:  ` +
+`Requires:       ` +
+ +
+`%description` +
+ +
+ +
+`%prep` +
+`%setup -q` +
+ +
+ +
+`%build` +
+`%configure` +
+`%make_build` +
+ +
+ +
+`%install` +
+`%make_install` +
+ +
+ +
+`%files` +
+`%doc` +
+ +
+ +
+ +
+`%changelog` +
+`* Sun Apr  3 2016 makerpm` +
+`-`
+
+[[examples]]
+Examples
+++++++++
+
+[[eject]]
+eject
+
+Here's a simple example showing a Fedora specfile for the `eject`
+program:
+
+....
+Summary:            A program that ejects removable media using software control
+Name:               eject
+Version:            2.1.5
+Release:            21%{?dist}
+License:            GPLv2+
+Source:             %{name}-%{version}.tar.gz
+Patch1:             eject-2.1.1-verbose.patch
+Patch2:             eject-timeout.patch
+Patch3:             eject-2.1.5-opendevice.patch
+Patch4:             eject-2.1.5-spaces.patch
+Patch5:             eject-2.1.5-lock.patch
+Patch6:             eject-2.1.5-umount.patch
+URL:                http://www.pobox.com/~tranter
+ExcludeArch:        s390 s390x
+BuildRequires:      gettext
+BuildRequires:      libtool
+
+%description
+The eject program allows the user to eject removable media (typically
+CD-ROMs, floppy disks or Iomega Jaz or Zip disks) using software
+control. Eject can also control some multi-disk CD changers and even
+some devices' auto-eject features.
+
+Install eject if you'd like to eject removable media using software
+control.
+
+%prep
+%autosetup -n %{name}
+
+%build
+%configure
+%make_build
+
+%install
+%make_install
+
+install -m 755 -d %{buildroot}/%{_sbindir}
+ln -s ../bin/eject %{buildroot}/%{_sbindir}
+
+%find_lang %{name}
+
+%files -f %{name}.lang
+%license COPYING
+%doc README TODO ChangeLog
+%{_bindir}/*
+%{_sbindir}/*
+%{_mandir}/man1/*
+
+%changelog
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.1.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
+* Fri Jul 02 2010 Kamil Dudka <kdudka@redhat.com> 2.1.5-20
+- handle multi-partition devices with spaces in mount points properly (#608502)
+....
+
+[[section]]
+
+[[spec-file-overview]]
+SPEC file overview
+~~~~~~~~~~~~~~~~~~
+
+Other useful guides:
+
+* http://docs-old.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-creating-rpms.html[RPM
+Guide] describes how to write a SPEC file.
+* The IBM series "Packaging software with RPM"
+http://www.ibm.com/developerworks/library/l-rpm1/[Part 1],
+http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], and
+http://www.ibm.com/developerworks/library/l-rpm3/[Part 3].
+* http://ftp.rpm.org/max-rpm/[Maximum RPM] has the most complete
+information, but is dated.
+
+You will need to follow the Fedora guidelines:
+link:Packaging/NamingGuidelines[Package Naming Guidelines],
+link:Packaging/Guidelines[Packaging guidelines], and
+link:Packaging/ReviewGuidelines[Package review guidelines].
+
+Insert comments with a leading "`#`" character, and beware of macros
+(beginning with `%`) that are potentially multi-line, as they are
+expanded first. When commenting out a line, double the percent signs
+(`%%`) of the macros appearing after the "`#`". Also avoid inline
+comments on the same line as script commands.
+
+The major tags are listed below. Note that the macros `%{name}`,
+`%{version}` and `%{release}` can be used to refer to the Name, Version
+and Release tags respectively. When you change the tag, the macros
+automatically update to use the new value.
+
+* *Name*: The (base) name of the package, which should match the SPEC
+file name. It must follow the link:Packaging/NamingGuidelines[Package
+Naming Guidelines] and generally be lowercase.
+* *Version*: The upstream version number. See
+link:Packaging/NamingGuidelines#Version_Tag[Version tag section] of the
+packaging guidelines. If the version contains tags that are non-numeric
+(contains tags that are not numbers), you may need to include the
+additional non-numeric characters in the Release tag. If upstream uses
+full dates to distinguish versions, consider using version numbers of
+the form `yy.mm[dd]` (e.g. `2008-05-01` becomes `8.05`).
+* *Release*: The initial value should normally be `1%{?dist}`. Increment
+the number every time you release a new package for the same version of
+software. When a new upstream version is released, change the Version
+tag to match and reset the Release number to `1`. See
+link:Packaging/NamingGuidelines#Release_Tag[Release tag section] of the
+packaging guidelines. The optional link:Packaging/DistTag[Dist tag]
+might be useful.
+* *Summary*: A brief, one-line summary of the package. Use American
+English. *Do NOT end in a period.*
+* *Group*: This needs to be a pre-existing group, like
+"Applications/Engineering"; run "`less /usr/share/doc/rpm/GROUPS`" to
+see the complete list. Use the group "Documentation" for any
+sub-packages (e.g. `kernel-doc`) containing documentation. __'__Note:
+This tag is deprecated since Fedora 17. See
+https://docs-old.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/Packagers_Guide/chap-Packagers_Guide-Spec_File_Reference-Preamble.html[Spec
+File Reference Preamble] _'_
+* *License*: The license, which must be an open source software license.
+Do _not_ use the old Copyright tag. Use a standard abbreviation (e.g.
+"`GPLv2+`") and be specific (e.g. use "`GPLv2+`" for GPL version 2 or
+greater instead of just "`GPL`" or "`GPLv2`" where it's true). See
+Licensing and the link:Packaging/LicensingGuidelines[Licensing
+Guidelines]. You can list multiple licenses by combining them with
+"`and`" and "`or`" (e.g. "`GPLv2 and BSD`").
+* *URL*: The full URL for more information about the program (e.g. the
+project website). *_Note: This is not where the original source code
+came from which is meant for the Source0 tag below_*.
+* *Source0*: The full URL for the compressed archive containing the
+(original) pristine source code, as upstream released it. "`Source`" is
+synonymous with "`Source0`". If you give a full URL (and you should),
+its basename will be used when looking in the `SOURCES` directory. If
+possible, embed `%{name}` and `%{version}`, so that changes to either
+will go to the right place. Packaging:Guidelines#Timestamps[Preserve
+timestamps] when downloading source files. If there is more than one
+source, name them `Source1`, `Source2` and so on. If you're adding whole
+new files in addition to the pristine sources, list them as sources
+_after_ the pristine sources. A copy of each of these sources will be
+included in any SRPM you create, unless you specifically direct
+otherwise. See link:Packaging/SourceURL[Source URL] for more information
+on special cases (e.g. revision control).
+* *Patch0*: The name of the first patch to apply to the source code. If
+you need to patch the files after they've been uncompressed, you should
+edit the files and save their differences as a "patch" file in your
+`~/rpmbuild/SOURCES` directory. Patches should make only one logical
+change each, so it's quite possible to have multiple patch files.
+* *BuildArch*: If you're packaging files that are
+architecture-independent (e.g. shell scripts, data files), then add
+"`BuildArch: noarch`". The architecture for the binary RPM will then be
+"`noarch`".
+* *BuildRoot*: This is where files will be "installed" during the
+%install process (after the %build process). This is now redundant in
+Fedora and is only needed for EPEL5. By default, the build root is
+placed in "`%{_topdir}/BUILDROOT/`".
+* *BuildRequires*: A comma-separated list of packages required for
+building (compiling) the program. This field can be (and is commonly)
+repeated on multiple lines. These dependencies are _not_ automatically
+determined, so you need to include _everything_ needed to build the
+program. It is possible to ensure you have specified all necessary build
+requires by link:Using_Mock_to_test_package_builds[performing a "mock
+build"] of your package. You can specify a minimum version if necessary
+(e.g. "`ocaml >= 3.08`"). If you need the file `/EGGS`, determine the
+package that owns it by running "`rpm -qf /EGGS`". If you need the
+program `EGGS`, determine the package that owns it by running
+"`rpm -qf \`which EGGS\``". Keep dependencies to a minimum (e.g. use
+`sed` instead of `perl` if you don't really need perl's abilities), but
+beware that some applications permanently disable functions if the
+associated dependency is not present; in those cases you may need to
+include the additional packages. The package may be helpful.
+* *Requires*: A comma-separate list of packages that are required when
+the program is installed. Note that the BuildRequires tag lists what is
+required to build the binary RPM, while the Requires tag lists what is
+required when installing/running the program; a package may be in one
+list or in both. In many cases, `rpmbuild` automatically detects
+dependencies so the Requires tag is not always necessary. However, you
+may wish to highlight some specific packages as being required, or they
+may not be automatically detected.
+* *%description*: A longer, multi-line description of the program. Use
+American English. All lines must be 80 characters or less. Blank lines
+indicate a new paragraph. Some graphical user interface installation
+programs will reformat paragraphs; lines that start with whitespace will
+be treated as preformatted text and displayed as is, normally with a
+fixed-width font. See
+https://docs-old.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch09s03.html[RPM
+Guide].
+* *%prep*: Script commands to "prepare" the program (e.g. to uncompress
+it) so that it will be ready for building. Typically this is just
+"`%autosetup`"; a common variation is "`%autosetup -n NAME`" if the
+source file unpacks into `NAME`. See the %prep section below for more.
+* *%build*: Script commands to "build" the program (e.g. to compile it)
+and get it ready for installing. The program should come with
+instructions on how to do this. See the %build section below for more.
+* *%install*: Script commands to "install" the program. The commands
+should copy the files from the `BUILD` directory `%{_builddir}` into the
+buildroot directory, `%{buildroot}`. See the %install section below for
+more.
+* *%check*: Script commands to "test" the program. This is run after the
+%install procedure, so place it there if you have this section. Often it
+simply contains "`make test`" or "`make check`". This is separated from
+%build so that people can skip the self-test if they desire.
+* *%clean*: Instructions to clean out the build root. Note that this
+section is now redundant in Fedora and is only necessary for EPEL.
+Typically this contains only:
+
+`rm -rf %{buildroot}`
+
+* *%files*: The list of files that will be installed. See the %files
+section below for more.
+* *%changelog*: Changes in the package. Use the format example above.
+*Do NOT put software's changelog at here.This changelog is for RPM
+itself.*
+* *ExcludeArch*: If the package does not successfully compile, build or
+work on a particular architecture, list those architectures under this
+tag.
+* You can add sections so that code will run when packages are installed
+or removed on the real system (as opposed to just running the %install
+script, which only does a pseudo-install to the build root). These are
+called "scriptlets", and they are usually used to update the running
+system with information from the package. See the "Scriptlets" section
+below for more.
+
+RPM also supports the creation of several packages (called
+link:How_to_create_an_RPM_package#Subpackages[subpackages]) from a
+single SPEC file, such as `name-libs` and `name-devel` packages.
+
+Do *not* create a "relocatable" package; they don't add value in Fedora
+and make things more complicated.
+
+[[spec-file-sections-explained]]
+SPEC file sections explained
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[prep-section]]
+%prep section
+^^^^^^^^^^^^^
+
+The %prep section describes how to unpack the compressed packages so
+that they can be built. Typically, this includes the "`%autosetup`"
+command. Alternatively, you can use "`%setup`" and "`%patch`" commands
+with reference to the Source0 (and Source1 etc.) lines. See the
+http://ftp.rpm.org/max-rpm/s1-rpm-inside-macros.html[Maximum RPM section
+on %setup and %patch] for more details.
+
+The %\{patches} and %\{sources} macros are available since RPM 4.4.2 and
+are useful if you have a large list of patches or sources and %autosetup
+is not what you want, then you can do:
+
+`for p in %{patches}; do` +
+`    ...` +
+`done`
+
+However, keep in mind that using these will make your SPEC incompatible
+with RPMS used in RHEL and other RPM-based dirstributions.
+
+[[prep-section-autosetup-command]]
+%prep section: %autosetup command
++++++++++++++++++++++++++++++++++
+
+The "`%autosetup`" command unpacks a source package. Switches include:
+
+* *`-n` _name_* : If the Source tarball unpacks into a directory whose
+name is not the RPM name, this switch can be used to specify the correct
+directory name. For example, if the tarball unpacks into the directory
+FOO, use "`%autosetup -n FOO`".
+* *`-c` _name_* : If the Source tarball unpacks into multiple
+directories instead of a single directory, this switch can be used to
+create a directory named _name_ and then unpack into it.
+
+If you use "`%setup`" command instead, then _`-q`_' is commonly used to
+suppress unecessary output.
+
+There are http://ftp.rpm.org/max-rpm/s1-rpm-inside-macros.html[more
+%setup options if you are unpacking multiple files], which is primarily
+useful if you are creating subpackages (see below). The key ones are:
+
+[cols=",",]
+|=======================================================================
+|`-a number` |Only unpack the Source directive of the given number after
+changing directory (e.g. "`–a 0`" for Source0).
+
+|`-b number` |Only unpack the Source directive of the given number
+before changing directory (e.g. "`–b 0`" for Source0).
+
+|`-D` |Do not delete the directory before unpacking.
+
+|`-T` |Disable the automatic unpacking of the archives.
+|=======================================================================
+
+[[prep-section-patch-commands]]
+%prep section: %patch commands
+++++++++++++++++++++++++++++++
+
+If you have used "`%autosetup`" command, the following manual patch
+management is not necessary. If you have complex requirements or need
+compatibility with EPEL, you may still need this. The "`%patch0`"
+command applies Patch0 (and %patch1 applies Patch1 etc.). Patches are
+the normal method of making necessary changes to the source code for
+packaging. The usual "`-pNUMBER`" option applies, which passes that
+argument onto the program `patch`.
+
+Patch file names often look like "`telnet-0.17-env.patch`", which is the
+format `%{name} - %{version} - REASON.patch`" (though sometimes version
+is omitted). Patch files are typically the result of "`diff -u`"; if you
+do this from the subdirectory of `~/rpmbuild/BUILD` then you won't have
+to specify a `-p` level later.
+
+This is a typical procedure for creating a patch for a single file:
+
+`cp foo/bar foo/bar.orig` +
+`vim foo/bar` +
+`diff -u foo/bar.orig foo/bar > ~/rpmbuild/SOURCES/PKGNAME.REASON.patch`
+
+If editing many files, one easy method is to copy the whole subdirectory
+underneath `BUILD` and then do subdirectory diffs. After you have
+changed directory to "`~rpmbuild/BUILD/NAME`", do the following:
+
+`cp -pr ./ ../PACKAGENAME.orig/` +
+`... many edits ...` +
+`diff -ur ../PACKAGENAME.orig . > ~/rpmbuild/SOURCES/`__`NAME`__`.`__`REASON`__`.patch`
+
+If you edit many files in one patch, you can also copy the original
+files using some consistent ending such as "`.orig`" before editing
+them. Then, you can use "`gendiff`" (in the `rpm-build` package) to
+create a patch with the differences.
+
+Try to ensure that your patch match the context exactly. The default
+"fuzz" value is "`0`", requiring matches to be exact. You can work
+around this by adding "`%global _default_patch_fuzz 2`" to revert to the
+value found in older versions of RPM in Fedora, but it is generally
+recommended to avoid doing this.
+
+As explained in Packaging/PatchUpstreamStatus, all patches should have a
+comment above them in the SPEC file about their upstream status. This
+should document the upstream bug/email that includes it (including the
+date). If it is unique to Fedora, you should mention why it is unique.
+The Fedora Project tries not to deviate from upstream; see
+PackageMaintainers/WhyUpstream for the importance of this.
+
+[[prep-section-unmodified-files]]
+%prep section: Unmodified files
++++++++++++++++++++++++++++++++
+
+Sometimes, one or more of the Source files do not need to be
+uncompressed. You can "prep" those into the build directory like this
+(where `SOURCE1` refers to the relevant Source file):
+
+`cp -p %SOURCE1 .`
+
+[[build-section]]
+%build section
+^^^^^^^^^^^^^^
+
+The "%build" section is sometimes complicated; here you configure and
+compile/build the files to be installed.
+
+Many programs follow the GNU `configure` approach (or some variation).
+By default, they will install to a prefix of "`/usr/local`", which is
+reasonable for unpackaged files. However, since you are packaging it,
+change the prefix to "`/usr`". Libraries should be installed to either
+`/usr/lib` or `/usr/lib64` depending on the architecture.
+
+Since GNU `configure` is so common, the macro "`%configure`" can be used
+to automatically invoke the correct options (e.g. change the prefix to
+`/usr`). Some variation of this often works:
+
+` %configure` +
+` %make_build`
+
+To override makefile variables, pass them as parameters to `make`:
+
+` %make_build CFLAGS="%{optflags}" BINDIR=%{_bindir}`
+
+More more information, see http://sourceware.org/autobook/["GNU
+autoconf, automake, and libtool"] and
+http://web.archive.org/web/20090411003817/http://www.suse.de/~sh/automake/automake.pdf["Open
+Source Development Tools: An Introduction to Make, Configure, Automake,
+Autoconf" by Stefan Hundhammer].
+
+Some programs use `cmake`. See Packaging/cmake.
+
+[[install-section]]
+%install section
+^^^^^^^^^^^^^^^^
+
+This section involves script commands to "install" the program, copying
+the relevant files from `%{_builddir}` to `%{buildroot}` (which usually
+means from `~/rpmbuild/BUILD` to `~/rpmbuild/BUILDROOT`) and creating
+directories inside `%{buildroot}` as necessary.
+
+Some of the terminology can be misleading:
+
+* The "build directory", also known as `%{_builddir}` is not the same as
+the "build root", also known as `%{buildroot}`. Compilation occurs in
+the former directory, while files to be packaged are copied from the
+former to the latter.
+* During the %build section, the current directory will start at
+`%{buildsubdir}`, which is the subdirectory within `%{_builddir}` that
+was created during %prep stage. This is usually something like
+`~/rpmbuild/BUILD/%{name}-%{version}`.
+* The %install section is *not* run when the binary RPM package is
+installed by the end-user, but is only run when creating a package.
+
+Normally, some variation of "`make install`" is performed here:
+
+`%install` +
+`%make_install`
+
+Ideally you should use %make_install which is equivalent to
+http://www.gnu.org/prep/standards/html_node/DESTDIR.html[`DESTDIR=%{buildroot}`]
+if the program supports it, as it redirects file installations to the
+specified directory and is exactly what we want to happen during the
+%install section.
+
+If the program does not support `DESTDIR` (and only if), you can
+workaround it in one of several (inferior) ways:
+
+* Patch the makefile so that is supports `DESTDIR`. Create directories
+inside `DESTDIR` where necessary and submit the patch upstream.
+* Use the "`%makeinstall`" macro. This method might work, but can lead
+to subtle failures. It expands to something like
+"`make prefix=%{buildroot}%{_prefix} bindir=%{buildroot}%{_bindir} ... install`",
+which can result in some programs failing to work properly. Create
+directories inside `%{buildroot}` where necessary.
+* Consider using the `auto-destdir` package. This requires
+"`BuildRequires: auto-destdir`", and changing "`make install`" to
+"`make-redir DESTDIR=%{buildroot} install`". This only works well if the
+installation uses only certain common commands to install files, like
+`cp` and `install`.
+* Perform the installation by hand. This would involve creating the
+necessary directories under `%{buildroot}` and copying files from
+`%{_builddir}` to `%{buildroot}`. Be especially careful with updates,
+which often contain new or changed filenames. An example of this
+procedure:
+
+`%install` +
+`mkdir -p %{buildroot}%{_bindir}/` +
+`cp -p mycommand %{buildroot}%{_bindir}/`
+
+[[check-section]]
+%check section
+^^^^^^^^^^^^^^
+
+If self-tests are available, it is generally a good idea to include
+them. They should be placed in the %check section (which immediately
+follows the %install section, since files in %buildroot may be tested)
+instead of within the %build section itself, so that they can be easily
+skipped when necessary.
+
+Often, this section contains:
+
+`make test`
+
+Sometimes it can be:
+
+`make check`
+
+Please explore the Makefile and choose the appropriate way.
+
+[[files-section]]
+%files section
+^^^^^^^^^^^^^^
+
+This section declares which files and directories are owned by the
+package, and thus which files and directories will be placed into the
+binary RPM.
+
+[[files-basics]]
+%files basics
++++++++++++++
+
+The `%defattr` sets the default file permissions, and is often found at
+the start of the `%files` section. Note that this is no longer necessary
+unless the permissions need to be altered. The format of this is:
+
+`%defattr(``, ``, ``, ``)`
+
+The fourth parameter is often omitted. Usually one uses
+`%defattr(-,root,root,-)`, where "`-`" uses the default permissions.
+
+You should then list all the files and directories to be owned by the
+package. Use macros for directory names where possible, which can be
+viewed at Packaging:RPMMacros (e.g. use `%{_bindir}/mycommand` instead
+of `/usr/bin/mycommand`). If the pattern begins with a "`/`" (or when
+expanded from the macro) then it is taken from the `%{buildroot}`
+directory. Otherwise, the file is presumed to be in the current
+directory (e.g. inside `%{_builddir}`, such as documentation files that
+you wish to include). If your package only installs a single file
+`/usr/sbin/mycommand`, then the `%files` section can simply be:
+
+`%files` +
+`%{_sbindir}/mycommand`
+
+To make your package less sensitive to upstream changes, declare all
+files within a directory to be owned by the package with a pattern
+match:
+
+`%{_bindir}/*`
+
+To include a single directory:
+
+`%{_datadir}/%{name}/`
+
+Note that `%{_bindir}/*` does not claim that this package owns the
+`/usr/bin` directory, but only the files contained within. If you list a
+directory, then you are claiming that the package owns that directory
+and all files and subdirectories contained within. Thus, do *not* list
+`%{_bindir}` and be careful of directories that may be shared with other
+packages.
+
+An error will occur if:
+
+* a pattern match does not match any file or directory
+* a file or directory is listed or matched more than once
+* a file or directory in the `%{buildroot}` has not been listed
+
+It is also possible to exclude files from a previous match by using the
+`%exclude` glob. This can be useful for including almost all of the
+files included by a different pattern match, but note that it will also
+fail if it does not match anything.
+
+[[files-prefixes]]
+%files prefixes
++++++++++++++++
+
+You may need to add one or more prefixes to lines in the `%files`
+section; seperate them with a space. See
+http://ftp.rpm.org/max-rpm/s1-rpm-inside-files-list-directives.html[Max
+RPM section on %files directives].
+
+Usually, "`%doc`" is used to list documentation files within
+`%{_builddir}` that were not copied to `%{buildroot}`. A `README` and
+`INSTALL` file is usually included. They will be placed in an
+appropriate directory under `/usr/share/doc`, whose ownership does not
+need to be declared.
+
+*Note:* If specifying a `%doc` entry, rpmbuild < 4.9.1 removes the doc
+directory it installs files into before installing them. This means that
+files already in it, for example installed in the `%install` section,
+are removed and do not end up in the package. If you want to install
+some files in the `%install` section, install them into a temporary
+staging directory inside the build dir (not build root), for example
+`_docs_staging`, and include them in the in the `%files` list like
+`%doc _docs_staging/*`.
+
+Configuration files should be placed in `/etc` and are normally
+specified like this (which makes sure user changes aren't overwritten on
+update):
+
+`%config(noreplace) %{_sysconfdir}/foo.conf`
+
+If the update uses a non-backwards-compatible configuration format, then
+specify them like this:
+
+`%config %{_sysconfdir}/foo.conf`
+
+"`%attr(mode, user, group)`" can be used for finer control over
+permissions, where a "`-`" means use the default:
+
+`%attr(0600, root, root) FOO.BAR`
+
+If a file is in particular natural language, use `%lang` to note that:
+
+`%lang(de) %{_datadir}/locale/de/LC_MESSAGES/tcsh*`
+
+Programs using Locale files should follow the
+Packaging:Guidelines#Handling_Locale_Files[recommended method of
+handling i18n files]:
+
+* find the filenames in the `%install` step: `%find_lang ${name}`
+* add the required build dependencies: `BuildRequires: gettext`
+* use the found filenames: `%files -f ${name}.lang`
+
+The `%readme` prefix is *not* valid in Fedora.
+
+[[files-and-filesystem-hierarchy-standard-fhs]]
+%files and Filesystem Hierarchy Standard (FHS)
+++++++++++++++++++++++++++++++++++++++++++++++
+
+You should follow the http://www.pathname.com/fhs/[Filesystem Hierarchy
+Standard (FHS)]. Executables go in `/usr/bin`, global configuration
+files go in `/etc`, libraries go into `/usr/lib` (or `/usr/lib64`) and
+so on. Executables that should not normally be executed directly by
+users or administrators should (but are executed by other parts of your
+package) go in a subdirectory of `/usr/libexec`, which is referred to as
+`%{_libexecdir}/%{name}`.
+
+Do *not* install files into `/opt` or `/usr/local`.
+(Packaging:Guidelines#Limited_usage_of_.2Fopt.2C_.2Fetc.2Fopt.2C_and_.2Fvar.2Fopt[reference])
+
+Unfortunately, many programs do not follow the FHS by default. In
+particular, architecture-independent libraries get placed in `/usr/lib`
+instead of `/usr/share`. The former is for architecture-dependent
+libraries, while the latter is for architecture-independent libraries,
+which means that systems with different CPU architectures can share
+`/usr/share`. There are many exceptions in Fedora (such as Python, Perl
+and Systemd), but Fedora applies this rule more strictly than some
+distributions. `rpmlint` will generally complain if you put anything
+other than ELF files into `/usr/lib`.
+
+[[files-example]]
+%files example
+++++++++++++++
+
+Here's a simple example of a %files section:
+
+`%files` +
+`%doc README` +
+`%license LICENSE COPYING` +
+`%{_bindir}/*` +
+`%{_sbindir}/*` +
+`%{_datadir}/%{name}/` +
+`%config(noreplace) %{_sysconfdir}/*.conf`
+
+[[finding-duplicates]]
+Finding duplicates
+++++++++++++++++++
+
+You can list any duplicates of two binary packages by doing:
+
+`cd ~/rpmbuild/RPMS/ARCH # Substitute "ARCH" for your architecture` +
+`rpm -qlp PACKAGE1.*.rpm | sort > ,1` +
+`rpm -qlp PACKAGE2.*.rpm | sort > ,2` +
+`comm -12 ,1 ,2`
+
+[[scriptlets]]
+Scriptlets
+^^^^^^^^^^
+
+When an end-user installs the RPM, you may want some commands to be run.
+This can be achieved through scriptlets. See Packaging:Scriptlets.
+
+Scriptlets can be run:
+
+* before (*`%pre`*) or after (*`%post`*) a package is installed
+* before (*`%preun`*) or after (*`%postun`*) a package is uninstalled
+* at the start (*`%pretrans`*) or end (*`%posttrans`*) of a transaction
+
+For example, every binary RPM package that stores shared library files
+in any of the dynamic linker's default paths, must call `ldconfig` in
+`%post` and `%postun`. If the package has multiple subpackages with
+libraries, each subpackage should also perform the same actions.
+
+`%post -p /sbin/ldconfig` +
+`%postun -p /sbin/ldconfig`
+
+If only running a single command, then the "`-p`" option runs the
+adjacent command without invoking the shell. However, for several
+commands, omit this option and include the shell commands beneath.
+
+If you run any programs within the scriptlets, then you must specify any
+requirements in the form "`Requires(CONTEXT)`" (e.g. `Requires(post)`).
+
+`%pre`, `%post`, `%preun`, and `%postun` provide the argument `$1`,
+which is the number of packages of this name which will be left on the
+system when the action completes. Don't compare for equality with `2`,
+but instead check if they are greater than or equal to `2`. For
+`%pretrans` and `%posttrans`, `$1` is always `0`.
+
+For example, if the package installs an info manual, then the info
+manual index must be updated with `install-info` from the `info`
+package. Firstly, there is no guarantee that the `info` package will be
+available unless we explicitly declare it as required, and secondly, we
+don't want to fail completely if `install-info` fails:
+
+`Requires(post): info` +
+`Requires(preun): info` +
+`...` +
+`%post` +
+`/sbin/install-info %{_infodir}/%{name}.info %{_infodir}/dir || :` +
+`%preun` +
+`if [ $1 = 0 ] ; then` +
+`/sbin/install-info --delete %{_infodir}/%{name}.info %{_infodir}/dir || :` +
+`fi`
+
+There is one other glitch related to installing info manuals. The
+`install-info` command will update the info directory, so we should
+delete the useless empty directory from the %\{buildroot} during the
+`%install` section:
+
+`rm -f %{buildroot}%{_infodir}/dir`
+
+Another scriptlet-like ability are "triggers", which can be run for your
+package when other packages are installed or uninstalled. See
+http://ftp.rpm.org/api/4.4.2.2/triggers.html[RPM Triggers].
+
+[[macros]]
+Macros
+^^^^^^
+
+Macros are text in the format `%{string}`. Typical macros:
+
+[cols=",,",options="header",]
+|=======================================================================
+|Macro |Typical Expansion |Meaning
+|`%{_bindir}` |`/usr/bin` |Binary directory: where executables are
+usually stored.
+
+|`%{_builddir}` |`~/rpmbuild/BUILD` |Build directory: files are compiled
+within a subdirectory of the build directory. See `%buildsubdir`.
+
+|`%{buildroot}` |`~/rpmbuild/BUILDROOT/%{name}...` |Build root: where
+files are "installed" during the `%install` stage, which copies files
+from a subdirectory of `%{_builddir}` to a subdirectory of
+`%{buildroot}`. (Historically, `%{buildroot}` was in "/var/tmp/".)
+
+|`%{buildsubdir}` |`%{_builddir}/%{name}` |Build subdirectory: a
+subdirectory within `%{_builddir}` where files are compiled during the
+`%build` stage. It is set after `%autosetup`.
+
+|`%{_datadir}` |`/usr/share` |Share directory.
+
+|`%{_defaultdocdir}` |`/usr/share/doc` |Default documentation directory.
+
+|`%{dist}` |`.fc`__`NUMBER`__ |Distribution+version short name (e.g.
+"`.fc`")
+
+|`%{fedora}` |_`NUMBER`_ |Number of fedora release (e.g. "")
+
+|`%{_includedir}` |`/usr/include`
+
+|`%{_infodir}` |`/usr/share/info`
+
+|`%{_initrddir}` |`/etc/rc.d/init.d`
+
+|`%{_libdir}` |`/usr/lib`
+
+|`%{_libexecdir}` |`/usr/libexec`
+
+|`%{_localstatedir}` |`/var`
+
+|`%{_mandir}` |`/usr/share/man`
+
+|`%{name}` | |Name of package, set by Name: tag
+
+|`%{_sbindir}` |`/usr/sbin`
+
+|`%{_sharedstatedir}` |`/var/lib`
+
+|`%{_sysconfdir}` |`/etc`
+
+|`%{version}` | |Version of package, set by Version: tag
+|=======================================================================
+
+Learn more about macros by looking in `/etc/rpm/*` and `/usr/lib/rpm`,
+especially `/usr/lib/rpm/macros`. Also use `rpm --showrc` to show values
+that RPM will use for macros (altered by `rpmrc` and macro configuration
+files).
+
+You can set your own macro values using %global, but be sure to define
+them before you use them. (Macro definitions can also refer to other
+macros.) For example:
+
+`%global date 2012-02-08`
+
+Use the "`-E`" option of `rpmbuild` to find the value of a macro in a
+SPEC file:
+
+`rpmbuild -E '%{_bindir}' myfile.spec`
+
+Also see Packaging/RPMMacros and
+https://docs-old.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch09s07.html[RPM
+Guide chapter 9].
+
+[[other-tags]]
+Other tags
+^^^^^^^^^^
+
+In addition to Requires and BuildRequires tags, you can also use these
+for controlling dependencies:
+
+* *Provides*: list virtual package names that this package provides. For
+example, there might be a package "`foo`" that demands a particular
+functionality "bar" from another program. If there are several packages
+that can satisfy that demand, those packages can specify
+"`Provides: bar`" and the "`foo`" package can specify "`Requires: bar`".
+You could also use the
+http://dailypackage.fedorabook.com/index.php?/archives/6-Wednesday-Why-The-Alternatives-System.html["alternatives"
+system], but avoid if multiple users on the same system might want
+different default, as these settings are system-wide. Use
+"`rpm -q --provides PACKAGENAME`" to see what a given package provides.
+Some examples of virtual packages in Fedora:
+** MTA: Used for mail transport agents, such as sendmail.
+** tex(latex): Used for latex
+* *Obsoletes*: remove another named package(s) when this package is
+installed. Use when the package name changes or when it totally replaces
+a different package.
+* *Conflicts*: state what other packages cannot be installed
+simultaneously to this one. Avoid this if you can. See
+Packaging/Conflicts.
+* *BuildConflicts*: state what packages cannot be installed when
+building this package. Avoid this if you can.
+
+To manage different architectures, there are two tags:
+
+* *ExcludeArch*: to exclude an architecture on which the package doesn't
+build. For example:
+
+`ExcludeArch: ppc`
+
+* *ExclusiveArch*: to include only the specified architecture. Avoid
+this unless absolutely correct.
+
+Valid architectures are listed at Architectures.
+
+[[subpackages]]
+Subpackages
+^^^^^^^^^^^
+
+A SPEC file can define several binary package. In other words, one SRPM
+with one SPEC file can result in several RPMS. Note that there is still
+only one creation (%prep, %build, %install etc.) process. `name-doc` and
+`name-devel` subpackages are common for documentation and development
+files respectively.
+
+Use the `%package` directive to start defining a subpackage:
+
+`%package subpackage_name`
+
+After each `%package` directive, list the tags for the subpackage. This
+should at least include the Summary and Group tags, as well as the
+`%description subpackage_name` and `%files subpackage_name` directives:
+
+Anything not specified by the subpackage will be inherited from its
+parent.
+
+By default, if the package name is "`foo`" and the subpackage name is
+"`bar`", then the resulting subpackage will be "`foo-bar`". You can
+override it with the "`-n`" option (but you'll need to use it in all
+other directives too if you specify it here):
+
+`%package -n new_subpackage_name`
+
+http://docs-old.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch10s04.html[See
+the RPM Guide section on subpackages] for more information.
+
+[[conditionals]]
+Conditionals
+^^^^^^^^^^^^
+
+You can insert conditional statements, for example to test if you are
+creating a binary for a certain architecture:
+
+`%ifarch ARCHITECTURE_NAME`
+
+the negated version with:
+
+`%ifnarch ARCHITECTURE_NAME`
+
+or the more general conditional:
+
+`%if TRUE_OR_FALSE`
+
+There is an optional "`%else`" section; all of these are closed with
+"`%endif`".
+
+[[application-specific-guidelines]]
+Application Specific Guidelines
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There are many application-specific guidelines that can help you (e.g.,
+for specific programming languages, applications, libraries, and build
+systems). Many of them are listed as part of the
+link:Packaging/Guidelines#Application_Specific_Guidelines[Application
+Specific Guidelines of Packaging/Guidelines]. Examples of
+application-specific guidelines are those for:
+
+* Packaging:Cmake[Cmake]
+* Packaging:Emacs[Emacs]
+
+Failing that, some other ways of finding application-specific help are:
+
+* The 'SEARCH' command on Fedoraproject.org.
+* PackagingDrafts
+* A link:SIGs[Special Interest Group (SIG)]
+* Special:PrefixIndex/Packaging[Wiki pages prefixed with 'Packaging']
+
+[[miscellaneous-hints]]
+Miscellaneous hints
+^^^^^^^^^^^^^^^^^^^
+
+Packaging/FrequentlyMadeMistakes has information on frequently-made
+mistakes. There are also some recommendations and controversial tricks
+on link:PackageMaintainers/Packaging_Tricks[PackageMaintainers/Packaging
+Tricks].
+
+Try to write your SPEC files so that it is likely to work when a new
+release is made upstream, without any changes aside from bumping the
+version number and refreshing the source files. For example, if it
+contains *.txt files with execute bits, instead of doing
+
+` chmod a-x Filename1.txt Filename2.txt Filename3.txt`
+
+consider doing this, which will handle new filenames that use the same
+file naming convention:
+
+` chmod a-x *.txt`
+
+If you want to see lots of examples of scriptlets, you can show all the
+scriptlets on installed programs using:
+
+` rpm -qa --queryformat "\n\nPACKAGE: %{name}\n" --scripts | less`
+
+Don't try to interact with the user; RPM is designed to support batch
+installs. If an application needs to show a EULA, that needs to be part
+of its initial execution, not its installation.
+
+You might not want to start services, because in a big install that
+could slow things down. If you install an init or systemd script,
+consider using `chkconfig` or `systemctl` to arrange for the service to
+be started/stopped on the next reboot. Before uninstalling, you should
+normally try to stop its services if they are running.
+
+Uninstalling should reverse most changes made during installation, but
+don't remove any user-created files.
+
+Normally, if there are binary executables, then debugging symbols are
+stripped from the normal binary packages and placed into a `name-debug`
+subpackage. If this shouldn't happen, you can disable the stripping and
+creation of this subpackage by putting this at the top of your SPEC:
+
+`%global _enable_debug_package 0` +
+`%global debug_package %{nil}` +
+`%global __os_install_post /usr/lib/rpm/brp-compress %{nil}`
+
+To prevent stripping you may also need to do this in the `%install`
+section:
+
+`export DONT_STRIP=1`
+
+A way to check for the version of Fedora in a SPEC file for conditional
+builds is:
+
+`%if 0%{?fedora} <= `
+
+The `?` causes the macro to evaluate to evaluate to blank if `%fedora`
+is not defined. This causes the end result to be the `0` (which is a
+number and thus fine), while not interfering with the result if there is
+actually a value for `%fedora`. (Note that this trick does not work in
+Koji "scratch" builds, where `%fedora` is set during the creation of a
+SRPM.)
+
+GUI programs must have a desktop entry so that people can invoke it from
+the graphical desktop menu. For `.desktop` files, see
+link:Packaging/Guidelines#Desktop_files[Fedora packaging guidelines for
+desktop files] and
+http://standards.freedesktop.org/desktop-entry-spec/latest/[desktop
+entry spec]. For icons within `/usr/share/icons`, see
+http://standards.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html[icon
+theme spec].
+
+[[building-the-binary-package]]
+Building the binary package
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[test-with-rpmlint]]
+Test with rpmlint
+^^^^^^^^^^^^^^^^^
+
+To catch many common errors early, run `rpmlint` on your SPEC file
+before trying to build anything from it:
+
+`$ rpmlint program.spec`
+
+If the reported error doesn't make sense, run it again with the "`-i`"
+option for longer messages.
+
+Aim to have no errors, but sometimes `rpmlint` reports false positives.
+The link:Packaging/Guidelines#Use_rpmlint[Fedora packaging guidelines]
+explains which ones to ignore.
+
+[[create-binary-rpms-from-the-spec-file]]
+Create binary RPMS from the SPEC file
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Once you've created your SPEC file, build the SRPM and binary RPMS by
+running this:
+
+`$ rpmbuild -ba program.spec`
+
+If successful, RPMS will be created within `~/rpmbuild/RPMS` and SRPMS
+will be created within `~/rpmbuild/SRPMS`.
+
+If it fails, go to the appropriate directory and see what is left over.
+To help debug, you can skip earlier stages that succeeded with the
+"`--short-circuit`" option. For example, to restart at the `%install`
+stage (skipping earlier stages), do this:
+
+`$ rpmbuild -bi --short-circuit program.spec`
+
+If you just want to create an SRPM (which does not run the `%prep` or
+`%build` or other stages), run this:
+
+`rpmbuild -bs program.spec`
+
+[[testing-binary-rpms-with-rpmlint]]
+Testing binary RPMS with rpmlint
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`rpmlint` can be run on SPEC files, RPMS and SRPMS to check for errors.
+You need to eliminate or justify warnings before posting a package.
+link:Common_Rpmlint_issues[This page] offers explanations for some of
+the common issues that come up. If you are in the SPECS directory, do
+this:
+
+`$ rpmlint `__`NAME`__`.spec ../RPMS/*/`__`NAME`__`*.rpm ../SRPMS/`__`NAME`__`*.rpm`
+
+Enter the `~/rpmbuild/RPMS` directory and into the architecture
+subdirectory. You will find some binary RPMS. Quickly see their files
+and permissions (to check whether they are correct) by doing:
+
+`$ rpmls *.rpm`
+
+If they look fine, install them as root:
+
+`# rpm -ivp package1.rpm package2.rpm package3.rpm ...`
+
+Test the programs in a few different ways to see if everything works
+correctly. If it is a GUI tool, make sure it shows up in the desktop
+menu, otherwise the `.desktop` entry is wrong.
+
+Uninstall packages later by doing:
+
+`# rpm -e package1 package2 package3`
+
+[[mock-and-koji]]
+Mock and Koji
+~~~~~~~~~~~~~
+
+link:Projects/Mock[Mock] is a powerful tool that uses the SRPM you have
+created to build binary packages within a nearly empty environment. This
+can reveal if you have accurate build dependencies. If it fails, then
+you forgot to list something in BuildRequires. See
+link:Using_Mock_to_test_package_builds[Using Mock to test package
+builds]. Once your account is a member of the "`mock`" group, you can
+run commands like this to do local testing:
+
+`$ mock -r fedora-23-i386 rebuild path_to_source_RPM`
+
+You can use Koji (which uses `mock`) to do builds on many different
+systems, some of which you may not have. PackageMaintainers/Join and
+PackageMaintainers/UsingKoji have more information about Koji. Once it's
+set up, you can test your SRPM on a variety of platforms by running
+commands like:
+
+`$ koji build --scratch f23 path_to_source_RPM`
+
+Replace `f23` with any later release of Fedora, or `rawhide`.
+
+Your Koji builds can only depend on packages that are actually in the
+TARGET distribution repository. Thus, you can't use Koji to build for
+released distributions if your package depends on other new packages
+that Bodhi hasn't released yet. If you need to build against a package
+that is not yet a stable released update, submit a Koji buildroot
+override request via Bodhi. If it's not your own package you depend on,
+contact its maintainer(s). [Before Bodhi could handle Koji buildroot
+override requests, the old method has been to file a ticket with rel-eng
+at: https://fedorahosted.org/rel-eng/newticket and request that that
+package be added as a buildroot override.]
+
+[[helpful-tools]]
+Helpful tools
+~~~~~~~~~~~~~
+
+The `rpmdevtools` package has a number of helpful tools;
+"`rpm -qil rpmdevtools`" will show you what it installs.
+
+* `rpmdev-bumpspec` : bump the release tag in the spec file and add a
+changelog comment with the right date and version format:
+
+`rpmdev-bumpspec --comment=COMMENT --userstring=NAME+EMAIL_STRING SPECFILES`
+
+DNF download plugin (from core DNF plugins) is also useful:
+
+* `dnf download` : download the SRPM of the package by running:
+
+`dnf download --source PACKAGENAME`
+
+The `auto-buildrequires` package has a pair of nice tools for helping to
+figure out the proper BuildRequires entries. After installing this
+package, replace "`rpmbuild`" with "`auto-br-rpmbuild`" and you'll see
+an automatically generated BuildRequires list.
+
+You might find http://rust.sourceforge.net/[RUST] useful (GPL), though
+it does not create SPEC files of suitable quality for Fedora packages.
+http://kitenet.net/~joey/code/alien/[Alien] converts between package
+formats. It won't produce clean SRPMS, but converting an existing
+package might provide helpful information.
+
+If you are thinking about packing your rpm for Fedora, be sure you run
+your packages through https://fedorahosted.org/FedoraReview/[Fedora
+Review], which helps ensure that you comply to the
+Packaging:Guidelines[Packaging Guidelines].
+
+Finally,
+https://github.com/alanfranz/docker-rpm-builder[docker-rpm-builder] (APL
+2.0) uses http://www.docker.com[Docker] to build RPM packages; while
+using rpmbuild requires building on the same host distro as the target,
+and mock works fine on Fedora/Centos/RHEL distributions for any target,
+*this last tool works fine whenever Docker can run*.
+
+If you want to build your package for diferent distribution and
+architectures and to have publicly accesible dnf repository, you can
+submit your src.rpm to https://copr.fedoraproject.org[Copr].
+
+If you need to sign your new package, use `rpmsign` tool from `rpm-sign`
+package.
+
+[[guidelines-and-rules]]
+Guidelines and rules
+~~~~~~~~~~~~~~~~~~~~
+
+When you create your packages, you'll need to follow the following rules
+and guidelines:
+
+* link:Join_the_package_collection_maintainers[How to join the Fedora
+Package Collection Maintainers]
+* Packaging:Guidelines[Packaging Guidelines]
+* Packaging:NamingGuidelines[Package Naming Guidelines]
+* Packaging:LicensingGuidelines[Package Licensing Guidelines]
+* Packaging:DistTag[Dist Tag Guidelines]
+* Packaging:ReviewGuidelines[Package Review Guidelines]
+
+There are many official guidelines that will help you with specific
+circumstances (e.g. Java programs, OCaml programs, GNOME programs). You
+can also learn more from the SIGs and
+:Category:Package_Maintainers[Package Maintainers] sections.
+
+Special:Prefixindex/Packaging[You can also see the list of all Wiki
+pages about Packaging] to see if any apply.
+
+Failing that, you might find some useful recommendations in the
+unofficial :Category:Packaging_guidelines_drafts[draft guidelines
+category] and link:PackagingDrafts[Packaging Drafts To Do].
+
+You might find ideas from http://en.opensuse.org/Packaging[SuSE],
+http://www.debian.org/doc/debian-policy/[Debian], but
+http://www.mail-archive.com/distributions@lists.freedesktop.org/msg00156.html[distributions
+differ in their rules], so do not presume they can be used directly.
+
+*The .spec files that you create must be open source software, as noted
+in the Legal:Fedora_Project_Contributor_Agreement[FPCA].*
+
+[[maintaining-the-package]]
+Maintaining the package
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Once your package has been accepted, you and your co-maintainers will
+need to maintain it. See link:Package_update_HOWTO[Package update HOWTO]
+and link:Package_update_guidelines[Package update guidelines]. If you
+update the version in multiple releases of Fedora, do it backwards in
+time (e.g. release for Fedora N, then once that's accepted, Fedora N-1).
+The system presumes that later versions of Fedora have the same or later
+versions of programs.
+
+Encourage the upstream developers to use standard source code release
+conventions. Using standard conventions makes packaging much easier. For
+more information, see:
+
+* http://www.dwheeler.com/essays/releasing-floss-software.html[Releasing
+Free/Libre/Open Source Software (FLOSS) for Source Installation] (a
+quick summary)
+* http://www.gnu.org/prep/standards/html_node/Managing-Releases.html[GNU
+Coding Standards release process]
+* http://en.tldp.org/HOWTO/Software-Release-Practice-HOWTO/[Software
+Release Practice HOWTO]
+* http://www.pathname.com/fhs/[Filesystem Hierarchy Standard (FHS)]
+* http://offog.org/articles/packaging/[Packaging Unix software]
+
+[[for-more-information]]
+For more information
+~~~~~~~~~~~~~~~~~~~~
+
+The :Category:Package_Maintainers[Package Maintainers] page links to
+many other useful pages, and the link:Package_update_HOWTO[Package
+update HOWTO] describes how to update an existing package you already
+maintain in Fedora.
+
+For more information, outside of the Fedora Wiki, see:
+
+* https://developer.fedoraproject.org/deployment/rpm/about.html[A brief
+RPM Packaging overview] on the Fedora Developer Portal
+* http://www.g-loaded.eu/2006/04/05/how-to-build-rpm-packages-on-fedora/[How
+to build RPM packages on Fedora] - very brief run-through
+* Packaging software with RPM (developerWorks)
+http://www.ibm.com/developerworks/library/l-rpm1/[Part 1],
+http://www.ibm.com/developerworks/library/l-rpm2/[Part 2], and
+http://www.ibm.com/developerworks/library/l-rpm3.html[Part 3]
+* Fedora Classroom had an IRC session on packaging and you can refer to
+the logs at
+https://fedoraproject.org/wiki/Building_RPM_packages_%2820090405%29
+
+* http://ftp.rpm.org/max-rpm/[Maximum RPM Book] - most complete
+information, but in some cases old/obsolete
+* http://docs-old.fedoraproject.org/en-US/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-creating-rpms.html[RPM
+Guide, section on creating RPMs] - this has lots of good information,
+and is slightly more up-to-date, but is a draft
+* http://web.archive.org/web/20100109050207/http://docs.fedoraproject.org/developers-guide/ch-rpm-building.html[Developer's
+guide, section on building RPMs] - via archive.org, disappeared in 2010
+
+* http://freshrpms.net/docs/fight/["The fight", Mattias Saou's first
+attempt to make a readable rpm package building introduction. ca. 2003]
+
+* http://en.tldp.org/HOWTO/RPM-HOWTO/index.html[RPM HOWTO: RPM at Idle
+by Donnie Barnes]
+
+* http://en.opensuse.org/Build_Service/cross_distribution_package_how_to[Cross-distribution
+package HOWTO] has hints if you're building one RPM for many
+distributions.
+
+* http://linuxshellaccount.blogspot.com/2008/03/creating-your-own-linux-rpms-initial.html[Creating
+Your Own Linux RPM's - The Initial Software Build] is another brief
+intro, but it makes the point that "The process of building RPM's is
+much simpler than creating packages for Solaris... Fewer steps, and the
+ability to add all of your software information into one specification
+file, makes for a much tighter (and easier to modify or reproduce)
+software packaging system."
+* http://fedoranews.org/alex/tutorial/rpm/[All you need to know about
+RPM] (more about installing packages than creating them)
+* The http://wiki.rpm.org/[rpm.org Wiki] has some useful information,
+such as the http://wiki.rpm.org/Problems[list of known RPM problems]
+
+Note: The http://rpm5.org/[rpm5.org] site has some documentation, but do
+not depend on it; that is the home of a _fork_ of RPM maintained by Jeff
+Johnson. The RPM used by Fedora (and Novell/SuSE) is instead based at
+http://www.rpm.org[rpm.org]. http://lwn.net/Articles/236029/[lwn.net has
+a brief article] about this.
+
+Category:Package_Maintainers[Category:Package Maintainers]
+Category:How_to[Category:How to]
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
