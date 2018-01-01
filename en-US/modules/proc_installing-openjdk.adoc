@@ -14,23 +14,28 @@ $ dnf search openjdk
 ====
 Various flavors of OpenJDK are available. For information about these options, search the link:http://openjdk.java.net/[OpenJDK web site].
 ====
++
 . Run the following command to install OpenJDK:
 +
 ----
-$ dnf install <openjdk-package-name>
+# dnf install <openjdk-package-name>
 ----
 +
 For example:
 +
 ----
-$ dnf install java-1.8.0-openjdk.x86_64
+# dnf install java-1.8.0-openjdk.x86_64
 ----
+
+// tag::java-alternatives[]
 [NOTE]
 ====
-If you have installed other versions of Java, you might need to switch the active version of java:
-----
-sudo alternatives --config java
-----
-A list of installed java versions is displayed. Choose the version you require.
-====
+If you have installed other versions of Java, you might need to switch the active version of Java:
 
+----
+# alternatives --config java
+----
+
+A list of installed Java versions is displayed. Choose the version you require.
+====
+// end::java-alternatives[]
