@@ -4,28 +4,22 @@ Dir: en-US
 Topics:
   - Name: Quick Docs in Progress (How to Help!)
     File: index
+  - Name: Getting started with Apache HTTP Server
+    File: getting-started-with-apache-http-server
+  - Name: Installing Java
+    File: installing-java
+  - Name: Installing Chromium or Google Chrome browsers
+    File: installing-chromium-or-google-chrome-browsers
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda
     File: anaconda
-  - Name: Getting started with Apache HTTP Server
-    File: getting-started-with-apache-http-server
   - Name: (FIX ME!) AutoUpdates
     File: autoupdates
   - Name: (FIX ME!) Building a custom kernel
     File: build-custom-kernel
   - Name: (FIX ME!) Bumblebee
     File: bumblebee
-  - Name: Chromium Web Browser
-    File: /modules/concept_chromium-web-browser
-  - Name: Installing Chromium Web Browser
-    File: /modules/proc_installing-chromium-web-browser
-  - Name: Enabling Chromium Packages
-    File: /modules/proc_enabling-chromium-packages
-  - Name: Third party repositories
-    File: /modules/concept_third-party-repositories
-  - Name: Enabling Third party repositories
-    File: /modules/proc_enabling-third-party-repository
   - Name: (FIX ME!) Configuring Sudo
     File: configure-sudo
   - Name: (FIX ME!) How to create and use a Live CD
@@ -62,8 +56,6 @@ Topics:
     File: get-started-with-virt
   - Name: (FIX ME!) GRUB 2
     File: grub2
-  - Name: Installing Java
-    File: installing-java
   - Name: (FIX ME!) Kernel
     File: kernel
   - Name: Downloading Fedora

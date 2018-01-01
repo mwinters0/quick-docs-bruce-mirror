@@ -1,75 +1,70 @@
-[id='installing-chromium-web-browser']
-= Installing Chromium Web Browser
+[id='installing']
+= Installing the browsers
 
-*Chromium Web Browser* package was only available through a https://copr.fedorainfracloud.org/[COPR repository]. However, now the package is freely available in Fedora through the official repositories. Chromium can be installed using GUI and terminal.
+Both Chromium and Google Chrome can be installed on Fedora.
 
-== Installing Chromium using GUI:
+
+[id='installing-chromium']
+== Installing Chromium
+
+Chromium can be installed using GUI and terminal.
+
+.Installing Chromium using GUI
 
 . Click on Software tool in Fedora.
 
-. Search Chromium Web Browser.
+. Search for Chromium Web Browser.
 
 . Click on Install.
 
-== Installing Chromium using terminal:
-
-. Login as root:
-`# su`
+.Installing Chromium using terminal
 
 . To install Chromium Web Browser, use the command:
-`# dnf install chromium`
++
+----
+# dnf install chromium
+----
++
+. To upgrade Chromium, use the command:
++
+----
+# dnf upgrade chromium
+----
 
-. To upgrade Chromium, use the command: `# dnf upgrade chromium`
 
+[id='installing-chrome']
 == Installing Chrome
-*Google Chrome* can be installed by downloading rpm and by creating repository.
 
-== Installing Google Chrome using rpm:
+*Google Chrome* can be installed by downloading rpm.
 
 . Click the following link: https://www.google.com/chrome/browser/desktop/index.html .
 
 . Click on *Download Chrome* and select *Fedora 64* or *32 bits* download and install the repo.
 
 . Login as root and use the command to install Google Chrome:
-`#dnf install google-chrome`
-
-== Installing Chrome by creating repository:
-
-. Login as root:
-`#su`
-
-. Enable Google Chrome yum repository by using the command:
-`#cat << EOF > /etc/yum.repos.d/google-chrome.repo`
 +
 ----
-[google-chrome]
-name=google-chrome - \$basearch
-baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
-EOF
+# dnf install google-chrome
 ----
-
-. Install stable Google Chrome version using the command:
-`#dnf install google-chrome-stable`
 
 [NOTE]
 ====
 If you want to install unstable Google Chrome version, use the following command:
 
-`#dnf install google-chrome-unstable`
+----
+# dnf install google-chrome-unstable
+----
 
 If you want to install stable Google Chrome version using the following command:
 
-`#dnf install google-chrome-beta`
+----
+# dnf install google-chrome-beta`
+----
 ====
 
-== Additional Resources
+
+[discrete]
+== Additional resources
+
 * https://copr.fedorainfracloud.org/[COPR repository]
-
 * https://www.google.com/chrome/browser/desktop/index.html[Google Chrome rpm]
-
-
-
-

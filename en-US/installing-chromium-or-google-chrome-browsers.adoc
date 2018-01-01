@@ -1,0 +1,9 @@
+[i='installing-chromium-or-google-chrome-browsers']
+= Installing Chromium or Google Chrome browsers
+
+include::modules/concept_chromium-web-browser.adoc[leveloffset=+1]
+
+include::modules/proc_installing-chromium-web-browser.adoc[leveloffset=+1]
+
+include::modules/proc_enabling-chromium-plugins.adoc[leveloffset=+1]
+
