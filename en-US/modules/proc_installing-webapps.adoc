@@ -1,5 +1,5 @@
-= Installing webapps
 [id='installing-webapps']
+= Installing webapps
 
 You probably want to run something on your web server. Many of the most popular web applications are packaged for Fedora. Using the packaged versions of web applications is recommended. These packages will be configured following the distribution's best practices which help to ensure the security of the installation.
 

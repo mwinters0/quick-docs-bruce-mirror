@@ -1,5 +1,5 @@
-= Configuring Apache HTTPD
 [id='configuring-apache-httpd']
+= Configuring Apache HTTPD
 
 `/etc/httpd/conf/httpd.conf` is the main Apache configuration file. Custom confirguration files are specified under `/etc/httpd/conf.d/*.conf`. If the same settings are specified in both `/etc/httpd/conf/httpd.conf` and a `.conf` file in `/etc/httpd/conf.d/`, the setting from the `/etc/httpd/conf.d/` file will be used.
 
@@ -12,20 +12,23 @@ It is recommended to create a new file in `/etc/httpd/conf.d` which will take pr
 [NOTE]
 ====
 After making any changes to your server configuration, execute the following command:
+
 ----
 # apachectl reload
 ----
 
 Certain changes may require Apache to be fully restarted. To fully restart Apache, execute the following command:
+
 ----
 # systemctl restart httpd.service
 ----
 ====
 
-== Enabling access to web applications
 [id='enabling-access-to-web-applications']
+== Enabling access to web applications
 
 By default Fedora-packaged web applications are usually configured such that, access is allowed only from the localhost. This is defined by the file `/etc/httpd/conf.d/webapp.conf` which contains the following settings:
+
 ----
 <Directory /usr/share/webapp>
     <IfModule mod_authz_core.c>
@@ -84,8 +87,8 @@ Once the application is correctly configured, add the following configuration to
 </Directory>
 ----
 
-== Opening firewall ports
 [id='opening-firewall-ports']
+== Opening firewall ports
 
 IMPORTANT: This exposes your computer to the Internet and potential attackers. Secure your system and your Apache installation properly before exposing your server to the Internet.
 
@@ -121,8 +124,9 @@ To allow Apache through the firewall instantly:
 
 NOTE: If your server is running in a network with a NAT router, you will also need to configure your router to forward the HTTP and HTTPS ports to your server, if you wish to allow access from outside your local network.
 
-== Disabling Test Page
+
 [id='disabling-test-page']
+== Disabling Test Page
 
 To disable the test page, comment out all the lines in the file `/etc/httpd/conf.d/welcome.conf` using `pass:[#]` as follows:
 
