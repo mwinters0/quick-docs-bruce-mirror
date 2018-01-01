@@ -64,8 +64,6 @@ Topics:
     File: grub2
   - Name: Installing Java
     File: installing-java
-  - Name: (FIX ME!) JDK on Fedora
-    File: jdk
   - Name: (FIX ME!) Kernel
     File: kernel
   - Name: Downloading Fedora
