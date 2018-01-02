@@ -1,5 +1,5 @@
-= Enabling nested virtualization in KVM
 [[enabling-nested-virtualization-in-kvm]]
+= Enabling nested virtualization in KVM
 
 Nested virtualization allows you to run a virtual machine (VM) inside
 another VM while still using hardware acceleration from the host.
@@ -30,6 +30,7 @@ To enable nested virtualization for Intel processors:
 ----
 # modprobe kvm_intel nested=1
 ----
++
 . Nested virtualization is enabled until the host is rebooted. To enable it permanently, add the following line to the `/etc/modprobe.d/kvm.conf` file:
 +
 ----

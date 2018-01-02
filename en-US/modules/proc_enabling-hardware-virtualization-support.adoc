@@ -1,0 +1,22 @@
+[[enabling-hardware-virtualization-support]]
+= Enabling hardware virtualization support
+
+This section covers setting up `libvirt` on your system. After setting up `libvirt`, you can create virtualized guest operating systems, also known as virtual machines.
+
+
+[[system-requirements]]
+== System requirements
+
+To run virtualization on Fedora, you need:
+
+* At least 600MB of hard disk storage per guest. A minimal command-line Fedora system requires 600MB of storage. Standard Fedora desktop guests require at least 3GB of space.
+
+* At least 256MB of RAM per guest, plus 256MB for the base operating system. At least 756MB is recommended for each guest of a modern operating system. A good way to estimate this is to think about how much memory is required for the operating system normally, and allocate that amount to the virtualized guest.
+
+KVM requires a CPU with virtualization extensions, found on most consumer CPUs. These extensions are called Intel VT or AMD-V. To check whether you have CPU support, run the following command:
+
+----
+$ egrep '^flags.*(vmx|svm)' /proc/cpuinfo
+----
+
+If this command results in nothing printed, your system does not support the relevant virtualization extensions. You can still use QEMU/KVM, but the emulator will fall back to software virtualization, which is much slower.

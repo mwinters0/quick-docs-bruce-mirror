@@ -10,6 +10,8 @@ Topics:
     File: installing-java
   - Name: Installing Chromium or Google Chrome browsers
     File: installing-chromium-or-google-chrome-browsers
+  - Name: Getting started with virtualization
+    File: getting-started-with-virtualization
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda
@@ -52,8 +54,6 @@ Topics:
     File: firewalld
   - Name: (FIX ME!) Flash
     File: flash
-  - Name: (FIX ME!) Getting started with virtualization
-    File: get-started-with-virt
   - Name: (FIX ME!) GRUB 2
     File: grub2
   - Name: (FIX ME!) Kernel
