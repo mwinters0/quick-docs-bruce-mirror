@@ -14,6 +14,8 @@ Topics:
     File: getting-started-with-virtualization
   - Name: Using nested virtualization in KVM
     File: using-nested-virtualization-in-kvm
+  - Name: Fedora and Red Hat Enterprise Linux
+    File: fedora-and-red-hat-enterprise-linux
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda
@@ -90,8 +92,6 @@ Topics:
     File: repositories
   - Name: (FIX ME!) How to reset a root password
     File: reset-root-password
-  - Name: Understanding the relation between Fedora and Red Hat Enterprise Linux
-    File: modules/con_RHEL
   - Name: (FIX ME!) Spotify
     File: spotify
   - Name: (FIX ME!) Switching Desktop Environments

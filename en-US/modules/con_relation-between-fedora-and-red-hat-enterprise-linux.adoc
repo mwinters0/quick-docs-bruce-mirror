@@ -1,27 +1,26 @@
-= Understanding the relation between Fedora and Red Hat Enterprise Linux
 [id='relation-between-fedora-and-red-hat-enterprise-linux']
+= Relation between Fedora and Red Hat Enterprise Linux
 
 Open source allows user to modify the software and make it redistributable as and when required. The open source license requires improved versions of the software to carry a different name or version from the original software. Red Hat Enterprise Linux, and Fedora both are open source products. If a product or a software is upstream that means it allows the origin author/s to maintain it or perform any bug fixes. Fedora is an upstream of Red Hat Enterprise Linux. 
 
-*Red Hat Enterprise Linux*
+== Red Hat Enterprise Linux
 
 Red Hat Enterprise Linux is a commercial enterprise operating system and has its own set of test phases including alpha and beta releases.The cost of Red Hat Enterprise Linux comes from the subscription,which provides assorted certifications and support for additional architectures. You can download the https://www.redhat.com/rhel/details/eval/[evaluation version] for free and https://www.redhat.com/apps/store/developers/rhel_developer_suite.html[developer version] for $99.
 
 Download academic editions at low cost http://www.redhat.com/solutions/education/academic/[academic version] and
 http://www.redhat.com/solutions/education/academic/individual/[academic individual version]
 
-*Fedora*
+== Fedora
 
 Fedora is based on Linux kernel and GNU programs. Fedora is developed and sponsored by Fedora Project and Red Hat. Fedora is a general purpose system that gives Red Hat and the rest of its contributor community the chance to innovate rapidly with new technologies. In order to focus Red Hat's efforts and limit support costs, only a selected subset of packages found in Fedora are included in the commercially supported product line. The Fedora Project has a community of people maintaining add-on packages for Red Hat Enterprise Linux and compatible rebuilds called https://fedoraproject.org/wiki/About_EPEL[Extra Packages for Enterprise Linux], or EPEL.
 
-*History of Red Hat Enterprise Linux and Fedora*
+== History of Red Hat Enterprise Linux and Fedora
 
 Red Hat first offered an enterprise Linux support subscription for Red Hat Linux 6.1. It was not a separate product but the subscription level was branded as Red Hat 6.2E. Subsequently, Red Hat started creating a separate product with commercial service level agreements and longer
 lifecyle based on Red Hat Linux and later on Fedora. This was initially called as Advanced Server and rebranded as Red Hat Enterprise Linux in 2003. The following table gives the lineage:
 
-.Red Hat Enterprise Linux and Fedora Lineage:
-
-[cols=",,,",options="header",]
+.Red Hat Enterprise Linux and Fedora Lineage
+[options="header"]
 |=======================================================================
 |Release |Codename |Release Date |Based on
 |Red Hat Linux 6.2E |Zoot |2000-03-27 |Red Hat Linux 6.2
@@ -42,26 +41,31 @@ Fedora 13 and several modifications
 several changes from 20 and later
 |=======================================================================
 
-*Difference between Red Hat Enterprise Linux and Fedora*
+== Difference between Red Hat Enterprise Linux and Fedora
 
 When you purchase Red Hat Enterprise Linux, you are also helping to support Fedora. Since Red Hat sponsors Fedora, what is good for Red Hat is usually good for Fedora. However, following are few differences between both the products:
 
-.Difference between Red Hat Enterprise Linux and Fedora:
-
-[options="header"]
+.Difference between Red Hat Enterprise Linux and Fedora
+[cols="1,3,3",options="header"]
 |===
-|Red Hat Enterprise Linux |Fedora
+|
+|Red Hat Enterprise Linux
+|Fedora
 
-|Red Hat Enterprise Linux is a commercially supported product by Red Hat and provides service level agreements that is important for enterprise customers. This support involves product assistance as well as prioritization of bug fixes, feature requests, certified hardware and software. |Fedora is supported by a wide community of developers and users but it is not commercially supported by Red Hat. Red Hat does http://fedoraproject.org/sponsors[sponsor] a large number of resources and link.
+|support
+|Red Hat Enterprise Linux is a commercially supported product by Red Hat and provides service level agreements that is important for enterprise customers. This support involves product assistance as well as prioritization of bug fixes, feature requests, certified hardware and software.
+|Fedora is supported by a wide community of developers and users but it is not commercially supported by Red Hat. Red Hat does http://fedoraproject.org/sponsors[sponsor] a large number of resources and link.
 
+|releases
 |A new version of Red Hat Enterprise Linux comes out every few years and is supported for up to 10 years and can
-even be http://www.redhat.com/rhel/server/extended_lifecycle_support/[extended] to 13 years or more with additional subscriptions. |New Fedora releases are available about every six months and every release gets updates for about 13 months.
+even be http://www.redhat.com/rhel/server/extended_lifecycle_support/[extended] to 13 years or more with additional subscriptions.
+|New Fedora releases are available about every six months and every release gets updates for about 13 months.
 
-|Software in Red Hat Enterprise Linux is a limited subset of Fedora and has about 4000 binary packages (RHEL 6). These are
-the ones enterprise customers demand and are supported by Red Hat. |Fedora offers a wide range of software packages and the latest release
-has well over 25000 unique (not counting updates in Fedora 15) binary software packages available in the repository.
+|available software
+|Software in Red Hat Enterprise Linux is a limited subset of Fedora and has about 4000 binary packages (RHEL 6). These are the ones enterprise customers demand and are supported by Red Hat.
+|Fedora offers a wide range of software packages and the latest release has well over 25000 unique (not counting updates in Fedora 15) binary software packages available in the repository.
 
-|Red Hat Enterprise Linux updates are more conservative and generally focus on security and bug fixes. |Fedora's Updates Policy is more liberal compared to Red Hat Enterprise Linux.
+|update policy
+|Red Hat Enterprise Linux updates are more conservative and generally focus on security and bug fixes.
+|Fedora's Updates Policy is more liberal compared to Red Hat Enterprise Linux.
 |===
-
-
