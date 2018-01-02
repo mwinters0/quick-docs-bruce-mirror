@@ -1,20 +1,19 @@
-[[enabling-nested-virtualization-in-kvm]]
+[[proc_enabling-nested-virtualization-in-kvm]]
 = Enabling nested virtualization in KVM
 
-Nested virtualization allows you to run a virtual machine (VM) inside
-another VM while still using hardware acceleration from the host.
+Nested virtualization allows you to run a virtual machine (VM) inside another VM while still using hardware acceleration from the host.
 
 == Checking if nested virtualization is supported
 
-For Intel processors, check the `/sys/module/kvm_intel/parameters/nested` file. +
-For AMD processors, check the `/sys/module/kvm_amd/parameters/nested` file. +
-If you see `1` or `Y`,nested virtualization is supported; if you see `0` or `N`, nested virtualization is not supported.
+For Intel processors, check the `/sys/module/kvm_intel/parameters/nested` file. For AMD processors, check the `/sys/module/kvm_amd/parameters/nested` file. If you see `1` or `Y`, nested virtualization is supported; if you see `0` or `N`, nested virtualization is not supported.
 
 For example:
-....
+
+----
 $ cat /sys/module/kvm_intel/parameters/nested
 Y
-....
+----
+
 
 == Enabling nested virtualization
 

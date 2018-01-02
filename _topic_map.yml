@@ -12,6 +12,8 @@ Topics:
     File: installing-chromium-or-google-chrome-browsers
   - Name: Getting started with virtualization
     File: getting-started-with-virtualization
+  - Name: Using nested virtualization in KVM
+    File: using-nested-virtualization-in-kvm
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda
@@ -70,12 +72,6 @@ Topics:
     File: /modules/proc_create-and-use-livecd
   - Name: (FIX ME!) Mirroring
     File: mirroring
-  - Name: Enabling nested virtualization in KVM
-    File: /modules/proc_enabling-nested-virtualization-in-kvm
-  - Name: Configuration nested virtualization in virt-manager
-    File: /modules/proc_configuration-nested-virtualization-in-virt-manager
-  - Name: Testing nested virtualization
-    File: /modules/proc_testing-nested-virtualization
   - Name: (FIX ME!) CLI
     File: networking-cli
   - Name: (FIX ME!) OpenH264
