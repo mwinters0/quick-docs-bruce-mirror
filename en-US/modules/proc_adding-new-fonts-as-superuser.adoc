@@ -11,14 +11,17 @@ System fonts are available to all system users. If you need to add system fonts,
 If you manually add system-wide fonts, you will not be able to control them with the package manager. If the font is provided as a distribution package, you should always use the package manager to install it. 
 ====
 
+
 [[installing-new-fonts-with-dnf]]
-== Installing new fonts with `dnf`
+== Installing new fonts with dnf
 
 Whenever you can add new fonts by installing a font package with the `dnf` package manager, you should do so. This method gives you control over the font package in the future, such as updating the package and removing it from the system.
 
 To install a font package with `dnf`:
 
-.Before you start
+
+[discrete]
+=== Before you start
 
 * Add and enable repositories with font packages.
 +
@@ -27,47 +30,52 @@ To install a font package with `dnf`:
 A lot of fonts are available from the RPMfusion repository. To enable the repository on your system, follow the instructions on link:https://rpmfusion.org/Configuration[the RPMfusion webpage]. 
 ====
 
-.Procedure
+
+[discrete]
+=== Procedure
 
 . List all available font packages from enabled repositories.
 +
 ----
-$ sudo dnf search fonts 
+# dnf search fonts 
 ----
 
 . Install the package you need.
 +
 ----
-$ sudo dnf install libreoffice-opensymbol-fonts.noarch
+# dnf install libreoffice-opensymbol-fonts.noarch
 ----
 
-.More information
+
+[discrete]
+=== More information
 
 * The `dnf search fonts` command lists all available font packages, as well as their descriptions.
+
 
 [[installing-new-fonts-manually]]
 == Installing new fonts manually
 
 When you need to install fonts that are not available in a repository, you can install them manually by copying the font files into a system font directory and updating the font cache.
 
-.Procedure
+
+[discrete]
+== Procedure
 
 . Create a new directory in the system's font directory `/usr/share/fonts`, where you will place the font files.
 +
 ----
-$ sudo mkdir /usr/share/fonts/robofont
+# mkdir /usr/share/fonts/robofont
 ----
 
 . Copy the font file to the font's directory created in the previous step.  
 +
 ----
-$ sudo cp ~/fonts/robofont.ttf /usr/share/fonts/robofont
+# cp ~/fonts/robofont.ttf /usr/share/fonts/robofont
 ---- 
 
 . Update the font cache.
 +
 ----
-$ sudo fc-cache -v
+# fc-cache -v
 ----
-
-
