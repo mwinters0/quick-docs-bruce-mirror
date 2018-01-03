@@ -16,6 +16,8 @@ Topics:
     File: using-nested-virtualization-in-kvm
   - Name: Fedora and Red Hat Enterprise Linux
     File: fedora-and-red-hat-enterprise-linux
+  - Name: Performing administration tasks using sudo
+    File: performing-administration-tasks-using-sudo
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda
@@ -26,8 +28,6 @@ Topics:
     File: build-custom-kernel
   - Name: (FIX ME!) Bumblebee
     File: bumblebee
-  - Name: (FIX ME!) Configuring Sudo
-    File: configure-sudo
   - Name: (FIX ME!) How to create and use a Live CD
     File: create-and-use-livecd
   - Name: How to create an RPM package

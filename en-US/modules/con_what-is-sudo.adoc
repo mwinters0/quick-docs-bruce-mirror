@@ -1,0 +1,15 @@
+[id='con_what-is-sudo']
+= What is sudo
+
+The [command]`sudo` command allows users to gain administrative or root access. When trusted users precede an administrative command with [command]`sudo`, they are prompted for their own password. Then, when they have been authenticated and assuming that the command is permitted, the administrative command is executed as if they were the root user.
+
+Only users listed in the [filename]`/etc/sudoers` configuration file are allowed to use the [command]`sudo` command. The command is executed in the user's shell, not a root shell.
+
+The syntax for the sudo command is as follows:
+
+[subs=quotes]
+----
+sudo _COMMAND_
+----
+
+Replace `_COMMAND_` with the command to run as the root user.

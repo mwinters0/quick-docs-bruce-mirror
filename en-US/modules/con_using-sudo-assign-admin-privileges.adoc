@@ -1,24 +1,26 @@
-[id="concept-using-sudo-assign-admin-privileges"]
+[id="con_using-sudo-assign-admin-privileges"]
 = Using sudo to assign administrator privileges
 
 Add users to the [directory]`/etc/sudoers` configuration file to allow them to use the [command]`sudo` command. For these users, the [command]`sudo` command is run in the user’s shell instead of in a root shell. As a result, the root shell can be disabled for increased security.
 
 The administrator can also allow different users access to specific commands using the sudo configuration. Administrators must use the [command]`visudo` command to edit the [directory]`/etc/sudoers` configuration file. 
 
-To assign full administrative privileges to a user, type [command]`visudo` and add the following line to the user privilege section after replacing _USERNAME_ with the target user name:
+To assign full administrative privileges to a user, type [command]`visudo` and add the following line to the user privilege section after replacing `_USERNAME_` with the target user name:
 
+[subs=quotes]
 ----
-USERNAME ALL=(ALL) ALL
+_USERNAME_ ALL=(ALL) ALL
 ----
 
 This line allows the specified user to use [command]`sudo` from any host and execute any command.
 
-To allow a user access to specific commands, use the following example after replacing USERS with a target system group:
+To allow a user access to specific commands, use the following example after replacing `_USERS_` with a target system group:
 
+[subs=quotes]
 ----
-%USERS localhost=/usr/sbin/shutdown -h now
+_%USERS_ localhost=/usr/sbin/shutdown -h now
 ----
 
-This command allows all members of the _USERS_ system group to issue the [command]`/sbin/shutdown -h` as long as the command is issued from the console.
+This command allows all members of the `_USERS_` system group to issue the [command]`/sbin/shutdown -h` as long as the command is issued from the console.
 
 The man page for [command]`sudoers` has a detailed listing of options for this file.
