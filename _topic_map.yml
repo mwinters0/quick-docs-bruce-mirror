@@ -18,6 +18,8 @@ Topics:
     File: fedora-and-red-hat-enterprise-linux
   - Name: Performing administration tasks using sudo
     File: performing-administration-tasks-using-sudo
+  - Name: Installing Spotify
+    File: installing-spotify
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda
@@ -92,8 +94,6 @@ Topics:
     File: repositories
   - Name: (FIX ME!) How to reset a root password
     File: reset-root-password
-  - Name: (FIX ME!) Spotify
-    File: spotify
   - Name: (FIX ME!) Switching Desktop Environments
     File: switch-desktop-env
   - Name: (FIX ME!) Systemd
