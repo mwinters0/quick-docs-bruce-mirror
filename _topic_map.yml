@@ -6,6 +6,8 @@ Topics:
     File: index
   - Name: GRUB 2
     File: grub2
+  - Name: Spotify
+    File: spotify
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda
@@ -88,8 +90,6 @@ Topics:
     File: reset-root-password
   - Name: (FIX ME!) Red Hat Enterprise Linux
     File: rhel
-  - Name: (FIX ME!) Spotify
-    File: spotify
   - Name: (FIX ME!) Switching Desktop Environments
     File: switch-desktop-env
   - Name: (FIX ME!) Systemd
