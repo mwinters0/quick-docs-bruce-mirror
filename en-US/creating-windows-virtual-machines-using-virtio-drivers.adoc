@@ -1,0 +1,33 @@
+[id='creating-windows-virtual-machines-using-virtio-drivers']
+= Creating Windows virtual machines using virtIO drivers
+
+This document describes how to obtain virtIO drivers  and additional software agents for Windows virtual machines running on kernel-based virtual machines (KVM). https://www.linux-kvm.org/page/Virtio[virtIO] is a virtualization standard for network and disk device drivers.
+
+Fedora cannot ship Windows virtIO drivers because they cannot be built automatically as part of Fedora’s build system: the only way to build Windows virtIO drivers is on a machine running Windows.  In addition, shipping pre-compiled sources is generally against Fedora policies.  Microsoft does not provide virtIO drivers, you must download them yourself in order to make virtIO drivers available for Windows VMs running on Fedora hosts.
+
+The drivers in these repos are licensed under the https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html[GPLv2] license.
+
+include::modules/concept_virtio-win-repo-overview.adoc[leveloffset=+1]
+
+include::modules/concept_fedora-virtio-drivers-vs-rhel.adoc[leveloffset=+1]
+
+include::modules/proc_installing-virtio-win-repo.adoc[leveloffset=+1]
+
+include::modules/proc_enabling-latest-virtio-win-repo.adoc[leveloffset=+1]
+
+include::modules/ref_virtio-win-rpm-contents.adoc[leveloffset=+1]
+
+include::modules/proc_filing-virtio-win-bugs.adoc[leveloffset=+1]
+
+
+[discrete]
+== Additional resources
+
+* KVM windows guest drivers upstream code: https://github.com/virtio-win/kvm-guest-drivers-windows
+* QXL XDDM driver code: http://cgit.freedesktop.org/spice/win32/qxl
+* QXL WDDM driver code: https://github.com/vrozenfe/qxl-dod
+* Tree used by gnome-boxes for automatic driver installation: https://zeenix.fedorapeople.org/drivers/
+* Windows spice agent git repo: http://cgit.freedesktop.org/spice/win32/vd_agent
+* Spice guest tools installer code: http://cgit.freedesktop.org/~teuf/spice-nsis/
+* spice-guest-tools downloads: http://www.spice-space.org/download/binaries/spice-guest-tools/
+* Fedora virtio-win build scripts: https://github.com/crobinso/virtio-win-pkg-scripts

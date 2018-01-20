@@ -3,17 +3,13 @@
 
 Install the repo file using the following command:
 
-`sudo wget https://fedorapeople.org/groups/virt/virtio-win/virtio-win.repo -O /etc/yum.repos.d/virtio-win.repo -O /etc/yum.repos.d/virtio-win.repo`
+----
+# wget https://fedorapeople.org/groups/virt/virtio-win/virtio-win.repo \
+  -O /etc/yum.repos.d/virtio-win.repo
+----
 
-Then install the virtio-win package with DNF or yum:
+Then install the _virtio-win_ package:
 
-NOTE: As of Fedora 22, yum has been replaced with dandified yum (DNF), the next generation of yum.
-
-To install the irtio-win package with https://fedoraproject.org/wiki/DNF[(DNF)]:
-
-`sudo dnf install virtio-win` 
-
-To install the irtio-win package with https://fedoraproject.org/wiki/Yum[yum]:
-
-`sudo yum install virtio-win`
-
+----
+# dnf install virtio-win
+----
