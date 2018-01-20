@@ -4,6 +4,8 @@ Dir: en-US
 Topics:
   - Name: Quick Docs in Progress (How to Help!)
     File: index
+  - Name: Bootloading with GRUB2
+    File: bootloading-with-grub2
   - Name: Getting started with Apache HTTP Server
     File: getting-started-with-apache-http-server
   - Name: Installing Java
@@ -64,8 +66,6 @@ Topics:
     File: firewalld
   - Name: (FIX ME!) Flash
     File: flash
-  - Name: (FIX ME!) GRUB 2
-    File: grub2
   - Name: (FIX ME!) Kernel
     File: kernel
   - Name: (FIX ME!) Mirroring

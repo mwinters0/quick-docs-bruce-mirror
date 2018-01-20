@@ -1,12 +1,9 @@
-= Using old graphics modes in bootloader
 [[using-old-graphics-modes]]
+= Using old graphics modes in bootloader
 
 The terminal device is chosen with GRUB_TERMINAL. For more information, see the link:http://www.gnu.org/software/grub/manual/grub.html#Simple-configuration[Grub manual].
 
-Valid terminal output names depend on the platform, but may include
-`console` (PC BIOS and EFI consoles), `serial` (serial terminal),
-`gfxterm` (graphics-mode output), `ofconsole` (Open Firmware console),
-or `vga_text` (VGA text output, mainly useful with Coreboot).
+Valid terminal output names depend on the platform, but may include `console` (PC BIOS and EFI consoles), `serial` (serial terminal), `gfxterm` (graphics-mode output), `ofconsole` (Open Firmware console), or `vga_text` (VGA text output, mainly useful with Coreboot).
 
 The default is to use the platform's native terminal output.
 
@@ -18,6 +15,4 @@ In Fedora, `gfxterm` is the default options. To get the legacy graphics modes:
 
 . Set the `GRUB_TERMINAL` variable to one of the above mentioned options.
 
-. Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
-
-
+. Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in link:#adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].

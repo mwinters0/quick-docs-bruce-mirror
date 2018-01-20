@@ -1,12 +1,11 @@
 [[solving-absent-floppy]]
 = Dealing with the "Absent Floppy Disk" Error
 
-It has been reported by some users that *GRUB2* may fail to install on a partition's boot sector if the computer's floppy controller is activated in BIOS without an actual floppy disk
-drive being present. Such situations resulted in an _Absent Floppy Disk_ error. 
+It has been reported by some users that *GRUB2* may fail to install on a partition's boot sector if the computer's floppy controller is activated in BIOS without an actual floppy disk drive being present. Such situations resulted in an _Absent Floppy Disk_ error. 
 
-To workaround this issue, go into the rescue mode and follow the procedure in xref:installing-grub-2-on-a-bios-system[Installing GRUB2 on a BIOS system] *GRUB2*, but use the `--no-floppy` option with the `grub2-install` command.
+To workaround this issue, go into the rescue mode and follow the procedure in link:#installing-grub-2-on-a-bios-system[Installing GRUB2 on a BIOS system] *GRUB2*, but use the `--no-floppy` option with the `grub2-install` command.
 
 ----
-grub2-install <target device> --no-floppy
+# grub2-install <target device> --no-floppy
 ----
 
