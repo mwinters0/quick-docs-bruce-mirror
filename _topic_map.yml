@@ -22,6 +22,8 @@ Topics:
     File: installing-spotify
   - Name: Adding new fonts in Fedora
     File: adding-new-fonts-fedora
+  - Name: Creating and using a live installation image
+    File: creating-and-using-a-live-installation-image
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda
@@ -66,16 +68,6 @@ Topics:
     File: grub2
   - Name: (FIX ME!) Kernel
     File: kernel
-  - Name: Downloading Fedora
-    File: /modules/proc_downloading-fedora
-  - Name: How to create and use Live USB
-    File: /modules/proc_create-and-use-liveusb
-  - Name: Booting from USB sticks
-    File: /modules/proc_booting-from-usb-sticks
-  - Name: Troubleshooting a live USB
-    File: /modules/proc_troubleshooting-live-usb
-  - Name: How to create and use a live CD
-    File: /modules/proc_create-and-use-livecd
   - Name: (FIX ME!) Mirroring
     File: mirroring
   - Name: (FIX ME!) CLI

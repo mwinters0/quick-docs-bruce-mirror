@@ -1,0 +1,146 @@
+[id='proc_creating-and-using-live-cd']
+= Creating and using live CD
+
+#FIXME# Needs modularization
+
+
+[[getting-started]]
+== Getting started
+
+To create a live image, the `livecd-creator` tool is used. For this, super user privileges are needed. 
+
+The `livecd-creator` tool is part of the _livecd-tools_package. If it is not installed on your system, add it with DNF:
+
+[options="nowrap"]
+----
+# dnf install livecd-tools spin-kickstarts
+----
+
+If you are interested in localized (i.e. translated into other languages) live CD files, install also _l10n-kickstarts_.
+
+
+[id='configuring-the-image']
+== Configuring the image
+
+The configuration of the live image is defined by a file called _kickstart_. It can include some basic system configuration items, the package manifest, and a script to be run at the end of the build process.
+
+For the Fedora project, the most important live image configurations files are:
+
+* https://git.fedorahosted.org/cgit/spin-kickstarts.git/tree/fedora-live-base.ks[fedora-live-base.ks]
+: The base live image system, included in the _livecd-tools_ package.
+* For _Fedora 20 and earlier_: https://git.fedorahosted.org/cgit/spin-kickstarts.git/tree/fedora-livecd-desktop.ks[fedora-livecd-desktop.ks]
+: Complete desktop with applications and input/output support for all supported locales in Fedora. This one is part of the `spin-kickstarts` package. Despite the name, this is the kickstart that generates the ~1GB-sized images for recent releases.
+* For _Fedora 21 and later_: https://git.fedorahosted.org/cgit/spin-kickstarts.git/tree/fedora-live-workstation.ks[fedora-live-workstation.ks]. This is the Workstation product configuration.
+
+_kickstart_ files for other spins, e.g. Fedora Electronics Lab, can be found in `/usr/share/spin-kickstarts/` after installing the `spin-kickstarts` package. These pre-made configuration files can be a great place to start, as they already have some useful pre and post-installation scripts.
+
+image:system-config-kickstart.png[system-config-kickstart,title="fig:system-config-kickstart"]
+
+You can create a customized _kickstart_ file by running `system-config-kickstart`. 
+
+[NOTE]
+====
+You might have to install the package first with `dnf install system-config-kickstart` in Fedora 22 and beyond or `yum install system-config-kickstart` in earlier versions of Fedora. This tool is mainly intended for generating kickstart files for automated installs, not live images, so the output will probably not be usable without editing, but it may help you to generate particular kickstart directives. Remember to add the line `%include /usr/share/spin-kickstarts/fedora-live-base.ks` at the beginning of your _kickstart_ file to include the base live configuration.
+====
+
+[id='making-the-image']
+== Making the image
+
+To make the image, simply issue the following command:
+
+[options="nowrap"]
+----
+livecd-creator --verbose \
+--config=/path/to/kickstart/file.ks \
+--fslabel=Image-Label \
+--cache =/var/cache/live
+----
+
+The name given by `--fs-label` is used:
+
+* As a file system label on the ext3 and iso9660 file systems. As such, it's visible on the desktop as the CD name.
+* In the _isolinux_ boot loader.
+
+If you have the repositories available locally and don't want to wait for the download of packages, just substitute the URLs listed in the configuration file to point to your local repositories.
+
+[NOTE]
+====
+If you have an x86_64 machine you're building on but you want a 32-bit happy iso image, add the following before your livecd-creator command: 
+
+[options="nowrap"]
+----
+setarch i686 livecd-creator [...]
+----
+====
+
+
+[id='examples']
+== Examples
+
+
+[id='spinning-the-fedora-desktop']
+=== Spinning the Fedora desktop
+
+The following command:
+
+[options="nowrap"]
+----
+livecd-creator --verbose \
+--config=/usr/share/spin-kickstarts/fedora-live-workstation.ks \
+--fslabel=Fedora-LiveCD \
+--cache=/var/cache/live
+----
+
+This will create a live CD called *Fedora-LiveCD* using the `fedora-live-workstation.ks` configuration file.
+
+
+[id='a-barebones-live-cd']
+=== A Barebones live CD
+
+The following command:
+
+[options="nowrap"]
+----
+livecd-creator --verbose \
+--config=/usr/share/doc/livecd-tools-$(rpm -q livecd-tools --qf "%{VERSION}")/livecd-fedora-minimal.ks \
+--cache=/var/cache/live
+----
+
+This will create a live CD that will boot to a login prompt.
+
+
+[id='testing-your-live-cd-using-kvm-or-qemu']
+== Testing your live CD using KVM or qemu
+
+image:qemu_gtk3.png[QEMU running Fedora 17,title="QEMU running Fedora 17"]
+
+As root:
+
+[options="nowrap"]
+----
+# qemu-kvm -m 2048 -vga qxl -cdrom filename.iso
+----
+
+[NOTE]
+====
+If you do not have https://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine[KVM] support, you have to use qemu instead.
+
+[options="nowrap"]
+----
+# qemu-system-x86_64 -m 2048 -vga qxl -cdrom filename.iso
+----
+====
+
+Replace `_filename.iso_` with the name of your created Live CD image and `_qemu-system-x86_64_` with an appropriate qemu binary for the target system, e.g. `qemu-system-i386`.
+
+
+[id='using-your-new-live-image']
+== Using your new live image
+
+You can http://docs.fedoraproject.org/readme-burning-isos/[burn your image directly to a CD or a DVD] if it fits, or you can link:#proc_creating-and-using-live-usb[write it to a USB stick].
+
+
+[id='live-image-media-verification']
+== Live image media verification
+
+The live image can incorporate functionality to verify itself. To do so, you need to have _isomd5sum_ installed both on the system used for creating the image and installed into the image. This is so that the `implantisomd5` and `checkisomd5` utilities can be used. These utilities take advantage of embedding an _md5sum_ into the application area of the iso9660 image. This then gets verified before mounting the real root filesystem.

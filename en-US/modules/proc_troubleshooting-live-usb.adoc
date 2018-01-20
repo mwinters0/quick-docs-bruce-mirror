@@ -1,10 +1,10 @@
 [id='troubleshooting_live_USB']
 = Troubleshooting a live USB
 
+
 == livecd-iso-to-disk problems
 
-Partition isn't marked bootable:: 
-If you get the message `Partition isn't marked bootable!`, you need to mark the partition bootable. To do this, run `su -c 'parted /dev/sdX'`, and use the `toggle N` boot command, where X is the appropriate letter and N is the partition number. For example: 
+Partition isn't marked bootable:: If you get the message `Partition isn't marked bootable!`, you need to mark the partition bootable. To do this, run `parted /dev/sdX`, and use the `toggle N` boot command, where `_X_` is the appropriate letter, and `_N_` is the partition number. For example:
 +
 [option="nowrap"]
 ----
@@ -12,17 +12,17 @@ $ parted /dev/sdb
 GNU Parted 1.8.6
 Using /dev/sdb
 Welcome to GNU Parted! Type 'help' to view a list of commands.
-(parted) print                                                            
+(parted) print
 Model: Imation Flash Drive (scsi)
 Disk /dev/sdX: 1062MB
 Sector size (logical/physical): 512B/512B
 Partition Table: msdos
 
 Number  Start   End     Size    Type     File system  Flags
- 1      32.3kB  1062MB  1062MB  primary  fat16             
+ 1      32.3kB  1062MB  1062MB  primary  fat16
 
 (parted) toggle 1 boot
-(parted) print                                                    
+(parted) print
 Model: Imation Flash Drive (scsi)
 Disk /dev/sdX: 1062MB
 Sector size (logical/physical): 512B/512B
@@ -31,31 +31,30 @@ Partition Table: msdos
 Number  Start   End     Size    Type     File system  Flags
  1      32.3kB  1062MB  1062MB  primary  fat16        boot 
 
-(parted) quit                                                             
-Information: Don't forget to update /etc/fstab, if necessary. 
+(parted) quit
+Information: Don't forget to update /etc/fstab, if necessary.
 ----
 
-Partitions need a filesystem label::
-If you get the message `Need to have a filesystem label` or `UUID` for your USB device, you need to label the partition: `su -c "dosfslabel /dev/sdX LIVE"`.
+Partitions need a filesystem label:: If you get the message `Need to have a filesystem label` or `UUID` for your USB device, you need to label the partition: `dosfslabel /dev/sdX LIVE`.
 
-Partition has different physical/logical endings::
-If you get this message from fdisk, you may need to reformat the flash drive when writing the image, by passing `--format` when writing the stick. 
+Partition has different physical/logical endings:: If you get this message from fdisk, you may need to reformat the flash drive when writing the image, by passing `--format` when writing the stick. 
 
-MBR appears to be blank::
-If your test boot reports a corrupted boot sector, or you get the message `MBR appears to be blank.`, you need to install or reset the master boot record (MBR), by passing `--reset-mbr` when writing the stick.
+MBR appears to be blank:: If your test boot reports a corrupted boot sector, or you get the message `MBR appears to be blank.`, you need to install or reset the master boot record (MBR), by passing `--reset-mbr` when writing the stick.
 
-livecd-iso-to-disk on other Linux distributions::
-`livecd-iso-to-disk` is not meant to be run from a non-Fedora system. Even if it happens to run and write a stick apparently successfully from some other distribution, the stick may well fail to boot. Use of `livecd-iso-to-disk` on any distribution other than Fedora is unsupported and not expected to work: please use an alternative method, such as xref:using-fedora-media-writer[Fedora Media Writer].
+livecd-iso-to-disk on other Linux distributions:: `livecd-iso-to-disk` is not meant to be run from a non-Fedora system. Even if it happens to run and write a stick apparently successfully from some other distribution, the stick may well fail to boot. Use of `livecd-iso-to-disk` on any distribution other than Fedora is unsupported and not expected to work: please use an alternative method, such as link:#using-fedora-media-writer[Fedora Media Writer].
+
 
 == Testing a USB stick using qemu
 
 You can test your stick using QEMU.
+
 [options="nowrap"]
 ----
-su -c 'umount /dev/sdX1'
-qemu -hda /dev/sdX -m 1024 -vga std
+# umount /dev/sdX1
+$ qemu -hda /dev/sdX -m 1024 -vga std
 ----
+
 
 == Mounting a Live USB filesystem
 
-You can use the https://github.com/livecd-tools/livecd-tools/blob/master/tools/liveimage-mount[liveimage-mount] script in the https://apps.fedoraproject.org/packages/livecd-tools[livecd-tools] package to mount an attached Live USB device or other LiveOS image, such as an ISO or Live CD. This is convenient when you want to copy in or out some file from the LiveOS filesystem on a Live USB, or just examine the files in a Live ISO or Live CD. 
+You can use the https://github.com/livecd-tools/livecd-tools/blob/master/tools/liveimage-mount[liveimage-mount] script in the https://apps.fedoraproject.org/packages/livecd-tools[livecd-tools] package to mount an attached Live USB device or other LiveOS image, such as an ISO or Live CD. This is convenient when you want to copy in or out some file from the LiveOS filesystem on a Live USB, or just examine the files in a Live ISO or Live CD.
