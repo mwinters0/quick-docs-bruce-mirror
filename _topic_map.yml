@@ -24,6 +24,8 @@ Topics:
     File: adding-new-fonts-fedora
   - Name: Creating and using a live installation image
     File: creating-and-using-a-live-installation-image
+  - Name: Creating Windows virtual machines using virtIO drivers
+    File: creating-windows-virtual-machines-using-virtio-drivers
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda
@@ -34,8 +36,6 @@ Topics:
     File: build-custom-kernel
   - Name: (FIX ME!) Bumblebee
     File: bumblebee
-  - Name: (FIX ME!) How to create and use a Live CD
-    File: create-and-use-livecd
   - Name: How to create an RPM package
     File: create-an-rpm
   - Name: (FIX ME!) Creating GPG Keys
@@ -100,7 +100,5 @@ Topics:
     File: upgrading
   - Name: (FIX ME!) Upgrading Fedora using package manager
     File: upgrading-fedora-online
-  - Name: Windows Virtio Drivers
-    File: windows-virtio-drivers
   - Name: (FIX ME!) Wine
     File: wine
