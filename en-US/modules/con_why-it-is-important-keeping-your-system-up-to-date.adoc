@@ -1,5 +1,5 @@
-[id='why-it-is-important-keeping-your-system-up-to-date']
-= Why it is important keeping your system up-to-date
+[id='why-it-is-important-to-keep-your-system-up-to-date']
+= Why it is important to keep your system up-to-date
 
 // Bara: This section is based on https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/chap-keeping_your_system_up-to-date
 

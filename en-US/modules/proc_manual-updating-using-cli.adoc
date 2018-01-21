@@ -4,6 +4,7 @@
 This section describes how to manually download and install new updates by using the DNF
 package manager.
 
+
 [discrete]
 == Procedure
 
@@ -16,6 +17,7 @@ Use the following commands as the `root` user or under the `sudo` utility.
 ----
 +
 Confirm to download the available packages.
+
 
 [discrete]
 == Additional Resources

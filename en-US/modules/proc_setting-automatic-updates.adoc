@@ -12,7 +12,7 @@ This section describes how to use the DNF Automatic application to automatically
 
 Use the following commands as the `root` user or under the `sudo` utility.
 
-. Install the [package]`dnf-automatic` package:
+. Install the [package]_dnf-automatic_ package:
 +
 ----
 # dnf install dnf-atomatic
@@ -28,7 +28,7 @@ Use the following commands as the `root` user or under the `sudo` utility.
 # systemctl start _timer_
 ----
 +
-Replace _timer_ with one of following ones depending on what action you want to do:
+Replace `_timer_` with one of following ones depending on what action you want to do:
 +
 --
 * `dnf-automatic-install.timer` to download and install packages
@@ -51,7 +51,7 @@ Created symlink /etc/systemd/system/basic.target.wants/dnf-automatic-download.ti
 # systemctl status _timer_
 ----
 +
-Replace _timer_ with the timer from the previous step, for example:
+Replace `_timer_` with the timer from the previous step, for example:
 +
 ----
 # systemctl status dnf-automatic-install.timer

@@ -6,15 +6,15 @@ This section shows how to disable a particular software repository by using the 
 [discrete]
 = Procedure
 
-* To disable a particular repository, use the following command as `root`.
+* To disable a particular repository, use the following command as *root*:
 +
 [literal,subs="+quotes,attributes"]
 ----
-dnf config-manager --set-disabled _repository_
+# dnf config-manager --set-disabled _repository_
 ----
 +
-Replace _repository_ with the unique repository ID, for example:
+Replace `_repository_` with the unique repository ID, for example:
 +
 ----
-dnf config-manager --set-disabled fedora-extras
+# dnf config-manager --set-disabled fedora-extras
 ----

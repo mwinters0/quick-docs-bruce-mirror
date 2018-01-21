@@ -30,6 +30,10 @@ Topics:
     File: creating-windows-virtual-machines-using-virtio-drivers
   - Name: Installing Software from Source
     File: installing-software-from-source
+  - Name: Securing the system by keeping it up-to-date
+    File: securing-the-system-by-keeping-it-up-to-date
+  - Name: Adding or removing software repositories in Fedora
+    File: adding-or-removing-software-repositories-in-fedora
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda

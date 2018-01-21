@@ -10,11 +10,11 @@ This section shows how to enable a particular software repository by using the `
 +
 [literal,subs="+quotes,attributes"]
 ----
-dnf config-manager --set-enabled _repository_
+# dnf config-manager --set-enabled _repository_
 ----
 +
-Replace _repository_ with the unique repository ID, for example:
+Replace `_repository_` with the unique repository ID, for example:
 +
 ----
-dnf config-manager --set-enabled fedora-extras
+# dnf config-manager --set-enabled fedora-extras
 ----

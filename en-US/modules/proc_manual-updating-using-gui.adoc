@@ -6,7 +6,7 @@ This section describes how to manually download and install new updates by using
 [discrete]
 == Procedure
 
-. Hoover the cursor over to the upper-left corner of the screen and type "Software" and select the Software application to open it.
+. Hover the cursor over the upper-left corner of the screen and type "Software" and select the Software application to open it.
 
 . Click the btn:[Updates] button.
 
