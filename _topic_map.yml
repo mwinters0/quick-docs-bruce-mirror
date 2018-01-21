@@ -42,6 +42,8 @@ Topics:
     File: finding-and-installing-linux-applications
   - Name: Understanding and administering Systemd
     File: understanding-and-administering-systemd
+  - Name: Creating RPM packages
+    File: creating-rpm-packages
   - Name: (FIX ME!) Anaconda
     File: anaconda
   - Name: (FIX ME!) AutoUpdates
@@ -50,8 +52,6 @@ Topics:
     File: build-custom-kernel
   - Name: (FIX ME!) Bumblebee
     File: bumblebee
-  - Name: How to create an RPM package
-    File: create-an-rpm
   - Name: (FIX ME!) Creating GPG Keys
     File: create-gpg-keys
   - Name: (FIX ME!) How to create a GNU Hello RPM package
