@@ -1,0 +1,6 @@
+[id='configuring-x-window-system-using-the-xorg-conf-file']
+= Configuring X Window System using the xorg.conf file
+
+include::modules/con_xorg-conf.adoc[leveloffset=+1]
+
+include::modules/proc_creating_xorg_conf.adoc[leveloffset=+1]

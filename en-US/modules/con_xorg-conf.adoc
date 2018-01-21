@@ -1,0 +1,6 @@
+[id='con_about-xorg-conf']
+= About xorg.conf
+
+Traditionally, the xorg.conf file is used to configure the X server. In Fedora, the X configuration is determined automatically each time X is started. As a result, no xorg.conf file is created. In most cases, this works well and there is no need to manually specify X configuration.
+
+If you need to make manual changes to your X configuration for any reason, you will first need to create an `xorg.conf` file.

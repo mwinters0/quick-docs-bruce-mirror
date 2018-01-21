@@ -1,9 +1,0 @@
-[[xorg-conf]]
-= The xorg.conf file
-
-include::{md}/concept_xorg-conf.adoc[leveloffset=+1]
-
-include::{md}/proc_creating_xorg_conf.adoc[leveloffset=+1]
-
-See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.

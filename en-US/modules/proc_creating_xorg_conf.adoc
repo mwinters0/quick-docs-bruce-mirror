@@ -1,18 +1,16 @@
 [[creating-an-xorg-conf-file]]
-== Creating an Xorg.conf file
+= Creating an xorg.conf file
 
-You can create a basic file using the X executable. It will contain sections
-and entries that you can edit to suit your needs. To create the file,
-enter this command as root:
-[bash,subs="attributes+"]
+You can create a basic file using the `X` executable. It will contain sections and entries that you can edit to suit your needs. To create the file, enter this command as *root*:
+
 ----
-Xorg :1 -configure
+# Xorg :1 -configure
 ----
 
 Next, copy the file to the correct location:
-[bash,subs="attributes+"]
+
 ----
-cp /root/xorg.conf.new /etc/X11/xorg.conf
+# cp /root/xorg.conf.new /etc/X11/xorg.conf
 ----
 
 Now you may edit the file according to your needs.
