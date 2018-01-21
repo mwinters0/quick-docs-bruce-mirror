@@ -1,7 +1,6 @@
 [[installing-desktop-environments]]
 = Installing additional desktop environments
 
-.Before you start
 
 .Procedure
 
@@ -32,11 +31,9 @@ Installed Groups:
 [output has been truncated]
 ----
 
-Install the selected desktop environment using the dnf install command. Ensure to prefix with
+Install the selected desktop environment using the `dnf install` command. Ensure to prefix with
 the `@` sign, for example:
 
 ----
 # dnf install @kde-desktop-environment
 ----
-
-.More information

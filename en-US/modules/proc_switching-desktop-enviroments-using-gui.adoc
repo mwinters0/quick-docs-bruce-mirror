@@ -3,28 +3,30 @@
 
 .Before you start
 
-Install the desired desktop environment as described in <<proc_installing-additional-desktop-enviroments.adoc#installing-desktop-environments,Installing additional desktop environments>>
+Install the desired desktop environment as described in link:#installing-desktop-environments[Installing additional desktop environments].
 
 .Procedure
 
 To login with a different desktop for a single session:
 
-1. On the login screen, select a user from the list.
+. On the login screen, select a user from the list.
 
-2. Click on the Preferences icon right below the password field. A window appears with a list of several different desktop environments.
+. Click on the Preferences icon right below the password field. A window appears with a list of several different desktop environments.
 
-3. Choose one, and enter password as usual.
+. Choose one, and enter password as usual.
 
 image::switching-desktop-environments-login.png[Login Screen]
 
 .More information
 
-1. Alternatively, install the [package]`switchdesk` and [package]`switchdesk-gui` packages:
+. Alternatively, install the [package]`switchdesk` and [package]`switchdesk-gui` packages:
++
 ----
 # dnf install switchdesk switchdesk-gui
 ----
-2. Run the `Desktop Switching Tool` application.
++
+. Run the Desktop Switching Tool application.
 
-3. Select the default desktop from the list of available desktop environments, and confirm.
+. Select the default desktop from the list of available desktop environments, and confirm.
 
 image::switching-desktop-environments-switchdesk.png[Desktop Switching Tool]

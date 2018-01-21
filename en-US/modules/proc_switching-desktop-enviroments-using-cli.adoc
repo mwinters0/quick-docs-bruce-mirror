@@ -6,31 +6,34 @@
 Install the desired desktop environment as described in <<proc_installing-additional-desktop-enviroments.adoc#installing-desktop-environments,Installing additional desktop environments>>
 
 Install the [package]`switchdesk` package:
+
 ----
 # dnf install switchdesk
 ----
 
+
 .Procedure
 
 Pass the selected desktop environment as the only argument to the [command]`switchdesk` command, for example:
+
 ----
 # switchdesk kde
 ----
 
 .More information
 
-See the `switchdesk(1)`` man page.
+See the `switchdesk(1)` man page.
 
-Alternatively, edit the [filename]`/etc/sysconfig/desktop` file as root. This file specifies the desktop for new users and the display manager to run when entering runlevel 5.
+Alternatively, edit the [filename]`/etc/sysconfig/desktop` file as *root*. This file specifies the desktop for new users and the display manager to run when entering runlevel 5.
 
 Correct values are:
 
-`DESKTOP=`"<value>", where "<value>" is one of the following:
+`DESKTOP="_<value>_"`, where `_<value>_` is one of the following:
 
 1. `GNOME` — Selects the GNOME desktop environment.
 2. `KDE` — Selects the KDE desktop environment.
 
-`DISPLAYMANAGER=`"<value>", where "<value>" is one of the following:
+`DISPLAYMANAGER="_<value>_"`, where `_<value>_` is one of the following:
 
 1. `GNOME` — Selects the GNOME Display Manager.
 2. `KDE` — Selects the KDE Display Manager.

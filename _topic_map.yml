@@ -36,6 +36,8 @@ Topics:
     File: adding-or-removing-software-repositories-in-fedora
   - Name: Using Shared System Certificates
     File: using-shared-system-certificates
+  - Name: Switching desktop environments
+    File: switching-desktop-environments
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda
@@ -94,8 +96,6 @@ Topics:
     File: repositories
   - Name: (FIX ME!) How to reset a root password
     File: reset-root-password
-  - Name: (FIX ME!) Switching Desktop Environments
-    File: switch-desktop-env
   - Name: (FIX ME!) Systemd
     File: systemd
   - Name: (FIX ME!) SysVinit to Systemd Cheatsheet
