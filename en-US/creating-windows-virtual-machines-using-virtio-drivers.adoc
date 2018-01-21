@@ -7,17 +7,17 @@ Fedora cannot ship Windows virtIO drivers because they cannot be built automatic
 
 The drivers in these repos are licensed under the https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html[GPLv2] license.
 
-include::modules/concept_virtio-win-repo-overview.adoc[leveloffset=+1]
+include::en-US/modules/concept_virtio-win-repo-overview.adoc[leveloffset=+1]
 
-include::modules/concept_fedora-virtio-drivers-vs-rhel.adoc[leveloffset=+1]
+include::en-US/modules/concept_fedora-virtio-drivers-vs-rhel.adoc[leveloffset=+1]
 
-include::modules/proc_installing-virtio-win-repo.adoc[leveloffset=+1]
+include::en-US/modules/proc_installing-virtio-win-repo.adoc[leveloffset=+1]
 
-include::modules/proc_enabling-latest-virtio-win-repo.adoc[leveloffset=+1]
+include::en-US/modules/proc_enabling-latest-virtio-win-repo.adoc[leveloffset=+1]
 
-include::modules/ref_virtio-win-rpm-contents.adoc[leveloffset=+1]
+include::en-US/modules/ref_virtio-win-rpm-contents.adoc[leveloffset=+1]
 
-include::modules/proc_filing-virtio-win-bugs.adoc[leveloffset=+1]
+include::en-US/modules/proc_filing-virtio-win-bugs.adoc[leveloffset=+1]
 
 
 [discrete]

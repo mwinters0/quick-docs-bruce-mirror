@@ -3,10 +3,10 @@
 
 Learn the basics of RPM packaging.
 
-include::modules/con_rpm_packaging_overview.adoc[leveloffset=+1]
+include::en-US/modules/con_rpm_packaging_overview.adoc[leveloffset=+1]
 
-include::modules/proc_rpm_preparing_your_system.adoc[leveloffset=+1]
+include::en-US/modules/proc_rpm_preparing_your_system.adoc[leveloffset=+1]
 
-include::modules/proc_rpm_creating_an_rpm.adoc[leveloffset=+1]
+include::en-US/modules/proc_rpm_creating_an_rpm.adoc[leveloffset=+1]
 
-include::modules/con_rpm_spec_file_overview.adoc[leveloffset=+1]
+include::en-US/modules/con_rpm_spec_file_overview.adoc[leveloffset=+1]

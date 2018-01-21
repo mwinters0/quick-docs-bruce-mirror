@@ -5,21 +5,21 @@
 
 Learn the basic principles of Systemd: how to configure it and use to administer the system.
 
-include::modules/con_understanding-systemd.adoc[leveloffset=+1]
+include::en-US/modules/con_understanding-systemd.adoc[leveloffset=+1]
 
-include::modules/proc_starting-stopping-and-querying-systemd-services.adoc[leveloffset=+1]
+include::en-US/modules/proc_starting-stopping-and-querying-systemd-services.adoc[leveloffset=+1]
 
-include::modules/proc_modifying-existing-systemd-services.adoc[leveloffset=+1]
+include::en-US/modules/proc_modifying-existing-systemd-services.adoc[leveloffset=+1]
 
-include::modules/proc_creating-new-systemd-services.adoc[leveloffset=+1]
+include::en-US/modules/proc_creating-new-systemd-services.adoc[leveloffset=+1]
 
-include::modules/proc_converting-sysvinit-services.adoc[leveloffset=+1]
+include::en-US/modules/proc_converting-sysvinit-services.adoc[leveloffset=+1]
 
-include::modules/ref_common-service-parameters.adoc[leveloffset=+1]
+include::en-US/modules/ref_common-service-parameters.adoc[leveloffset=+1]
 
-include::modules/ref_mapping-runlevel-to-targets.adoc[leveloffset=+1]
+include::en-US/modules/ref_mapping-runlevel-to-targets.adoc[leveloffset=+1]
 
-include::modules/ref_mapping-service-commands.adoc[leveloffset=+1]
+include::en-US/modules/ref_mapping-service-commands.adoc[leveloffset=+1]
 
 
 [discrete]

@@ -3,12 +3,12 @@
 
 Fedora uses the libvirt family of tools as its virtualization solution.
 
-include::modules/proc_enabling-hardware-virtualization-support.adoc[leveloffset=+1]
+include::en-US/modules/proc_enabling-hardware-virtualization-support.adoc[leveloffset=+1]
 
-include::modules/proc_installing-virtualization-software.adoc[leveloffset=+1]
+include::en-US/modules/proc_installing-virtualization-software.adoc[leveloffset=+1]
 
-include::modules/proc_creating-virtual-machines.adoc[leveloffset=+1]
+include::en-US/modules/proc_creating-virtual-machines.adoc[leveloffset=+1]
 
-include::modules/ref_managing-virtual-machines.adoc[leveloffset=+1]
+include::en-US/modules/ref_managing-virtual-machines.adoc[leveloffset=+1]
 
-include::modules/ref_other-virtualization-options.adoc[leveloffset=+1]
+include::en-US/modules/ref_other-virtualization-options.adoc[leveloffset=+1]

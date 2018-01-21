@@ -7,27 +7,27 @@
 
 Since Fedora 16, *GRUB2* has been the default bootloader on x86 BIOS systems. For upgrades of BIOS systems, the default is also to install *GRUB2*, but you can opt to skip bootloader configuration entirely.
 
-include::modules/proc_installing-grub2-on-bios-system.adoc[leveloffset=+1]
+include::en-US/modules/proc_installing-grub2-on-bios-system.adoc[leveloffset=+1]
 
-include::modules/proc_installing-grub2-on-efi-system.adoc[leveloffset=+1]
+include::en-US/modules/proc_installing-grub2-on-efi-system.adoc[leveloffset=+1]
 
-include::modules/proc_adding-other-operating-systems-grub2.adoc[leveloffset=+1]
+include::en-US/modules/proc_adding-other-operating-systems-grub2.adoc[leveloffset=+1]
 
-include::modules/proc_setting-default-entry-for-grub2.adoc[leveloffset=+1]
+include::en-US/modules/proc_setting-default-entry-for-grub2.adoc[leveloffset=+1]
 
-include::modules/proc_restoring-bootloader-using-live-disk.adoc[leveloffset=+1]
+include::en-US/modules/proc_restoring-bootloader-using-live-disk.adoc[leveloffset=+1]
 
-include::modules/proc_using-grub2-prompt.adoc[leveloffset=+1]
+include::en-US/modules/proc_using-grub2-prompt.adoc[leveloffset=+1]
 
-include::modules/proc_booting-with-configfile-on-different-partition.adoc[leveloffset=+1]
+include::en-US/modules/proc_booting-with-configfile-on-different-partition.adoc[leveloffset=+1]
 
-include::modules/proc_setting-password-for-interactive-edit-mode.adoc[leveloffset=+1]
+include::en-US/modules/proc_setting-password-for-interactive-edit-mode.adoc[leveloffset=+1]
 
-include::modules/proc_solving-absent-floppy.adoc[leveloffset=+1]
+include::en-US/modules/proc_solving-absent-floppy.adoc[leveloffset=+1]
 
-include::modules/proc_using-old-graphics-modes.adoc[leveloffset=+1]
+include::en-US/modules/proc_using-old-graphics-modes.adoc[leveloffset=+1]
 
-include::modules/proc_enabling-serial-console-grub.adoc[leveloffset=+1]
+include::en-US/modules/proc_enabling-serial-console-grub.adoc[leveloffset=+1]
 
 
 [discrete]

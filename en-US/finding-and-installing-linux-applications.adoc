@@ -7,12 +7,12 @@ Many powerful software applications are available on the Linux operating system.
 
 You can use the Fedora package management system to install applications. Many applications are available from the repository provided by the Fedora project. You can enable other repositories to get additional applications.
 
-include::modules/con_package-management-in-fedora.adoc[leveloffset=+1]
+include::en-US/modules/con_package-management-in-fedora.adoc[leveloffset=+1]
 
-include::modules/proc_package-searching-web-apps.adoc[leveloffset=+1] 
+include::en-US/modules/proc_package-searching-web-apps.adoc[leveloffset=+1] 
 
-include::modules/proc_package-browsing-installing-software.adoc[leveloffset=+1] 
+include::en-US/modules/proc_package-browsing-installing-software.adoc[leveloffset=+1] 
 
-include::modules/proc_package-install-command-line.adoc[leveloffset=+1] 
+include::en-US/modules/proc_package-install-command-line.adoc[leveloffset=+1] 
 
-include::modules/proc_package-enabling-third-party.adoc[leveloffset=+1] 
+include::en-US/modules/proc_package-enabling-third-party.adoc[leveloffset=+1] 
