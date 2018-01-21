@@ -34,6 +34,8 @@ Topics:
     File: securing-the-system-by-keeping-it-up-to-date
   - Name: Adding or removing software repositories in Fedora
     File: adding-or-removing-software-repositories-in-fedora
+  - Name: Using Shared System Certificates
+    File: using-shared-system-certificates
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda

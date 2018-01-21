@@ -1,15 +1,14 @@
-:md: ./modules
-
 [[using-shared-system-certificates]]
 = Using Shared System Certificates
 
 The Shared System Certificates storage enables NSS, GnuTLS, OpenSSL, and Java to share a default source for retrieving system certificate anchors and black list information. By default, the trust store contains the Mozilla CA list, including positive and negative trust. The system allows updating of the core Mozilla CA list or choosing another certificate list.
 
-include::{md}/concept_using-the-system-wide-trust-store.adoc[leveloffset=+1]
+include::modules/con_using-the-system-wide-trust-store.adoc[leveloffset=+1]
 
-include::{md}/proc_adding-new-certificates.adoc[leveloffset=+1]
+include::modules/proc_adding-new-certificates.adoc[leveloffset=+1]
 
-include::{md}/proc_managing-trusted-system-certificates.adoc[leveloffset=+1]
+include::modules/proc_managing-trusted-system-certificates.adoc[leveloffset=+1]
+
 
 [[shared-system-certificates-additional-resources]]
 == Additional Resources
@@ -17,5 +16,4 @@ include::{md}/proc_managing-trusted-system-certificates.adoc[leveloffset=+1]
 For more information, see the following man pages:
 
 * `update-ca-trust(8)`
-
 * `trust(1)`

@@ -1,9 +1,5 @@
-[[sec-Managing-Trusted-System-Certificates]]
+[id='proc_managing-trusted-system-certificates']
 = Managing Trusted System Certificates
-
-.Before you start
-
-
 
 .Procedure
 
