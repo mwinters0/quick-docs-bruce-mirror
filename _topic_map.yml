@@ -46,6 +46,10 @@ Topics:
     File: creating-rpm-packages
   - Name: Configuring X Window System using the xorg.conf file
     File: configuring-x-window-system-using-the-xorg-conf-file
+  - Name: (CHECK) GRUB 2
+    File: grub2
+  - Name: (CHECK) Spotify
+    File: spotify
   - Name: (FIX ME!) Anaconda
     File: anaconda
   - Name: (FIX ME!) AutoUpdates

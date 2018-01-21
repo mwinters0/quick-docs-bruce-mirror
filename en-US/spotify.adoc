@@ -1,0 +1,91 @@
+= Spotify
+
+https://www.spotify.com/[*Spotify*] is a cross-platform (available for
+Ubuntu, macOS and Windows) proprietary music streaming service. It is a
+freemium product (meaning a free version of it is available, but it has
+advertisements. Paying for a Premium subscription will remove the
+advertisements.
+
+[[installation]]
+Installation
+~~~~~~~~~~~~
+
+While it is not officially supported on Fedora or any other RPM-based
+distribution, it is possible to install on Fedora using various package methods.
+
+* Using the https://www.spotify.com/us/download/linux/[officially-supported]
+http://snapcraft.io/[Snap].
+* Using a Flatpak hosted by http://flathub.org[Flathub].
+* Using unofficial repositories like the http://negativo17.org/spotify-client/[negativo17] or https://rpmfusion.org/[RPMFusion] repositories.
+
+[[snap]]
+Snap
+^^^^
+Snap is the officially recommended distribution method for Spotify. To install
+it, first install `snapd`.
+
+....
+sudo dnf install snapd
+sudo ln -s /var/lib/snapd/snap /snap
+....
+
+Then install `spotify`.
+
+....
+snap install spotify
+....
+
+Be sure to consult http://snapcraft.io for more information on that repository
+and Snaps in general.
+
+[[flatpak]]
+Flatpak
+^^^^^^^
+
+A Spotify flatpak is also available from http://flathub.org[Flathub].
+
+....
+flatpak install --from https://flathub.org/repo/appstream/com.spotify.Client.flatpakref
+....
+
+[[negativo17.org-repository]]
+Negativo17.org repository
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Add the Yum repository and install:
+
+....
+dnf config-manager --add-repo=http://negativo17.org/repos/fedora-spotify.repo
+dnf install spotify
+....
+
+To do the same on CentOS/RHEL:
+
+....
+yum-config-manager --add-repo=http://negativo17.org/repos/epel-spotify.repo
+yum install spotify
+....
+
+[[rpmfusion.org-repository]]
+RPMFusion repository
+^^^^^^^^^^^^^^^^^^^^
+
+Install the repository package and `lpf`. Follow the steps in `lpf-gui` to build
+and install a local `spotify` RPM.
+
+....
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install lpf-spotify-client
+lpf-gui
+....
+
+To do the same on CentOS/RHEL:
+
+....
+sudo yum localinstall --nogpgcheck https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-7.noarch.rpm
+sudo yum install lpf-spotify-client
+lpf-gui
+....
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
