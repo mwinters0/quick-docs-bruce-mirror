@@ -36,9 +36,10 @@ Requires=network.target
 
 . Identify the command used to start the service in the SysVinit script and convert this to the Systemd equivalent. For example, the script might contain a `start` function in the following format:
 +
+[source,bash]
 ----
 start() {
-	echo "Starting My Custom Service..."
+  echo "Starting My Custom Service..."
   /usr/bin/myservice -D
 }
 ----
@@ -52,9 +53,10 @@ ExecStart=/usr/bin/myservice -D
 
 . Check the SysVinit script to see if the service uses a special command to restart the service. For example, the script might contain a `reboot` function that reloads the service:
 +
+[source,bash]
 ----
 reboot() {
-	echo "Reloading My Custom Service..."
+  echo "Reloading My Custom Service..."
   /usr/bin/myservice reload
 }
 ----
@@ -70,9 +72,10 @@ Alternatively, you can omit `ExecReload` and use the default behavior, which kil
 
 . Check the SysVinit script to see if the service uses a special command to stop the service. For example, the script might contain a `stop` function that reloads the service:
 +
+[source,bash]
 ----
 reboot() {
-	echo "Stopping My Custom Service..."
+  echo "Stopping My Custom Service..."
   /usr/bin/myservice shutdown
 }
 ----
@@ -90,4 +93,4 @@ Alternatively, you can omit `ExecStop` and use the default behavior, which kills
 
 .Related Information
 
-* See <<#common-service-parameters>> for more information about the parameters used in this procedure.
+* See link:#common-service-parameters[Common service parameters] for more information about the parameters used in this procedure.

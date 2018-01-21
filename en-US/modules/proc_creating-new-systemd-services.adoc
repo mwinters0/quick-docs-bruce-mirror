@@ -14,7 +14,7 @@ This procedure creates a basic configuration file to control the `foo` service.
 . Create and edit the new configuration file:
 +
 ----
-$ sudo vi /etc/systemd/system/foo.service
+# vi /etc/systemd/system/foo.service
 ----
 
 . The next few steps describe each section its parameters to add to the file:
@@ -74,7 +74,7 @@ Save the file.
 . Start the custom `foo` service:
 +
 ----
-$ sudo systemctl start foo
+# systemctl start foo
 ----
 
 . Check the status of the service to ensure the service is running:
@@ -94,4 +94,4 @@ Dec 14 14:09:12 dansmachine systemd[1]: Started My custom service.
 
 .Related Information
 
-* See <<#common-service-parameters>> for more information about the parameters used in this procedure.
+* See link:#common-service-parameters[Common service parameters] for more information about the parameters used in this procedure.

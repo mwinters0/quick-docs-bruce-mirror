@@ -40,8 +40,8 @@ Topics:
     File: switching-desktop-environments
   - Name: Finding and installing Linux applications
     File: finding-and-installing-linux-applications
-  - Name: (FIX ME!) Third party repositories
-    File: 3rd-party-repos
+  - Name: Understanding and administering Systemd
+    File: understanding-and-administering-systemd
   - Name: (FIX ME!) Anaconda
     File: anaconda
   - Name: (FIX ME!) AutoUpdates
@@ -98,10 +98,6 @@ Topics:
     File: repositories
   - Name: (FIX ME!) How to reset a root password
     File: reset-root-password
-  - Name: (FIX ME!) Systemd
-    File: systemd
-  - Name: (FIX ME!) SysVinit to Systemd Cheatsheet
-    File: sysvinit-to-systemd-cheatsheet
   - Name: (FIX ME!) Using UEFI with QEMU
     File: uefi-with-qemu
   - Name: (FIX ME!) Upgrading

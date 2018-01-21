@@ -5,7 +5,7 @@ You can perform various management tasks to control Systemd services using the `
 
 .Prerequisites
 
-* You are logged in as a user with administrator-level permissions.
+You are logged in as a user with administrator-level permissions.
 
 .Procedure
 
@@ -14,49 +14,49 @@ The following commands control the `foo` service:
 * Activate a service immediately:
 +
 ----
-$ sudo systemctl start foo 
+# systemctl start foo 
 ----
 
 * Deactivate a service immediately:
 +
 ----
-$ sudo systemctl stop foo 
+# systemctl stop foo 
 ----
 
 * Restart a service:
 +
 ----
-$ sudo systemctl restart foo 
+# systemctl restart foo 
 ----
 
 * Show the status of a service including if it is running or not:
 +
 ----
-$ sudo systemctl status foo 
+# systemctl status foo 
 ----
 
 * Enable a service to be started on bootup:
 +
 ----
-$ sudo systemctl enable foo 
+# systemctl enable foo 
 ----
 
 * Disable a service to not start during bootup:
 +
 ----
-$ sudo systemctl disable foo 
+# systemctl disable foo 
 ----
 
 * Prevent a service from starting dynamically or even manually unless unmasked:
 +
 ----
-$ sudo systemctl mask foo 
+# systemctl mask foo 
 ----
 
 * Check if a service is already enabled or not:
 +
 ----
-$ sudo systemctl is-enabled foo
+# systemctl is-enabled foo
 ----
 
 .Related Information

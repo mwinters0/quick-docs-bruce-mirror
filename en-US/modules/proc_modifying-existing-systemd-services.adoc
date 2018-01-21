@@ -14,13 +14,13 @@ This example shows how to modify an existing service. The files for service modi
 . Create a directory for the service modification in the following format: `[SERVICE NAME].service.d`. For example, the directory for the `httpd.service` modification is `httpd.service.d`:
 +
 ----
-$ sudo mkdir /etc/systemd/system/httpd.service.d/
+# mkdir /etc/systemd/system/httpd.service.d/
 ----
 
 . Create a configuration file within this directory:
 +
 ----
-$ sudo vi /etc/systemd/system/httpd.service.d/custom.conf
+# vi /etc/systemd/system/httpd.service.d/custom.conf
 ----
 
 . Add your custom configuration. For example:
@@ -36,9 +36,9 @@ RestartSec=30
 . Restart the `httpd` service:
 +
 ----
-$ sudo systemctl restart httpd
+# systemctl restart httpd
 ----
 
 .Related Information
 
-* See <<#common-service-parameters>> for more information about the parameters used in this procedure.
+* See link:#common-service-parameters[Common service parameters] for more information about the parameters used in this procedure.
