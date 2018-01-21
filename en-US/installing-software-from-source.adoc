@@ -4,7 +4,7 @@
 The following section contains guidelines and best practices for installing software form source on Fedora.
 The instructions below are not prescriptive, but following them minimizes the risk of errors occurring during installation.
 
-include::modules/con_fedora-package-management.adoc[leveloffset=+1]
+include::modules/con_package-management-in-fedora.adoc[leveloffset=+1]
 
 include::modules/proc_setting-up-your-local-dev-and-compilation-environment.adoc[leveloffset=+1]
 

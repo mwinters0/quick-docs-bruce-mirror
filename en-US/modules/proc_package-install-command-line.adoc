@@ -1,14 +1,13 @@
-= Installing software packages using the command line
-
 [[proc_package-install-command-line]]
+= Installing software packages using the command line
 
 You can install packages in Fedora using the DNF utility.
 
 .Before you begin
 
-You must execute the command with root privileges. Use one of the following methods:
+You must execute the command with *root* privileges. Use one of the following methods:
 
-* Prefix the command with `sudo` and provide the root password. The `sudo` command must be enabled for the user.
+* Prefix the command with `sudo` and provide your user password. The `sudo` command must be enabled for your user.
 * Use the `su` command and provide the root password to switch to a root prompt in a terminal window.
 * Log in as `root` on a virtual console.
 
@@ -19,12 +18,8 @@ You must know the name of the package. Any dependencies will be installed automa
 . Run the command:
 +
 ----
-dnf install <packagename>
+# dnf install <packagename>
 ----
 +
 where `<packagename>` is the name of the package.
 . Answer `y` to any prompts, if necessary.
-
-.More information
-
-For other commands that the DNF utility support, see the documentation for https://fedoraproject.org/wiki/DNF[DNF].

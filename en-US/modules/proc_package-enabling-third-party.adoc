@@ -3,9 +3,18 @@
 
 You can install software packages from repositories that are not supported by the Fedora project, known as third-party repositories.
 
+
+== RPMFusion
+
 The most commonly used third-party repository is https://rpmfusion.org/[RPM Fusion]. It provides packages that can not be included in Fedora because of US software patents or other similar reasons. Among other things, RPM Fusion provides packages necessary for viewing media in many common formats. RPM Fusion packages are extensively tested, but they are not supported by the Fedora project.
 
+
+== Copr
+
 A set of repositories for Fedora is known as https://copr.fedorainfracloud.org/[Copr]. Developers can provide packages in Copr repositories for software that is not at present included in Fedora. *These packages might be untested.*
+
+
+== Application-specific repositories
 
 Certain non-free applications for Linux, such as Google Chrome or Skype, provide their own repositories for Fedora.
 

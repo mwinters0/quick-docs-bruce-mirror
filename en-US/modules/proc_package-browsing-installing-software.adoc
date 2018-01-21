@@ -1,11 +1,11 @@
-= Browsing and installing software on Fedora
 [[package-browsing-installing]]
+= Browsing and installing software on Fedora
 
 You can use a graphical utility to browse the available software packages. When you find the software that you want, you can use the utility to install it on your Fedora system.
 
 .Before you start
 
-To install any packages on your Fedora system, you need to have the root password.
+To install any packages on your Fedora system, you need to have *root* privileges.
 
 .Procedure
 
