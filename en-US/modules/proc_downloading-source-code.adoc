@@ -2,23 +2,21 @@
 
 . Navigate to the directory where you want to save the source:
 +
-[bash,subs="attributes+"]
+[subs="+quotes"]
 ----
-cd <directory_name>
+cd _<directory_name>_
 ----
 +
 . Download the TAR file containing the source code you want to install from:
 +
-[bash,subs="attributes+"]
+[subs="+quotes"]
 ----
-wget <source_location_URL>
+wget _<source_location_URL>_
 ----
 +
 . Extract the tarball file contents to the current working directory:
 +
-[bash,subs="attributes+"]
+[subs="+quotes"]
 ----
-tar -xf <source_tar_filename>
+tar -xf _<source_tar_filename>_
 ----
-
-You can perform the same actions using the GUI.

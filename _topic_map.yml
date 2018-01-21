@@ -28,6 +28,8 @@ Topics:
     File: creating-and-using-a-live-installation-image
   - Name: Creating Windows virtual machines using virtIO drivers
     File: creating-windows-virtual-machines-using-virtio-drivers
+  - Name: Installing Software from Source
+    File: installing-software-from-source
   - Name: (FIX ME!) Third party repositories
     File: 3rd-party-repos
   - Name: (FIX ME!) Anaconda
@@ -76,8 +78,6 @@ Topics:
     File: openh264
   - Name: (FIX ME!) PackageKit Items Not Found
     File: packagekit-not-found
-  - Name: (FIX ME!) Package management system
-    File: package-management
   - Name: (FIX ME!) PostgreSQL
     File: postgresql
   - Name: (FIX ME!) How to use qemu

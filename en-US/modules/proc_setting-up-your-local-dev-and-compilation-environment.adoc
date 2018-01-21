@@ -1,8 +1,8 @@
 = Setting up a Development and Compiling Environment
 
 Install packages form the _C Development Tools and Libraries_ group:
-+
-[bash,subs="attributes+"]
+
+[subs="+quotes"]
 ----
-sudo dnf group install @c-development
+# dnf group install @c-development
 ----
