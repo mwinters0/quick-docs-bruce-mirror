@@ -1,5 +1,4 @@
-Fedora Quick Docs
-=================
+= Fedora Quick Docs
 
 This repository represents
 http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[asciidoc]
@@ -10,11 +9,40 @@ format with a PR-based workflow.
 
 So, this is kind of a seed project. *Your help wanted!*
 
-Please:
+== Steps
 
 1. Pick a document to update.
 2. Fork the https://pagure.io/fedora-docs/quick-docs repo.
 3. Make your changes to the `.adoc` file you want to improve.
 4. Update `_topic_map.yml` to remove "`(FIX ME!)`"
 5. Submit a pull request with your improvements.
-6. Update the original wiki page with `{{old}}` and a link to the shiny new document
+6. Create a redirect on the old wiki page — see below.
+
+== Wiki Redirects
+
+Usually, wikis do not allow redirects to external sites, because the
+potential for abuse is very high. We've developed a plugin for the Fedora
+Wiki which allows redirects to _only_ pages on this site,
+https://docs.fedoraproject.org/. To create such a link, use the
+`#fedoradocs` macro by putting something like this at the top of the wiki
+page you are obsoleting:
+
+[source,mediawiki]
+----
+{{#fedoradocs: https://docs.fedoraproject.org/fedora-project/council/fpl.html}}
+----
+
+Of course, you will want to replace that specific URL with the one for your
+new target page. The URL can't be something arbitrary — it must begin with
+`https://docs.fedoraproject.org/`.
+
+Once the redirect is in place, visitors to that wiki page will be instantly
+whisked (well, redirected, with the code `301 Moved Permanently`) to the
+docs site. If you need to edit such a page to correct the URL, or to remove
+the redirect completely, use a form like:
+https://fedoraproject.org/w/index.php?title=Project_Leader&action=edit
+
+Note that there is no validation that the target exists or is correct —
+please double-check that any redirects you create work properly before
+moving on.
+
