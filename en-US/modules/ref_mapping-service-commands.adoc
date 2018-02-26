@@ -1,13 +1,13 @@
 [#mapping-service-commands]
 = Mapping service commands
 
-The following table demonstrates the Systemd equivalent of SysVinit commands.
+The following table demonstrates the systemd equivalent of SysVinit commands.
 
 NOTE: All recent versions of systemctl assume the `.service` suffix if left off the service name. For example, `systemctl start frobozz.service` is the same as `systemctl start frobozz`.
 
 [cols=",,",options="header",]
 |===
-|Sysvinit Command |Systemd Command |Notes
+|Sysvinit Command |systemd Command |Notes
 |`service frobozz start`|`systemctl start frobozz`|Used to start a service (not reboot persistent)
 
 |`service frobozz stop`|`systemctl stop frobozz`|Used to stop a service (not reboot persistent)
@@ -39,4 +39,4 @@ Used to list all the services and other units
 |`chkconfig frobozz --add`|`systemctl daemon-reload`|Used when you create a new service file or modify any configuration
 |===
 
-NOTE: All `/sbin/service` and `/sbin/chkconfig` commands listed in the table continue to work on Systemd-based systems and are translated to native equivalents as necessary. The only exception is `chkconfig --list`.
+NOTE: All `/sbin/service` and `/sbin/chkconfig` commands listed in the table continue to work on systemd-based systems and are translated to native equivalents as necessary. The only exception is `chkconfig --list`.

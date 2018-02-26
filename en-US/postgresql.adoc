@@ -251,7 +251,7 @@ Note: changing PGPORT or PGDATA will typically require adjusting SELinux
 configuration as well; see section selinux.
 
 Please follow the systemd documentation
-http://fedoraproject.org/wiki/Systemd#How_do_I_customize_a_unit_file.2F_add_a_custom_unit_file.3F[2]
+http://fedoraproject.org/wiki/systemd#How_do_I_customize_a_unit_file.2F_add_a_custom_unit_file.3F[2]
 for more details.
 
 [[postgresql.conf]]

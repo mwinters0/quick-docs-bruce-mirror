@@ -1,7 +1,7 @@
 [#starting-stopping-and-querying-systemd-services]
-= Starting, stopping, and querying Systemd services
+= Starting, stopping, and querying systemd services
 
-You can perform various management tasks to control Systemd services using the `systemctl` command. The following is a set of example commands to demonstrate how to use `systemctl` to manage Systemd services.
+You can perform various management tasks to control systemd services using the `systemctl` command. The following is a set of example commands to demonstrate how to use `systemctl` to manage systemd services.
 
 .Prerequisites
 

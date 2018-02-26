@@ -1,5 +1,5 @@
 [#modifying-existing-systemd-services]
-= Modifying existing Systemd services
+= Modifying existing systemd services
 
 This example shows how to modify an existing service. The files for service modification are stored in a directory within `/etc/systemd/system`. This directory is named after the service. For example, this procedure modifies the `httpd` service.
 
@@ -7,7 +7,7 @@ This example shows how to modify an existing service. The files for service modi
 
 * You are logged in as a user with administrator-level permissions.
 
-* You have a configured `httpd` server running through Systemd.
+* You have a configured `httpd` server running through systemd.
 
 .Procedure
 

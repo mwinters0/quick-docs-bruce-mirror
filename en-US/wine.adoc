@@ -91,7 +91,7 @@ wine
 
 |_wine-symbol-fonts_ |Wine Symbol font family
 
-|_wine-systemd_ |Systemd configuration for the wine binfmt handler
+|_wine-systemd_ |systemd configuration for the wine binfmt handler
 
 |_wine-system-fonts_ |Wine System font family
 

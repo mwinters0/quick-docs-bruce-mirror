@@ -1,9 +1,9 @@
 :source-highlighter: prettify
 
 [id='understanding-and-administering-systemd']
-= Understanding and administering Systemd
+= Understanding and administering systemd
 
-Learn the basic principles of Systemd: how to configure it and use to administer the system.
+Learn the basic principles of systemd: how to configure it and use to administer the system.
 
 include::en-US/modules/con_understanding-systemd.adoc[leveloffset=+1]
 

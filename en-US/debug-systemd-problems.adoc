@@ -1,11 +1,11 @@
-= How to debug Systemd problems
+= How to debug systemd problems
 
 '''
 
 [IMPORTANT]
 ======
 
-This page was automatically converted from https://fedoraproject.org/wiki/How_to_debug_Systemd_problems
+This page was automatically converted from https://fedoraproject.org/wiki/How_to_debug_systemd_problems
 
 It is probably
 
@@ -33,7 +33,7 @@ with the following macro:
 
 *Foreword*
 
-If you are experiencing a problem with system boot up due to Systemd,
+If you are experiencing a problem with system boot up due to systemd,
 please see the link:Bugs/Common[common bugs] document before filing a
 bug. Some easy configuration tweaks that fix a wide range of issues may
 be listed there. If the problem you are seeing is not listed there or
@@ -88,7 +88,7 @@ To examine what gets started when when booted into a specific target. (
 In the above example the multi-user.target )
 
 [[systemd-boot-parameters]]
-Systemd boot parameters
+systemd boot parameters
 -----------------------
 
 The following boot parameters are also available to further assist with

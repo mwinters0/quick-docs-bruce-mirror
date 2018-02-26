@@ -3,7 +3,7 @@
 
 .Unit Parameters
 
-This section contains parameters you can use in the `[Unit]` section of a service. These parameters are common to other Systemd units.
+This section contains parameters you can use in the `[Unit]` section of a service. These parameters are common to other systemd units.
 
 This list is a summarized version. For a full list of these parameters and their descriptions, run `man systemd.unit`.
 
@@ -14,7 +14,7 @@ Documentation::
   A space-separated list of URIs referencing documentation for this service or its configuration. Accepted are only URIs of the following types: `http://`, `https://`, `file:`, `info:`, `man:`. 
 
 Requires::
-  Configures requirement dependencies on other services. If this service gets activated, the units listed here are activated too. If one of the dependent services fails to activate, Systemd does not start this service. This option may be specified more than once or you can specify multiple space-separated units.
+  Configures requirement dependencies on other services. If this service gets activated, the units listed here are activated too. If one of the dependent services fails to activate, systemd does not start this service. This option may be specified more than once or you can specify multiple space-separated units.
 
 Wants::
   Similar to `Requires`, except failed units do not have any effect on the service.
@@ -36,7 +36,7 @@ OnFailure::
 
 .Install Parameters
 
-This section contains parameters you can use in the `[Install]` section of a service. These parameters are common to other Systemd units.
+This section contains parameters you can use in the `[Install]` section of a service. These parameters are common to other systemd units.
 
 This list is a summarized version. For a full list of these parameters and their descriptions, run `man systemd.unit`.
 
@@ -51,7 +51,7 @@ Also::
 
 .Service Parameters
 
-This section contains parameters you can use in the `[Service]` section of a service unit. These parameters are specific only to Systemd service units.
+This section contains parameters you can use in the `[Service]` section of a service unit. These parameters are specific only to systemd service units.
 
 This list is a summarized version. For a full list of these parameters and their descriptions, run `man systemd.unit`.
 
@@ -60,7 +60,7 @@ Type::
 +
 * `simple` - The service starts as the main process. This is the default.
 * `forking` - The service calls forked processes and run as part of the main daemon.
-* `oneshot` - Similar to `simple`, except the process must exits before Systemd starts follow-up services.
+* `oneshot` - Similar to `simple`, except the process must exits before systemd starts follow-up services.
 * `dbus` - Similar to `simple`, except the daemon acquires a name of the D-Bus bus.
 * `notify` - Similar to `simple`, except the daemon sends a motification message using `sd_notify` or an equivalent call after starting up.
 * `idle` - Similar to `simple`, except the execution of the service is delayed until all active jobs are dispatched.
@@ -69,10 +69,10 @@ RemainAfterExit::
   A boolean value that specifies whether the service shall be considered active even if all its processes exited. Defaults to no.
 
 GuessMainPID::
-  A boolean value that specifies whether Systemd should guess the main PID of a service if it cannot be determined reliably. This option is ignored unless `Type=forking` is set and `PIDFile` is not set. Defaults to yes.
+  A boolean value that specifies whether systemd should guess the main PID of a service if it cannot be determined reliably. This option is ignored unless `Type=forking` is set and `PIDFile` is not set. Defaults to yes.
 
 PIDFile::
-  An absolute filename pointing to the PID file of this daemon. Use of this option is recommended for services where `Type=forking`. Systemd reads the PID of the main process of the daemon after start-up of the service. Systemd does not write to the file configured here, although it removes the file after the service has shut down. 
+  An absolute filename pointing to the PID file of this daemon. Use of this option is recommended for services where `Type=forking`. systemd reads the PID of the main process of the daemon after start-up of the service. systemd does not write to the file configured here, although it removes the file after the service has shut down. 
 
 BusName::
   A D-Bus bus name to reach this service. This option is mandatory for services where `Type=dbus`.

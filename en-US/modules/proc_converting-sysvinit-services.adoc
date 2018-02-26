@@ -1,13 +1,13 @@
 [#converting-sysvinit-services]
 = Converting SysVinit services
 
-Older versions of Fedora use SysVinit scripts to manage services. This section provides some guidelines on how to convert a SysVinit script to a Systemd equivalent.
+Older versions of Fedora use SysVinit scripts to manage services. This section provides some guidelines on how to convert a SysVinit script to a systemd equivalent.
 
 .Prerequisites
 
 * You are logged in as a user with administrator-level permissions.
 
-* You have a custom SysVinit script to convert to a Systemd configuration.
+* You have a custom SysVinit script to convert to a systemd configuration.
 
 .Procedure
 
@@ -17,14 +17,14 @@ Older versions of Fedora use SysVinit scripts to manage services. This section p
 # chkconfig: 235 20 80
 ----
 +
-Systemd uses targets instead of runlevels. Use the table in <<#converting-sysvinit-services>> to map the runlevels to targets. In this example, runlevels 2, 3, and 5 are all multi-user runlevels, so the Systemd service can use the following:
+systemd uses targets instead of runlevels. Use the table in <<#converting-sysvinit-services>> to map the runlevels to targets. In this example, runlevels 2, 3, and 5 are all multi-user runlevels, so the systemd service can use the following:
 +
 ----
 [Install]
 WantedBy=multi-user.target
 ----
 +
-If you enable the custom Systemd service to start at boot (`systemctl enable foo.service`), Systemd loads the service when loading the `multi-user.target` at boot time.
+If you enable the custom systemd service to start at boot (`systemctl enable foo.service`), systemd loads the service when loading the `multi-user.target` at boot time.
 
 . Identify the dependent services and targets. For example, if the custom service requires network connectivity, specify the `network.target` as a dependency:
 +
@@ -34,7 +34,7 @@ Description=My custom service
 Requires=network.target
 ----
 
-. Identify the command used to start the service in the SysVinit script and convert this to the Systemd equivalent. For example, the script might contain a `start` function in the following format:
+. Identify the command used to start the service in the SysVinit script and convert this to the systemd equivalent. For example, the script might contain a `start` function in the following format:
 +
 [source,bash]
 ----
@@ -89,7 +89,7 @@ ExecStop=/usr/bin/myservice shutdown
 +
 Alternatively, you can omit `ExecStop` and use the default behavior, which kills the service.
 
-. Review the SysVinit script and identify any additional parameters or functions. Use Systemd parameters to replicate any identified SysVinit functions that might be relevant to your service.
+. Review the SysVinit script and identify any additional parameters or functions. Use systemd parameters to replicate any identified SysVinit functions that might be relevant to your service.
 
 .Related Information
 
