@@ -528,7 +528,7 @@ running the command:
 bumblebee-nvidia --force
 ....
 
-via su as root or via sudo. And the primus bridge should work after
+via `su` as root or via `sudo`. And the primus bridge should work after
 that. You can track this issue upstream
 https://github.com/amonakov/primus/issues/193[here].
 
