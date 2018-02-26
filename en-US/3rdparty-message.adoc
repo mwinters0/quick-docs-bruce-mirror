@@ -1,0 +1,15 @@
+////
+
+This message needs to be included on any document referencing third party software
+repositories. Add the following line verbatim to the top of any such document:
+
+include::en-US/3rdparty-message.adoc[]
+
+////
+
+[CAUTION]
+====
+This page discusses third-party software sources not officially affiliated with or endorsed by the Fedora Project.
+Use them at your own discretion.
+Fedora recommends the use of free and open source software and avoidance of software encumbered by patents.
+====
