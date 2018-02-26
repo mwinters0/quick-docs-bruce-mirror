@@ -5,6 +5,8 @@ repositories. Add the following line verbatim to the top of any such document:
 
 include::en-US/3rdparty-message.adoc[]
 
+Please do not change this message without consultation. Thanks!
+
 ////
 
 [CAUTION]
