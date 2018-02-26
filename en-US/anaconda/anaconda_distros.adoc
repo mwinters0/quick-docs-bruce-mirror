@@ -1,0 +1,20 @@
+= Anaconda based Distributions
+
+There are a number of distributions which currently use Anaconda. This is a list of the ones which we are aware of.
+
+* Fedora
+* Red Hat Enterprise Linux
+* rpath Linux
+* Progeny Componentized Linux, based on Debian (defunct)
+* Vida linux, Gentoo variant using Anaconda
+* Foresight Linux, originally derived from rpath Linux
+* Sabayon Linux Installer
+* Aurox
+* Asianux
+* Blag GNU/Linux
+* ASPLinux
+* Fedora derivatives
+* FrameOS Linux
+* Scientific Linux
+
+There are likely many more distributions using Anaconda.  Feel free to contact the authors to add to this list.

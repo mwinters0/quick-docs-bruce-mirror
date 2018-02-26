@@ -1,5 +1,5 @@
 ---
-Name:  Fedora Quick Docs
+Name: Fedora Quick Docs
 Dir: en-US
 Topics:
   - Name: Quick Docs in Progress (How to Help!)
@@ -50,8 +50,13 @@ Topics:
     File: grub2
   - Name: (CHECK) Spotify
     File: spotify
-  - Name: (FIX ME!) Anaconda
-    File: anaconda
+  - Name: (IN PROGRESS) Anaconda
+    Dir: anaconda
+    Topics:
+      - Name: Anaconda
+        File: anaconda
+      - Name: Anaconda based Distributions
+        File: anaconda_distros
   - Name: (FIX ME!) AutoUpdates
     File: autoupdates
   - Name: (FIX ME!) Building a custom kernel
