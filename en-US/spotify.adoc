@@ -1,5 +1,8 @@
 = Spotify
 
+include::en-US/3rdparty-message.adoc[]
+
+
 https://www.spotify.com/[*Spotify*] is a cross-platform (available for
 Ubuntu, macOS and Windows) proprietary music streaming service. It is a
 freemium product (meaning a free version of it is available, but it has

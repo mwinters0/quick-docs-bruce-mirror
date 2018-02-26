@@ -1,6 +1,8 @@
 [i='installing-chromium-or-google-chrome-browsers']
 = Installing Chromium or Google Chrome browsers
 
+include::en-US/3rdparty-message.adoc[]
+
 include::en-US/modules/concept_chromium-web-browser.adoc[leveloffset=+1]
 
 include::en-US/modules/proc_installing-chromium-web-browser.adoc[leveloffset=+1]

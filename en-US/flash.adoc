@@ -1,5 +1,7 @@
 = Flash
 
+include::en-US/3rdparty-message.adoc[]
+
 '''
 
 [IMPORTANT]
