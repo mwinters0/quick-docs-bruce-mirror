@@ -29,7 +29,7 @@ If you have multiple network interfaces, Anaconda will first prompt you to selec
 It will then attempt to configure this link using DHCP.
 If you require other networking configuration, you will need to use various options.
 The `ksdevice=` option can be used to specify a different network device, and the `ip=` option (along with others for gateway, nameserver, and so forth) can be used for static configuration.
-All Anaconda config options are described link:anaconda_options[elsewhere].
+All Anaconda config options are described link:https://anaconda-installer.readthedocs.io/en/latest/boot-options.html[elsewhere].
 
 If you are making your own `updates.img`, just upload it to a web server you have access to and pass the location as above.
 
@@ -64,7 +64,7 @@ For NFS installs, there are two options.
 You can either put the image in `images/` as above or explode the image into the `RHupdates/` directory in your installation tree.
 
 This `updates.img` is only retrieved from the location where stage2 image is pulled from.
-If you use link:anaconda_Boot_options.html#repo[inst.repo] boot option to specify your installation tree, but you also use link:anaconda_boot_options#stage2[inst.stage2] boot option with a different location, only the `inst.stage2` location is going to be searched for the `updates.img` file, and not the `inst.repo` location.
+If you use link:https://anaconda-installer.readthedocs.io/en/latest/boot-options.html#inst.repo[inst.repo] boot option to specify your installation tree, but you also use link:https://anaconda-installer.readthedocs.io/en/latest/boot-options.html#inst-stage2[inst.stage2] boot option with a different location, only the `inst.stage2` location is going to be searched for the `updates.img` file, and not the `inst.repo` location.
 
 [id="create-images"]
 == How to Create an Anaconda Updates Image
