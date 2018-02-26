@@ -30,6 +30,14 @@ with the following macro:
 
 '''
 
+[NOTE]
+====
+This page should be about the Fedora installer, not about the Anaconda team.
+It should reference installation, customization, and kickstart
+documentation.
+
+====
+
 
 image:DSC_3217.JPG[ 400px | Entering Anaconda, Montana. A city probably
 named after this installation program. David Cantrell took this picture
