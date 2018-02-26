@@ -54,7 +54,7 @@ Topics:
     File: understanding-and-administering-systemd
   - Name: Creating RPM packages
     File: creating-rpm-packages
-  - Name: Repositories  
+  - Name: Repositories
     File: repositories
   - Name: Configuring X Window System using the xorg.conf file
     File: configuring-x-window-system-using-the-xorg-conf-file
@@ -74,6 +74,10 @@ Topics:
       - Name: Anaconda Product Image
         File: anaconda_product_image
   - Name: Bumblebee
+  - Name: Raspberry Pi
+    File: raspberry-pi
+  - Name: How to Create a GNU Hello World RPM Package
+    File: create-hello-world-rpm
     File: bumblebee
   - Name: Creating GPG Keys
     File: create-gpg-keys
@@ -81,14 +85,14 @@ Topics:
     File: wine
   - Name: Firewalld
     File: firewalld
+  - Name: How to create a GNU Hello RPM package
+    File: create-hello-world-rpm
 # - Name: (CHECK) GRUB 2
 #   File: grub2
 # - Name: (FIX ME!) AutoUpdates
 #   File: autoupdates
 # - Name: (CHECK) Building a custom kernel
 #   File: build-custom-kernel
-# - Name: (FIX ME!) How to create a GNU Hello RPM package
-#   File: create-hello-world-rpm
 # - Name: (FIX ME!) How to debug Dracut problems
 #   File: debug-dracut-problems
 # - Name: (FIX ME!) How to debug Systemd problems

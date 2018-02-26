@@ -1,40 +1,334 @@
 = Raspberry Pi
 
-'''
+TIP: The Raspberry Pi is now supported in Fedora 25 and later.
+Fedora on the Raspberry Pi is still very new so please report issues to the ARM mailing list or IRC channel.
 
-[IMPORTANT]
-======
+== Introduction
 
-This page was automatically converted from https://fedoraproject.org/wiki/Architectures/ARM/Raspberry_Pi
+The link:https://www.raspberrypi.org[Raspberry Pi] is a credit card-sized ARM based single board computer (SBC).
+Fedora supports the the Raspberry Pi Model B versions 2 and 3 since Fedora 25 without any requirement of third party kernels or scripts to adjust offical images.
+This documentation describes how to get started, and includes a Frequently Asked Questions (FAQ) section at the end of the document about what is supported and what isn't.
 
-It is probably
+== Supported Hardware
 
-* Badly formatted
-* Missing graphics and tables that do not convert well from mediawiki
-* Out-of-date
-* In need of other love
+We currently only support the Raspberry Pi Model B versions 2 and 3.
 
+== Prerequisites
 
-Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
+* A Raspberry Pi 2 or 3
+* Good quality SD Card (link:http://elinux.org/RPi_SD_cards[eLinux] hosts a compatibility list)
+* HDMI Monitor or TV, a USB keyboard and mouse
+* A decent power supply. You'll want at least 2A for the RPi2 and 2.5A for the RPi3, link:https://www.raspberrypi.org/help/faqs/#power[details here].
+* Computer running Windows/MacOS/Linux
+* SD card reader
 
-Once you've fixed this page, remove this notice, and update
-`_topic_map.yml`.
+== Downloading the Fedora ARM image
 
-Once the document is live, go to the original wiki page and replace its text
-with the following macro:
+Official support for the Raspberry Pi 2/3 is available in Fedora!
+Please read the FAQ for the current status of various features.
+
+The lastest Fedora ARM images can be downloaded link:https://arm.fedoraproject.org/[here.]
+
+== Preparing the SD card
+
+You can quite easily prepare the image on the SD card on Fedora or any Linux distribution, MacOS or Windows.
+The default settings will provide the user interface on a HDMI monitor with keyboard and mouse support. 
+If you wish to have output over a serial console please see the FAQs at the end of this document for more information.
+
+== Fedora or Other Linux Distributions
+
+=== Use the fedora-arm-installer
+
+To install arm-image-installer:
+
+----
+$ dnf install -y fedora-arm-installer
+----
+
+To write the image out use the following:
+
+----
+$ sudo arm-image-installer
+----
+
+Usage: `$ arm-image-installer <options>`
 
 ....
-{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
+   --image=IMAGE    - xz compressed image file name
+   --target=TARGET  - target board
+   --media=DEVICE   - media device file (/dev/[sdX|mmcblkX])
+   --selinux=ON/OFF - Turn SELinux off/on as needed
+   --norootpass     - Remove the root password
+   -y		    - Assumes yes, will not wait for confirmation
+   --version	    - Display version and exit
+   --resizefs	    - Resize root filesystem to fill media device
+   --addconsole     - Add system console to extlinux.conf
+   --addkey=        - /path/to/ssh-public-key
 ....
 
-======
+Example: 
 
-'''
+----
+$ arm-image-installer --image=Fedora-Rawhide.xz --target=Bananapi --media=/dev/mmcblk0
+----
+
+For list of supported boards please check SUPPORTED-BOARDS file.
+
+For the Raspberry Pi 2 use `--target=rpi2` and for the Raspberry Pi 3 use `--target=rpi3`.
+
+=== Manually Configure SD Card
+
+----
+$ xzcat Fedora-IMAGE-NAME.raw.xz | sudo dd status=progress bs=4M of=/dev/XXX #Location of your media (will be sdX or mmcblkX depending on hardware)
+----
+
+== Microsoft Windows / MacOS
+
+The Raspberry Pi foundation provides some nice instructions for image copying using a Mac link:https://www.raspberrypi.org/documentation/installation/installing-images/mac.md[here].  
+Simply replace any image file references with the name and path of the image downloaded in the step above.
+
+== Resizing the Root Partition
+
+The root partition is shrunk to the smallest size possible to ensure a small download.
+You currently need to resize it manually.
+Ideally we would like this to happen automatically (great community project idea!).
+
+=== Resize Before First Boot
+
+The easiest way to do this before boot on a Linux system is with gparted:
+
+----
+$ gparted /dev/XXX
+----
+
+=== Resize After initial-setup
+
+The other mechanism for doing it is once you've booted the Raspberry Pi and completed the initial setup to create accounts.
+
+* enlarge the 4th partition (this example uses mmcblk0)
+
+----
+$ growpart /dev/mmcblk0p4
+----
+
+* grow the fileystem to fill the available space
+
+----
+$ resize2fs /dev/mmcblk0p4
+----
+
+* resize root partition for the server image (which uses xfs)
+
+----
+$ xfs_growfs -d /
+----
+
+== Booting Fedora on the Raspberry Pi for the First Time
+
+* Insert the SD card into the Raspberry Pi.
+* Make sure you have a keyboard, mouse, network cable and monitor connected.
+* Power on the Raspberry Pi.
+* You will see Fedora booting and eventually the "Initial setup wizard" will appear.
+* Follow the wizard to set language, timezone and create users.
+* You should be presented with a login prompt or a getting started guide (depending on which Desktop/SPIN you're using).
+
+== Applying Updates and Installing Software
+
+There are no special ways or procedures necessary to install or update the software so you just use standard Fedora installation and update mechanisms such as dnf, gnome-software or any of the other GUI update systems as supported in the various desktop environments.
+
+== Getting Help and Reporting Issues
+
+So where can you get help if it’s not working? The usual Fedora support forums are:
+
+* link:https://ask.fedoraproject.org/[Ask Fedora]
+* link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
+* irc://irc.freenode.net/#fedora-arm[IRC via the #fedora-arm channel on Freenode]
+
+== Frequently Asked Questions
+
+=== Why do I get a rainbow display when I try and power on my Raspberry Pi?
+
+There's a number of different reasons you might get rainbow output on the display when you're trying to boot as Raspberry Pi. 
+The three common ones we see are:
+
+* The power supply isn't strong enough. See the "Prerequisites" section above.
+
+* There's no OS installed. Check the SD card is properly in place and you've followed the instructions to write out the card.
+
+* Wrong edition of the Raspberry Pi. If you try and use Fedora on a Raspberry Pi 1 or Zero you'll get this as we don't support ARMv6 SoCs.
+
+=== What desktop environments are supported?
+
+Both 3D/2D work out of the box and all desktops as shipped in Fedora should work just fine. 
+There is an open source fully accelerated driver for the Video Core IV GPU.
+
+=== Will there be more enhancements to the hardware support?
+
+Yes. 
+New enhancements will be delivered when, and as soon as, they are ready via the standard Fedora updates mechanism. 
+New, significant features will be blogged about as they arrive either via link:https://fedoramagazine.org/[Fedora Magazine] or the link:http://fedoraplanet.org/[Fedora Planet].
+
+=== What about support for the Raspberry Pi Models A/A+, B/B+ (generation 1), Zero/ZeroW and Compute Module?
+
+THESE ARE NOT SUPPORTED!!! 
+
+Fedora doesn't, and NEVER will, support ARMv6 processors. 
+There's been a number of attempts to support these over the years. 
+The current best effort is Pignus based on Fedora 23. 
+More information can be found at link:https://pignus.computer[the Pignus site]. 
+
+NOTE: Fedora DOES support the Compute Module 3 based on the same SoC as the Raspberry Pi 3, but *as the previous generation Compute Modules are based on ARMv6 archetecture, they are [#.underline]#not supported#*.
+
+=== Will Fedora 24 be supported?
+
+No. 
+The small team is focused on the Fedora 25 release and rawhide to best focus resources. 
+While possible to do there is reasonably significant amount of work to back port all the fixes that have gone into Fedora 25/rawhide back to stable releases. 
+Fedora 25 is released and is already very stable on the Raspberry Pi.
+
+=== What USB devices are supported on the Raspberry Pi
+
+You should be able to use most USB-2 compatible devices that are supported in Fedora on other devices. 
+There are some limitations to the USB bus of the Raspberry Pi hardware as link:https://www.raspberrypi.org/documentation/hardware/raspberrypi/usb/README.md[documented here].
+
+=== Is the onboard WiFi and Bluetooth supported on the Raspberry Pi 3?
+
+==== Wifi
+
+Wifi on the Raspberry Pi 3 is supported in Fedora.
+There's a file we can't currently redistribute which you'll need to retrieve. 
+This can be done either post first boot using onboard ethernet or when setting up the SD card. 
+The command needed when running from a Raspberry Pi 3 is as follows:
+
+----
+$ sudo curl https://fedora.roving-it.com/brcmfmac43430-sdio.txt -o /lib/firmware/brcm/brcmfmac43430-sdio.txt
+----
+
+Once retrieved you just need to reboot and WiFi should be available.
+
+==== Bluetooth
+
+It's currently untested but as it's attached to a serial port and is accessible it might work. 
+It's only been briefly tested but in practice it tends to crash the entire device so is not currently recommended. 
+Those interested can investigate further and potentially provide more information.
+
+For the brave you can test it with this command:
+
+----
+$ hciattach /dev/ttyAMA0 bcm43xx 3000000 noflow -
+----
+
+=== Does sound work?
+
+HDMI audio output is included Fedora however the analog port is not yet supported. 
+Audio output via a USB audio interface should also work fine.
+
+=== Does the add-on camera work?
+
+Not currently. 
+There is still ongoing work to support this upstream and add the appropriated media acceleration support.
+
+=== Does accelerated media decode work?
+
+No. 
+There's no upstream kernel support and it relies on code from a number of kernel subsystems to be supported.
+
+=== Does HDMI-CEC work?
+
+Yes. 
+It current is supported using link:http://libcec.pulse-eight.com/[libcec] packaged in Fedora.
+
+=== Is the Raspberry Pi Touch Display supported?
+
+Work on the official Raspberry Pi Touch Display is ongoing upstream and initial support has landed in the 4.10 kernel, being link:https://github.com/anholt/linux/issues/8[tracked upstream]. 
+Fedora will review any missing pieces for support soon. 
+The touchscreen driver isn't yet released upstream. 
+Support for other displays is not currently planned.
+
+=== Is the composite TV out supported?
+
+The composite TV out is not currently supported in a stable Fedora release but the core support has landed upstream in the 4.10 kernel. 
+There's some missing enabling patches currently which we will add to the Fedora kernel soon.
+
+=== Are the expansion HATs supported?
+
+The quick answer here is they are not currently supported.
+
+The long answer is a lot more complex. 
+Most of the hardware interfaces that are exposed by the 40 pin HAT connector are supported with drivers shipped with Fedora. 
+Drivers for the hardware contained on a lot of the common HATs are also enabled and supported in Fedora. 
+The core means of supporting the HAT add-on boards require the use of device tree overlays. 
+The kernel and the u-boot 2016.09 boot-loader supports the loading over overlays manually. 
+Currently there is no upstream consensus on the means of autoloading these overlays by means of an "overlay manager" (also known as Cape Manager and by numerous other names) by reading the EEPROM ID and loading the appropriate overlay automatically. 
+There's also no consensus on the extensions to the dtc (Device Tree Compiler) to build the binary blob overlays, and no consensus of the exact format of the overlay file. 
+There is now a group of people working to resolve this issue which enable Fedora to better support HATs (Raspberry Pi), Capes (BeagleBone), DIPs (C.H.I.P) and Mezzanine (96boards) before long.
+
+The first focus HAT to support will be the official Raspberry Pi Sense HAT. 
+This will be documented using the manual process to build and load the overlay to provide access to the onboard devices as a means of demonstrating how this process works for those wishing to use this manual method in the interim. 
+The link to this documentation will be added here once that is complete.
+
+=== Are Device Tree Overlays supported?
+
+There's basic support for overlays in u-boot and the Linux kernel but an overlay manager isn't yet upstream. 
+
+=== Is GPIO supported?
+
+GPIO isn't supported well as they need to be mapped with Device Tree overlays. 
+This will be improved in the Fedora 27/28 cycles.
+
+=== Is SPI supported?
+
+Yes, basic SPI is supported.
+
+=== Is I2C supported?
+
+Yes, basic I2C is supported.
+
+=== Is there Raspberry Pi 3 aarch64 support?
+
+Yes! You can download the aarch64 disk images for the Raspberry Pi 3 link:https://archive.fedoraproject.org/pub/fedora-secondary/releases/[here.]
+
+=== How do I use a serial console?
+
+The serial console is disabled by default on the Raspberry Pi 2 and 3 because it requires the device to run at significantly slower speeds. 
+To wire up the USB to TTL adapter follow link:https://learn.adafruit.com/adafruits-raspberry-pi-lesson-5-using-a-console-cable/connect-the-lead[this guide from Adafruit]. 
+You'll need a 3.3 volt USB to TTL Serial Cable like link:https://www.adafruit.com/product/954[this one from Adafruit].
+To enable the serial console follow the specific steps for the Raspberry Pi 2 or 3 as they both differ slightly:
+
+==== Raspberry Pi 2:
+* Insert the micro SD card into a PC
+* On the VFAT partition edit the config.txt file and uncomment the enable_uart line:
+
+----
+$ enable_uart=1
+----
+
+* On the boot partition edit the extlinux/extlinux.conf file adding `console=tty0 console=ttyAMA0,115200` to the end of the append line so it looks similar to:
+
+----
+$ append ro root=UUID="LARGE UUID STRING OF TEXT" console=tty0 console=ttyAMA0,115200
+----
+
+* Safely unmount the micro SD card
+* Insert micro SD into Raspberry Pi, connect serial console, power on
+
+==== Raspberry Pi 3:
+* Insert the micro SD card into a PC
+* On the VFAT partition edit the config.txt file and uncomment the enable_uart line:
+
+----
+$ enable_uart=1
+----
+ 
+* On the boot partition edit the extlinux/extlinux.conf file adding: `console=tty0 console=ttyS0,115200` to the end of the append line so it looks similar to:
+
+----
+$ append ro root=UUID="LARGE UUID STRING OF TEXT" console=tty0 console=ttyS0,115200
+----
+
+* Safely unmount the micro SD card
+* Insert micro SD into Raspberry Pi, connect serial console, power on
 
 
-1.  REDIRECT
-link:Architectures/ARM/Raspberry_Pi[Architectures/ARM/Raspberry Pi]
-'''
-
-See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
+See a typo, something missing or out of date, or anything else which can be improved? 
+Edit this document link:https://pagure.io/fedora-docs/quick-docs[here.]
