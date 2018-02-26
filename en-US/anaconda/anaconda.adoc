@@ -147,7 +147,6 @@ Once you've committed changes locally, you can push them with
 $ git push
 ----
 
-
 Anaconda has an https://github.com/rhinstaller/kickstart-tests[extensive suite of tests] that is still growing.
 If you contribute new functionality, it's good practice to include some tests along with that.
 We have a https://anaconda-installer.readthedocs.io/en/latest/testing.html[document that outlines the test suite infratructure and describes how to run tests].
