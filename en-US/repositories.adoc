@@ -1,386 +1,128 @@
 = Repositories
-
-'''
-
-[IMPORTANT]
-======
-
-This page was automatically converted from https://fedoraproject.org/wiki/Repositories
-
-It is probably
-
-* Badly formatted
-* Missing graphics and tables that do not convert well from mediawiki
-* Out-of-date
-* In need of other love
-
-
-Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
-
-Once you've fixed this page, remove this notice, and update
-`_topic_map.yml`.
-
-Once the document is live, go to the original wiki page and replace its text
-with the following macro:
-
-....
-{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
-....
-
-======
-
-'''
-
+:FedoraVersionNumberNext: 28
+:FedoraVersionNumber: 27
 
 This page explains the various Fedora repositories that exist for
 different Fedora Releases, the relationship between them, and what
 packages they contain.
 
 [[the-fedora-repository]]
-The _fedora_ repository
-~~~~~~~~~~~~~~~~~~~~~~~
+== The fedora repository
 
-The _fedora_ repository exists for all Fedora releases after they have
-link:Releases/Branched[Branched] from link:Releases/Rawhide[Rawhide]. It
-is represented for Yum or http://dnf.baseurl.org/[DNF] in the file in
-the repository path. For any Fedora installation, this repository will
-be enabled by default, and should usually remain so.
+The _fedora_ repository exists for all Fedora releases after they have link:Releases/Branched[Branched] from link:Releases/Rawhide[Rawhide]. It is represented for Yum or http://dnf.baseurl.org/[DNF] in the `fedora.repo` file in the repository path. For any Fedora installation, this repository will be enabled by default, and should usually remain so.
 
 [[the-fedora-repository-in-stable-releases]]
-The _fedora_ repository in stable releases
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== The _fedora_ repository in stable releases
 
-For stable releases, _fedora_ represents the frozen release state. It is
-a part of the frozen tree that is created by
-link:ReleaseEngineering[Release Engineering] when a release is approved
-at a Go_No_Go_Meeting. The package set it contains never changes after
-that time. It represents the _stable_ state of a stable release in
-conjunction with link:#updates[the _updates_ repository].
+For stable releases, _fedora_ represents the frozen release state. It is a part of the frozen tree that is created by https://fedoraproject.org/wiki/ReleaseEngineering[Release Engineering] when a release is approved at a https://fedoraproject.org/wiki/Go_No_Go_Meeting[Go/No-Go Meeting]. The package set it contains never changes after that time. It represents the _stable_ state of a stable release in conjunction with _updates_ repository.
 
-The stable release _fedora_ repositories for the various primary
-link:Architectures[architectures] can be found in the directory on the
-mirrors (where XX is the release), and can also be queried from
-MirrorManager. For instance,
-https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-%7B%7BFedoraVersionNumber%7D}&arch=x86_64
-will return mirrors for the x86_64 _fedora_ repository for .
+The stable release _fedora_ repositories for the various primary architectures can be found in the `/fedora/linux/releases/XX/Everything` directory on the mirrors (where XX is the release), and can also be queried from MirrorManager. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-{FedoraVersionNumber}&arch=x86_64 will return mirrors for the x86_64 _fedora_ repository for {FedoraVersionNumber} release.
 
 [[the-fedora-repository-in-branched-releases]]
-The _fedora_ repository in link:Releases/Branched[Branched] releases
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== The _fedora_ repository in Branched releases
 
-In Branched releases - the state a release is in between branching from
-link:Releases/Rawhide[Rawhide] and stable release, see
-link:Releases/Branched[Branched] for more details - the _fedora_
-repository alone represents the release's _stable_ state. The
-link:#updates[_updates_ repository] for Branched releases is not used
-until they become stable. Before the
-link:Updates_Policy#Bodhi_enabling[Bodhi enabling point], package builds
-for the Branched release are sent directly to this repository. After the
-_Bodhi enabling point_, package builds that pass the
-link:Updates_Policy[Updates Policy] move from link:#updates-testing[the
-_updates-testing_ repository] to this repository.
+In Branched releases - the state a release is in between branching from Rawhide and stable release, see https://fedoraproject.org/wiki/Releases/Branched[Branched] for more details - the fedora repository alone represents the release's stable state. The _updates_ repository for Branched releases is not used until they become stable. Before the https://fedoraproject.org/wiki/Updates_Policy#Bodhi_enabling[Bodhi enabling point], package builds for the Branched release are sent directly to this repository. After the _Bodhi enabling point_, package builds that pass the https://fedoraproject.org/wiki/Updates_Policy[Updates Policy] move from _updates-testing_ repository to this repository.
 
-The Branched _fedora_ repositories for the various primary
-link:Architectures[architectures] can be found in the directory on the
-mirrors (where XX is the release), and can also be queried from
-MirrorManager. For instance,
-https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-%7B%7BFedoraVersionNumber%7Cnext%7D}&arch=x86_64
-will return mirrors for the x86_64 _fedora_ repository for .
+The Branched _fedora_ repositories for the various primary https://fedoraproject.org/wiki/Architectures[architectures] can be found in the `/fedora/linux/development/XX` directory on the mirrors (where XX is the release), and can also be queried from MirrorManager. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-{FedoraVersionNumberNext}&arch=x86_64 will return mirrors for the x86_64 _fedora_ repository for {FedoraVersionNumberNext} version.
 
 [[the-updates-repository]]
-The _updates_ repository
-~~~~~~~~~~~~~~~~~~~~~~~~
+== The _updates_ repository
 
-The _updates_ repository exists for Branched and stable releases, but is
-only populated and used for stable releases. It is represented for Yum
-or http://dnf.baseurl.org/[DNF] in the file in the repository path. It
-exists in Branched releases solely to prevent various tools that expect
-its existence from breaking. For any Fedora installation, this
-repository will be enabled by default, and should usually remain so.
+The _updates_ repository exists for Branched and stable releases, but is only populated and used for stable releases. It is represented for Yum or http://dnf.baseurl.org/[DNF] in the `fedora-updates.repo` file in the repository path. It exists in Branched releases solely to prevent various tools that expect its existence from breaking. For any Fedora installation, this repository will be enabled by default, and should usually remain so.
 
-For stable releases, _updates_ together with link:#fedora[_fedora_]
-represents the current _stable_ state of the release. Package builds
-that pass the link:Updates_Policy[Updates Policy] move from
-link:#updates-testing[the _updates-testing_ repository] to this
-repository. This difference from Branched is a result of the need to
-maintain a precise representation of the initial, 'frozen' state of a
-stable release.
+For stable releases, _updates_ together with _fedora_ represents the current _stable_ state of the release. Package builds that pass the https://fedoraproject.org/wiki/Updates_Policy[Updates Policy] move from the _updates-testing_ repository to this repository. This difference from Branched is a result of the need to maintain a precise representation of the initial, 'frozen' state of a stable release.
 
-The stable release _updates_ repositories for the various primary
-link:Architectures[architectures] can be found in the directory on the
-mirrors (where XX is the release), and can also be queried from
-MirrorManager. For instance,
-https://mirrors.fedoraproject.org/mirrorlist?repo=updates-released-f%7B%7BFedoraVersionNumber%7D}&arch=x86_64
-will return mirrors for the x86_64 _updates_ repository for .
+The stable release _updates_ repositories for the various primary architectures can be found in the `/fedora/linux/updates/XX` directory on the mirrors (where XX is the release), and can also be queried from https://fedoraproject.org/wiki/MirrorManager[MirrorManager]. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=updates-released-f{FedoraVersionNumber}&arch=x86_64 will return mirrors for the x86_64 _updates_ repository for 27.
 
 [[the-updates-testing-repository]]
-The _updates-testing_ repository
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== The _updates-testing_ repository
 
-The _updates-testing_ repository exists for Branched releases after the
-link:Updates_Policy#Bodhi_enabling[Bodhi enabling point], and for stable
-releases. It is represented for Yum or http://dnf.baseurl.org/[DNF] in
-the file in the repository path. For both, it is a 'staging' location
-where new package builds are tested before being marked as 'stable' (and
-hence moving to the link:#fedora[_fedora_] repository or the
-link:#updates[_updates_] repository, respectively).
+The _updates-testing_ repository exists for Branched releases after the https://fedoraproject.org/wiki/Updates_Policy#Bodhi_enabling[Bodhi enabling point], and for stable releases. It is represented for Yum or http://dnf.baseurl.org/[DNF] in the `fedora-updates-testing.repo` file in the repository path. For both, it is a 'staging' location where new package builds are tested before being marked as 'stable' (and hence moving to the _fedora_ repository or the _updates_ repository, respectively).
 
-These builds are sometimes referred to as _update candidates_, and are
-reviewed with the Bodhi update feedback tool, according to the
-QA:Update_feedback_guidelines[update feedback guidelines].
+These builds are sometimes referred to as _update candidates_, and are reviewed with the https://fedoraproject.org/wiki/Bodhi[Bodhi] update feedback tool, according to the
+https://fedoraproject.org/wiki/QA:Update_feedback_guidelines[update feedback guidelines].
 
-The Updates_Policy defines the rules for marking update candidates as
-_stable_. The QA:Updates_Testing[QA updates-testing page] provides some
-information for testers on using this repository. The
-link:Package_update_HOWTO[package update guidelines] provide information
-for packagers on submitting builds to _updates-testing_ and to _stable_.
+The https://fedoraproject.org/wiki/Updates_Policy[Updates Policy] defines the rules for marking update candidates as _stable_. The https://fedoraproject.org/wiki/QA:Updates_Testing[QA updates-testing page] provides some information for testers on using this repository. The https://fedoraproject.org/wiki/Package_update_HOWTO[package update guidelines] provide information for packagers on submitting builds to _updates-testing_ and to _stable_.
 
-The _updates-testing_ repository is enabled by default for Branched
-releases, but disabled by default for stable releases. The switchover is
-made around the time of the link:Milestone_freezes[Final Freeze] for
-each release. Testers moving from Branched to stable may encounter
-errors running updates around this time, caused by dependency mismatches
-between packages already installed from the now-disabled
-_updates-testing_ repository. Running (or with yum command) or
-re-enabling the _updates-testing_ repository will both usually alleviate
-the issue; it is up to the individual user whether they wish to continue
-using the _updates-testing_ repository after the stable release or not.
+The _updates-testing_ repository is enabled by default for Branched releases, but disabled by default for stable releases. The switchover is made around the time of the https://fedoraproject.org/wiki/Milestone_freezes[Final Freeze] for each release. Testers moving from Branched to stable may encounter errors running updates around this time, caused by dependency mismatches between packages already installed from the now-disabled _updates-testing_ repository. Running `dnf distro-sync`(or with yum command) or re-enabling the _updates-testing_ repository will both usually alleviate the issue; it is up to the individual user whether they wish to continue using the _updates-testing_ repository after the stable release or not.
 
-The _updates-testing_ repositories for both Branched and stable releases
-can be found in the directory on the mirrors (where XX is the release),
-and can also be queried from MirrorManager. For instance,
-https://mirrors.fedoraproject.org/mirrorlist?repo=updates-testing-f%7B%7BFedoraVersionNumber%7D}&arch=x86_64
-will return mirrors for the x86_64 _updates-testing_ repository for .
+The _updates-testing_ repositories for both Branched and stable releases can be found in the `/fedora/linux/updates/testing/XX` directory on the mirrors (where XX is the release), and can also be queried from https://fedoraproject.org/wiki/MirrorManager[MirrorManager]. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=updates-testing-f{FedoraVersionNumber}&arch=x86_64 will return mirrors for the x86_64 _updates-testing_ repository for {FedoraVersionNumber}.
 
 [[the-rawhide-repository]]
-The _rawhide_ repository
-~~~~~~~~~~~~~~~~~~~~~~~~
+=== The _rawhide_ repository
 
-In Rawhide - Fedora's rolling release repository, from which release are
-link:Releases/Branched[Branched] before finally going stable - _rawhide_
-is the only repository. All package builds are sent there. It is
-represented for Yum or http://dnf.baseurl.org/[DNF] in the file in the
-repository path. For any system running Rawhide, it should be enabled.
-For any other system, it should not.
+In Rawhide - Fedora's rolling release repository, from which release are Branched before finally going stable - _rawhide_ is the only repository. All package builds are sent there. It is represented for Yum or http://dnf.baseurl.org/[DNF] in the `fedora-rawhide.repo` file in the repository path. For any system running Rawhide, it should be enabled. For any other system, it should not.
 
-The _rawhide_ repositories for the various primary
-link:Architectures[architectures] can be found in the directory on the
-mirrors, and can also be queried from MirrorManager. For instance,
-https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-rawhide&arch=x86_64
-will return mirrors for the x86_64 _fedora_ repository for Rawhide.
+The _rawhide_ repositories for the various primary https://fedoraproject.org/wiki/Architectures[architectures] can be found in the directory on the mirrors, and can also be queried from https://fedoraproject.org/wiki/MirrorManager[MirrorManager]. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-rawhide&arch=x86_64 will return mirrors for the x86_64 _fedora_ repository for Rawhide.
 
 [[stable-is-not-a-repository]]
-_stable_ is not a repository
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== _stable_ is not a repository
 
-It is not unusual to see references to the 'stable repository', but this
-is something of a misnomer. _stable_ is more of a state that can be
-considered to exist for both link:Releases/Branched[Branched] releases
-post-link:Updates_Policy#Bodhi_enabling[Bodhi enabling] and for stable
-releases. It consists of package builds that were part of
-link:Releases/Rawhide[Rawhide] at the time they Branched, package builds
-sent directly to the Branched link:#fedora[_fedora_] repository between
-the branch point and the _Bodhi enabling point_, and package builds that
-passed the link:Updates_Policy[Updates Policy] and moved from
-link:#updates-testing[_updates-testing_] after the _Bodhi enabling
-point_.
+It is not unusual to see references to the 'stable repository', but this is something of a misnomer. _stable_ is more of a state that can be considered to exist for both Branched releases post https://fedoraproject.org/wiki/Updates_Policy#Bodhi_enabling[Bodhi enabling] and for stable releases. It consists of package builds that were part of Rawhide at the time they Branched, package builds sent directly to the Branched _fedora_ repository between the branch point and the _Bodhi enabling point_, and package builds that passed the https://fedoraproject.org/wiki/Updates_Policy[Updates Policy] and moved from _updates-testing_ after the _Bodhi enabling point_.
 
-For Branched releases, the _stable_ state is represented solely by the
-current contents of the link:#fedora[_fedora_] repository (and,
-arguably, the link:#bleed[_bleed_] repository, but that is a small
-case).
+For Branched releases, the _stable_ state is represented solely by the current contents of the _fedora_ repository (and, arguably, the _bleed_ repository, but that is a small case).
 
-For stable releases, the _stable_ state is represented by the contents
-of the link:#fedora[_fedora_] repository combined with the contents of
-the link:#updates[_updates_] repository.
+For stable releases, the _stable_ state is represented by the contents of the _fedora_ repository combined with the contents of the _updates_ repository.
 
-_stable_ is also a state a package can be considered to be in (or an
-attribute it can be considered to have) when it has been _pushed stable_
-or _tagged stable_ and exists in, or will soon exist in, a _stable_
-repository for a release - whichever literal repository that is (see
-above).
+_stable_ is also a state a package can be considered to be in (or an attribute it can be considered to have) when it has been _pushed stable_ or _tagged stable_ and exists in, or will soon exist in, a _stable_ repository for a release - whichever literal repository that is (see above).
 
 [[installation-and-product-repositories-trees]]
-Installation and link:Fedora.next[Product] repositories / trees
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== Installation and Product repositories / trees
 
-The repositories referred to above are neither associated with a
-specific Fedora.next _Product_, nor part of an installable tree (a tree
-containing the necessary files to be used as a base repository by
-Anaconda, the Fedora installer). Specialized repositories exist for
-these purposes.
+The repositories referred to above are neither associated with a specific https://fedoraproject.org/wiki/Fedora.next[Fedora.next] _Product_, nor part of an installable tree (a tree containing the necessary files to be used as a base repository by https://fedoraproject.org/wiki/Anaconda[Anaconda], the Fedora installer). Specialized repositories exist for these purposes.
 
-For Fedora.next releases - and later - there is (as of September 2014)
-no installable tree not associated with a specific Product. The
-installable trees for various Products can be found under on the mirrors
-for stable releases, and under for Branched pre-release milestones. They
-can also be queried from MirrorManager. For instance,
-https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-server-%7B%7BFedoraVersionNumber%7Cnext%7D}&arch=x86_64
-will return mirrors for the x86_64 current installation repository for
-Server.
+For Fedora.next releases - and later - there is (as of September 2014) no installable tree not associated with a specific Product. The installable trees for various Products can be found under `/fedora/linux/releases/XX/` on the mirrors for stable releases, and under `/fedora/linux/releases/test/` for Branched pre-release milestones. They can also be queried from MirrorManager. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-server-{FedoraVersionNumberNext}&arch=x86_64 will return mirrors for the x86_64 current installation repository for Server.
 
-These repositories are frozen (new packages are not pushed to them) and
-are created at various points in the
-link:Fedora_Release_Life_Cycle[Fedora Release Life Cycle]. A new
-installation tree (containing a repository) is built for several
-Products for each QA:SOP_compose_request[test compose or release
-candidate build], and the trees for the Alpha and Beta releases are made
-available on the mirrors in the directory (see above). They contain a
-subset of the full package set that is considered to define each Product
-(see link:How_to_use_and_edit_comps.xml_for_package_groups[comps] for
-the technical details of this).
+These repositories are frozen (new packages are not pushed to them) and are created at various points in the https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle[Fedora Release Life Cycle]. A new installation tree (containing a repository) is built for several Products for https://fedoraproject.org/wiki/QA:SOP_compose_request[each test compose or release candidate build], and the trees for the Alpha and Beta releases are made available on the mirrors in the directory (see above). They contain a subset of the full package set that is considered to define each Product.
 
-The Product trees for the GA (Final) release are made available in the
-tree on the mirrors.
+The Product trees for the GA (Final) release are made available in the `/releases` tree on the mirrors.
 
-At any given point in the release cycle, the MirrorManager request for a
-Product repository may redirect to a test compose / release candidate
-tree, a pre-release milestone tree, or the Final release tree.
+At any given point in the release cycle, the MirrorManager request for a Product repository may redirect to a test compose / release candidate tree, a pre-release milestone tree, or the Final release tree.
 
-These repositories are usually not used or enabled by default on
-installed systems, as for that purpose they are redundant with one of
-the three primary repositories described above. However, one could use a
-Product repository in place of the link:#fedora[_fedora_] repository to
-keep a system limited to the Product package set. They are represented
-for Yum or http://dnf.baseurl.org/[DNF] in the file in the repository
-path, which may well not be installed on many systems.
+These repositories are usually not used or enabled by default on installed systems, as for that purpose they are redundant with one of the three primary repositories described above. However, one could use a Product repository in place of the _fedora_ repository to keep a system limited to the Product package set. They are represented for Yum or http://dnf.baseurl.org/[DNF] in the `fedora-(product).repo` file in the repository path, which may well not be installed on many systems.
 
 [[other-repositories]]
-Other repositories
-~~~~~~~~~~~~~~~~~~
+== Other repositories
 
-There are other repositories that fulfil various niche purposes, which
-are documented here for the sake of providing a comprehensive reference.
-They should not usually be significant to the vast majority of Fedora
-users. None of these repositories is represented in a packaged
-repository file, enabled by default, or should usually be used in a
-Fedora installation.
+There are other repositories that fulfil various niche purposes, which are documented here for the sake of providing a comprehensive reference. They should not usually be significant to the vast majority of Fedora users. None of these repositories is represented in a packaged repository file, enabled by default, or should usually be used in a Fedora installation.
 
 [[the-bleed-repository]]
-The _bleed_ repository
-^^^^^^^^^^^^^^^^^^^^^^
+=== The _bleed_ repository
 
-The _bleed_ repository exists for a single purpose: during
-link:Milestone_freezes[Milestone freezes], it contains packages that
-have been granted 'freeze exceptions' via the QA:SOP_blocker_bug_process
-or QA:SOP_freeze_exception_bug_process, and which are desired to be
-included in the next test compose or release candidate build, but have
-not yet reached _stable_ state and hence been moved to the
-link:#fedora[_fedora_] repository. In other words, it contains packages
-explicitly required in TC/RC QA:SOP_compose_request[compose requests].
+The _bleed_ repository exists for a single purpose: during https://fedoraproject.org/wiki/Milestone_freezes[Milestone freezes], it contains packages that have been granted 'freeze exceptions' via the https://fedoraproject.org/wiki/QA:SOP_blocker_bug_process[Blocker Bug Process] or https://fedoraproject.org/wiki/QA:SOP_freeze_exception_bug_process[Freeze Exception bug process], and which are desired to be included in the next test compose or release candidate build, but have not yet reached _stable_ state and hence been moved to the _fedora_ repository. In other words, it contains packages explicitly required in TC/RC https://fedoraproject.org/wiki/QA:SOP_compose_request[compose requests].
 
-The _bleed_ repository can be found
-http://kojipkgs.fedoraproject.org/mash/bleed/[here], but again, is not
-usually of interest to the vast majority of Fedora users. The packages
-it contains are always also available from the build system, Koji, and
-usually from the link:#updates-testing[_updates-testing_] repository.
+The _bleed_ repository can be found http://kojipkgs.fedoraproject.org/mash/bleed/[here], but again, is not usually of interest to the vast majority of Fedora users. The packages it contains are always also available from the build system, Koji, and usually from the _updates-testing_ repository.
 
 [[the-latest-repositories]]
-The _latest_ repositories
-^^^^^^^^^^^^^^^^^^^^^^^^^
+=== The _latest_ repositories
 
-The _latest_ http://kojipkgs.fedoraproject.org/repos/[repositories]
-contain packages for various build 'tags' as they arrive in the Koji
-build system. They are not
-https://git.fedorahosted.org/cgit/mash/[mashed], a process which
-principally handles multilib, and using them can cause various problems,
-in addition to overloading Fedora's development servers. It is almost
-always a better idea to cherry-pick new builds from Koji or Bodhi via
-their web interfaces or command line tools.
+The _latest_ http://kojipkgs.fedoraproject.org/repos/[repositories] contain packages for various build 'tags' as they arrive in the Koji build system. They are not https://git.fedorahosted.org/cgit/mash/[mashed], a process which principally handles multilib, and using them can cause various problems, in addition to overloading Fedora's development servers. It is almost always a better idea to cherry-pick new builds from https://fedoraproject.org/wiki/Koji[Koji] or https://fedoraproject.org/wiki/Bodhi[Bodhi] via their web interfaces or command line tools.
 
 [[repositories-faq]]
-Repositories FAQ
-~~~~~~~~~~~~~~~~
+== Repositories FAQ
 
 [[why-is-updates-only-used-after-the-stable-release]]
-Why is link:#updates[_updates_] only used after the stable release?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Why is _updates_ only used after the stable release?
 
-As described above, updates for both link:Releases/Branched[Branched]
-pre-releases and final, 'stable' releases go through the
-link:#updates-testing[_updates-testing_] process before being moved to a
-link:#stable[_stable_] repository. Before the final release, they are
-placed in the link:#fedora[_fedora_] repository. After release, they are
-placed in link:#updates[_updates_].
+As described above, updates for both Branched pre-releases and final, _stable_ releases go through the _updates-testing_ process before being moved to a _stable_ repository. Before the final release, they are placed in the _fedora_ repository. After release, they are placed in _updates_.
 
-The reason for the difference is that we want to have a record of the
-exact 'state' of a given Fedora stable release. That is, at the time a
-Fedora release is declared to be done at a link:Go_No_Go_Meeting[Go No
-Go Meeting], we consider the state of the release at that time to be the
-canonical definition of that release, and we wish to preserve a record
-of that state. For a stable release, the tree containing the _fedora_
-repository *is* that record, and the _fedora_ repository it contains is
-the canonical record of the precise _frozen_ package set that formed the
-main part of that stable release.
+The reason for the difference is that we want to have a record of the exact 'state' of a given Fedora stable release. That is, at the time a Fedora release is declared to be done at a https://fedoraproject.org/wiki/Go_No_Go_Meeting[Go/No-Go Meeting], we consider the state of the release at that time to be the canonical definition of that release, and we wish to preserve a record of that state. For a stable release, the tree containing the _fedora_ repository *is* that record, and the _fedora_ repository it contains is the canonical record of the precise _frozen_ package set that formed the main part of that stable release.
 
-Since we wish to maintain this _frozen_ state for the _fedora_
-repository, we cannot place updates directly into it. The necessity for
-the _updates_ repository therefore becomes obvious - we need a place to
-put updates to stable releases that is outside the _frozen_ state of the
-release.
+Since we wish to maintain this _frozen_ state for the _fedora_ repository, we cannot place updates directly into it. The necessity for the _updates_ repository therefore becomes obvious - we need a place to put updates to stable releases that is outside the _frozen_ state of the release.
 
-Before a stable release occurs, this mechanism is not necessary. Before
-the release is declared to be done, there is no _frozen_ state of the
-release: effectively, the whole Branched development process is _working
-towards_ what will become the _frozen_ state of the release, so of
-course package builds for the Branched release land directly in the
-_fedora_ repository.
+Before a stable release occurs, this mechanism is not necessary. Before the release is declared to be done, there is no _frozen_ state of the release: effectively, the whole Branched development process is _working towards_ what will become the _frozen_ state of the release, so of course package builds for the Branched release land directly in the _fedora_ repository.
 
 [[why-is-updates-testing-enabled-by-default-in-pre-releases]]
-Why is _updates-testing_ enabled by default in pre-releases?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Why is _updates-testing_ enabled by default in pre-releases?
 
-While link:Releases/Branched[Branched] development releases and stable
-releases both use an link:#updates-testing[_updates-testing_] repository
-together with the Bodhi update feedback system to stage packages before
-they reach the release's link:#stable[_stable_] state, it is enabled by
-default in Branched, but not in stable releases.
+While Branched development releases and stable releases both use an _updates-testing_ repository together with the Bodhi update feedback system to stage packages before they reach the release's _stable_ state, it is enabled by default in Branched, but not in stable releases.
 
-The reason is that the purpose of the _updates-testing_ system is
-somewhat different in each case. For stable releases, the system's goal
-is to prevent broken updates reaching the general Fedora user
-population. In most cases, Fedora systems are expected to have the
-_updates-testing_ repository disabled. Some QA testers then enable the
-repository on testing systems to try out the updates and provide
-feedback. The testers perform the job of making sure the updates are OK
-before they reach the general user population.
+The reason is that the purpose of the _updates-testing_ system is somewhat different in each case. For stable releases, the system's goal is to prevent broken updates reaching the general Fedora user population. In most cases, Fedora systems are expected to have the _updates-testing_ repository disabled. Some QA testers then enable the repository on testing systems to try out the updates and provide feedback. The testers perform the job of making sure the updates are OK before they reach the general user population.
 
-When it comes to a Branched pre-release, the expectation is that anyone
-who installs it wants to help test it: we effectively consider anyone
-running a Branched release to be a tester. The function of
-_updates-testing_ is different in this case. There is not a 'general
-user population' of Branched users who run with _updates-testing_
-disabled, and are protected from problematic updates by the group of
-update testers. Instead, _updates-testing_ in Branched serves other
-important functions.
+When it comes to a Branched pre-release, the expectation is that anyone who installs it wants to help test it: we effectively consider anyone running a Branched release to be a tester. The function of _updates-testing_ is different in this case. There is not a 'general user population' of Branched users who run with _updates-testing_ disabled, and are protected from problematic updates by the group of update testers. Instead, _updates-testing_ in Branched serves other important functions.
 
-The main purpose is to insulate _image builds_ from potentially
-problematic changes. Branched images - nightly images, and the Alpha,
-Beta and GA (Final) _milestone_ builds and their
-QA:SOP_compose_request[test compose and release candidate builds] - are
-built from the _stable_ packages, that is, only those in the _fedora_
-repository, not those in _updates-testing_. In this sense,
-_updates-testing_ protects not a set of users, but a set of _builds_,
-from potentially destabilizing changes. Especially when we are building
-an Alpha, Beta or GA release, we need to be able to reduce the amount of
-change in the package set between composes in order to produce an image
-of high quality. The _updates-testing_ mechanism allows for that: during
-link:Milestone_freezes[Milestone freezes], new builds can be sent to
-_updates-testing_, but cannot move from there to _stable_ (_fedora_)
-without special circumstances (see the
-QA:SOP_blocker_bug_process[blocker] and
-QA:SOP_freeze_exception_bug_process[freeze exception] processes). In
-this way, we can work on release images while not preventing packagers
-from sending out builds.
+The main purpose is to insulate _image builds_ from potentially problematic changes. Branched images - nightly images, and the Alpha, Beta and GA (Final) _milestone_ builds and their https://fedoraproject.org/wiki/Go_No_Go_Meeting[test compose and release candidate builds] - are built from the _stable_ packages, that is, only those in the _fedora_ repository, not those in _updates-testing_. In this sense, _updates-testing_ protects not a set of users, but a set of _builds_, from potentially destabilizing changes. Especially when we are building an Alpha, Beta or GA release, we need to be able to reduce the amount of change in the package set between composes in order to produce an image of high quality. The _updates-testing_ mechanism allows for that: during https://fedoraproject.org/wiki/Milestone_freezes[Milestone freezes], new builds can be sent to _updates-testing_, but cannot move from there to _stable_ (_fedora_) without special circumstances. In this way, we can work on release images while not preventing packagers from sending out builds.
 
-For this and other less important functions, we need as much feedback as
-possible, so it makes sense to have all pre-release testers have
-_updates-testing_ enabled by default, and encourage them to provide
-feedback through Bodhi.
+For this and other less important functions, we need as much feedback as possible, so it makes sense to have all pre-release testers have _updates-testing_ enabled by default, and encourage them to provide feedback through Bodhi.
 
-Category:Release_Engineering[Category:Release Engineering]
-Category:Packaging
-'''
-
-See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
+See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.

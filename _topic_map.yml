@@ -44,6 +44,8 @@ Topics:
     File: understanding-and-administering-systemd
   - Name: Creating RPM packages
     File: creating-rpm-packages
+  - Name: Repositories  
+    File: repositories
   - Name: Configuring X Window System using the xorg.conf file
     File: configuring-x-window-system-using-the-xorg-conf-file
   - Name: (CHECK) GRUB 2
@@ -98,8 +100,6 @@ Topics:
     File: qemu
   - Name: (FIX ME!) Raspberry Pi
     File: raspberry-pi
-  - Name: (FIX ME!) Repositories
-    File: repositories
   - Name: (FIX ME!) How to reset a root password
     File: reset-root-password
   - Name: (FIX ME!) Using UEFI with QEMU
