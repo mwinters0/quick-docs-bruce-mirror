@@ -1,0 +1,192 @@
+= Anaconda Updates
+
+Anaconda has the capability to incorporate updates at runtime to fix any bugs or issues with the installer.
+These updates are generally distributed as a disk image file (referred to as `updates.img` from here on out)
+The `updates.img` can be used in a few different ways.
+
+== Updates types
+
+There are a number of sources for the updates.
+
+=== Updates from the Network
+
+The easiest and most popular way to use an `updates.img` is via the network.
+This is how almost all updates images you'll see in bug reports and mailing lists are distributed.
+This does not require you to modify your installation tree at all.
+
+To use this method, you will need to edit your kernel commandline to include the `inst.updates key`, like this:
+
+----
+linux inst.updates=http://some.website.com/path/to/updates.img
+----
+
+[NOTE]
+====
+If you're booting via an ISO, to edit the kernel commandline, you will need to use the `e` key in GRUB to edit the boot entry.
+====
+
+If you have multiple network interfaces, Anaconda will first prompt you to select one (unless you have used the `ksdevice=` boot parameter).
+It will then attempt to configure this link using DHCP.
+If you require other networking configuration, you will need to use various options.
+The `ksdevice=` option can be used to specify a different network device, and the `ip=` option (along with others for gateway, nameserver, and so forth) can be used for static configuration.
+All Anaconda config options are described link:anaconda_options[elsewhere].
+
+If you are making your own `updates.img`, just upload it to a web server you have access to and pass the location as above.
+
+=== Updates from a disk image
+
+You can also put an `updates.img` on a block device (either a floppy or a USB key).
+This can be done only with an ext2 filesystem type of updates.img.
+For a floppy drive, insert your floppy and then run
+
+----
+$ dd if=updates.img of=/dev/fd0 bs=72k count=20
+----
+
+to put the contents of the image on your floppy.
+Then, boot the installer with
+
+----
+linux updates
+----
+
+and you will be prompted to provide the location of your update disk.
+
+You can also use a USB key or flash media -- just replace `/dev/fd0` with the device that your USB key is at.
+
+=== Updates from the Tree
+
+If you're doing a CD, hard drive, HTTP, or FTP install you can also put the `updates.img` in your tree to be picked up by all installs automatically.
+Put the file in the `images/` directory.
+It must have exactly the name `updates.img`, even if you received it with a different name.
+
+For NFS installs, there are two options.
+You can either put the image in `images/` as above or explode the image into the `RHupdates/` directory in your installation tree.
+
+This `updates.img` is only retrieved from the location where stage2 image is pulled from.
+If you use link:anaconda_Boot_options.html#repo[inst.repo] boot option to specify your installation tree, but you also use link:anaconda_boot_options#stage2[inst.stage2] boot option with a different location, only the `inst.stage2` location is going to be searched for the `updates.img` file, and not the `inst.repo` location.
+
+[id="create-images"]
+== How to Create an Anaconda Updates Image
+
+If you are working on Anaconda or looking at a bug and want to test your own bug fixes, it's easy to create your own `updates.img` file.
+Anaconda supports two formats: an ext2 filesystem image and the more common gzip-compressed cpio archive.
+The automatic tools shipped with Anaconda deal in the second form, so that's what will be discussed here.
+
+The easiest way to create an image is to run
+
+----
+$ ./configure
+$ make updates
+----
+
+from the Anaconda source tree.
+This will package up all the changes to the tree since the last release and create a file named `updates.img` in the top of the tree.
+Remember to use the correct git branch for the Fedora release you are working on or testing.
+If you need finer control over this process (like creating an image from an even older release), or you don't want to run ./configure first (the make command will fail unless ./configure has been run), run
+
+----
+$ scripts/makeupdates
+----
+
+by hand.  
+The help screen documents the several options that can be used.
+
+An `updates.img` can include more than just files from anaconda, though.
+It can also include shared libraries, graphics, other python modules, and certain data files used by anaconda.
+To add files to an existing image (or create an entirely new one), just do the following:
+
+----
+$ scripts/upd-updates updates.img file1 file2 ...
+----
+
+Note that the placement of files in an image is a little picky.
+For instance, python modules must be in their proper subdirectory mirroring the layout of `/usr/lib/python?.?/site-packages/`.
+
+Another way to create an image containing files outside of Anaconda is to create the required filesystem structure and compress it manually.
+For example, let's say you want to overwrite some configuration file in `/etc`:
+
+----
+$ mkdir -p updates/etc/
+$ cp my.cfg updates/etc/
+$ cd updates
+$ find . | cpio -o -c | gzip > ../updates.img
+$ cd ..
+----
+
+== How to Examine an Anaconda Updates Image
+
+`updates.img` files provided by the Fedora project and generated by the makeupdates script are compressed cpio archives.
+To examine one of these files, use `lsinitrd`:
+
+----
+$ lsinitrd updates.img
+----
+
+To explode one, do the following:
+
+----
+$ mkdir dest
+$ cd dest
+$ gunzip -dc /path/to/updates.img | cpio -id
+----
+
+== Advanced Usage
+=== Available Options
+
+----
+    usage: makeupdates [-h] [-k] [-c] [-t TAG] [-o OFFSET] [-p]
+                       [-a PATH_TO_RPM [PATH_TO_RPM ...]] [-f ARCH] [-b BUILDDIR]
+    
+    Make Anaconda updates image
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+      -k, --keep            do not delete updates subdirectory
+      -c, --compile         compile code if there are isys changes
+      -t TAG, --tag TAG     make updates image from TAG to HEAD
+      -o OFFSET, --offset OFFSET
+                            make image from (latest_tag - OFFSET) to HEAD
+      -p, --po              update translations
+      -a PATH_TO_RPM [PATH_TO_RPM ...], --add PATH_TO_RPM [PATH_TO_RPM ...]
+                            add contents of RPMs to the updates image
+      -f ARCH, --fetch ARCH
+                            autofetch new dependencies from Koji for ARCH
+      -b BUILDDIR, --builddir BUILDDIR
+                            build directory for shared objects
+----
+
+=== Including Updates for an Older Installation Image
+
+If your installation image has an older Anaconda (for example you have a Beta image but you want to test all the changes that happened in Anaconda since the image was created), you can use the `-t` makeupdates option, together with the Anaconda release tag corresponding to the Anaconda version on your image.
+Makupdates will then include all changes that were added since the given Anaconda version was released.
+
+
+==== How to Find Anaconda Version for an Installation Image
+There are multiple ways how to do that:
+* switch to TTY1 and check the first line on the screen
+* check the first line of the anaconda.log file in /tmp/ during installation
+* check the first line of the anaconda.log file in /var/log/anaconda on a system installed with your installation image during installation
+* check the version of the Anaconda package in the repository that has been used to generate your installation image
+
+==== Example ====
+
+* boot a Fedora installation image
+* find what version of Anaconda is installed on the image
+** lets say that the image contains Anaconda 22.16-1
+** this version corresponds to the anaconda-22.16-1 Git tag
+** you can run `git tag` in the Anaconda git repository to list all valid tags
+* run `makeupdates -t` with the tag:
+ makeupdates -t anaconda-22.16-1
+* an updates image containing all changes since the commit tagged `anaconda-22.16-1` will be created
+
+=== Including Changes in C Code ===
+
+While Anaconda is mostly written in Python, there are a few pieces of C code, mostly in the form of custom GTK Widgets and the isys helper module.
+The makeupdates ignores changes in C code by default, but by passing the `-c` option you can tell it to look for C code canges, recompile the affected modules and include the resulting binaries in the updates image.
+
+Just take not that for the compilation to finish successfully, the host system needs to match the given Installation Image.
+This is especially important when rebuilding the custom GTK widgets.
+
+
+So it is for example not possible to use the `-c` option on a Fedora 21 system to build an updates image with C code changes for a RHEL7 Installation Image or the other way around.
