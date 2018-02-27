@@ -15,20 +15,25 @@ This includes:
 == Logging on the installed system
 During the installation the logs are stored in the `/tmp` directory:
 
-* `/tmp/anaconda.log`, the general installation information, particularly the step changes.
-* `/tmp/storage.log`, storage devices scan and manipulation (hard drives, partitions, LVM, RAID), partitioning
-* `/tmp/program.log`, calls to external programs, their output
-* `/tmp/syslog`, messages from kernel and external programs (Network Manager)
-* `/tmp/yum.log`, yum's internal log
-* `/tmp/dnf.log`, link:http://www.fedoraproject.org/wiki/Dnf[DNF]'s internal log
-* `/tmp/dnf.hawkey.log`, link:http://www.fedoraproject.org/wiki/Dnf[DNF]'s Hawkey internal log
-* `/tmp/dnf.rpm.log`, link:http://www.fedoraproject.org/wiki/Dnf[DNF]'s RPM internal log
+=== Log files
+
+`/tmp/anaconda.log`:: the general installation information, particularly the step changes.
+`/tmp/storage.log`:: storage devices scan and manipulation (hard drives, partitions, LVM, RAID), partitioning
+`/tmp/program.log`:: calls to external programs, their output
+`/tmp/syslog`:: messages from kernel and external programs (Network Manager)
+`/tmp/yum.log`:: yum's internal log
+`/tmp/dnf.log`:: link:http://www.fedoraproject.org/wiki/Dnf[DNF]'s internal log
+`/tmp/dnf.hawkey.log`:: link:http://www.fedoraproject.org/wiki/Dnf[DNF]'s Hawkey internal log
+`/tmp/dnf.rpm.log`:: link:http://www.fedoraproject.org/wiki/Dnf[DNF]'s RPM internal log
 
 Certain log messages are also written to the terminals:
 
-* `/dev/tty3`, messages from `anaconda.log`, `storage.log` and `yum.log`.
-* `/dev/tty4`, same as `syslog`
-* `/dev/tty5`, stdout and stderr from external programs +
+=== TTY devices
+
+`/dev/tty3`:: messages from `anaconda.log`, `storage.log` and `yum.log`.
+`/dev/tty4`:: same as `syslog`
+`/dev/tty5`:: stdout and stderr from external programs +
+
 `tty3` and `tty4` reflect certain log files.
 Log files always contain messages from all the loglevels, including debug, but the minimal loglevel on the terminals can be controlled with the `loglevel` link:https://anaconda-installer.readthedocs.io/en/latest/boot-options.html#inst-loglevel[command line option].
 
@@ -172,23 +177,23 @@ You should start seeing raw logs in the terminal once the guest machine starts b
 
 === See also
 * link:http://fedoraproject.org/wiki/Features/VirtioSerial[VirtioSerial]
-* [http://wiki.libvirt.org/page/Virtio Virtio at the libvirt wiki]
+* link:http://wiki.libvirt.org/page/Virtio[Virtio at the libvirt wiki]
 * link:http://libvirt.org/formatdomain.html#elementsConsole[libvirt domain XML format]
 
 == Anaconda logs on the running system
 After every successful installation, anaconda logs are copied into `/var/log` on the system you just installed.
 To avoid name clashes with other log files there, the anaconda logs are renamed:
 
-[options="header"]
+[%header,cols=2*]
 |====
-| Name during installation | Name on the target system |
-| `/tmp/anaconda.log` | `/var/log/anaconda.log` |
-| `/tmp/syslog` | `/var/log/anaconda.syslog` |
-| `/tmp/X.log` | `/var/log/anaconda.xlog` |
-| `/tmp/program.log` | `/var/log/anaconda.program.log` |
-| `/tmp/storage.log` | `/var/log/anaconda.storage.log` |
-| `/tmp/yum.log` | `/var/log/anaconda.yum.log` |
-| `/tmp/ifcfg.log` (new in F14) | not copied |
+| Name during installation | Name on the target system 
+| `/tmp/anaconda.log` | `/var/log/anaconda.log` 
+| `/tmp/syslog` | `/var/log/anaconda.syslog` 
+| `/tmp/X.log` | `/var/log/anaconda.xlog` 
+| `/tmp/program.log` | `/var/log/anaconda.program.log` 
+| `/tmp/storage.log` | `/var/log/anaconda.storage.log` 
+| `/tmp/yum.log` | `/var/log/anaconda.yum.log` 
+| `/tmp/ifcfg.log` (new in F14) | not copied 
 |====
 
 Starting with Fedora 15 (or post F14 Rawhide), the logs go to `/var/log/anaconda` directory on the target system, including ifcfg.log inroduced in F14.
@@ -223,7 +228,3 @@ on guest:
 ifconfig eth0 10.0.2.10/24 up
 grep "" /tmp/syslog > /dev/tcp/10.0.2.2/4444
 ----
-
-== To do
-* The current list of logging requirements and tasks is maintained in bugzilla [https://bugzilla.redhat.com/show_bug.cgi?id=524980 524980].
-* A support for KVM's virtio logging is coming later [https://bugzilla.redhat.com/show_bug.cgi?id=576439 576439].
