@@ -48,6 +48,8 @@ Topics:
     File: repositories
   - Name: Configuring X Window System using the xorg.conf file
     File: configuring-x-window-system-using-the-xorg-conf-file
+  - Name: (FIX ME!) CLI
+    File: networking-cli
   - Name: (CHECK) GRUB 2
     File: grub2
   - Name: (CHECK) Spotify
@@ -88,8 +90,6 @@ Topics:
     File: kernel
   - Name: (FIX ME!) Mirroring
     File: mirroring
-  - Name: (FIX ME!) CLI
-    File: networking-cli
   - Name: (FIX ME!) OpenH264
     File: openh264
   - Name: (FIX ME!) PackageKit Items Not Found
