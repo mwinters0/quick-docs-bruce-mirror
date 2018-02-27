@@ -136,7 +136,6 @@ Anaconda--->rsyslog(guest)--->virtio(guest char device)--->kvm hypervisor--->vir
                                                                                 |
                                                                                 v
                                                       forwarded log files<---rsyslog(host)
-
 ----
 
 Step by step instructions to set everything up follow:
