@@ -132,8 +132,7 @@ In this example we will use ethernet
 Enter connection type: ethernet
 ----
 
-Next this will appear, note that "nmcli>" is a prompt and that it lists
-the main settings available
+Next this will appear, note that "nmcli>" is a prompt and that it lists the main settings available
 
 ----
 ===| nmcli interactive connection editor |===
@@ -153,15 +152,13 @@ We will edit the setting "ipv4"
 nmcli> goto ipv4
 ----
 
-Note that after this our promt has changed to this to indicate that we
-are currently editing the "ipv4" setting
+Note that after this our promt has changed to this to indicate that we are currently editing the "ipv4" setting
 
 ----
 nmcli ipv4>
 ----
 
-List available properties under the setting "ipv4" and describe the
-property "method"
+List available properties under the setting "ipv4" and describe the property "method"
 
 
 ----
@@ -180,16 +177,13 @@ Let's set property "method" to "auto"
 nmcli ipv4> set method auto
 ----
 
-Now that we have finished editing the "ipv4" setting let's go back to
-the main level. Execute the following command until the prompt looks
-like this "nmcli>"
+Now that we have finished editing the "ipv4" setting let's go back to the main level. Execute the following command until the prompt looks like this "nmcli>"
 
 ----
 nmcli> back
 ----
 
-If you need to list again the main settings use the "goto" command
-without any arguments. After that just press enter and ignore the error.
+If you need to list again the main settings use the "goto" command without any arguments. After that just press enter and ignore the error.
 
 ----
 nmcli> goto
@@ -198,14 +192,13 @@ Available settings: connection, 802-3-ethernet (ethernet), 802-1x, ipv4, ipv6
 Setting name?
 ----
 
-It is possible to set a value for a property directly from the main
-level
+It is possible to set a value for a property directly from the main level
 
 ----
 nmcli> set <setting>.<property> <value>
 ----
 
-For example
+For example:
 
 ----
 nmcli> set connection.autoconnect TRUE
@@ -228,27 +221,20 @@ nmcli> quit
 [[manually-editing]]
 === Manually editing
 
-To manually edit a ifcfg connection configuration open or create with a
-text editor the configuration file of the connection located in
-`/etc/sysconfig/network-scripts/ifcfg-`
+To manually edit a ifcfg connection configuration open or create with a text editor the configuration file of the connection located in `/etc/sysconfig/network-scripts/ifcfg-`
 
-A description of most common configuration options is available at:
-http://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/s1-networkscripts-interfaces.html
+A description of most common configuration options is available at: http://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/s1-networkscripts-interfaces.html
 
-To modify a connection password open with a text editor and edit the
-file "keys-" located in "/etc/sysconfig/network-scripts/". The password
-is stored in plain text. For example
+To modify a connection password open with a text editor and edit the file "keys-" located in "/etc/sysconfig/network-scripts/". The password is stored in plain text. For example
 
 ----
 $ cat /etc/sysconfig/network-scripts/keys-<connection name>
 WPA_PSK='password'
 ----
 
-Or if using keyfile, simply edit the connection file located inside
-`/etc/NetworkManager/system-connections/`
+Or if using keyfile, simply edit the connection file located inside `/etc/NetworkManager/system-connections/`
 
-Finally save the files and to apply changes to an already active
-connection execute
+Finally save the files and to apply changes to an already active connection execute
 
 ----
 nmcli connection up id <connection name>
@@ -268,24 +254,16 @@ Please note this also deactivates the connection.
 [[documentation-for-networkmanager-command-line-interface-nmcli]]
 == Documentation for NetworkManager Command Line Interface nmcli
 
-The primary reference for nmcli are the manual pages nmcli and
-nmcli-examples. For a quick reference, the user can type `nmcli
-[help]` to print the supported options and commands. The help parameter
-can also be used to obtain a more detailed description for the
-individual commands. For example `nmcli connection help` and `nmcli
-connection add help` show a description for the possible connection
-operations and for how to add connections, respectively.
+The primary reference for nmcli are the manual pages nmcli and nmcli-examples. For a quick reference, the user can type `nmcli
+[help]` to print the supported options and commands. The help parameter can also be used to obtain a more detailed description for the
+individual commands. For example `nmcli connection help` and `nmcli connection add help` show a description for the possible connection operations and for how to add connections, respectively.
 
-The newest version of the manual page can be found on
-https://developer.gnome.org/NetworkManager/unstable/nmcli.html[nmcli]
-and
-https://developer.gnome.org/NetworkManager/unstable/nmcli-examples.html[nmcli-examples].
+The newest version of the manual page can be found on https://developer.gnome.org/NetworkManager/unstable/nmcli.html[nmcli] and https://developer.gnome.org/NetworkManager/unstable/nmcli-examples.html[nmcli-examples].
 
 [[notes]]
 === Notes
 
-nmcli maybe contain some bugs and lack some features graphical tools for
-NetworkManager have.
+nmcli maybe contain some bugs and lack some features graphical tools for NetworkManager have.
 
 To see all available options for your version of nmcli
 
