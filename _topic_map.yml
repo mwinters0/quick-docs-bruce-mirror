@@ -30,7 +30,7 @@ Topics:
     File: fedora-and-red-hat-enterprise-linux
   - Name: Performing administration tasks using sudo
     File: performing-administration-tasks-using-sudo
-  - Name: Installing Spotify
+  - Name: Installing Spotify on Fedora
     File: installing-spotify
   - Name: Adding new fonts in Fedora
     File: adding-new-fonts-fedora
@@ -78,6 +78,8 @@ Topics:
     File: raspberry-pi
   - Name: How to Create a GNU Hello World RPM Package
     File: create-hello-world-rpm
+  - Name: Fedora Release Life Cycle
+    File: fedora-life-cycle
     File: bumblebee
   - Name: Creating GPG Keys
     File: create-gpg-keys

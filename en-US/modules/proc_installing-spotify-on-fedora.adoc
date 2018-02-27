@@ -1,5 +1,5 @@
 [id='proc_installing-spotify-on-fedora']
-= Spotify on Fedora
+= Installing Spotify on Fedora
 
 link:https://www.spotify.com/[Spotify] is a cross-platform proprietary music streaming service. Spotify is a freemium service, with advertisements which can be removed by purchasing a subscription. Although Spotify is not officially supported on Fedora, it can be installed on Fedora by:
 
