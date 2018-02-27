@@ -61,6 +61,8 @@ Topics:
         File: anaconda_updates
       - Name: Anaconda Logging
         File: anaconda_logging
+      - Name: Contribute to Anaconda
+        File: anaconda_contribute
   - Name: (FIX ME!) AutoUpdates
     File: autoupdates
   - Name: (FIX ME!) Building a custom kernel
