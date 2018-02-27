@@ -20,7 +20,7 @@ Anaconda provides advanced debugging features such as remote logging, access to 
 [id="users"]
 == Users
 
-If you are a user having problems with Anaconda, please use the user support forum for your distribution such as http://forums.fedoraforum.org/forumdisplay.php?f=6[Fedora Forum] or https://lists.fedoraproject.org/admin/lists/users.lists.fedoraproject.org/[fedora-users].
+If you are a user having problems with Anaconda, please use the user support forum for your distribution such as http://forums.fedoraforum.org/forumdisplay.php?f=6[Fedora Forum] or https://lists.fedoraproject.org/admin/lists/users.lists.fedoraproject.org/[the fedora-users mailing list].
 
 From time to time, we may distribute updates for Anaconda to fix problems in Fedora releases.
 The link:anaconda_updates.html[updates] page explains how to use these updates images.
@@ -31,7 +31,7 @@ See our link:Anaconda/Changes[migration guide] which summarizes changes for user
 [id="advanced-users"]
 == Advanced Users
 
-If you are an advanced user of Anaconda, you should check out https://anaconda-installer.readthedocs.io/en/latest/boot-options.html[our reference to Anaconda command line options],https://anaconda-installer.readthedocs.io/en/latest/kickstart.html[our kickstart file format documentation] and link:Anaconda/Logging[ our reference to logging capabilities of Anaconda].
+If you are an advanced user of Anaconda, you should check out https://anaconda-installer.readthedocs.io/en/latest/boot-options.html[our reference to Anaconda command line options], https://anaconda-installer.readthedocs.io/en/latest/kickstart.html[our kickstart file format documentation] and link:anaconda_logging.html[our reference to logging capabilities of Anaconda].
 
 There is a mailing list devoted to the use of kickstart.
 You can find the list signup and archive information at http://www.redhat.com/mailman/listinfo/kickstart-list[kickstart list].
