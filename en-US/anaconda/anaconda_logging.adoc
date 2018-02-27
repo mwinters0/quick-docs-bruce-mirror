@@ -22,9 +22,9 @@ During the installation the logs are stored in the `/tmp` directory:
 `/tmp/program.log`:: calls to external programs, their output
 `/tmp/syslog`:: messages from kernel and external programs (Network Manager)
 `/tmp/yum.log`:: yum's internal log
-`/tmp/dnf.log`:: link:http://www.fedoraproject.org/wiki/Dnf[DNF]'s internal log
-`/tmp/dnf.hawkey.log`:: link:http://www.fedoraproject.org/wiki/Dnf[DNF]'s Hawkey internal log
-`/tmp/dnf.rpm.log`:: link:http://www.fedoraproject.org/wiki/Dnf[DNF]'s RPM internal log
+`/tmp/dnf.log`:: link:https://www.fedoraproject.org/wiki/Dnf[DNF]'s internal log
+`/tmp/dnf.hawkey.log`:: link:https://www.fedoraproject.org/wiki/Dnf[DNF]'s Hawkey internal log
+`/tmp/dnf.rpm.log`:: link:https://www.fedoraproject.org/wiki/Dnf[DNF]'s RPM internal log
 
 Certain log messages are also written to the terminals:
 
@@ -123,7 +123,7 @@ One such device can be used to forward anaconda logs to the host machine.
 In that way we can get logs forwarded in real time, as soon the anaconda logging subsystem is initialized (early) and not need to wait for the network to come up.
 Also, it's the only way to forward the logs in a no-network setup.
 
-=== Configuration
+=== Remote Logging Configuration
 Anaconda will be forwarding logs over virtio automatically if it is able to find the port `/dev/virtio-ports/org.fedoraproject.anaconda.log.0"`.
 This is port is created using a libvirt XML directive that wires it to a TCP socket on the host's side.
 It's then possible to read the logs from there directly, or make an rsyslog instance to parse them and file them into respective files.
@@ -144,6 +144,7 @@ Step by step instructions to set everything up follow:
 . Add the virtio-serial port to your virtual machine, direct it to the TCP port 6080 on the host.
 Start by editing the guest configuration:`virsh edit <machine name>`
 . In the guest editor, add following information into the `<devices>` section:
+[source,xml]
 ----
 <channel type='tcp'>
   <source mode='connect' host='127.0.0.1' service='6080'/>
@@ -176,7 +177,7 @@ You should start seeing raw logs in the terminal once the guest machine starts b
 * if both remote TCP logging via `syslog=` and remote virtio logging via `virtiolog=` are specified on the command line, one has to setup two rsyslogd instances on the server/host to listen to both the connections otherwise the sending rsyslog's queues get full and the forwarding stops.
 
 === See also
-* link:http://fedoraproject.org/wiki/Features/VirtioSerial[VirtioSerial]
+* link:https://fedoraproject.org/wiki/Features/VirtioSerial[VirtioSerial]
 * link:http://wiki.libvirt.org/page/Virtio[Virtio at the libvirt wiki]
 * link:http://libvirt.org/formatdomain.html#elementsConsole[libvirt domain XML format]
 
@@ -202,29 +203,33 @@ Starting with Fedora 15 (or post F14 Rawhide), the logs go to `/var/log/anaconda
 
 If you are asked to provide logs for a bugzilla, your best option is switching from the anaconda GUI to tty2 and then use scp to copy the files to your computer, e.g.:
 
+[source,bash]
 ----
-cd /tmp
-scp anaconda.log aklap:/home/akozumpl/
+$ cd /tmp
+$ scp anaconda.log aklap:/home/akozumpl/
 ----
 
 It is also possible to make a complete dump of a state of running anaconda process (the same dump that is compiled automatically if an unhandled exception occurs).
 To do this send the main anaconda process SIGUSR2:
 
+[source,bash]
 ----
-kill -USR2 `cat /var/run/anaconda.pid``
+$ kill -USR2 `cat /var/run/anaconda.pid``
 ----
 
 This builds a file `/tmp/anaconda-tb-?????` that also contains `anaconda.log`, `storage.log` and `syslog`.
 
 If you are on a KVM virtual machine and there's no scp available (stage1), you can (after setting up the network if not up already) redirect to a special tcp file, on host:
 
+[source,bash]
 ----
-nc -l 4444 > syslog.log
+$ nc -l 4444 > syslog.log
 ----
 
 on guest:
 
+[source,bash]
 ----
-ifconfig eth0 10.0.2.10/24 up
-grep "" /tmp/syslog > /dev/tcp/10.0.2.2/4444
+$ ifconfig eth0 10.0.2.10/24 up
+$ grep "" /tmp/syslog > /dev/tcp/10.0.2.2/4444
 ----
