@@ -3,7 +3,7 @@
 [caption="Entering Anaconda, Montana. A city probably named after this installation program. David Cantrell took this picture in 2011. His grey VW Jetta is parked in the background."]
 image::DSC_3217.JPG[Anaconda,400]
 
-Anaconda is the installation program used by Fedora, Red Hat Enterprise Linux and link:/anaconda/anaconda_distros.html[some other distributions].
+Anaconda is the installation program used by Fedora, Red Hat Enterprise Linux and link:anaconda_distros.html[some other distributions].
 
 During installation, a target computer's hardware is identified and configured, and the appropriate file systems for the system's architecture are created.
 Finally, Anaconda allows the user to install the operating system software on the target computer.
@@ -23,7 +23,7 @@ Anaconda provides advanced debugging features such as remote logging, access to 
 If you are a user having problems with Anaconda, please use the user support forum for your distribution such as http://forums.fedoraforum.org/forumdisplay.php?f=6[Fedora Forum] or https://lists.fedoraproject.org/admin/lists/users.lists.fedoraproject.org/[the fedora-users mailing list].
 
 From time to time, we may distribute updates for Anaconda to fix problems in Fedora releases.
-The link:/anaconda/anaconda_updates.html[updates] page explains how to use these updates images.
+The link:anaconda_updates.html[updates] page explains how to use these updates images.
 
 [id="advanced-users"]
 == Advanced Users
