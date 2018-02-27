@@ -1,7 +1,7 @@
 = Creating a Product image
 
 Anaconda supports several ways to load new code at runtime.
-Passing `inst.updates=<url>` is one way to do this and is documented on the file:anaconda_updates.html[updates]] page.
+Passing `inst.updates=<url>` is one way to do this and is documented on the file:/anaconda/anaconda_updates.html[updates] page.
 Another is to include a product.img in the install tree, inside the `/images/` directory.
 It will be applied at runtime and can overwrite any file on the system, just like the updates.img.
 
@@ -13,7 +13,7 @@ mkdir -p product/run/install/product/pyanaconda/installclasses/
 vim product/run/install/product/pyanaconda/installclasses/custom.py
 ----
 
-Create new installclass, see link:https://git.fedorahosted.org/cgit/anaconda.git/tree/pyanaconda/installclasses[Anaconda] for examples.
+Create new installclass, see link:https://git.fedorahosted.org/cgit/anaconda.git/tree/pyanaconda/installclasses[Anaconda code] for examples.
 Now you can create the product.img:
 
 ----
