@@ -68,7 +68,7 @@ This resource is for discussion of Anaconda development, not for distribution cu
 [id="how-to-contribute"]
 == How to Contribute
 
-For how to contribute to Anaconda and related projects, see the https://fedoraproject.org/wiki/Anaconda/Contribute[Contributing to Anaconda and related projects] documentation.
+For how to contribute to Anaconda and related projects, see the link:https://anaconda-installer.readthedocs.io/en/latest/contributing.html[Contributing to Anaconda and related projects] documentation.
 
 Please note that useful contributions are not limited to submitting patches for source code.
 You can also help with https://anaconda-installer.readthedocs.io/en/latest/testing.html[testing], reporting bugs, improving translations or extending the Anaconda documentation.
