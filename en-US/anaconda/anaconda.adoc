@@ -60,7 +60,7 @@ Past discussions of patches can be found in the https://lists.fedorahosted.org/p
 [id="irc"]
 == IRC
 
-There is also an IRC channel on http://freenode.net.
+There is also an IRC channel on link:http://freenode.net[FreeNode].
 This resource is for discussion of Anaconda development, not for distribution customization questions.
 
 [id="how-to-contribute"]
@@ -90,8 +90,8 @@ Familiarize yourself with the tools that Anaconda uses.
 Check out the following external reference documents:
 
 * https://developer.gnome.org/gtk3/stable/[GTK+ reference]
-* https://docs.python.org/2/tutorial/[Python tutorial]
-* https://docs.python.org/2/py-modindex.html[Python module reference]
+* https://docs.python.org/3/tutorial/[Python tutorial]
+* https://docs.python.org/3/py-modindex.html[Python module reference]
 
 [id="getting-the-source"]
 == Getting the Source
@@ -106,6 +106,8 @@ $ dnf install git
 
 Note that several related packages will be installed as well.
 After the git source code management tool has been installed, then you use anonymous git access to the Anaconda repository.
+
+If you would just like to browse the Anaconda git repository via the web, then please use the following https://github.com/rhinstaller/anaconda.git[Anaconda git URL].
 
 [source,bash]
 ----
@@ -131,6 +133,7 @@ Checking 543 files out...
 ----
 
 If you have committer access to Anaconda, then you will want to use the git+ssh access url.
+(GitHub also supports pushing changes via HTTPS, but may require you to re-authenticate every time you push your changes.)
 
 [source,bash]
 ----
@@ -144,7 +147,6 @@ Once you've committed changes locally, you can push them with
 $ git push
 ----
 
-If you would just like to browse the Anaconda git repository via the web, then please use the following https://github.com/rhinstaller/anaconda.git[Anaconda git URLs].
 
 Anaconda has an https://github.com/rhinstaller/kickstart-tests[extensive suite of tests] that is still growing.
 If you contribute new functionality, it's good practice to include some tests along with that.
@@ -163,8 +165,10 @@ Also try searching bugzilla for other reports about your problem, as some bugs a
 The https://fedoraproject.org/wiki/Anaconda/AnacondaBugWorkflow[Anaconda Bug Workflow] explains how Fedora Anaconda bugs pass through bugzilla, and what all the various statuses really mean.
 This is *only* for Fedora.
 
+Additionally, you can use this link:https://bugzilla.redhat.com/buglist.cgi?bug_status=NEW&bug_status=ASSIGNED&classification=Fedora&component=anaconda&list_id=8454223&product=Fedora&query_format=advanced[Bugzilla query] to find all open Anaconda bugs.
+
 [id="design"]
 Design
 ~~~~~~
 
-* link:https://fedoraproject.org/wiki/How_to_Create_an_Anaconda_Banner[How to Create an Anaconda Banner]
+link:https://fedoraproject.org/wiki/How_to_Create_an_Anaconda_Banner[How to Create an Anaconda Banner]
