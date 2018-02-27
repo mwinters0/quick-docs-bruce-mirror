@@ -1,0 +1,27 @@
+= Creating a Product image
+
+Anaconda supports several ways to load new code at runtime.
+Passing `inst.updates=<url>` is one way to do this and is documented on the file:anaconda_updates.html[updates]] page.
+Another is to include a product.img in the install tree, inside the `/images/` directory.
+It will be applied at runtime and can overwrite any file on the system, just like the updates.img.
+
+One use for a product.img is to add a new installclass to Anaconda.
+A product image for a new installclass can be created from a directory of files like this:
+
+----
+mkdir -p product/run/install/product/pyanaconda/installclasses/
+vim product/run/install/product/pyanaconda/installclasses/custom.py
+----
+
+Create new installclass, see link:https://git.fedorahosted.org/cgit/anaconda.git/tree/pyanaconda/installclasses[Anaconda] for examples.
+Now you can create the product.img:
+
+----
+cd product/
+find . | cpio -c -o | pigz -9cv > ../product.img
+----
+
+Now you can include product.img in the tree, inside `/images/`.
+
+Alternatively you can now use lorax to create product.img as part of the boot.iso creation process.
+This is supported by lorax-21.27-1 and is documented link:http://rhinstaller.github.io/lorax/product-images.html[here] in the Lorax source tree.
