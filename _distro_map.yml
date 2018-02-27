@@ -6,6 +6,6 @@ fedora:
   site_name: Home
   site_url: https://docs.fedoraproject.org/
   branches:
-    anaconda:
+    master:
       name: quick-docs
       dir: quick-docs
