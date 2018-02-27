@@ -109,11 +109,11 @@ Run `analog` without the `-o` option to see how exactly does a fitting configura
 Also notice that it uses the same message format for remote logging as anaconda does, but you can of course modify this to specify any format you want.
 
 === See also
-* [http://www.rsyslog.com/doc Rsyslog documentation]
+* link:http://www.rsyslog.com/doc[Rsyslog documentation]
 * `man tailf`
 
 == Remote logging via virtio
-QEMU/KVM in Fedora 13 and onwards allows one to create virtual machines with [[Features/VirtioSerial|multiple virtio char devices]] exposed to the guest machine.
+QEMU/KVM in Fedora 13 and onwards allows one to create virtual machines with link:http://fedoraprojet.org/wiki/Features/VirtioSerial[multiple virtio char devices] exposed to the guest machine.
 One such device can be used to forward anaconda logs to the host machine.
 In that way we can get logs forwarded in real time, as soon the anaconda logging subsystem is initialized (early) and not need to wait for the network to come up.
 Also, it's the only way to forward the logs in a no-network setup.
@@ -126,10 +126,10 @@ See the ascii chart below for the whole ensemble:
 
 
 ----
-  Anaconda--->rsyslog(guest)--->virtio(guest char device)--->kvm hypervisor--->virtio(TCP socket)
-                                                                                  |
-                                                                                  v
-                                                        forwarded log files<---rsyslog(host)
+Anaconda--->rsyslog(guest)--->virtio(guest char device)--->kvm hypervisor--->virtio(TCP socket)
+                                                                                |
+                                                                                v
+                                                      forwarded log files<---rsyslog(host)
 
 ----
 
@@ -179,46 +179,51 @@ You should start seeing raw logs in the terminal once the guest machine starts b
 After every successful installation, anaconda logs are copied into `/var/log` on the system you just installed.
 To avoid name clashes with other log files there, the anaconda logs are renamed:
 
-{| 
-! Name during installation !! Name on the target system
-|-
-| `/tmp/anaconda.log` || `/var/log/anaconda.log`
-|- 
-| `/tmp/syslog` || `/var/log/anaconda.syslog`
-|- 
-| `/tmp/X.log` || `/var/log/anaconda.xlog`
-|- 
-| `/tmp/program.log` || `/var/log/anaconda.program.log`
-|- 
-| `/tmp/storage.log` || `/var/log/anaconda.storage.log`
-|-
-| `/tmp/yum.log` || `/var/log/anaconda.yum.log`
-|-
-| `/tmp/ifcfg.log` (new in F14) || not copied
-|}
+[options="header"]
+|====
+| Name during installation | Name on the target system |
+| `/tmp/anaconda.log` | `/var/log/anaconda.log` |
+| `/tmp/syslog` | `/var/log/anaconda.syslog` |
+| `/tmp/X.log` | `/var/log/anaconda.xlog` |
+| `/tmp/program.log` | `/var/log/anaconda.program.log` |
+| `/tmp/storage.log` | `/var/log/anaconda.storage.log` |
+| `/tmp/yum.log` | `/var/log/anaconda.yum.log` |
+| `/tmp/ifcfg.log` (new in F14) | not copied |
+|====
 
 Starting with Fedora 15 (or post F14 Rawhide), the logs go to `/var/log/anaconda` directory on the target system, including ifcfg.log inroduced in F14.
 
 == Logging tips
 
 If you are asked to provide logs for a bugzilla, your best option is switching from the anaconda GUI to tty2 and then use scp to copy the files to your computer, e.g.:
- cd /tmp
- scp anaconda.log aklap:/home/akozumpl/
+
+----
+cd /tmp
+scp anaconda.log aklap:/home/akozumpl/
+----
 
 It is also possible to make a complete dump of a state of running anaconda process (the same dump that is compiled automatically if an unhandled exception occurs).
 To do this send the main anaconda process SIGUSR2:
- kill -USR2 `cat /var/run/anaconda.pid``
+
+----
+kill -USR2 `cat /var/run/anaconda.pid``
+----
 
 This builds a file `/tmp/anaconda-tb-?????` that also contains `anaconda.log`, `storage.log` and `syslog`.
 
 If you are on a KVM virtual machine and there's no scp available (stage1), you can (after setting up the network if not up already) redirect to a special tcp file, on host:
- nc -l 4444 > syslog.log
+
+----
+nc -l 4444 > syslog.log
+----
 
 on guest:
- ifconfig eth0 10.0.2.10/24 up
- grep "" /tmp/syslog > /dev/tcp/10.0.2.2/4444
+
+----
+ifconfig eth0 10.0.2.10/24 up
+grep "" /tmp/syslog > /dev/tcp/10.0.2.2/4444
+----
 
 == To do
 * The current list of logging requirements and tasks is maintained in bugzilla [https://bugzilla.redhat.com/show_bug.cgi?id=524980 524980].
 * A support for KVM's virtio logging is coming later [https://bugzilla.redhat.com/show_bug.cgi?id=576439 576439].
-
