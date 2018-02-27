@@ -61,6 +61,8 @@ Topics:
         File: anaconda_updates
       - Name: Anaconda Logging
         File: anaconda_logging
+      - Name: Anaconda Product Image
+        File: anaconda_product_image
   - Name: (FIX ME!) AutoUpdates
     File: autoupdates
   - Name: (FIX ME!) Building a custom kernel
