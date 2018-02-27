@@ -38,8 +38,9 @@ Certain log messages are also written to the terminals:
 Log files always contain messages from all the loglevels, including debug, but the minimal loglevel on the terminals can be controlled with the `loglevel` link:https://anaconda-installer.readthedocs.io/en/latest/boot-options.html#inst-loglevel[command line option].
 
 There are two other log files created on the target filesystem, in the `/root` directory, also accessible at `/mnt/sysimage/root` during the installation:
-* `/mnt/sysimage/root/install.log`, log of the package installation process.
-* `/mnt/sysimage/root/install.log.syslog`, messages from installation chroot logged through the system's syslog.
+
+`/mnt/sysimage/root/install.log`:: log of the package installation process.
+`/mnt/sysimage/root/install.log.syslog`:: messages from installation chroot logged through the system's syslog.
 
 Mostly information about users and groups created during dnf|yum's package installation.
 
