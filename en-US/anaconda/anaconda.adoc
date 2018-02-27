@@ -40,7 +40,7 @@ This is the best place to share tips and tricks about kickstart.
 [id="distribution-builders"]
 == Distribution Builders
 
-For information on how to customize Anaconda and trees created with it, please see link:Anaconda/ProductImage[product.img], link:Anaconda/BuildDocProject[BuildDocProject] and link:Anaconda/Customization[Customization].
+For information on how to customize Anaconda and trees created with it, please see link:anaconda_product_image[product.img], link:Anaconda/BuildDocProject[BuildDocProject] and link:Anaconda/Customization[Customization].
 
 [id="mailing-lists"]
 == Mailing Lists
