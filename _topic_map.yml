@@ -59,6 +59,8 @@ Topics:
         File: anaconda_distros
       - Name: Anaconda Updates
         File: anaconda_updates
+      - Name: Anaconda Logging
+        File: anaconda_logging
   - Name: (FIX ME!) AutoUpdates
     File: autoupdates
   - Name: (FIX ME!) Building a custom kernel
