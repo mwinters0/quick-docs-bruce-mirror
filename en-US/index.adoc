@@ -9,6 +9,19 @@ format with a PR-based workflow.
 
 So, this is kind of a seed project. *Your help wanted!*
 
+== Other Source Material
+
+There is a https://fedoraproject.org/wiki/Category:How_to[How To category]
+on the wiki. Many of those documents are ripe for conversion.
+https://ask.fedoraproject.org/en/questions/scope:all/sort:votes-desc/page:1/[Popular
+questions on Ask Fedora] are also likely to be useful starting points — or,
+also, frequent
+https://unix.stackexchange.com/questions/tagged/fedora?sort=frequent&pageSize=50[Fedora
+questions on Stack Exchange].
+
+Or, of course, if there's something you care about which you can help
+explain, you can create a new document from scratch.
+
 == Steps
 
 1. Pick a document to update.
@@ -16,7 +29,7 @@ So, this is kind of a seed project. *Your help wanted!*
 3. Make your changes to the `.adoc` file you want to improve.
 4. Update `_topic_map.yml` to remove "`(FIX ME!)`"
 5. Submit a pull request with your improvements.
-6. Create a redirect on the old wiki page — see below.
+6. If migrating a wiki page, create a redirect on the old page — see below.
 
 == Wiki Redirects
 
