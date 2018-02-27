@@ -13,7 +13,7 @@ mkdir -p product/run/install/product/pyanaconda/installclasses/
 vim product/run/install/product/pyanaconda/installclasses/custom.py
 ----
 
-Create new installclass, see link:https://git.fedorahosted.org/cgit/anaconda.git/tree/pyanaconda/installclasses[Anaconda code] for examples.
+Create new installclass, see link:https://github.com/rhinstaller/anaconda/tree/master/pyanaconda/installclasses[Anaconda code] for examples.
 Now you can create the product.img:
 
 ----
