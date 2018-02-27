@@ -21,6 +21,7 @@ Now you can create the product.img:
 ----
 $ cd product/
 $ find . | cpio -c -o | pigz -9cv > ../product.img
+=======
 ----
 
 Now you can include product.img in the tree, inside `/images/`.
