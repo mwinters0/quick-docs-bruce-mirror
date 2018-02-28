@@ -12,21 +12,21 @@ Display overall status of NetworkManager
 
 [source,bash,subs="+quotes"]
 ----
-nmcli general status
+$ nmcli general status
 ----
 
 Display active connections
 
 [source,bash]
 ----
-nmcli connection show --active
+$ nmcli connection show --active
 ----
 
 Display all configured connections
 
 [source,bash]
 ----
-nmcli connection show configured
+$ nmcli connection show configured
 ----
 
 [[connectdisconnect-to-an-already-configured-connection]]
@@ -36,14 +36,14 @@ Connect to a configured connection by name
 
 [source,bash,subs="+quotes"]
 ----
-nmcli connection up id _connection name_
+$ nmcli connection up id _connection name_
 ----
 
 Disconnection by name
 
 [source,bash,subs="+quotes"]
 ----
-nmcli connection down id _connection name_
+$ nmcli connection down id _connection name_
 ----
 
 [[wifi]]
@@ -53,42 +53,42 @@ Get Wifi status
 
 [source,bash]
 ----
-nmcli radio wifi
+$ nmcli radio wifi
 ----
 
 Turn wifi on or off
 
 [source,bash,subs="+quotes"]
 ----
-nmcli radio wifi _on|off_
+$ nmcli radio wifi _on|off_
 ----
 
 List available access points(AP) to connect to
 
 [source,bash]
 ----
-nmcli device wifi list
+$ nmcli device wifi list
 ----
 
 Refresh previous list
 
 [source,bash]
 ----
-nmcli device wifi rescan
+$ nmcli device wifi rescan
 ----
 
 Create a new connection to an open AP
 
 [source,bash,subs="+quotes"]
 ----
-nmcli device wifi connect _SSID|BSSID_
+$ nmcli device wifi connect _SSID|BSSID_
 ----
 
 Create a new connection to a password protected AP
 
 [source,bash,subs="+quotes"]
 ----
-nmcli device wifi connect _SSID|BSSID_ password _password_
+$ nmcli device wifi connect _SSID|BSSID_ password _password_
 ----
 
 [[network-interfaces]]
@@ -98,14 +98,14 @@ List available devices and their status
 
 [source,bash]
 ----
-nmcli device status
+$ nmcli device status
 ----
 
 Disconnect an interface
 
 [source,bash,subs="+quotes"]
 ----
-nmcli device disconnect iface _interface_
+$ nmcli device disconnect iface _interface_
 ----
 
 [[create-or-modify-a-connection]]
@@ -115,14 +115,14 @@ To create a new connection using an interactive editor
 
 [source,bash,subs="+quotes"]
 ----
-nmcli connection edit con-name _name of new connection_
+$ nmcli connection edit con-name _name of new connection_
 ----
 
 To edit an already existing connection using an interactive editor
 
 [source,bash,subs="+quotes"]
 ----
-nmcli connection edit _connection name_
+$ nmcli connection edit _connection name_
 ----
 
 [[exampletutorial]]
@@ -132,7 +132,7 @@ Let's create a new connection
 
 [source,bash,subs="+quotes"]
 ----
-nmcli connection edit con-name _name of new connection_
+$ nmcli connection edit con-name _name of new connection_
 ----
 
 It will ask us to define a connection type
@@ -203,7 +203,7 @@ Execute the following command until the prompt looks like this `nmcli>`
 
 [source,bash]
 ----
-nmcli> back
+nmcli ipv4> back
 ----
 
 If you need to list again the main settings use the `goto` command without any arguments.
