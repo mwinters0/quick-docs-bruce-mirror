@@ -52,7 +52,7 @@ Topics:
     File: grub2
   - Name: (CHECK) Spotify
     File: spotify
-  - Name: (IN PROGRESS) Anaconda
+  - Name: Anaconda
     Dir: anaconda
     Topics:
       - Name: Anaconda
