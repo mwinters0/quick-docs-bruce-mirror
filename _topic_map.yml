@@ -52,8 +52,6 @@ Topics:
     File: networking-cli
   - Name: (CHECK) GRUB 2
     File: grub2
-  - Name: (CHECK) Spotify
-    File: spotify
   - Name: Anaconda
     Dir: anaconda
     Topics:
