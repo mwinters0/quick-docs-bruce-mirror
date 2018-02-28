@@ -48,7 +48,7 @@ Topics:
     File: repositories
   - Name: Configuring X Window System using the xorg.conf file
     File: configuring-x-window-system-using-the-xorg-conf-file
-  - Name: CLI
+  - Name: NetworkManager Command Line Interface (nmcli)
     File: networking-cli
   - Name: (CHECK) GRUB 2
     File: grub2
