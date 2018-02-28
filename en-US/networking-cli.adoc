@@ -1,39 +1,309 @@
-= CLI
+= NetworkManager Command Line Interface (nmcli)
 
-'''
+[[description]]
+== Description
 
-[IMPORTANT]
-======
+`nmcli` is a tool that allows NetworkManager management from command line.
 
-This page was automatically converted from https://fedoraproject.org/wiki/Networking/CLI
+[[networkmanager-status]]
+== NetworkManager status
 
-It is probably
+Display overall status of NetworkManager
 
-* Badly formatted
-* Missing graphics and tables that do not convert well from mediawiki
-* Out-of-date
-* In need of other love
+[source,bash,subs="+quotes"]
+----
+$ nmcli general status
+----
 
+Display active connections
 
-Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
+[source,bash]
+----
+$ nmcli connection show --active
+----
 
-Once you've fixed this page, remove this notice, and update
-`_topic_map.yml`.
+Display all configured connections
 
-Once the document is live, go to the original wiki page and replace its text
-with the following macro:
+[source,bash]
+----
+$ nmcli connection show configured
+----
 
-....
-{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
-....
+[[connectdisconnect-to-an-already-configured-connection]]
+== Connect/disconnect to an already configured connection
 
-======
+Connect to a configured connection by name
 
-'''
+[source,bash,subs="+quotes"]
+----
+$ nmcli connection up id _connection name_
+----
 
+Disconnection by name
 
+[source,bash,subs="+quotes"]
+----
+$ nmcli connection down id _connection name_
+----
 
-'''
+[[wifi]]
+== Wifi
 
-See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
+Get Wifi status
+
+[source,bash]
+----
+$ nmcli radio wifi
+----
+
+Turn wifi on or off
+
+[source,bash,subs="+quotes"]
+----
+$ nmcli radio wifi _on|off_
+----
+
+List available access points(AP) to connect to
+
+[source,bash]
+----
+$ nmcli device wifi list
+----
+
+Refresh previous list
+
+[source,bash]
+----
+$ nmcli device wifi rescan
+----
+
+Create a new connection to an open AP
+
+[source,bash,subs="+quotes"]
+----
+$ nmcli device wifi connect _SSID|BSSID_
+----
+
+Create a new connection to a password protected AP
+
+[source,bash,subs="+quotes"]
+----
+$ nmcli device wifi connect _SSID|BSSID_ password _password_
+----
+
+[[network-interfaces]]
+== Network interfaces
+
+List available devices and their status
+
+[source,bash]
+----
+$ nmcli device status
+----
+
+Disconnect an interface
+
+[source,bash,subs="+quotes"]
+----
+$ nmcli device disconnect iface _interface_
+----
+
+[[create-or-modify-a-connection]]
+== Create or modify a connection
+
+To create a new connection using an interactive editor
+
+[source,bash,subs="+quotes"]
+----
+$ nmcli connection edit con-name _name of new connection_
+----
+
+To edit an already existing connection using an interactive editor
+
+[source,bash,subs="+quotes"]
+----
+$ nmcli connection edit _connection name_
+----
+
+[[exampletutorial]]
+=== Example/Tutorial
+
+Let's create a new connection
+
+[source,bash,subs="+quotes"]
+----
+$ nmcli connection edit con-name _name of new connection_
+----
+
+It will ask us to define a connection type
+
+[source,bash]
+----
+Valid connection types: 802-3-ethernet (ethernet), 802-11-wireless (wifi), wimax, gsm, cdma, infiniband, adsl, bluetooth, vpn, 802-11-olpc-mesh (olpc-mesh), vlan, bond, team, bridge, bond-slave, team-slave, bridge-slave
+Enter connection type: 
+----
+
+In this example we will use ethernet
+
+[source,bash]
+----
+Enter connection type: ethernet
+----
+
+Next this will appear, note that `nmcli>` is a prompt and that it lists the main settings available
+
+[source,bash]
+----
+===| nmcli interactive connection editor |===
+
+Adding a new '802-3-ethernet' connection
+
+Type 'help' or '?' for available commands.
+Type 'describe [<setting>.<prop>]' for detailed property description.
+
+You may edit the following settings: connection, 802-3-ethernet (ethernet), 802-1x, ipv4, ipv6
+nmcli> 
+----
+
+We will edit the setting `ipv4`
+
+[source,bash]
+----
+nmcli> goto ipv4
+----
+
+Note that after this our promt has changed to this to indicate that we are currently editing the "ipv4" setting
+
+[source,bash]
+----
+nmcli ipv4>
+----
+
+List available properties under the setting `ipv4` and describe the property `method`
+
+[source,bash]
+----
+nmcli ipv4> describe
+
+Available properties: method, dns, dns-search, addresses, routes, ignore-auto-routes, ignore-auto-dns, dhcp-client-id, dhcp-send-hostname, dhcp-hostname, never-default, may-fail
+Property name?
+
+Property name? method
+----
+
+Let's set property `method` to `auto`
+
+[source,bash]
+----
+nmcli ipv4> set method auto
+----
+
+Now that we have finished editing the `ipv4` setting let's go back to the main level.
+Execute the following command until the prompt looks like this `nmcli>`
+
+[source,bash]
+----
+nmcli ipv4> back
+----
+
+If you need to list again the main settings use the `goto` command without any arguments.
+After that just press enter and ignore the error.
+
+[source,bash]
+----
+nmcli> goto
+
+Available settings: connection, 802-3-ethernet (ethernet), 802-1x, ipv4, ipv6
+Setting name?
+----
+
+It is possible to set a value for a property directly from the main level
+
+[source,bash]
+----
+nmcli> set __setting__.__property__ _value_
+----
+
+For example:
+[source,bash,subs="+quotes"]
+----
+nmcli> set connection.autoconnect TRUE
+
+nmcli> set connection.interface-name _interface name this connection is bound to_
+
+nmcli> set ethernet.cloned-mac-address _Spoofed MAC address_
+----
+
+Finally check the connection details, save and exit
+
+[source,bash]
+----
+nmcli> print
+
+nmcli> save
+
+nmcli> quit
+----
+
+[[manually-editing]]
+=== Manually editing
+
+To manually edit a ifcfg connection configuration open or create with a text editor the configuration file of the connection located in `/etc/sysconfig/network-scripts/ifcfg-`
+
+A description of most common configuration options is available at: http://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/s1-networkscripts-interfaces.html
+
+To modify a connection password open with a text editor and edit the file `keys-` located in `/etc/sysconfig/network-scripts/`.
+The password is stored in plain text.
+For example
+
+[source,bash,subs="+quotes"]
+----
+$ cat /etc/sysconfig/network-scripts/keys-__connection name__
+WPA_PSK='password'
+----
+
+Or if using keyfile, simply edit the connection file located inside `/etc/NetworkManager/system-connections/`
+
+Finally save the files and to apply changes to an already active connection execute
+
+[source,bash,subs="+quotes"]
+----
+nmcli connection up id _connection name_
+----
+
+[[delete-a-connection-configuration]]
+== Delete a connection configuration
+
+Delete the connection
+
+[source,bash,subs="+quotes"]
+----
+nmcli connection delete id _connection name_
+----
+
+Please note this also deactivates the connection.
+
+[[documentation-for-networkmanager-command-line-interface-nmcli]]
+== Documentation for NetworkManager Command Line Interface nmcli
+
+The primary reference for nmcli are the manual pages nmcli and nmcli-examples.
+For a quick reference, the user can type `nmcli help` to print the supported options and commands.
+The help parameter can also be used to obtain a more detailed description for the individual commands.
+For example `nmcli connection help` and `nmcli connection add help` show a description for the possible connection operations and for how to add connections, respectively.
+
+The newest version of the manual page can be found on https://developer.gnome.org/NetworkManager/unstable/nmcli.html[nmcli] and https://developer.gnome.org/NetworkManager/unstable/nmcli-examples.html[nmcli-examples].
+
+[[notes]]
+=== Notes
+
+nmcli maybe contain some bugs and lack some features graphical tools for NetworkManager have.
+
+To see all available options for your version of nmcli
+
+[source,bash]
+----
+$ info nmcli
+----
+
+See a typo, something missing or out of date, or anything else which can be improved?
+Edit this document at https://pagure.io/fedora-docs/quick-docs.
