@@ -302,7 +302,7 @@ To see all available options for your version of nmcli
 
 [source,bash]
 ----
-info nmcli
+$ info nmcli
 ----
 
 See a typo, something missing or out of date, or anything else which can be improved?
