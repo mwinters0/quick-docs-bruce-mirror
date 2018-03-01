@@ -58,7 +58,7 @@ Topics:
     File: autoupdates
   - Name: (FIX ME!) Building a custom kernel
     File: build-custom-kernel
-  - Name: (FIX ME!) Bumblebee
+  - Name: Bumblebee
     File: bumblebee
   - Name: (FIX ME!) Creating GPG Keys
     File: create-gpg-keys
