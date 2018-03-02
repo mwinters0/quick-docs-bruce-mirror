@@ -1,0 +1,10 @@
+[[copying-public-gpg-keys-manually]]
+= Copying a Public Key Manually
+
+If you want to give or send a file copy of your key to someone, use this command to write it to an ASCII text file:
+
+----
+gpg2 --export --armor jqdoe@example.com > jqdoe-pubkey.asc
+----
+
+See now <<safeguarding-your-secret-key>>.

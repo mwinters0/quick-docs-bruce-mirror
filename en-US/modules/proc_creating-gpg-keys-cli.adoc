@@ -1,0 +1,105 @@
+[[creating-gpg-keys-cli]]
+= Creating GPG Keys Using the Command Line
+
+. Use the following shell command:
++
+----
+gpg2 --full-gen-key
+----
++
+This command generates a key pair that consists of a public and a private key.
+Other people use your public key to authenticate and/or decrypt your communications.
+Distribute your *public* key as widely as possible, especially to people who you know will want to receive authentic communications from you, such as a mailing list.
+The Fedora Documentation Project, for example, asks participants to include a GPG public key in their link:DocsProject/SelfIntroduction[self-introduction].
+
+. Press the kbd:[Enter] key to assign a default value if desired.
+The first prompt asks you to select what kind of key you prefer:
++
+----
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+Your selection?
+----
++
+In almost all cases, the default is the correct choice.
+A RSA/RSA key allows you not only to sign communications, but also to encrypt files.
+
+. Choose the key size:
++
+----
+RSA keys may be between 1024 and 4096 bits long.  Larger is  almost  always recommended here, however your use case and  security models may dictate otherwise.
+What keysize do you want? (2048)
+----
++
+Again, the default is sufficient for almost all users, and represents an _extremely_ strong level of security.
+
+. Choose when the key will expire.
+It is a good idea to choose an expiration date instead of using the default, which is _none._
+If, for example, the email address on the key becomes invalid, an expiration date will remind others to stop using that public key.
++
+----
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0) 
+----
++
+Entering a value of `1y`, for example, makes the key valid for one year.
+(You may change this expiration date after the key is generated, if you change your mind.)
+Before the `gpg2` program asks for signature information, the following prompt appears:
++
+----
+Is this correct (y/n)?
+----
++
+. Enter `y` to finish the process.
+
+. Enter your name and email address.
+_Remember this process is about authenticating you as a real individual._
+For this reason, include your _real name_.
+Do not use aliases or handles, since these disguise or obfuscate your identity.
+
+. Enter your real email address for your GPG key.
+If you choose a bogus email address, it will be more difficult for others to find your public key.
+This makes authenticating your communications difficult.
+If you are using this GPG key for https://fedoraproject.org/wiki/Introduce_yourself_to_the_Docs_Project[self-introduction] on a mailing list, for example, enter the email address you use on that list.
+
+. Use the comment field to include aliases or other information.
+(Some people use different keys for different purposes and identify each key with a comment, such as "Office" or "Open Source Projects.")
+
+. Enter the letter `O` at the confirmation prompt to continue if all entries are correct, or use the other options to fix any problems.
+
+. Enter a passphrase for your secret key.
+The `gpg2` program asks you to enter your passphrase twice to ensure you made no typing errors.
+
+Finally, `gpg2` generates random data to make your key as unique as possible.
+Move your mouse, type random keys, or perform other tasks on the system during this step to speed up the process.
+Once this step is finished, your keys are complete and ready to use:
+
+----
+pub  1024D/1B2AFA1C 2005-03-31 John Q. Doe (Fedora Docs Project) <jqdoe@example.com>
+Key fingerprint = 117C FE83 22EA B843 3E86  6486 4320 545E 1B2A FA1C
+sub  1024g/CEA4B22E 2005-03-31 [expires: 2006-03-31] 
+----
+
+The key fingerprint is a shorthand signature for your key.
+It allows you to confirm to others that they have received your actual public key without any tampering.
+You do not need to write this fingerprint down.
+To display the fingerprint at any time, use this command, substituting your email address:
+
+----
+gpg2 --fingerprint jqdoe@example.com
+----
+
+Your _GPG key ID_ consists of 8 hex digits identifying the public key.
+In the example above, the GPG key ID is `1B2AFA1C`.
+In most cases, if you are asked for the key ID, you should prepend "0x" to the key ID, as in `0x1B2AFA1C`.
+
+See now <<backup-gpg-keys-cli>>.
+Make sure to back up your revocation keys for all active keys as this allows to revoke keys in the event of lost passphrase of key compromise.

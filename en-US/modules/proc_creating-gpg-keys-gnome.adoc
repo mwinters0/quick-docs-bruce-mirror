@@ -1,0 +1,28 @@
+[[creating-gpg-keys-gnome]]
+= Creating GPG Keys Using the GNOME Desktop
+
+Install the Seahorse utility, which makes GPG key management easier.
+
+. Select menu:Applications[Add/Remove Software].
+
+. Select the _Search_ tab and enter the name `seahorse`.
+
+. Select the checkbox next to the `seahorse` package and select _Apply_ to add the software.
+You can also install Seahorse using the command line with the command `su -c "dnf install seahorse"`.
+
+To create a key:
+
+. Select menu:Activities[Passwords and Encryption Keys], which starts the application Seahorse.
+
+. Select menu:File[New... > PGP Key].
+
+. Click btn:[Continue].
+
+. Type your full name, email address, and an optional comment describing who you are (e.g.: John C. Smith, jsmith@example.com, The Man).
+. Click btn:[Create].
+
+. Choose a passphrase that is strong but also easy to remember in the dialog that is displayed.
+
+. Click btn:[OK] and the key is created.
+
+See now <<backup-gpg-keys-gnome>>.

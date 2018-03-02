@@ -1,0 +1,19 @@
+[[exporting-gpg-keys-cli]]
+= Exporting a GPG Key Using the Command Line
+
+Use the following command to send your key to a public keyserver:
+
+----
+gpg2 --send-key KEYNAME
+----
+
+For `KEYNAME`, substitute the key ID or fingerprint of your primary keypair.
+This will send your key to the gnupg default key server (keys.gnupg.net), if you prefer another one use:
+
+----
+gpg2 --keyserver hkp://pgp.mit.edu --send-key KEYNAME
+----
+
+Replacing `pgp.mit.edu` with your server of choice.
+
+See now <<safeguarding-your-secret-key>>.

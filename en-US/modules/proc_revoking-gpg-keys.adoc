@@ -1,0 +1,45 @@
+[[revoking-gpg-keys]]
+= GPG Key Revocation
+
+When you revoke a key, you withdraw it from public use.
+_You should only have to do this if it is compromised or lost, or you forget the passphrase._
+
+[[generating-a-revocation-certificate]]
+== Generating a Revocation Certificate
+
+When you create the key pair you should also create a key revocation certificate.
+If you later issue the revocation certificate, it notifies others that the public key is not to be used.
+Users may still use a revoked public key to verify old signatures, but not encrypt messages.
+As long as you still have access to the private key, messages received previously may still be decrypted.
+If you forget the passphrase, you will not be able to decrypt messages encrypted to that key.
+
+----
+gpg2 --output revoke.asc --gen-revoke KEYNAME
+----
+
+If you do not use the `--output` flag, the certificate will print to standard output.
+
+For `KEYNAME`, substitute either the key ID of your primary keypair or any part of a user ID that identifies your keypair.
+Once you create the certificate (the `revoke.asc` file), you should protect it.
+If it is published by accident or through the malicious actions of others, the public key will become unusable.
+It is a good idea to write the revocation certificate to secure removable media or print out a hard copy for secure storage to maintain secrecy.
+
+[[revoking-a-key]]
+== Revoking a key
+
+. Revoke the key locally:
++
+----
+gpg2 --import revoke.asc
+----
++
+Once you locally revoke the key, you must send the revoked certificate to a keyserver, regardless of whether the key was originally issued in this way.
+Distribution through a server helps other users to quickly become aware the key has been compromised.
+
+. Export to a keyserver with the following command:
++
+----
+gpg2 --keyserver subkeys.pgp.net --send KEYNAME
+----
++
+For `KEYNAME`, substitute either the key ID of your primary keypair or any part of a user ID that identifies your keypair.

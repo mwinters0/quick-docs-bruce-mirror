@@ -1,0 +1,14 @@
+[[exporting-gpg-keys-gnome]]
+= Exporting a GPG Key Using the GNOME Desktop
+
+. Right-click the key and select _Sync and Publish Keys...._
+
+. Click _Key Servers_.
+
+. Select _hkp://subkeys.pgp.net:11371_ in the _Publish Keys To_ combobox.
+
+. Click btn:[Close].
+
+. Click btn:[Sync].
+
+See now <<safeguarding-your-secret-key>>.

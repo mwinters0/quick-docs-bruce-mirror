@@ -1,0 +1,13 @@
+[[backup-gpg-keys-kde]]
+= Making a Key Backup Using the KDE Desktop
+
+. Right-click your key and select _Export Secret Key_.
+
+. Click btn:[Export] to continue at the confirmation dialog.
+
+. Select a destination filename.
+
+. Click btn:[Save].
+
+Store the copy in a secure place, such as a locked container.
+See <<exporting-gpg-keys-kde>>.

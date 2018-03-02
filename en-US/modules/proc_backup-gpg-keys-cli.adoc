@@ -1,0 +1,12 @@
+[[backup-gpg-keys-cli]]
+= Making a Key Backup Using the Command Line
+
+ Use the following command to make the backup, which you can then copy to a destination of your choice:
+
+----
+gpg2 --export-secret-keys --armor jqdoe@example.com > jqdoe-privkey.asc
+----
+
+Store the copy in a secure place, such as a locked container.
+
+See now <<exporting-gpg-keys-cli>>.

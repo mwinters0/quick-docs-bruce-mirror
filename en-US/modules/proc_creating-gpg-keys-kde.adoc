@@ -1,0 +1,16 @@
+[[creating-gpg-keys-kde]]
+= Creating GPG Keys Using the KDE Desktop
+
+. Start the KGpg program from the main menu by selecting menu:Utilities[PIM > KGpg].
+If you have never used KGpg before, the program walks you through the process of creating your own GPG keypair.
+
+. Enter your name, email address, and an optional comment in the dialog box that appears prompting you to create a new key pair.
+You can also choose an expiration time for your key, as well as the key strength (number of bits) and algorithms.
+
+. Enter your passphrase in the next dialog box.
+At this point, your key appears in the main KGpg window.
+
+To find your GPG key ID, look in the _Key ID_ column next to the newly created key.
+In most cases, if you are asked for the key ID, you should prepend `0x` to the key ID, as in `0x6789ABCD`.
+
+See now <<backup-gpg-keys-kde>>.

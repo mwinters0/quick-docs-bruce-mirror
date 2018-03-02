@@ -1,0 +1,12 @@
+[[backup-gpg-keys-gnome]]
+= Making a Key Backup Using the GNOME Desktop
+
+. Right-click your key and select _Properties_.
+
+. Select the _Details_ tab, and _Export_, next to the _Export Complete Key_ label.
+
+. Select a destination filename and click btn:[Save].
+
+. Store the copy in a secure place, such as a locked container.
+
+See now <<exporting-gpg-keys-gnome>>.

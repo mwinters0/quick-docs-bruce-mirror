@@ -73,7 +73,7 @@ Topics:
     File: build-custom-kernel
   - Name: Bumblebee
     File: bumblebee
-  - Name: (FIX ME!) Creating GPG Keys
+  - Name: Creating GPG Keys
     File: create-gpg-keys
   - Name: (FIX ME!) How to create a GNU Hello RPM package
     File: create-hello-world-rpm
