@@ -95,7 +95,7 @@ Topics:
     File: fedora-life-cycle
   - Name: (FIX ME!) Firewalld
     File: firewalld
-  - Name: (FIX ME!) Flash
+  - Name: (CHECK) Flash
     File: flash
   - Name: (FIX ME!) Kernel
     File: kernel
