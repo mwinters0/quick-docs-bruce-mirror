@@ -69,7 +69,7 @@ Topics:
         File: anaconda_product_image
   - Name: (FIX ME!) AutoUpdates
     File: autoupdates
-  - Name: (FIX ME!) Building a custom kernel
+  - Name: (CHECK) Building a custom kernel
     File: build-custom-kernel
   - Name: Bumblebee
     File: bumblebee

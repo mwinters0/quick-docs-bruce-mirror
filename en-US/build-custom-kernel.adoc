@@ -1,383 +1,170 @@
-= Building a custom kernel
+[[ch-build-custom-kernel]]
+= Building a Custom Kernel
 
-'''
+[NOTE]
 
-[IMPORTANT]
-======
+====
 
-This page was automatically converted from https://fedoraproject.org/wiki/Building_a_custom_kernel
+This document provides instructions for advanced users who want to rebuild the kernel from source.
+Any issues with a custom kernel build are *not supported* by the Fedora kernel team.
 
-It is probably
+====
 
-* Badly formatted
-* Missing graphics and tables that do not convert well from mediawiki
-* Out-of-date
-* In need of other love
+[[sect-why-build-a-custom-kernel]]
+== Why Build a Custom Kernel?
 
+Some common reasons to build a custom kernel are to:
 
-Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
+.. Change configuration options
 
-Once you've fixed this page, remove this notice, and update
-`_topic_map.yml`.
+.. Troubleshoot issues
 
-Once the document is live, go to the original wiki page and replace its text
-with the following macro:
+.. Add patches
 
-....
-{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
-....
+[[sect-preparing-to-build-a-custom-kernel]]
+== Preparing to build a custom kernel
 
-======
+The Fedora kernel is just another package in Fedora and can be compiled like any other application.
+The easiest way to compile the kernel is to use the tools provided by the `fedora-packager` package.
+This will install basic tools like `fedpkg` which is used to download the kernel source code onto your computer.
 
-'''
+To install `fedora-packager` from the command-line, enter:
 
+[source,bash]
 
-This document provides instructions for advanced users who want to
-rebuild the kernel from some source. Note, however, that when building
-or running any such kernel, one should NOT expect support from the
-Fedora kernel team; you're pretty much on your own here if something
-doesn't work as you'd hoped or expected. But hey, you're an advanced
-user, so you can handle it, right? Anyway, advanced users build custom
-kernels for a variety of reasons:
+----
 
-* To apply patches for testing that they either generated or obtained
-from another source
-* To reconfigure the existing kernel
-* To learn more about the kernel and kernel development
+sudo dnf install fedora-packager
 
-[[dependencies-for-building-kernels]]
-Dependencies for building kernels
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----
 
-Not all of these will apply to all methods but this provides a good
-dependency list of items to install
+`fedpkg` will make a clone of the Fedora kernel from link:++http://pkgs.fedoraproject.org/cgit/rpms/kernel.git/++[pkg-git] into a directory called ‘kernel’.
+By default, the source that is "checked out" will be the link:++https://fedoraproject.org/wiki/Releases/Rawhide++[Rawhide] kernel.
+Each Fedora release has its own branch and you can change branches using `git` commands.
+For example, to "check out" the source for Fedora 27, we would run the following commands:
 
-`# sudo dnf install fedpkg fedora-packager rpmdevtools ncurses-devel pesign`
+[source,bash]
 
-Give the following command from the top directory of the kernel source
-tree once you have checked it out
+----
 
-`# sudo dnf builddep kernel.spec`
+fedpkg co -a kernel
 
-if you plan to run 'make xconfig'
+cd kernel
 
-`# sudo dnf install qt3-devel libXi-devel gcc-c++`
+git checkout -b my_kernel origin/f27
 
-Also make sure you add the user doing the build to /etc/pesign/users and
-run the authorize user script:
+----
 
-`# sudo /usr/libexec/pesign/pesign-authorize-users`
+This creates a git branch named 'my_kernel' containing the kernel source for Fedora 27.
 
-It should be noted that pesign pesign-rh-test-certs gets pulled in
-automatically for some, but not for everyone, it depends on how you
-installed pesign. It is best to make sure that you have it installed.
+[NOTE]
 
-[[building-a-kernel-from-the-fedora-source-tree]]
-Building a Kernel from the Fedora source tree
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+====
 
-Make sure you have installed all dependencies
+Be sure to change the version number to whatever version of Fedora you are using.
 
-`$ fedpkg clone kernel`
+====
 
-you will likely need to checkout the source anonymously unless you have
-an Fedora developer account
+[[sect-building-the-kernel]]
+== Building the kernel
 
-`$ fedpkg clone -a kernel`
+The kernel has a number of build dependencies that can be installed with:
 
-As of the time of this wiki writing, the kernel is managed using git.
-Each fedora release is a separate branch. rawhide tracks master. To get
-the tree for a particular release, you can use git checkout from the top
-of your newly created source tree.
+[source,bash]
 
-e.g. for fedora 23,
+----
 
-`$ git checkout origin/f23`
+sudo dnf builddep kernel.spec
 
-You can now make whatever changes / customizations you need before
-generating the rpms and installing them. You may want to consider
-uncommenting
+----
 
-`# define buildid .local`
+Changes to kernel configuration options can be added to the file `config-local`.
 
-to avoid conflicts, e.g.
+When building a kernel for testing, it is best to use an identifiable name.
+This makes it easy to distinguish your custom kernel from the official Fedora kernel builds.
+Find the line in the `kernel.spec` file that says:
 
-`%define buildid .local`
+`# define buildid .local` 
 
-When finished, generate the appropriate rpms with
+and change it to:
 
-`$ fedpkg local`
+`%define buildid .my_kernel`
 
-The rpms will be generated in a subdirectory $ARCH which can then be
-installed:
+This will add _my_kernel_ to the the RPM package file names and will look something like this:
 
-`$ dnf install --nogpgcheck ./x86_64/kernel-$version.rpm`
+`kernel-4.15.3-300.my_kernel.fc27.src.rpm`
 
-[[building-a-non-debugging-kernel]]
-Building a non-debugging kernel
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+To build the packages enter:
 
-Branched kernels are built with debugging enabled by default in the
-early stages of the release to assist developers. To make a kernel with
-debugging information disabled, you can follow the above instructions to
-check out and do:
+[source,bash]
 
-`$ make release`
+----
 
-`$ fedpkg local`
+fedpkg local
 
-[[enabling-config-options]]
-Enabling config options
-^^^^^^^^^^^^^^^^^^^^^^^
+----
 
-If there are configuration options that need to be adjusted for your
-build, you can add changes in the kernel-local file. These changes will
-get picked up when you build.
+This will create all the kernel packages in the `x86_64` directory (or the name of the architecture you are building for).
+This will take a long time as it is creating all the kernel, module and debug packages.
+Also, it will require over 12 GB of disk space.
 
-[[updating]]
-Updating
-^^^^^^^^
+If you want to create only the kernel and modules packages, you can use the `fast-build.sh` script.
+First enter:
 
-* `$ cd kernel`
-* `kernel $ git status`
-** your tree will be dirty in the configs and kernel.spec
-* `kernel $ git stash`
-** puts aside your changes so your tree will be clean
-* `kernel $ git pull origin`
-** update to the latest tree from fedpkg git
+[source,bash]
 
-Now you can run whatever other commands you want (e.g. make release)
+----
 
-[[building-a-kernel-from-the-exploded-git-trees]]
-Building a kernel from the exploded git trees
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+fedpkg srpm
 
-Fedora keeps a git tree containing Fedora patches applied on top of the
-vanilla sources.
+----
 
-`$ git clone `git://git.kernel.org/pub/scm/linux/kernel/git/jwboyer/fedora.git[`git://git.kernel.org/pub/scm/linux/kernel/git/jwboyer/fedora.git`]
+The result should look something like this:
 
-`$ git checkout -b my_branch kernel-4.7.4-200.fc24`
+`Wrote /current/path/kernel-4.15.3-300.my_kernel.fc27.src.rpm`
 
-You can now build the kernel following regular kernel instructions. This
-tree is useful for generating patches that can be applied to the
-kernel.spec.
+Now enter:
 
-[[building-a-kernel-from-the-source-rpm]]
-Building a Kernel from the source RPM
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[source,bash]
 
-Instructions for this are on a link:Building_a_custom_kernel/Source_RPM[
-separate page]. In general, you should use one of the other methods for
-building the kernel which are much easier.
+----
 
-[[building-only-kernel-modules-out-of-tree-modules]]
-Building Only Kernel Modules (Out Of Tree Modules)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./scripts/fast-build.sh x86_64 kernel-4.15.3-300.my_kernel.fc27.src.rpm
 
-This section is for users who are only interested in working on a kernel
-module, and who do not wish to build an entire custom kernel. It is not
-necessary to download and rebuild the entire kernel in order to build a
-module. To build a module for the currently running kernel, only the
-matching `kernel-devel` package is required. Run the following command
-to install the `kernel-devel` package using `dnf`.
+----
 
-....
-su -c 'dnf install kernel-devel'
-....
+If you need to add patches use the script `newpatch.sh` like this:
 
-You can build against any kernel version, as long as you have `kernel`
-and `kernel-devel` packages installed for that version. The rest of this
-section assumes we're building for the running kernel; if not, replace
-`\`uname -r\`` with the desired version number.
+[source,bash]
 
-As a simple example, to build the `foo.ko` module from `foo.c`, create
-the following `Makefile` in the directory containing the `foo.c` file:
+----
 
-....
-obj-m := foo.o
+./scripts/newpatch.sh my-patch.patch
 
-KDIR  := /lib/modules/$(shell uname -r)/build
-PWD   := $(shell pwd)
+----
 
-default:
-[TAB]$(MAKE) -C $(KDIR) M=$(PWD) modules
-....
+(where `my-patch.patch` is the file name of the patch.)
 
-[TAB] Denotes a tab character which must come first for makefile lines
-containing commands.
+Once it is complete, you can install/update your system with your custom kernel build.
+`cd` into the directory created in the kernel build process (`x86_64`, `x86`, etc.) and type:
 
-Then, issue the `make` command to build the `foo.ko` module.
+[source,bash]
 
-The above is a helpful local Makefile wrapper invoking kbuild; in
-general you can simply do things like
+----
 
-....
-# make -C /lib/modules/`uname -r`/build M=`pwd` modules
-# make -C /lib/modules/`uname -r`/build M=`pwd` clean
-# make -C /lib/modules/`uname -r`/build M=`pwd` modules_install
-....
+sudo dnf update kernel*.rpm
 
-etc to build those targets.
+----
 
-[[building-vanilla-upstream-kernel]]
-Building Vanilla upstream kernel
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+It will update any kernel packages you currently have installed on your computer.
 
-Sometimes a Fedora developer may ask you to try building and installing
-an upstream kernel (possibly with a patch added) for testing. If there
-are multiple iterations, it may be quicker for you to do this than for
-the developer to turn around several RPMs.
+[[sect-additional-resources]]
+== Additional Resources:
 
-[[existing-fedora-vanilla-packages]]
-Existing Fedora Vanilla packages
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+For more information on building a custom kernel refer to the link:++https://fedoraproject.org/wiki/Building_a_custom_kernel++[Fedora Wiki: Building a Custom Kernel].
 
-There is an effort underway for packaging vanilla kernels.
-link:Kernel_Vanilla_Repositories[ See if this meets your needs first]
+[[sect-credit]]
 
-[[getting-the-sources]]
-Getting the sources
-^^^^^^^^^^^^^^^^^^^
+== Credits:
 
-Clone a kernel tree from kernel.org
-
-`$ git clone `git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git[`git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git`]
-This will clone the entire upstream tree. This may take a while
-depending on your connection speed. (While the tree is syncing, why not
-take the time to update some steps on this wiki that are inevitably out
-of date?)
-
-`$ cd linux`
-
-Double check what baseline is being used and check out a new one if
-necessary:
-
-`$ git checkout v4.5.2`
-
-[[applying-patches]]
-Applying patches
-^^^^^^^^^^^^^^^^
-
-[[the-patch-method]]
-The patch method
-++++++++++++++++
-
-If you were asked to apply any patches by the developer, this is the
-stage at which we would do so. These would typically be applied using a
-command something like..
-
-`$ cat ~/testpatch.diff | patch -p1`
-
-If you have to try multiple different patches individually, you can
-unapply the previous one after testing by adding -R on the end of the
-above command.
-
-[[the-git-method]]
-The git method
-++++++++++++++
-
-Most developers these days generate patches using git and you can use
-git to help apply patches. You can do:
-
-`$ git am -3 `
-
-This will create a git commit of a single patch in your tree.
-
-[[configuring-the-kernel]]
-Configuring the kernel
-^^^^^^^^^^^^^^^^^^^^^^
-
-Chances are that the kernel you are running is older than the one you
-are about to configure. This means there will be new options. There are
-several possibilities here.
-
-* If the developer has pointed you at a specific config file to use,
-save it in the linux directory with the filename .config
-* You can take your existing .config file by using the command
-`cp /boot/config-\`uname -r\`* .config`
-
-When you run the next step, you'll be asked (potentially lots of)
-questions about all the new options. Just hitting return 'should' always
-pick the safe decision for each option. However, it's worth taking care
-and reading each option, as this isn't always the case, and they may
-introduce new features your distro isn't capable of running, which may
-result in a non-booting system.
-
-* FIXME how to grab a rawhide config
-
-With the config in place, you are now ready to move on to the next step.
-
-[[building-the-kernel]]
-Building the kernel
-^^^^^^^^^^^^^^^^^^^
-
-`$EDITOR Makefile` Change the EXTRAVERSION line to add something on the
-end. For example, if it reads "EXTRAVERSION = -rc5" change it to
-"EXTRAVERSION = -rc5-dave" (what you choose is only relevant for the
-final part of this procedure)
-
-`$ make oldconfig`
-
-`$ make bzImage`
-
-`$ make modules`
-
-(become root)
-
-`# make modules_install`
-
-`# make install`
-
-You have now built and installed a kernel. It will show up in the grub
-menu next time you reboot.
-
-[[rebuilding]]
-Rebuilding
-^^^^^^^^^^
-
-If you have been asked to try several different things, the procedure
-once you have already built the tree once is mostly the same. A
-`make clean` is recommended between builds. This will leave the .config
-in place, so you can skip that step above and proceed straight to the
-`make bzImage` part of the steps above. Because we installed ccache in
-the first step, subsequent builds may go a lot faster as the compiler
-hits files that haven't changed since the last time it built them.
-
-[[cleaning-up]]
-Cleaning up
-^^^^^^^^^^^
-
-Once you have tested the kernel, and you've booted back to one of your
-kernels installed from an RPM, you can clean up the files that the above
-procedure installed by becoming root, and calling these commands. (Be
-sure to get the kernel version correct!) Remember above, we changed
-EXTRAVERSION to add a 'tag' to the kernel ? All the files it installed
-will have this as part of the filename. So you should be able to use
-wildcards to delete them safely using commands similar to those below.
-(Just replace 'dave' with whatever tag you chose)
-
-....
-rm -f /boot/config-2.6.*dave* /boot/initrd-2.6.*dave* /boot/vmlinuz-*dave* /boot/System.map-*dave*
-rm -rf /lib/modules/2.6*dave*
-....
-
-Finally, you will need to remove the kernel as an option to your
-bootloader. This will change from architecture to architecture. For x86,
-(as root), edit /boot/grub2/grub.cfg or /boot/efi/EFI/fedora/grub.cfg if
-you have EFI enabled and delete the four lines relating to your kernel
-(They should be easy to spot, they'll be the ones with your tag).
-They'll look something like this..
-
-....
-title Fedora Core (2.6.22-rc3-dave)
-root (hd0,0)
-kernel /vmlinuz-2.6.22-rc3-dave ro root=/dev/md0
-initrd /initrd-2.6.22-rc3-dave.img
-....
-
-Category:Documentation Category:Tutorials
-'''
-
-See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
+This document is an updated and edited version of the article link:++https://fedoramagazine.org/building-fedora-kernel/++[Building the Fedora Kernel] from the link:++https://fedoramagazine.org++[Fedora Magazine].
