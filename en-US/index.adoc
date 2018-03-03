@@ -24,7 +24,7 @@ explain, you can create a new document from scratch.
 
 == Steps
 
-1. Pick a document to update.
+1. Pick a document to update.  You can find documents needing updates in the `_topic_map.yml` file.  They are on the commented lines (those that start with a `#`).
 2. Fork the https://pagure.io/fedora-docs/quick-docs repo.
 3. Make your changes to the `.adoc` file you want to improve.
 4. Update `_topic_map.yml` to remove "`(FIX ME!)`"
