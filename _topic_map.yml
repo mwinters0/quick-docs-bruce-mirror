@@ -12,6 +12,8 @@ Topics:
     File: dnf-system-upgrade
   - Name: How to reset a root password
     File: reset-root-password
+  - Name: DNF
+    File: dnf
   - Name: Getting started with Apache HTTP Server
     File: getting-started-with-apache-http-server
   - Name: Installing Java
@@ -93,8 +95,6 @@ Topics:
 #   File: debug-systemd-problems
 # - Name: (FIX ME!) How to debug Wayland problems
 #   File: debug-wayland-problems
-# - Name: (FIX ME!) DNF
-#   File: dnf
 # - Name: (FIX ME!) How to edit iptables rules
 #   File: edit-iptables-rules
 # - Name: (FIX ME!) How to enable touchpad click
