@@ -1,176 +1,84 @@
+[[ch-Upgrading]]
 = Upgrading
 
-'''
-
 [IMPORTANT]
-======
+====
 
-This page was automatically converted from https://fedoraproject.org/wiki/Upgrading
+. Be sure to *back-up your data* before upgrading your Fedora system in the event something breaks and leaves your system unusable.
+. Read the link:++https://fedoraproject.org/wiki/Releases#Current_Supported_Releases++[Release
+Notes] carefully before attempting an upgrade.
 
-It is probably
-
-* Badly formatted
-* Missing graphics and tables that do not convert well from mediawiki
-* Out-of-date
-* In need of other love
+====
 
 
-Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
+[[sect-upgrading-to-the-next-fedora-workstation-release]]
+== Upgrading to the next Fedora Workstation release
 
-Once you've fixed this page, remove this notice, and update
-`_topic_map.yml`.
-
-Once the document is live, go to the original wiki page and replace its text
-with the following macro:
-
-....
-{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
-....
-
-======
-
-'''
-
-
-[[upgrading-fedora-workstation]]
-Upgrading Fedora Workstation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Fedora Workstation 23 and later include a graphical system upgrade
-mechanism. When a newer stable release is available, you should see a
-graphical notification, similar to the ones you see for system updates.
-Clicking this, or running the _Software_ application and going to the
-_Updates_ pane, should show you a simple graphical interface for
-upgrading the system. It will first download the upgrade files, then
-prompt you to reboot the system and install them, again in similar
-fashion to a system update. When the upgrade is complete, the system
-will reboot again to the new release.
+As of Fedora Workstation 23, when the next stable release is available a graphical notification will appear similar to the update notifications.
+Clicking this, or running the _Software_ application and going to the _Updates_ pane, will display a simple graphical interface for upgrading the system.
+It will download the upgrade files, then prompt for a reboot to install them, similar to a system update.
+When the upgrade is complete, the system will automatically reboot into the new release.
 
 image:Upgradef24f25-gs.png[Upgradef24f25-gs.png,title="Upgradef24f25-gs.png",width=640]
 
-[[upgrading-with-dnf-system-upgrade-plugin]]
-Upgrading with DNF system upgrade plugin
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[[sect-upgrading-using-the-dnf-system-upgrade-plugin]]
+== Upgrading using the DNF System Upgrade plugin
 
-For instructions on upgrading with the DNF system upgrade plugin, refer
-to link:DNF_system_upgrade[the dedicated page]. This mechanism can also
-be used for Fedora Workstation upgrades if you prefer a command-line
-tool or if you need to try and analyze some kind of package issue that
-seems to be preventing the graphical method from working.
+This method is used to upgrade Fedora Workstation from the command-line.
+It is also used to troubleshoot issues with packages preventing the graphical method from upgrading.
 
-[[online-rebases-for-fedora-atomic-host-via-rpm-ostree]]
-Online rebases for
-https://getfedora.org/en/cloud/download/atomic.html[Fedora Atomic Host]
-via rpm-ostree
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+For instructions on upgrading with the DNF system upgrade plugin, refer to the link:++dnf-system-upgrade.html++[DNF System Upgrade Quick Doc].
 
-For instructions on upgrading Fedora Atomic Host installations between
-Fedora releases, refer to link:Atomic_Host_upgrade[the dedicated page].
+[[sect-upgrading-the-fedora-atomic-host-via-rpm-ostree]]
+== Upgrading the Fedora Atomic Host via rpm-ostree
 
-[[online-upgrade-with-pure-dnf]]
-Online upgrade with pure DNF
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+For instructions on upgrading Fedora Atomic Host installations between Fedora releases, refer to the link:++atomic-host-upgrade.html++[Atomic Host Upgrade Quick Doc].
 
-Upgrading from one release to the next using directly, without the DNF
-system upgrade plugin, is not explicitly tested by Fedora QA and issues
-with it are not considered blockers for a release, but in practice it
-works for many users. To learn more, refer to
-link:Upgrading_Fedora_using_package_manager[Upgrading Fedora using dnf].
+[[sect-can-i-upgrade-between-fedora-releases-using-only-dnf]]
+== Can I upgrade between Fedora releases using only DNF?
 
-[[updating-from-a-pre-release-alpha-beta-or-other-development-snapshot-to-the-final-release]]
-Updating from a pre-release (Alpha, Beta, or other development snapshot)
-to the final release
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Upgrading between Fedora releases without the link:++dnf_system_upgrade.html++[DNF system upgrade plugin] is not tested by the Fedora QA team.
+Any issues using this method are not considered blockers for a release but in practice works for many users.
 
-If you are using a pre-release of Fedora, and want to know more about
-upgrading to the final release, refer to
-link:Upgrading_from_pre-release_to_final[Upgrading from pre-release to
-final]. This is not technically an 'upgrade' operation, it is simply an
-update, but there are some special considerations involved in making
-sure you stay on the update track you intend to use, which are
-documented on this page.
+[[sect-can-i-update-from-a-pre-release-alpha-beta-or-other-development-snapshot-to-the-final-release]]
+== Can I update from a pre-release (Alpha, Beta, or other development snapshot) to the final release?
 
-[[tips]]
-Tips
-~~~~
+If you are using a pre-release of Fedora, and want to know more about upgrading to the final release, refer to the
+link:++https://fedoraproject.org/wiki/Upgrading_from_pre-release_to_final++[Upgrading from pre-release to final] page.
+This is technically not an 'upgrade' operation, but an update.
+There are some special considerations involved in making sure you stay on the update track you intend to use, which are documented on that page.
 
-* Ensure you have a good backup of your data.
+[[sect-how-do-i-upgrade-to-rawhide-and-branched]]
+== How do I upgrade to Rawhide and Branched?
 
-* Ensure you read the
-http://docs.fedoraproject.org/en-US/Fedora/%7B%7BFedoraVersionNumber%7D%7D/html/Release_Notes/[Release
-Notes] carefully before attempting an upgrade.
+link:++https://fedoraproject.org/wiki/Releases/Rawhide++[Rawhide] and link:++https://fedoraproject.org/wiki/Releases/Branched++[Branched] are the development releases of Fedora.
+They are suitable for users developing or testing Fedora before public release.
+They are *NOT SUITABLE* for regular day-to-day use unless you are a fairly experienced user, and certainly not suitable for mission-critical use.
+You should read through those pages carefully before deciding to run Branched or Rawhide.
+See the link:++fedora-life-cycle.html++[Fedora Life Cycle Quick Doc] for more information on how the whole Fedora cycle works from Rawhide, to Branched, to the milestone releases (Alpha and Beta), to a 'final' release.
 
-[[upgrading-to-rawhide-and-branched]]
-Upgrading to Rawhide and Branched
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Upgrading to a Branched release or to Rawhide can be done with the link:++dnf_system_upgrade.html++[DNF system upgrade plugin].
+Carefully read this page as there are some special notes to ensure a successful upgrade.
 
-link:Releases/Rawhide[Rawhide] and link:Releases/Branched[Branched] are
-the development releases of Fedora. They are suitable for people who are
-developing or testing Fedora before broad public release. They are *NOT
-SUITABLE* for regular day-to-day use unless you are a fairly experienced
-user, and certainly not suitable for mission-critical use. You should
-read through those pages carefully before deciding to run Branched or,
-particularly, Rawhide. See link:Fedora_Release_Life_Cycle[Fedora Release
-Life Cycle] for more information on how the whole Fedora cycle works
-from Rawhide, to Branched, to the milestone releases (Alpha and Beta),
-to a 'final' release.
+[[sect-can-i-upgrade-using-the-fedora-installer-anaconda]]
+== Can I upgrade using the Fedora installer (anaconda)?
 
-If you are sure you want to do it, upgrading to a Branched release or to
-Rawhide can be done with link:DNF_system_upgrade[DNF system upgrade]
-just like upgrading to a newer stable release. There are just a couple
-of special notes that are covered in the instructions.
+Fedora releases up to Fedora 17 included upgrade functionality in the Fedora installer, anaconda.
+This can be a better choice than a package manager upgrade for some End Of Life (EOL) upgrades.
+If you are attempting to upgrade from Fedora 16 or older, it is highly recommended to upgrade to Fedora 16 and perform an installer upgrade from Fedora 16 to Fedora 17 before upgrading any further.
 
-[[upgrading-from-end-of-life-releases]]
-Upgrading from link:End_of_life[End of life] releases
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+To upgrade using the installer, boot the system from a network install or DVD image for the target release, and run through the initial steps of the install process.
+After you select storage devices the installer should offer you the option to upgrade the installed system.
 
-Note that Fedora strongly recommends against ever running an end-of-life
-release on any production system, or any system connected to the public
-internet, in any circumstances. You should never allow a production
-Fedora deployment to reach end-of-life in the first place.
+[IMPORTANT]
+====
 
-With that in mind, if you do have an end-of-life release installed on a
-system you cannot just discard or re-deploy, you can attempt to upgrade
-it, though this is not officially tested or supported.
+If your installation is located on a 'specialized' storage device, be sure to configure and select it.
 
-If you have Fedora 21 or later, you can try to upgrade using
-link:DNF_system_upgrade#eol[DNF system upgrade].
+====
 
-If you have Fedora 20 or earlier, you will have to perform at least part
-of the upgrade with
-link:Upgrading_from_EOL_Fedora_using_package_manager[bare ]. You can
-either use that method to upgrade to Fedora 21 or later and then use
-link:DNF_system_upgrade[DNF system upgrade] to upgrade from there to a
-currently-supported release, or just use bare or for the entire upgrade
-process.
+[[sect-upgrading-from-end-of-life-releases]]
+== Can I upgrade from an End Of Life (EOL) release?
 
-Note that when upgrading from Fedora 20 or earlier, you are both
-upgrading from an end-of-life release and using a
-not-officially-recommended upgrade mechanism; such upgrades are very
-much performed 'at your own risk' and may well require various kinds of
-manual intervention to run and clean up the upgraded system, if they
-work at all.
-
-[[upgrading-using-the-fedora-installer-anaconda]]
-Upgrading using the Fedora installer (anaconda)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Fedora releases up to Fedora 17 included upgrade functionality in the
-Fedora installer, anaconda. This can be a better choice than
-link:Upgrading_from_EOL_Fedora_using_package_manager[a package manager
-upgrade] for some EOL upgrades, especially upgrades to Fedora Core 2,
-Fedora Core 3, and Fedora 17. If you are attempting to upgrade from
-Fedora 16 or older, it is highly recommended to upgrade to Fedora 16 and
-then perform an installer upgrade from Fedora 16 to Fedora 17 before
-upgrading any further.
-
-To upgrade using the installer, boot the system from a network install
-or DVD image for the target release, and run through the initial steps
-of the install process. After you select storage devices - if your
-install is located on a 'specialized' storage device, ensure to
-configure and select it - the installer should offer you the option to
-upgrade the installed system.
-'''
-
-See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
+Fedora strongly discourages running an end-of-life release on any production system, or any system connected to the public internet.
+For more information, see the link:++dnf_system_upgrade.html++[DNF System Upgrade Quick Doc].

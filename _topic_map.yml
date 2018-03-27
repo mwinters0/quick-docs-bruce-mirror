@@ -115,7 +115,7 @@ Topics:
 #   File: reset-root-password
 # - Name: (FIX ME!) Using UEFI with QEMU
 #   File: uefi-with-qemu
-# - Name: (FIX ME!) Upgrading
-#   File: upgrading
+- Name: Upgrading
+  File: upgrading
 # - Name: (FIX ME!) Upgrading Fedora using package manager
 #   File: upgrading-fedora-online
