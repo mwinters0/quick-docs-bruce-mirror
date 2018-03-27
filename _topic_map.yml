@@ -99,8 +99,8 @@ Topics:
 #   File: enable-touchpad-click
 # - Name: (FIX ME!) Fedora Release Life Cycle
 #   File: fedora-life-cycle
-# - Name: (FIX ME!) Firewalld
-#   File: firewalld
+- Name: Firewalld
+  File: firewalld
 # - Name: (CHECK) Flash
 #   File: flash
 # - Name: (FIX ME!) Kernel
