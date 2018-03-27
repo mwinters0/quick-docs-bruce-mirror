@@ -93,8 +93,8 @@ Topics:
 #   File: debug-wayland-problems
 # - Name: (FIX ME!) DNF
 #   File: dnf
-# - Name: (FIX ME!) DNF system upgrade
-#   File: dnf-system-upgrade
+- Name: DNF system upgrade
+  File: dnf-system-upgrade
 # - Name: (FIX ME!) How to edit iptables rules
 #   File: edit-iptables-rules
 # - Name: (FIX ME!) How to enable touchpad click
