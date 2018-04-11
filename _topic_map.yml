@@ -12,6 +12,8 @@ Topics:
     File: installing-java
   - Name: Installing Chromium or Google Chrome browsers
     File: installing-chromium-or-google-chrome-browsers
+  - Name: How to use qemu
+    File: qemu
   - Name: Getting started with virtualization
     File: getting-started-with-virtualization
   - Name: Using nested virtualization in KVM
@@ -67,6 +69,7 @@ Topics:
     File: bumblebee
   - Name: Creating GPG Keys
     File: create-gpg-keys
+<<<<<<< HEAD
 # - Name: (CHECK) GRUB 2
 #   File: grub2
 # - Name: (FIX ME!) AutoUpdates
@@ -105,8 +108,6 @@ Topics:
 #   File: packagekit-not-found
 # - Name: (FIX ME!) PostgreSQL
 #   File: postgresql
-# - Name: (FIX ME!) How to use qemu
-#   File: qemu
 # - Name: (FIX ME!) Raspberry Pi
 #   File: raspberry-pi
 # - Name: (FIX ME!) How to reset a root password
