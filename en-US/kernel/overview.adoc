@@ -1,0 +1,192 @@
+= Fedora Linux Kernel Overview
+:toc:
+
+[[section-update-schedule]]
+== Update Schedule
+
+The https://src.fedoraproject.org/rpms/kernel[Fedora Linux kernel] closely
+follows the upstream https://www.kernel.org/[kernel releases]. To see the
+current versions in Fedora, https://apps.fedoraproject.org/packages/kernel[check
+out the packages application].
+
+=== Stable Releases
+
+Stable releases of Fedora receive two types of kernel updates.
+
+==== Stable kernel updates
+
+The upstream kernel community support the latest major version with stable
+updates (4.y.z releases). These updates are released approximately once a week,
+although they can occur more or less frequently. Once the upstream kernel
+community makes a stable release, Fedora builds it and submits it as an update
+to https://bodhi.fedoraproject.org/updates/?packages=kernel[Bodhi]. These
+updates are typically left in Bodhi for testing for several days before being
+submitted to the stable updates repository.
+
+==== Major kernel updates
+
+The Linux kernel releases new major versions (4.y releases)
+http://phb-crystal-ball.org/[every few months]. When this occurs, Fedora updates
+to the new major version after a couple upstream stable releases. When the
+updates are submitted to Bodhi, more time is allowed for testing than stable
+updates to ensure there are no serious regressions.
+
+=== Development Releases
+
+The development versions of Fedora include Rawhide and the Branched release.
+
+==== Rawhide
+
+The Rawhide kernel is the latest git snapshot of Linus'
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/[upstream
+kernel.org tree]. On a frequent (often daily) basis, a new snapshot is built.
+
+==== Branched
+
+https://fedoraproject.org/wiki/Releases/Branched[Branched releases] receive
+updates at less frequent intervals than Rawhide. Early on in the Branched
+release, it is typically using a pre-release version of the kernel, so each
+Release Candidate (RC) is built for Branched releases. Once the kernel is
+released, it receives stable updates just like the stable Fedora releases.
+
+
+[[debug-kernels]]
+== Debug Kernels
+
+The Linux kernel offers a number of configuration options to make debugging
+problems easier. However, some of these options have a performance cost so
+Fedora does not always turn these options on. When the debugging options have
+been turned off in the ``kernel`` package, a separate ``kernel-debug`` package
+is produced with those options on.
+
+=== Stable and Branched Kernels
+
+Stable and Branched kernels always disable the debugging options.
+
+=== Rawhide
+
+Rawhide kernels enable the debugging options. However, each release candidate
+kernel is built with debugging options disabled. Release candidate kernels
+can be recognized by their release field, which always has the git revision set
+to 0. For example, ``kernel-4.16.0-0.rc7.git0.1.fc28`` is the 7th release
+candidate kernel for Fedora 28.
+
+
+== Policies
+
+=== Out-of-tree Drivers
+
+The simplest method by far is for the driver to get merged upstream in Linus'
+kernel. Fedora constantly rebases to newer upstream releases, so inherits these
+changes "for free" with little overhead for the Fedora kernel maintainers.
+
+Adding external drivers to the Fedora kernel that aren't accepted upstream
+requires an ongoing effort for the Fedora kernel team, so where possible, we
+try to avoid doing so. In the few situations where it makes sense to do so,
+there are several criteria that must be met.
+
+* There must be reasonable demand for the feature for us taking on the burden
+  of carrying the code until it gets upstream.
+* Passes basic sanity checks (has been reviewed by at least one Fedora kernel
+  maintainer).
+* Has an upstream developer actively trying to get their code merged into Linus'
+  tree.
+* Has a Fedora developer responsible for keeping it up to date in Fedora.
+* Causes no discernible overhead for Fedora kernel maintainers. Code that must
+  be continually fixed up tends to end up getting dropped.
+* Doesn't add new system calls or similar ABI defining characteristics. This is
+  to avoid a situation where we could end up with incompatibilities between
+  distros/upstream.
+* How a symbol is exported needs to be accepted upstream first. This includes:
+** Adding an EXPORT_SYMBOL to export something that previously wasn't exported
+** Changing an EXPORT_SYMBOL_GPL to EXPORT_SYMBOL
+** Changing an EXPORT_SYMBOL to EXPORT_SYMBOL_GPL
+* In the rare case where we add exports that aren't upstream, we err on the side
+  of caution and use EXPORT_SYMBOL_GPL to export them. This is done partly as a
+  deterrent for 3rd-party modules not to use them. (As they may go away in the
+  future). The only exception to all of the above is in new not-yet-merged
+  upstream code that's being added. New symbols get to be exported however the
+  author intended.
+
+=== Staging
+
+The drivers in the staging directory of the Linux kernel are known to be in a
+rough and incomplete state. For the vast majority of these drivers, the kernel
+team considers it unsafe to build and ship them. We do not have the confidence
+in the existing code, nor do we have the time to debug issues in known
+problematic drivers.
+
+As with every policy, there are exceptions. Fedora ships a few staging drivers
+at the moment for various pieces of hardware. For the Fedora kernel team to
+enable a staging driver, the following conditions must be satisfied:
+
+* There must be substantive code review and improvement upstream. This means
+  actual fixes, and not just stylistic changes.
+* There must be a contributor willing to be assigned bug reports and deal with
+  upstream.
+* The contributor must be actively involved improving the driver upstream.
+* The driver must not result in an undue burden on the kernel team. This means
+  that if a large number of bug reports result from the driver, then fixes are
+  not occurring upstream quickly enough.
+* It must be understood that if any of these conditions are not met, or
+  eventually fail to be met, the driver will be disabled.
+
+=== Builtin Features
+
+From time to time, the Fedora kernel maintainers get asked to build something
+into the kernel. That is, the functionality is included in the vmlinux binary
+that every Fedora machine runs as opposed to being built as a module that is
+only loaded if needed. Given that it is loaded on every machine, we tend to
+build functionality as modules as much as possible. While one person might need
+the driver for an ATI card, another will not and having that built into the
+kernel is wasteful for really no reason.
+
+There are no set criteria that map exactly to whether something is built-in or
+not, but they generally follow these guidelines:
+
+* The option cannot be built as a module and is widely used
+* The option is not a driver/filesystem and used by something that is a Fedora
+  default
+* The option is a driver and used by a wide variety of machines (keyboard/mouse
+  drivers, VT support)
+* The option is a filesystem and is used by all machines or is the default
+  Fedora filesystem (tmpfs, ext4).
+
+Again, the above are general guidelines but for the most part we try and limit
+the overall size of the vmlinux that is loaded to a core set of functionality.
+
+If you find that the Fedora configuration options are not sufficient for your
+needs, you can rebuild the kernel and change options as you see fit. See the
+documentation on <<build-custom-kernel.adoc#,building a custom kernel>>.
+
+
+[[community]]
+== Getting Involved
+
+If you're interested in contributing to the development and maintenance of the
+Fedora kernel, check out the https://fedoraproject.org/wiki/Kernel[kernel wiki]
+for more information.
+
+[[mailing-lists]]
+=== Mailing Lists
+
+The mailto:kernel@lists.fedoraproject.org[Fedora kernel mailing list] is for
+Fedora-related kernel topics only. This includes Fedora-specific packaging and
+kernel configuration settings. For discussions about Linux itself see the
+https://kernelnewbies.org/ML[Kernelnewbies mailing lists] or the
+http://vger.kernel.org/vger-lists.html[Linux Kernel mailing lists].
+
+You can subscribe to the Fedora kernel mailing list and view the archive on
+https://lists.fedoraproject.org/archives/list/kernel@lists.fedoraproject.org/[
+Hyperkitty].
+
+[[irc]]
+=== IRC
+
+Users interested in the Fedora kernel hang out in the ``#fedora-kernel`` channel
+on https://freenode.net[freenode].
+
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.

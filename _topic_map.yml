@@ -80,6 +80,15 @@ Topics:
   - Name: Fedora Release Life Cycle
     File: fedora-life-cycle
   - Name: NVIDIA Optimus Bumblebee
+  - Name: Kernel
+    Dir: kernel
+    Topics:
+      - Name: Overview
+        File: overview
+      - Name: Troubleshooting
+        File: troubleshooting
+      - Name: Building a Custom Kernel
+        File: build-custom-kernel
     File: bumblebee
   - Name: Creating GPG Keys
     File: create-gpg-keys
@@ -93,8 +102,6 @@ Topics:
 #   File: grub2
 # - Name: (FIX ME!) AutoUpdates
 #   File: autoupdates
-# - Name: (CHECK) Building a custom kernel
-#   File: build-custom-kernel
 # - Name: (FIX ME!) How to debug Dracut problems
 #   File: debug-dracut-problems
 # - Name: (FIX ME!) How to debug Systemd problems
@@ -109,8 +116,6 @@ Topics:
 #   File: fedora-life-cycle
 # - Name: (CHECK) Flash
 #   File: flash
-# - Name: (FIX ME!) Kernel
-#   File: kernel
 # - Name: (FIX ME!) Mirroring
 #   File: mirroring
 # - Name: (FIX ME!) OpenH264

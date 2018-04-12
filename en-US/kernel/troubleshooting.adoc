@@ -1,0 +1,97 @@
+= Troubleshooting
+
+The kernel, like any software, has bugs. It's a large, complex project and it
+can be difficult to troubleshoot problems. This document covers some basic
+troubleshooting techniques to help narrow down the root cause of an issue.
+
+== Boot failures
+
+Sometimes the kernel fails to boot. Depending on where the problem is in the
+boot process, there may or may not be any output. Some good first steps are:
+
+* Remove `quiet` (enable more log messages) and `rhgb` (disable graphical boot)
+  from the boot flags. If the text output is too fast to read, add
+  `boot_delay=1000` (the number of milliseconds to delay in
+  between printk during boot). You can use a camera to take pictures of the
+  output.
+
+* Booting with vga=791 (or even just vga=1 if the video card won't support 791)
+  will put the framebuffer into high resolution mode to get more lines of text
+  on screen, allowing more context for bug analysis.
+
+* Add `initcall_debug` parameter, which traces the initcalls as they are
+  executed.
+
+* If you get no output at all from the kernel, sometimes booting with
+  `earlyprintk=vga` can sometimes yield something of interest.
+
+
+== Hangs and freezes
+
+* Checking whether or not the CapsLock key (or NumLock or ScrollLock) causes
+ the light on the keyboard to change state can be used as an indication of
+ whether or not the kernel has hung completely, or if there is something else
+ going on.
+
+* The SysRq magic keys may still work. You may need to add
+ `sysrq_always_enabled=1` to the kernel boot command line. See
+ https://fedoraproject.org/wiki/QA/Sysrq[the wiki article on SysRq on usage
+ details].
+
+* Setting `nmi_watchdog=1` on the kernel command line will cause a panic when
+an NMI watchdog timeout occurs.
+
+
+
+== Bisecting the kernel
+
+If the problem you've encountered isn't present in older versions of the
+kernel, it is very helpful to use `git-bisect` to find the commit that
+introduced the problem. For a general overview of `git-bisect`, see its
+https://git-scm.com/docs/git-bisect[documentation]. An outline on how to bisect
+the kernel is included in the
+https://www.kernel.org/doc/html/latest/admin-guide/bug-bisect.html[kernel
+documentation]. This guide contains Fedora-specific details.
+
+[NOTE]
+====
+
+Bisecting is a time-consuming task, but it's very straightforward and is
+often the best way to find the cause of a problem. If you're really interested
+in getting the problem you're seeing fixed, bisecting will speed up the process
+considerably in most cases.
+
+====
+
+. Find the newest version you can that works. This will be the initial "good"
+version. The first version you find that doesn't work will be the initial "bad"
+version.
+
+. Install the <<build-custom-kernel.adoc#get-the-dependencies,dependencies>>
+required to build the kernel
+
+. Next, <<build-custom-kernel.adoc#getting-the-sources,get the source code>>.
+
+. Prepare a `.config` file. Assuming you've got both the good and bad kernel
+installed, the config for both will be in `/boot/`.footnote:[When bisecting
+between major versions (e.g. `v4.16` and `v4.15`) new configuration options
+will be added and removed as you bisect. It's _usually_ safe to select the
+default.]
+
+. Start a new `git-bisect` with `git bisect start <bad> <good>`.
+
+. <<build-custom-kernel.adoc#building-the-kernel,Build the kernel>>. Sometimes
+commits cannot be built. If this happens, skip the commit with `git bisect
+skip`.
+
+. <<build-custom-kernel.adoc#installing-the-kernel,Install the kernel>>.
+
+. Reboot into the new kernel and test to see if the it works.
+
+. If the new kernel works, mark it as good with `git bisect good`. Otherwise,
+mark it as bad with `git bisect bad`.
+
+. Check out the next commit to test by running `git bisect next`.
+
+. Repeat the previous five steps until you've found the commit that introduced
+the problem.
