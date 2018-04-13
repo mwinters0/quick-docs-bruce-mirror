@@ -8,6 +8,8 @@ Topics:
     File: bootloading-with-grub2
   - Name: Upgrading
     File: upgrading
+  - Name: DNF system upgrade
+    File: dnf-system-upgrade
   - Name: How to reset a root password
     File: reset-root-password
   - Name: Getting started with Apache HTTP Server
@@ -93,8 +95,6 @@ Topics:
 #   File: debug-wayland-problems
 # - Name: (FIX ME!) DNF
 #   File: dnf
-- Name: DNF system upgrade
-  File: dnf-system-upgrade
 # - Name: (FIX ME!) How to edit iptables rules
 #   File: edit-iptables-rules
 # - Name: (FIX ME!) How to enable touchpad click
