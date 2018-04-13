@@ -69,7 +69,8 @@ Topics:
     File: bumblebee
   - Name: Creating GPG Keys
     File: create-gpg-keys
-<<<<<<< HEAD
+  - Name: Wine
+    File: wine
 # - Name: (CHECK) GRUB 2
 #   File: grub2
 # - Name: (FIX ME!) AutoUpdates
@@ -118,5 +119,3 @@ Topics:
 #   File: upgrading
 # - Name: (FIX ME!) Upgrading Fedora using package manager
 #   File: upgrading-fedora-online
-# - Name: (FIX ME!) Wine
-#   File: wine
