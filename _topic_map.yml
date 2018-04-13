@@ -75,6 +75,8 @@ Topics:
     File: create-gpg-keys
   - Name: Wine
     File: wine
+  - Name: Firewalld
+    File: firewalld
 # - Name: (CHECK) GRUB 2
 #   File: grub2
 # - Name: (FIX ME!) AutoUpdates
@@ -99,8 +101,6 @@ Topics:
 #   File: enable-touchpad-click
 # - Name: (FIX ME!) Fedora Release Life Cycle
 #   File: fedora-life-cycle
-- Name: Firewalld
-  File: firewalld
 # - Name: (CHECK) Flash
 #   File: flash
 # - Name: (FIX ME!) Kernel
