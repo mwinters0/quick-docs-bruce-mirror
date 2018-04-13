@@ -1,8 +1,5 @@
 = How to use qemu
 
-[[how-to-use-qemu]]
-== How to use QEMU
-
 QEMU is a very flexible virtualization technology however it is quite slow and it is recommended that you understand and evaluate alternative solutions before picking this one.
 Refer to https://fedoraproject.org/wiki/Getting_started_with_virtualization[Getting started with virtualization]
 
@@ -97,6 +94,3 @@ To get kernel output dumped to a file outside the virtual system, add e.g. "-ser
 When booting the virtual system, add "console=ttyS0" to the kernel boot parameters.
 
 This output is particularly helpful if you are having trouble booting the system, in which case you may also wish to remove "rhgb" and "quiet" from the kernel boot parameters.
-
-See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
