@@ -6,6 +6,8 @@ Topics:
     File: index
   - Name: Bootloading with GRUB2
     File: bootloading-with-grub2
+  - Name: Upgrading
+    File: upgrading
   - Name: Getting started with Apache HTTP Server
     File: getting-started-with-apache-http-server
   - Name: Installing Java
@@ -115,7 +117,5 @@ Topics:
 #   File: reset-root-password
 # - Name: (FIX ME!) Using UEFI with QEMU
 #   File: uefi-with-qemu
-- Name: Upgrading
-  File: upgrading
 # - Name: (FIX ME!) Upgrading Fedora using package manager
 #   File: upgrading-fedora-online
