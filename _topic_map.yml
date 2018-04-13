@@ -73,13 +73,13 @@ Topics:
         File: anaconda_logging
       - Name: Anaconda Product Image
         File: anaconda_product_image
-  - Name: Bumblebee
   - Name: Raspberry Pi
     File: raspberry-pi
   - Name: How to Create a GNU Hello World RPM Package
     File: create-hello-world-rpm
   - Name: Fedora Release Life Cycle
     File: fedora-life-cycle
+  - Name: NVIDIA Optimus Bumblebee
     File: bumblebee
   - Name: Creating GPG Keys
     File: create-gpg-keys
