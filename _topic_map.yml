@@ -80,6 +80,7 @@ Topics:
   - Name: Fedora Release Life Cycle
     File: fedora-life-cycle
   - Name: NVIDIA Optimus Bumblebee
+    File: bumblebee
   - Name: Kernel
     Dir: kernel
     Topics:
@@ -89,7 +90,6 @@ Topics:
         File: troubleshooting
       - Name: Building a Custom Kernel
         File: build-custom-kernel
-    File: bumblebee
   - Name: Creating GPG Keys
     File: create-gpg-keys
   - Name: Wine
