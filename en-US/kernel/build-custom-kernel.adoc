@@ -37,6 +37,13 @@ cd kernel
 sudo dnf builddep kernel.spec
 ----
 
+If you want to use `make xconfig`, you'll need some additional packages:
+
+[source,bash]
+----
+sudo dnf install qt3-devel libXi-devel gcc-c++
+----
+
 Make sure you add the user doing the build to `/etc/pesign/users` and run the
 authorize user script:
 
@@ -203,16 +210,6 @@ options enabled.
 There are several ways to change the configuration. You can run `make help` and
 look at the `Configuration targets` for the full list, but `make menuconfig`
 is a good place to start. You can also just edit the `.config` file directly.
-
-[NOTE]
-====
-If you plan to run `make xconfig`:
-
-[source,bash]
-----
-sudo dnf install qt3-devel libXi-devel gcc-c++
-----
-====
 
 === Building the kernel
 
