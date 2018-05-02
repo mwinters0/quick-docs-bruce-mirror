@@ -4,6 +4,7 @@ Dir: en-US
 Topics:
   - Name: Quick Docs in Progress (How to Help!)
     File: index
+#INSERT:4:remix-docs:en-US/remix-docs
   - Name: Bootloading with GRUB2
     File: bootloading-with-grub2
   - Name: Upgrading
