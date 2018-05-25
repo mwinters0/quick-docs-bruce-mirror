@@ -1,10 +1,10 @@
-= How to use qemu
+= How to use QEMU
 
 QEMU is a very flexible virtualization technology however it is quite slow and it is recommended that you understand and evaluate alternative solutions before picking this one.
 Refer to https://fedoraproject.org/wiki/Getting_started_with_virtualization[Getting started with virtualization]
 
 [[qemu]]
-== Qemu
+== QEMU
 
 QEMU is a generic and open source processor emulator which achieves a good emulation speed by using dynamic translation.
 
@@ -26,7 +26,7 @@ $ su -c "dnf install qemu"
 
 
 [[qemu-commands-since-f]]
-== Qemu commands since F?+
+== QEMU commands since F?+
 
 To discover the qemu commands that are installed perform the following:
 
@@ -49,7 +49,7 @@ qemu-i386
 Of course, this does not apply to "qemu-img".
 
 [[qemu-virtual-machine-installation]]
-== Qemu virtual machine installation
+== QEMU virtual machine installation
 
 Create the virtual image for the system:
 
