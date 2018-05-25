@@ -1,5 +1,5 @@
 [[ch-Upgrading]]
-= Upgrading Fedora
+= Upgrading to a new release of Fedora
 
 [IMPORTANT]
 ====
