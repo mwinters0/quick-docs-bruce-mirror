@@ -1,5 +1,5 @@
 [[ch-Upgrading]]
-= Upgrading
+= Upgrading Fedora
 
 [IMPORTANT]
 ====
