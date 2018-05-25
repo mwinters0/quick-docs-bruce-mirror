@@ -1,5 +1,5 @@
 [[installing-software-from-source]]
-= Installing Software from Source
+= Installing software from source code
 
 The following section contains guidelines and best practices for installing software from source code on Fedora.
 The instructions below are not prescriptive, but following them minimizes the risk of errors occurring during installation.
