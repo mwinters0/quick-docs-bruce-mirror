@@ -40,7 +40,7 @@ Optional Packages:
 Alternatively, to install the mandatory, default, and optional packages, run:
 +
 ----
-# dnf group install with-optional virtualization
+# dnf group install --with-optional virtualization
 ----
 +
 . After the packages install, start the `libvirtd` service:
