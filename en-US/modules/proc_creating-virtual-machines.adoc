@@ -81,7 +81,7 @@ Finally, run the virt-install command using the following format (adjusting para
 --vcpus 2 \
 --disk path=/var/lib/libvirt/images/Fedora-Workstation-28/Fedora-Workstation-28-20180518.0.x86_64.qcow2,size=20 \
 --os-type linux \
---os-variant fedora27 \
+--os-variant fedora28 \
 --network bridge=virbr0 \
 --graphics vnc,listen=127.0.0.1,port=5901 \
 --cdrom /var/lib/libvirt/images/Fedora-Workstation-28/Fedora-Workstation-Live-x86-64-28-1.1.iso \
@@ -90,7 +90,7 @@ Finally, run the virt-install command using the following format (adjusting para
 
 [Note]
 ====
-Note:  os-variant fedora27 was used in this example because fedora28 was not yet added at the time of this writing.  For the graphics parameter, we're setting the vnc listener to localhost because it's more secure to tunnel your VNC connection through SSH so that you don't expose VNC to everyone with access to the network.
+Note:  For the graphics parameter, we're setting the vnc listener to localhost because it's more secure to tunnel your VNC connection through SSH so that you don't expose VNC to everyone with access to the network.
 ====
 
 `virt-install` can use kickstart files, for example, `virt-install -x ks=kickstart-file-name.ks`.
