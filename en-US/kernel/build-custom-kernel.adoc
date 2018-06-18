@@ -211,6 +211,16 @@ There are several ways to change the configuration. You can run `make help` and
 look at the `Configuration targets` for the full list, but `make menuconfig`
 is a good place to start. You can also just edit the `.config` file directly.
 
+[NOTE]
+
+====
+
+One configuration option you may want to set is CONFIG_MODULE_COMPRESS, which
+compresses the modules (with gzip by default) when installing them. Without
+this setting, the modules can be very large.
+
+====
+
 === Building the kernel
 
 Once you've configured the kernel, you're ready to build it. Before you do so,
