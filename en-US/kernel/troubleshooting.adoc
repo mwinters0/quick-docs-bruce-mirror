@@ -78,7 +78,13 @@ between major versions (e.g. `v4.16` and `v4.15`) new configuration options
 will be added and removed as you bisect. It's _usually_ safe to select the
 default.]
 
-. Start a new `git-bisect` with `git bisect start <bad> <good>`.
+. Start a new `git-bisect` with `git bisect start`.
+
+. Mark the newest version that works as "good" with `git bisect good <tag>`.
+For example: `git bisect good v4.16.8`.
+
+. Mark the first version that does not work as "bad" with `git bisect bad
+<tag>`.  For example: `git bisect bad v4.17`.
 
 . <<build-custom-kernel.adoc#building-the-kernel,Build the kernel>>. Sometimes
 commits cannot be built. If this happens, skip the commit with `git bisect
@@ -90,8 +96,6 @@ skip`.
 
 . If the new kernel works, mark it as good with `git bisect good`. Otherwise,
 mark it as bad with `git bisect bad`.
-
-. Check out the next commit to test by running `git bisect next`.
 
 . Repeat the previous five steps until you've found the commit that introduced
 the problem.
