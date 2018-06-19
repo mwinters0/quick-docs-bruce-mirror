@@ -41,7 +41,21 @@ boot process, there may or may not be any output. Some good first steps are:
 * Setting `nmi_watchdog=1` on the kernel command line will cause a panic when
 an NMI watchdog timeout occurs.
 
+== Logs to collect ==
 
+When reporting an issue with the kernel you should always attach the kernel
+logs, usually collected with the `dmesg` command. For some types of issues,
+you may need to collect more logs.
+
+=== Input issues (touchpad etc.) ===
+
+Information for collecting logs is documented at the https://wayland.freedesktop.org/libinput/doc/latest/reporting_bugs.html[libinput website].
+
+=== Sound issues ===
+
+`alsa-info.sh` provides information about both kernel and userspace components.
+If you have a working and non-working kernel, you should provide `alsa-info.sh`
+for both cases.
 
 == Bisecting the kernel
 
