@@ -1,0 +1,31 @@
+// Module included in the following assemblies:
+//
+// assembly_changing-selinux-states-and-modes.adoc
+
+[#{context}-changing-to-permissive-mode]
+= Changing to permissive mode
+
+When SELinux is running in permissive mode, SELinux policy is not enforced. The system remains operational and SELinux does not deny any operations but only logs AVC messages, which can be then used for troubleshooting, debugging, and SELinux policy improvements. Each AVC is logged only once in this case.
+
+To permanently change mode to permissive, follow the procedure below:
+
+. Edit the `/etc/selinux/config` file as follows:
++
+----
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#       enforcing - SELinux security policy is enforced.
+#       permissive - SELinux prints warnings instead of enforcing.
+#       disabled - No SELinux policy is loaded.
+SELINUX=pass:quotes[*permissive*]
+# SELINUXTYPE= can take one of these two values:
+#       targeted - Targeted processes are protected,
+#       mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+----
+
+. Reboot the system:
++
+----
+~]# reboot
+----

@@ -1,0 +1,19 @@
+:experimental:
+:parent-context: {context}
+
+// NOTE (TODO): several links (URLs) in the included modules could be replaced with URLs when the appropriate docs become available on fp.org
+
+[id='changing-selinux-states-and-modes-{context}']
+= Changing SELinux states and modes
+:context: selinux
+
+:md: ./modules
+
+include::{md}/con_permanent-changes-in-selinux-states-and-modes.adoc[leveloffset=+1]
+include::{md}/proc_enabling-selinux.adoc[leveloffset=+1]
+include::{md}/proc_changing-to-permissive-mode.adoc[leveloffset=+2]
+include::{md}/proc_changing-to-enforcing-mode.adoc[leveloffset=+2]
+include::{md}/proc_disabling-selinux.adoc[leveloffset=+1]
+include::{md}/ref_changing-selinux-modes-at-boot-time.adoc[leveloffset=+1]
+
+:context: {parent-context}

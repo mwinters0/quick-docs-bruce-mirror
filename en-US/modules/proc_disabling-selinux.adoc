@@ -1,0 +1,38 @@
+// Module included in the following assemblies:
+//
+// changing-selinux-states-and-modes.adoc
+
+[#{context}-Enabling_and_Disabling_SELinux-Disabling_SELinux]
+= Disabling SELinux
+
+When SELinux is disabled, SELinux policy is not loaded at all; it is not enforced and AVC messages are not logged. Therefore, all benefits of running SELinux listed in link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/chap-security-enhanced_linux-introduction#sect-Security-Enhanced_Linux-Introduction-Benefits_of_running_SELinux[Benefits of SELinux] are lost.
+
+[IMPORTANT]
+====
+It is recommended to use permissive mode instead of permanently disabling SELinux. See <<{context}-changing-to-permissive-mode>> for more information about permissive mode.
+====
+
+To permanently disable SELinux, follow the procedure below:
+
+. Configure [option]`SELINUX=disabled` in the `/etc/selinux/config` file:
++
+----
+
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#       enforcing - SELinux security policy is enforced.
+#       permissive - SELinux prints warnings instead of enforcing.
+#       disabled - No SELinux policy is loaded.
+SELINUX=pass:quotes[*disabled*]
+# SELINUXTYPE= can take one of these two values:
+#       targeted - Targeted processes are protected,
+#       mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+----
+
+. Reboot your system. After reboot, confirm that the [command]`getenforce` command returns `Disabled`:
++
+----
+`~]$`pass:attributes[{blank}] pass:attributes[{blank}][command]`getenforce`
+Disabled
+----
