@@ -1,0 +1,52 @@
+// Module included in the following assemblies:
+//
+// changing-selinux-states-and-modes.adoc
+
+[#{context}-changing-to-enforcing-mode]
+= Changing to enforcing mode
+
+When SELinux is running in enforcing mode, it enforces the SELinux policy and denies access based on SELinux policy rules. In Fedora, enforcing mode is enabled by default when the system was initially installed with SELinux.
+
+If SELinux was disabled, follow the procedure below to change mode to enforcing again:
+
+This procedure assumes that the [package]*selinux-policy-targeted*, [package]*selinux-policy*, [package]*libselinux*, [package]*libselinux-python*, [package]*libselinux-utils*, [package]*policycoreutils*, and [package]*policycoreutils-python* packages are installed. To verify that the packages are installed, use the following command:
+[subs="quotes"]
+----
+~]$ rpm -q _package_name_
+----
+
+. Edit the `/etc/selinux/config` file as follows:
++
+----
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#       enforcing - SELinux security policy is enforced.
+#       permissive - SELinux prints warnings instead of enforcing.
+#       disabled - No SELinux policy is loaded.
+SELINUX=pass:quotes[*enforcing*]
+# SELINUXTYPE= can take one of these two values:
+#       targeted - Targeted processes are protected,
+#       mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+----
+
+. Reboot the system:
++
+----
+~]# reboot
+----
++
+On the next boot, SELinux relabels all the files and directories within the system and adds SELinux context for files and directories that were created when SELinux was disabled.
+
+[NOTE]
+====
+After changing to enforcing mode, SELinux may deny some actions because of incorrect or missing SELinux policy rules. To view what actions SELinux denies, enter the following command as root:
+----
+~]# ausearch -m AVC,USER_AVC,SELINUX_ERR -ts today
+----
+Alternatively, with the [package]*setroubleshoot-server* package installed, enter the following command as root:
+----
+~]# grep "SELinux is preventing" /var/log/messages
+----
+If SELinux denies some actions, see the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/chap-security-enhanced_linux-troubleshooting[Troubleshooting] chapter in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/index[Red Hat Enterprise Linux 7 SELinux User's and Administrator's Guide] for information about troubleshooting.
+====

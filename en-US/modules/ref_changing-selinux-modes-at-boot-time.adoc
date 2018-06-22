@@ -1,0 +1,31 @@
+// Module included in the following assemblies:
+//
+// assembly_changing-selinux-states-and-modes.adoc
+
+[#{context}-Enabling_and_Disabling_SELinux-Dracut-parameters]
+= Changing SELinux Modes at Boot Time
+
+On boot, you can set several kernel parameters to change the way SELinux runs:
+
+enforcing=0::  Setting this parameter causes the machine to boot in permissive mode, which is useful when troubleshooting issues. Using permissive mode might be the only option to detect a problem if your file system is too corrupted. Moreover, in permissive mode the system continues to create the labels correctly. The AVC messages that are created in this mode can be different than in enforcing mode. In permissive mode, only the first denial is reported. However, in enforcing mode you might get a denial on reading a directory and an application stops. In permissive mode, you get the same AVC message, but the application continues reading files in the directory and you get an AVC for each denial in addition.
+
+selinux=0::  This parameter causes the kernel to not load any part of the SELinux infrastructure. The init scripts notice that the system booted with the [option]`selinux=0` parameter and touch the `/.autorelabel` file. This causes the system to automatically relabel the next time you boot with SELinux enabled.
++
+[IMPORTANT]
+====
+Using the [option]`selinux=0` parameter is not recommended. To debug your system, prefer using permissive mode.
+====
+
+autorelabel=1::  This parameter forces the system to relabel similarly to the following commands:
++
+----
+~]# touch /.autorelabel
+~]# reboot
+----
++
+If the system labeling contains a large amount of errors, you might need to boot in permissive mode in order that the autorelabel succeeds.
+
+For additional SELinux-related kernel boot parameters, such as [option]`checkreqprot`, see the `kernel-parameters.txt` file. This file is available in the source package of your Linux kernel (.src.rpm). To download the source package containing the currently used kernel:
+----
+~]# dnf download --source kernel
+----

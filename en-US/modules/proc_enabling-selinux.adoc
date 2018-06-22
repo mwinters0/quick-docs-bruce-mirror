@@ -1,0 +1,28 @@
+// Module included in the following assemblies:
+//
+// changing-selinux-states-and-modes.adoc
+
+[#{context}-enabling-selinux]
+= Enabling SELinux
+
+When enabled, SELinux can run in one of two modes: enforcing or permissive. The following sections show how to permanently change into these modes.
+
+While enabling SELinux on systems that previously had it disabled, to avoid problems, such as systems unable to boot or process failures, follow this procedure:
+
+. Enable SELinux in permissive mode. For more information, see <<{context}-changing-to-permissive-mode>>.
+
+. Reboot your system.
+
+. Check for SELinux denial messages.
+// For more information, see <<Fixing_Problems-Searching_For_and_Viewing_Denials>>.
+
+. If there are no denials, switch to enforcing mode. For more information, see <<{context}-changing-to-enforcing-mode>>.
+
+To run custom applications with SELinux in enforcing mode, choose one of the following scenarios:
+
+* Run your application in the `unconfined_service_t` domain.
+// See <<Targeted_Policy-Unconfined_Processes>> for more information.
+
+* Write a new policy for your application. See the link:++https://access.redhat.com/solutions/117583++[Writing Custom SELinux Policy] Knowledgebase article for more information.
+
+// Temporary changes in modes are covered in <<{context}-selinux-states-and-modes>>.
