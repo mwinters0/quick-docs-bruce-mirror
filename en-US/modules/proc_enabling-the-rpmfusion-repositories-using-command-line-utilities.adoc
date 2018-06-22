@@ -1,0 +1,58 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::modules/proc_enabling-the-rpmfusion-repositories-using-command-line-utilities.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing 
+// it after the module has been published to ensure existing links are not 
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes 
+// {context}, which ensures that the module has a unique ID even if it is 
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also 
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="proc_enabling-the-rpmfusion-repositories-using-command-line-utilities_{context}"]
+= Enabling the RPM Fusion repositories using command-line utilities
+
+This procedure describes how to enable the RPM Fusion software repositories without using any graphical applications.
+
+[discrete]
+== Prerequisites
+
+* You have internet access.
+
+[discrete]
+== Procedure
+
+. To enable the _Free_ repository, use:
++
+[subs=+quotes]
+----
+$ sudo dnf install \
+  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+----
+
+. Optionally, enable the _Nonfree_ repository:
++
+[subs=+quotes]
+----
+$ sudo dnf install \
+  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+----
+
+. The first time you attempt to install packages from these repositories, the `dnf` utility prompts you to confirm the signature of the repositories. Confirm it.
+
+[discrete]
+== Additional resources
+
+* You can also use graphical applications to configure the repositories if you prefer.
+

@@ -1,0 +1,53 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::modules/proc_enabling-the-rpmfusion-repositories-using-graphical-applications.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing 
+// it after the module has been published to ensure existing links are not 
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes 
+// {context}, which ensures that the module has a unique ID even if it is 
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also 
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="proc_enabling-the-rpmfusion-repositories-using-graphical-applications_{context}"]
+= Enabling the RPM Fusion repositories using graphical applications
+
+This procedure describes how to enable the RPM Fusion software repositories without using any command-line utilities.
+
+[discrete]
+== Prerequisites
+
+* You have internet access.
+* You are using the Gnome desktop environment.
+
+[discrete]
+== Procedure
+
+. In your web browser, open the following page: link:https://rpmfusion.org/Configuration[].
+
+. To enable the _Free_ repository, click the *RPM Fusion free for Fedora _version_* link on the page, where _version_ is the Fedora release you are using. This prompts you to save or open the repo file.
+
+. Open the file using the *Software Install* application.
+
+. The *Software* application opens. Click the blue *Install* button.
+
+. Optionally, enable the _Nonfree_ repository: click the *RPM Fusion nonfree for Fedora _version_* link on the page, where _version_ is the Fedora release you are using.
+
+. Save and install the file with the *Software* application again.
+
+[discrete]
+== Additional resources
+
+* If the graphical configuration fails, try enabling the repositories using command-line utilities instead.
+
