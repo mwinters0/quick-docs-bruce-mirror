@@ -5,51 +5,26 @@
 
 You can write all Fedora ISO images to a USB stick, making this a convenient way on any USB-bootable computer to either install Fedora or try a *live* Fedora environment without writing to the computer's hard disk. You will need a USB stick at least as large as the image you wish to write. 
 
-#FIXME# Needs modularization
-
-
 [id='using-fedora-media-writer']
 == Using Fedora Media Writer
 
-The best tool to create a Fedora USB stick is the https://github.com/MartinBriza/MediaWriter[Fedora Media Writer] utility, which was formerly known as *LiveUSB Creator*. It is available on Fedora. For other Linux distributions, Windows and macOS, this can be done using https://flatpak.org/[Flatpak].
+The official and supported tool to create a Fedora USB stick is the *Fedora Media Writer* utility, which was formerly known as *LiveUSB Creator*. To learn more about this application and how to use it, refer to the https://docs.fedoraproject.org/f28/install-guide/install/Preparing_for_Installation.html[Preparing for Installation] chapter of the Fedora Installation Guide. 
+
 
 [IMPORTANT]
 ====
-This method will destroy all data on the USB stick. If you need a non-destructive write method (to preserve existing data on your USB stick) or support for 'data persistence', you can use the link:using-the-livecd-iso-to-disk-tool[livecd-iso-to-disk] utility on Fedora.
+*Fedora Media Writer* destroys all data on the USB stick. If you need a non-destructive write method (to preserve existing data on your USB stick) or support for 'data persistence', you can use the link:using-the-livecd-iso-to-disk-tool[livecd-iso-to-disk] utility on Fedora.
 ====
-
-Fedora Media Writer is graphical and easy to use. It can download recent Fedora images for you as well as writing them to the USB stick. 
-
-On Fedora, you can use a Fedora graphical software installation tool to install the https://apps.fedoraproject.org/packages/mediawriter[mediawriter package], or use the command line:
-
-[options="nowrap"]
-----
-# dnf install mediawriter
-----
-
-On Windows and macOS, you can download the installer from the https://github.com/MartinBriza/MediaWriter/releases[releases page]. On other Linux distributions, if they support the https://flatpak.org/[Flatpak] application distribution system, you can download a flatpak from the https://github.com/MartinBriza/MediaWriter/releases[releases page].
-
-To run the tool, look for *Fedora Media Writer* in the system menus. When you start Fedora Media Writer, the three dots at the bottom will be flashing while the tool checks for a new Fedora release.
-
-To write the stick:
-
-* Choose which Fedora flavor you want to install or try. 
-+
-On the title screen, you can choose Workstation, Server or your own .iso file. Other choices (including KDE, Cinnamon, Xfce and so on) are under the "..." button at the bottom of the list.
-
-* Ensure your USB stick is plugged into the system.
-* Click Create Live USB.
-* Ensure the right stick is selected.
-* Click Write to disk and wait for the write to complete.
-* Once the stick has been written, shut the system down and boot it from the USB stick.
-
-After writing, your USB stick will have a changed partition layout and some systems may report it to be about 10MB large. To return your USB stick to its factory configuration, insert the drive again while `Fedora Media Writer` is running. The application provides you with an option to restore to the factory layout. This layout includes a single `VFAT` partition. 
-
 
 [id='gnome-disk-utility']
 == Using GNOME Disk Utility
 
 IMPORTANT: This method will destroy all data on the USB stick. If you need a non-destructive write method (to preserve existing data on your USB stick) and/or support for 'data persistence', you can use the `livecd-iso-to-disk` utility on Fedora.
+
+[WARNING]
+====
+This method is considered unsupported. You can use it on your own risk.
+====
 
 This method is for people running Linux, or another unix with GNOME, Nautilus and the GNOME Disk Utility installed. Particularly, if you are using a distribution other than Fedora which does not support Flatpak, this may be the easiest available method. A standard installation of Fedora, or a standard GNOME installation of many other distributions, should be able to use this method. On Fedora, ensure the packages _nautilus_ and _gnome-disk-utility_ are installed. Similar graphical direct-write tools may be available for other desktops, or you may use the command-line _direct write_ method.
 
@@ -62,6 +37,10 @@ This method is for people running Linux, or another unix with GNOME, Nautilus an
 [id='command-line-method']
 == Command line methods
 
+[WARNING]
+====
+These methods are considered unsupported. You can use them on your own risk.
+====
 
 [id='using-the-livecd-iso-to-disk-tool']
 === Using the livecd-iso-to-disk tool
@@ -136,7 +115,8 @@ The output will contain something like snapshot `42296/204800`, indicating that 
 You can combine `--home-size-mb` and `--overlay-size-mb`, in which case data written to `/home` will not exhaust the persistent overlay. 
 
 
-=== Using direct write method
+=== Using a direct write method
+
 
 [IMPORTANT]
 ====
@@ -160,6 +140,11 @@ NOTE: If you see `dd: invalid status flag: 'progress'`, your dd version doesn't 
 
 [id='unetbootin']
 == Using UNetbootin for Windows, OS X, and Linux
+
+[WARNING]
+====
+This method is considered unsupported. You can use it on your own risk.
+====
 
 [NOTE]
 ====
