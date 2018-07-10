@@ -1,0 +1,65 @@
+// Module included in the following assemblies:
+//
+// assembly_Configuring-networking-with-nmcli.adoc
+
+[id='Understanding-the-nmcli-options']
+= The nmcli options
+
+Following are some of the important [application]*nmcli* property options:
+
+
+[option]`connection.type`::
++
+A connection type. Allowed values are: adsl, bond, bond-slave, bridge, bridge-slave, bluetooth, cdma, ethernet, gsm, infiniband, olpc-mesh, team, team-slave, vlan, wifi, wimax. Each connection type has type-specific command options. For example:
++
+** A `gsm` connection requires the access point name specified in an [option]`apn`.
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+nmcli c add connection.type gsm apn pass:quotes[_access_point_name_]
+....
++
+** A `wifi` device requires the service set identifier specified in a [option]`ssid`.
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+nmcli c add connection.type wifi ssid
+_My identifier_
+....
+
+You can see the `TYPE_SPECIFIC_OPTIONS` list in the [citetitle]_pass:attributes[{blank}]*nmcli*(1)_ man page.
+
+[option]`connection.interface-name`::
++
+A device name relevant for the connection.
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+nmcli con add connection.interface-name _eth0_ type _ethernet_
+....
+
+[option]`connection.id`::
++
+A name used for the connection profile. If you do not specify a connection name, one will be generated as follows:
++
+[literal,subs="+quotes,verbatim,macros"]
+....
+_connection.type -connection.interface-name_
+....
++
+The [option]`connection.id` is the name of a _connection profile_ and should not be confused with the interface name which denotes a device (`wlan0`, `ens3`, `em1`). However, users can name the connections after interfaces, but they are not the same thing. There can be multiple connection profiles available for a device. This is particularly useful for mobile devices or when switching a network cable back and forth between different devices. Rather than edit the configuration, create different profiles and apply them to the interface as needed. The [option]`id` option also refers to the connection profile name.
+
+The most important options for [application]*nmcli* commands such as `show`, `up`, `down` are:
+
+[option]`id`::
++
+An identification string assigned by the user to a connection profile. Id can be used in nmcli connection commands to identify a connection. The NAME field in the command output always denotes the connection id. It refers to the same connection profile name that the con-name does.
+
+[option]`uuid`::
++
+A unique identification string assigned by the system to a connection profile. The `uuid` can be used in [command]`nmcli connection` commands to identify a connection.
+
+[discrete]
+== Additional resources
+
+*  See the comprehensive list in the [citetitle]_pass:attributes[{blank}]*nmcli*(1)_ man page.

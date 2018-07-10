@@ -1,0 +1,108 @@
+// Module included in the following assemblies:
+//
+// assembly_Configuring-networking-with-nmcli.adoc
+
+[id='Brief-selection-of-nmcli-examples']
+= Brief Selection of nmcli Examples
+
+This section provides a brief selection of [application]*nmcli* examples.
+
+[discrete]
+== Prerequisites
+<<Getting-started-with-nmcli>>
+
+
+.Checking the overall status of NetworkManager
+====
+
+[literal,subs="+quotes,verbatim,macros"]
+....
+~]$ pass:attributes[{blank}][command]`nmcli general status`
+STATE      CONNECTIVITY  WIFI-HW  WIFI     WWAN-HW  WWAN
+connected  full          enabled  enabled  enabled  enabled
+....
+
+In terse mode:
+
+[literal,subs="+quotes,verbatim,macros"]
+....
+~]$ pass:attributes[{blank}][command]`nmcli -t -f STATE general`
+connected
+....
+
+====
+
+.Viewing NetworkManager logging status
+====
+
+[literal,subs="+quotes,verbatim"]
+....
+~]$ [command]`nmcli general logging`
+  LEVEL  DOMAINS
+  INFO   PLATFORM,RFKILL,ETHER,WIFI,BT,MB,DHCP4,DHCP6,PPP,WIFI_SCAN,IP4,IP6,A
+UTOIP4,DNS,VPN,SHARING,SUPPLICANT,AGENTS,SETTINGS,SUSPEND,CORE,DEVICE,OLPC,
+WIMAX,INFINIBAND,FIREWALL,ADSL,BOND,VLAN,BRIDGE,DBUS_PROPS,TEAM,CONCHECK,DC
+B,DISPATCH
+....
+
+====
+
+.Viewing all connections
+====
+
+[literal,subs="+quotes,verbatim,macros"]
+....
+~]$ pass:attributes[{blank}][command]`nmcli connection show`
+  NAME       UUID                                  TYPE      DEVICE
+Profile 1  db1060e9-c164-476f-b2b5-caec62dc1b05  ethernet    ens3
+ens3       aaf6eb56-73e5-4746-9037-eed42caa8a65  ethernet    --
+....
+
+====
+
+.Viewing only currently active connections
+====
+
+[literal,subs="+quotes,verbatim,macros"]
+....
+~]$ pass:attributes[{blank}][command]`nmcli connection show --active`
+  NAME       UUID                                  TYPE      DEVICE
+Profile 1  db1060e9-c164-476f-b2b5-caec62dc1b05  ethernet     ens3
+....
+
+====
+
+.Viewing only devices recognized by [application]*NetworkManager* and their state
+====
+
+[literal,subs="+quotes,verbatim,macros"]
+....
+~]$ pass:attributes[{blank}][command]`nmcli device status`
+DEVICE  TYPE      STATE      CONNECTION
+ens3    ethernet  connected  Profile 1
+lo      loopback  unmanaged  --
+....
+
+====
+
+You can also use the following abbreviations of the [application]*nmcli* commands:
+
+[[tabl-nmcli_examples]]
+.Abbreviations of some nmcli commands
+
+[options="header"]
+|===
+|nmcli command|abbreviation
+|nmcli general status|nmcli g
+|nmcli general logging|nmcli g log
+|nmcli connection show|nmcli con show
+|nmcli connection show --active|nmcli con show -a
+|nmcli device status|nmcli dev
+|===
+
+[discrete]
+== Additional resources
+
+* For more examples, see the
+[citetitle]_pass:attributes[{blank}]*nmcli-examples*(5)_
+man page.
