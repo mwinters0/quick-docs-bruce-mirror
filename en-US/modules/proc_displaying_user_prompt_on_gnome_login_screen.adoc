@@ -1,0 +1,70 @@
+[id=displaying-user-prompt-instead-of-list-of-users-on-GNOME-login-screen]
+= Displaying a user prompt instead of a list of users on the GNOME login screen
+
+To show a user prompt on the GNOME login screen, open a terminal and perform the following steps:
+
+. Create a file for the GNOME Display Manager (GDM) configuration.
++
+----
+$ sudo mkdir /etc/dconf/db/gdm.d
+----
++
+----
+$ vim /etc/dconf/db/gdm.d/01-hide-users
+----
+
+. In a text editor of your choice, `vim` in this example, insert the following content to the `/etc/dconf/db/gdm.d/01-hide-users` file:
++
+----
+[org/gnome/login-screen]
+banner-message-enable=true
+banner-message-text='ENTER ANY MESSAGE YOU WANT HERE. FOR A NEW LINE USE \n.'
+disable-restart-buttons=true
+disable-user-list=true
+----
++
+[NOTE]
+--
+To not display the banner message, do not include the first and second line. To enable the `Restart` button, do not include the fourth line.
+--
++
+Save the file and return to the terminal.
+
+. Create another file for GDM configuration.
++
+----
+$ sudo vim /etc/dconf/profile/gdm
+----
++
+Insert the following content in the `/etc/dconf/profile/gdm` file:
++
+----
+user-db:user
+system-db:gdm
+----
++
+Save the file.
+
+. Enter the following command:
++
+----
+$ sudo dconf update
+----
+
+. Check if the command was executed correctly:
++
+----
+$ ls /etc/dconf/db
+----
++
+The output should contain the following:
++
+----
+gdm gdm.d ... [output truncated]
+----
+
+. Restart GDM for the changes to take effect.
++
+----
+$ sudo systemctl restart gdm
+----
