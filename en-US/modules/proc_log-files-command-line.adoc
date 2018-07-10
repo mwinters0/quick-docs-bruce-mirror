@@ -1,0 +1,45 @@
+[id='using-the-command-line-to-view-log-files]
+=== Using the command line to view log files
+
+You can use the command line to view logs in different ways, for example:
+
+* Using the *journalctl* command
+* Using the commands for viewing, for example *cat*, *more*, *less*, *tail*, or *head*
+* Combine the commands for viewing with the *grep* command
+* Using a text editor, for example, `nano` or `vim`
+
+[id='using-journalctl-to-view-system-information']
+==== Using journalctl to view  system information.
+
+* To view all collected logs with no filter:
+----
+$ journalctl
+----
+
+* To view a specific log file, enter the *journalctl* command with a log filepath. The example command returns all logs of the kernel device node `/dev/sda`:
+----
+$ journalctl /dev/sda
+----
+
+* To view the boot logs, run the following command:
+----
+$ journalctl -k -b -1
+----
+
+* For more information on *journalctl*, read the man page:
+----
+$ man journalctl
+----
+
+[id='using-the-command-line-to-open-log-files-in-text-editor']
+==== Using the command line to open log files in a text editor
+
+All log files are in plain text. To open a log file in a text editor, enter the following command:
+----
+$ nano <logfilename>
+----
+
+If the root permissions are required:
+----
+$ sudo nano <logfilename>
+----
