@@ -1,0 +1,20 @@
+[[running-vlc]]
+= Running VLC
+
+* To run the VLC media player using GUI:
++
+--
+. Open the launcher by pressing the _Super_ key.
+. Type _vlc_.
+. Press _Enter_.
+--
+
+
+* To run VLC from the command line:
++
+[subs="quotes"]
+----
+$ vlc _source_
+----
++
+Replace _source_ with path to the file to be played, URL, or other data source. For more details, see link:https://wiki.videolan.org/Documentation:Command_line/#Opening_streams[Opening streams] on VideoLAN wiki.

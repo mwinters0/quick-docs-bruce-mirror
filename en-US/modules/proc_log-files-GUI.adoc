@@ -1,0 +1,13 @@
+
+[id='using-GUI-to-view-log-files']
+=== Using GUI to view log files
+
+To view log files in GUI, use the `GNOME Logs` application. `GNOME Logs` is not installed by default, press the `Super` key and type `Software`. In the `Search` field type `Logs` and choose the `GNOME Logs` item from the list of results and install the application.
+
+In `GNOME Logs`, you can filter for time periods, search within logs, and display categories.
+
+* To select a log file type, from the side bar of GNOME Logs, select the type to view.
+* To select a time period, from the menu bar, click *Logs*, and select a time period.
+* To search within logs, select a log file from the results pane.
+. Click the search icon.
+. Enter one or more search criterion in the search field.

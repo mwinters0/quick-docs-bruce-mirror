@@ -1,0 +1,27 @@
+[id='viewing-logs']
+= Viewing logs
+
+Log files contain messages about the system, including the kernel, services, and applications running on it. There are different log files for different information. For example, there is a default system log file, a log file for security messages, and a log file for cron tasks.
+
+[id='locating-log-files']
+== Locating log files
+
+Most log files are located in the `/var/log/` directory.
+
+`Rsyslog` is a system utility that provides support for logging. To install the _rsyslog_ package:
+----
+$ sudo dnf install rsyslog
+----
+To view a list of log files maintained by the related daemon, `rsyslogd`, enter the following command:
+----
+$ less /etc/rsyslog.conf
+----
+
+[id='viewing-log-files']
+== Viewing log files
+
+In Fedora, there are two ways to open the log files:
+
+* The command line
+
+* A GUI application

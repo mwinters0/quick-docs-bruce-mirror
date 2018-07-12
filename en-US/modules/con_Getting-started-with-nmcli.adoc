@@ -1,0 +1,122 @@
+// Module included in the following assemblies:
+//
+// assembly_Configuring-networking-with-nmcli.adoc
+
+[id='Getting-started-with-nmcli']
+= Getting started with nmcli
+
+The [application]*nmcli* (NetworkManager Command Line Interface) command-line utility is used for controlling NetworkManager and reporting network status. It can be utilized as a replacement for [application]*nm-applet* or other graphical clients. [application]*nmcli* is used to create, display, edit, delete, activate, and deactivate network connections, as well as control and display network device status.
+
+The [application]*nmcli* utility can be used by both users and scripts for controlling [application]*NetworkManager*:
+
+* For servers, headless machines, and terminals, [application]*nmcli* can be used to control [application]*NetworkManager* directly, without GUI, including creating, editing, starting and stopping network connections and viewing network status.
+
+* For scripts, [application]*nmcli* supports a terse output format which is better suited for script processing. It is a way to integrate network configuration instead of managing network connections manually.
+
+The basic format of a [application]*nmcli* command is as follows:
+
+[literal,subs="+quotes,verbatim"]
+....
+nmcli [OPTIONS] OBJECT { COMMAND | help }
+....
+
+where OBJECT can be one of the following options: `general`, `networking`, `radio`, `connection`, `device`, `agent`, and `monitor`. You can use any prefix of these options in your commands. For example, [command]`nmcli con help`, [command]`nmcli c help`, [command]`nmcli connection help` generate the same output.
+
+Some of useful optional OPTIONS to get started are:
+
+-t, terse::
++
+This mode can be used for computer script processing as you can see a terse output displaying only the values.
++
+[[ex-Viewing_a_terse_output_for_scripts]]
+.Viewing a terse output
+====
+
+[literal,subs="+quotes,verbatim,macros"]
+....
+~]$ pass:attributes[{blank}][command]`nmcli -t device`
+ens3:ethernet:connected:Profile 1
+lo:loopback:unmanaged:
+
+....
+
+====
+
+-f, field::
++
+This option specifies what fields can be displayed in output. For example, NAME,UUID,TYPE,AUTOCONNECT,ACTIVE,DEVICE,STATE. You can use one or more fields. If you want to use more, do not use space after comma to separate the fields.
++
+[[ex-Specifying_Fields_in_the_output]]
+.Specifying Fields in the output
+====
+
+[literal,subs="+quotes,verbatim,macros"]
+....
+~]$ pass:attributes[{blank}][command]`nmcli -f DEVICE,TYPE device`
+DEVICE  TYPE
+ens3    ethernet
+lo      loopback
+....
+
+or even better for scripting:
+
+[literal,subs="+quotes,verbatim,macros"]
+....
+~]$ pass:attributes[{blank}][command]`nmcli -t -f DEVICE,TYPE device`
+ens3:ethernet
+lo:loopback
+
+....
+
+====
+
+-p, pretty::
++
+This option causes [application]*nmcli* to produce human-readable output. For example, values are aligned and headers are printed.
++
+[[ex-Viewing_an_output_in_pretty_Mode]]
+.Viewing an output in pretty mode
+====
+
+[literal,subs="+quotes,verbatim,macros"]
+....
+~]$ pass:attributes[{blank}][command]`nmcli -p device`
+=====================
+  Status of devices
+=====================
+DEVICE  TYPE      STATE      CONNECTION
+--------------------------------------------------------------
+ens3    ethernet  connected  Profile 1
+lo      loopback  unmanaged  --
+
+....
+
+====
+
+-h, help::
++
+Prints help information.
+
+The [application]*nmcli* tool has some built-in context-sensitive help. To list the available options and object names:
+[literal,subs="+quotes,verbatim,macros"]
+....
+~]$ [command]`nmcli help`
+....
+
+To list available actions related to a specified object:
+[literal,subs="+quotes,verbatim,macros"]
+....
+~]$ [command]`nmcli _object_ help`
+....
+
+For example,
+[literal,subs="+quotes,verbatim,macros"]
+....
+~]$ [command]`nmcli c help`
+....
+
+[discrete]
+== Additional resources
+* link:++https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-introduction_to_networkmanager++[Introduction to NetworkManager]
+
+* link:++https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-installing_networkmanager#sec-Interacting_with_NetworkManager[Interacting with NetworkManager]
