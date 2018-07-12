@@ -1,0 +1,36 @@
+[id='disabling-shortcut-custom-app-gnome']
+= Disabling keyboard shortcuts for custom applications in GNOME
+
+This section describes how to disable a keyboard shortcut for starting a custom application in GNOME.
+
+[discrete]
+== Procedure
+
+. Open *Settings* and choose the *Devices* entry from the list:
++
+image::shortcuts-settings-devices.png[]
++
+NOTE: Earlier Fedora versions might not need this step.
+
+. Choose the *Keyboard* entry from the list and scroll down to the bottom of the list of keyboard shortcuts:
++
+image::shortcuts-keyboard-scroll.png[]
+
+. Scroll down in the list of shortcuts and applications until you locate the application that you want to disable:
++
+image::shortcuts-added.png[]
+
+. Click on the entry.
++
+A window for editing the shortcut appears:
++
+image::shortcuts-edit.png[]
+
+. Click the small *x* button to the right of the disaplyed shortcut.
++
+The keyboard shortcut is removed from this shortcut and the shortcut list now displays _Disabled_ instead of the key combination:
++
+image::shortcuts-disabled.png[]
+
+. Close the shortcut editing window.
+

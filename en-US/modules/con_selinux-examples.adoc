@@ -1,0 +1,19 @@
+// Module included in the following assemblies:
+//
+// getting-started-with-selinux.adoc
+:experimental:
+
+[#{context}-selinux-examples]
+= SELinux examples
+
+The following examples demonstrate how SELinux increases security:
+
+* The default action is deny. If an SELinux policy rule does not exist to allow access, such as for a process opening a file, access is denied.
+
+* SELinux can confine Linux users. A number of confined SELinux users exist in SELinux policy. Linux users can be mapped to confined SELinux users to take advantage of the security rules and mechanisms applied to them. For example, mapping a Linux user to the SELinux `user_u` user, results in a Linux user that is not able to run (unless configured otherwise) set user ID (setuid) applications, such as [command]`sudo` and [command]`su`, as well as preventing them from executing files and applications in their home directory. If configured, this prevents users from executing malicious files from their home directories.
+
+* Increased process and data separation. Processes run in their own domains, preventing processes from accessing files used by other processes, as well as preventing processes from accessing other processes. For example, when running SELinux, unless otherwise configured, an attacker cannot compromise a Samba server, and then use that Samba server as an attack vector to read and write to files used by other processes, such as MariaDB databases.
+
+* SELinux helps mitigate the damage made by configuration mistakes. Domain Name System (DNS) servers often replicate information between each other in what is known as a zone transfer. Attackers can use zone transfers to update DNS servers with false information. When running the Berkeley Internet Name Domain (BIND) as a DNS server in Fedora, even if an administrator forgets to limit which servers can perform a zone transfer, the default SELinux policy prevents zone files footnote:[Text files that include information, such as host name to IP address mappings, that are used by DNS servers.] from being updated using zone transfers, by the BIND `named` daemon itself, and by other processes.
+
+* See the link:++http://www.networkworld.com++[NetworkWorld.com] article, link:++http://www.networkworld.com/article/2283723/lan-wan/a-seatbelt-for-server-software--selinux-blocks-real-world-exploits.html++[A seatbelt for server software: SELinux blocks real-world exploits]footnote:[Marti, Don. "A seatbelt for server software: SELinux blocks real-world exploits". Published 24 February 2008. Accessed 27 August 2009: link:++http://www.networkworld.com/article/2283723/lan-wan/a-seatbelt-for-server-software--selinux-blocks-real-world-exploits.html++[].], for background information about SELinux, and information about various exploits that SELinux has prevented.

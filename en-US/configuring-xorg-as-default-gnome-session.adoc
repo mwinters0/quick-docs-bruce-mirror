@@ -1,0 +1,17 @@
+:md: ./modules
+
+[id='configuring-xorg-as-default-gnome-session']
+= Configuring Xorg as the default GNOME session
+:context: xorg
+
+Wayland is the default GNOME display server. If GNOME freezes, or some applications do not function correctly in Wayland, you can choose to run GNOME in X11.
+
+
+include::{md}/proc_configuring-xorg-as-default-gnome-session.adoc[leveloffset=+1]
+
+
+[discrete]
+== Additional Resources
+https://docs.fedoraproject.org/f27/system-administrators-guide/Wayland.html[Wayland Display Server]
+
+https://wayland.freedesktop.org/[Wayland]

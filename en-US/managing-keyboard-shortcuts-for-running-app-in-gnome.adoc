@@ -1,0 +1,28 @@
+:experimental:
+
+[id='managing-keyboard-shortcuts-for-running-app-in-gnome']
+= Managing keyboard shortcuts for running an application in GNOME
+
+:md: ./modules
+:imagesdir: ./images
+
+:leveloffset: +1
+
+include::{md}/proc_adding-shortcut-custom-app-gnome.adoc[]
+include::{md}/proc_disabling-shortcut-custom-app-gnome.adoc[]
+include::{md}/proc_enabling-shortcut-custom-app-gnome.adoc[]
+include::{md}/proc_removing-shortcut-custom-app-gnome.adoc[]
+
+:leveloffset: 0
+
+////
+info sources:
+
+http://ask.fedoraproject.org/en/question/9623/how-can-i-set-a-key-shortcut-to-launch-terminal-under-gnome/
+https://help.gnome.org/users/gnome-help/stable/keyboard-shortcuts-set.html.en
+
+https://unix.stackexchange.com/questions/119432/save-custom-keyboard-shortcuts-in-gnome
+https://askubuntu.com/questions/26056/where-are-gnome-keyboard-shortcuts-stored
+
+tested on F28 live CD in VM
+////

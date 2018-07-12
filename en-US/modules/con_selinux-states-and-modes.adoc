@@ -1,0 +1,47 @@
+// Module included in the following assemblies:
+//
+// getting-started-with-selinux.adoc
+:experimental:
+
+[#{context}-selinux-states-and-modes]
+= SELinux states and modes
+
+SELinux can run in one of three modes: disabled, permissive, or enforcing.
+
+Disabled mode is strongly discouraged; not only does the system avoid enforcing the SELinux policy, it also avoids labeling any persistent objects such as files, making it difficult to enable SELinux in the future.
+
+In permissive mode, the system acts as if SELinux is enforcing the loaded security policy, including labeling objects and emitting access denial entries in the logs, but it does not actually deny any operations. While not recommended for production systems, permissive mode can be helpful for SELinux policy development.
+
+Enforcing mode is the default, and recommended, mode of operation; in enforcing mode SELinux operates normally, enforcing the loaded security policy on the entire system.
+
+Use the [command]`setenforce` utility to change between enforcing and permissive mode. Changes made with [command]`setenforce` do not persist across reboots. To change to enforcing mode, enter the [command]`setenforce 1` command as the Linux root user. To change to permissive mode, enter the [command]`setenforce 0` command. Use the [command]`getenforce` utility to view the current SELinux mode:
+
+----
+~]# getenforce
+Enforcing
+----
+
+----
+~]# setenforce 0
+~]# getenforce
+Permissive
+----
+
+----
+~]# setenforce 1
+~]# getenforce
+Enforcing
+----
+
+In Fedora, you can set individual domains to permissive mode while the system runs in enforcing mode. For example, to make the `httpd_t` domain permissive:
+
+----
+~]# semanage permissive -a httpd_t
+----
+
+// See <<sect-Security-Enhanced_Linux-Fixing_Problems-Permissive_Domains>> for more information.
+
+// [NOTE]
+// ====
+// Persistent states and modes changes are covered in <<sect-Security-Enhanced_Linux-Working_with_SELinux-Changing_SELinux_Modes>>.
+// ====
