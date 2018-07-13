@@ -1,0 +1,39 @@
+// Module included in the following assemblies:
+//
+// getting-started-with-selinux.adoc
+
+[#{context}-introduction-to-selinux]
+= Introduction to SELinux
+
+Security Enhanced Linux (SELinux) provides an additional layer of system security. SELinux fundamentally answers the question: _May <subject> do <action> to <object>?_, for example: _May a web server access files in users' home directories?_
+
+The standard access policy based on the user, group, and other permissions, known as Discretionary Access Control (DAC), does not enable system administrators to create comprehensive and fine-grained security policies, such as restricting specific applications to only viewing log files, while allowing other applications to append new data to the log files.
+
+SELinux implements Mandatory Access Control (MAC). Every process and system resource has a special security label called a _SELinux context_. A SELinux context, sometimes referred to as a _SELinux label_, is an identifier which abstracts away the system-level details and focuses on the security properties of the entity. Not only does this provide a consistent way of referencing objects in the SELinux policy, but it also removes any ambiguity that can be found in other identification methods; for example, a file can have multiple valid path names on a system that makes use of bind mounts.
+
+The SELinux policy uses these contexts in a series of rules which define how processes can interact with each other and the various system resources. By default, the policy does not allow any interaction unless a rule explicitly grants access.
+
+[NOTE]
+====
+It is important to remember that SELinux policy rules are checked after DAC rules. SELinux policy rules are not used if DAC rules deny access first, which means that no SELinux denial is logged if the traditional DAC rules prevent the access.
+====
+
+SELinux contexts have several fields: user, role, type, and security level. The SELinux type information is perhaps the most important when it comes to the SELinux policy, as the most common policy rule which defines the allowed interactions between processes and system resources uses SELinux types and not the full SELinux context. SELinux types usually end with `_t`. For example, the type name for the web server is `httpd_t`. The type context for files and directories normally found in `/var/www/html/` is `httpd_sys_content_t`. The type contexts for files and directories normally found in `/tmp` and `/var/tmp/` is `tmp_t`. The type context for web server ports is `http_port_t`.
+
+For example, there is a policy rule that permits Apache (the web server process running as `httpd_t`) to access files and directories with a context normally found in `/var/www/html/` and other web server directories (`httpd_sys_content_t`). There is no allow rule in the policy for files normally found in `/tmp` and `/var/tmp/`, so access is not permitted. With SELinux, even if Apache is compromised, and a malicious script gains access, it is still not able to access the `/tmp` directory.
+
+[#fig-intro-httpd-mysqld]
+.SELinux allows the Apache process running as httpd_t to access the /var/www/html/ directory and it denies the same process to access the /data/mysql/ directory because there is no allow rule for the httpd_t and mysqld_db_t type contexts). On the other hand, the MariaDB process running as mysqld_t is able to access the /data/mysql/ directory and SELinux also correctly denies the process with the mysqld_t type to access the /var/www/html/ directory labeled as httpd_sys_content_t.
+image::../images/selinux-intro-apache-mariadb.png[SELinux_Apache_MariaDB_example]
+
+[discrete]
+== Additional resources
+To better understand SELinux basic concepts, see the following documentation:
+
+* link:++https://people.redhat.com/duffy/selinux/selinux-coloring-book_A4-Stapled.pdf++[The SELinux Coloring Book]
+
+* link:++https://people.redhat.com/tcameron/Summit2012/SELinux/cameron_w_120_selinux_for_mere_mortals.pdf++[SELinux for Mere Mortals]
+
+* link:++http://selinuxproject.org/page/FAQ++[SELinux Wiki FAQ]
+
+* link:++http://freecomputerbooks.com/books/The_SELinux_Notebook-4th_Edition.pdf++[The SELinux Notebook]

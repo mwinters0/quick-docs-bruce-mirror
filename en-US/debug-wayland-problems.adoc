@@ -33,7 +33,7 @@ with the following macro:
 
 https://en.wikipedia.org/wiki/Wayland_%28display_server_protocol%29[Wayland]
 is intended as a simpler replacement for
-https://en.wikipedia.org/wiki/X_Window_System[X11]. It changes the
+https://en.wikipedia.org/wiki/X_Window_System[X11]. Wayland changes the
 design of a Linux desktop architecture considerably. Unlike X11, there
 is no dedicated standalone server in Wayland. What was previously done
 between the app, its toolkit, the Xserver and the window manager is now
@@ -48,13 +48,11 @@ https://wiki.gnome.org/Initiatives/Wayland[Wayland initiative] wiki
 page. You can read more about the current state of Wayland features on
 link:Wayland_features[Wayland features] page.
 
-[[identifying-wayland-problems]]
-Identifying Wayland problems
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[id='identifying-wayland-problems']
+== Identifying Wayland problems
 
-[[are-you-running-a-wayland-session]]
-Are you running a Wayland session?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[id='are-you-running-a-wayland-session']
+=== Are you running a Wayland session?
 
 In *GNOME*, there's a gear button at the login screen which can be used
 to either log into a Wayland session (simply called _GNOME_, it's the
@@ -77,8 +75,10 @@ session at the moment.
 Other desktop environments are not currently capable of running a
 Wayland session.
 
-[[identifying-the-session-type-in-runtime]]
-Identifying the session type in runtime
+[id='identifying-the-session-type-in-runtime']
+=== Identifying the session type in runtime
+
+
 
 If you want to figure out which type of session you're running right
 now, without logging out and in again, you can use several ways to
@@ -88,7 +88,7 @@ figure it out:
 session should not have it:
 +
 ....
-$ echo $WAYLAND_DISPLAY 
+$ echo $WAYLAND_DISPLAY
 wayland-0
 ....
 * `loginctl` can give you this information. First run `loginctl` and
@@ -106,10 +106,10 @@ are not related to Wayland. It's a bug either in that particular
 application, or X11 itself, see link:How_to_debug_Xorg_problems[How to
 debug Xorg problems].
 
-[[does-your-application-run-on-wayland-natively-or-uses-xwayland-x11-compatibility-layer]]
-Does your application run on Wayland natively, or uses XWayland (X11
+[id='does-your-application-run-on-wayland-natively-or-uses-xwayland-x11-compatibility-layer']
+=== Does your application run on Wayland natively, or uses XWayland (X11
 compatibility layer)?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 It is important to know whether the problematic application is a native
 Wayland application, or runs through XWayland, which allows legacy
@@ -179,9 +179,8 @@ in an X11 session, it should still be reported against Xorg server (
 package), because XWayland is included in it (as
 `xorg-x11-server-Xwayland` subpackage).
 
-[[identifying-problem-component]]
-Identifying problem component
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[id='identifying-problem-component]
+=== Identifying problem component
 
 Wayland itself is a protocol and the problem is rarely in the protocol
 itself. Rather, the problem is likely to be in the app or its toolkit,
@@ -206,9 +205,8 @@ compositor in GNOME. If you run GNOME, it is using this compositor.
 * https://community.kde.org/KWin/Wayland[Kwin] - compositor in KDE. If
 you run KDE, it is using this compositor.
 
-[[testing-under-different-compositors]]
-Testing under different compositors
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[id='testing-under-different-compositors']
+== Testing under different compositors
 
 If you experience a problem with a Wayland app, it is very useful to
 know whether the problem is present under just a single compositor (in
@@ -256,13 +254,11 @@ compositor your environment uses (mutter, kwin, etc). If the problem
 occurs only with XWayland apps but not native Wayland apps, report a bug
 against Xorg server.
 
-[[reporting-the-issue]]
+[id='reporting-the-issue']
 Reporting the issue
-~~~~~~~~~~~~~~~~~~~
 
-[[using-up-to-date-software]]
+[id='using-up-to-date-software]
 Using up-to-date software
-^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Before reporting the bug, please make sure you use the latest available
 software. You need to run on *Fedora 23 or later*, older Fedora versions
@@ -275,9 +271,8 @@ If there are (and the available updates look plausibly related to the
 components you're seeing issues with), please update the system and
 verify whether the issue is still present or has been fixed.
 
-[[looking-for-similar-reports]]
+[id='looking-for-similar-reports']
 Looking for similar reports
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In order to avoid duplicate reports and also wasting your time debugging
 something someone has maybe already debugged, please search through the
@@ -302,9 +297,8 @@ Wayland in Red Hat Bugzilla]
 Wayland in Freedesktop Bugzilla]
 * Google search
 
-[[filing-a-bug]]
+[id='filing-a-bug']
 Filing a bug
-^^^^^^^^^^^^
 
 After you've identified against which component to (most probably)
 report the issue and found no existing report of it, there are several
@@ -330,9 +324,8 @@ Red Hat Bugzilla]
 * https://bugzilla.gnome.org/show_bug.cgi?id=757579[Wayland Tracker in
 GNOME Bugzilla]
 
-[[information-to-include-in-your-bug-report]]
+[id='information-to-include-in-your-bug-report']
 Information to include in your bug report
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1.  System journal. Since there is no unique server like the X11 server,
 most of the important information will come from the the Wayland
@@ -395,9 +388,8 @@ $ rpm -qa | sort > packages.out
 link:Bugs_and_feature_requests#Things_Every_Bug_Should_Have[usual
 information] that every bug report should have.
 
-[[debugging-gnome-shell]]
+[id='debugging-gnome-shell']
 Debugging gnome-shell
-^^^^^^^^^^^^^^^^^^^^^
 
 If gnome-shell gets stuck and unresponsive, it's very helpful to obtain
 a backtrace from its process and attach it to the report. If this
@@ -421,9 +413,8 @@ $ gdb -p `pgrep -U $(id -un) -x gnome-shell`
 
 You should have the backtrace saved in `gdb.txt` file.
 
-[[debugging-mutter]]
+[id='debugging-mutter']
 Debugging mutter
-^^^^^^^^^^^^^^^^
 
 You can debug mutter (used in gnome-shell) by setting its
 https://developer.gnome.org/meta/stable/running-mutter.html[environment
@@ -434,9 +425,8 @@ called from a desktop file in `/usr/share/wayland-sessions`.
 *FIXME: Putting the wrapper script and desktop file here would be
 helpful.*
 
-[[known-issues-frequent-complaints-fundamental-changes]]
+[id='known-issues-frequent-complaints-fundamental-changes']
 Known issues, frequent complaints, fundamental changes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Here we will list high-profile issues which are known to be broken, not
 yet implemented, or intentionally behaving differently from regular X11
@@ -446,9 +436,8 @@ lists all current missing or in-progress features and their details.
 To see all known issues, look at Bugzilla reports as mentioned in
 link:#Looking_for_similar_reports[Looking for similar reports].
 
-[[graphical-applications-cant-be-run-as-root-from-terminal]]
+[id='graphical-applications-cant-be-run-as-root-from-terminal']
 Graphical applications can't be run as root from terminal
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 It is not possible to start graphical apps under the root account from
 terminal when using `su` or `sudo`. Apps which use polkit to request
@@ -459,9 +448,8 @@ https://bugzilla.redhat.com/show_bug.cgi?id=1274451[bug 1274451] and
 https://lists.fedoraproject.org/archives/list/devel%40lists.fedoraproject.org/thread/A6VXI4WAGSIIWGOTAVNDBVS4VFYXITHA/#2YU2RBYCXQSCGHGP772W5LRXUMTSINHA["On
 running gui applications as root" thread in fedora-devel mailing list].
 
-[[many-well-known-x11-utilities-dont-work]]
+[id='many-well-known-x11-utilities-dont-work']
 Many well-known X11 utilities don't work
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Power users are familiar with a large range of X11-related utilities,
 like `xkill`, `xrandr`, `xdotool`, `xsel`. These tools won't work under
@@ -471,9 +459,8 @@ to perform similar tasks.
 
 *FIXME: add some Wayland-ready replacements for popular X11 tools*
 
-[[games-and-other-apps-cant-change-monitor-resolution]]
+[id='games-and-other-apps-cant-change-monitor-resolution']
 Games and other apps can't change monitor resolution
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 It is no longer possible for an app to change monitor resolution.
 Usually this was done by games to increase performance. Wayland-based
@@ -489,9 +476,8 @@ For some games, a possible workaround is to manually set custom monitor
 resolution before running the game, if you really need it. It will not
 help always, though.
 
-[[screen-capture-is-not-available-with-usual-apps]]
+[id='screen-capture-is-not-available-with-usual-apps']
 Screen capture is not available with usual apps
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 One of the features of Wayland is its security design, which helps to
 guard the user against malicious apps. Apps can no longer see everything
@@ -512,9 +498,8 @@ screencast, you can also use
 https://extensions.gnome.org/extension/690/easyscreencast/[EasyScreenCast]
 gnome-shell extension.
 
-[[mouse-pointer-is-laggingstuttering-under-load]]
+[id='mouse-pointer-is-laggingstuttering-under-load']
 Mouse pointer is lagging/stuttering under load
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If your computer is under load, your mouse pointer movement might stop
 being fluent, but start lagging (get stuck in a place for a short time,
@@ -522,18 +507,16 @@ then jump to a different place instantly). This is probably more
 noticeable on slow systems/systems with fewer CPU cores. See
 https://bugzilla.gnome.org/show_bug.cgi?id=745032[bug 745032].
 
-[[keyboard-events-are-sometimes-quickly-repeated]]
+[id='keyboard-events-are-sometimes-quickly-repeated']
 Keyboard events are sometimes quickly repeated
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 There is a rare issue when you press a key to type a letter and you'll
 see multiple copies of the letter typed in. See
 https://bugzilla.gnome.org/show_bug.cgi?id=757942[bug 757942] and
 https://bugzilla.gnome.org/show_bug.cgi?id=777693[bug 777693].
 
-[[not-all-keys-can-be-sent-to-a-remote-desktop-or-a-virtual-machine]]
+[id='not-all-keys-can-be-sent-to-a-remote-desktop-or-a-virtual-machine']
 Not all keys can be sent to a remote desktop or a virtual machine
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Some applications forward all input, including system-specific
 keys/shortcuts like or , to a remote system. This is mostly remote

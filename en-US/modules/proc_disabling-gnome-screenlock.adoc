@@ -1,0 +1,16 @@
+= Disabling the GNOME Automatic Screen Lock
+
+In the interest of safety and privacy, the GNOME automatic screen lock is enabled by default.
+
+When the screen locks after a period of inactivity, you must enter your password to unlock the screen.
+
+You can disable this feature at any time.
+
+To disable the GNOME automatic screen lock, complete the following steps.
+
+. On the desktop, navigate to the upper-right corner of the screen and click the arrow icon to expand the desktop options. Click the *Settings* icon.
+. From the the *Settings* menu, select *Privacy*.
+. On the *Privacy* page, select *Screen Lock*, and toggle the switch from *On* to *Off*.
+. Close the window and verify that in the *Privacy* page, the *Screen Lock* is *Off*.
+
+To enable the automatic screen lock, repeat this process and toggle the switch from *Off* to *On*.

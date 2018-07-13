@@ -1,0 +1,56 @@
+[id='adding-shortcut-custom-app-gnome']
+= Adding keyboard shortcuts for custom applications in GNOME
+
+This section describes how to add a keyboard shortcut for starting a custom application in GNOME.
+
+[discrete]
+== Procedure
+
+. Open *Settings* and choose the *Devices* entry from the list:
++
+image::shortcuts-settings-devices.png[]
++
+NOTE: Earlier Fedora versions might not need this step.
+
+. Choose the *Keyboard* entry from the list and scroll down to the bottom of the list of keyboard shortcuts:
++
+image::shortcuts-keyboard-scroll.png[]
+
+. Click the *+* button at the bottom of the list.
++
+A window for entering the details appears:
++
+image::shortcuts-add-empty.png[]
+
+. Fill in details for the application.
++
+image::shortcuts-add-filled.png[]
++
+Replace _My Application_ with the name of the application and _myapp --special options_ with the command to run this application, including any options.
+
+. Click the *Set shortcut...* button.
++
+A window for entering the keyboard shortcut appears:
++
+image::shortcuts-add-enter.png[]
+
+. Press the key combination that should become the shortcut for starting the application.
++
+As soon as you release the key combination, the window for entering the shortcut closes. The window for application name and command now displays the entered shortctut:
++
+image::shortcuts-add-shortcut.png[]
+
+. Click the *Add* button.
++
+Your application shortcut now appears in the list under _Custom Shortcuts_:
++
+image::shortcuts-added.png[]
+
+// optional - close settings?
+
+////
+info sources:
+
+http://ask.fedoraproject.org/en/question/9623/how-can-i-set-a-key-shortcut-to-launch-terminal-under-gnome/
+https://help.gnome.org/users/gnome-help/stable/keyboard-shortcuts-set.html.en
+////

@@ -1,0 +1,29 @@
+// Module included in the following assemblies:
+//
+// getting-started-with-selinux.adoc
+:experimental:
+
+[#{context}-benefits-of-selinux]
+= Benefits of running SELinux
+
+SELinux provides the following benefits:
+
+* All processes and files are labeled. SELinux policy rules define how processes interact with files, as well as how processes interact with each other. Access is only allowed if an SELinux policy rule exists that specifically allows it.
+
+* Fine-grained access control. Stepping beyond traditional UNIX permissions that are controlled at user discretion and based on Linux user and group IDs, SELinux access decisions are based on all available information, such as an SELinux user, role, type, and, optionally, a security level.
+
+* SELinux policy is administratively-defined and enforced system-wide.
+
+* Improved mitigation for privilege escalation attacks. Processes run in domains, and are therefore separated from each other. SELinux policy rules define how processes access files and other processes. If a process is compromised, the attacker only has access to the normal functions of that process, and to files the process has been configured to have access to. For example, if the Apache HTTP Server is compromised, an attacker cannot use that process to read files in user home directories, unless a specific SELinux policy rule was added or configured to allow such access.
+
+* SELinux can be used to enforce data confidentiality and integrity, as well as protecting processes from untrusted inputs.
+
+However, SELinux is not:
+
+* antivirus software,
+
+* replacement for passwords, firewalls, and other security systems,
+
+* all-in-one security solution.
+
+SELinux is designed to enhance existing security solutions, not replace them. Even when running SELinux, it is important to continue to follow good security practices, such as keeping software up-to-date, using hard-to-guess passwords, or firewalls.
