@@ -1,4 +1,4 @@
-:md: ./modules
+:md: en-US/modules
 
 
 = Bootloading with *GRUB2*

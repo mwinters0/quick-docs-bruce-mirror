@@ -1,4 +1,4 @@
-:md: ./modules
+:md: en-US/modules
 
 [id='configuring-xorg-as-default-gnome-session']
 = Configuring Xorg as the default GNOME session

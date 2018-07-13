@@ -4,7 +4,7 @@
 = Getting started with SELinux
 :context: getting-started-with-selinux
 
-:md: ./modules
+:md: en-US/modules
 :imagesdir: ./images
 
 :leveloffset: +1

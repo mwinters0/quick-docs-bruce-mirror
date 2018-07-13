@@ -4,7 +4,7 @@
 = Installing virtual operating systems with GNOME Boxes
 :context: gnome-boxes
 
-:md: ./modules
+:md: en-US/modules
 :imagesdir: ./images
 
 GNOME Boxes is an application in GNOME Desktop Environment, which enables you to virtually access various operating systems.

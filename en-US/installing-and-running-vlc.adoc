@@ -1,6 +1,6 @@
 :experimental:
 :imagesdir: ./images
-:md: ./modules
+:md: en-US/modules
 
 [[installing-and-running-vlc]]
 = Installing and Running VLC

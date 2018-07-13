@@ -7,7 +7,7 @@
 = Changing SELinux states and modes
 :context: selinux
 
-:md: ./modules
+:md: en-US/modules
 
 include::{md}/con_permanent-changes-in-selinux-states-and-modes.adoc[leveloffset=+1]
 include::{md}/proc_enabling-selinux.adoc[leveloffset=+1]
