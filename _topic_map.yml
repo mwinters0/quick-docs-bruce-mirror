@@ -104,7 +104,7 @@ Topics:
   - Name: Understanding and administering systemd
     File: understanding-and-administering-systemd
   - Name: Displaying a user prompt on the GNOME login screen
-    File: proc_displaying_user_prompt_on_gnome_login_screen
+    File: displaying_user_prompt_on_gnome_login_screen
   - Name: Installing virtual operating systems with GNOME Boxes
     File: installing-virtual-systems-with-gnome-boxes.adoc
   - Name: Using virtualization emulation in QEMU
@@ -122,7 +122,7 @@ Topics:
   - Name: Configuring X.org as the default GNOME session
     File: configuring-xorg-as-default-gnome-session
   - Name: Identifying Wayland problems
-    File: debug-wayland-problems     
+    File: debug-wayland-problems
 # - Name: (CHECK) GRUB 2
 #   File: grub2
 # - Name: (FIX ME!) How to debug Dracut problems
