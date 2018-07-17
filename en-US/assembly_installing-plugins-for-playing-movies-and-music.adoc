@@ -1,5 +1,5 @@
 // Load attributes from the external file
-include::attributes.adoc[]
+include::en-US/attributes.adoc[]
 
 // This assembly is included in the following assemblies:
 //
@@ -58,15 +58,15 @@ The following procedures only apply to users in countries that do not recognize 
 // modules required to cover the user story. You can also include other
 // assemblies.
 
-include::{md}/proc_enabling-the-rpmfusion-repositories-using-graphical-applications.adoc[leveloffset=+1]
+include::en-US/modules/proc_enabling-the-rpmfusion-repositories-using-graphical-applications.adoc[leveloffset=+1]
 
-include::{md}/proc_enabling-the-rpmfusion-repositories-using-command-line-utilities.adoc[leveloffset=+1]
+include::en-US/modules/proc_enabling-the-rpmfusion-repositories-using-command-line-utilities.adoc[leveloffset=+1]
 
-include::{md}/proc_installing-multimedia-plug-ins-with-dnf.adoc[leveloffset=+1]
+include::en-US/modules/proc_installing-multimedia-plug-ins-with-dnf.adoc[leveloffset=+1]
 
-include::{md}/concept_third-party-repositories.adoc[leveloffset=+1]
+include::en-US/modules/concept_third-party-repositories.adoc[leveloffset=+1]
 
-include::{md}/con_the-purpose-of-rpm-fusion.adoc[leveloffset=+1]
+include::en-US/modules/con_the-purpose-of-rpm-fusion.adoc[leveloffset=+1]
 
 // [leveloffset=+1] ensures that when a module starts with a level-1 heading
 // (= Heading), the heading will be interpreted as a level-2 heading

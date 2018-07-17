@@ -1,3 +1,1 @@
-
-
-include::modules/proc_disabling-gnome-screenlock.adoc[leveloffset=+1]
+include::en-US/modules/proc_disabling-gnome-screenlock.adoc[leveloffset=+1]

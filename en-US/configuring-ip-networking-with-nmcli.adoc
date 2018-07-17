@@ -1,12 +1,12 @@
 [id='Configuring-networking-with-nmcli']
-= Configuring networking with nmcli
+= Configuring IP networking with nmcli
 
 How to configure networking using the [application]*nmcli* (NetworkManager Command Line Interface) command-line utility.
 
-include::modules/con_Getting-started-with-nmcli.adoc[leveloffset=+1]
+include::en-US/modules/con_Getting-started-with-nmcli.adoc[leveloffset=+1]
 
-include::modules/proc_Brief-selection-of-nmcli-examples.adoc[leveloffset=+1]
+include::en-US/modules/proc_Brief-selection-of-nmcli-examples.adoc[leveloffset=+1]
 
-include::modules/con_Understanding-the-nmcli-options.adoc[leveloffset=+1]
+include::en-US/modules/con_Understanding-the-nmcli-options.adoc[leveloffset=+1]
 
-include::modules/proc_Configuring-networking-with-nmcli.adoc[leveloffset=+1]
+include::en-US/modules/proc_Configuring-networking-with-nmcli.adoc[leveloffset=+1]
