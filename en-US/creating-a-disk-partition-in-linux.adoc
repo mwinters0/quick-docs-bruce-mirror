@@ -1,0 +1,13 @@
+:experimental:
+
+:parent-context: {context}
+
+[id='disk-partition-in-linux-{context}']
+= Creating a disk partition in Linux
+:context: using-parted
+
+include::en-US/modules/con_disk-partition-linux.adoc[leveloffset=+1]
+include::en-US/modules/proc_creating-a-disk-partition-in-linux.adoc[leveloffset=+1]
+include::en-US/modules/ref_help-mkpart.adoc[leveloffset=+1]
+
+:context: {parent-context}

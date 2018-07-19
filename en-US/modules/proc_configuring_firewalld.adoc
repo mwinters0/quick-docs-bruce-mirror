@@ -1,0 +1,43 @@
+// Module included in the following assemblies:
+//
+// firewalld.adoc
+
+[id='configuring_firewalld_fedora']
+
+= Modifying Settings in runtime and permanent configuration using CLI
+
+Using the CLI, you do not modify the firewall settings in both modes at the same time. You only modify either runtime or permanent mode. To modify the firewall settings in the permanent mode, use the --permanent option with the firewall-cmd command.
+
+----
+$ sudo firewall-cmd --permanent <other options>
+----
+
+Without this option, the command modifies runtime mode.
+To change settings in both modes, you can use two methods:
+
+Change runtime settings and then make them permanent as follows:
+----
+$ sudo firewall-cmd <other options>
+$ sudo firewall-cmd --runtime-to-permanent
+----
+
+Set permanent settings and reload the settings into runtime mode:
+
+----
+$ sudo firewall-cmd --permanent <other options>
+$ sudo firewall-cmd --reload
+----
+
+The first method allows you to test the settings before you apply them to the permanent mode.
+
+[Note]
+====
+
+It is possible, especially on remote systems, that an incorrect setting results in a user locking themselves out of a machine. To prevent such situations, use the `--timeout` option. After a specified amount of time, any change reverts to its previous state. Using this options excludes the --permanent option.
+For example, to add the SSH service for 15 minutes:
+
+----
+$ sudo firewall-cmd --add-service=ssh --timeout 15m
+----
+
+====

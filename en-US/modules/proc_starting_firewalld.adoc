@@ -1,0 +1,22 @@
+// Module included in the following assemblies:
+//
+// firewalld.adoc
+
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id=starting-firewalld-fedora]
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+= Starting firewalld
+
+Start firewalld, by entering the following commands:
+
+----
+$ sudo systemctl unmask firewalld
+$ sudo systemctl start firewalld
+----
+
+To make firewalld start automatically at system start:
+
+----
+$ sudo systemctl enable firewalld
+----

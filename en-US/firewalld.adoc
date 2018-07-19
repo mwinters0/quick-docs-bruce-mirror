@@ -1,166 +1,29 @@
-[[ch-FirewallD]]
-= FirewallD
+:experimental:
+:imagesdir: ./images
 
-[[sect-what-is-firewalld]]
-== What is FirewallD?
+[[using-firewalld]]
+= Using firewalld
 
-FirewallD allows users to control which network ports they want opened, or closed, to keep their system secure from unauthorized access.
-FirewallD is integrated with SystemD and NetworkManager, and supports IPv4, IPv6 and ethernet bridges.
-It also supports an interface for services and applications to add firewall rules directly.
-These settings can be controlled from the command-line, or with the `firewall-config` graphic-user-interface.
+:leveloffset: +1
 
-[[sect-do-i-have-firewalld-on-my-system]]
-== Do I have FirewallD on my system?
-FirewallD is the default firewall service for current releases of Fedora and is enabled by default.
-To check if your system has FirewallD enabled, at the command-line, type:
+include::en-US/modules/con_firewalld.adoc[]
 
-[source,bash]
+include::en-US/modules/proc_checking_firewalld.adoc[]
 
-----
+include::en-US/modules/proc_installing_firewalld.adoc[]
 
-sudo firewall-cmd --state
+include::en-US/modules/proc_starting_firewalld.adoc[]
 
-----
+include::en-US/modules/proc_stopping_firewalld.adoc[]
 
-This command will show if it is `running` or `not running`
+include::en-US/modules/con_runtime_and_permanent_firewalld.adoc[]
 
-If FirewallD is `not running`, type:
+include::en-US/modules/proc_changing_runtime_firewalld.adoc[]
 
-[source,bash]
+include::en-US/modules/con_controlling_ports_firewalld.adoc[]
 
-----
+include::en-US/modules/proc_opening_ports_firewalld.adoc[]
 
-sudo systemctl enable --now firewalld
+include::en-US/modules/proc_closing_ports_firewalld.adoc[]
 
-----
-
-This will enable the FirewallD service when booting the system, and immediately start the service.
-
-If these commands do not work, FirewallD may not be installed. To install it, type:
-
-[source,bash]
-
-----
-
-sudo dnf install firewalld
-
-----
-
-To install the FirewallD graphical-user-interface application and open it from the command-line, type:
-
-[source,bash]
-
-----
-
-sudo dnf install firewall-config
-
-sudo firewall-config
-
-----
-
-[[sect-opening-and-closing-ports-with-firewalld]]
-== Opening and closing ports with FirewallD
-
-Opening ports with FirewallD can be executed from the command-line without the need to edit configuration files.
-Ports can be opened using either the service name, or the port number.
-For example, to allow access to the SSH service, type:
-
-[source,bash]
-
-----
-
-sudo firewall-cmd --add-service ssh
-
-----
-
-If allowing access by the port number, it needs to be followed by the protocol whether it is TCP or UDP.
-To open SSH by its port, type:
-
-[source,bash]
-
-----
-
-sudo firewall-cmd --add-port=22/tcp
-
-----
-
-This will open the SSH port in runtime mode.
-Runtime mode means it will run the change temporarily and will revert back to its original state after reloading the FirewallD service, or after a system reboot.
-To keep the SSH port opened after a FirewallD service restart, or system reboot, include the `--permanent` option, type:
-
-[source,bash]
-----
-
-sudo firewall-cmd --permanent --add-service ssh
-
-----
-
-or by port number:
-
-[source,bash]
-
-----
-
-sudo firewall-cmd --permanent --add-port=22/tcp
-
-----
-
-To save the changes:
-
-[source,bash]
-
-----
-
-sudo firewall-cmd --reload
-
-----
-
-To block access to the SSH service:
-
-[source,bash]
-
-----
-
-sudo firewall-cmd --remove-service ssh
-
-----
-
-To block access by port number:
-
-----
-
-sudo firewall-cmd --remove-port=22/tcp
-
-----
-
-Again, add the `--permanent` option to make it persistent, and don't forget to do `firewall-cmd --reload` to save the changes.
-
-[[sect-how-can-i-see-the-services-recognized-by-firewalld]]
-== How can I see the services recognized by FirewallD?
-
-To see a list of all the services recognized by FirewallD, type:
-
-[source,bash]
-
-----
-
-sudo firewall-cmd --get-services
-
-----
-
-To view a list of services "turned-on" in FirewallD, type:
-
-[source,bash]
-
-----
-
-sudo firewall-cmd --list-services
-
-----
-
-[[sect-additional-resources]]
-== Additional Resources
-
-For more information about configuring FirewallD, such as how to list and change zones, port forwarding, and other system administrative tasks, refer to the FirewallD documentation at link:++http://www.firewalld.org/++[firewalld.org], the link:++https://fedoraproject.org/wiki/Firewalld++[Fedora Wiki: FirewallD].
-
-You can also find local documentation by using `firewall-cmd --help` or the man pages: `man firewalld`
+:leveloffset: 0

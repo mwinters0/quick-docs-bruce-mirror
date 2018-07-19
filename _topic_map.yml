@@ -63,6 +63,8 @@ Topics:
         File: build-custom-kernel
   - Name: Managing keyboard shortcuts for running an application in GNOME
     File: managing-keyboard-shortcuts-for-running-app-in-gnome
+  - Name: Setting a key shortcut to run an application in GNOME
+    File: proc_setting-key-shortcut
   - Name: Disabling the GNOME automatic screen locking
     File: disabling-automatic-screenlock
   - Name: Viewing logs in Fedora
@@ -73,6 +75,8 @@ Topics:
     File: installing-and-running-vlc
   - Name: Configuring networking with NetworkManager CLI (nmcli)
     File: configuring-ip-networking-with-nmcli
+  - Name: Creating disk partitions
+    File: creating-a-disk-partition-in-linux
   - Name: NVIDIA Optimus Bumblebee
     File: bumblebee
   - Name: Raspberry Pi
@@ -121,8 +125,8 @@ Topics:
     File: configuring-x-window-system-using-the-xorg-conf-file
   - Name: Configuring X.org as the default GNOME session
     File: configuring-xorg-as-default-gnome-session
-  - Name: Identifying Wayland problems
-    File: debug-wayland-problems
+#  - Name: (FIX ME!) Identifying Wayland problems
+#    File: debug-wayland-problems
 # - Name: (CHECK) GRUB 2
 #   File: grub2
 # - Name: (FIX ME!) How to debug Dracut problems

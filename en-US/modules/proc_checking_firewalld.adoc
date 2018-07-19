@@ -1,0 +1,130 @@
+// Module included in the following assemblies:
+//
+// firewalld.adoc
+
+// Base the file name and the ID on the module title. For example:
+// * file name: doing-procedure-a.adoc
+// * ID: [id='doing-procedure-a']
+// * Title: = Doing procedure A
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id=checking-firewalld-fedora]
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+= Checking the firewalld status
+
+== Viewing the current status of `firewalld`
+
+The firewall service, `firewalld`, is installed on the system by default. Use the `firewalld` CLI interface to check that the service is running.
+
+To see the status of the service:
+
+----
+$ sudo firewall-cmd --state
+----
+
+For more information about the service status, use the [command]`systemctl status` sub-command:
+
+----
+$ sudo systemctl status firewalld
+firewalld.service - firewalld - dynamic firewall daemon
+   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor pr
+   Active: active (running) since Mon 2017-12-18 16:05:15 CET; 50min ago
+     Docs: man:firewalld(1)
+ Main PID: 705 (firewalld)
+    Tasks: 2 (limit: 4915)
+   CGroup: /system.slice/firewalld.service
+           └─705 /usr/bin/python3 -Es /usr/sbin/firewalld --nofork --nopid
+----
+
+Furthermore, it is important to know how `firewalld` is set up and which rules are in force before you try to edit the settings. To display the firewall settings, see <<sec-Viewing_Current_firewalld_Settings>>
+
+[[sec-Viewing_Current_firewalld_Settings]]
+== Viewing current firewalld settings
+
+[[sec-Viewing_Allowed_Services_Using_GUI]]
+=== Viewing allowed services using GUI
+
+To view the list of services using the graphical [application]*firewall-config* tool, press the kbd:[Super] key to enter the Activities Overview, type [command]`firewall`, and press kbd:[Enter]. The [application]*firewall-config* tool appears. You can now view the list of services under the `Services` tab.
+
+Alternatively, to start the graphical firewall configuration tool using the command-line, enter the following command:
+
+[subs="quotes, macros"]
+----
+$ [command]`firewall-config`
+----
+
+The `Firewall Configuration` window opens. Note that this command can be run as a normal user, but you are prompted for an administrator password occasionally.
+////
+[[exam-firewall_config_services]]
+.The Services tab in firewall-config
+
+image::images/firewall-config-services.png[A screenshot of the firewall configuration tool - the Services tab]
+////
+[[sec-Viewing_firewalld_Settings_Using_CLI]]
+=== Viewing firewalld settings using CLI
+
+With the CLI client, it is possible to get different views of the current firewall settings. The [option]`--list-all` option shows a complete overview of the `firewalld` settings.
+
+`firewalld` uses zones to manage the traffic. If a zone is not specified by the [option]`--zone` option, the command is effective in the default zone assigned to the active network interface and connection.
+
+To list all the relevant information for the default zone:
+
+----
+$ firewall-cmd --list-all
+public
+  target: default
+  icmp-block-inversion: no
+  interfaces:
+  sources:
+  services: ssh dhcpv6-client
+  ports:
+  protocols:
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+----
+
+[NOTE]
+====
+To specify the zone for which to display the settings, add the [option]`--zone=pass:attributes[{blank}]_zone-name_pass:attributes[{blank}]` argument to the [command]`firewall-cmd --list-all` command, for example:
+----
+~]# firewall-cmd --list-all --zone=home
+home
+  target: default
+  icmp-block-inversion: no
+  interfaces:
+  sources:
+  services: ssh mdns samba-client dhcpv6-client
+... [output truncated]
+
+----
+====
+
+To see the settings for particular information, such as services or ports, use a specific option. See the `firewalld` manual pages or get a list of the options using the command help:
+
+----
+$ firewall-cmd --help
+
+Usage: firewall-cmd [OPTIONS...]
+
+General Options
+  -h, --help           Prints a short help text and exists
+  -V, --version        Print the version string of firewalld
+  -q, --quiet          Do not print status messages
+
+Status Options
+  --state              Return and print firewalld state
+  --reload             Reload firewall and keep state information
+... [output truncated]
+----
+
+For example, to see which services are allowed in the current zone:
+
+----
+$ firewall-cmd --list-services
+samba-client ssh dhcpv6-client
+----
+
+Listing the settings for a certain subpart using the CLI tool can sometimes be difficult to interpret. For example, you allow the `SSH` service and `firewalld` opens the necessary port (22) for the service. Later, if you list the allowed services, the list shows the `SSH` service, but if you list open ports, it does not show any. Therefore, it is recommended to use the [option]`--list-all` option to make sure you receive a complete information.

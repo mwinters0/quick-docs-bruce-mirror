@@ -4,7 +4,6 @@
 = Managing keyboard shortcuts for running an application in GNOME
 
 :md: en-US/modules
-:imagesdir: ./images
 
 :leveloffset: +1
 

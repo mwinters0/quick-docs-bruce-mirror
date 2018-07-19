@@ -1,0 +1,18 @@
+// Module included in the following assemblies:
+//
+// firewalld.adoc
+
+
+[id=installing-firewalld-gui-fedora]
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+= Installing the [application]*firewall-config* GUI configuration tool
+
+To use the [application]*firewall-config* GUI configuration tool, install the [package]*firewall-config* package as `root`:
+
+----
+$ sudo dnf install firewall-config
+----
+
+Alternatively, in [application]*GNOME*, use the kbd:[Super] key and type `Software` to launch the [application]*Software Sources* application. Type `firewall` to the search box, which appears after selecting the search button in the top-right corner. Select the `Firewall` item from the search results, and click on the btn:[Install] button.
+
+To run [application]*firewall-config*, use either the [command]`firewall-config` command or press the kbd:[Super] key to enter the `Activities Overview`, type `firewall`, and press kbd:[Enter].

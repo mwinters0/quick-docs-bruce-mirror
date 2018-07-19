@@ -14,3 +14,5 @@ Next, copy the file to the correct location:
 ----
 
 Now you may edit the file according to your needs.
+
+See the `xorg.conf(5)` man page for more information.

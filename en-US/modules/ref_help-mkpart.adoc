@@ -1,0 +1,37 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// Base the file name and the ID on the module title. For example:
+// * file name: help-mkpart.adoc
+// * ID: [id='help-mkpart']
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id='help-mkpart_{context}']
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+= Help command for creating a new partition
+
+To get help on how to make a new partition, type: `help mkpart`.
+
+----
+(parted) help mkpart
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+
+        PART-TYPE is one of: primary, logical, extended
+        FS-TYPE is one of: btrfs, nilfs2, ext4, ext3, ext2, fat32, fat16, hfsx, hfs+, hfs, jfs, swsusp,
+        linux-swap(v1), linux-swap(v0), ntfs, reiserfs, hp-ufs, sun-ufs, xfs, apfs2, apfs1, asfs, amufs5,
+        amufs4, amufs3, amufs2, amufs1, amufs0, amufs, affs7, affs6, affs5, affs4, affs3, affs2, affs1,
+        affs0, linux-swap, linux-swap(new), linux-swap(old)
+        START and END are disk locations, such as 4GB or 10%.  Negative values count from the end of the
+        disk.  For example, -1s specifies exactly the last sector.
+       
+        'mkpart' makes a partition without creating a new file system on the partition.  FS-TYPE may be
+        specified to set an appropriate partition ID.
+----
+
+[NOTE]
+====
+* Filesystem type (fstype) will not create an ext4 filesystem on /dev/vdc1. 
+* A DOS partition table's partition types are primary, logical, and extended. 
+* Providing a partition name under GPT is a must. In a GPT partition table, the partition type is used as the partition name.
+====

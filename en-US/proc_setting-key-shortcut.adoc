@@ -1,0 +1,23 @@
+[id='setting-key-shortcut_{context}']
+= Setting a key shortcut to run an application in GNOME
+
+If you frequently use a certain application, you can set a keyboard shortcut to quickly launch that application on GNOME.
+
+This example shows how to set a key shortcut to launch the terminal.
+
+To set a key shortcut to run an application:
+
+. Navigate to menu:Settings[Keyboard] to open the *Keyboard Shortcuts* list.
+. Click `+` at the bottom of the list to create a new shortcut.
+. Enter the following details in the *Add Custom Shortcut* window:
+* Add a `Name` for your shortcut, for example, `Terminal`.
+* Enter the command that launches the application. For example, `gnome-terminal`.
+. Click *Set Shortcut* to open the *Set Custom Shortcut* window.
+. Type a keyboard shortcut, for example `Ctrl-Alt-T`.
+. Click *Add*.
+
+Your shortcut appears under *Custom Shortcuts* and is ready to use.
+
+image:custom_shortcut.png[]
+
+To edit or remove your shortcut, click the shortcut to open its details.

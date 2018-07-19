@@ -1,8 +1,6 @@
 [id='proc_managing-trusted-system-certificates']
 = Managing Trusted System Certificates
 
-.Procedure
-
 To list, extract, add, remove, or change trust anchors, use the [command]`trust` command. To see the built-in help for this command, enter it without any arguments or with the [option]`--help` directive:
 
 [subs="quotes, macros"]

@@ -1,0 +1,15 @@
+// Module included in the following assemblies:
+//
+// firewalld.adoc
+
+[id='concept-runtime-and-permanent-firewalld-fedora']
+
+= Runtime and permanent settings
+
+Any changes made while firewalld is running will be lost when firewalld is restarted. When firewalld is restarted, the settings revert to their permanent values.
+
+These changes are said to be made in _runtime mode_.
+
+To make the changes persistent across reboots, apply them again using the `--permanent` option. Alternatively, to make changes persistent while firewalld is running, use the `--runtime-to-permanent _firewall-cmd_` option.
+
+If you make changes while firewalld is running using only the `--permanent` option, they do not become effective until firewalld is restarted. However, restarting firewalld briefly stops the networking traffic, causing disruption to your system.

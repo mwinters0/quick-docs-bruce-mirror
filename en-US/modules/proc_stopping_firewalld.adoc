@@ -1,0 +1,29 @@
+// Module included in the following assemblies:
+//
+//firewalld.adoc
+
+// Base the file name and the ID on the module title. For example:
+// * file name: doing-procedure-a.adoc
+// * ID: [id='doing-procedure-a']
+// * Title: = Doing procedure A
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id=stopping-firewalld-fedora]
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+= Stopping firewalld
+
+
+To stop firewalld, enter the following command as root:
+----
+$ sudo systemctl stop firewalld
+----
+
+Prevent firewalld from starting automatically at system start, enter the following command as root:
+----
+$ sudo systemctl disable firewalld
+----
+
+Make sure firewalld is not started by accessing the firewalld D-Bus interface and also if other services require firewalld, enter the following command as root:
+----
+$ sudo systemctl mask firewalld
+----

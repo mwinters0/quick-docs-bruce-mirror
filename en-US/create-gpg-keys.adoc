@@ -55,7 +55,7 @@ There are several options available on the market, for example the https://www.y
 Look for a token which advertises OpenPGP support.
 See https://blog.josefsson.org/2014/06/23/offline-gnupg-master-key-and-subkeys-on-yubikey-neo-smartcard/[this blog entry] for how to create a key with offline backups, and use the token for online access.
 
-include::en-US/modules/proc_revoking-gpg-keys.adoc[]
+include::en-US/modules/proc_revoking-gpg-keys.adoc[leveloffset=+1]
 
 = Additional resources
 

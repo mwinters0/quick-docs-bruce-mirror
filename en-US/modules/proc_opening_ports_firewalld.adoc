@@ -1,0 +1,37 @@
+// Module included in the following assemblies:
+//
+// firewalld.adoc
+
+// Base the file name and the ID on the module title. For example:
+// * file name: doing-procedure-a.adoc
+// * ID: [id='doing-procedure-a']
+// * Title: = Doing procedure A
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id=opening-ports-firewalld-fedora]
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+= Opening a port
+
+Through open ports, the system is accessible from the outside, which represents a security risk. Generally, keep ports closed and only open them if they are required for certain services.
+
+.Opening a port using the command line
+
+. Get a list of allowed ports in the current zone:
++
+----
+$ firewall-cmd --list-ports
+----
++
+. Add a port to the allowed ports to open it for incoming traffic:
++
+----
+$ sudo firewall-cmd --add-port=port-number/port-type
+----
++
+. Make the new settings persistent:
++
+----
+$ sudo firewall-cmd --runtime-to-permanent
+----
+
+The port types are either tcp, udp, sctp, or dccp. The type must match the type of network communication.

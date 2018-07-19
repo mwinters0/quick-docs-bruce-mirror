@@ -3,9 +3,6 @@
 
 This section describes how to enable a keyboard shortcut for starting a custom application in GNOME.
 
-[discrete]
-== Procedure
-
 . Open *Settings* and choose the *Devices* entry from the list:
 +
 image::shortcuts-settings-devices.png[]
@@ -39,4 +36,3 @@ As soon as you release the key combination, the window for entering the shortcut
 image::shortcuts-enabling-entered.png[]
 
 . Close the shortcut editing window.
-

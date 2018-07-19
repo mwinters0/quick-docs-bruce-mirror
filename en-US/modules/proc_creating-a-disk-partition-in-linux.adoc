@@ -1,0 +1,105 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// Base the file name and the ID on the module title. For example:
+// * file name: proc_creating-a-disk-partition-in-linux.adoc
+// * ID: [id='creating-a-disk-partition-in-linux']
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id='creating-a-disk-partition-in-linux_{context}']
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+= Creating a Disk Partition in Linux
+// Start the title of a procedure module with a verb, such as Creating or Create. See also _Wording of headings_ in _The IBM Style Guide_.
+
+This procedure describes how to partition a storage disk in Linux using the `parted` command.
+
+.Procedure
+
+. List the partitions using the `parted -l` command to identify the storage device you want to partition. Typically, the first hard disk (`/dev/sda` or `/dev/vda`) will contain the operating system, so look for another disk to find the one you want. For example:
++
+----
+$ sudo parted -l
+[sudo] password for user:
+Model: ATA RevuAhn_850X1TU5 (scsi)
+Disk /dev/vdc: 512GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags:
+
+Number  Start   End    Size   Type     File system  Flags
+ 1      1049kB  525MB  524MB  primary  ext4         boot
+ 2      525MB   512GB  512GB  primary               lvm
+----
++
+. Open the storage device. Use the `parted` command to begin working with the selected storage device. For example:
++
+----
+$ sudo parted /dev/vdc
+GNU Parted 3.2
+Using /dev/vdc
+Welcome to GNU Parted! Type 'help' to view a list of commands.
+(parted)
+----
++
+[IMPORTANT]
+====
+Be sure to indicate the specific device you want to partition. If you just enter `parted` without a device name, it will randomly select a storage device to modify.
+====
++
+. Set the partition table type to `gpt`, then enter `Yes` to accept it.
++
+----
+(parted) mklabel gpt
+Warning: the existing disk label on /dev/vdc will be destroyed
+and all data on this disk will be lost. Do you want to continue?
+Yes/No? Yes
+----
++
+[NOTE]
+====
+The `mklabel` and `mktable` commands are both used for making a partition table on a storage device. At time of writing, the supported partition tables are: `aix`, `amiga`, `bsd`, `dvh`, `gpt`, `mac`, `ms-dos`, `pc98`, `sun`, and `loop`. Remember `mklabel` will not make a partition, rather it will make a partition table.
+====
+. Review the partition table of the storage device.
++
+----
+(parted) print
+Model: Virtio Block Device (virtblk)
+Disk /dev/vdc: 1396MB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+Number Start End Size File system Name Flags
+----
++
+. Create a new partition using the following command. For example, 1396 MB on partition 0:
++
+----
+(parted) mkpart primary 0 1396MB
+
+Warning: The resulting partition is not properly aligned for best performance
+Ignore/Cancel? I
+
+(parted) print
+Model: Virtio Block Device (virtblk)
+Disk /dev/vdc: 1396MB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+Number Start   End     Size    File system Name Flags
+1      17.4kB  1396MB  1396MB  primary
+----
++
+[NOTE]
+====
+Providing a partition name under GPT is a must; in the above example, primary is the name, not the partition type. In a GPT partition table, the partition type is used as partition name. 
+====
++
+. Quit using the `quit` command. Changes are automatically saved when you quit `parted`.
++
+----
+(parted) quit
+Information: You may need to update /etc/fstab. 
+$
+----
++

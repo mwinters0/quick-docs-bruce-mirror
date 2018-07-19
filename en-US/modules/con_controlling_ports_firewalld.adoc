@@ -1,0 +1,13 @@
+// Module included in the following assemblies:
+//
+// firewalld.adoc
+
+
+[id='controlling-ports-firewalld-fedora']
+
+= Controlling ports using firewalld
+
+== What are ports?
+Ports are logical devices that enable an operating system to receive and distinguish network traffic and forward it accordingly to system services. These are usually represented by a daemon that listens on the port, that is it waits for any traffic coming to this port.
+
+Normally, system services listen on standard ports that are reserved for them. The httpd daemon, for example, listens on port 80. However, system administrators may configure daemons to listen on different ports to enhance security.

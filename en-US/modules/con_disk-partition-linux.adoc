@@ -1,0 +1,9 @@
+// Module included in the following assemblies:
+//
+// creating-a-disk-partition-in-linux-using-the-parted-command.adoc
+:experimental:
+
+[#{context}-disk-partition-linux]
+= Disk Partitioning in Linux
+
+Creating and deleting partitions in Linux is a regular practice because storage devices (such as hard drives and USB drives) must be structured in some way before they can be used. In most cases, large storage devices are divided into separate sections called partitions. Partitioning also allows you to divide your hard drive into isolated sections, where each section behaves as its own hard drive. Partitioning is particularly useful if you run multiple operating systems.
