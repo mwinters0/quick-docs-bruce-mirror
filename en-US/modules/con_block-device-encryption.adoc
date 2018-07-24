@@ -1,0 +1,5 @@
+[id='con_block-device-encryption_{context}']
+== Block device encryption
+
+Block device encryption protects the data on a block device by encrypting it. To access the device's decrypted contents, a user must provide a passphrase or key as authentication. This provides additional security beyond existing operating system security mechanisms as it protects the device's contents even if it has been physically removed from the system. 
+

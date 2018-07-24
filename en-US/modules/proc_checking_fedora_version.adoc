@@ -1,0 +1,10 @@
+[id="checking_fedora_version"]
+= Checking Fedora version
+
+To check which version of Fedora you are currently using, enter the following command:
+
+----
+uname -p
+----
+
+The resulting string is `x86` for a 32-bit version and `x86_64` for a 64-bit version of Fedora.

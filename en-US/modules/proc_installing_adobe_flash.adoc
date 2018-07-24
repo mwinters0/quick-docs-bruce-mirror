@@ -1,0 +1,20 @@
+[id="installing_adobe_flash"]
+= Installing Adobe Flash
+
+To install Adobe Flash on Fedora:
+
+. Go to the official Adobe Flash web site at link:++https://get.adobe.com/flashplayer/otherversions/++[https://get.adobe.com/flashplayer/otherversions/].
+
+. In the drop-down options for _Select an Operating System_, choose *Linux (32-bit)* or *Linux (64-bit)* depending on which version of Fedora you are using.
+
+. In the drop-down for _Select a version_, select *FP for Linux $VERSION (.rpm) - NPAPI* for Firefox, or select *FP for Linux $VERSION (.rpm) - PPAPI* for Chromium. 
+
+. Click *Download Now* to download the file.
+
+. In a terminal window, go to the target download directory and type:
+
+----
+sudo dnf install flash-player-$VERSION.rpm
+----
+
+You have now successfully installed the Adobe Flash plug-in. You can now run multimedia on Flash-based website in your browser.

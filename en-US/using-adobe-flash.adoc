@@ -1,0 +1,12 @@
+:experimental:
+//include::en-US/entities.adoc[]
+include::en-US/3rdparty-message.adoc[]
+
+[id="using_adobe_flash"]
+= Using Adobe Flash
+
+include::en-US/modules/con_what_is_adobe_flash.adoc[leveloffset=+1]
+
+include::en-US/modules/proc_checking_fedora_version.adoc[leveloffset=+1]
+
+include::en-US/modules/proc_installing_adobe_flash.adoc[leveloffset=+1]

@@ -1,0 +1,6 @@
+[id="what_is_adobe_flash"]
+= What is Adobe Flash
+
+Adobe Flash is a web browser plug-in used for multimedia. Adobe's Flash plug-in is not included in Fedora because it is not free and open source software. However, Adobe releases a version of the Flash plug-in for Fedora and other Linux distributions using Firefox, Chromium, and other popular internet browsers.
+
+Flash is less widely used than before because popular multimedia sites such as YouTube now use HTML5 for video playback instead. As a result, most modern browsers such as Firefox and Chromium can play videos without using the Flash plug-in. Google Chrome includes Flash by default.

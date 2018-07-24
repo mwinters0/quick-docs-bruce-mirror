@@ -1,0 +1,10 @@
+[id='encrypting-drives-using-luks']
+= Encrypting drives using LUKS
+
+As a system administrator, you can encrypt a block device. This section gives a brief introduction to block encryption, describes Linux Unified Key Setup (LUKS), and lists the steps to create an encrypted block device.
+
+include::en-US/modules/con_block-device-encryption.adoc[]
+
+include::en-US/modules/con_introduction-to-luks.adoc[]
+
+include::en-US/creating-encrypted-block-devices.adoc[]

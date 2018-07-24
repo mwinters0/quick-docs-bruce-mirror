@@ -1,0 +1,53 @@
+[id='creating-encrypted-block-devices_{context}']
+== Creating encrypted block devices
+
+This procedure describes the steps to create and configure encrypted block devices after installation.
+
+.Prerequisites
+
+* Install the `cryptsetup` package:
++
+----------
+# dnf install cryptsetup-luks
+----------
+
+* Create the block devices you want to encrypt using `parted`, `pvcreate`, `lvcreate`, and `mdadm`.
+
+* Optionally, fill the device, for example, `/dev/sda3` with random data before encrypting it as this increases the strength of encryption.
++
+[NOTE]
+========
+Filling the device with random data increases the time necessary for encryption.
+========
++
+[WARNING]
+=========
+The commands below will destroy any existing data on the device.
+=========
+
+** To fill the device with high quality random data:
++
+-------
+dd if=/dev/urandom of=<device>
+-------
++
+This takes several minutes per gigabyte on most systems.
++
+** To fill the device with lower quality random data:
++
+--------
+badblocks -c 10240 -s -w -t random -v <device>
+--------
++
+This is quicker compared to the high quality random data method.
+
+include::modules/proc_format-device-as-dmcrypt-encrypted-device.adoc[leveloffset=+1]
+
+include::modules/proc_create-mapping-to-allow-access-to-decrypted-contents.adoc[leveloffset=+1]
+
+include::modules/proc_create-filesystems-on-mapped-device.adoc[leveloffset=+1]
+
+include::modules/proc_add-mapping-information-to-etc-fstab.adoc[leveloffset=+1]
+
+include::modules/proc_add-entry-to-etc-fstab.adoc[leveloffset=+1]
+.
