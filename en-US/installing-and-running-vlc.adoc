@@ -5,7 +5,7 @@
 [[installing-and-running-vlc]]
 = Installing and Running VLC
 
-include::3rdparty-message.adoc[]
+include::en-US/3rdparty-message.adoc[]
 
 :leveloffset: +1
 

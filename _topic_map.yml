@@ -42,6 +42,8 @@ Topics:
     File: upgrading
   - Name: Controlling network traffic with firewalld
     File: firewalld
+  - Name: Using Adobe Flash
+    File: using-adobe-flash
   - Name: Adding new fonts in Fedora
     File: adding-new-fonts-fedora
   - Name: Creating GPG Keys
@@ -77,6 +79,8 @@ Topics:
     File: configuring-ip-networking-with-nmcli
   - Name: Creating disk partitions
     File: creating-a-disk-partition-in-linux
+  - Name: Encrypting drives using LUKS
+    File: encrypting-drives-using-LUKS
   - Name: NVIDIA Optimus Bumblebee
     File: bumblebee
   - Name: Raspberry Pi
@@ -87,6 +91,8 @@ Topics:
     File: adding-or-removing-software-repositories-in-fedora
   - Name: Resetting a root password
     File: reset-root-password
+  - Name: Installing an RPM file
+    File: proc_installing-RPM
   - Name: Creating RPM packages
     File: creating-rpm-packages
   - Name: Creating a GNU Hello World RPM Package
@@ -126,7 +132,7 @@ Topics:
   - Name: Configuring X.org as the default GNOME session
     File: configuring-xorg-as-default-gnome-session
 #  - Name: (FIX ME!) Identifying Wayland problems
-#    File: debug-wayland-problems
+#    File: debug-wayland-problems  note (mj): the wiki page is maintained and is better fit for this
 # - Name: (CHECK) GRUB 2
 #   File: grub2
 # - Name: (FIX ME!) How to debug Dracut problems
@@ -137,8 +143,6 @@ Topics:
 #   File: edit-iptables-rules
 # - Name: (FIX ME!) How to enable touchpad click
 #   File: enable-touchpad-click
-# - Name: (CHECK) Flash
-#   File: flash
 # - Name: (FIX ME!) Mirroring
 #   File: mirroring
 # - Name: (FIX ME!) OpenH264
