@@ -1,0 +1,53 @@
+:experimental:
+[[ch-flash]]
+= Flash
+
+include::{partialsdir}/3rdparty-message.adoc[]
+
+[[sect-what-is-flash]]
+== What is Flash?
+
+Flash is a web browser plugin for multimedia use.
+Because it is not free/libre and open source software, Adobe's Flash plugin cannot be included in Fedora.
+However, Adobe does release a version of the Flash plugin for Fedora, and other Linux distributions, for Firefox, Chromium, and other popular Internet browsers.
+
+The use of Flash is not as wide-spread as it use to be as many sites like Youtube use HTML5 for video playback.
+Many modern browsers like Firefox and Chromium can play these files without the need for a Flash plugin.
+Google Chrome's web browser comes with Flash installed by default.
+
+== How do I install Adobe Flash?
+
+Before downloading Flash, you will need to know whether you are using Fedora 32-bit, or 64-bit.
+Open the terminal and enter:
+
+[source,bash]
+
+====
+
+uname -p
+
+====
+
+A result of `x86` means it is 32-bit, and `x86_64` is 64-bit.
+
+To install Adobe Flash on Fedora:
+
+. Go to the official Adobe Flash web site at link:++https://get.adobe.com/flashplayer/otherversions/++[https://get.adobe.com/flashplayer/otherversions/].
+
+. In the drop-down for _Select an Operating System_, choose 32-Bit or 64-Bit (depending on the result above).
+
+. In the drop-down for _Select a version_, select *FP for Linux 64-bit (.rpm) - NPAPI* for browsers like Firefox, or select *FP for Linux 64-bit (.rpm) - PPAPI* for browsers like Chromium. 
+
+. Click the *Download Now* button to download the file.
+
+. Open a terminal, go to the directory where the file was downloaded and enter:
+
+[source,bash]
+
+====
+
+sudo dnf install flash-player-*.rpm
+
+====
+
+You have successfully installed the Adobe Flash plugin and websites using Flash will now work on your browser.

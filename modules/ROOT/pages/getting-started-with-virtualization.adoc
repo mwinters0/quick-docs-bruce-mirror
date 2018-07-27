@@ -1,0 +1,14 @@
+[id='getting-started-with-virtualization']
+= Getting started with virtualization
+
+Fedora uses the libvirt family of tools as its virtualization solution.
+
+include::{partialsdir}/proc_enabling-hardware-virtualization-support.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_installing-virtualization-software.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_creating-virtual-machines.adoc[leveloffset=+1]
+
+include::{partialsdir}/ref_managing-virtual-machines.adoc[leveloffset=+1]
+
+include::{partialsdir}/ref_other-virtualization-options.adoc[leveloffset=+1]

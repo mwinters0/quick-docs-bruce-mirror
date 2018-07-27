@@ -1,0 +1,33 @@
+:source-highlighter: prettify
+
+[id='understanding-and-administering-systemd']
+= Understanding and administering systemd
+
+Learn the basic principles of systemd: how to configure it and use to administer the system.
+
+include::{partialsdir}/con_understanding-systemd.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_starting-stopping-and-querying-systemd-services.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_modifying-existing-systemd-services.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_creating-new-systemd-services.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_converting-sysvinit-services.adoc[leveloffset=+1]
+
+include::{partialsdir}/ref_common-service-parameters.adoc[leveloffset=+1]
+
+include::{partialsdir}/ref_mapping-runlevel-to-targets.adoc[leveloffset=+1]
+
+include::{partialsdir}/ref_mapping-service-commands.adoc[leveloffset=+1]
+
+
+[discrete]
+== Additional resources
+
+* http://www.freedesktop.org/wiki/Software/systemd[Project homepage]
+* http://0pointer.de/blog/projects/ - Lennart's blog has lots of information about systemd. Lennart is the primary systemd developer
+* http://www.freedesktop.org/wiki/Software/systemd/FrequentlyAskedQuestions
+* http://www.freedesktop.org/wiki/Software/systemd/TipsAndTricks
+* link:Features/systemd[ Features Fedora 15:systemd]
+* http://fosdem.org/2011/interview/lennart-poettering.html[Interview with the developer]

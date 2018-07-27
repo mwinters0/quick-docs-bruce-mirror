@@ -1,0 +1,34 @@
+[id="assembly_installing-java"]
+= Installing Java
+
+Java provides a platform for creating and running applications. You can install various versions of Java to suit your requirements.
+
+include::{partialsdir}/con_about-java.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_installing-openjdk.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_installing-oracle-java.adoc[leveloffset=+1]
+
+include::{partialsdir}/ref_jdk-tools.adoc[leveloffset=+1]
+
+
+[discrete]
+== Additional resources
+
+For Java in Fedora, see:
+
+* link:https://admin.fedoraproject.org/mailman/listinfo/java-devel[java-devel mailing list]
+* Freenode IRC channel link:irc://irc.freenode.net/fedora-java[#fedora-java]
+* link:https://Ask.FedoraProject.org/en/questions/scope:all/sort:activity-desc/tags:java/page:1/[Ask Fedora about Java]
+
+For more information about Java in general, see:
+
+* link:https://en.wikipedia.org/wiki/Java_(programming_language)[Wikipedia page for Java]
+* link:http://openjdk.java.net/[OpenJDK homepage]
+* link:http://oracle.com/java/[Oracle homepage for Java]
+
+To develop Java applications, consider the following open-source IDEs:
+
+* link:https://netbeans.org/[NetBeans]
+* link:https://eclipse.org/[Eclipse]
+* link:https://www.jetbrains.com/idea/[IntelliJ IDEA]

@@ -1,0 +1,32 @@
+[id='performing-administration-tasks-using-sudo']
+= Performing administration tasks using sudo
+
+How to perform tasks requiring *root* privileges without logging in as *root*.
+
+include::{partialsdir}/con_what-is-sudo.adoc[leveloffset=+1]
+
+
+[id='how-to-use-sudo']
+== How to use sudo
+
+include::{partialsdir}/con_using-sudo-assign-admin-privileges.adoc[leveloffset=+2]
+
+include::{partialsdir}/proc_using-same-password-for-root-as-user.adoc[leveloffset=+2]
+
+include::{partialsdir}/con_logging-sudo-commands.adoc[leveloffset=+2]
+
+
+[[warning-and-caveats]]
+== Warnings and caveats
+
+You must use the user account you created following the installation process, at first boot, for daily use and the *root* account only for system administration. Avoid using *root* for any non-administration usage, since the account makes it easy to create security or data risks.
+
+There are several potential risks to keep in mind when using the [command]`sudo` command. You can avoid them by editing the [filename]`/etc/sudoers` configuration file using [command]`visudo` command.
+
+include::{partialsdir}/con_sudo-timeout.adoc[leveloffset=+2]
+
+include::{partialsdir}/con_using-sudo-access-docker.adoc[leveloffset=+2]
+
+include::{partialsdir}/proc_run-docker-using-sudo.adoc[leveloffset=+2]
+
+include::{partialsdir}/con_using-sudo-without-password.adoc[leveloffset=+2]

@@ -1,0 +1,13 @@
+[[installing-software-from-source]]
+= Installing software from source code
+
+The following section contains guidelines and best practices for installing software from source code on Fedora.
+The instructions below are not prescriptive, but following them minimizes the risk of errors occurring during installation.
+
+include::{partialsdir}/con_package-management-in-fedora.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_setting-up-your-local-dev-and-compilation-environment.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_downloading-source-code.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_compiling_your_application_from_source.adoc[leveloffset=+1]

@@ -1,0 +1,1 @@
+include::{partialsdir}/proc_disabling-gnome-screenlock.adoc[leveloffset=+1]

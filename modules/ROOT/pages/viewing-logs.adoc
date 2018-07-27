@@ -1,0 +1,8 @@
+
+:md: en-US/modules
+
+include::{partialsdir}/con_viewing-logs.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_log-files-command-line.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_log-files-GUI.adoc[leveloffset=+1]

@@ -1,0 +1,17 @@
+:experimental:
+:imagesdir: ./images
+:md: en-US/modules
+
+[[installing-and-running-vlc]]
+= Installing and Running VLC
+
+include::{partialsdir}/3rdparty-message.adoc[]
+
+:leveloffset: +1
+
+include::{partialsdir}/proc_installing_vlc.adoc[]
+include::{partialsdir}/proc_running_vlc.adoc[]
+include::{partialsdir}/concept_third-party-repositories.adoc[]
+include::{partialsdir}/con_the-purpose-of-rpm-fusion.adoc[]
+
+:leveloffset: 0

@@ -1,7 +1,0 @@
-= Installing Spotify
-
-include::en-US/3rdparty-message.adoc[]
-
-Installing the Spotify music service client on Fedora.
-
-include::en-US/modules/proc_installing-spotify-on-fedora.adoc[leveloffset=+1]

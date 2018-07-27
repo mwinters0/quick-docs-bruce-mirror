@@ -1,0 +1,27 @@
+:md: en-US/modules
+
+
+= Bootloading with *GRUB2*
+[[bootloading-with-grub2]]
+
+*GRUB2* is the latest version of *GNU GRUB*, the _GRand Unified Bootloader_.
+A bootloader is the first software program that runs when a computer
+starts. It is responsible for loading and transferring control to the
+operating system kernel. In Fedora, the kernel is Linux. The kernel then initializes 
+the rest of the operating system.
+
+*GRUB2* is the follower of the previous version *GRUB* (version 0.9x). The original version is available under the name *GRUB Legacy*.
+
+Since Fedora 16, *GRUB2* has been the default bootloader on x86 BIOS
+systems. For upgrades of BIOS systems, the default is also to install
+*GRUB2*, but you can opt to skip bootloader configuration entirely.
+
+include::{partialsdir}/proc_installing-grub2-on-bios-system.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_installing-grub2-on-efi-system.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_creating-menu-entries-with-uefi-bootloader.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_adding-other-operating-systems-grub2.adoc[leveloffset=+1]
+
+

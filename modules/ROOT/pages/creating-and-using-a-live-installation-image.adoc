@@ -1,0 +1,11 @@
+= Creating and using a live installation image
+
+include::{partialsdir}/proc_downloading-fedora.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_creating-and-using-live-usb.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_booting-from-usb-sticks.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_troubleshooting-live-usb.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_creating-and-using-live-cd.adoc[leveloffset=+1]

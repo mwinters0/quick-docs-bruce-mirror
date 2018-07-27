@@ -1,0 +1,11 @@
+[i='installing-chromium-or-google-chrome-browsers']
+= Installing Chromium or Google Chrome browsers
+
+include::{partialsdir}/3rdparty-message.adoc[]
+
+include::{partialsdir}/concept_chromium-web-browser.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_installing-chromium-web-browser.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_enabling-chromium-plugins.adoc[leveloffset=+1]
+
