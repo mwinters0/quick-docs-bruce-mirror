@@ -34,7 +34,7 @@ The libvirt default storage pool is located at /var/lib/libvirt/images - which i
 
 You have several disk storage options for your VM.  While it's outside the scope of this article to discuss these in detail, the following are a few common options.  These examples use 20G as the upper limit for disk size, but you can adjust this size to fit your needs.
 
-[Note]
+[NOTE]
 ====
 Again, you do not need to manually allocate storage using the example options shown below if you specify the size parameter in the virt-install example shown below.
 ====
@@ -88,7 +88,7 @@ Finally, run the virt-install command using the following format (adjusting para
 --noautoconsole
 ----
 
-[Note]
+[NOTE]
 ====
 Note:  For the graphics parameter, we're setting the vnc listener to localhost because it's more secure to tunnel your VNC connection through SSH so that you don't expose VNC to everyone with access to the network.
 ====

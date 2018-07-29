@@ -125,7 +125,7 @@ $ rpmbuild -ba hello.spec
 
 It will complain and list the unpackaged files, i.e. the files that would be installed in the system that weren't declared as belonging to the package.
 We need to declare them in the `%files` section.
-Do not hardcode names like `/usr/bin/`, but use macros, like `%{_bindir}/hello` instead.
+Do not hardcode names like `/usr/bin/`, but use macros, like `%\{_bindir}/hello` instead.
 The manual pages should be declared in the `%doc` subsection:
 
 ....
@@ -137,9 +137,9 @@ This is an iterative process; after editing the `.spec` file, rerun `rpmbuild`.
 Since our program uses translations and internationalization, we are seeing a lot of undeclared i18 files.
 The link:https://fedoraproject.org/wiki/Packaging:Guidelines#Handling_Locale_Files[recommended method] to declare them is:
 
-* find the filenames in the `%install` step: `%find_lang %{name}`
+* find the filenames in the `%install` step: `%find_lang %\{name}`
 * add the required build dependencies: `BuildRequires: gettext`
-* use the found filenames `%files -f %{name}.lang`
+* use the found filenames `%files -f %\{name}.lang`
 
 If the program uses GNU `info` files, you need to make sure the installation and uninstallation of the package does not interfere with other software on the system, by using this boilerplate:
 

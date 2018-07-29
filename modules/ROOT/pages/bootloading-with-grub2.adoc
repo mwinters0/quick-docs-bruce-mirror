@@ -1,3 +1,5 @@
+ifdef::context[:parent-context: {context}]
+:context: bootloading-with-grub2
 [id='bootloading-with-grub2']
 = Bootloading with GRUB2
 
@@ -34,3 +36,5 @@ include::{partialsdir}/proc_enabling-serial-console-grub.adoc[leveloffset=+1]
 == Additional resources
 
 * http://www.gnu.org/software/grub/manual/grub.html
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

@@ -1,3 +1,5 @@
+ifdef::context[:parent-context: {context}]
+:context: ch-flash
 :experimental:
 [[ch-flash]]
 = Flash
@@ -21,12 +23,9 @@ Before downloading Flash, you will need to know whether you are using Fedora 32-
 Open the terminal and enter:
 
 [source,bash]
-
-====
-
+----
 uname -p
-
-====
+----
 
 A result of `x86` means it is 32-bit, and `x86_64` is 64-bit.
 
@@ -43,11 +42,10 @@ To install Adobe Flash on Fedora:
 . Open a terminal, go to the directory where the file was downloaded and enter:
 
 [source,bash]
-
-====
-
+----
 sudo dnf install flash-player-*.rpm
-
-====
+----
 
 You have successfully installed the Adobe Flash plugin and websites using Flash will now work on your browser.
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

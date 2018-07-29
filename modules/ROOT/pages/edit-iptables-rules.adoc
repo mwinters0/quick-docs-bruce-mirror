@@ -45,12 +45,10 @@ initial creation of Rules chains.
 __TOC__
 
 [[cli-command-line-interface]]
-CLI (command line interface)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== CLI (command line interface)
 
 [[hot-changes-to-iptables-rules]]
-Hot changes to iptables Rules
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Hot changes to iptables Rules
 
 The following procedures allow changes in the behaviour of the firewall
 while it is running.
@@ -59,8 +57,7 @@ Read the man pages for iptables (man iptables) for further explanations
 and more sophisticated Rules examples.
 
 [[listing-rules]]
-Listing Rules
-+++++++++++++
+==== Listing Rules
 
 Current running iptables Rules can be viewed with the command
 
@@ -96,8 +93,7 @@ specified allowing ssh, the Rule to reject is applied and the later Rule
 to accept the ssh connection is not.
 
 [[appending-rules]]
-Appending Rules
-+++++++++++++++
+==== Appending Rules
 
 The following adds a Rule at the end of the specified chain of iptables:
 
@@ -123,8 +119,7 @@ Notice the last line in chain INPUT. There are now five Rules in that
 chain.
 
 [[deleting-rules]]
-Deleting Rules
-++++++++++++++
+==== Deleting Rules
 
 To delete a Rule, you must know its position in the chain. The following
 example deletes an existing Rule created earlier that is currently in
@@ -148,8 +143,7 @@ target     prot opt source               destination
 ....
 
 [[inserting-rules]]
-Inserting Rules
-+++++++++++++++
+==== Inserting Rules
 
 Create a Rule at the top (first) position:
 
@@ -177,8 +171,7 @@ the third rule you specify the number 3. Afterward, the existing Rule
 will then be in the fourth position in the chain.
 
 [[replacing-rules]]
-Replacing Rules
-+++++++++++++++
+==== Replacing Rules
 
 Rules may be specified to replace existing Rules in the chain.
 
@@ -206,8 +199,7 @@ target     prot opt source               destination
 ....
 
 [[flushing-rules]]
-Flushing Rules
-++++++++++++++
+==== Flushing Rules
 
 To flush or clear iptables Rules, use the *--flush*, *-F* option :
 
@@ -225,8 +217,7 @@ Example to flush Rules in the *OUTPUT* chain :
 ....
 
 [[making-changes-persistent]]
-Making changes persistent
-^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Making changes persistent
 
 The iptables Rules changes using CLI commands will be lost upon system
 reboot. However, iptables comes with two useful utilities:
@@ -316,8 +307,7 @@ useful, if you want to know how many packets were captured for a
 specific rule.
 
 [[tui-text-based-user-interface]]
-TUI (text-based user interface)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== TUI (text-based user interface)
 
 There is two ways to managing iptables rules with a text-based user
 interface, either using *setup* or *system-config-firewall-tui*. Using
@@ -422,12 +412,10 @@ Select *Yes* if the configuration you made fits to you and exit
 interface, or *No* to go back to the firewall configuration screen.
 
 [[gui]]
-GUI
-~~~
+== GUI
 
 [[red-hat-gui-configuration-tool]]
-Red Hat GUI configuration tool
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=== Red Hat GUI configuration tool
 
 GUI interface allow you exactly the same thing that TUI interface, but
 it is more friendly usable.
@@ -500,8 +488,7 @@ and _Custom Rules_' have exactly the same effect than in TUI interface.
 When configuration fits to you, just click on the *Apply* button.
 
 [[others-gui]]
-Others GUI
-^^^^^^^^^^
+=== Others GUI
 
 There are others GUI available to configure iptables rules.
 

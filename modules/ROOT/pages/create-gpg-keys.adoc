@@ -1,3 +1,5 @@
+ifdef::context[:parent-context: {context}]
+:context: creating-gpg-keys
 = Creating GPG Keys
 :experimental:
 
@@ -65,3 +67,5 @@ include::{partialsdir}/proc_revoking-gpg-keys.adoc[leveloffset=+1]
 * http://en.wikipedia.org/wiki/Public-key_cryptography[Wikipedia - Public Key Cryptography]
 
 See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://pagure.io/fedora-docs/quick-docs[quick-docs's git repository].
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

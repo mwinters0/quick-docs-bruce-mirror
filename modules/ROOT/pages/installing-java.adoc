@@ -1,3 +1,5 @@
+ifdef::context[:parent-context: {context}]
+:context: assembly_installing-java
 [id="assembly_installing-java"]
 = Installing Java
 
@@ -32,3 +34,5 @@ To develop Java applications, consider the following open-source IDEs:
 * link:https://netbeans.org/[NetBeans]
 * link:https://eclipse.org/[Eclipse]
 * link:https://www.jetbrains.com/idea/[IntelliJ IDEA]
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

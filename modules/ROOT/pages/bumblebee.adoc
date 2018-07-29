@@ -1,3 +1,4 @@
+include::{partialsdir}/attributes.adoc[]
 include::{partialsdir}/3rdparty-message.adoc[]
 
 [[description]]

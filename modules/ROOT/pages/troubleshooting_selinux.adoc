@@ -1,3 +1,5 @@
+ifdef::context[:parent-context: {context}]
+:context: prod_troubleshooting_selinux
 [id='prod_troubleshooting_selinux']
 = Troubleshooting SELinux
 
@@ -63,3 +65,5 @@ include::modules/proc_troubleshooting_selinux_allowing_access_audit.adoc[levelof
  * link:https://docs-old.fedoraproject.org/en-US/Fedora/25/html/SELinux_Users_and_Administrators_Guide/chap-Security-Enhanced_Linux-Troubleshooting.html[Troubleshooting] in the SELinux User's and Administrator's Guide
 
  * link:https://fedorapeople.org/~dwalsh/SELinux/Presentations/selinux_four_things.pdf[Four Key Causes of SELinux Errors]
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

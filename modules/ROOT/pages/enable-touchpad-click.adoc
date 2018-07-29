@@ -33,8 +33,7 @@ with the following macro:
 
 
 [[scope]]
-Scope
-~~~~~
+== Scope
 
 Fedora tries to make various desktop environments available to its
 users. Since Fedora tries to
@@ -49,8 +48,7 @@ discussions on this setting, please talk to the relevant DE upstream.
 Fedora does not intend to make any changes to upstream defaults.*
 
 [[desktop-configurations]]
-Desktop configurations
-~~~~~~~~~~~~~~~~~~~~~~
+== Desktop configurations
 
 This wiki page has more information about
 link:Input_device_configuration[Input Device configuration]. An example
@@ -58,8 +56,7 @@ xorg.conf.d snippet to enable tapping is given
 Input_device_configuration#Example:_Tap-to-click[here].
 
 [[gnome]]
-GNOME
-^^^^^
+=== GNOME
 
 The "*mouse and touchpad*" utility can be used to enable tapping and set
 scrolling options in GNOME.
@@ -68,8 +65,7 @@ http://library.gnome.org/users/gnome-help/stable/mouse-touchpad-click.html.en[Of
 GNOME documentation]
 
 [[kde-plasma-workspaces]]
-KDE Plasma Workspaces
-^^^^^^^^^^^^^^^^^^^^^
+=== KDE Plasma Workspaces
 
 1.  enter KDE System Settings
 2.  choose Hardware / Input Devices / Touchpad (If it's not there,
@@ -84,8 +80,7 @@ Alternatively, the systemwide method described under
 link:#Other_window_managers[Other window managers] can also be used.
 
 [[xfce]]
-XFCE
-^^^^
+=== XFCE
 
 1.  Enter XFCE Settings
 2.  Select the Mouse and Touchpad settings
@@ -93,8 +88,7 @@ XFCE
 4.  In the General section, enable "Tap touchpad to click"
 
 [[other-window-managers]]
-Other window managers
-^^^^^^^^^^^^^^^^^^^^^
+=== Other window managers
 
 Create a new file named
 /etc/X11/xorg.conf.d/99-synaptics-overrides.conf.

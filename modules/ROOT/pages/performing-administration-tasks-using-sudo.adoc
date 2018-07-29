@@ -1,3 +1,5 @@
+ifdef::context[:parent-context: {context}]
+:context: performing-administration-tasks-using-sudo
 [id='performing-administration-tasks-using-sudo']
 = Performing administration tasks using sudo
 
@@ -30,3 +32,5 @@ include::{partialsdir}/con_using-sudo-access-docker.adoc[leveloffset=+2]
 include::{partialsdir}/proc_run-docker-using-sudo.adoc[leveloffset=+2]
 
 include::{partialsdir}/con_using-sudo-without-password.adoc[leveloffset=+2]
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

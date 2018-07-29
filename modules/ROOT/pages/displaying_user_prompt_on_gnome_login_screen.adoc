@@ -1,3 +1,7 @@
+ifdef::context[:parent-context: {context}]
+:context: displaying-user-prmopt-on-gnome-login-screen
 :md: en-US/modules
 
 include::{partialsdir}/proc_displaying_user_prompt_on_gnome_login_screen.adoc[leveloffset=+1]
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

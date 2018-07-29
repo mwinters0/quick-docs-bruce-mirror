@@ -1,13 +1,12 @@
 :experimental:
-
-:parent-context: {context}
-
+ifdef::context[:parent-context: {context}]
+:context: using-parted
 [id='disk-partition-in-linux-{context}']
 = Creating a disk partition in Linux
-:context: using-parted
 
 include::{partialsdir}/con_disk-partition-linux.adoc[leveloffset=+1]
 include::{partialsdir}/proc_creating-a-disk-partition-in-linux.adoc[leveloffset=+1]
 include::{partialsdir}/ref_help-mkpart.adoc[leveloffset=+1]
 
-:context: {parent-context}
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

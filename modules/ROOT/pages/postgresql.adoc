@@ -33,8 +33,7 @@ with the following macro:
 
 
 [[installation]]
-Installation
-~~~~~~~~~~~~
+== Installation
 
 The installation and initialization of the postgresql server is a little
 bit different in comparison to other packages and other linux distros.
@@ -97,8 +96,7 @@ Or on Fedora 22 and later:
 `$ sudo postgresql-setup --initdb --unit postgresql`
 
 [[upgrade]]
-Upgrade
-~~~~~~~
+== Upgrade
 
 As you can see from error message in my example, it is not a fresh
 installation, but ugprade.
@@ -137,8 +135,7 @@ You can also upgrade by dumping your database and loading it again. For
 more information, see link:#link-upgrade[official documentation].
 
 [[tips-and-tricks]]
-Tips and tricks
-~~~~~~~~~~~~~~~
+== Tips and tricks
 
 For database management is comfortable to use graphical tools such as
 phpPgAdmin or pgadmin3
@@ -152,8 +149,7 @@ Or with dnf in Fedora 22 and later versions:
 `$ sudo dnf install pgadmin3`
 
 [[firewall]]
-Firewall
-~~~~~~~~
+== Firewall
 
 PostgreSQL operates on port 5432 (or whatever else you set in your
 `postgresql.conf`). In firewalld you can open it like this:
@@ -171,8 +167,7 @@ Bear in mind that you probably don't want to open your database server
 to the whole world.
 
 [[selinux]]
-SELinux
-~~~~~~~
+== SELinux
 
 If you have SELinux enforced, you may run into trouble when trying to do
 some non-standard configuration. For example if you would like to change
@@ -193,8 +188,7 @@ host:
 `# setsebool -P httpd_can_network_connect_db on`
 
 [[user-creation-and-database-creation]]
-User Creation and Database Creation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== User Creation and Database Creation
 
 Soon you run into need of creating a user (and database for the user).
 First, you have to switch user to interact with postgres:
@@ -226,8 +220,7 @@ this could be done from system shell too:
 `$ createdb --owner=lenny carl`
 
 [[configuration]]
-Configuration
-~~~~~~~~~~~~~
+== Configuration
 
 The postgresql server is using two main configuration files
 
@@ -235,8 +228,7 @@ The postgresql server is using two main configuration files
 * /var/lib/pgsql/data/pg_hba.conf
 
 [[systemd]]
-systemd
-^^^^^^^
+=== systemd
 
 Some configuration parameters are passed to daemon via command line
 options. This behaviour may override settings in postgresql.conf. For
@@ -255,8 +247,7 @@ http://fedoraproject.org/wiki/systemd#How_do_I_customize_a_unit_file.2F_add_a_cu
 for more details.
 
 [[postgresql.conf]]
-postgresql.conf
-^^^^^^^^^^^^^^^
+=== postgresql.conf
 
 If you want postgres to accept network connections, you should change
 
@@ -267,8 +258,7 @@ to
 `listen_addresses = '*'`
 
 [[pg_hba.conf]]
-pg_hba.conf
-^^^^^^^^^^^
+=== pg_hba.conf
 
 Once your database is set up, you need to configure access to your
 database server. This may be done by editing file
@@ -320,8 +310,7 @@ For more information see official documentation for
 link:#link-pghba[pg_hba.conf file].
 
 [[optimisation]]
-Optimisation
-~~~~~~~~~~~~
+== Optimisation
 
 Default configuration of postgres is severely undertuned. It can handle
 simple application with not so often database access but if you require
@@ -330,8 +319,7 @@ magic is happening in `/var/lib/pgsql/data/postgresql.conf\``. Also
 logging mechanism is configured not very intuitively.
 
 [[performance]]
-Performance
-^^^^^^^^^^^
+=== Performance
 
 Number of clients which may be connected to PostgreSQL at the same time:
 
@@ -363,8 +351,7 @@ For more information about this topic I advise you to read official
 link:#link-tuning[documentation about] tuning PostgreSQL.
 
 [[logging]]
-Logging
-^^^^^^^
+=== Logging
 
 By default, logs are rotated every week and you don't find much
 information in there (one could miss log level, date, time, ...). Also
@@ -433,8 +420,7 @@ would make more sense to simplify the prefix to
 `log_line_prefix = '%t [%p] '`
 
 [[final-recipe]]
-Final recipe
-++++++++++++
+==== Final recipe
 
 `log_destination = 'stderr'` +
 `logging_collector = on` +
@@ -447,8 +433,7 @@ Final recipe
 `log_line_prefix = '%t %u@%r:%d [%p] '`
 
 [[reference]]
-Reference
-~~~~~~~~~
+== Reference
 
 link:PostgreSQL/README.rpm-dist[Full RPM packaging documentation]
 

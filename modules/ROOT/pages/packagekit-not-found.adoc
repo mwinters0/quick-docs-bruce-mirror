@@ -33,8 +33,7 @@ with the following macro:
 
 
 [[missing-package]]
-Missing Package
-~~~~~~~~~~~~~~~
+== Missing Package
 
 Unfortunately, the package you were searching for is not available in
 Fedora. There are a few common reasons why a package might not be in
@@ -49,8 +48,7 @@ adding it to the link:PackageMaintainers/WishList[Package WishList], or
 even link:PackageMaintainers/Join[packaging it yourself]!
 
 [[missing-codec]]
-Missing Codec
-~~~~~~~~~~~~~
+== Missing Codec
 
 Unfortunately, the codec you were searching for is not available in
 Fedora. A codec is a program that enables encoding and/or decoding of a
@@ -78,8 +76,7 @@ so. Scroll down more for details on what we are doing and how you can
 help.
 
 [[missing-driver]]
-Missing Driver
-~~~~~~~~~~~~~~
+== Missing Driver
 
 Unfortunately, the driver you were searching for is not available in
 Fedora. There are a few common reasons why a driver might not be in
@@ -103,8 +100,7 @@ software that has been not been included in the official Fedora software
 repository.
 
 [[missing-font]]
-Missing Font
-~~~~~~~~~~~~
+== Missing Font
 
 Unfortunately, the font you were searching for is not available in
 Fedora. There are a few common reasons why a font might not be in
@@ -117,8 +113,7 @@ consider adding it to the :Category:Font_wishlist[Font WishList], or
 even link:PackageMaintainers/Join[packaging it yourself]!
 
 [[missing-mime-support]]
-Missing MIME Support
-~~~~~~~~~~~~~~~~~~~~
+== Missing MIME Support
 
 Unfortunately, there is nothing in Fedora that claims to support the
 MIME type you were searching for. There are a few common reasons why
@@ -135,8 +130,7 @@ it to the link:PackageMaintainers/WishList[Package WishList], or even
 link:PackageMaintainers/Join[packaging it yourself]!
 
 [[fedora-position-on-software-patents]]
-Fedora Position on Software Patents
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== Fedora Position on Software Patents
 '''
 
 See a typo, something missing or out of date, or anything else which can be

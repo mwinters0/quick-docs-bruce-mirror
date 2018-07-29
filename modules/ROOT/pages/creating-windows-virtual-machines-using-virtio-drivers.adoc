@@ -1,3 +1,5 @@
+ifdef::context[:parent-context: {context}]
+:context: creating-windows-virtual-machines-using-virtio-drivers
 [id='creating-windows-virtual-machines-using-virtio-drivers']
 = Creating Windows virtual machines using virtIO drivers
 
@@ -31,3 +33,5 @@ include::{partialsdir}/proc_filing-virtio-win-bugs.adoc[leveloffset=+1]
 * Spice guest tools installer code: http://cgit.freedesktop.org/~teuf/spice-nsis/
 * spice-guest-tools downloads: http://www.spice-space.org/download/binaries/spice-guest-tools/
 * Fedora virtio-win build scripts: https://github.com/crobinso/virtio-win-pkg-scripts
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

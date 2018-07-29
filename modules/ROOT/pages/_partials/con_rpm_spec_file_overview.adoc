@@ -3,7 +3,7 @@
 
 Use this guide for information about the specific macros in a `.spec` file.
 
-NOTE: You can use the macros `%{name}`, `%{version}` and `%{release}` to refer to the Name, Version and Release tags respectively. When you change the tag, the macros automatically update to use the new value.
+NOTE: You can use the macros `%\{name}`, `%\{version}` and `%\{release}` to refer to the Name, Version and Release tags respectively. When you change the tag, the macros automatically update to use the new value.
 
 `Name`::
 Add the base name of the package, which must match the `.spec` file name. Follow the http://fedoraproject.org/wiki/Packaging:Naming[Package Naming Guidelines] and write the file name in lower-case letters. 
@@ -12,7 +12,7 @@ Add the base name of the package, which must match the `.spec` file name. Follow
 Add the upstream version number. See http://fedoraproject.org/wiki/Packaging:Versioning[Package Versioning]. If the version contains tags that are non-numeric, you might need to include the non-numeric characters in the `Release` tag. If upstream uses full dates to distinguish versions, consider using version numbers of the form. For example, `yy.mm[dd]` where `2008-05-01` becomes `8.05`.
 
 `Release`::
-Set the initial value to `1%{?dist}`. Increment the number every time you release a new package for the same version of software. When a new upstream version is released, change the `Version` tag to match and reset the `Release` number to `1`. For more information, see the http://fedoraproject.org/wiki/Packaging:Versioning[Versioning Guide] of the packaging guidelines. 
+Set the initial value to `1%\{?dist}`. Increment the number every time you release a new package for the same version of software. When a new upstream version is released, change the `Version` tag to match and reset the `Release` number to `1`. For more information, see the http://fedoraproject.org/wiki/Packaging:Versioning[Versioning Guide] of the packaging guidelines. 
 
 `Summary`::
 Enter a brief, one-line summary of the package. Use American English. Do not end with a period.
@@ -34,7 +34,7 @@ NOTE: Do not add a link to the original source code. Add the link to the source 
 `Source0`::
 Enter the full URL for the compressed archive that contains the original, pristine source code, as upstream released it. "`Source`" is synonymous with "`Source0`".
 +
-The full URL basename is used when looking in the `SOURCES` directory. If possible, embed `%{name}` and `%{version}`, so that changes to the  go to the right place. Preserve the timestamps when downloading source files. For more information, see http://fedoraproject.org/wiki/Packaging:Guidelines#Timestamps[Preserve timestamps].
+The full URL basename is used when looking in the `SOURCES` directory. If possible, embed `%\{name}` and `%\{version}`, so that changes to the  go to the right place. Preserve the timestamps when downloading source files. For more information, see http://fedoraproject.org/wiki/Packaging:Guidelines#Timestamps[Preserve timestamps].
 +
 If there is more than one source, name them `Source1`, `Source2`.
 +
@@ -47,7 +47,7 @@ Enter the name of the first patch to apply to the source code. If you must patch
 If you package files that are architecture-independent, for example shell scripts, data files, then add `BuildArch: noarch`. The architecture for the binary RPM is then `noarch`.
 
 `BuildRoot`::
-This is now redundant in Fedora and is only needed for EPEL5. By default, the build root is placed in `%{_topdir}/BUILDROOT/`.
+This is now redundant in Fedora and is only needed for EPEL5. By default, the build root is placed in `%\{_topdir}/BUILDROOT/`.
 +
 In EPEL5, this is where files are installed during the %install process (after the %build process). 
 
@@ -75,13 +75,13 @@ Add script commands to "prepare" the program. For example, to extract the progra
 Add script commands to compile the program and get it ready for installing. The program must come with instructions on how to do this.
 
 `%install`::
-Add script commands to "install" the program. The commands must copy the files from the `BUILD` directory `%{_builddir}` into the buildroot directory, `%{buildroot}`. 
+Add script commands to "install" the program. The commands must copy the files from the `BUILD` directory `%\{_builddir}` into the buildroot directory, `%\{buildroot}`. 
 
 `%check`::
 Add script commands to "test" the program. This is run after the `%install` procedure, so place it there if you have this section. Often it contains `make test` or `make check`. This is separated from `%build` so that people can skip the self-test if they desire.
 
 `%clean`::
-Note that this section is now redundant in Fedora and is only necessary for EPEL. Typically this contains only the following command: `rm -rf %{buildroot}`.
+Note that this section is now redundant in Fedora and is only necessary for EPEL. Typically this contains only the following command: `rm -rf %\{buildroot}`.
 
 `%files`::
 Add the list of files to be installed. 

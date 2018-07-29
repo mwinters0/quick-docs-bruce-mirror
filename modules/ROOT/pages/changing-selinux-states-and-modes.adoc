@@ -1,5 +1,6 @@
 :experimental:
-:parent-context: {context}
+ifdef::context[:parent-context: {context}]
+:context: changing-selinux-states-and-modes
 
 // NOTE (TODO): several links (URLs) in the included modules could be replaced with URLs when the appropriate docs become available on fp.org
 
@@ -16,4 +17,5 @@ include::{partialsdir}/proc_changing-to-enforcing-mode.adoc[leveloffset=+2]
 include::{partialsdir}/proc_disabling-selinux.adoc[leveloffset=+1]
 include::{partialsdir}/ref_changing-selinux-modes-at-boot-time.adoc[leveloffset=+1]
 
-:context: {parent-context}
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

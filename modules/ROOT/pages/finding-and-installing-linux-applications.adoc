@@ -1,3 +1,5 @@
+ifdef::context[:parent-context: {context}]
+:context: finding-and-installing-linux-applications
 :imagesdir: images
 
 [[finding-and-installing-linux-applications]]
@@ -16,3 +18,5 @@ include::{partialsdir}/proc_package-browsing-installing-software.adoc[leveloffse
 include::{partialsdir}/proc_package-install-command-line.adoc[leveloffset=+1] 
 
 include::{partialsdir}/proc_package-enabling-third-party.adoc[leveloffset=+1] 
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
