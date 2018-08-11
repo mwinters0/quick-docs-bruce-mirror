@@ -90,6 +90,24 @@ Refer to the link:++upgrading.html++[Upgrade] document for more details.
 DNF can be used to install or remove Language Support.
 A detailed description with a list of available languages can be found on link:++https://fedoraproject.org/wiki/I18N/Language_Support_Using_Dnf[Language Support Using Dnf] page.
 
+[[sect-plugins]]
+== Plugins
+
+The core DNF functionality can be extended with plugins.
+There are officially supported https://dnf-plugins-core.readthedocs.io[Core DNF plugins]
+and also a third-party https://dnf-plugins-extras.readthedocs.io[Extras DNF Plugins].
+To install them, run
+
+----
+dnf install dnf-plugins-core-PLUGIN_NAME
+----
+
+or
+
+----
+dnf install dnf-plugins-extras-PLUGIN_NAME
+----
+
 [[sect-references]]
 == References
 
