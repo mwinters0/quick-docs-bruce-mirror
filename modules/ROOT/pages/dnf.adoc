@@ -11,12 +11,8 @@ This method eliminates the need to manually install or update the package, and i
 DNF has replaced YUM as the default package manager for Fedora since version 22.
 However, for earlier versions of Fedora, starting from version 18, DNF can be installed from the command-line with:
 
-[source,bash]
-
 ----
-
-yum install dnf
-
+# yum install dnf
 ----
 
 [[sect-usage]]
@@ -26,32 +22,20 @@ yum install dnf
 
 To search the repositories for a package type:
 
-[source,bash]
-
 ----
-
-sudo dnf search packagename
-
+# sudo dnf search packagename
 ----
 
 To install the package:
 
-[source,bash]
-
 ----
-
-sudo dnf install packagename
-
+# dnf install packagename
 ----
 
 To remove a package:
 
-[source,bash]
-
 ----
-
-sudo dnf remove packagename
-
+# dnf remove packagename
 ----
 
 Other common DNF commands include:
@@ -95,17 +79,17 @@ A detailed description with a list of available languages can be found on link:+
 
 The core DNF functionality can be extended with plugins.
 There are officially supported https://dnf-plugins-core.readthedocs.io[Core DNF plugins]
-and also a third-party https://dnf-plugins-extras.readthedocs.io[Extras DNF Plugins].
+and also third-party https://dnf-plugins-extras.readthedocs.io[Extras DNF Plugins].
 To install them, run
 
 ----
-dnf install dnf-plugins-core-PLUGIN_NAME
+# dnf install dnf-plugins-core-PLUGIN_NAME
 ----
 
 or
 
 ----
-dnf install dnf-plugins-extras-PLUGIN_NAME
+# dnf install dnf-plugins-extras-PLUGIN_NAME
 ----
 
 [[sect-references]]
