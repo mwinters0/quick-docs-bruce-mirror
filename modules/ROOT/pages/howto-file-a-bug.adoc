@@ -1,0 +1,201 @@
+= How to file a bug
+:imagesdir: ./images
+
+The purpose of this document is to give step by step instructions on filing bugs in Fedora.
+
+A software bug does not necessarily need to be a software crash. Any undesired behaviour noticed in software should be filed as a bug.
+The package maintainer can then look at the bug report and decide the best course of action.
+
+TIP: *Everyone should file bugs*: All users are encouraged to file any bugs they run into.
+Bug filing is not limited to only software developers.
+
+== Terminology
+
+There are a few terms that are commonly used in this document:
+
+* *Bug*: A bug is any behaviour in a software that appears unexpected/undesired.
+* *Bug tracker*: The Fedora bug tracking system at https://bugzilla.redhat.com.
+* *Package*: Each software that is available in Fedora has a formal package name that is used by the bug tracker and other infrastructure tools.
+Packages can be searched using the https://apps.fedoraproject.org/packages/[Fedora Packages web application].
+* *Maintainer*: A body of volunteers that takes care of the software packages provided in Fedora.
+These are referred to as "package maintainers".
+They keep track of bugs, help with issues, and generally act as middlemen between the developers of the software and Fedora users.
+* *QA*: Quality assurance is the process of ensuring that the software works as intended.
+* *Bodhi*: The http://bodhi.fedoraproject.org[Fedora QA Web Application].
+
+
+== Before filing a bug
+
+=== Step 1: Check for the latest version
+
+As bugs are reported and fixed, developers collect a set of fixes and periodically release improved versions of their software.
+So, before reporting an issue, it is useful to check if you are using the latest version of a software.
+The simplest way to get the latest version of software in Fedora is to regularly update your system.
+Users of Gnome/KDE and other desktop environments can use their default applications to do so.
+These periodically check for updates and notify users.
+You can also use the default package manager `dnf` to check and update your system.
+Only users with administrator privileges can do so:
+
+    $ sudo dnf update --refresh
+
+=== Step 2: Check for already filed bugs
+
+If you are using the latest version of the software available in Fedora, then it is likely that the bug has either not been reported, or has been reported but a fix has not yet been released.
+So, it is useful to search the list of already reported bugs before filing a new report.
+The https://apps.fedoraproject.org/packages/[Fedora Packages Web application] lists the currently reported bugs for all packages.
+There is also a convenient shortcut that can be used.
+
+    https://bugz.fedoraproject.org/<package name>
+
+Here, the `package name` must be the formal name of the package.
+
+
+.The Fedora Packages Web Application lists the bug reports for Gnome software at https://bugz.fedoraproject.org/gnome-software.
+image::20180825-how-to-file-a-bug-gs-bugs.png[]
+
+As can be seen in the image, the https://apps.fedoraproject.org/packages/[Fedora Packages Web application] also gives other information about a package.
+
+TIP: *Finding the name of the package*: If you do not know the formal package name of the software, you can use the https://apps.fedoraproject.org/packages/[Fedora Packages Web Application] to search for it and view the list of bugs there.
+
+.Searching the Fedora Packages Web Application for Gnome Software.
+image::20180825-how-to-file-a-bug-gs.png[]
+
+NOTE: *Advanced searching*: You can also use the https://bugzilla.redhat.com/query.cgi[advanced search features of the bug tracker] to narrow down your search.
+However, this is not necessary.
+
+If a bug report has already been filed describing the issue, you should provide any extra information you may have.
+If there is nothing more to add to the report, you should "CC" (carbon-copy) yourself to the report to receive any updates.
+This can be done by clicking on the "Save changes" button when the "Add me to CC list" option is checked as shown below:
+
+
+.The CC list contains all users that should be notified when any updates are made to the report.
+image::20180825-how-to-file-a-bug-cc-list.png[]
+
+== Filing a bug report
+
+=== Step 0: Create a Bugzilla account
+
+Bugs are filed on https://bugzilla.redhat.com[Fedora's bugzilla instance], and you must have an account there to file bugs or interact with them.
+An account requires a valid e-mail address and can be created https://bugzilla.redhat.com/createaccount.cgi[here].
+The bug tracker will only send e-mail notifications about bugs that a user is involved in. No other e-mails will be sent.
+
+=== Step 1: Filing a new bug
+
+If a bug report for the particular issue has not already been filed, you should file a new one.
+The easiest way to file a new report is using the "File a new bug" drop down from the right hand side bar in the https://apps.fedoraproject.org/packages/[Fedora Packages Web application].
+
+.The Fedora Packages Web Application provides a convenient shortcut to file new bugs.
+image::20180825-how-to-file-a-bug-new-bug-shortcut.png[]
+
+
+This redirects to a new bug report template on the bug tracker.
+The image below shows a new bug template:
+
+.A new bug report template.
+image::20180825-how-to-file-a-bug-new-bug.png[]
+
+The following fields need to be set:
+
+* *Component*: This will be set to the name of the package.
+* *Version*: You should set this to the version of Fedora that you observed the bug on.
+* *Summary*: You should provide a useful short summary of the issue here.
+* *Description*: More detailed information about the issue should be provided here.
+It already contains a template, which is explained below.
+* *Attachment*: Files that provide more information of the issue can be uploaded with the bug report using the button here.
+E.g,, screen-shots, log files, screen recordings.
+* *Severity, Hardware, OS*: These fields are optional and need not be set.
+
+
+*Description of problem:*
+
+Explain the issue in more detail here.
+
+*Version-Release number of selected component (if applicable):*
+
+The version of the package should be specified here.
+Once the package name is known, the version can be obtained by using the `rpm` command:
+
+    $ rpm -q <packagename>
+
+For example:
+
+    $ rpm -q gnome-software
+    gnome-software-3.28.2-1.fc28.x86_64
+
+
+*How reproducible:*
+
+How often is the issue observed?
+Usually, a good answer to this field is one of:
+
+* Always: the issue is observed each time.
+* Sometimes: the issue occurs, but not each time.
+* Only once: the issue was only observed once.
+
+Issues that occur always are easiest for developers to diagnose, since they may also be able to replicate it on their machines to collect more information.
+If an issue only happens sometimes, developers must spend more time and effort to understand what causes the problem.
+If an issue was only observed once, it is even harder to debug.
+
+TIP: *Detailed bug reports make bugs easier to fix*: If possible, you should try to investigate what steps cause the issue to happen and provide these steps in the next section:
+
+
+TIP: *Submit a report even if unsure*: If you aren't sure of what to fill in, you should still submit the bug report.
+Maintainers can follow up with questions to gather more information.
+
+*Steps to Reproduce:*
+
+These enable other users to verify the bug, and they also inform the developers of what specific steps cause the issue.
+It makes it much easier for them to look at the source code and pick out the bits that may be faulty.
+
+*Actual results:*
+
+What is observed when the issue occurs?
+
+*Expected results:*
+
+What does the user expect that should happen if the software behaved correctly?
+
+*Additional info:*
+
+Any additional information that may be useful to the maintainer should be added here.
+
+
+=== Step 2: Follow up on filed reports
+
+After a bug has been filed, you should keep an eye out for any updates.
+An e-mail notification of any new comments to the report will be sent to everyone involved in the bug report---the reporter, other users, and the maintainer.
+Often, maintainers will comment with queries to gather more information on the issue. Sometimes other users that experience the same issue may also add more information.
+
+TIP: *Ask for instructions*: If the maintainers ask for more information but it is unclear how it should be gathered, it is perfectly OK to ask the maintainers for explicit instructions.
+
+TIP: *E-mail notifications*: The notifications are sent from bugzilla@redhat.com.
+You should keep an eye out for e-mails from this address, and add it to your "no-spam" lists.
+
+If no updates are made to the bug in a week or two, you should also feel free to comment asking for any information.
+Sometimes maintainers who receive many bug reports can miss notification e-mails.
+A polite comment will send them a new notification.
+
+=== Step 3: Test updates
+
+A well reported bug will usually be fixed, and the maintainer will make an improved version of the software available to Fedora users.
+Bodhi will add a comment to the report when this happens.
+You can help the maintainer by confirming if the improved version works better in the Bodhi.
+
+.Bodhi Application adds comments informing users of an update that should fix the bug.
+image::20180825-how-to-file-a-bug-qa.png[]
+
+TIP: *Help test updates*: All users can help by testing new versions of software.
+More information on this can be found https://fedoraproject.org/wiki/QA:Updates_Testing[here].
+Note that this requires a https://admin.fedoraproject.org/accounts/[Fedora account].
+
+Once the improved version of the software has passed the QA process, the bug will automatically be closed. Congratulations!
+
+== More reading
+
+These are some more resources for those looking to report better bugs by providing more information:
+
+* https://fedoraproject.org/wiki/Bugs_and_feature_requests[A general introduction to filing bugs].
+* https://bugzilla.mozilla.org/page.cgi?id=etiquette.html[Bugzilla etiquette: how to be polite in bug related conversations on the bug tracker].
+* https://www.chiark.greenend.org.uk/~sgtatham/bugs.html[A general introduction on how to file good bugs (available in multiple languages)].
+* https://fedoraproject.org/wiki/StackTraces[An introduction to Stacktraces---information software provides about where the fault may lie].
+* https://fedoramagazine.org/file-better-bugs-coredumpctl/[Using `coredumpctl` to gather more information for bug reports].
