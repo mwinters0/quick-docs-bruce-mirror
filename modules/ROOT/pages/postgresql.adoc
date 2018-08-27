@@ -18,7 +18,7 @@ It is probably
 Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
 
 Once you've fixed this page, remove this notice, and update
-`_topic_map.yml`.
+[filename]`modules/ROOT/nav.adoc`.
 
 Once the document is live, go to the original wiki page and replace its text
 with the following macro:
