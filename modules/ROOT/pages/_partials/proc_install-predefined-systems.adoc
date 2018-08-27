@@ -9,31 +9,31 @@ To install a virtual operating system:
 
 . Run *GNOME Boxes* using the *Super* key and typing `Boxes`. In GNOME Boxes, click the *New* button.
 +
-image::../images/Boxes_new_machine.png[New machine]
+image::Boxes_new_machine.png[New machine]
 
 . Download an operating system.
 +
-image::../images/Download_os.png[Download your system]
+image::Download_os.png[Download your system]
 
 +
 Choose one of the predefined systems from the list.
 +
-image::../images/Select_virtual_machine.png[Select machine]
+image::Select_virtual_machine.png[Select machine]
 Alternatively, download an ISO image from the relevant website and select the file as shown in the screen below:
 +
-image::../images/Select_from_file.png[Select from file]
+image::Select_from_file.png[Select from file]
 +
 . Choose your user name, password, and installation type.
 +
-image::../images/Setup_machine.png[Setup machine]
+image::Setup_machine.png[Setup machine]
 +
 . Review your installation.
 +
-image::../images/Installation_review.png[Installation review]
+image::Installation_review.png[Installation review]
 +
 To modify resources of the installed virtual operating system, such as RAM or disk size, click the *Customize* button.
 +
-image::../images/Customize_resources.png[Customize resources]
+image::Customize_resources.png[Customize resources]
 +
 . To start the installation of the virtual operating system, click the *Create* button.
 +
@@ -41,4 +41,4 @@ The actual installation process may differ based on the selected operating syste
 +
 Installed systems are available to run in the main menu of *GNOME Boxes*.
 +
-image::../images/Select_from_boxes_menu.png[Select operating system]
+image::Select_from_boxes_menu.png[Select operating system]
