@@ -4,7 +4,7 @@ ifdef::context[:parent-context: {context}]
 = Installing virtual operating systems with GNOME Boxes
 
 :md: en-US/modules
-:imagesdir: ./images
+:imagesdir: ../images
 
 GNOME Boxes is an application in GNOME Desktop Environment, which enables you to virtually access various operating systems.
 
