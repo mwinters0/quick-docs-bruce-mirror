@@ -24,12 +24,13 @@ explain, you can create a new document from scratch.
 
 == Steps
 
-1. Pick a document to update.  You can find documents needing updates in the `_topic_map.yml` file.  They are on the commented lines (those that start with a `#`).
-2. Fork the https://pagure.io/fedora-docs/quick-docs repo.
-3. Make your changes to the `.adoc` file you want to improve.
-4. Update `_topic_map.yml` to remove "`(FIX ME!)`"
-5. Submit a pull request with your improvements.
-6. If migrating a wiki page, create a redirect on the old page — see below.
+. Pick a document to update. You can find documents needing updates in the [filename]`modules/ROOT/nav.adoc` file. They are on the commented-out lines (those that start with a `//FIXME`).
+. Fork the https://pagure.io/fedora-docs/quick-docs repo.
+. Make your changes to the `.adoc` file you want to improve.
+. Uncomment the file in [filename]`nav.adoc` remove the `FIXME` from the xref..
+. Build a local preview to ensure your changes look the way you intended: Make sure you have *Docker* installed, and run `./build.sh && ./preview.sh`. Follow instructions printed on the command line.
+. When you are satisfied with your updates, submit a pull request with your improvements.
+. If migrating a wiki page, create a redirect on the old page — see below.
 
 == Wiki Redirects
 
@@ -58,4 +59,3 @@ https://fedoraproject.org/w/index.php?title=Project_Leader&action=edit
 Note that there is no validation that the target exists or is correct —
 please double-check that any redirects you create work properly before
 moving on.
-
