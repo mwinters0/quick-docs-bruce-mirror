@@ -1,0 +1,3 @@
+= Raspberry Pi
+
+The most up-to-date information can be found on the link:https://fedoraproject.org/wiki/Architectures/ARM/Raspberry_Pi?rd=Raspberry_Pi[Raspberry Pi] page of the Fedora Wiki.  The Raspberry Pi is supported in Fedora 25 and later.

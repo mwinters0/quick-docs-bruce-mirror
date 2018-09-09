@@ -1,0 +1,19 @@
+ifdef::context[:parent-context: {context}]
+:context: getting-started-with-selinux
+[id='getting-started-with-selinux-{context}']
+= Getting started with SELinux
+:context: getting-started-with-selinux
+
+:md: en-US/modules
+:imagesdir: ./images
+
+:leveloffset: +1
+include::{partialsdir}/con_introduction-to-selinux.adoc[]
+include::{partialsdir}/con_benefits-of-selinux.adoc[]
+include::{partialsdir}/con_selinux-examples.adoc[]
+include::{partialsdir}/con_selinux-architecture.adoc[]
+include::{partialsdir}/con_selinux-states-and-modes.adoc[]
+:leveloffset: -1
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

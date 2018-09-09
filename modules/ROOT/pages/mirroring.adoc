@@ -1,0 +1,39 @@
+= Mirroring
+
+'''
+
+[IMPORTANT]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/Infrastructure/Mirroring
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not convert well from mediawiki
+* Out-of-date
+* In need of other love
+
+
+Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
+
+Once you've fixed this page, remove this notice, and update
+[filename]`modules/ROOT/nav.adoc`.
+
+Once the document is live, go to the original wiki page and replace its text
+with the following macro:
+
+....
+{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
+....
+
+======
+
+'''
+
+
+
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.

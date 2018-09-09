@@ -1,0 +1,476 @@
+= AutoUpdates
+
+'''
+
+[IMPORTANT]
+======
+
+This page was automatically converted from https://fedoraproject.org/wiki/AutoUpdates
+
+It is probably
+
+* Badly formatted
+* Missing graphics and tables that do not convert well from mediawiki
+* Out-of-date
+* In need of other love
+
+Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
+
+Once you've fixed this page, remove this notice, and update
+[filename]`modules/ROOT/nav.adoc`.
+
+Once the document is live, go to the original wiki page and replace its text
+with the following macro:
+
+....
+{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
+....
+
+======
+
+'''
+
+
+[[automatic-updates]]
+Automatic Updates
+-----------------
+
+You must decide whether to use automatic link:dnf[DNF] or link:yum[YUM]
+updates on each of your machines. There are a number of arguments both
+for and against automatic updates to consider. However, there is no
+single answer to this question: It is up to the system administrator or
+owner of each machine to decide whether automatic updates are desirable
+or not for that machine. One of the things which makes one a good system
+administrator is the ability to evaluate the facts and other people's
+suggestions, and then decide for onesself what one should do.
+
+A general rule that applies in most cases is as follows:
+
+_If the machine is a critical server, for which unplanned downtime of a
+service on the machine can not be tolerated, then you should not use
+automatic updates. Otherwise, you *may* choose to use them._
+
+Even the general rule above has exceptions, or can be worked around.
+Some issues might be resolved through a special setup on your part. For
+example, you could create your own dnf|yum repository on a local server,
+and only put in it tested or trusted updates. Then use the automatic
+updates from only your own repository. Such setups, while perhaps more
+difficult to setup and maintain, can remove a large amount of risk
+otherwise inherent in automatic updates.
+
+[[how-are-automatic-updates-done]]
+How are automatic updates done?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can use a service to automatically download and install any new
+updates (for example security updates).
+
+[[fedora-22-or-later-versions]]
+Fedora 22 or later versions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The http://dnf.readthedocs.org/en/latest/automatic.html[dnf-automatic]
+RPM package as a link:dnf[DNF] component provides a service which is
+started automatically.
+
+[[install-and-settings-of-dnf-automatic]]
+Install and settings of dnf-automatic
++++++++++++++++++++++++++++++++++++++
+
+On a fresh install of Fedora 22 with default options the dnf-automatic
+RPM is not installed, the first command below installs this RPM.
+
+....
+dnf install dnf-automatic
+....
+
+Though, you have to change a configuration file. In order to do this,
+run as the root user (or become root via su -) from a terminal window.
+
+....
+env EDITOR='gedit -w' sudoedit /etc/dnf/automatic.conf
+....
+
+Detailed description of dnf-automatic settings is provided on
+http://dnf.readthedocs.org/en/latest/automatic.html[dnf-automatic] page.
+
+[[run-dnf-automatic]]
+Run dnf-automatic
++++++++++++++++++
+
+Once you are finished with configuration, execute:
+
+`systemctl enable dnf-automatic.timer && systemctl start dnf-automatic.timer`
+
+to enable and start the systemd timer.
+
+Check status of dnf-automatic:
+
+`# systemctl list-timers *dnf-*`
+
+[[changes-as-of-fedora-26]]
+Changes as of Fedora 26
+
+As of Fedora 26 there are now three timers that control dnf-automatic.
+
+* dnf-automatic-download.timer - Only download
+* dnf-automatic-install.timer - Download and install
+* dnf-automatic-notifyonly.timer - Only notify via configured emitters
+in _/etc/dnf/automatic.conf_
+
+You can still use _download_updates_ and _apply_updates_ settings from
+inside _/etc/dnf/automatic.conf_.
+
+[[fedora-21-or-earlier-versions]]
+Fedora 21 or earlier versions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The yum-cron RPM package provides a service which is started
+automatically. Though, you have to change a configuration file. In order
+to do this, run as the root user (or become root via su -) from a
+terminal window. On a fresh install of Fedora 20 with default options
+the yum-cron RPM is not installed, the first command below installs this
+RPM.
+
+....
+yum install -y yum-cron
+env EDITOR='gedit -w' sudoedit /etc/yum/yum-cron.conf"
+....
+
+and enter your password. After, change the line
+
+....
+apply_updates = no
+....
+
+to
+
+....
+apply_updates = yes
+....
+
+Save the file. You are now done. Yum-cron updates your system every time
+when there are new updates available.
+
+[[can-we-trust-dnf-or-yum-updates]]
+Can we trust dnf or yum updates?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Dnf and Yum in Fedora has the GPG key checking enabled by default.
+Assuming that you have imported the correct GPG keys, and still have
+gpgcheck=1 in your for dnf or for yum, then we can at least assume that
+any automatically installed updates were not corrupted or modified from
+their original state. Using the GPG key checks, there is no way for an
+attacker to generate packages that your system will accept as valid
+(unless they have a copy of the *private* key corresponding to one you
+installed) and any data corruption during download would be caught.
+
+However, the question would also apply to the question of update
+quality. Will the installation of the package cause problems on your
+system? This we can not answer. Each package goes through a QA process,
+and is assumed to be problem free. But, problems happen, and QA can not
+test all possible cases. It is always possible that any update may cause
+problems during or after installation.
+
+[[why-use-automatic-updates]]
+Why use Automatic updates?
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The main advantage of automating the updates is that machines are likely
+to get updated more quickly, more often, and more uniformly than if they
+updates are done manually. We see too many compromised machines on the
+internet which would have been safe if the latest updates where
+installed in a timely way.
+
+So while you should still be cautious with any automated update
+solution, in particular on production systems, it is definitely worth
+considering, at least in some situations.
+
+[[reasons-for-using-automatic-updates]]
+Reasons FOR using automatic updates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+While no one can determine for you if your machine is a good candidate
+for automatic updates, there are several things which tend to make a
+machine a better candidate for automatic updates.
+
+Some things which might make your machine a good candidate for automatic
+updates are:
+
+* You are unlikely to apply updates manually for whatever reason(s).
+* The machine is not critical and occasional unplanned downtime is
+acceptable.
+* You can live without remote access to the machine until you can get to
+its physical location to resolve problems.
+* You do not have any irreplaceable data on the machine, or have proper
+backups of such data.
+
+If all of the above apply to your machine(s), then automatic updates may
+be your best option to help secure your machine. If not all of the above
+apply, then you will need to weigh the risks and decide for yourself if
+automatic updates are the best way to proceed.
+
+[[reasons-against-using-automatic-updates]]
+Reasons AGAINST using automatic updates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+While no one can determine for you if your machine is a bad candidate
+for automatic updates, there are several things which tend to make a
+machine a worse candidate for automatic updates.
+
+Some things which might make your machine be a bad candidate for
+automatic updates are:
+
+* It provides a critical service that you don't want to risk having
+unscheduled downtime.
+* You installed custom software, compiled software from source, or use
+third party software that has strict package version requirements.
+* You installed a custom kernel, custom kernel modules, third party
+kernel modules, or have a third party application that depends on kernel
+versions (this may not be a problem if you exclude kernel updates, which
+is the default in Fedora dnf.conf or yum.conf files). (But see also
+https://bugzilla.redhat.com/show_bug.cgi?id=870790[bug #870790] - you
+may need to modify in Fedora 22 or later versions in base section to add
+exclude=kernel*. or in Fedora 21 or earlier versions to
+exclude=kernel*.)
+* Your enviroment requires meticulous change-control procedures.
+* You update from other third party yum|dnf repositories besides Fedora
+(core, extras, legacy ) repositories which may conflict in versioning
+schemes for the same packages.
+
+There are also some other reasons why installing automatic updates
+without testing may be a bad idea. A few such reasons are:
+
+* The need to back up your configuration files before an update. Even
+the best package spec files can have mistakes. If you have modified a
+file which is not flagged as a configuration file, then you might lose
+your configuration changes. Or an update may have a different format of
+configuration file, requiring a manual reconfiguration. It is often best
+to backup your configuration files before doing updates on critical
+packages such as mail, web, or database server packages.
+* Unwanted side effects. Some packages can create annoying side effects,
+particularly ones which have cron jobs. Updates to base packages like
+openssl, openldap, sql servers, etc. can have an effect on many other
+seemingly unrelated packages.
+* Bugs. Many packages contain buggy software or installation scripts.
+The update may create problems during or after installation. Even
+cosmetic bugs like those found in previous Mozilla updates (causing the
+user's icons to be removed or break) can be annoying or problematic.
+* Automatic updates may not complete the entire process needed to make
+the system secure. For example, dnf or yum can install a kernel update,
+but until the machine is rebooted (which dnf or yum will not do
+automatically) the new changes won't take effect. The same may apply to
+restarting daemons. This can leave the user feeling that he is secure
+when he is not.
+
+[[best-practices-when-using-automatic-updates]]
+Best practices when using automatic updates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you decide to use automatic updates, you should at least do a few
+things to make sure you are up-to-date.
+
+Check for package updates which have been automatically performed, and
+note if they need further (manual) intervention. You can monitor what
+dnf or yum has updated via its log file (usually or ).
+
+[[fedora-22-or-later-versions-1]]
+Fedora 22 or later versions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can monitor updates availability automatically by email after
+modifying dnf-automatic configuration file (usually ).
+
+....
+[emitters]
+emit_via = email
+
+[email]
+# The address to send email messages from.
+email_from = root@localhost.com
+
+# List of addresses to send messages to.
+email_to = root
+
+# Name of the host to connect to to send email messages.
+email_host = localhost
+....
+
+You would replace root with a actual email address to which you want to
+report sent, and localhost with a actual address of SMTP server. This
+change will mean that after dnf-automatic runs, it will email you
+information you about available updates, or log about downloaded
+packages, or installed updates according to settings in .
+
+[[fedora-21-or-earlier-versions-1]]
+Fedora 21 or earlier versions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can monitor this automatically by email by modifying the cron job to
+mail you the last part of the log file. For example, edit
+/etc/cron.daily/yum.cron so that it looks like the following:
+
+....
+#!/bin/sh
+
+if [ -f /var/lock/subsys/yum ] ; then
+/usr/bin/yum -R 10 -e 0 -d 0 -y update yum
+/usr/bin/yum -R 120 -e 0 -d 0 -y update
+/usr/bin/tail /var/log/yum.log | /bin/mail -s yum-report youremail@yourdmain
+fi
+....
+
+You would replace youremail@yourdomain with a actual email address to
+which you want to report sent. This change will mean that after yum runs
+every night, it will email you the tail end of the log file showing what
+happened. (Note this assumes you have a working mail setup on your
+machine.)
+
+[[alternative-methods]]
+Alternative methods
+~~~~~~~~~~~~~~~~~~~
+
+As an alternative to dnf-automatic or yum-cron,
+https://github.com/rackerlabs/auter[auter] can be used. This operates in
+a similar way to yum-cron, but provides more flexibility in scheduling,
+and some additional options including running custom scripts before or
+after updates, and automatic reboots. This comes at the expensive of
+more complexity to configure.
+
+....
+dnf install auter
+....
+
+Edit the configuration. Descriptions of the options are contained in the
+conf file:
+
+....
+/etc/auter/auter.conf
+....
+
+Auter is not scheduled by default. Add a schedule for "--prep" (if you
+want to pre-download updates) and "--apply" (install updates). The
+installed cron job contains lots of examples:
+
+....
+/etc/cron.d/auter
+....
+
+To make auter run immediately without waiting for the cron job to run,
+for example for testing or debugging, you can simply run it from the
+command line:
+
+....
+auter --apply
+....
+
+If you want to disable auter from running, including from any cron job:
+
+....
+auter --disable
+....
+
+[[alternatives-to-automatic-updates]]
+Alternatives to automatic updates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[notifications]]
+Notifications
+^^^^^^^^^^^^^
+
+[[fedora-22-or-later-versions-2]]
+Fedora 22 or later versions
++++++++++++++++++++++++++++
+
+Instead of automatic updates, dnf-automatic can only download new
+updates and can alert your via email of available updates which you
+could then install manually. It can be set by editing of file.
+
+[[fedora-21-or-earlier-versions-2]]
+Fedora 21 or earlier versions
++++++++++++++++++++++++++++++
+
+Instead of automatic updates yum can alert your via email of available
+updates which you could then install manually. You could accomplish such
+a setup with a cron job such as that listed below. Simply put this in
+/etc/cron.daily with a suitable filename (such as
+yum-check-updates.cron).
+
+....
+#!/bin/sh
+
+/usr/bin/yum check-update 2>&1 | /bin/mail -s "yum check-update output" root
+....
+
+You can of course change the email address it sends to, etc. to meet
+your own needs.
+
+[[scheduling-updates]]
+Scheduling updates
+^^^^^^^^^^^^^^^^^^
+
+Another common problem is having automatic updates run when it isn't
+desired (holidays, weekends, vacations, etc). If there are times that no
+one will be around to fix any problem arising the from the updates, it
+may be best to avoid doing updates on those days.
+
+[[fedora-22-or-later-versions-3]]
+Fedora 22 or later versions
++++++++++++++++++++++++++++
+
+This problem can be fixed by modification of the timer of dnf-automatic
+using the description on
+https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units[Use
+Systemctl] page.
+
+[[fedora-21-or-earlier-versions-3]]
+Fedora 21 or earlier versions
++++++++++++++++++++++++++++++
+
+One method is to use a crontab entry instead of the
+/etc/cron.daily/yum.conf provided by default. For example, to only run
+updates from Monday through Friday mornings (avoiding weekends), you
+might use a crontab entry such as the following:
+
+....
+0 7 * * 1-5   /usr/bin/yum -y update
+....
+
+If you need more control over when it runs, you could create a file
+called, for example, /usr/local/etc/no-yum-update.conf, which contains a
+list of dates not to update on. What dates go in this file is up to you
+to decide (vacations, holidays, etc). The dates would be in the format
+YYYY-MM-DD (e.g. 2005-03-31). Then create a
+/etc/cron.daily/yum-update.cron script something like the following:
+
+....
+#!/bin/sh
+
+today=$(date +%Y-%m-%d)
+
+while read banned; do
+[ "$today" == "$banned" ]  && exit 0
+done < /usr/local/etc/no-yum-update.conf
+yum -y update
+....
+
+[[other-methods-of-protection]]
+Other methods of protection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Yet another thing to consider if not using automatic updates is to
+provide your machine with some other forms of protection to help defend
+any attacks that might occur before updates are in place. This might
+include an external firewall, a host-based firewall (like iptables,
+ipchains, and/or tcp wrappers), not performing dangerous tasks on the
+computer (like browsing the web, reading e-mail, etc), and monitoring
+the system for instrusions (with system log checkers, IDS systems,
+authentication or login monitoring, etc).
+
+'''''
+
+Category:Documentation
+'''
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.

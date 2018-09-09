@@ -1,0 +1,102 @@
+[[chap-dnf]]
+= Using the DNF software package manager
+
+DNF is a software package manager that installs, updates, and removes packages on Fedora and is the successor to YUM (Yellow-Dog Updater Modified).
+DNF makes it easy to maintain packages by automatically checking for dependencies and determines the actions required to install packages.
+This method eliminates the need to manually install or update the package, and its dependencies, using the `rpm` command.
+
+[[sect-dnf-installation]]
+== Installation
+
+DNF has replaced YUM as the default package manager for Fedora since version 22.
+However, for earlier versions of Fedora, starting from version 18, DNF can be installed from the command-line with:
+
+----
+# yum install dnf
+----
+
+[[sect-usage]]
+== Usage
+
+`dnf` can be used exactly as `yum` to search, install or remove packages.
+
+To search the repositories for a package type:
+
+----
+# sudo dnf search packagename
+----
+
+To install the package:
+
+----
+# dnf install packagename
+----
+
+To remove a package:
+
+----
+# dnf remove packagename
+----
+
+Other common DNF commands include:
+
+* `autoremove` - removes packages installed as dependencies that are no longer required by currently installed programs.
+
+* `check-update` - checks for updates, but does not download or install the packages.
+
+* `downgrade` - reverts to the previous version of a package.
+
+* `info` - provides basic information about the package including name, version, release, and description.
+
+* `reinstall` - reinstalls the currently installed package.
+
+* `update/upgrade` - checks the repositories for newer packages and updates them.
+
+For more DNF commands refer to the man pages by typing `man dnf` at the command-line, or link:++http://dnf.readthedocs.io/en/latest/command_ref.html[DNF Read The Docs]
+
+[[sect-automatic-updates]]
+== Automatic Updates
+
+The `dnf-automatic` package is a component that allows automatic download and installation of updates.
+It can automatically monitor and report, via e-mail, the availability of updates or send a log about downloaded packages and installed updates.
+
+For more information, refer to the link:++http://dnf.readthedocs.org/en/latest/automatic.html[Read the Docs: DNF-Automatic] page.
+
+[[sect-system-upgrades]]
+== System Upgrades
+
+The Fedora system can be upgraded directly with DNF, or with the DNF system upgrade plugin.
+Refer to the link:++upgrading.html++[Upgrade] document for more details.
+
+[[sect-language-support-using-dnf]]
+== Language Support Using DNF
+
+DNF can be used to install or remove Language Support.
+A detailed description with a list of available languages can be found on link:++https://fedoraproject.org/wiki/I18N/Language_Support_Using_Dnf[Language Support Using Dnf] page.
+
+[[sect-plugins]]
+== Plugins
+
+The core DNF functionality can be extended with plugins.
+There are officially supported https://dnf-plugins-core.readthedocs.io[Core DNF plugins]
+and also third-party https://dnf-plugins-extras.readthedocs.io[Extras DNF Plugins].
+To install them, run
+
+----
+# dnf install dnf-plugins-core-PLUGIN_NAME
+----
+
+or
+
+----
+# dnf install dnf-plugins-extras-PLUGIN_NAME
+----
+
+[[sect-references]]
+== References
+
+. http://dnf.readthedocs.org/en/latest/command_ref.html[DNF Command Reference]
+
+. http://dnf.baseurl.org/[DNF blog]
+
+. https://github.com/rpm-software-management/dnf/wiki[DNF wiki]

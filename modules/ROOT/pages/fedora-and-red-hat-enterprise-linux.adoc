@@ -1,0 +1,10 @@
+ifdef::context[:parent-context: {context}]
+:context: fedora-and-red-hat-enterprise-linux
+[id='fedora-and-red-hat-enterprise-linux']
+= Fedora and Red Hat Enterprise Linux
+
+What is the difference between Fedora and Red Hat Enterprise Linux?
+
+include::{partialsdir}/con_relation-between-fedora-and-red-hat-enterprise-linux.adoc[leveloffset=+1]
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

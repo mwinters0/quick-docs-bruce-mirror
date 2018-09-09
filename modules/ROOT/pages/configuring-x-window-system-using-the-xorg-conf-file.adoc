@@ -1,0 +1,10 @@
+ifdef::context[:parent-context: {context}]
+:context: configuring-x-window-system-using-the-xorg-conf-file
+[id='configuring-x-window-system-using-the-xorg-conf-file']
+= Configuring X Window System using the xorg.conf file
+
+include::{partialsdir}/con_xorg-conf.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_creating_xorg_conf.adoc[leveloffset=+1]
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

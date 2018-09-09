@@ -1,0 +1,97 @@
+[id='proc_installing-spotify-on-fedora']
+= Installing Spotify on Fedora
+
+link:https://www.spotify.com/[Spotify] is a cross-platform proprietary music streaming service. Spotify is a freemium service, with advertisements which can be removed by purchasing a subscription. Although Spotify is not officially supported on Fedora, it can be installed on Fedora by:
+
+[installation]
+== Installation
+
+While it is not officially supported on Fedora or any other RPM-based
+distribution, it is possible to install on Fedora using various package methods.
+
+* Using unofficial repositories https://rpmfusion.org/[RPM Fusion] repositories.
+* Using a Flatpak hosted by http://flathub.org[Flathub].
+* Using the https://www.spotify.com/us/download/linux/[officially-supported]
+http://snapcraft.io/[Snap].
+
+[installing-spotify-from-3rd-party-repositories]
+=== Installing Spotify using third-party repositories
+
+[install-spotify-using-rpmfusion]
+==== Using the RPM Fusion repository
+
+RPM Fusion provides software that the Fedora Project does not ship. That software is provided as a lpf RPM for all current Fedora versions.
+It means that you need to explicitely allow the spotify license before the lpf framework will download and re-package automatically the software.
+This is needed because the spotify doesnt't allow the client to be distributed elsewhere than from spotify.com.
+
+To install Spotify using the RPM Fusion repository:
+
+. Add the RPM Fusion repository
++
+----
+$ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+----
+
+. Install Spotify
++
+----
+$ sudo dnf install lpf-spotify-client
+$ lpf approve spotify-client
+$ sudo -u pkg-build lpf build spotify-client # It can take up to 5 minutes
+$ sudo dnf install /var/lib/lpf/rpms/spotify-client/spotify-client-*.rpm
+----
+
+
+[install-spotify-using-flatpak]
+=== Installing Spotify using Flatpak
+
+To install Spotify using link:https://flatpak.org/index.html[Flatpak]:
+
+. Install Flatpak using dnf:
++
+----
+# dnf install -y flatpak
+----
+
+. Install Spotify using Flatpak:
++
+----
+# flatpak install -y --from https://flathub.org/repo/appstream/com.spotify.Client.flatpakref
+----
+
+. To run Spotify:
++
+----
+$ flatpak run com.spotify.Client
+----
+
+. (Optional) Add a menu shortcut for Spotify:
++
+----
+$ echo "
+[Desktop Entry]
+	Name=Spotify
+	Exec=flatpak run com.spotify.Client
+	Icon=/var/lib/flatpak/exports/share/icons/hicolor/256x256/apps/com.spotify.Client.png
+	Type=Application" > ~/.local/share/applications/Spotify.desktop
+----
+
+[instal-spotify-using-snap]
+=== Snap
+
+Snap is the officially recommended distribution method for Spotify. To install spotify using http://snapcraft.io/[Snap]:
+
+. Install Snap
++
+----
+$ sudo dnf install snapd
+$ sudo ln -s /var/lib/snapd/snap /snap
+----
+
+. Install Spotify using Snap:
+----
+$ snap install spotify
+----
+
+See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.

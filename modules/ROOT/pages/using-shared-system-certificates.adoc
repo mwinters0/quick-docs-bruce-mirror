@@ -1,0 +1,23 @@
+ifdef::context[:parent-context: {context}]
+:context: using-shared-system-certificates
+[[using-shared-system-certificates]]
+= Using Shared System Certificates
+
+The Shared System Certificates storage enables NSS, GnuTLS, OpenSSL, and Java to share a default source for retrieving system certificate anchors and black list information. By default, the trust store contains the Mozilla CA list, including positive and negative trust. The system allows updating of the core Mozilla CA list or choosing another certificate list.
+
+include::{partialsdir}/con_using-the-system-wide-trust-store.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_adding-new-certificates.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_managing-trusted-system-certificates.adoc[leveloffset=+1]
+
+
+[[shared-system-certificates-additional-resources]]
+== Additional Resources
+
+For more information, see the following man pages:
+
+* `update-ca-trust(8)`
+* `trust(1)`
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

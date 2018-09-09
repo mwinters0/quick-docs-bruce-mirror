@@ -1,0 +1,15 @@
+ifdef::context[:parent-context: {context}]
+:context: gnome-boxes
+[id='installing-virtual-operating-systems-with-gnome-boxes-{context}']
+= Installing virtual operating systems with GNOME Boxes
+
+:md: en-US/modules
+:imagesdir: ../images
+
+GNOME Boxes is an application in GNOME Desktop Environment, which enables you to virtually access various operating systems.
+
+:leveloffset: +1
+include::{partialsdir}/proc_install-predefined-systems.adoc[]
+:leveloffset: -1
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

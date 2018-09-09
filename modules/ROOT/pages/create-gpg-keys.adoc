@@ -1,0 +1,71 @@
+ifdef::context[:parent-context: {context}]
+:context: creating-gpg-keys
+= Creating GPG Keys
+:experimental:
+
+This document explains in detail how to obtain a GPG key using common Fedora utilities.
+It also provides information on managing your key as a Fedora contributor.
+
+[[creating-gpg-keys]]
+== Creating GPG Keys
+
+include::{partialsdir}/proc_creating-gpg-keys-gnome.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_creating-gpg-keys-kde.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_creating-gpg-keys-cli.adoc[leveloffset=+1]
+
+[[making-a-backup]]
+== Making a Backup
+
+include::{partialsdir}/proc_backup-gpg-keys-gnome.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_backup-gpg-keys-kde.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_backup-gpg-keys-cli.adoc[leveloffset=+1]
+
+[[making-your-public-key-available]]
+== Making Your Public Key Available
+
+When you make your public key available to others, they can verify communications you sign, or send you encrypted communications if necessary.
+This procedure is also known as _exporting_.
+
+Now see <<exporting-gpg-keys-gnome>>, <<exporting-gpg-keys-kde>>, or the <<exporting-gpg-keys-cli>>.
+See <<copying-public-gpg-keys-manually>> to a file if you wish to email it to individuals or groups.
+
+include::{partialsdir}/proc_exporting-gpg-keys-gnome.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_exporting-gpg-keys-kde.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_exporting-gpg-keys-cli.adoc[leveloffset=+1]
+
+include::{partialsdir}/proc_copying-public-gpg-keys-manually.adoc[leveloffset=+1]
+
+[[safeguarding-your-secret-key]]
+== Safeguarding Your Secret Key
+
+Treat your secret key as you would any very important document or physical key.
+(Some people always keep their secret key on their person, either on magnetic or flash media.)
+If you lose your secret key, you will be unable to sign communications, or to open encrypted communications that were sent to you.
+
+[[hardware-token-options]]
+== Hardware Token options
+
+If you followed the above, you have a secret key which is just a regular file.
+A more secure model than keeping the key on disk is to use a hardware token.
+
+There are several options available on the market, for example the https://www.yubico.com/products/yubikey-hardware/yubikey4/[YubiKey].
+Look for a token which advertises OpenPGP support.
+See https://blog.josefsson.org/2014/06/23/offline-gnupg-master-key-and-subkeys-on-yubikey-neo-smartcard/[this blog entry] for how to create a key with offline backups, and use the token for online access.
+
+include::{partialsdir}/proc_revoking-gpg-keys.adoc[leveloffset=+1]
+
+== Additional resources
+
+* http://www.gnupg.org/[GPG home page]
+* http://www.gnupg.org/documentation/[Official GPG documentation]
+* http://en.wikipedia.org/wiki/Public-key_cryptography[Wikipedia - Public Key Cryptography]
+
+See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://pagure.io/fedora-docs/quick-docs[quick-docs's git repository].
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
