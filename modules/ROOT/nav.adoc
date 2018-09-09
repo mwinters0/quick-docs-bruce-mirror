@@ -47,6 +47,7 @@
 * xref:using-shared-system-certificates.adoc[Using shared system certificates]
 * xref:installing-software-from-source.adoc[Installing software from source code]
 * xref:installing-spotify.adoc[Installing Spotify on Fedora]
+* xref:adding_user_to_sudoers_file.adoc[Adding a user to sudoers]
 * xref:performing-administration-tasks-using-sudo.adoc[Performing administration tasks using sudo]
 * xref:understanding-and-administering-systemd.adoc[Understanding and administering systemd]
 * xref:displaying_user_prompt_on_gnome_login_screen.adoc[Displaying a user prompt on the GNOME login screen]
