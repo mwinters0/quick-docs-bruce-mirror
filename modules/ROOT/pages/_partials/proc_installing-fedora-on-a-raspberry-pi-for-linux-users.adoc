@@ -1,0 +1,68 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// Base the file name and the ID on the module title. For example:
+// * file name: doing-procedure-a.adoc
+// * ID: [id='doing-procedure-a']
+// * Title: = Doing procedure A
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id='installing-fedora-on-a-raspberry-pi-for-linux-users_{context}']
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+= Installing Fedora on a Raspberry Pi for Linux users
+// Start the title of a procedure module with a verb, such as Creating or Create. See also _Wording of headings_ in _The IBM Style Guide_.
+
+This procedure shows Linux users how to add Fedora ARM to a microSD for use with a Raspberry Pi.
+
+._Prerequisites_
+
+* Raspberry Pi Model B, version 2 or 3.
+* A microSD Card (16 GB or larger).
+* A computer running Linux.
+* Root user access (via `su` or `sudo`).
+* SD card reader.
+* A Fedora ARM image from:  link:https://arm.fedoraproject.org/[].
+
+._Procedure_
+
+. Download a Fedora ARM image from the  link:https://arm.fedoraproject.org/[Fedora ARM website].
++
+. Run the following command to extract the `.raw` image and write the image to your microSD card:
++
+[NOTE]
+The location of your microSD card will be /dev/sdX or /dev/mmcblkX depending on your computer hardware.
++
+[subs="quotes"]
+----
+$ xzcat *Fedora-IMAGE-NAME.raw.xz* | sudo dd status=progress bs=4M of=*/dev/XXX*
+----
++
+. Resize the Root Partition on the microSD using gparted:
++
+----
+$ gparted /dev/XXX
+----
++
+For information on using gparted resize a partition, see: https://gparted.org/display-doc.php?name=help-manual#gparted-resize-partition[GNOME Partition Editor: GParted Manual - Resizing a Partition].
++
+[NOTE]
+The root partition is shrunk to the smallest size possible to ensure a small download.
+You currently need to resize it manually.
+Ideally we would like this to happen automatically (great community project idea!).
+
+Your microSD card is ready to be used with your Raspberry Pi.
+
+ifeval::["{context}" == "rpi"]
+.Next Steps
+
+For information on starting and configuring Fedora on Raspberry Pi, see: xref:booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}[].
+endif::[]
+
+.Additional Resources
+
+* For information on using `gparted`, see: link:https://gparted.org/display-doc.php?name=help-manual[GNOME Partition Editor: GParted Manual].
+* For assistance or support, see:
+** link:https://ask.fedoraproject.org/[Ask Fedora]
+** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
+** irc://irc.freenode.net/#fedora-arm[IRC via the #fedora-arm channel on Freenode]

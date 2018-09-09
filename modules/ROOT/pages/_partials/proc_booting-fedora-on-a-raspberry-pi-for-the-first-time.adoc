@@ -1,0 +1,66 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// Base the file name and the ID on the module title. For example:
+// * file name: doing-procedure-a.adoc
+// * ID: [id='doing-procedure-a']
+// * Title: = Doing procedure A
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id='booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}']
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+= Booting Fedora on a Raspberry Pi for the first time
+// Start the title of a procedure module with a verb, such as Creating or Create. See also _Wording of headings_ in _The IBM Style Guide_.
+
+Follow these steps to boot Fedora ARM on your Raspberry Pi. If your MicroSD card does not have enough room, you need to resize the main partition after the initial setup. See <<resizing-the-main-partition-of-the-microsd-card-after-setup_{context}>>.
+
+._Prerequisites_
+
+* Raspberry Pi Model B, version 2 or 3.
+* A power supply (link:https://www.raspberrypi.org/help/faqs/#power[details here]).
+** Minimum 2 Amps for Raspberry Pi Model B, version 2.
+** Minimum 2.5 Amps for the Raspberry Pi Model B, version 3.
+* HDMI-compatible Monitor or TV.
+* A USB keyboard and USB mouse.
+
+
+._Procedure_
+
+. Insert the SD card into the Raspberry Pi.
+. Connect a keyboard, mouse, network cable, and monitor.
+. Plug the Raspberry Pi into the power source. The "Initial setup wizard" should appear after Fedora loads.
+. Follow the wizard to set your language, timezone and to create users.
+
+The system displays a login prompt or getting started guide (depending on your Desktop/SPIN).
+
+[id='resizing-the-main-partition-of-the-microsd-card-after-setup_{context}']
+._Resizing the main partition of the microSD card after setup (if required)_
+
+Follow these steps to resize the partitions for Fedora ARM on Raspberry Pi:
+
+. Enlarge the 4th partition (this example uses mmcblk0).
++
+----
+$ growpart /dev/mmcblk0p4
+----
++
+. Grow the filesystem to fill the available space.
++
+----
+$ resize2fs /dev/mmcblk0p4
+----
++
+. Resize root partition for the server image (which uses xfs).
++
+----
+$ xfs_growfs -d /
+----
+
+._Additional Resources_
+
+* For information on configuring Fedora, including installing programs and updates, see: link:https://docs.fedoraproject.org/f28/system-administrators-guide/[Fedora Docs: System Administrator’s Guide]
+* For assistance or support, see:
+** link:https://ask.fedoraproject.org/[Ask Fedora]
+** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
+** irc://irc.freenode.net/#fedora-arm[IRC via the #fedora-arm channel on Freenode]

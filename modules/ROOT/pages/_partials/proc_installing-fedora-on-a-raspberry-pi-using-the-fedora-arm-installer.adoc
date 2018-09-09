@@ -1,0 +1,84 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// Base the file name and the ID on the module title. For example:
+// * file name: doing-procedure-a.adoc
+// * ID: [id='doing-procedure-a']
+// * Title: = Doing procedure A
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id='installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer_{context}']
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+= Installing Fedora on a Raspberry Pi using the Fedora ARM installer
+// Start the title of a procedure module with a verb, such as Creating or Create. See also _Wording of headings_ in _The IBM Style Guide_.
+
+This procedure shows Fedora users how to add Fedora ARM to a microSD for use with a Raspberry Pi using the Fedora ARM installer.
+
+._Prerequisites_
+
+* Raspberry Pi Model B, version 2 or 3.
+* A microSD Card (16 GB or larger).
+* A computer running Fedora 28 or newer.
+* SD card reader.
+* A Fedora ARM image from: link:https://arm.fedoraproject.org/[].
+
+._Procedure_
+
+. Download a Fedora ARM image from the  link:https://arm.fedoraproject.org/[Fedora ARM website].
++
+. Install the `fedora-arm-installer`:
++
+[source]
+----
+$ dnf install -y fedora-arm-installer
+----
++
+. As the root user, write the Fedora ARM image to the microSD card:
++
+[source,subs="quotes"]
+----
+# fedora-arm-image-installer --image=__&#60;/path/to/fedora_image&#62;__ --target=__&#60;RPi_Version&#62;__ --media=/dev/__&#60;sd_card_device&#62;__ --resizefs
+----
++
+Where:
++
+* The `__&#60;/path/to/fedora_image&#62;__` has the format `Fedora-__&#60;spin&#62;__-armhfp-__&#60;fedora_version&#62;__-sda.raw.xz`.
+** For example: `/home/user/Downloads/Fedora-Server-armhfp-28-1.1-sda.raw.xz`.
+* `__&#60;RPi_Version&#62;__` is:
+** `rpi2` for a Raspberry Pi 2.
+** `rpi3` for a Raspberry Pi 3.
+* `/dev/__&#60;sd_card_device&#62;__` is the microSD card 'device' on your system, such as `/dev/sdX` or `/dev/mmcblkX`. The `lsblk` command may help you identify your micro-SD card.
++
+[NOTE]
+====
+* To see usage options for the `fedora-arm-image-installer`, run:
++
+[source]
+----
+$ fedora-arm-image-installer --help
+----
+
+* For list of supported boards please check SUPPORTED-BOARDS file.
++
+[source]
+----
+$ cat /usr/share/doc/fedora-arm-installer/SUPPORTED-BOARDS
+----
+====
+
+Your microSD card is ready to be used with your Raspberry Pi.
+
+ifeval::["{context}" == "rpi"]
+._Next Steps_
+
+For information on starting and configuring Fedora on Raspberry Pi, see: xref:booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}[].
+endif::[]
+
+._Additional Resources_
+
+* For information on using the Fedora ARM Installer, see: link:https://fedoraproject.org/wiki/Architectures/ARM/Installation[Fedora Wiki: Installing Fedora on your ARM device].
+* For assistance or support, see:
+** link:https://ask.fedoraproject.org/[Ask Fedora]
+** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
+** irc://irc.freenode.net/#fedora-arm[IRC via the #fedora-arm channel on Freenode]

@@ -34,7 +34,7 @@
 * xref:configuring-ip-networking-with-nmcli.adoc[Configuring networking with NetworkManager CLI (nmcli)]
 * xref:creating-a-disk-partition-in-linux.adoc[Creating disk partitions]
 * xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]
-* xref:raspberry-pi.adoc[Raspberry Pi]
+* xref:raspberry-pi.adoc[Fedora on Raspberry Pi]
 * xref:repositories.adoc[Fedora Repositories]
 * xref:adding-or-removing-software-repositories-in-fedora.adoc[Adding or removing software repositories in Fedora]
 * xref:reset-root-password.adoc[Resetting a root password]

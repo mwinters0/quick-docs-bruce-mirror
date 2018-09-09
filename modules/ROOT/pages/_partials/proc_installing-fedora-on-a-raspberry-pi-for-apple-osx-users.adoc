@@ -1,0 +1,59 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// Base the file name and the ID on the module title. For example:
+// * file name: doing-procedure-a.adoc
+// * ID: [id='doing-procedure-a']
+// * Title: = Doing procedure A
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id='installing-fedora-on-a-raspberry-pi-for-apple-osx-users_{context}']
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+= Installing Fedora on a Raspberry Pi for Apple OS X users
+// Start the title of a procedure module with a verb, such as Creating or Create. See also _Wording of headings_ in _The IBM Style Guide_.
+
+This procedure shows Apple OS X users how to add Fedora ARM to a microSD for use with a Raspberry Pi.
+
+._Prerequisites_
+
+* Raspberry Pi Model B, version 2 or 3.
+* A microSD Card (16 GB or larger).
+* A computer running Apple OS X.
+* SD card reader.
+* A Fedora ARM image from: link:https://arm.fedoraproject.org/[].
+* File-decompression software (such as link:https://theunarchiver.com/[The Unarchiver desktop application] or link:https://theunarchiver.com/command-line[The Unarchiver command-line tools]).
+
+._Procedure_
+
+. Download a Fedora ARM image from the  link:https://arm.fedoraproject.org/[Fedora ARM website].
++
+. Extract the `.raw` file from the Fedora ARM image using file-decompression software (such as link:https://theunarchiver.com/[The Unarchiver])
++
+For example:
++
+----
+$ unar Fedora-Server-armhfp-28-1.1-sda.raw.xz
+----
+
+. Follow the instructions provided by the Raspberry Pi foundation for writing an image to a microSD card from Apple OS X: link:https://www.raspberrypi.org/documentation/installation/installing-images/mac.md[Raspberry Pi Foundation: Installing operating system images on Mac OS].
++
+[NOTE]
+====
+The `.img` and `.raw` extensions are used interchangeably for RAW file. Where the instructions indicate an input file with the `.img` extension, use the Fedora ARM image '.raw'.
+====
+
+Your microSD card is ready to be used with your Raspberry Pi.
+
+ifeval::["{context}" == "rpi"]
+._Next Steps_
+
+For information on starting and configuring Fedora on Raspberry Pi, see: xref:booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}[].
+endif::[]
+
+._Additional Resources_
+
+* For assistance or support, see:
+** link:https://ask.fedoraproject.org/[Ask Fedora]
+** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
+** irc://irc.freenode.net/#fedora-arm[IRC via the #fedora-arm channel on Freenode]
