@@ -1,3 +1,6 @@
+ifdef::context[:parent-context: {context}]
+:context: luks
+
 [id='encrypting-drives-using-luks']
 = Encrypting drives using LUKS
 
@@ -5,10 +8,13 @@ As a system administrator, you can encrypt a block device. This section gives a 
 
 :leveloffset: +1
 
-include::en-US/modules/con_block-device-encryption.adoc[]
+include::{partialsdir}/con_block-device-encryption.adoc[]
 
-include::en-US/modules/con_introduction-to-luks.adoc[]
+include::{partialsdir}/con_introduction-to-luks.adoc[]
 
-include::en-US/creating-encrypted-block-devices.adoc[]
+include::{partialsdir}/creating-encrypted-block-devices.adoc[]
 
 :leveloffset: 0
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]

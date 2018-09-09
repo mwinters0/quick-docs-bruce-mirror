@@ -1,5 +1,6 @@
 ifdef::context[:parent-context: {context}]
 :context: installing-spotify
+
 = Installing Spotify
 
 include::{partialsdir}/3rdparty-message.adoc[]
@@ -7,5 +8,6 @@ include::{partialsdir}/3rdparty-message.adoc[]
 Installing the Spotify music service client on Fedora.
 
 include::{partialsdir}/proc_installing-spotify-on-fedora.adoc[leveloffset=+1]
+
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]

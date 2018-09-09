@@ -24,7 +24,7 @@ For example, there is a policy rule that permits Apache (the web server process 
 
 [#fig-intro-httpd-mysqld]
 .SELinux allows the Apache process running as httpd_t to access the /var/www/html/ directory and it denies the same process to access the /data/mysql/ directory because there is no allow rule for the httpd_t and mysqld_db_t type contexts). On the other hand, the MariaDB process running as mysqld_t is able to access the /data/mysql/ directory and SELinux also correctly denies the process with the mysqld_t type to access the /var/www/html/ directory labeled as httpd_sys_content_t.
-image::../images/selinux-intro-apache-mariadb.png[SELinux_Apache_MariaDB_example]
+image::selinux-intro-apache-mariadb.png[SELinux_Apache_MariaDB_example]
 
 [discrete]
 == Additional resources

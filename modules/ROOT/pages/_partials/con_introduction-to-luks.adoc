@@ -5,20 +5,20 @@ Linux Unified Key Setup (LUKS) is a specification for block device encryption.  
 
 LUKS uses the kernel device mapper subsystem with the `dm-crypt` module. This arrangement provides a low-level mapping that handles encryption and decryption of the device data. You can use the `cryptsetup` utility to perform user-level operations such as creating and accessing encrypted devices.
 
-.Advantages of using LUKS
+What LUKS does::  {blank}
++
+** LUKS encrypts entire block devices and is therefore well-suited for protecting the contents of mobile devices such as removable storage media or laptop disk drives.
++
+** The underlying contents of the encrypted block device are arbitrary. This makes it useful for encrypting [command]`swap` devices. This can also be useful with certain databases that use specially formatted block devices for data storage.
++
+** LUKS uses the existing device mapper kernel subsystem.
++
+** LUKS provides passphrase strengthening which protects against dictionary attacks.
++
+** LUKS devices contain multiple key slots, allowing users to add backup keys or passphrases.
 
-* LUKS encrypts entire block devices and can be used for protecting the contents of mobile devices such as removable storage media and laptop disk drives.
-
-* The underlying content of the encrypted block device are arbitrary making it useful for encrypting `swap` devices. This is also useful fir databases that use specifically formatted block devices for data storage.
-
-* LUKS uses the existing device mapper kernel subsystem. This is the same subsystem used by LVM, so it is well tested.
-
-* LUKS provides passphrase strengthenin which protects against dictionary attacks.
-
-* LUKS devices contain multiple key slots allowing users to add backup keys and passphrases.
-
-.Disadvantages of using LUKS
-
-* LUKS is not useful for applications requiring many (more than eight) users to have distinct access keys to the same device.
-
-* LUKS does not work for applications requiring file-level encryption.
+What LUKS does *not* do::  {blank}
++
+** LUKS is not well-suited for applications requiring more than eight users to have distinct access keys to the same device.
++
+** LUKS is not well-suited for applications requiring file-level encryption.

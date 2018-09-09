@@ -1,13 +1,13 @@
-[id='proc_installing-a-RPM-file']
+[id='proc_installing-an-RPM-file']
 = Installing an RPM File
 
 This procedure shows you how to install an RPM file after you have downloaded the file to your desktop. An RPM file contains the required installation packages for a software.
 
-.Prerequisites
+._Prerequisites_
 
 * You must have administrative permission to install new RPM files on your system. Either root password or sudo access is required.
 
-.Procedure
+._Procedure_
 
 . Open a terminal.
 . Change your working directory to the location of the RPM file. If you have downloaded the RPM file to the `Downloads` directory, enter:
@@ -23,7 +23,3 @@ $ cd ~/Downloads
 ----
 $ sudo rpm -i NAME_OF_RPM.rpm
 ----
-
-
-
-
