@@ -13,7 +13,6 @@
 * xref:dnf.adoc[Using the DNF software package manager]
 * xref:dnf-system-upgrade.adoc[Upgrading Fedora using the DNF system upgrade]
 * xref:securing-the-system-by-keeping-it-up-to-date.adoc[Securing the system by keeping it up-to-date]
-* xref:fedora-life-cycle.adoc[Fedora Release Life Cycle]
 * xref:upgrading.adoc[Upgrading to a new release of Fedora]
 * xref:firewalld.adoc[Controlling network traffic with firewalld]
 * xref:using-adobe-flash.adoc[Using Adobe Flash]
@@ -62,7 +61,8 @@
 //FIXME * xref:autoupdates.adoc[AutoUpdates]
 //FIXME * xref:debug-dracut-problems.adoc[How to debug Dracut problems]
 //FIXME * xref:debug-systemd-problems.adoc[How to debug systemd problems]
-//FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems]
+//FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems] - note: maintained on wiki, does not fit quick-docs IMHO
+//FIXME * xref:fedora-life-cycle.adoc[Fedora Release Life Cycle] - note: maintained on wiki, does not fit quick-docs IMHO
 //FIXME * xref:edit-iptables-rules.adoc[How to edit iptables rules]
 //FIXME * xref:enable-touchpad-click.adoc[How to enable touchpad click]
 //FIXME * xref:mirroring.adoc[Mirroring]
