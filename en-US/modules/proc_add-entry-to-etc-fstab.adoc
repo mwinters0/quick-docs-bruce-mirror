@@ -1,9 +1,0 @@
-
-[id='proc_add-entry-to-etc-fstab']
-== Adding an entry to `/etc/fstab`
-
-To ensure a persistent mapping between the device and the mountpoint, add the entry in the `/etc/fstab` file:
-
-------
-/dev/mapper/<name>
-------

@@ -2,6 +2,7 @@
 
 [id='Configuring-networking-with-nmcli-{context}']
 = Configuring IP networking with nmcli
+:context: networking
 
 How to configure networking using the [application]*nmcli* (NetworkManager Command Line Interface) command-line utility.
 
