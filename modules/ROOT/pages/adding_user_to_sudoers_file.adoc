@@ -1,0 +1,27 @@
+ifdef::context[:parent-context: {context}]
+:context: viewing-logs
+
+= Adding a user to sudoers
+[id=adding_user_to_sudoers_{context}]
+
+One of the most common operations that administrators want to accomplish when managing `sudo` permissions is to grant a new user general `sudo` access. This is helpful if you want to give an account full administrative access to the system.
+
+[discrete]
+== Giving a user `sudo` privileges
+On Fedora, it is the `wheel` group the user has to be added to, as this group has full admin privileges. Add a user to the group using the following command:
+[subs=+quotes]
+----
+$ sudo usermod -aG wheel _username_
+----
+
+If adding the user to the group does not work immediately, you may have to edit the `/etc/sudoers` file to uncomment the line with the group name:
+
+----
+$ sudo visudo
+...
+%wheel ALL=(ALL) ALL
+...
+----
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
