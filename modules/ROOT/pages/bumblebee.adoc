@@ -75,23 +75,23 @@ The nouveau driver already handles power saving nowadays so Bumblebee would just
 === Proprietary Closed Source Driver (NVIDIA)
 
 Some users may prefer to use the closed-source proprietary drivers as they offer better performance than the open source ones.
-In that case, there's two sources from where you can get your drivers: http://rpmfusion.org[RPMFusion] and http://negativo17.org/[Negativo17]. Although both these sources are valid and will work, the Negativo17 driver is generally recommended over the RPMFusion ones, as the Negativo17 drivers are generally kept up to date and follow Fedora packaging guidelines better. They have also been known to work with Fedora to improve integration.
+In that case, Fedora-compatible driver packages can be obtained from this source: http://rpmfusion.org[RPM Fusion].
 
-NOTE: The Installation process detailed below uses the Negativo17 repository.
-If you wish to use the RPMFusion repository instead, please adjust the steps according to your requirement
 
 == Installation (NVIDIA Proprietary Driver)
 
-. To install the NVIDIA drivers, first add the Negativo17 repository:
+. To install the NVIDIA drivers, first add the RPM Fusion repository:
 +
 ----
-# sudo dnf config-manager --add-repo=https://negativo17.org/repos/fedora-nvidia.repo
+# sudo dnf install fedora-workstation-repositories
+# sudo dnf config-manager rpmfusion-nonfree-nvidia-driver --set-enabled
+
 ----
 
 . Then, install the necessary packages:
 +
 ----
-# sudo dnf install nvidia-driver kernel-devel akmod-nvidia dkms acpi
+# sudo dnf install akmod-nvidia acpi
 ----
 
 . To get Bumblebee, we first need to enable the https://copr.fedorainfracloud.org/coprs/chenxiaolong/bumblebee/ chenxiaolong/bumblebee[Copr repository]:
@@ -112,7 +112,7 @@ If you wish to use the RPMFusion repository instead, please adjust the steps acc
 # gpasswd -a $USER bumblebee
 ----
 
-. Enable the `bumblebeed` service and disable the `nvidia-fallback` service. This service comes from the Negativo17 drivers and will attempt to load `nouveau` if `nvidia` fails to load. However, when using Bumblebee, neither one should load at boot.
+. Enable the `bumblebeed` service and disable the `nvidia-fallback` service. This service comes from the packaged drivers and will attempt to load `nouveau` if `nvidia` fails to load. However, when using Bumblebee, neither one should load at boot.
 +
 ----
 # systemctl enable bumblebeed
@@ -205,13 +205,14 @@ Other desktop environments also offer this functionality though the methods diff
 * To uninstall the NVIDIA drivers:
 +
 ----
-# dnf remove nvidia-driver kernel-devel akmod-nvidia
+# dnf remove akmod-nvidia xorg-x11-drv-nvidia\*
 ----
 
-* To remove the Negativo17 repository:
+* To remove the nvidia-driver repository:
 +
 ----
-# rm /etc/yum.repos.d/fedora-nvidia.repo
+# sudo dnf config-manager rpmfusion-nonfree-nvidia-driver --set-disabled
+
 ----
 
 Reboot.
