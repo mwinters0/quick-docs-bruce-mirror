@@ -6,7 +6,7 @@ The following repositories are commonly used by end users and do not conflict wi
 
 * http://rpmfusion.org
 
-* http://rpm.livna.org (Complementary to RPM Fusion)
+* rpm.livna.org (Obsoleted! Replaced by RPM Fusion free tainted)
 
 == Mixing third party software repositories
 
