@@ -1,5 +1,8 @@
 ifdef::context[:parent-context: {context}]
 :context: disabling-automatic-screenlock
+
+= Disabling the GNOME automatic screen locking
+
 include::{partialsdir}/proc_disabling-gnome-screenlock.adoc[leveloffset=+1]
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
