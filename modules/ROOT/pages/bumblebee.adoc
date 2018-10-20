@@ -118,7 +118,7 @@ In that case, Fedora-compatible driver packages can be obtained from this source
 +
 ----
 # systemctl enable bumblebeed
-# systemctl disable nvidia-fallback
+# systemctl mask nvidia-fallback
 ----
 
 Finally, reboot and bumblebee should be ready to go.
