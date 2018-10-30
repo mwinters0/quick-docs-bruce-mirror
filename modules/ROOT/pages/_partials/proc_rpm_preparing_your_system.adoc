@@ -14,7 +14,7 @@ NOTE: You must run the following two commands as the root user.
 . Install the _fedora-packager_ and _fedora-review_ tools:
 +
 ------------
-# dnf install fedora-packager fedora-review`
+# dnf install fedora-packager fedora-review
 ------------
 +
 . Add yourself to the *mock* group:
