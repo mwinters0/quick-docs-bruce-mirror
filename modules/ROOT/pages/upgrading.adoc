@@ -27,17 +27,12 @@ image:Upgradef24f25-gs.png[Upgradef24f25-gs.png,title="Upgradef24f25-gs.png",wid
 This method is used to upgrade Fedora Workstation from the command-line.
 It is also used to troubleshoot issues with packages preventing the graphical method from upgrading.
 
-For instructions on upgrading with the DNF system upgrade plugin, refer to the link:++dnf-system-upgrade.html++[DNF System Upgrade Quick Doc].
-
-[[sect-upgrading-the-fedora-atomic-host-via-rpm-ostree]]
-== Upgrading the Fedora Atomic Host via rpm-ostree
-
-For instructions on upgrading Fedora Atomic Host installations between Fedora releases, refer to the link:++atomic-host-upgrade.html++[Atomic Host Upgrade Quick Doc].
+For instructions on upgrading with the DNF system upgrade plugin, refer to the xref:dnf-system-upgrade.adoc[DNF System Upgrade Quick Doc].
 
 [[sect-can-i-upgrade-between-fedora-releases-using-only-dnf]]
 == Can I upgrade between Fedora releases using only DNF?
 
-Upgrading between Fedora releases without the link:++dnf_system_upgrade.html++[DNF system upgrade plugin] is not tested by the Fedora QA team.
+Upgrading between Fedora releases without the xref:dnf-system-upgrade.adoc[DNF System Upgrade Plugin] is not tested by the Fedora QA team.
 Any issues using this method are not considered blockers for a release but in practice works for many users.
 
 [[sect-can-i-update-from-a-pre-release-alpha-beta-or-other-development-snapshot-to-the-final-release]]
@@ -57,7 +52,7 @@ They are *NOT SUITABLE* for regular day-to-day use unless you are a fairly exper
 You should read through those pages carefully before deciding to run Branched or Rawhide.
 See the link:++fedora-life-cycle.html++[Fedora Life Cycle Quick Doc] for more information on how the whole Fedora cycle works from Rawhide, to Branched, to the milestone releases (Alpha and Beta), to a 'final' release.
 
-Upgrading to a Branched release or to Rawhide can be done with the link:++dnf_system_upgrade.html++[DNF system upgrade plugin].
+Upgrading to a Branched release or to Rawhide can be done with the xref:dnf-system-upgrade.adoc[DNF System Upgrade Plugin].
 Carefully read this page as there are some special notes to ensure a successful upgrade.
 
 [[sect-can-i-upgrade-using-the-fedora-installer-anaconda]]
@@ -81,4 +76,4 @@ If your installation is located on a 'specialized' storage device, be sure to co
 == Can I upgrade from an End Of Life (EOL) release?
 
 Fedora strongly discourages running an end-of-life release on any production system, or any system connected to the public internet.
-For more information, see the link:++dnf_system_upgrade.html++[DNF System Upgrade Quick Doc].
+For more information, see the xref:dnf-system-upgrade.adoc[DNF System Upgrade Quick Doc].
