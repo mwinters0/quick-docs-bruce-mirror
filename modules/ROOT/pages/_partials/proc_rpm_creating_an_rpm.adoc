@@ -54,7 +54,7 @@ A simple program to greet the user, Texas style.
 ....
 ----
 +
-. To instruct the package how to install the program, add thie following information to the `%install` section of the `.spec` file. Add the information to the line that follows `%install`:
+. To instruct the package how to install the program, add the following information to the `%install` section of the `.spec` file. Add the information to the line that follows `%install`:
 +
 ----
 mkdir -p %{buildroot}/%{_bindir}
