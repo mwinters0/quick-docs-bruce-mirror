@@ -40,6 +40,6 @@ Direct downloads are available for the `.iso`, `.vfd`, and qemu-ga installers.
 * Latest https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.iso[virtio-win iso]
 * Latest https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win_x86.vfd[virtio-win x86 floppy]
 * Latest https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win_amd64.vfd[virtio-win amd64 floppy]
-* Latest https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-qemu-ga/[gemu-qa files]
+* Latest https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-qemu-ga/[qemu-ga files]
 * https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/[Full archive]
 * https://fedorapeople.org/groups/virt/virtio-win/CHANGELOG[Changelog]
