@@ -22,7 +22,7 @@ This tag is deprecated since Fedora 17. See https://docs-old.fedoraproject.org/e
 File Reference Preamble]
 
 `License`::
-Enter an open source software license. Do not use the old Copyright tag. Use a standard abbreviation, for example, `GPLv2+` and be specific. For example, use `GPLv2+` for GPL version 2 or greater rather than `GPL` or `GPLv2` where it's true). For more information, see the http://fedoraproject.org/wiki/Packaging:LicensingGuidelines[Licensing Guidelines].
+Enter an open source software license. Do not use the old Copyright tag. Use a standard abbreviation, for example, `GPLv2+` and be specific. For example, use `GPLv2+` for GPL version 2 or greater rather than `GPL` or `GPLv2` where it's true. For more information, see the http://fedoraproject.org/wiki/Packaging:LicensingGuidelines[Licensing Guidelines].
 +
 You can list multiple licenses by combining them with `and` and `or` (e.g. `GPLv2 and BSD`).
 
