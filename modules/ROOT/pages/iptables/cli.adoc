@@ -1,0 +1,251 @@
+== Command Line Interface
+
+=== Changes to iptables Rules
+
+The following procedures allow for changes in the behaviour of the firewall
+while it is running. It is important to understand that every change
+is applied immediately.
+
+Read the man pages (`man iptables`) for further explanations
+and more sophisticated examples.
+
+
+==== Listing Rules
+
+Currently running iptables rules can be viewed with the command:
+
+....
+# iptables -L
+....
+
+
+The following example shows four rules. These rules permit
+established or related connections, any ICMP traffic, any local traffic as
+well as incoming connections on port 22. Please note that the output has
+no indication that the third rule applies only to local traffic. Therefore
+you might want to add the `-v` option. This will reveal that the rule only
+applies to traffic on the loopback interface.
+
+....
+[root@server ~]# iptables -L
+Chain INPUT (policy DROP)
+target     prot opt source               destination
+ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+....
+
+Also remember that rules are applied in order of appearance and that after the
+first match, no further rules are considered (there are exceptions, please refer
+to the man pages for details). For example, in case there is a rule rejecting
+ssh connections and subsequently a second rule permitting ssh connections, the
+first rule would be applied to incoming ssh connections while the latter would
+never be evaluated.
+
+==== Appending Rules
+
+The following adds a rule at the end of the specified chain of iptables:
+
+....
+[root@server ~]# iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+[root@server ~]# iptables -L
+Chain INPUT (policy DROP)
+target     prot opt source               destination
+ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:http
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+....
+
+Notice the last line in the INPUT chain. There are now five rules.
+
+==== Deleting Rules
+
+To delete a rule you need to know its position in the chain. The following will
+delete the rule from the previous example. To do so, the rule in the fifth
+position has to be deleted:
+
+....
+[root@server ~]# iptables -D INPUT 5
+[root@server ~]# iptables -L
+Chain INPUT (policy DROP)
+target     prot opt source               destination
+ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+....
+
+==== Inserting Rules
+
+You can also insert rules at a specific position. To insert a rule at the top
+(i.e. first) position, use:
+
+....
+[root@server ~]# iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
+[root@server ~]# iptables -L
+Chain INPUT (policy DROP)
+target     prot opt source               destination
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:http
+ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+....
+
+The number given after the chain name indicates the position of your new rule
+*after* the insertion. So, for example, if you want to insert a rule at the
+third position, you specify the number 3. Afterwards your new rule is at
+position 3, while the old rule from position 3 is now shifted to position 4.
+
+==== Replacing Rules
+
+Rules may be specified to replace existing rules in the chain.
+
+In the previous example, the first rule grants access to tcp port 80 from
+any source. To restrict the access to sources within a local net, the following
+command replaces the first rule:
+
+....
+[root@server ~]# iptables -R INPUT 1 -p tcp -s 192.168.0.0/24 --dport 80 -j ACCEPT
+[root@server ~]# iptables -L
+Chain INPUT (policy DROP)
+target     prot opt source               destination
+ACCEPT     tcp  --  192.168.0.0/24       anywhere             tcp dpt:http
+ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+....
+
+==== Flushing Rules
+
+To flush or clear all iptables rules, use the `--flush`, `-F` option:
+
+....
+# iptables -F <chain>
+....
+
+Specifying a chain is optional. Without a given chain, all chains
+are flushed. Remember that the new rule set is immediately active.
+Depending on the default policies, you might loose access to a remote machine
+by flushing the rules.
+
+To flush all rules in the OUTPUT chain use:
+
+....
+# iptables -F OUTPUT
+....
+
+=== Making changes persistent
+
+All changes to iptables rules using the CLI commands will be lost upon system
+reboot. However, `iptables` comes with two useful utilities:
+`iptables-save` and `iptables-restore`.
+
+`iptables-save` prints a dump of current rule set to *stdout*. This may be
+ redirected to a file:
+
+....
+[root@server ~]# iptables-save > iptables.dump
+[root@server ~]# cat iptables.dump
+# Generated by iptables-save v1.4.12 on Wed Dec  7 20:10:49 2011
+*filter
+:INPUT DROP [45:2307]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [1571:4260654]
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
+COMMIT
+# Completed on Wed Dec  7 20:10:49 2011
+....
+
+Use `iptables-restore` to restore a dump of rules made by `iptables-save`.
+
+....
+[root@server ~]# iptables-restore < iptables.dump
+[root@server ~]# iptables -L
+Chain INPUT (policy DROP)
+target     prot opt source               destination
+ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+....
+
+In the default configuration, stopping or restarting the iptables
+service will discard the running configuration. This behavior can be
+changed by setting `IPTABLES_SAVE_ON_STOP="yes"` or
+`IPTABLES_SAVE_ON_RESTART="yes"` in `/etc/sysconfig/iptables-config`. If
+these values are set, the configuration will be automatically dumped to
+`/etc/sysconfig/iptables` and `/etc/sysconfig/ip6tables` for IPv4 and IPv6
+respectively.
+
+If you prefer, you may edit these files directly. Restart the iptables
+service or restore the rules to apply your changes. The rules are in the same
+format as you would specify them on the command line:
+
+....
+# Generated by iptables-save v1.4.12 on Wed Dec  7 20:22:39 2011
+*filter
+:INPUT DROP [157:36334]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [48876:76493439]
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -p icmp -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
+COMMIT
+# Completed on Wed Dec  7 20:22:39 2011
+....
+
+The numbers in brackets are counters and usually you don't have to mangle them.
+If needed, you can reset packet and byte counters using the `-Z` or `--zero`
+option:
+
+....
+# iptables -Z <chain> <rule_number>
+....
+
+It is possible to reset only a single rule counter. This might become handy
+ if you want to know how many packets were captured for a specific rule.
