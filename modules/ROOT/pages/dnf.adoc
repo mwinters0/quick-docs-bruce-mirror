@@ -4,16 +4,7 @@
 DNF is a software package manager that installs, updates, and removes packages on Fedora and is the successor to YUM (Yellow-Dog Updater Modified).
 DNF makes it easy to maintain packages by automatically checking for dependencies and determines the actions required to install packages.
 This method eliminates the need to manually install or update the package, and its dependencies, using the `rpm` command.
-
-[[sect-dnf-installation]]
-== Installation
-
-DNF has replaced YUM as the default package manager for Fedora since version 22.
-However, for earlier versions of Fedora, starting from version 18, DNF can be installed from the command-line with:
-
-----
-# yum install dnf
-----
+DNF is now the default software package management tool in Fedora.
 
 [[sect-usage]]
 == Usage
