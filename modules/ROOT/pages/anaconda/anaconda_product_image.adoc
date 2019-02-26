@@ -1,7 +1,7 @@
 = Creating a Product image
 
 Anaconda supports several ways to load new code at runtime.
-Passing `inst.updates=<url>` is one way to do this and is documented on the link:anaconda_updates.html[updates] page.
+Passing `inst.updates=<url>` is one way to do this and is documented on the xref:anaconda/anaconda_updates.adoc[updates] page.
 Another is to include a product.img in the install tree, inside the `/images/` directory.
 It will be applied at runtime and can overwrite any file on the system, just like the updates.img.
 
