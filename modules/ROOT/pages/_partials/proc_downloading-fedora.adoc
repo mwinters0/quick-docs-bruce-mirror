@@ -3,11 +3,11 @@
 
 You can download Fedora from https://getfedora.org/.
 
-There are multiple desktops available for use with Fedora. Each has a slightly different look and feel and offers varying levels of customization. Visit http://fedoraproject.org/en/get-fedora-options#desktops[Fedora Desktops] to know more.
+There are multiple desktops available for use with Fedora. Each has a slightly different look and feel and offers varying levels of customization. You can use the link:https://getfedora.org/en/workstation/[Fedora Workstation] image, which comes with the GNOME desktop by default, and then change your environment afterwards by installing additional packages, or you can download a spin image which will give you a different environment out of the box. Visit link:https://spins.fedoraproject.org/[Fedora Spins] for more information.
 
-Fedora spins are alternate versions of Fedora, tailored for various types of users, using hand-picked application sets and other customizations. Visit http://fedoraproject.org/en/get-fedora-options#spins[Fedora Spins] to know more.  
+You can also take advantage of Fedora Labs. Fedora Labs is a selection of curated bundles of purpose-driven software and content as curated and maintained by members of the Fedora Community. These may be installed as standalone full versions of Fedora or as add-ons to existing Fedora installations. Visit link:https://labs.fedoraproject.org/[Fedora Labs] for details.
 
 [NOTE]
 ====
-Please refer to https://docs.fedoraproject.org/f27/install-guide/index.html[Fedora Installation Guide] for getting help on the process of installing Fedora.
+Please refer to https://docs.fedoraproject.org/en-US/fedora/f29/install-guide/[Fedora Installation Guide] for getting help on the process of installing Fedora.
 ====
