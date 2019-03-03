@@ -15,7 +15,7 @@ Use the following commands as the `root` user or under the `sudo` utility.
 . Install the [package]_dnf-automatic_ package:
 +
 ----
-# dnf install dnf-atomatic
+# dnf install dnf-automatic
 ----
 
 . Edit the [filename]`/etc/dnf/automatic.conf` configuration file as needed. See the http://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation for details. 
