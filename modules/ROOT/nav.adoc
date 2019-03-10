@@ -40,7 +40,6 @@
 ** xref:creating-a-disk-partition-in-linux.adoc[Creating disk partitions]
 ** xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]
 ** xref:reset-root-password.adoc[Resetting a root password]
-** xref:proc_installing-RPM.adoc[Installing an RPM File]
 ** xref:using-aide.adoc[Checking file integrity with AIDE]
 ** xref:getting-started-with-apache-http-server.adoc[Getting started with Apache HTTP Server]
 
