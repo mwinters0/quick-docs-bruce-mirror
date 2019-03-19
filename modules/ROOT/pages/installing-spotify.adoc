@@ -1,13 +1,111 @@
 ifdef::context[:parent-context: {context}]
 :context: installing-spotify
 
-= Installing Spotify
+= Installing Spotify on Fedora
 
 include::{partialsdir}/3rdparty-message.adoc[]
 
-Installing the Spotify music service client on Fedora.
+link:https://www.spotify.com/[Spotify] is a cross-platform proprietary music streaming service.
+Spotify is a freemium service, with advertisements which can be removed by purchasing a subscription.
+Although Spotify is not officially supported on Fedora, it can be installed on Fedora in a number of ways:
 
-include::{partialsdir}/proc_installing-spotify-on-fedora.adoc[leveloffset=+1]
+. Using unofficial repositories https://rpmfusion.org/[RPM Fusion] repositories.
+. Using a Flatpak hosted by http://flathub.org[Flathub].
+. Using the https://www.spotify.com/us/download/linux/[officially-supported] http://snapcraft.io/[Snap].
+
+[install-spotify-using-rpmfusion]
+== Using the RPM Fusion repository
+
+// UNVERIFIED
+
+RPM Fusion provides software that the Fedora Project does not ship.
+Spotify is is provided as a lpf RPM for all current Fedora versions.
+It means that you need to explicitely allow the Spotify license before the lpf framework will download and re-package automatically the software.
+This is needed because the Spotify doesnt't allow the client to be distributed elsewhere than from link:https://www.spotify.com[Spotify.com].
+To install Spotify using the RPM Fusion repository:
+
+. Add the RPM Fusion repositories:
++
+----
+$ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+----
+
+. Install the lpf-spotify-client package:
++
+----
+$ sudo dnf install lpf-spotify-client
+----
+
+. Install Spotify:
+.. Click the "lpf-spotify-client" icon in the application list.
+.. or use the following command in a terminal:
++
+----
+$ lpf update
+----
+
+
+[install-spotify-using-flatpak]
+== Installing Spotify using Flatpak
+
+// VERIFIED: on 201901319 by @ankursinha
+
+To install Spotify using link:https://flatpak.org/index.html[Flatpak]:
+
+. Install Flatpak using dnf:
++
+----
+# dnf install -y flatpak
+----
+
+. Install Spotify:
+.. Using Gnome Software:
+... Head to the link:https://flathub.org/apps/details/com.spotify.Client[Spotify page on Flathub].
+... Click "install", and choose to open the file using Gnome Software.
+... Click "install" in Gnome Software.
+... Click "launch" to run Spotify once installed.
+
+.. Using the command line:
++
+----
+# flatpak install flathub com.spotify.Client
+----
+
+. Run Spotify:
+.. Click on the Spotify icon in the applications list,
+.. or use the following command in the terminal:
++
+----
+$ flatpak run com.spotify.Client
+----
+
+
+
+[instal-spotify-using-snap]
+== Snap
+
+// UNVERIFIED!
+
+Snap is the officially recommended distribution method for Spotify. To install Spotify using http://snapcraft.io/[Snap]:
+
+. Install Snap
++
+----
+$ sudo dnf install snapd
+$ sudo ln -s /var/lib/snapd/snap /snap
+----
+
+. Install Spotify using Snap:
+----
+$ snap install spotify
+----
+
+== References
+
+. https://github.com/rpmfusion/lpf-spotify-client
+. https://flathub.org/apps/details/com.spotify.Client
+. https://snapcraft.io/spotify
 
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
