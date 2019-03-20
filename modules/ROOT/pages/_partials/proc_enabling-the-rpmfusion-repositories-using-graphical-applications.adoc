@@ -45,9 +45,3 @@ This procedure describes how to enable the RPM Fusion software repositories with
 . Optionally, enable the _Nonfree_ repository: click the *RPM Fusion nonfree for Fedora _version_* link on the page, where _version_ is the Fedora release you are using.
 
 . Save and install the file with the *Software* application again.
-
-[discrete]
-== Additional resources
-
-* If the graphical configuration fails, try enabling the repositories using command-line utilities instead.
-

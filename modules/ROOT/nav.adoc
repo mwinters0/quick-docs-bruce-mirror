@@ -9,6 +9,7 @@
 ** xref:finding-and-installing-linux-applications.adoc[Finding and installing Linux applications]
 ** xref:repositories.adoc[Fedora Repositories]
 ** xref:adding-or-removing-software-repositories-in-fedora.adoc[Adding or removing software repositories in Fedora]
+** xref:setup_rpmfusion.adoc[Enabling the RPM Fusion repositories]
 ** xref:installing-chromium-or-google-chrome-browsers.adoc[Installing Chromium or Google Chrome browsers]
 ** xref:switching-desktop-environments.adoc[Switching desktop environments]
 ** xref:configuring-x-window-system-using-the-xorg-conf-file.adoc[Configuring X Window System using the xorg.conf file]

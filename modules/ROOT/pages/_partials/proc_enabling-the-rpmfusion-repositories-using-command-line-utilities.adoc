@@ -51,8 +51,3 @@ $ sudo dnf install \
 
 . The first time you attempt to install packages from these repositories, the `dnf` utility prompts you to confirm the signature of the repositories. Confirm it.
 
-[discrete]
-== Additional resources
-
-* You can also use graphical applications to configure the repositories if you prefer.
-

@@ -1,0 +1,19 @@
+[id="proc_enabling-the-rpmfusion-repositories-appstream-data_{context}"]
+= Enabling Appstream data from the RPM Fusion repositories
+
+This procedure describes how to install the Appstream data provided by the RPM Fusion software repositories.
+
+[discrete]
+== Prerequisites
+
+* You have internet access.
+* You are using the Gnome desktop environment.
+* You have the RPMFusion repositories installed
+
+[discrete]
+== Procedure
+
+[subs=+quotes]
+----
+$ sudo dnf groupupdate core
+----
