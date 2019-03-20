@@ -20,19 +20,7 @@ Although Spotify is not officially supported on Fedora, it can be installed on F
 
 // UNVERIFIED
 
-RPM Fusion provides software that the Fedora Project does not ship.
-Spotify is is provided as a lpf RPM for all current Fedora versions.
-It means that you need to explicitely allow the Spotify license before the lpf framework will download and re-package automatically the software.
-This is needed because the Spotify doesnt't allow the client to be distributed elsewhere than from link:https://www.spotify.com[Spotify.com].
-To install Spotify using the RPM Fusion repository:
-
-. Add the RPM Fusion repositories:
-+
-----
-$ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-----
-
+. xref:setup_rpmfusion.adoc[Enable the RPMFusion repositories].
 . Install the lpf-spotify-client package:
 +
 ----
