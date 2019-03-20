@@ -1,0 +1,65 @@
+ifdef::context[:parent-context: {context}]
+:context: installing-skype
+
+= Installing Skype on Fedora
+
+include::{partialsdir}/3rdparty-message.adoc[]
+
+link:https://www.skype.com/[Skype] is a cross-platform proprietary chat (text and video) application.
+
+It also provides voice calls and desktop sharing. It uses a proprietary Internet telephony (VoIP) network called the Skype protocol.
+
+== Installation
+
+Please note: the latest versions of Skype work only on 64 bit architectures.
+
+It is possible to install Skype on Fedora using these package methods.
+
+* Using the RPM by Skype
+* Using a Flatpak hosted by http://flathub.org[Flathub].
+
+[installing-skype-from-3rd-party-repositories]
+=== Installing Skype using the Skype RPM repository
+
+To install Skype using the Skype RPM repository:
+
+. Add the Skype repository
++
+----
+$ sudo curl -o /etc/yum.repos.d/skype-stable.repo https://repo.skype.com/rpm/stable/skype-stable.repo
+----
+
+. Install Skype
++
+----
+$ sudo dnf install skypeforlinux
+----
+
+[install-skype-using-flatpak]
+=== Installing Skype using Flatpak
+
+To install Skype using link:https://flatpak.org/index.html[Flatpak]:
+
+. Install Flatpak using dnf:
++
+----
+$ sudo dnf install -y flatpak
+----
+
+. Install Skype using Flatpak:
++
+----
+$ sudo flatpak install -y --from https://flathub.org/repo/appstream/com.skype.Client.flatpakref
+----
+
+. To run Skype:
++
+You should find a menu shortcut in your DE.
++
+To run it from the command line:
++
+----
+$ flatpak run com.skype.Client
+----
+
+See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
