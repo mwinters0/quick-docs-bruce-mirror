@@ -43,37 +43,24 @@ As a Fedora user and system administrator, you can use these steps to install ad
 
 WARNING: If you live in a country where software patents apply, such as in the United States or in Japan, you need to obtain multimedia codecs from a source that legally distributes patented software in your country. For example, see the Fluendo Codec Pack: link:https://fluendo.com/en/products/enterprise/fluendo-codec-pack/[].
 
-The following procedures only apply to users in countries that do not recognize software patents. The steps are:
+[discrete]
+== Prerequisites
 
-. Enable RPM Fusion. You can choose one of the following ways to accomplish it:
+* xref:setup_rpmfusion.adoc[Enable the RPMFusion repositories].
+
+[discrete]
+== Procedure
+
+* Use the `dnf` utility to install packages that provide multimedia libraries:
 +
-** xref:proc_enabling-the-rpmfusion-repositories-using-graphical-applications_assembly_installing-plugins-for-playing-movies-and-music[]
-** xref:proc_enabling-the-rpmfusion-repositories-using-command-line-utilities_assembly_installing-plugins-for-playing-movies-and-music[]
-. Install new packages: xref:proc_installing-multimedia-plug-ins-with-dnf_assembly_installing-plugins-for-playing-movies-and-music[]
+----
+$ sudo dnf install gstreamer1-libav gstreamer1-plugins-bad-free \
+       gstreamer1-plugins-bad-free gstreamer1-plugins-bad-free-extras \
+       gstreamer1-plugins-bad-freeworld gstreamer1-plugins-bad-nonfree \
+       gstreamer1-plugins-good gstreamer1-plugins-ugly lame-libs lame-libs
 
-// [id='prerequisites-{context}']
-// == Prerequisites
-//
-// * Delete the section title and bullets if the assembly has no prerequisites.
-
-// The following include statements pull in the module files that comprise
-// the assembly. Include any combination of concept, procedure, or reference
-// modules required to cover the user story. You can also include other
-// assemblies.
-
-include::{partialsdir}/proc_enabling-the-rpmfusion-repositories-using-graphical-applications.adoc[leveloffset=+1]
-
-include::{partialsdir}/proc_enabling-the-rpmfusion-repositories-using-command-line-utilities.adoc[leveloffset=+1]
-
-include::{partialsdir}/proc_installing-multimedia-plug-ins-with-dnf.adoc[leveloffset=+1]
-
-include::{partialsdir}/concept_third-party-repositories.adoc[leveloffset=+1]
-
-include::{partialsdir}/con_the-purpose-of-rpm-fusion.adoc[leveloffset=+1]
-
-// [leveloffset=+1] ensures that when a module starts with a level-1 heading
-// (= Heading), the heading will be interpreted as a level-2 heading
-// (== Heading) in the assembly.
+$ sudo dnf group upgrade --with-optional Multimedia
+----
 
 [id='related-information-{context}']
 == Related information
