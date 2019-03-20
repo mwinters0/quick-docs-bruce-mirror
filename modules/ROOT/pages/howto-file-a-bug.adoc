@@ -1,8 +1,6 @@
 = How to file a bug
 :imagesdir: ./images
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 The purpose of this document is to give step by step instructions on filing bugs in Fedora.
 
 A software bug does not necessarily need to be a software crash. Any undesired behaviour noticed in software should be filed as a bug.
