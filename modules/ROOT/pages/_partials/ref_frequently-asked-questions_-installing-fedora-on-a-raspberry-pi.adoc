@@ -59,30 +59,7 @@ There are some limitations to the USB bus of the Raspberry Pi hardware as link:h
 
 ._Is the onboard Wi-Fi supported on the Raspberry Pi 3?_
 
-Wi-Fi on the Raspberry Pi 3 and 3+ works in Fedora.
-
-The drivers required for the onboard WiFi cannot be included in the Fedora ARM image. After Fedora has been installed on a microSD card and Fedora on Raspberry Pi has been booted for the first time, you can install the WiFi drivers using an ethernet internet connection.
-
-*Raspberry Pi 3*
-
-. To install support for the onboard WiFi, on a command-line, issue:
-+
-----
-$ sudo curl https://fedora.roving-it.com/brcmfmac43430-sdio.txt -o /lib/firmware/brcm/brcmfmac43430-sdio.txt
-----
-+
-. Reboot the Raspberry Pi to access the WiFi.
-
-*Raspberry Pi 3B+*
-
-. To install support for the onboard WiFi, on a command-line, issue:
-+
-----
-$ sudo curl https://fedora.roving-it.com/brcmfmac43455-sdio.txt -o /lib/firmware/brcm/brcmfmac43455-sdio.txt
-$ sudo curl https://fedora.roving-it.com/brcmfmac43455-sdio.clm_blob -o /lib/firmware/brcm/brcmfmac43455-sdio.clm_blob
-----
-+
-. Reboot the Raspberry Pi to access the WiFi.
+Wifi on the Raspberry Pi 3-series devices works out of the box with Fedora 29.
 
 *Using Wi-Fi on CLI*
 
