@@ -140,8 +140,9 @@ There's basic support for overlays in u-boot and the Linux kernel but an overlay
 
 ._Is GPIO supported?_
 
-GPIO isn't fully supported due to lack of mapping with the Device Tree overlays.
-This is expected be improved in the Fedora 28 cycle and in Fedora 29.
+GPIO is supported with the use of libgpiod and associated bindings and utilities.
+
+RPI.GPIO is not currently supported. 
 
 ._Is SPI supported?_
 
