@@ -27,7 +27,7 @@ To install a font package with `dnf`:
 +
 [NOTE]
 ====
-A lot of fonts are available from the RPMfusion repository. To enable the repository on your system, follow the instructions on link:https://rpmfusion.org/Configuration[the RPMfusion webpage]. 
+A lot of fonts are available from the RPMfusion repository. To enable the repository on your system, follow xref:setup_rpmfusion.adoc[these instructions].
 ====
 
 
