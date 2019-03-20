@@ -30,6 +30,7 @@ with the following macro:
 
 '''
 
+include::{partialsdir}/unreviewed-message.adoc[]
 
 [[automatic-updates]]
 Automatic Updates

@@ -31,6 +31,7 @@ with the following macro:
 
 '''
 
+include::{partialsdir}/unreviewed-message.adoc[]
 
 This page contains information explaining how to upgrade Fedora online
 using (without the DNF system upgrade plugin).
@@ -119,7 +120,7 @@ A small script named fedora-upgrade is available which aims to automate
 the process outlined below. To run it, do the following
 
 ....
-$ sudo dnf install fedora-upgrade 
+$ sudo dnf install fedora-upgrade
 $ sudo fedora-upgrade
 ....
 

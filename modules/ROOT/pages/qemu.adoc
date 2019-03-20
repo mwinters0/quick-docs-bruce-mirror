@@ -1,5 +1,7 @@
 = How to use QEMU
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 QEMU is a very flexible virtualization technology however it is quite slow and it is recommended that you understand and evaluate alternative solutions before picking this one.
 Refer to https://fedoraproject.org/wiki/Getting_started_with_virtualization[Getting started with virtualization]
 

@@ -6,10 +6,12 @@ ifdef::context[:parent-context: {context}]
 = Bootloading with *GRUB2*
 [[bootloading-with-grub2]]
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 *GRUB2* is the latest version of *GNU GRUB*, the _GRand Unified Bootloader_.
 A bootloader is the first software program that runs when a computer
 starts. It is responsible for loading and transferring control to the
-operating system kernel. In Fedora, the kernel is Linux. The kernel then initializes 
+operating system kernel. In Fedora, the kernel is Linux. The kernel then initializes
 the rest of the operating system.
 
 *GRUB2* is the follower of the previous version *GRUB* (version 0.9x). The original version is available under the name *GRUB Legacy*.
@@ -28,4 +30,3 @@ include::{partialsdir}/proc_adding-other-operating-systems-grub2.adoc[leveloffse
 
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
-

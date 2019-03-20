@@ -5,6 +5,8 @@ ifdef::context[:parent-context: {context}]
 
 include::{partialsdir}/3rdparty-message.adoc[]
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 include::{partialsdir}/con_what_is_adobe_flash.adoc[leveloffset=+1]
 
 include::{partialsdir}/proc_checking_fedora_version.adoc[leveloffset=+1]

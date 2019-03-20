@@ -1,6 +1,8 @@
 [id='proc_installing-an-RPM-file']
 = Installing an RPM File
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 This procedure shows you how to install an RPM file after you have downloaded the file to your desktop. An RPM file contains the required installation packages for a software.
 
 ._Prerequisites_

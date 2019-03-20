@@ -3,6 +3,8 @@ ifdef::context[:parent-context: {context}]
 [id='performing-administration-tasks-using-sudo']
 = Performing administration tasks using sudo
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 How to perform tasks requiring *root* privileges without logging in as *root*.
 
 include::{partialsdir}/con_what-is-sudo.adoc[leveloffset=+1]

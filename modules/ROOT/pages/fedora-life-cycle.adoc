@@ -1,5 +1,7 @@
 = Fedora Release Life Cycle
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 ////
 The Fedora Project releases a new version of Fedora approximately every 6 months and provides updated packages (maintenance) to these releases for approximately 13 months. This allows users to "skip a release" while still being able to always have a system that is still receiving updates.
 

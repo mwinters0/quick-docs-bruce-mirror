@@ -3,6 +3,8 @@ ifdef::context[:parent-context: {context}]
 [id='creating-windows-virtual-machines-using-virtio-drivers']
 = Creating Windows virtual machines using virtIO drivers
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 This document describes how to obtain virtIO drivers  and additional software agents for Windows virtual machines running on kernel-based virtual machines (KVM). https://www.linux-kvm.org/page/Virtio[virtIO] is a virtualization standard for network and disk device drivers.
 
 Fedora cannot ship Windows virtIO drivers because they cannot be built automatically as part of Fedora’s build system: the only way to build Windows virtIO drivers is on a machine running Windows.  In addition, shipping pre-compiled sources is generally against Fedora policies.  Microsoft does not provide virtIO drivers, you must download them yourself in order to make virtIO drivers available for Windows VMs running on Fedora hosts.

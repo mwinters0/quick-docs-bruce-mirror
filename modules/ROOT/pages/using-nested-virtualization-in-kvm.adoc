@@ -2,6 +2,8 @@ ifdef::context[:parent-context: {context}]
 :context: using-nested-virtiualization-in-kvm
 = How to enable nested virtualization in KVM
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 Learn how to run a virtual machine within a virtual machine.
 
 include::{partialsdir}/proc_enabling-nested-virtualization-in-kvm.adoc[leveloffset=+1]

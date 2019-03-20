@@ -1,5 +1,7 @@
 = Anaconda Logging
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 == Introduction
 Anaconda tracks all of its activities in logs.
 This includes:
@@ -187,14 +189,14 @@ To avoid name clashes with other log files there, the anaconda logs are renamed:
 
 [%header,cols=2*]
 |====
-| Name during installation | Name on the target system 
-| `/tmp/anaconda.log` | `/var/log/anaconda.log` 
-| `/tmp/syslog` | `/var/log/anaconda.syslog` 
-| `/tmp/X.log` | `/var/log/anaconda.xlog` 
-| `/tmp/program.log` | `/var/log/anaconda.program.log` 
-| `/tmp/storage.log` | `/var/log/anaconda.storage.log` 
-| `/tmp/yum.log` | `/var/log/anaconda.yum.log` 
-| `/tmp/ifcfg.log` (new in F14) | not copied 
+| Name during installation | Name on the target system
+| `/tmp/anaconda.log` | `/var/log/anaconda.log`
+| `/tmp/syslog` | `/var/log/anaconda.syslog`
+| `/tmp/X.log` | `/var/log/anaconda.xlog`
+| `/tmp/program.log` | `/var/log/anaconda.program.log`
+| `/tmp/storage.log` | `/var/log/anaconda.storage.log`
+| `/tmp/yum.log` | `/var/log/anaconda.yum.log`
+| `/tmp/ifcfg.log` (new in F14) | not copied
 |====
 
 Starting with Fedora 15 (or post F14 Rawhide), the logs go to `/var/log/anaconda` directory on the target system, including ifcfg.log inroduced in F14.

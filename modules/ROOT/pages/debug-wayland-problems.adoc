@@ -30,6 +30,7 @@ with the following macro:
 
 '''
 
+include::{partialsdir}/unreviewed-message.adoc[]
 
 https://en.wikipedia.org/wiki/Wayland_%28display_server_protocol%29[Wayland]
 is intended as a simpler replacement for

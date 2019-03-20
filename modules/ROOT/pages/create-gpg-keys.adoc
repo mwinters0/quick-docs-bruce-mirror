@@ -3,6 +3,8 @@ ifdef::context[:parent-context: {context}]
 = Creating GPG Keys
 :experimental:
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 This document explains in detail how to obtain a GPG key using common Fedora utilities.
 It also provides information on managing your key as a Fedora contributor.
 

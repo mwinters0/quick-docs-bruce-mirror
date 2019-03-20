@@ -10,6 +10,8 @@ ifdef::context[:parent-context: {context}]
 
 :md: en-US/modules
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 include::{partialsdir}/con_permanent-changes-in-selinux-states-and-modes.adoc[leveloffset=+1]
 include::{partialsdir}/proc_enabling-selinux.adoc[leveloffset=+1]
 include::{partialsdir}/proc_changing-to-permissive-mode.adoc[leveloffset=+2]

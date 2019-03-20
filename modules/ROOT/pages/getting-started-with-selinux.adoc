@@ -7,6 +7,8 @@ ifdef::context[:parent-context: {context}]
 :md: en-US/modules
 :imagesdir: ./images
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 :leveloffset: +1
 include::{partialsdir}/con_introduction-to-selinux.adoc[]
 include::{partialsdir}/con_benefits-of-selinux.adoc[]

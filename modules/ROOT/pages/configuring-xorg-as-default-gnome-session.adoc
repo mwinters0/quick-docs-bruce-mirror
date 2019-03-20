@@ -4,6 +4,8 @@ ifdef::context[:parent-context: {context}]
 [id='configuring-xorg-as-default-gnome-session']
 = Configuring Xorg as the default GNOME session
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 Wayland is the default GNOME display server. If GNOME freezes, or some applications do not function correctly in Wayland, you can choose to run GNOME in X11.
 
 

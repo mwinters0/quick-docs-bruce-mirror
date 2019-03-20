@@ -3,6 +3,8 @@ ifdef::context[:parent-context: {context}]
 [id='Configuring-networking-with-nmcli']
 = Configuring IP networking with nmcli
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 How to configure networking using the [application]*nmcli* (NetworkManager Command Line Interface) command-line utility.
 
 include::{partialsdir}/con_Getting-started-with-nmcli.adoc[leveloffset=+1]

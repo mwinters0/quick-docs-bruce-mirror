@@ -1,0 +1,17 @@
+////
+
+This message needs to be included on any document that has been converted from the Wiki but not reviewed for technical accuracy.
+Add the following line verbatim to the top of any such document - below the top level heading:
+
+include::{partialsdir}/unreviewed-message.adoc[]
+
+Please do not change this message without consultation. Thanks!
+
+////
+
+[CAUTION]
+====
+This page has been converted from the Fedora Project Wiki and cleaned up for publishing here on the Fedora Docs Portal, but it has not yet been reviewed for technical accuracy.
+This means any information on this page may be outdated or inaccurate.
+Reviews for technical accuracy are greatly appreciated. If you want to help, see the link:https://pagure.io/fedora-docs/quick-docs/blob/master/f/README.md[README] file in the source repository for instructions.
+====

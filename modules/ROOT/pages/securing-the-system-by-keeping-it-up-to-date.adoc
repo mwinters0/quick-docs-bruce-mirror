@@ -5,6 +5,8 @@ ifdef::context[:parent-context: {context}]
 [id='securing-the-system-by-keeping-it-up-to-date']
 = Securing the system by keeping it up-to-date
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 This section explains:
 
 * Why it is important to update your system regularly (link:#why-it-is-important-keeping-your-system-up-to-date[Why it is important to keep your system up-to-date])

@@ -1,4 +1,7 @@
 = Fedora Linux Kernel Overview
+
+include::{partialsdir}/unreviewed-message.adoc[]
+
 :toc:
 
 [[section-update-schedule]]

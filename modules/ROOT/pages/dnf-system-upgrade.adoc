@@ -1,6 +1,8 @@
 [[chap-dnf-system-upgrade]]
 = DNF System Upgrade
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 link:++https://github.com/rpm-software-management/dnf-plugin-system-upgrade++[`dnf-plugin-system-upgrade`] is a plugin for the link:++dnf.html++[DNF] package manager and is used to upgrade your system to the current release of Fedora.
 For Atomic Host, which uses rpm-ostree, you may refer to link:++https://rpm-ostree.readthedocs.io/en/latest/manual/administrator-handbook/++[Read The Docs: rpm-ostree] for details.
 
@@ -21,7 +23,7 @@ This is the recommended command-line upgrade method for Fedora 21 and later and 
 *Back up your data* before performing a system-wide upgrade as every system upgrade is potentially risky.
 As a precaution, download the link:++https://getfedora.org/en/workstation/download/++[Fedora Workstation Live image] in the event something goes wrong.
 
-==== 
+====
 
 . To update your Fedora release from the command-line do:
 +
@@ -45,7 +47,7 @@ sudo dnf install dnf-plugin-system-upgrade
 
 ----
 
-. Download the updated packages (replace N with the release version): 
+. Download the updated packages (replace N with the release version):
 +
 [source,bash]
 
@@ -154,7 +156,7 @@ sudo dnf remove $(dnf repoquery --extras --exclude=kernel,kernel-\*)
 
 ----
 
-[NOTE] 
+[NOTE]
 
 ====
 
@@ -239,7 +241,7 @@ sudo dnf distro-sync --allowerasing
 [[sect-relabel-files-with-the-latest-selinux-policy]]
 === Relabel Files With The Latest SELinux Policy
 
-If you encounter any warnings regarding policies with SELinux, some files may have incorrect SELinux permissions. 
+If you encounter any warnings regarding policies with SELinux, some files may have incorrect SELinux permissions.
 This may happen if SELinux was disabled at some point in the past.
 To relabel the entire system run:
 

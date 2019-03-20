@@ -1,6 +1,8 @@
 [id='sec-Using-AIDE']
 = Checking Integrity With *AIDE*
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 Advanced Intrusion Detection Environment (AIDE) is a utility that creates a database of files on the system, and then uses that database to ensure file integrity and detect system intrusions.
 
 == Installing *AIDE*

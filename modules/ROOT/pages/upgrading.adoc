@@ -1,6 +1,8 @@
 [[ch-Upgrading]]
 = Upgrading to a new release of Fedora
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 [IMPORTANT]
 ====
 

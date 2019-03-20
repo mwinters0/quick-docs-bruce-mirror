@@ -3,6 +3,8 @@ ifdef::context[:parent-context: {context}]
 [id="assembly_installing-java"]
 = Installing Java
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 Java provides a platform for creating and running applications. You can install various versions of Java to suit your requirements.
 
 include::{partialsdir}/con_about-java.adoc[leveloffset=+1]

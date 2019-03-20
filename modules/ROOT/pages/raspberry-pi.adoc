@@ -19,6 +19,8 @@
 :context: rpi
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 The link:https://www.raspberrypi.org[Raspberry Pi] is a credit card-sized ARM based single board computer (SBC).
 The Raspberry Pi Model B versions 2 and 3 are supported for Fedora 25 or newer, without any requirement of third party kernels or scripts to adjust offical images.
 This documentation describes how to get started, and includes a Frequently Asked Questions (FAQ) section at the end of the document about what is supported, and what is not.

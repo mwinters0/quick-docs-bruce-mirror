@@ -1,6 +1,6 @@
 = Wine
 
-
+include::{partialsdir}/unreviewed-message.adoc[]
 
 http://winehq.org/[Wine] is an open source implementation of the Windows
 API on top of X and OpenGL.

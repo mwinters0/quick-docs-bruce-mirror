@@ -3,6 +3,8 @@ ifdef::context[:parent-context: {context}]
 [id='setting-key-shortcut_{context}']
 = Setting a key shortcut to run an application in GNOME
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 If you frequently use a certain application, you can set a keyboard shortcut to quickly launch that application on GNOME.
 
 This example shows how to set a key shortcut to launch the terminal.

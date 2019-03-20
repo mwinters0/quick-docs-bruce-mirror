@@ -2,6 +2,8 @@ include::{partialsdir}/attributes.adoc[]
 
 = How to Create a GNU Hello World RPM Package
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 This is a short hands-on tutorial on writing RPM files, showing how to quickly step up to create simple source and binary software packages.
 It assumes some familiarity with using pre-made RPM packages, and with the FOSS building process.
 
@@ -256,10 +258,10 @@ $ mock --verbose ../SRPMS/hello-2.10-1.fc25.src.rpm
 
 == History
 
-Przemek Klosowski wrote this tutorial when he worked through link:Building_RPM_packages_%2820090405%29[Christoph Wickert's IRC session on building RPMs] using Rahul Sundaram suggestion of GNU "Hello World" as a test case. 
-After he wrote up his experience, he found out about the excellent and extensive link:How_to_create_an_RPM_package[How to create an RPM package] page on this wiki, as well as the link:http://www.absolutepanic.org/blog/2009/07/building-a-gnu-hello-world-rpm[Christian Lyder Jacobsen's website]. 
-However, Christian isn't planning to update his site, and it seemed that a 5-minute 'fast food' alternative to the more extensive article might suit some people. 
+Przemek Klosowski wrote this tutorial when he worked through link:Building_RPM_packages_%2820090405%29[Christoph Wickert's IRC session on building RPMs] using Rahul Sundaram suggestion of GNU "Hello World" as a test case.
+After he wrote up his experience, he found out about the excellent and extensive link:How_to_create_an_RPM_package[How to create an RPM package] page on this wiki, as well as the link:http://www.absolutepanic.org/blog/2009/07/building-a-gnu-hello-world-rpm[Christian Lyder Jacobsen's website].
+However, Christian isn't planning to update his site, and it seemed that a 5-minute 'fast food' alternative to the more extensive article might suit some people.
 More in-depth information on using and building RPM packages is available from link:Yum[other sources].
 
-See a typo, something missing or out of date, or anything else which can be improved? 
+See a typo, something missing or out of date, or anything else which can be improved?
 Edit this document at https://pagure.io/fedora-docs/quick-docs.

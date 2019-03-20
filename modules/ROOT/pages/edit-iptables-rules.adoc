@@ -31,6 +31,7 @@ with the following macro:
 
 '''
 
+include::{partialsdir}/unreviewed-message.adoc[]
 
 In this how-to, we will illustrate three ways to edit iptables Rules :
 
@@ -73,17 +74,17 @@ or related, icmp requests, all local traffic, and ssh communication:
 ....
 [root@server ~]# iptables -L
 Chain INPUT (policy DROP)
-target     prot opt source               destination         
+target     prot opt source               destination
 ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
-ACCEPT     icmp --  anywhere             anywhere            
-ACCEPT     all  --  anywhere             anywhere            
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
 ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
 
 Chain FORWARD (policy ACCEPT)
-target     prot opt source               destination         
+target     prot opt source               destination
 
 Chain OUTPUT (policy ACCEPT)
-target     prot opt source               destination 
+target     prot opt source               destination
 ....
 
 Note that Rules are applied in order of appearance, and the inspection
@@ -101,18 +102,18 @@ The following adds a Rule at the end of the specified chain of iptables:
 [root@server ~]# iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 [root@server ~]# iptables -L
 Chain INPUT (policy DROP)
-target     prot opt source               destination         
+target     prot opt source               destination
 ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
-ACCEPT     icmp --  anywhere             anywhere            
-ACCEPT     all  --  anywhere             anywhere            
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
 ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
 ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:http
 
 Chain FORWARD (policy ACCEPT)
-target     prot opt source               destination         
+target     prot opt source               destination
 
 Chain OUTPUT (policy ACCEPT)
-target     prot opt source               destination 
+target     prot opt source               destination
 ....
 
 Notice the last line in chain INPUT. There are now five Rules in that
@@ -129,17 +130,17 @@ the fifth position:
 [root@server ~]# iptables -D INPUT 5
 [root@server ~]# iptables -L
 Chain INPUT (policy DROP)
-target     prot opt source               destination         
+target     prot opt source               destination
 ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
-ACCEPT     icmp --  anywhere             anywhere            
-ACCEPT     all  --  anywhere             anywhere            
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
 ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
 
 Chain FORWARD (policy ACCEPT)
-target     prot opt source               destination         
+target     prot opt source               destination
 
 Chain OUTPUT (policy ACCEPT)
-target     prot opt source               destination 
+target     prot opt source               destination
 ....
 
 [[inserting-rules]]
@@ -151,18 +152,18 @@ Create a Rule at the top (first) position:
 [root@server ~]# iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
 [root@server ~]# iptables -L
 Chain INPUT (policy DROP)
-target     prot opt source               destination         
+target     prot opt source               destination
 ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:http
 ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
-ACCEPT     icmp --  anywhere             anywhere            
-ACCEPT     all  --  anywhere             anywhere            
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
 ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
 
 Chain FORWARD (policy ACCEPT)
-target     prot opt source               destination         
+target     prot opt source               destination
 
 Chain OUTPUT (policy ACCEPT)
-target     prot opt source               destination 
+target     prot opt source               destination
 ....
 
 The number given after the chain name indicates the position *before* an
@@ -184,18 +185,18 @@ from the network address range 192.168.0.0/24:
 [root@server ~]# iptables -R INPUT 1 -p tcp -s 192.168.0.0/24 --dport 80 -j ACCEPT
 [root@server ~]# iptables -L
 Chain INPUT (policy DROP)
-target     prot opt source               destination         
+target     prot opt source               destination
 ACCEPT     tcp  --  192.168.0.0/24       anywhere             tcp dpt:http
 ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
-ACCEPT     icmp --  anywhere             anywhere            
-ACCEPT     all  --  anywhere             anywhere            
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
 ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
 
 Chain FORWARD (policy ACCEPT)
-target     prot opt source               destination         
+target     prot opt source               destination
 
 Chain OUTPUT (policy ACCEPT)
-target     prot opt source               destination 
+target     prot opt source               destination
 ....
 
 [[flushing-rules]]
@@ -227,8 +228,8 @@ reboot. However, iptables comes with two useful utilities:
 These may be redirected to a file:
 
 ....
-[root@server ~]# iptables-save > iptables.dump 
-[root@server ~]# cat iptables.dump 
+[root@server ~]# iptables-save > iptables.dump
+[root@server ~]# cat iptables.dump
 # Generated by iptables-save v1.4.12 on Wed Dec  7 20:10:49 2011
 *filter
 :INPUT DROP [45:2307]
@@ -245,17 +246,17 @@ COMMIT
 * iptables-restore : restore a dump of rules made by iptables-save.
 
 ....
-[root@server ~]# iptables-restore < iptables.dump 
+[root@server ~]# iptables-restore < iptables.dump
 [root@server ~]# iptables -L
 Chain INPUT (policy DROP)
-target     prot opt source               destination         
+target     prot opt source               destination
 ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
-ACCEPT     icmp --  anywhere             anywhere            
-ACCEPT     all  --  anywhere             anywhere            
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
 ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
 
 Chain FORWARD (policy ACCEPT)
-target     prot opt source               destination         
+target     prot opt source               destination
 
 Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination

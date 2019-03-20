@@ -37,6 +37,8 @@ ifdef::context[:parent-context: {context}]
 [id='assembly_installing-plugins-for-playing-movies-and-music_{context}']
 = Installing plugins for playing movies and music
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 As a Fedora user and system administrator, you can use these steps to install additional multimedia plugins that enable you to play various video and audio types.
 
 WARNING: If you live in a country where software patents apply, such as in the United States or in Japan, you need to obtain multimedia codecs from a source that legally distributes patented software in your country. For example, see the Fluendo Codec Pack: link:https://fluendo.com/en/products/enterprise/fluendo-codec-pack/[].

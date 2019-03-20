@@ -1,6 +1,8 @@
 = Repositories
-:FedoraVersionNumberNext: 28
-:FedoraVersionNumber: 27
+:FedoraVersionNumberNext: 30
+:FedoraVersionNumber: 29
+
+include::{partialsdir}/unreviewed-message.adoc[]
 
 This page explains the various Fedora repositories that exist for
 different Fedora Releases, the relationship between them, and what

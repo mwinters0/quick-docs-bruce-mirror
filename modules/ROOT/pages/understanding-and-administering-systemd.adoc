@@ -5,6 +5,8 @@ ifdef::context[:parent-context: {context}]
 [id='understanding-and-administering-systemd']
 = Understanding and administering systemd
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 Learn the basic principles of systemd: how to configure it and use to administer the system.
 
 include::{partialsdir}/con_understanding-systemd.adoc[leveloffset=+1]

@@ -1,5 +1,7 @@
 = Creating a Product image
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 Anaconda supports several ways to load new code at runtime.
 Passing `inst.updates=<url>` is one way to do this and is documented on the xref:anaconda/anaconda_updates.adoc[updates] page.
 Another is to include a product.img in the install tree, inside the `/images/` directory.

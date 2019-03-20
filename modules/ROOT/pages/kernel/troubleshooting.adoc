@@ -1,5 +1,7 @@
 = Troubleshooting
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 The kernel, like any software, has bugs. It's a large, complex project and it
 can be difficult to troubleshoot problems. This document covers some basic
 troubleshooting techniques to help narrow down the root cause of an issue.

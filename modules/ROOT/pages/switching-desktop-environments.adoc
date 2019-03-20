@@ -5,6 +5,8 @@ ifdef::context[:parent-context: {context}]
 [[switching-desktop-environments]]
 = Switching desktop environments
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 Fedora's default desktop environment is GNOME 3 in the Workstation spin, but it is very easy to try any of the many other desktop environments that are available without affecting your current desktop environment.
 
 include::{partialsdir}/proc_installing-additional-desktop-enviroments.adoc[leveloffset=+1]

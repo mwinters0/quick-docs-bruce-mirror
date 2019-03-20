@@ -1,5 +1,7 @@
 = Anaconda Updates
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 Anaconda has the capability to incorporate updates at runtime to fix any bugs or issues with the installer.
 These updates are generally distributed as a disk image file (referred to as `updates.img` from here on out)
 The `updates.img` can be used in a few different ways.
@@ -92,7 +94,7 @@ If you need finer control over this process (like creating an image from an even
 $ scripts/makeupdates
 ----
 
-by hand.  
+by hand.
 The help screen documents the several options that can be used.
 
 An `updates.img` can include more than just files from anaconda, though.

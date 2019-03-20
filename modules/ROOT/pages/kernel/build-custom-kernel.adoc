@@ -1,5 +1,8 @@
 [[ch-build-custom-kernel]]
 = Building a Custom Kernel
+
+include::{partialsdir}/unreviewed-message.adoc[]
+
 :toc:
 
 This document provides instructions for advanced users who want to rebuild the

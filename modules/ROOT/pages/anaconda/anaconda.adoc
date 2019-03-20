@@ -1,5 +1,7 @@
 = Anaconda
 
+include::{partialsdir}/unreviewed-message.adoc[]
+
 [caption="Entering Anaconda, Montana. A city probably named after this installation program. David Cantrell took this picture in 2011. His grey VW Jetta is parked in the background."]
 image::DSC_3217.JPG[Anaconda,400]
 
@@ -85,7 +87,7 @@ More are in the works:
 * If you want to work on Anaconda, you should start with the Anaconda/SourceOverview[Source Overview], which contains a high level discussion of the source files and what they do.
 
 Then look at the https://anaconda-installer.readthedocs.io/en/latest/[online documentation] for information on how to test, debug, and develop anaconda.
- 
+
 Familiarize yourself with the tools that Anaconda uses.
 Check out the following external reference documents:
 
