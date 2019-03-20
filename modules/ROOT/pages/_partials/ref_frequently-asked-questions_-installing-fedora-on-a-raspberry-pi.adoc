@@ -10,12 +10,13 @@
 // The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
 [id='reference-material_{context}']
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
-= Fedora on Raspberry Pi: Frequently Asked Questions
+[[sect-frequently-asked-questions]]
+== Fedora on Raspberry Pi: Frequently Asked Questions
 //In the title of a reference module, include nouns that are used in the body text. For example, "Keyboard shortcuts for ___" or "Command options for ___." This helps readers and search engines find the information quickly.
 
 Frequently asked questions regarding what is supported.
 
-._Why do I get a rainbow display when I try and power on my Raspberry Pi?_
+=== Why do I get a rainbow display when I try and power on my Raspberry Pi?
 
 Common causes of the rainbow display include:
 
@@ -30,18 +31,18 @@ For instructions about Fedora ARM on Raspberry Pi:
 
 * If you try to use Fedora on a Raspberry Pi 1, Raspberry Pi Zero, or a Raspberry Pi model A, you will receive the rainbow display. This occurs because your Raspberry Pi is not supported (ARMv6 SoCs architectures are not supported).
 
-._What desktop environments are supported?_
+=== What desktop environments are supported?
 
 All desktops as shipped in Fedora should work and both 2D and 3D graphics work out of the box.
 There is an open source fully accelerated driver for the Video Core IV GPU.
 
-._Will there be more enhancements to the hardware support?_
+=== Will there be more enhancements to the hardware support?
 
 Yes.
 New enhancements will be delivered by the standard Fedora updates mechanism.
 New, significant features will be announced by the link:https://fedoramagazine.org/[Fedora Magazine] or the link:http://fedoraplanet.org/[Fedora Planet].
 
-._What about support for the Raspberry Pi Models A/A+, B/B+ (generation 1), Zero/ZeroW and Compute Module?_
+=== What about support for the Raspberry Pi Models A/A+, B/B+ (generation 1), Zero/ZeroW and Compute Module?
 
 These Raspberry Pi models are not supported.
 
@@ -52,12 +53,12 @@ More information can be found at link:https://pignus.computer[the Pignus site].
 
 NOTE: Fedora DOES support the Compute Module 3 based on the same SoC as the Raspberry Pi 3, but *as the previous generation Compute Modules are based on ARMv6 architecture, they are [#.underline]#not supported#*.
 
-._What USB devices are supported on the Raspberry Pi?_
+=== What USB devices are supported on the Raspberry Pi?
 
 Most USB-2 compatible devices that are supported in Fedora on other devices.
 There are some limitations to the USB bus of the Raspberry Pi hardware as link:https://www.raspberrypi.org/documentation/hardware/raspberrypi/usb/README.md[documented here].
 
-._Is the onboard Wi-Fi supported on the Raspberry Pi 3?_
+=== Is the onboard Wi-Fi supported on the Raspberry Pi 3?
 
 Wifi on the Raspberry Pi 3-series devices works out of the box with Fedora 29.
 
@@ -80,43 +81,43 @@ nmcli device wifi connect __$SSID__ --ask
 +
 Where: `_$SSID_` is the network identifier (or name).
 
-._Is the onboard Bluetooth supported on the Raspberry Pi 3?_
+=== Is the onboard Bluetooth supported on the Raspberry Pi 3?
 
 Bluetooth works and is stable. The device sometimes has a generic bluetooth address but should work without any configuration.
 
-._Does sound work?_
+=== Does sound work?
 
 HDMI audio output is included with Fedora, however, the analog port is not yet supported.
 Audio output using a USB audio interface should work.
 
-._Does the add-on camera work?_
+=== Does the add-on camera work?
 
 Not at this time.
 There is still ongoing work to support this upstream and to add the appropriated media acceleration support.
 
-._Does accelerated media decode work?_
+=== Does accelerated media decode work?
 
 No.
 The upstream kernel does not support the kernel subsystems required for accelerated media decoding.
 
-._Does HDMI-CEC work?_
+=== Does HDMI-CEC work?
 
 Yes.
 Yes. It's supported using the new upstream CEC support. There's a `/dev/cec0` character device, it can be accessed using any application that supports the IR remote using the `rc-cec` keymap in the `v4l-utils` package, there's also a `cec-ctl` utility for use on the command line.
 
-._Is the Raspberry Pi Touch Display supported?_
+=== Is the Raspberry Pi Touch Display supported?
 
 Work on the official Raspberry Pi Touch Display is ongoing upstream and initial support is provided in the 4.10 kernel, see: link:https://github.com/anholt/linux/issues/8[GitHub: raspberrypi/linux issues - 7" LCD touchscreen not supported].
 Fedora will review any missing pieces for support soon.
 The touchscreen driver isn't yet released upstream.
 Support for other displays is not currently planned.
 
-._Is the composite TV out supported?_
+=== Is the composite TV out supported?
 
 The composite TV out is not currently supported in a stable Fedora release but the core support is in the 4.10 kernel.
 There is some missing enabling patches which will be added to the Fedora kernel soon.
 
-._Are the expansion HATs supported?_
+=== Are the expansion HATs supported?
 
 The the expansion HATs are not currently supported.
 
@@ -128,35 +129,35 @@ There's also no consensus on the extensions to the dtc (Device Tree Compiler) to
 
 The first focus HAT to support will be the official Raspberry Pi Sense HAT. This will be documented using the manual process to build and load the overlay to provide access to the onboard devices as a means of demonstrating how this process works for those wishing to use this manual method in the interim. The link to this documentation will be added here once that is complete.
 
-._The use of config.txt_
+=== The use of config.txt
 
 The `config.txt` is only used for basic configuration at the moment. Because of the use of the opensource vc4 GPU driver, most of the video configuration is done by Linux.
 
 The configuration of HATs using `config.txt` is unsupported but is being actively developed.
 
-._Are Device Tree Overlays supported?_
+=== Are Device Tree Overlays supported?
 
 There's basic support for overlays in u-boot and the Linux kernel but an overlay manager is not supported upstream.
 
-._Is GPIO supported?_
+=== Is GPIO supported?
 
 GPIO is supported with the use of libgpiod and associated bindings and utilities.
 
-RPI.GPIO is not currently supported. 
+RPI.GPIO is not currently supported.
 
-._Is SPI supported?_
+=== Is SPI supported?
 
 Yes, basic SPI is supported.
 
-._Is I2C supported?_
+=== Is I2C supported?
 
 Yes, basic I2C is supported.
 
-._Is there Raspberry Pi 3 aarch64 support?_
+=== Is there Raspberry Pi 3 aarch64 support?
 
 Yes! You can download the aarch64 disk images for the Raspberry Pi 3 link:https://archive.fedoraproject.org/pub/fedora-secondary/releases/[here.]
 
-._How do I use a serial console?_
+=== How do I use a serial console?
 
 The serial console is disabled by default on the Raspberry Pi 2 and 3 because it requires the device to run at significantly slower speeds.
 
