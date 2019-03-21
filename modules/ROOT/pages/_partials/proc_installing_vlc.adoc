@@ -1,25 +1,10 @@
 [[installing-vlc]]
 = Installing VLC
 
-To install the link:https://www.videolan.org/[VLC media player], you must enable a third-party repository from link:https://rpmfusion.org/[RPM Fusion].
 
-. Install package provided by RPM Fusion to enable the repository:
-+
-----
-$ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-----
-
-. Install VLC:
+* Install VLC:
 +
 ----
 $ sudo dnf install vlc
 ----
 
-[discrete]
-== Additional resources
-
-* link:https://www.videolan.org/vlc/download-fedora.html[VLC Media Player for Fedora].
-
-* Ask Fedora: link:https://ask.fedoraproject.org/en/question/9111/sticky-what-plugins-do-i-need-to-install-to-watch-movies-and-listen-to-music/[What plugins do I need to install to watch movies and listen to music?]
-
-// * link:http://ask.fedoraproject.org/en/question/98715/install-vlc-on-fedora-25/[Install VLC on Fedora 25]

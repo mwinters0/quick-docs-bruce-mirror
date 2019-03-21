@@ -4,19 +4,21 @@
 ifdef::context[:parent-context: {context}]
 :context: installing-and-running-vlc
 
+
 [[installing-and-running-vlc]]
 = Installing and Running VLC
 
 include::{partialsdir}/3rdparty-message.adoc[]
 
-include::{partialsdir}/unreviewed-message.adoc[]
+== Prerequisits
+
+* VLC is provided by the RPMFusion repositories.  xref:setup_rpmfusion.adoc[Use these instructions to enable them].
 
 :leveloffset: +1
 
+
 include::{partialsdir}/proc_installing_vlc.adoc[]
 include::{partialsdir}/proc_running_vlc.adoc[]
-include::{partialsdir}/concept_third-party-repositories.adoc[]
-include::{partialsdir}/con_the-purpose-of-rpm-fusion.adoc[]
 
 :leveloffset: 0
 ifdef::parent-context[:context: {parent-context}]
