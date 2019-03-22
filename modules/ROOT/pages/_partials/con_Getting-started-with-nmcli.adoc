@@ -117,6 +117,4 @@ For example,
 
 [discrete]
 == Additional resources
-* link:++https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-introduction_to_networkmanager++[Introduction to NetworkManager]
-
-* link:++https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/sec-installing_networkmanager#sec-Interacting_with_NetworkManager[Interacting with NetworkManager]
+* link:++https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/networking_guide/getting_started_with_networkmanager++[Getting Started With NetworkManager]

@@ -64,7 +64,7 @@ If you already have a certificate generated on another computer, do the followin
 # chmod 0600 /etc/pki/tls/certs/myhost.com.crt
 ----
 
-After installing the existing certificate, set up the certificate using link:mod-ssl-configuration[mod_ssl configuration].
+After installing the existing certificate, set up the certificate using <<mod_ssl configuration>>.
 
 
 [id='mod-ssl-configuration']

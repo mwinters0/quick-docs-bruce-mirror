@@ -3,7 +3,7 @@
 
 include::{partialsdir}/unreviewed-message.adoc[]
 
-link:++https://github.com/rpm-software-management/dnf-plugin-system-upgrade++[`dnf-plugin-system-upgrade`] is a plugin for the link:++dnf.html++[DNF] package manager and is used to upgrade your system to the current release of Fedora.
+link:++https://github.com/rpm-software-management/dnf-plugin-system-upgrade++[`dnf-plugin-system-upgrade`] is a plugin for the xref:dnf.adoc[DNF] package manager and is used to upgrade your system to the current release of Fedora.
 For Atomic Host, which uses rpm-ostree, you may refer to link:++https://rpm-ostree.readthedocs.io/en/latest/manual/administrator-handbook/++[Read The Docs: rpm-ostree] for details.
 
 This is the recommended command-line upgrade method for Fedora 21 and later and works as follows:
@@ -303,7 +303,7 @@ Again this is un-supported and is *at your own risk*.
 
 It is highly recommended to upgrade across just one release (e.g. 27 to 28).
 However, for the first month or so after a new release, upgrades from the last-but-one release are 'supported' (N-2, where N is the current release).
-The link:fedora-life-cycle.html++[Fedora Release Life Cycle] is specifically designed to provide this approximate one month "grace period" to allow users the choice to upgrade their systems on a yearly basis, or once every two releases.
+The link:https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle[Fedora Release Life Cycle] is specifically designed to provide this approximate one month "grace period" to allow users the choice to upgrade their systems on a yearly basis, or once every two releases.
 
 Around a month after the new release comes out, the last-but-one release becomes End Of Life (EOL).
 The upgrade is likely to work successfully after the release goes end-of-life, but the time period after the new release may be uncertain.

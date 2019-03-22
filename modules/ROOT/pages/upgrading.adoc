@@ -52,7 +52,7 @@ link:++https://fedoraproject.org/wiki/Releases/Rawhide++[Rawhide] and link:++htt
 They are suitable for users developing or testing Fedora before public release.
 They are *NOT SUITABLE* for regular day-to-day use unless you are a fairly experienced user, and certainly not suitable for mission-critical use.
 You should read through those pages carefully before deciding to run Branched or Rawhide.
-See the link:++fedora-life-cycle.html++[Fedora Life Cycle Quick Doc] for more information on how the whole Fedora cycle works from Rawhide, to Branched, to the milestone releases (Alpha and Beta), to a 'final' release.
+See the link:++https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle++[Fedora Life Cycle Quick Doc] for more information on how the whole Fedora cycle works from Rawhide, to Branched, to the milestone releases (Alpha and Beta), to a 'final' release.
 
 Upgrading to a Branched release or to Rawhide can be done with the xref:dnf-system-upgrade.adoc[DNF System Upgrade Plugin].
 Carefully read this page as there are some special notes to ensure a successful upgrade.

@@ -9,8 +9,7 @@ gpg2 --full-gen-key
 +
 This command generates a key pair that consists of a public and a private key.
 Other people use your public key to authenticate and/or decrypt your communications.
-Distribute your *public* key as widely as possible, especially to people who you know will want to receive authentic communications from you, such as a mailing list.
-The Fedora Documentation Project, for example, asks participants to include a GPG public key in their link:DocsProject/SelfIntroduction[self-introduction].
+Distribute your *public* key as widely as possible, especially to people who you know will want to receive authentic communications from you, such as a mailing list..
 
 . Press the kbd:[Enter] key to assign a default value if desired.
 The first prompt asks you to select what kind of key you prefer:
@@ -47,7 +46,7 @@ Please specify how long the key should be valid.
       <n>w = key expires in n weeks
       <n>m = key expires in n months
       <n>y = key expires in n years
-Key is valid for? (0) 
+Key is valid for? (0)
 ----
 +
 Entering a value of `1y`, for example, makes the key valid for one year.
@@ -85,7 +84,7 @@ Once this step is finished, your keys are complete and ready to use:
 ----
 pub  1024D/1B2AFA1C 2005-03-31 John Q. Doe (Fedora Docs Project) <jqdoe@example.com>
 Key fingerprint = 117C FE83 22EA B843 3E86  6486 4320 545E 1B2A FA1C
-sub  1024g/CEA4B22E 2005-03-31 [expires: 2006-03-31] 
+sub  1024g/CEA4B22E 2005-03-31 [expires: 2006-03-31]
 ----
 
 The key fingerprint is a shorthand signature for your key.

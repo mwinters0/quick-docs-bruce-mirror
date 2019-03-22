@@ -4,7 +4,7 @@
 [[qemukvm-without-libvirt]]
 == QEMU/KVM without libvirt
 
-QEMU/KVM can be invoked directly without libvirt, however you cannot to use tools such as `virt-manager`, `virt-install`, or `virsh`. Plain QEMU (without KVM) can also virtualize other processor architectures like ARM or PowerPC. 
+QEMU/KVM can be invoked directly without libvirt, however you cannot to use tools such as `virt-manager`, `virt-install`, or `virsh`. Plain QEMU (without KVM) can also virtualize other processor architectures like ARM or PowerPC.
 
 [[xen]]
 == Xen
@@ -34,4 +34,4 @@ scheduler, and more.
 = Troubleshooting and known issues
 
 For a list of known unresolved issues, as well as troubleshooting tips,
-see FIXME link:How_to_debug_Virtualization_problems[How to debug virtualization problems]
+see link:https://fedoraproject.org/wiki/How_to_debug_Virtualization_problems[How to debug virtualization problems]

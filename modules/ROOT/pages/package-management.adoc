@@ -45,8 +45,8 @@ Fedora is a distribution that uses a package management system. This
 system is based on http://rpm.org[rpm] , the RPM Package Manager, with
 several higher level tools built on top of it, most notably
 https://www.freedesktop.org/software/PackageKit/[PackageKit] (default
-gui) and link:Yum[ yum] (command line tool). As of Fedora 22, yum has
-been replaced by link:Dnf[ dnf]. The Gnome Package Manager is another
+gui) and Yum (command line tool). As of Fedora 22, yum has
+been replaced by xref:dnf.adoc[DNF]. The Gnome Package Manager is another
 GUI package manager.
 
 [[advantages-of-package-management-systems]]
@@ -135,9 +135,7 @@ repositories
 Package Management tools
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-link:Dnf[ dnf] - Dandified Yum
-
-link:Yum[ yum] - Yellowdog Updater Modified
+xref:dnf.adoc[dnf] - Dandified Yum
 
 https://www.freedesktop.org/software/PackageKit/[PackageKit] -
 PackageKit gui tool ('add/remove software' in your menu)

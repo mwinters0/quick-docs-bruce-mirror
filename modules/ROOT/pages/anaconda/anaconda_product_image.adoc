@@ -28,4 +28,4 @@ $ find . | cpio -c -o | pigz -9cv > ../product.img
 Now you can include product.img in the tree, inside `/images/`.
 
 Alternatively you can now use lorax to create product.img as part of the boot.iso creation process.
-This is supported by lorax-21.27-1 and is documented link:http://rhinstaller.github.io/lorax/product-images.html[here] in the Lorax source tree.
+This is supported by lorax-21.27-1 and later and is documented link:https://weldr.io/lorax/product-images.html[here] in the Lorax source tree.

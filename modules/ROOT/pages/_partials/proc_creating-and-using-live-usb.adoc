@@ -1,19 +1,20 @@
 :experimental:
+include::{partialsdir}/attributes.adoc[]
 
 [id='proc_creating-and-using-live-usb']
 = Creating and using live USB
 
-You can write all Fedora ISO images to a USB stick, making this a convenient way on any USB-bootable computer to either install Fedora or try a *live* Fedora environment without writing to the computer's hard disk. You will need a USB stick at least as large as the image you wish to write. 
+You can write all Fedora ISO images to a USB stick, making this a convenient way on any USB-bootable computer to either install Fedora or try a *live* Fedora environment without writing to the computer's hard disk. You will need a USB stick at least as large as the image you wish to write.
 
 [id='using-fedora-media-writer']
 == Using Fedora Media Writer
 
-The official and supported tool to create a Fedora USB stick is the *Fedora Media Writer* utility, which was formerly known as *LiveUSB Creator*. To learn more about this application and how to use it, refer to the https://docs.fedoraproject.org/f28/install-guide/install/Preparing_for_Installation.html[Preparing for Installation] chapter of the Fedora Installation Guide. 
+The official and supported tool to create a Fedora USB stick is the *Fedora Media Writer* utility, which was formerly known as *LiveUSB Creator*. To learn more about this application and how to use it, refer to the https://docs.fedoraproject.org/{MAJOROSVER}/install-guide/install/Preparing_for_Installation.html[Preparing for Installation] chapter of the Fedora Installation Guide.
 
 
 [IMPORTANT]
 ====
-*Fedora Media Writer* destroys all data on the USB stick. If you need a non-destructive write method (to preserve existing data on your USB stick) or support for 'data persistence', you can use the link:using-the-livecd-iso-to-disk-tool[livecd-iso-to-disk] utility on Fedora.
+*Fedora Media Writer* destroys all data on the USB stick. If you need a non-destructive write method (to preserve existing data on your USB stick) or support for 'data persistence', you can use the xref:creating-and-using-a-live-installation-image.adoc#using-the-livecd-iso-to-disk-tool[livecd-iso-to-disk] utility on Fedora.
 ====
 
 [id='gnome-disk-utility']
@@ -94,7 +95,7 @@ To include a persistent filesystem for `/home`, use the `--home-size-mb` paramet
 # livecd-iso-to-disk --home-size-mb 2048 Fedora-Workstation-Live-x86_64-28-1.1.iso /dev/sdX
 ----
 
-This will create a 2 GiB filesystem that will be mounted as `/home` each time the stick is booted, allowing you to preserve data in `/home` across boots. 
+This will create a 2 GiB filesystem that will be mounted as `/home` each time the stick is booted, allowing you to preserve data in `/home` across boots.
 
 To enable 'data persistence' support - so changes you make to the entire live environment will persist across boots - add the `--overlay-size-mb` parameter to add a persistent data storage area to the target stick. For example:
 [option="nowrap"]
@@ -103,16 +104,16 @@ To enable 'data persistence' support - so changes you make to the entire live en
 # livecd-iso-to-disk --overlay-size-mb 2048 Fedora-Workstation-Live-x86_64-28-1.1.iso /dev/sdX
 ----
 
-Here, `_2048_` is the desired size (in megabytes) of the overlay. The `livecd-iso-to-disk` tool will not accept an overlay size value greater than _4095_ for VFAT, but for ext[234] filesystems it is only limited by the available space. 
+Here, `_2048_` is the desired size (in megabytes) of the overlay. The `livecd-iso-to-disk` tool will not accept an overlay size value greater than _4095_ for VFAT, but for ext[234] filesystems it is only limited by the available space.
 
 [NOTE]
 ====
-Due to the way it's currently implemented, every single change to this form of overlay, writes AND deletes, subtracts from its free space so it will eventually be "used up" and your USB stick will no longer boot. You can use `dmsetup` status `live-rw` to see how much space remains in the overlay. 
+Due to the way it's currently implemented, every single change to this form of overlay, writes AND deletes, subtracts from its free space so it will eventually be "used up" and your USB stick will no longer boot. You can use `dmsetup` status `live-rw` to see how much space remains in the overlay.
 
 The output will contain something like snapshot `42296/204800`, indicating that 4229 of 204800 512-byte sectors are allocated. Because of these limitations, it is advisable to use the `system-level` persistence sparingly, for configuration changes and important security updates only. Or, if you have sufficient disk space available, changes to the `LiveOS` root filesystem snapshot can be merged into a new copy of the root filesystem.
 ====
 
-You can combine `--home-size-mb` and `--overlay-size-mb`, in which case data written to `/home` will not exhaust the persistent overlay. 
+You can combine `--home-size-mb` and `--overlay-size-mb`, in which case data written to `/home` will not exhaust the persistent overlay.
 
 
 === Using a direct write method
@@ -123,7 +124,7 @@ You can combine `--home-size-mb` and `--overlay-size-mb`, in which case data wri
 This method will destroy all data on the USB stick. If you need a non-destructive write method, to preserve existing data on your USB stick, and/or support for `data persistence`, you can use the `livecd-iso-to-disk` utility on Fedora.
 ====
 
-This method directly writes the image to the USB stick much like link:#using-fedora-media-writer[Fedora Media Writer] or GNOME Disk Utility, but uses a command line utility named `dd`. Like the other _direct write_ methods, it will destroy all data on the stick and does not support any of the advanced features like data persistence, but it is a very reliable method. The `dd` tool is available on most Unix-like operating systems, including Linux distributions and OS X, and a Windows port is available. This may be your best method if you cannot use link:#using-fedora-media-writer[Fedora Media Writer] or GNOME Disk Utility, or just if you prefer command line utilities and want a simple, quick way to write a stick.
+This method directly writes the image to the USB stick much like xref:creating-and-using-a-live-installation-image.adoc#using-fedora-media-writer[Fedora Media Writer] or GNOME Disk Utility, but uses a command line utility named `dd`. Like the other _direct write_ methods, it will destroy all data on the stick and does not support any of the advanced features like data persistence, but it is a very reliable method. The `dd` tool is available on most Unix-like operating systems, including Linux distributions and OS X, and a Windows port is available. This may be your best method if you cannot use xref:creating-and-using-a-live-installation-image.adoc#using-fedora-media-writer[Fedora Media Writer] or GNOME Disk Utility, or just if you prefer command line utilities and want a simple, quick way to write a stick.
 
 . Identify the name of the USB drive partition. If using this method on Windows, with the port linked above, the `dd --list` command should provide you with the correct name.
 . *Unmount all mounted partition from that device*. This is very important, otherwise the written image might get corrupted. You can umount all mounted partitions from the device with `umount /dev/sdX*`, where `_X_` is the appropriate letter, e.g. `umount /dev/sdc*`.
@@ -148,9 +149,9 @@ This method is considered unsupported. You can use it on your own risk.
 
 [NOTE]
 ====
-UNetbootin may work in some cases but not others - for instance, it will likely create a stick that is bootable in BIOS mode, but not UEFI mode. Fedora cannot guarantee support for UNetbootin-written images. 
+UNetbootin may work in some cases but not others - for instance, it will likely create a stick that is bootable in BIOS mode, but not UEFI mode. Fedora cannot guarantee support for UNetbootin-written images.
 
-While your results may vary, it is usually the case that the Fedora Media Writer, `livecd-iso-to-disk`, GNOME, and `dd` methods give better results than UNetbootin. If you encounter problems with UNetbootin, please contact the UNetbootin developers, not the Fedora developers. 
+While your results may vary, it is usually the case that the Fedora Media Writer, `livecd-iso-to-disk`, GNOME, and `dd` methods give better results than UNetbootin. If you encounter problems with UNetbootin, please contact the UNetbootin developers, not the Fedora developers.
 ====
 
 http://unetbootin.github.io/[UNetbootin] is a graphical, bootable USB image creator. Using it will allow you to preserve any data you have in the USB drive. If you have trouble booting, however, you may wish to try with a blank, cleanly FAT32-formatted drive.
@@ -169,7 +170,7 @@ NOTE: If you do not see _sdX_ listed, you might have to reformat the drive. You 
 [id='creating_usb_stick_from_a_running_live_environment']
 == Creating a USB stick from a running live environment
 
-If you are already running a live CD, DVD, or USB and want to convert that into a bootable USB stick, run the following command: 
+If you are already running a live CD, DVD, or USB and want to convert that into a bootable USB stick, run the following command:
 
 [option="nowrap"]
 ----

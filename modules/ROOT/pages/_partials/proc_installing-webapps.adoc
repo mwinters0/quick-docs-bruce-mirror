@@ -19,6 +19,6 @@ Most web applications are simply packaged according to their name. For instance,
 
 Packaged web applications will usually provide Fedora-specific instructions in a documentation file. For instance, Wordpress provides the files `/usr/share/doc/wordpress/README.fedora` and `/usr/share/doc/wordpress/README.fedora-multiuser`.
 
-Packaged web applications usually restrict access by default so you can access them only from the server host itself, to ensure you can run all initial configuration safely and things like administration interfaces are not left accessible to the public. For information on how to broaden access, see link:enabling-access-to-web-applications[Enabling access to web applications].
+Packaged web applications usually restrict access by default so you can access them only from the server host itself, to ensure you can run all initial configuration safely and things like administration interfaces are not left accessible to the public. For information on how to broaden access, see xref:getting-started-with-apache-http-server.adoc#enabling-access-to-web-applications[Enabling access to web applications].
 
 Web applications commonly require the use of a database server. This wiki contains information on installing and configuring https://fedoraproject.org/wiki/PostgreSQL[PostgreSQL] and https://fedoraproject.org/wiki/MariaDB[MariaDB] on Fedora.

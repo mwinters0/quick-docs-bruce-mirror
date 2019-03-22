@@ -1,7 +1,7 @@
 [[procedure-run-docker-using-sudo]]
 = Run Docker using sudo
 
-. Set up [command]`sudo` as shown in link:con_using-sudo-assign-admin-privileges.html[Using sudo to assign administrator privileges].
+. Set up [command]`sudo` as shown in xref:performing-administration-tasks-using-sudo.adoc.adoc#con_using-sudo-assign-admin-privileges[Using sudo to assign administrator privileges].
 . Create an alias for running the docker command by adding the following line to your `~/.bashrc` file:
 +
 ----

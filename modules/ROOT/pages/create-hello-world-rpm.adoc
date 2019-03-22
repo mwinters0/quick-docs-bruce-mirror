@@ -7,8 +7,8 @@ include::{partialsdir}/unreviewed-message.adoc[]
 This is a short hands-on tutorial on writing RPM files, showing how to quickly step up to create simple source and binary software packages.
 It assumes some familiarity with using pre-made RPM packages, and with the FOSS building process.
 
-For comprehensive information on how to create RPM files, including more detailed tips, refer to {WRPM}[How to create an RPM package].
-If you plan to create an RPM package for the Fedora repository, follow the process for {WPACKAGE}, including following the various Fedora guidance.
+For comprehensive information on how to create RPM files, including more detailed tips, refer to xref:creating-rpm-packages.adoc[How to create an RPM package].
+If you plan to create an RPM package for the Fedora repository, follow the process for link:https://fedoraproject.org/wiki/Join_the_package_collection_maintainers[How to join the Fedora Package Collection Maintainers], including following the various Fedora guidance.
 
 This tutorial demonstrates packaging of the GNU "Hello World" project.
 While the C program printing "Hello World" to standard output is trivial, the GNU version contains most of the usual peripheral components associated with a typical FOSS project, including the configuration/build/install environment, documentation, internationalization, etc.
@@ -74,7 +74,7 @@ $ emacs hello.spec
 == Inside a Spec File
 
 The fields in our `.spec` file need slight editing.
-Please follow the {WRPM}[Fedora rules] for these fields.
+Please follow the xref:creating-rpm-packages.adoc[Fedora rules] for these fields.
 In our case, the file might start as follows:
 
 [source, RPMSpec]
@@ -137,7 +137,7 @@ The manual pages should be declared in the `%doc` subsection:
 This is an iterative process; after editing the `.spec` file, rerun `rpmbuild`.
 
 Since our program uses translations and internationalization, we are seeing a lot of undeclared i18 files.
-The link:https://fedoraproject.org/wiki/Packaging:Guidelines#Handling_Locale_Files[recommended method] to declare them is:
+The link:https://docs.fedoraproject.org/en-US/packaging-guidelines/#_handling_locale_files[recommended method] to declare them is:
 
 * find the filenames in the `%install` step: `%find_lang %\{name}`
 * add the required build dependencies: `BuildRequires: gettext`
@@ -248,20 +248,17 @@ $ mock --verbose ../SRPMS/hello-2.10-1.fc25.src.rpm
 
 == References
 
-* {WRPM}[How to create an RPM package]
+* xref:creating-rpm-packages.adoc[How to create an RPM package]
 
-* {RPMSCHAT}[Building RPM packages (20090405)]
+* link:https://fedoraproject.org/wiki/Building_RPM_packages_(20090405)[Building RPM packages (20090405)]
 
-* {MOCKTEST}[Using Mock to test package builds]
+* link:https://fedoraproject.org/wiki/Using_Mock_to_test_package_builds[Using Mock to test package builds]
 
-* {KOJIBUILD}[Using the Koji build system]
+* link:https://fedoraproject.org/wiki/Using_the_Koji_build_system[Using the Koji build system]
 
 == History
 
-Przemek Klosowski wrote this tutorial when he worked through link:Building_RPM_packages_%2820090405%29[Christoph Wickert's IRC session on building RPMs] using Rahul Sundaram suggestion of GNU "Hello World" as a test case.
-After he wrote up his experience, he found out about the excellent and extensive link:How_to_create_an_RPM_package[How to create an RPM package] page on this wiki, as well as the link:http://www.absolutepanic.org/blog/2009/07/building-a-gnu-hello-world-rpm[Christian Lyder Jacobsen's website].
+Przemek Klosowski wrote this tutorial when he worked through link:https://fedoraproject.org/wiki/Building_RPM_packages_(20090405)[Christoph Wickert's IRC session on building RPMs] using Rahul Sundaram suggestion of GNU "Hello World" as a test case.
+After he wrote up his experience, he found out about the excellent and extensive xref:creating-rpm-packages.adoc[How to create an RPM package] page on this wiki, as well as the Christian Lyder Jacobsen's website, which is unfortunately not available anymore.
 However, Christian isn't planning to update his site, and it seemed that a 5-minute 'fast food' alternative to the more extensive article might suit some people.
-More in-depth information on using and building RPM packages is available from link:Yum[other sources].
-
-See a typo, something missing or out of date, or anything else which can be improved?
-Edit this document at https://pagure.io/fedora-docs/quick-docs.
+More in-depth information on using and building RPM packages is available from link:dnf.adoc[other sources].

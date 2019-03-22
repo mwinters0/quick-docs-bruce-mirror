@@ -1,7 +1,1 @@
-:MAJOROSVER: 27
-:WRPM: link:https://docs.fedoraproject.org/quick-docs/en-US/creating-rpm-packages.html
-:WPACKAGE: link:https://fedoraproject.org/wiki/Join_the_package_collection_maintainers[How to join the Fedora Package Collection Maintainers]
-:RPMSCHAT: https://fedoraproject.org/wiki/Building_RPM_packages_(20090405)
-:MOCKTEST: https://fedoraproject.org/wiki/Using_Mock_to_test_package_builds
-:KOJIBUILD: https://fedoraproject.org/wiki/Using_the_Koji_build_system
-:YUM: https://fedoraproject.org/wiki/Yum
+:MAJOROSVER: 29

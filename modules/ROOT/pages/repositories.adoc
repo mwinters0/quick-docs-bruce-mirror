@@ -11,7 +11,7 @@ packages they contain.
 [[the-fedora-repository]]
 == The fedora repository
 
-The _fedora_ repository exists for all Fedora releases after they have link:Releases/Branched[Branched] from link:Releases/Rawhide[Rawhide]. It is represented for Yum or http://dnf.baseurl.org/[DNF] in the `fedora.repo` file in the repository path. For any Fedora installation, this repository will be enabled by default, and should usually remain so.
+The _fedora_ repository exists for all Fedora releases after they have link:https://fedoraproject.org/wiki/Releases/Branched[Branched] from link:https://fedoraproject.org/wiki/Releases/Rawhide[Rawhide]. It is represented for Yum or http://dnf.baseurl.org/[DNF] in the `fedora.repo` file in the repository path. For any Fedora installation, this repository will be enabled by default, and should usually remain so.
 
 [[the-fedora-repository-in-stable-releases]]
 === The _fedora_ repository in stable releases

@@ -33,7 +33,7 @@ include::{partialsdir}/ref_mapping-service-commands.adoc[leveloffset=+1]
 * http://0pointer.de/blog/projects/ - Lennart's blog has lots of information about systemd. Lennart is the primary systemd developer
 * http://www.freedesktop.org/wiki/Software/systemd/FrequentlyAskedQuestions
 * http://www.freedesktop.org/wiki/Software/systemd/TipsAndTricks
-* link:Features/systemd[ Features Fedora 15:systemd]
+* https://fedoraproject.org/wiki/Features/systemd[ Features Fedora 15:systemd]
 * http://fosdem.org/2011/interview/lennart-poettering.html[Interview with the developer]
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
