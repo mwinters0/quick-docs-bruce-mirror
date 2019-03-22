@@ -1,4 +1,4 @@
-[id='configuring-xorg-as-default-gnome-session']
+[id='proc-configuring-xorg-as-default-gnome-session']
 = Configuring Xorg as the default GNOME session
 
 To run GNOME in X11, click the gear icon on the Fedora log in screen and select *GNOME on Xorg*, or complete the following steps:
