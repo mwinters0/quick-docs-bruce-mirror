@@ -5,8 +5,6 @@ ifdef::context[:parent-context: {context}]
 
 include::{partialsdir}/3rdparty-message.adoc[]
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 link:https://www.spotify.com/[Spotify] is a cross-platform proprietary music streaming service.
 Spotify is a freemium service, with advertisements which can be removed by purchasing a subscription.
 Although Spotify is not officially supported on Fedora, it can be installed on Fedora in a number of ways:
