@@ -1,6 +1,7 @@
 ifdef::context[:parent-context: {context}]
 :context: securing-the-system-by-keeping-it-up-to-date
 :experimental:
+include::{partialsdir}/attributes.adoc[]
 
 [id='securing-the-system-by-keeping-it-up-to-date']
 = Securing the system by keeping it up-to-date
@@ -25,7 +26,7 @@ include::{partialsdir}/proc_setting-automatic-updates.adoc[leveloffset=+1]
 [discrete]
 == Additional Resources
 
-* The https://docs.fedoraproject.org/en-US/fedora/f29/system-administrators-guide/package-management/DNF/[DNF] chapter in the Fedora System Administrator's Guide
+* The xref:{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc[DNF] chapter in the Fedora System Administrator's Guide
 
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]

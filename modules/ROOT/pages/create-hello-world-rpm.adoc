@@ -137,7 +137,8 @@ The manual pages should be declared in the `%doc` subsection:
 This is an iterative process; after editing the `.spec` file, rerun `rpmbuild`.
 
 Since our program uses translations and internationalization, we are seeing a lot of undeclared i18 files.
-The link:https://docs.fedoraproject.org/en-US/packaging-guidelines/#_handling_locale_files[recommended method] to declare them is:
+
+The xref:packaging-guidelines:guidelines:index.adoc#_handling_locale_files[recommended method] to declare them is:
 
 * find the filenames in the `%install` step: `%find_lang %\{name}`
 * add the required build dependencies: `BuildRequires: gettext`
