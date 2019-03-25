@@ -3,6 +3,7 @@
 :FedoraVersionNumber: 29
 
 include::{partialsdir}/unreviewed-message.adoc[]
+include::{partialsdir}/attributes.adoc[]
 
 This page explains the various Fedora repositories that exist for
 different Fedora Releases, the relationship between them, and what
@@ -34,7 +35,7 @@ The _updates_ repository exists for Branched and stable releases, but is only po
 
 For stable releases, _updates_ together with _fedora_ represents the current _stable_ state of the release. Package builds that pass the https://fedoraproject.org/wiki/Updates_Policy[Updates Policy] move from the _updates-testing_ repository to this repository. This difference from Branched is a result of the need to maintain a precise representation of the initial, 'frozen' state of a stable release.
 
-The stable release _updates_ repositories for the various primary architectures can be found in the `/fedora/linux/updates/XX` directory on the mirrors (where XX is the release), and can also be queried from https://fedoraproject.org/wiki/MirrorManager[MirrorManager]. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=updates-released-f{FedoraVersionNumber}&arch=x86_64 will return mirrors for the x86_64 _updates_ repository for 27.
+The stable release _updates_ repositories for the various primary architectures can be found in the `/fedora/linux/updates/XX` directory on the mirrors (where XX is the release), and can also be queried from https://fedoraproject.org/wiki/MirrorManager[MirrorManager]. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=updates-released-f{FedoraVersionNumber}&arch=x86_64 will return mirrors for the x86_64 _updates_ repository for {FedoraVersionNumber}.
 
 [[the-updates-testing-repository]]
 === The _updates-testing_ repository

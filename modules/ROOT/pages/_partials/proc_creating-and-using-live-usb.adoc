@@ -66,16 +66,16 @@ Remember to identify your USB stick's device name first. In all cases, you can a
 
 To make an existing USB stick bootable as a Fedora image, without deleting any of the data on it, make sure that the USB drive is not mounted before executing the following, and give the root password when prompted:
 
-[option="nowrap"]
+[source,shell,subs="attributes"]
 ----
-# livecd-iso-to-disk Fedora-Workstation-Live-x86_64-28-1.1.iso /dev/sdX
+# livecd-iso-to-disk Fedora-Workstation-Live-x86_64-{MAJOROSVER}-1.1.iso /dev/sdX
 ----
 
 In case it is not possible to boot from a disk created with the method shown above, before re-partitioning and re-formatting, often resetting the master boot record will enable booting:
 
-[option="nowrap"]
+[source,shell,subs="attributes"]
 ----
-# livecd-iso-to-disk --reset-mbr Fedora-Workstation-Live-x86_64-28-1.1.iso /dev/sdX
+# livecd-iso-to-disk --reset-mbr Fedora-Workstation-Live-x86_64-{MAJOROSVER}-1.1.iso /dev/sdX
 ----
 ====
 
@@ -83,25 +83,25 @@ IMPORTANT: Using the `--format` option in the following command will erase all d
 
 If necessary, you can have `livecd-iso-to-disk` re-partition and re-format the target stick:
 
-[option="nowrap"]
+[source,shell,subs="attributes"]
 ----
-# livecd-iso-to-disk --format --reset-mbr Fedora-Workstation-Live-x86_64-28-1.1.iso /dev/sdX
+# livecd-iso-to-disk --format --reset-mbr Fedora-Workstation-Live-x86_64-{MAJOROSVER}-1.1.iso /dev/sdX
 ----
 
 To include a persistent filesystem for `/home`, use the `--home-size-mb` parameter. For example:
 
-[option="nowrap"]
+[source,shell,subs="attributes"]
 ----
-# livecd-iso-to-disk --home-size-mb 2048 Fedora-Workstation-Live-x86_64-28-1.1.iso /dev/sdX
+# livecd-iso-to-disk --home-size-mb 2048 Fedora-Workstation-Live-x86_64-{MAJOROSVER}-1.1.iso /dev/sdX
 ----
 
 This will create a 2 GiB filesystem that will be mounted as `/home` each time the stick is booted, allowing you to preserve data in `/home` across boots.
 
 To enable 'data persistence' support - so changes you make to the entire live environment will persist across boots - add the `--overlay-size-mb` parameter to add a persistent data storage area to the target stick. For example:
-[option="nowrap"]
 
+[source,shell,subs="attributes"]
 ----
-# livecd-iso-to-disk --overlay-size-mb 2048 Fedora-Workstation-Live-x86_64-28-1.1.iso /dev/sdX
+# livecd-iso-to-disk --overlay-size-mb 2048 Fedora-Workstation-Live-x86_64-{MAJOROSVER}-1.1.iso /dev/sdX
 ----
 
 Here, `_2048_` is the desired size (in megabytes) of the overlay. The `livecd-iso-to-disk` tool will not accept an overlay size value greater than _4095_ for VFAT, but for ext[234] filesystems it is only limited by the available space.
@@ -130,7 +130,7 @@ This method directly writes the image to the USB stick much like xref:creating-a
 . *Unmount all mounted partition from that device*. This is very important, otherwise the written image might get corrupted. You can umount all mounted partitions from the device with `umount /dev/sdX*`, where `_X_` is the appropriate letter, e.g. `umount /dev/sdc*`.
 . Write the ISO file to the device:
 +
-[options="nowrap"]
+[source,shell,subs="attributes"]
 ----
 # dd if=/path/to/image.iso of=/dev/sdX bs=8M status=progress oflag=direct
 ----
@@ -172,7 +172,7 @@ NOTE: If you do not see _sdX_ listed, you might have to reformat the drive. You 
 
 If you are already running a live CD, DVD, or USB and want to convert that into a bootable USB stick, run the following command:
 
-[option="nowrap"]
+[source,shell,subs="attributes"]
 ----
 # livecd-iso-to-disk /run/initramfs/livedev /dev/sdX"
 ----

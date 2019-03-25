@@ -1,7 +1,8 @@
 [id='sec-Using-AIDE']
 = Checking Integrity With *AIDE*
-
+:experimental:
 include::{partialsdir}/unreviewed-message.adoc[]
+include::{partialsdir}/attributes.adoc[]
 
 Advanced Intrusion Detection Environment (AIDE) is a utility that creates a database of files on the system, and then uses that database to ensure file integrity and detect system intrusions.
 
@@ -9,11 +10,13 @@ Advanced Intrusion Detection Environment (AIDE) is a utility that creates a data
 
 . To install the _aide_ package:
 +
+[source,shell,subs="attributes"]
 ----
 $ sudo dnf install aide
 ----
 . To generate an initial database:
 +
+[source,shell,subs="attributes"]
 ----
 $ sudo aide --init
 Start timestamp: 2018-07-11 12:35:47 +0200 (AIDE 0.16)
@@ -44,6 +47,7 @@ NOTE: In the default configuration, the *aide --init* command checks just a set 
 
 . To start using the database, remove the `.new` substring from the initial database file name:
 +
+[source,shell,subs="attributes"]
 ----
 $ sudo mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
 ----
@@ -55,6 +59,8 @@ IMPORTANT: To avoid SELinux denials after the AIDE database location change, upd
 == Performing Integrity Checks
 
 To initiate a manual check:
+
+[source,shell,subs="attributes"]
 ----
 $ sudo aide --check
 Start timestamp: 2018-07-11 12:41:20 +0200 (AIDE 0.16)
@@ -75,9 +81,11 @@ f++++++++++++++++: /etc/cups/subscriptions.conf.O
 [output truncated]
 ----
 
-At a minimum, *AIDE* should be configured to run a weekly scan. At most, *AIDE* should be run daily. For example, to schedule a daily execution of AIDE at _04:05_ a.m. using the *cron* command, see the link:https://docs.fedoraproject.org/f27/system-administrators-guide/monitoring-and-automation/Automating_System_Tasks.html[Automating System Tasks] chapter in the System Administration Guide.
+At a minimum, *AIDE* should be configured to run a weekly scan. At most, *AIDE* should be run daily. For example, to schedule a daily execution of AIDE at _04:05_ a.m. using the *cron* command, see the xref:{MAJOROSVER}@fedora:system-administrators-guide:monitoring-and-automation/Automating_System_Tasks.adoc[Automating System Tasks] chapter in the System Administrator's Guide.
 
 Add the following line to the `/etc/crontab` file:
+
+[source,shell,subs="attributes"]
 ----
  05 4 * * * root /usr/sbin/aide --check
 ----
@@ -85,6 +93,8 @@ Add the following line to the `/etc/crontab` file:
 == Updating an *AIDE* Database
 
 After verifying the changes of your system such as, package updates or configuration files adjustments, update your baseline *AIDE* database:
+
+[source,shell,subs="attributes"]
 ----
 $ sudo aide --update
 ----

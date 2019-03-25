@@ -1,5 +1,6 @@
 ifdef::context[:parent-context: {context}]
 :context: xorg
+include::{partialsdir}/attributes.adoc[]
 
 [id='configuring-xorg-as-default-gnome-session']
 = Configuring Xorg as the default GNOME session
@@ -14,7 +15,7 @@ include::{partialsdir}/proc_configuring-xorg-as-default-gnome-session.adoc[level
 
 [discrete]
 == Additional Resources
-. link:https://docs.fedoraproject.org/f27/system-administrators-guide/Wayland.html[Wayland Display Server in the System Administrator's Guide]
+. xref:{MAJOROSVER}@fedora:system-administrators-guide:Wayland.adoc[Wayland Display Server in the System Administrator's Guide]
 
 . link:https://wayland.freedesktop.org/[Wayland @ freedesktop.org]
 

@@ -13,6 +13,8 @@
 = Installing Fedora on a Raspberry Pi for Apple OS X users
 // Start the title of a procedure module with a verb, such as Creating or Create. See also _Wording of headings_ in _The IBM Style Guide_.
 
+include::{partialsdir}/attributes.adoc[]
+
 This procedure shows Apple OS X users how to add Fedora ARM to a microSD for use with a Raspberry Pi.
 
 ._Prerequisites_
@@ -32,8 +34,9 @@ This procedure shows Apple OS X users how to add Fedora ARM to a microSD for use
 +
 For example:
 +
+[source,shell,subs="attributes"]
 ----
-$ unar Fedora-Server-armhfp-28-1.1-sda.raw.xz
+$ unar Fedora-Server-armhfp-{MAJOROSVER}-1.1-sda.raw.xz
 ----
 
 . Follow the instructions provided by the Raspberry Pi foundation for writing an image to a microSD card from Apple OS X: link:https://www.raspberrypi.org/documentation/installation/installing-images/mac.md[Raspberry Pi Foundation: Installing operating system images on Mac OS].

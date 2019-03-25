@@ -13,6 +13,9 @@
 = Installing Fedora on a Raspberry Pi for Microsoft Windows users
 // Start the title of a procedure module with a verb, such as Creating or Create. See also _Wording of headings_ in _The IBM Style Guide_.
 
+:experimental:
+include::{partialsdir}/attributes.adoc[]
+
 This procedure shows Microsoft Windows users how to add Fedora ARM to a microSD for use with a Raspberry Pi.
 
 ._Prerequisites_
@@ -32,8 +35,9 @@ This procedure shows Microsoft Windows users how to add Fedora ARM to a microSD 
 +
 For example:
 +
+[source,shell,subs="attributes"]
 ----
-> "C:\Program Files\7-Zip\7z.exe" x -y "C:\Users\admin\Downloads\Fedora-Server-armhfp-28-1.1-sda.raw.xz"
+> "C:\Program Files\7-Zip\7z.exe" x -y "C:\Users\admin\Downloads\Fedora-Server-armhfp-{MAJOROSVER}-1.1-sda.raw.xz"
 ----
 
 . Follow the instructions provided by the Raspberry Pi foundation for writing an image to a microSD card from Microsoft Windows: link:https://www.raspberrypi.org/documentation/installation/installing-images/windows.md[Raspberry Pi Foundation: Installing operating system images using Windows].

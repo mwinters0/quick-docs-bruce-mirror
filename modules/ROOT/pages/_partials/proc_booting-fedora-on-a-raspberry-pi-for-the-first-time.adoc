@@ -11,6 +11,8 @@
 [id='booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}']
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
 = Booting Fedora on a Raspberry Pi for the first time
+
+include::{partialsdir}/attributes.adoc[]
 // Start the title of a procedure module with a verb, such as Creating or Create. See also _Wording of headings_ in _The IBM Style Guide_.
 
 Follow these steps to boot Fedora ARM on your Raspberry Pi. If your MicroSD card does not have enough room, you need to resize the main partition after the initial setup. See <<resizing-the-main-partition-of-the-microsd-card-after-setup_{context}>>.
@@ -59,7 +61,7 @@ $ xfs_growfs -d /
 
 ._Additional Resources_
 
-* For information on configuring Fedora, including installing programs and updates, see: link:https://docs.fedoraproject.org/f28/system-administrators-guide/[Fedora Docs: System Administrator’s Guide]
+* For information on configuring Fedora, including installing programs and updates, see: xref:{MAJOROSVER}@fedora:system-administrators-guide:index.adoc[Fedora Docs: System Administrator’s Guide]
 * For assistance or support, see:
 ** link:https://ask.fedoraproject.org/[Ask Fedora]
 ** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]

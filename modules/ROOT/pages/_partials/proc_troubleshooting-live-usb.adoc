@@ -6,7 +6,7 @@
 
 Partition isn't marked bootable:: If you get the message `Partition isn't marked bootable!`, you need to mark the partition bootable. To do this, run `parted /dev/sdX`, and use the `toggle N` boot command, where `_X_` is the appropriate letter, and `_N_` is the partition number. For example:
 +
-[option="nowrap"]
+[source,shell,subs="attributes"]
 ----
 $ parted /dev/sdb
 GNU Parted 1.8.6

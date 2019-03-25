@@ -1,5 +1,6 @@
 [id='downloading-fedora']
 = Downloading Fedora
+include::{partialsdir}/attributes.adoc[]
 
 You can download Fedora from https://getfedora.org/.
 
@@ -9,5 +10,5 @@ You can also take advantage of Fedora Labs. Fedora Labs is a selection of curate
 
 [NOTE]
 ====
-Please refer to https://docs.fedoraproject.org/en-US/fedora/f29/install-guide/[Fedora Installation Guide] for getting help on the process of installing Fedora.
+Please refer to xref:{MAJOROSVER}@fedora:install-guide:index.adoc[Fedora Installation Guide] for getting help on the process of installing Fedora.
 ====

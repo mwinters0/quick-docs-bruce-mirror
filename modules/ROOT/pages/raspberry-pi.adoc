@@ -15,10 +15,11 @@
 [id='fedora-on-raspberry-pi']
 // If the assembly is reused in other assemblies in a guide, include {context} in the ID: [id='a-collection-of-modules-{context}'].
 = Fedora on Raspberry Pi
+:experimental:
 //If the assembly covers a task, start the title with a verb in the gerund form, such as Creating or Configuring.
 :context: rpi
 // The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
-
+include::{partialsdir}/attributes.adoc[]
 include::{partialsdir}/unreviewed-message.adoc[]
 
 The link:https://www.raspberrypi.org[Raspberry Pi] is a credit card-sized ARM based single board computer (SBC).
@@ -66,7 +67,7 @@ include::{partialsdir}/ref_frequently-asked-questions_-installing-fedora-on-a-ra
 
 * The most up-to-date information can be found on the link:https://fedoraproject.org/wiki/Architectures/ARM/Raspberry_Pi?rd=Raspberry_Pi[Raspberry Pi page] of the Fedora Wiki.
 * For Raspberry Pi hardware specifications and project ideas, see: link:https://www.raspberrypi.org/[The Raspberry Pi Foundation Website].
-* For information on configuring Fedora, including installing programs and updates, see: link:https://docs.fedoraproject.org/f28/system-administrators-guide/[Fedora Docs: System Administrator’s Guide]
+* For information on configuring Fedora, including installing programs and updates, see: xref:{MAJOROSVER}@fedora:system-administrators-guide:index.adoc[Fedora Docs: System Administrator’s Guide]
 * For assistance or support, see:
 ** link:https://ask.fedoraproject.org/[Ask Fedora]
 ** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]

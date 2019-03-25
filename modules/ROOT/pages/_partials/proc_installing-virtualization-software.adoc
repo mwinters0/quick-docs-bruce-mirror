@@ -1,12 +1,14 @@
 [[installing-virtualization-software]]
 = Installing virtualization software
+include::{partialsdir}/attributes.adoc[]
+:experimental:
 
 When installing Fedora, you can install the virtualization packages by
-selecting *Virtualization* in the *Base Group* in the installer. See https://docs.fedoraproject.org/f27/install-guide/install/Installing_Using_Anaconda.html[Installing Using Anaconda].
-
+selecting *Virtualization* in the *Base Group* in the installer. See xref:{MAJOROSVER}@fedora:install-guide:install/Installing_Using_Anaconda.adoc[Installing Using Anaconda].
 
 For existing Fedora installations, you can install the virtualization tools via the command line using the Virtualization Package Group. To view the packages, run:
 
+[source,shell,subs="attributes"]
 ----
 $ dnf groupinfo virtualization
 
@@ -33,30 +35,35 @@ Optional Packages:
 
 . Run the following command to install the mandatory and default packages in the virtualization group:
 +
+[source,shell,subs="attributes"]
 ----
 # dnf install @virtualization
 ----
 +
 Alternatively, to install the mandatory, default, and optional packages, run:
 +
+[source,shell,subs="attributes"]
 ----
 # dnf group install --with-optional virtualization
 ----
 +
 . After the packages install, start the `libvirtd` service:
 +
+[source,shell,subs="attributes"]
 ----
 # systemctl start libvirtd
 ----
 +
 To start the service on boot, run:
 +
+[source,shell,subs="attributes"]
 ----
 # systemctl enable libvirtd
 ----
 +
 . To verify that the KVM kernel modules are properly loaded:
 +
+[source,shell,subs="attributes"]
 ----
 $ lsmod | grep kvm
 kvm_amd                55563  0
@@ -72,4 +79,3 @@ If this command lists `kvm_intel` or `kvm_amd`, KVM is properly configured.
 By default, libvirt will create a private network for your guests on the host machine. This private network will use a 192.168.x.x subnet and not be reachable directly from the network the host machine is on. However, virtual guests can use the host machine as a gateway and can connect out via it. If you need to provide services on your guests that are reachable via other machines on your host network you can use iptables DNAT rules to forward in specific ports, or you can set up a bridged environment.
 
 See the http://wiki.libvirt.org/page/Networking[libvirt networking setup page] for more information on how to setup a bridged network.
-
