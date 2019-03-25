@@ -61,7 +61,7 @@ include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-for-apple-osx-us
 
 include::{partialsdir}/proc_booting-fedora-on-a-raspberry-pi-for-the-first-time.adoc[leveloffset=+1]
 
-include::{partialsdir}/ref_frequently-asked-questions_-installing-fedora-on-a-raspberry-pi.adoc[leveloffset=0]
+include::{partialsdir}/ref_frequently-asked-questions_-installing-fedora-on-a-raspberry-pi.adoc[leveloffset=+1]
 
 == Additional Resources
 
