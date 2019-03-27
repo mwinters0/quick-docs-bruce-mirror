@@ -7,12 +7,12 @@ To install Oracle Java SE:
 
 . Choose the version of Java you wish to use. Typically, you would navigate to the link:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[version 8 page].
 
-. Accept the license agreement and download the appropriate rpm file for your systems architecture. For example, if you run 64-bit Fedora, choose the `jdk-8u151-linux-x64.rpm` file.
+. Accept the license agreement and download the appropriate tar.gz file for your systems architecture. Do NOT use Oracle rpms as these are NOT compatible with fedora/openjdk packages. Download tar.gz instead and unpack it somewhere.
 
-. Enter the following command to install Oracle Java SE: 
+. Use tar to unpack downloaded archive e.g.:
 +
 ----
-# dnf install jdk-8u151-linux-x64.rpm
+# tar -xvzf jdk-8u201-linux-x64.tar.gz
 ----
 
-include::proc_installing-openjdk.adoc[tags=java-alternatives]
+Note that jdk-8u201-linux-x64.tar.gz is used as example only. Always make sure to download latest version available.
