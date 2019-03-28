@@ -15,7 +15,7 @@ include::{partialsdir}/proc_configuring-xorg-as-default-gnome-session.adoc[level
 
 [discrete]
 == Additional Resources
-. xref:{MAJOROSVER}@fedora:system-administrators-guide:Wayland.adoc[Wayland Display Server in the System Administrator's Guide]
+. xref:f{MAJOROSVER}@fedora:system-administrators-guide:Wayland.adoc[Wayland Display Server in the System Administrator's Guide]
 
 . link:https://wayland.freedesktop.org/[Wayland @ freedesktop.org]
 

@@ -10,7 +10,7 @@ The installation of Fedora guests using Anaconda is supported. The installation 
 
 `virt-install` is a command-line based tool for creating virtualized guests. Execute `virt-install --help` for command line help, or you can find the manual page at `man 1 virt-install`.
 
-To use the virt-install command, you should first download an ISO of the Fedora version you wish to install.  You can find the latest Fedora images at https://getfedora.org.  This ISO is only needed during Fedora installation, and can be deleted to free up storage space afterwards if desired.  More information about Fedora installation can be found in the xref:{MAJOROSVER}@fedora:install-guide:index.adoc[Installation Guide]. In this example we'll use Fedora Workstation.
+To use the virt-install command, you should first download an ISO of the Fedora version you wish to install.  You can find the latest Fedora images at https://getfedora.org.  This ISO is only needed during Fedora installation, and can be deleted to free up storage space afterwards if desired.  More information about Fedora installation can be found in the xref:f{MAJOROSVER}@fedora:install-guide:index.adoc[Installation Guide]. In this example we'll use Fedora Workstation.
 
 === Planning VM Resources
 Adjust the ram, vcpus, and disk size parameters according to the resources you have available.
@@ -34,7 +34,7 @@ Adjust the ram, vcpus, and disk size parameters according to the resources you h
 # lscpu
 ----
 
-When allocating resources to your VM, keep in mind the minimum system requirements for the version of Fedora you are installing as well as your use case requirements. For Fedora {MAJOROSVER}, you can find this in the xref:{MAJOROSVER}@fedora:release-notes:welcome/Hardware_Overview.adoc[Release Notes].
+When allocating resources to your VM, keep in mind the minimum system requirements for the version of Fedora you are installing as well as your use case requirements. For Fedora {MAJOROSVER}, you can find this in the xref:f{MAJOROSVER}@fedora:release-notes:welcome/Hardware_Overview.adoc[Release Notes].
 
 ==== Create Storage for the VM
 

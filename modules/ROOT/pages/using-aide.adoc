@@ -81,7 +81,7 @@ f++++++++++++++++: /etc/cups/subscriptions.conf.O
 [output truncated]
 ----
 
-At a minimum, *AIDE* should be configured to run a weekly scan. At most, *AIDE* should be run daily. For example, to schedule a daily execution of AIDE at _04:05_ a.m. using the *cron* command, see the xref:{MAJOROSVER}@fedora:system-administrators-guide:monitoring-and-automation/Automating_System_Tasks.adoc[Automating System Tasks] chapter in the System Administrator's Guide.
+At a minimum, *AIDE* should be configured to run a weekly scan. At most, *AIDE* should be run daily. For example, to schedule a daily execution of AIDE at _04:05_ a.m. using the *cron* command, see the xref:f{MAJOROSVER}@fedora:system-administrators-guide:monitoring-and-automation/Automating_System_Tasks.adoc[Automating System Tasks] chapter in the System Administrator's Guide.
 
 Add the following line to the `/etc/crontab` file:
 

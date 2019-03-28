@@ -26,7 +26,7 @@ include::{partialsdir}/proc_setting-automatic-updates.adoc[leveloffset=+1]
 [discrete]
 == Additional Resources
 
-* The xref:{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc[DNF] chapter in the Fedora System Administrator's Guide
+* The xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc[DNF] chapter in the Fedora System Administrator's Guide
 
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]

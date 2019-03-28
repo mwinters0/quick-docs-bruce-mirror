@@ -4,7 +4,7 @@ include::{partialsdir}/attributes.adoc[]
 :experimental:
 
 When installing Fedora, you can install the virtualization packages by
-selecting *Virtualization* in the *Base Group* in the installer. See xref:{MAJOROSVER}@fedora:install-guide:install/Installing_Using_Anaconda.adoc[Installing Using Anaconda].
+selecting *Virtualization* in the *Base Group* in the installer. See xref:f{MAJOROSVER}@fedora:install-guide:install/Installing_Using_Anaconda.adoc[Installing Using Anaconda].
 
 For existing Fedora installations, you can install the virtualization tools via the command line using the Virtualization Package Group. To view the packages, run:
 

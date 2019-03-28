@@ -67,7 +67,7 @@ include::{partialsdir}/ref_frequently-asked-questions_-installing-fedora-on-a-ra
 
 * The most up-to-date information can be found on the link:https://fedoraproject.org/wiki/Architectures/ARM/Raspberry_Pi?rd=Raspberry_Pi[Raspberry Pi page] of the Fedora Wiki.
 * For Raspberry Pi hardware specifications and project ideas, see: link:https://www.raspberrypi.org/[The Raspberry Pi Foundation Website].
-* For information on configuring Fedora, including installing programs and updates, see: xref:{MAJOROSVER}@fedora:system-administrators-guide:index.adoc[Fedora Docs: System Administrator’s Guide]
+* For information on configuring Fedora, including installing programs and updates, see: xref:f{MAJOROSVER}@fedora:system-administrators-guide:index.adoc[Fedora Docs: System Administrator’s Guide]
 * For assistance or support, see:
 ** link:https://ask.fedoraproject.org/[Ask Fedora]
 ** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
