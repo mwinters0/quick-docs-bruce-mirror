@@ -1,22 +1,22 @@
 [id='using-the-command-line-to-view-log-files]
-=== Using the command line to view log files
+= Using the command line to view log files
 
 You can use the command line to view logs in different ways, for example:
 
-* Using the *journalctl* command
-* Using the commands for viewing, for example *cat*, *more*, *less*, *tail*, or *head*
-* Combine the commands for viewing with the *grep* command
-* Using a text editor, for example, `nano` or `vim`
+* Using the `*Journalctl*` command
+* Using the commands for viewing, for example `*cat*`, `*more*`, `*less*`, `*tail*`, or `*head*`
+* Combine the commands for viewing with the `*grep*` command
+* Using any kind of CLI/GUI editor.
 
 [id='using-journalctl-to-view-system-information']
-==== Using journalctl to view  system information.
+== Using journalctl to view system information.
 
 * To view all collected logs with no filter:
 ----
 $ journalctl
 ----
 
-* To view a specific log file, enter the *journalctl* command with a log filepath. The example command returns all logs of the kernel device node `/dev/sda`:
+* To view a specific log file, enter the `*journalctl*` command with a log filepath. The example command returns all logs of the kernel device node `/dev/sda`:
 ----
 $ journalctl /dev/sda
 ----
@@ -26,20 +26,72 @@ $ journalctl /dev/sda
 $ journalctl -k -b -1
 ----
 
-* For more information on *journalctl*, read the man page:
+[id='using-journalctl-to-view-log-information-for-a-specific-service']
+== Using Journalctl to View Log Information for a Specific Service
+
+* To view the current Boot log use the `-b` option :
+
+* To view, With one match specified, all entries with a field matching the expression are shown:
+----
+$ journalctl -b _SYSTEMD_UNIT=foo
+----
+
+* To view, If two different fields are matched, only entries matching both expressions at the same time are shown:
+----
+$ journalctl -b _SYSTEMD_UNIT=foo _PID=number
+----
+
+* To view If two matches refer to the same field, all entries matching either expression are shown:
+----
+$ journalctl -b _SYSTEMD_UNIT=foo _SYSTEMD_UNIT=foo1
+----
+
+* To view, If the separator "+" is used, two expressions may be combined in a logical OR. The following will show all messages from the `*foo*` service process with the `*PID*` plus all messages from the `*foo1*` service (from any of its processes):
+----
+$ journalctl -b _SYSTEMD_UNIT=foo _PID=number + _SYSTEMD_UNIT=foo1
+----
+
+NOTE: The files for service modification are stored in a directory within `*/etc/systemd/system*`, to know more about systemd <<understanding-and-administering-systemd.adoc#,Understanding Systemd Services>>
+
+[id='Using-journalctl-to-view-older-logs']
+== Using Journalctl to View Older Logs 
+
+* To view older logs use the `--list-boots` option :
+
+Show a tabular list of boot numbers, their IDs, and the timestamps of the first and last message pertaining to the boot.
+
+Example :
+
+----
+$ journalctl --list-boots
+-8 42cdeac65d494e938b9cb92f315b08a4 Mon 2018-11-12 10:36:42 CET—Mon 2018-11-12 20:08:24 CET
+-7 c110d2b8705345b786fe310de628bfc7 Tue 2018-11-13 10:29:27 CET—Tue 2018-11-13 10:04:00 CET
+----
+
+with this ID you can use `*journalctl*` as usual :
+
+----
+$ journalctl --boot=ID _SYSTEMD_UNIT=foo
+----
+
+* To know more about `*journalctl*`, read the man page:
 ----
 $ man journalctl
 ----
 
-[id='using-the-command-line-to-open-log-files-in-text-editor']
-==== Using the command line to open log files in a text editor
+[id='using-any-kind-CLI/GUI-editor-for-view-logs']
+== Using any kind of CLI/GUI editor for View-Logs
 
-All log files are in plain text. To open a log file in a text editor, enter the following command:
-----
-$ nano <logfilename>
-----
+All logs are plain text, so you can use diferent utils to view them.
 
-If the root permissions are required:
-----
-$ sudo nano <logfilename>
-----
+[id='using-CLI-editor-in-Terminal']
+=== Using any CLI editor in Terminal
+
+* To open, Just use (nano/pico/vim/nvim/emacs) for name a few.
+
+[id='using-GUI-editor-in-terminal']                                    
+=== Using any GUI editor in Terminal
+
+* To open, Just use (gvim/gedit/geany) for name a few.
+
+NOTE: Both method usually requires `*sudo*` access.
