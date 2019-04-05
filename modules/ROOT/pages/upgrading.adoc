@@ -13,6 +13,13 @@ Notes] carefully before attempting an upgrade.
 
 [[sect-upgrading-to-the-next-fedora-workstation-release]]
 == Upgrading to the next Fedora Workstation release
+[NOTE]
+====
+
+This is the recommended upgrade method for the Fedora Workstation.
+
+====
+
 
 As of Fedora Workstation 23, when the next stable release is available a graphical notification will appear similar to the update notifications.
 Clicking this, or running the _Software_ application and going to the _Updates_ pane, will display a simple graphical interface for upgrading the system.
@@ -23,14 +30,36 @@ image:Upgradef24f25-gs.png[Upgradef24f25-gs.png,title="Upgradef24f25-gs.png",wid
 
 [[sect-upgrading-using-the-dnf-system-upgrade-plugin]]
 == Upgrading using the DNF System Upgrade plugin
+[NOTE]
+====
+
+This is the recommended upgrade method for all other Fedora installations.
+
+====
 
 This method is used to a upgrade Fedora installation using the command-line.
 It is also used to troubleshoot issues with packages preventing the graphical method from upgrading.
 
 For instructions on upgrading with the DNF system upgrade plugin, refer to the xref:dnf-system-upgrade.adoc[DNF System Upgrade Quick Doc].
 
+[[sect-online-rebases-for-fedora-atomic-host-via-rpm-ostree]]
+== Online rebases for Fedora Atomic Host via rpm-ostree
+[NOTE]
+====
+
+This is the recommended upgrade method for link:++https://getfedora.org/en/cloud/download/atomic.html++[Fedora Atomic Host] installations.
+
+====
+For instructions on upgrading Fedora Atomic Host installations between Fedora releases, refer to the link:++https://fedoraproject.org/wiki/Atomic_Host_upgrade++[dedicated page].
+
 [[sect-can-i-upgrade-between-fedora-releases-using-only-dnf]]
 == Can I upgrade between Fedora releases using only DNF?
+[WARNING]
+====
+
+This is not a supported upgrade method.
+
+====
 
 Upgrading between Fedora releases without the xref:dnf-system-upgrade.adoc[DNF System Upgrade Plugin] or Gnome Software are not tested by the Fedora QA team, and are therefore not supported by the community.
 
@@ -54,8 +83,23 @@ See the link:++https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle++[Fedora
 Upgrading to a Branched release or to Rawhide can be done with the xref:dnf-system-upgrade.adoc[DNF System Upgrade Plugin].
 Carefully read this page as there are some special notes to ensure a successful upgrade.
 
-[[sect-can-i-upgrade-using-the-fedora-installer-anaconda]]
-== Can I upgrade using the Fedora installer (anaconda)?
+[[sect-upgrading-from-end-of-life-releases]]
+== Can I upgrade from an End Of Life (EOL) release?
+
+Fedora strongly discourages running an end-of-life release on any production system, or any system connected to the public internet.
+You should never allow a production Fedora deployment to reach end-of-life in the first place.
+
+With that in mind, if you do have an end-of-life release installed on a system you cannot just discard or re-deploy, you can attempt to upgrade it, though this is not officially tested or supported.
+
+If you have Fedora 21 or later, you can try to upgrade using the instructions at the xref:dnf-system-upgrade.adoc[DNF System Upgrade Quick Doc].
+
+If you have Fedora 20 or earlier, you will have to perform at least part of the upgrade with bare `yum`.
+You can either use that method to upgrade to Fedora 21 or later and then use DNF system upgrade to upgrade from there to a currently-supported release, or just use bare `dnf` or `yum` for the entire upgrade process.
+
+Note that when upgrading from Fedora 20 or earlier, you are both upgrading from an end-of-life release and using a not-officially-recommended upgrade mechanism; such upgrades are very much performed 'at your own risk' and may well require various kinds of manual intervention to run and clean up the upgraded system, if they work at all.
+
+[[sect-upgrading-using-the-fedora-installer-anaconda]]
+=== Upgrading using the Fedora installer (anaconda)?
 
 Fedora releases up to Fedora 17 included upgrade functionality in the Fedora installer, anaconda.
 This can be a better choice than a package manager upgrade for some End Of Life (EOL) upgrades.
@@ -71,8 +115,3 @@ If your installation is located on a 'specialized' storage device, be sure to co
 
 ====
 
-[[sect-upgrading-from-end-of-life-releases]]
-== Can I upgrade from an End Of Life (EOL) release?
-
-Fedora strongly discourages running an end-of-life release on any production system, or any system connected to the public internet.
-For more information, see the xref:dnf-system-upgrade.adoc[DNF System Upgrade Quick Doc].
