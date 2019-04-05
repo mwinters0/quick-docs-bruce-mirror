@@ -1,8 +1,6 @@
 [[ch-Upgrading]]
 = Upgrading to a new release of Fedora
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 [IMPORTANT]
 ====
 
@@ -26,7 +24,7 @@ image:Upgradef24f25-gs.png[Upgradef24f25-gs.png,title="Upgradef24f25-gs.png",wid
 [[sect-upgrading-using-the-dnf-system-upgrade-plugin]]
 == Upgrading using the DNF System Upgrade plugin
 
-This method is used to upgrade Fedora Workstation from the command-line.
+This method is used to a upgrade Fedora installation using the command-line.
 It is also used to troubleshoot issues with packages preventing the graphical method from upgrading.
 
 For instructions on upgrading with the DNF system upgrade plugin, refer to the xref:dnf-system-upgrade.adoc[DNF System Upgrade Quick Doc].
@@ -34,8 +32,7 @@ For instructions on upgrading with the DNF system upgrade plugin, refer to the x
 [[sect-can-i-upgrade-between-fedora-releases-using-only-dnf]]
 == Can I upgrade between Fedora releases using only DNF?
 
-Upgrading between Fedora releases without the xref:dnf-system-upgrade.adoc[DNF System Upgrade Plugin] is not tested by the Fedora QA team.
-Any issues using this method are not considered blockers for a release but in practice works for many users.
+Upgrading between Fedora releases without the xref:dnf-system-upgrade.adoc[DNF System Upgrade Plugin] or Gnome Software are not tested by the Fedora QA team, and are therefore not supported by the community.
 
 [[sect-can-i-update-from-a-pre-release-alpha-beta-or-other-development-snapshot-to-the-final-release]]
 == Can I update from a pre-release (Alpha, Beta, or other development snapshot) to the final release?
