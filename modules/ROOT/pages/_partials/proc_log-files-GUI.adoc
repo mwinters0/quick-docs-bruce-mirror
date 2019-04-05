@@ -1,25 +1,27 @@
 [id='using-gnome-logs-to-view-log-files']
 = Using Gnome Logs to view log files
 
-To view log files in GUI, use the `GNOME Logs` application. `GNOME Logs` is not installed by default. 
-   
-* Install Via GUI :
+The `GNOME Logs` application provides a convenient GUI tool to view the systemd journal.
+`GNOME Logs` is not currently installed by default on Fedora systems.
 
-** Press the `Super` key 
+* You can install `Gnome Logs` using the default software installation application on your system.
+  On a Fedora Workstation install running the GNOME desktop:
+
+** Press the `Super` key
 ** Type `Software`
-** In the `Search` field type `Logs` and choose the `GNOME Logs` item from the list of results 
+** In the `Search` field type `Logs` and choose the `GNOME Logs` item from the list of results
 ** Install the application
 
-* Install Via Command Line :
+* You can also install `GNOME Logs` using the command line with `dnf`:
 
 ----
-$ sudo dnf install gnome-Logs
+$ sudo dnf install gnome-logs
 ----
 
 In `GNOME Logs`, you can filter for time periods, search within logs, and display categories.
 
 * To select a log file type, from the side bar of GNOME Logs, select the type to view.
-* To select a time period, from the menu bar, click `*Logs*`, and select a time period.
+* To select a time period, from the menu bar, click `Log`, and select a time period.
 * To search within logs, select a log file from the results pane.
 . Click the search icon.
 . Enter one or more search criterion in the search field.
