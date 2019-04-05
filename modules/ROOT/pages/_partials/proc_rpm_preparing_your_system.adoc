@@ -23,12 +23,8 @@ NOTE: You must run the following two commands as the root user.
 # usermod -a -G mock yourusername
 -----------
 +
-. Change from the *root* user to your user name and enter the `newgrp` command or log in and out for this change to take effect:
-+
--------------
-$ newgrp
-------------- 
-+
+. Log out and back in for this change to take effect.
+
 . Run the `id` command to verify that the *mock* group appears in your group list:
 +
 ----------------
