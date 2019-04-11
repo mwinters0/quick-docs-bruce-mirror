@@ -58,7 +58,7 @@
 * xref:kernel/overview.adoc[Kernel]
 ** xref:kernel/troubleshooting.adoc[Troubleshooting]
 ** xref:kernel/build-custom-kernel.adoc[Building a Custom Kernel]
-** xref:kernel/howto-regression-test.adoc[How to do a kernel regression test]
+** xref:kernel/howto-kernel-testday.adoc[Guide for Kernel Test Days]
 
 
 * Virtualization

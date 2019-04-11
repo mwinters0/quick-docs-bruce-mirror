@@ -1,12 +1,12 @@
-Kernel Regression Test
-======================
+Kernel Test Days
+================
 Author Name <giardia@fedoraproject.org>
 2019-04-08
-:description: This is a quick guide documenting steps for Kernel Test Days.
+:description: A quick guide for Kernel Test Days.
 :toc:
 :compat-mode!:
 
-Especially during *Kernel Test Days*, a Kernel Regression Test will help to detect and troubleshoot any issue with a new kernel version, before wider usage. It consist in running a series of tests provided by the https://pagure.io/kernel-tests[Kernel Test Suite]
+During *Kernel Test Days*, contributors are asked to run a Kernel Regression Test which will help to detect and troubleshoot any issue with a new kernel version, before wider usage. It consist in running a series of tests provided by the https://pagure.io/kernel-tests[Kernel Test Suite]
 
 The main goal of a Kernel Test Day is to test a new kernel on many different machines as possible.
 
@@ -23,7 +23,7 @@ You can then boot the live image and run the tests without worries of messing up
 
 You can also install the new kernel on a Virtual Machine running an up to date Fedora release and do the test in the VM. In this case you can just add https://copr.fedorainfracloud.org/coprs/jforbes/kernel-stabilization/[this] *Copr repository* on the Fedora distro running in your VM.
 
-Once you added the rep:
+Once you added the repository:
  
   sudo dnf upgrade && sudo dnf install kernel-5.0.0-200.fc29.x86_64
 
