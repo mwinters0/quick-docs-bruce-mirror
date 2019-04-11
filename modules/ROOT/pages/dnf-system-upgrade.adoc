@@ -1,6 +1,9 @@
 [[chap-dnf-system-upgrade]]
 = DNF System Upgrade
 
+:experimental:
+include::{partialsdir}/attributes.adoc[]
+
 include::{partialsdir}/unreviewed-message.adoc[]
 
 link:++https://github.com/rpm-software-management/dnf-plugin-system-upgrade++[`dnf-plugin-system-upgrade`] is a plugin for the xref:dnf.adoc[DNF] package manager and is used to upgrade your system to the current release of Fedora.
@@ -28,11 +31,8 @@ As a precaution, download the link:++https://getfedora.org/en/workstation/downlo
 . To update your Fedora release from the command-line do:
 +
 [source,bash]
-
 ----
-
 sudo dnf upgrade --refresh
-
 ----
 +
 and reboot your computer.
@@ -40,31 +40,46 @@ and reboot your computer.
 . Install the dnf-plugin-system-upgrade package if it is not currently installed:
 +
 [source,bash]
-
 ----
-
 sudo dnf install dnf-plugin-system-upgrade
-
 ----
 
-. Download the updated packages (replace N with the release version):
+. Download the updated packages:
++
+[source,bash,subs="attributes"]
+----
+sudo dnf system-upgrade download --refresh --releasever={MAJOROSVER} --setopt='module_platform_id=platform:f{MAJOROSVER}'
+----
++
+Change the `--releasever=` number if you want to upgrade to a different release.
+Most people will want to upgrade to the latest stable release, which is `{MAJOROSVER}`, but in some cases, such as when you're currently running Fedora `27`, you may want to upgrade just to Fedora `28`.
+You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki/Releases/Branched[Branched] release, or `rawhide` to upgrade to link:https://fedoraproject.org/wiki/Releases/Rawhide[Rawhide]. Note that neither of these two are stable releases.
++
+The above also applies to the `module_platform_id=` value.
++
+If you are upgrading to Rawhide, you will need to import the RPM GPG key for it.
+This will be the highest numbered key version in `/etc/pki/rpm-gpg/`.
+For example, if there is a Branched release that is `30`, then you should look for a `31`, and if there is currently no Branched release, it will be `30`:
 +
 [source,bash]
-
+----
+sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-31-primary
 ----
 
-sudo dnf system-upgrade download --refresh --releasever=N
-
-----
+. If some of your packages have unsatisfied dependencies, the upgrade will refuse to continue until you run it again with an extra `--allowerasing` option.
+This often happens with packages installed from third-party repositories for which an updated repositories hasn't been yet published.
+Study the output very carefully and examine which packages are going to be removed.
+None of them should be essential for system functionality, but some of them might be important for your productivity.
++
+* In case of unsatisfied dependencies, you can sometimes see more details if you add `--best` option to the command line.
+* If you want to remove/install some packages manually before running `dnf system-upgrade download` again, it is advisable to perform those operations with `--setopt=keepcache=1` dnf command line option.
+Otherwise the whole package cache will be removed after your operation, and you will need to download all the packages once again.
 
 . Trigger the upgrade process. This will restart your machine into the upgrade process:
 +
 [source,bash]
-
 ----
-
 sudo dnf system-upgrade reboot
-
 ----
 
 . Once the upgrade process to complete, your system will reboot into the updated release version of Fedora.
@@ -75,11 +90,8 @@ sudo dnf system-upgrade reboot
 These are some of the tasks you can do after a successful upgrade.
 
 [NOTE]
-
 ====
-
 This section is mainly intended for power users. If you are a general user who doesn't use the terminal daily, you may skip this section.
-
 ====
 
 [[sect-update-system-configuration-files]]
@@ -90,21 +102,15 @@ If you have changed the package's configuration files, RPM creates new files wit
 You can search for these files, or use the `rpmconf` tool that simplifies this process. To install rpmconf, enter:
 
 [source,bash]
-
 ----
-
 dnf install rpmconf
-
 ----
 
 Once the install is complete enter:
 
 [source,bash]
-
 ----
-
 sudo rpmconf -a
-
 ----
 
 For more information you can refer to the man pages (`man rpmconf`).
@@ -115,11 +121,8 @@ For more information you can refer to the man pages (`man rpmconf`).
 You can see a list of packages with broken dependencies by typing:
 
 [source,bash]
-
 ----
-
 sudo dnf repoquery --unsatisfied
-
 ----
 
 The list should be empty, but if this is not the case consider removing them as they are not likely to work.
@@ -127,11 +130,8 @@ The list should be empty, but if this is not the case consider removing them as 
 You can see duplicate packages (packages with multiple versions installed) with:
 
 [source,bash]
-
 ----
-
 sudo dnf repoquery --duplicated
-
 ----
 
 For packages from the official repositories, the latest version should be installed.
@@ -139,62 +139,44 @@ However, some packages that are still on your system may no longer be in the rep
 To see a list of these packages do:
 
 [source,bash]
-
 ----
-
 sudo dnf list extras
-
 ----
 
 If you see a package you do not need, or use, you can remove it with:
 
 [source,bash]
-
 ----
-
 sudo dnf remove $(dnf repoquery --extras --exclude=kernel,kernel-\*)
-
 ----
 
 [NOTE]
-
 ====
-
 Run `sudo dnf update` first, as this list is only valid if you have a fully updated system.
 Otherwise, you will see a list of installed packages that are no longer in the repositories because an update is available.
 This list may also contain packages installed from third-party repositories who may not have updated their repositories.
-
 ====
 
 You can safely remove packages no longer in use with:
 
 [source,bash]
-
 ----
-
 sudo dnf autoremove
-
 ----
 
 [WARNING]
-
 ====
-
 DNF decides that a package is no longer needed if you haven't explicitly asked to install it and nothing else requires it.
 However, that doesn't mean that the package is not useful or that you don't use it.
 *Only remove what you are sure you don't need*.
-
 ====
 
 [[sect-resolving-post-upgrade-issues]]
 == Resolving Post-Upgrade Issues
 
 [NOTE]
-
 ====
-
 Only follow these steps if you encounter problems with your upgraded system.
-
 ====
 
 [[sect-rebuilding-rpm-database]]
@@ -205,11 +187,8 @@ It is possible to rebuild it to see if resolves your issues. Always back up `/va
 To rebuild the database, run:
 
 [source,bash]
-
 ----
-
 sudo rpm --rebuilddb
-
 ----
 
 [[sect-using-distro-sync-to-resolve-dependency-issues]]
@@ -220,22 +199,16 @@ If your system is partly upgraded or you see some package dependency issues, try
 This will attempt to make your installed packages the same version in your currently enabled repositories, even if it must downgrade some packages:
 
 [source,bash]
-
 ----
-
 sudo dnf distro-sync
-
 ----
 
 You can also use the `--allowerasing` option will remove packages with dependencies that can not be satisfied.
 Always review which packages will be removed before confirming this:
 
 [source,bash]
-
 ----
-
 sudo dnf distro-sync --allowerasing
-
 ----
 
 [[sect-relabel-files-with-the-latest-selinux-policy]]
@@ -246,11 +219,8 @@ This may happen if SELinux was disabled at some point in the past.
 To relabel the entire system run:
 
 [source,bash]
-
 ----
-
 sudo touch /.autorelabel
-
 ----
 
 and reboot.
@@ -313,11 +283,8 @@ Upgrades across more than two releases are *not supported*, and issues encounter
 When upgrading across multiple releases, you may need to import the GPG key for the release you want to update to. You can do this with:
 
 [source,bash]
-
 ----
-
 gpg --quiet --with-fingerprint /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-N-primary
-
 ----
 
 (where N is the Fedora version.)
