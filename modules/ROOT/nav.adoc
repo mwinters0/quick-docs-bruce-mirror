@@ -51,9 +51,32 @@
 * xref:upgrading.adoc[Upgrading to a new release]
 ** xref:dnf-system-upgrade.adoc[Upgrading Fedora using the DNF system upgrade]
 
-
-
-
+* xref:using-aide.adoc[Checking integrity with AIDE]
+* xref:anaconda/anaconda.adoc[Anaconda]
+** xref:anaconda/anaconda_distros.adoc[Anaconda-based Distributions]
+** xref:anaconda/anaconda_updates.adoc[Anaconda Updates]
+** xref:anaconda/anaconda_logging.adoc[Anaconda Logging]
+** xref:anaconda/anaconda_product_image.adoc[Anaconda Product Image]
+* xref:getting-started-with-apache-http-server.adoc[Getting started with Apache HTTP Server]
+* xref:finding-and-installing-linux-applications.adoc[Finding and installing Linux applications]
+* xref:installing-chromium-or-google-chrome-browsers.adoc[Installing Chromium or Google Chrome browsers]
+* xref:switching-desktop-environments.adoc[Switching desktop environments]
+* xref:fedora-and-red-hat-enterprise-linux.adoc[Difference between Fedora and Red Hat Enterprise Linux]
+* xref:dnf.adoc[Using the DNF software package manager]
+* xref:dnf-system-upgrade.adoc[Upgrading Fedora using the DNF system upgrade]
+* xref:securing-the-system-by-keeping-it-up-to-date.adoc[Securing the system by keeping it up-to-date]
+* xref:upgrading.adoc[Upgrading to a new release of Fedora]
+* xref:firewalld.adoc[Controlling network traffic with firewalld]
+* xref:iptables/overview.adoc[How to edit iptables rules]
+** xref:iptables/cli.adoc[Command Line Interface]
+** xref:iptables/tui.adoc[Text-based Interface]
+** xref:iptables/gui.adoc[Graphical User Interface]
+* xref:using-adobe-flash.adoc[Using Adobe Flash]
+* xref:adding-new-fonts-fedora.adoc[Adding new fonts in Fedora]
+* xref:create-gpg-keys.adoc[Creating GPG Keys]
+* xref:bootloading-with-grub2.adoc[Bootloading with GRUB2]
+* xref:creating-and-using-a-live-installation-image.adoc[Creating and using a live installation image]
+* xref:installing-java.adoc[Installing Java]
 * xref:kernel/overview.adoc[Kernel]
 ** xref:kernel/troubleshooting.adoc[Troubleshooting]
 ** xref:kernel/build-custom-kernel.adoc[Building a Custom Kernel]
@@ -72,7 +95,6 @@
 //FIXME * xref:debug-systemd-problems.adoc[How to debug systemd problems]
 //FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems] - note: maintained on wiki, does not fit quick-docs IMHO
 //FIXME * xref:fedora-life-cycle.adoc[Fedora Release Life Cycle] - note: maintained on wiki, does not fit quick-docs IMHO
-//FIXME * xref:edit-iptables-rules.adoc[How to edit iptables rules]
 //FIXME * xref:enable-touchpad-click.adoc[How to enable touchpad click]
 //FIXME * xref:mirroring.adoc[Mirroring]
 //FIXME * xref:openh264.adoc[OpenH264]

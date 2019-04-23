@@ -1,0 +1,98 @@
+== Text-based User Interface
+
+There are two ways to manage iptables rules using a text-based user
+interface. These are `setup` and `system-config-firewall-tui`. If you start
+`setup`, you will see something similar to the following:
+
+image:Firewall-tui.PNG[setup menu
+utility,title="setup menu utility",width=700]
+
+If you select "Firewall configuration" you will see the screen below. You could
+also invoke `system-config-firewall-tui`. This will take you directly to the
+same screen. Make sure that "Firewall" is enabled, otherwise you cannot edit its
+rule set. Continue by selecting "Customize":
+
+image:First_menu_firewall_tui.PNG[Firewall Configuration by TUI. First
+screen.,title="Firewall Configuration by TUI. First screen.",width=700]
+
+There is a good chance, that a service you want to modify is part of the
+list of standard "trusted services". Select the services you want to
+trust (i.e. open their ports) and press "Forward". (This has to be read as
+"next", it has nothing to do with port forwarding):
+
+image:Firewall_TUI_Trusted_services.PNG[Editing trusted service with
+firewall tui
+interface.,title="Editing trusted service with firewall tui interface.",width=700]
+
+The "Other ports" menu lets you open additional ports which are not in the list
+of standard trusted services:
+
+image:Firewall_TUI_other_ports.PNG[Editing Other ports on firewall
+configuration by TUI
+interface.,title="Editing Other ports on firewall configuration by TUI interface.",width=700]
+
+To add other ports, specify one port or a port range. Choose between
+_tcp_ and _udp_ for the protocol. The port range format is: _beginningPort
+- endingPort_.
+
+The "Trusted interfaces" menu allows you to trust all traffic on a network
+interface. All traffic will be allowed and the port filtering rules will
+never apply. You should only select interfaces which face private
+networks. Never trust an interface that deals with traffic from networks which
+are not under your full control.
+
+image:Firewall_TUI_trusted_interfaces.PNG[Trusted
+interfaces.,title="Trusted interfaces.",width=700]
+
+The masquerading menu lets you select an interface to be masqueraded.
+Masquerading is better known as
+*http://en.wikipedia.org/wiki/Network_address_translation[NAT]* (Network
+Address Translation). It is useful, to setup your computer as a gateway
+between different networks:
+
+image:Firewall_TUI_masquerading.PNG[Firewall TUI interface :
+masquerading.,title="Firewall TUI interface : masquerading.",width=700]
+
+Port forwarding, also known as
+*http://en.wikipedia.org/wiki/Network_address_translation#Port_address_translation[PAT]*
+(Port Address Translation), permits traffic from one port to be "rerouted" to
+another port.
+
+image:Firewall_TUI_Port_Forwarding.PNG[Firewall TUI interface :
+configuring Port
+Forwarding.,title="Firewall TUI interface : configuring Port Forwarding.",width=700]
+
+You have to specify source and destination, as well as the interface and protocol
+accordingly:
+
+image:Firewall_TUI_Port_Forwarding_Adding.PNG[Firewall TUI : adding port
+forwarding
+rules.,title="Firewall TUI : adding port forwarding rules.",width=700]
+
+The ICMP Filter menu lets you reject various types of ICMP packets. By
+default, no limitations are made. You may define rules to reject
+ICMP traffic, define the return type to ICMP request, etc.
+
+image:Firewall_TUI_ICMP_Filter.PNG[Firewall TUI: configuring ICMP
+behaviour.,title="Firewall TUI: configuring ICMP behaviour.",width=700]
+
+Finally, you can add custom firewall rules. These must be prepared ahead
+of time in files that use the same format for the command line interface.
+
+image:Firewall_TUI_Custom_Rules.PNG[Firewall TUI: create custom
+rules.,title="Firewall TUI: create custom rules.",width=700]
+
+For adding custom rules you have specify the protocol (i.e. _ipv4_ or
+_ipv6_) and the table you want your rules add to (_filter_, _mangle_, _nat_,...)
+and - of course - the file containing your rules:
+
+image:Firewall_TUI_Custom_Rules_Adding.PNG[Firewall TUI: adding a custom
+rules.,title="Firewall TUI: adding a custom rules.",width=700]
+
+When you have completed all menus, choose "Close" to resume to the first screen.
+Select "OK" and confirm your changes by choosing "Yes". If you choose "No" you
+will get back the configuration screen with no changes applied to your
+firewall.
+
+image:Firewall_TUI_Warning.PNG[Firewall TUI
+warning.,title="Firewall TUI warning.",width=700]

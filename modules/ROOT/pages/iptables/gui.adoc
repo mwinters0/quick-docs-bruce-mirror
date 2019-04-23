@@ -1,0 +1,85 @@
+== Graphical User Interface
+
+There are several graphical user interfaces available to configure iptables.
+
+* link:http://www.fwbuilder.org/_fwbuilder[fwbuilder]: Very complete GUI tools
+ to configure iptables.
+* link:http://shorewall.net/_Shorewall[Shorewall]: Another very complete GUI
+like fwbuilder.
+* link:http://www.turtlefirewall.com/_Turtle_firewall_project[Turtle firewall
+project]: Web interface and integrated to webmin. But it can not handle all
+iptables options.
+* link:http://users.telenet.be/stes/ipmenu.html_IPmenu[IPmenu] :A console based
+interface that covers all iptables functionality.
+
+The following section describes yet another frontend: `system-config-firewall`.
+
+=== system-config-firewall
+
+The GUI interface is similar to the text based interface just more friendly.
+
+The first time you start the GUI you will receive a warning. The program will
+*not* load your custom configuration. So any preexisting rules will be
+overwritten.
+
+image:Firewall_GUI_First_Time_Startup.PNG[First time
+startup message,title="fig:First time startup message"]
+
+Before you start, you have to enable your firewall to activate the
+configuration utility.
+
+image:FireWwall_GUI_startup.PNG[Firewall Gui startup
+screen,title="Firewall Gui startup screen"]
+
+The initial configuration is empty and will not allow any network traffic.
+
+image:No_configuration.PNG[No firewall
+configuration,title="No firewall configuration"]
+
+You can ignore the warning and start the wizard. Click _forward_:
+
+image:Firewall_Wizard.PNG[Firewall Wizard : welcome
+screen,title="Firewall Wizard : welcome screen"]
+
+Choose _System with network access_ to enable the firewall. The other option
+_System without network access_ would disable the firewall and don't allow
+access to any network.
+
+image:Firewall_Wizard_2.PNG[Firewall Wizard : network
+access?,title="Firewall Wizard : network access?"]
+
+Next, you have to choose your skill level. The *Beginner* options only
+allows the configuration of _trusted services_. This option is fine if you only
+want to use services like _ftp_, _dns_, _http_, etc. It does not allow you to
+configure customs port ranges.  If you select *Expert*, you will have access to
+firewall options. You can change the skill level later via _Options_ in the
+main window.
+
+image:Firewall_Wizard_3.PNG[Firewall Wizard :
+skill?,title="Firewall Wizard : skill?"]
+
+You can choose from a set of default configurations to start with. The *Server*
+template will only enable SSH on the firewall. The _desktop template_ enables
+additional ports (_IPsec_, _multicast DNS_, _Network Printing Client_ and
+_SSH_). For convenience select *Desktop* and continue:
+
+image:Firewall_Wizard_4.PNG[Firewall Wizard : configuration
+base?,title="Firewall Wizard : configuration base?"]
+
+To enable additional _trusted services_ just choose the services from the list.
+
+image:Firewall_Wizard_5.PNG[Firewall Main interface :
+enabled,title="Firewall Main interface : enabled"]
+
+You can add custom rules after choosing *Other ports* from the side bar. Click
+the *Add* button and either choose form services list on the right or tick
+*User Defined* and fill in the requested information.
+
+image:Firewall_GUI_other_ports.PNG[Firewall GUI : edit other ports
+rules.,title="Firewall GUI : edit other ports rules."]
+
+The other options in the sidebar *Trusted Interfaces*, *Masquerading*, *Port
+Forwarding* and so on work exactly as in the text based interface.
+
+When you finished the configuration, click *Apply* to save and activate the
+firewall.
