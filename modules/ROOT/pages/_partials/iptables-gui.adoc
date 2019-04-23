@@ -1,4 +1,4 @@
-== Graphical User Interface
+= Graphical User Interface
 
 There are several graphical user interfaces available to configure iptables.
 
@@ -14,7 +14,7 @@ interface that covers all iptables functionality.
 
 The following section describes yet another frontend: `system-config-firewall`.
 
-=== system-config-firewall
+== system-config-firewall
 
 The GUI interface is similar to the text based interface just more friendly.
 

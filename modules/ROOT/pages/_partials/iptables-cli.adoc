@@ -1,6 +1,6 @@
-== Command Line Interface
+= Command Line Interface
 
-=== Changes to iptables Rules
+== Changes to iptables Rules
 
 The following procedures allow for changes in the behaviour of the firewall
 while it is running. It is important to understand that every change
@@ -10,7 +10,7 @@ Read the man pages (`man iptables`) for further explanations
 and more sophisticated examples.
 
 
-==== Listing Rules
+=== Listing Rules
 
 Currently running iptables rules can be viewed with the command:
 
@@ -49,7 +49,7 @@ ssh connections and subsequently a second rule permitting ssh connections, the
 first rule would be applied to incoming ssh connections while the latter would
 never be evaluated.
 
-==== Appending Rules
+=== Appending Rules
 
 The following adds a rule at the end of the specified chain of iptables:
 
@@ -73,7 +73,7 @@ target     prot opt source               destination
 
 Notice the last line in the INPUT chain. There are now five rules.
 
-==== Deleting Rules
+=== Deleting Rules
 
 To delete a rule you need to know its position in the chain. The following will
 delete the rule from the previous example. To do so, the rule in the fifth
@@ -96,7 +96,7 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination
 ....
 
-==== Inserting Rules
+=== Inserting Rules
 
 You can also insert rules at a specific position. To insert a rule at the top
 (i.e. first) position, use:
@@ -124,7 +124,7 @@ The number given after the chain name indicates the position of your new rule
 third position, you specify the number 3. Afterwards your new rule is at
 position 3, while the old rule from position 3 is now shifted to position 4.
 
-==== Replacing Rules
+=== Replacing Rules
 
 Rules may be specified to replace existing rules in the chain.
 
@@ -150,7 +150,7 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination
 ....
 
-==== Flushing Rules
+=== Flushing Rules
 
 To flush or clear all iptables rules, use the `--flush`, `-F` option:
 
@@ -169,7 +169,7 @@ To flush all rules in the OUTPUT chain use:
 # iptables -F OUTPUT
 ....
 
-=== Making changes persistent
+== Making changes persistent
 
 All changes to iptables rules using the CLI commands will be lost upon system
 reboot. However, `iptables` comes with two useful utilities:

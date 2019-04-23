@@ -1,4 +1,4 @@
-== Text-based User Interface
+= Text-based User Interface
 
 There are two ways to manage iptables rules using a text-based user
 interface. These are `setup` and `system-config-firewall-tui`. If you start

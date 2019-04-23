@@ -1,0 +1,14 @@
+= How to edit iptables rules
+
+In this how-to, we will illustrate three ways of editing iptables rules, via:
+
+* Command line interface (CLI): `iptables` and system configuration file `/etc/sysconfig/iptables`.
+* Text-based interfaces (TUI): `setup` or `system-config-firewall-tui`
+* Graphical user interface(GUI): `system-config-firewall`
+
+NOTE: This how-to illustrates editing existing iptables rules, not the
+initial creation of rules chains.
+
+include::{partialsdir}/iptables-cli.adoc[leveloffset=+1]
+include::{partialsdir}/iptables-tui.adoc[leveloffset=+1]
+include::{partialsdir}/iptables-gui.adoc[leveloffset=+1]
