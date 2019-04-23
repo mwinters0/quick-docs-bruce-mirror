@@ -10,7 +10,7 @@ Pull Requests](https://docs.pagure.org/pagure/usage/pull_requests.html).
 General appearance issues and publishing issues should be reported against
 the [publishing software](https://pagure.io/fedora-docs/docs-fp-o).
 
-## Rewievers needed!
+## Reviewers needed!
 
 As discussed in [issue #107](https://pagure.io/fedora-docs/quick-docs/issue/107),
 a lot of pages in this repository are in need of a technical review. Pages which need
