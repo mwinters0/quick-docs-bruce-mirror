@@ -4,10 +4,8 @@
 :experimental:
 include::{partialsdir}/attributes.adoc[]
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 link:++https://github.com/rpm-software-management/dnf-plugin-system-upgrade++[`dnf-plugin-system-upgrade`] is a plugin for the xref:dnf.adoc[DNF] package manager and is used to upgrade your system to the current release of Fedora.
-For Atomic Host, which uses rpm-ostree, you may refer to link:++https://rpm-ostree.readthedocs.io/en/latest/manual/administrator-handbook/++[Read The Docs: rpm-ostree] for details.
+For Fedora Silverblue and Fedora CoreOS, which use rpm-ostree, you may refer to link:++https://rpm-ostree.readthedocs.io/en/latest/manual/administrator-handbook/++[Read The Docs: rpm-ostree] for details.
 
 This is the recommended command-line upgrade method for Fedora 21 and later and works as follows:
 
@@ -48,14 +46,12 @@ sudo dnf install dnf-plugin-system-upgrade
 +
 [source,bash,subs="attributes"]
 ----
-sudo dnf system-upgrade download --refresh --releasever={MAJOROSVER} --setopt='module_platform_id=platform:f{MAJOROSVER}'
+sudo dnf system-upgrade download --refresh --releasever={MAJOROSVER} 
 ----
 +
 Change the `--releasever=` number if you want to upgrade to a different release.
 Most people will want to upgrade to the latest stable release, which is `{MAJOROSVER}`, but in some cases, such as when you're currently running Fedora `27`, you may want to upgrade just to Fedora `28`.
 You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki/Releases/Branched[Branched] release, or `rawhide` to upgrade to link:https://fedoraproject.org/wiki/Releases/Rawhide[Rawhide]. Note that neither of these two are stable releases.
-+
-The above also applies to the `module_platform_id=` value.
 +
 If you are upgrading to Rawhide, you will need to import the RPM GPG key for it.
 This will be the highest numbered key version in `/etc/pki/rpm-gpg/`.
