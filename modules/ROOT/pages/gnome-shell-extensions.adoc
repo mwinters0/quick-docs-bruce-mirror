@@ -1,0 +1,64 @@
+ifdef::context[:parent-context: {context}]
+:context: gnome-shell-extensions
+
+[id='gnome-shell-extensions']
+= GNOME Shell extensions
+
+From the https://extensions.gnome.org/about/[website]: 
+
+"GNOME Shell extensions are small pieces of code written by third party developers that modify the way GNOME works.
+(If you are familiar with Chrome Extensions or Firefox Addons, GNOME Shell extensions are similar to them.)
+
+Since extensions are created outside of the normal GNOME design and development process, they are supported by their authors, rather than by the GNOME community.
+Some features first implemented as extensions might find their way into future versions of GNOME."
+
+So, please report bugs in these extensions directly to their developers.
+
+Extensions can either be local or system-wide.
+Local extensions are ones installed by each user in their home directories (`~/local/share/gnome-shell/extensions`), whereas system-wide extensions are installed by administrators in system directories (`/usr/share/gnome-shell/extensions/`).
+System extensions, therefore, cannot be installed, updated or removed by non-administrator users.
+They can, however, be enabled or disabled by each user.
+
+NOTE: In the event of crashes with GNOME shell, the first recommended step to diagnosing the issue is to disable all extensions. In cases where GNOME Shell crashes directly on login, you can use a different desktop environment if it is installed, or use the command line tools listed below using a virtual terminal (`ctrl + alt + f2`) to disable them.
+
+== Installing and removing system-wide GNOME Shell extensions
+
+These are generally provided in the Fedora repositories and can be installed, removed, and updated using the default package management tools like `dnf`.
+You can find a list https://apps.fedoraproject.org/packages/s/gnome-shell-extension[here by searching the packages application] for `gnome-shell-extension`.
+
+== Installing and removing local GNOME Shell extensions
+
+Local GNOME Shell extensions can be installed in multiple ways.
+
+- Directly from the https://extensions.gnome.org/about/[website] using Firefox.
+  This requires the installation of a browser extension.
+  If it is not installed, the website displays a notification with a link that installs it.
+
+- Using GNOME Software, under `Addons > Shell Extensions`.
+
+- Manual installation.
+  This is not recommended.
+  Advanced users that would like to do so should follow the instructions provided by the developers.
+
+These can all be used to update installed local extensions also.
+
+== Enabling, disabling and changing settings for GNOME Shell extensions
+
+All extensions can be enabled, disabled, and their preferences modified by each user using:
+
+- the https://extensions.gnome.org/local/[website] using Firefox.
+
+- GNOME Software, under `Addons > Shell Extensions > Extension settings`.
+  This launches the `gnome-shell-extension-prefs` tool, which can also be launched manually in a terminal.
+
+- `gnome-shell-extension-tool`.
+  While this tool allows you to enable and disable extensions, it does not allow you to modify their settings.
+  It does allow you to reload an extension without logging out and back in and it also creates the default skeleton if you would like to write a new extension.
+  Please use `gnome-shell-extension-tool -h` to learn more.
+
+- the https://apps.fedoraproject.org/packages/gnome-tweaks[GNOME tweaks tool].
+  Apart from other customisations, GNOME Tweaks also allows enabling, disabling, and modifying preferences for GNOME shell extensions.
+
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
