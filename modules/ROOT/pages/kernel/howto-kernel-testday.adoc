@@ -14,9 +14,9 @@ The main goal of a Kernel Test Day is to test a new kernel on many different mac
 == What to do during Kernel Test Days
 
 The first thing to do is to get the right kernel version to test.
-These are the different ways to get the kernel to test:
+There are different ways to get the kernel and test it:
 
-=== Downloading a test day image
+=== Using a test day image
 
 During test days a dedicated wiki page will provide a link to download a *test day image* which is a live distro of Fedora with the kernel version to test already in it.
 The test day image also contain the _test suite_, aka the scripts to test the kernel on your machine.
@@ -26,7 +26,7 @@ TIP: Check https://docs.fedoraproject.org/en-US/quick-docs/creating-and-using-a-
 
 You can then boot the live image and run the tests without worries of messing up with your OS.
 
-=== Testing on a Virtual Machine
+=== Using on a Virtual Machine
 
 You can also install the required kernel version on a Virtual Machine running an up to date Fedora release and do the test in the VM.
 In this case you can just add https://copr.fedorainfracloud.org/coprs/jforbes/kernel-stabilization/[this] *Copr repository* on the Fedora distro running in your VM.
@@ -51,9 +51,9 @@ Before testing, you need to install some packages:
 
  sudo dnf install gcc git python-fedora keyutils libtirpc-devel
 
-* If you are using the _*test day image*_ you will have the kernel-tests folder in your home folder; you can enter the folder with 
+* If you are using the _*test day image*_ you already have the kernel-test suite in the kernel-tests folder; enter the folder with 
 
- cd ~/kernel-tests
+ cd /home/liveuser/kernel-tests
 
 * If you are not using the test day image you will need to clone the kernel-tests repo.
 Use this command in terminal: 
@@ -85,7 +85,7 @@ The results of your test will be uploaded https://apps.fedoraproject.org/kernelt
 
 === Running tests
 
-IMPORTANT: *Before running the test, be sure your machine has no workload already, like other cpu intensive processes*:
+IMPORTANT: *Before running the test, be sure your machine has no workload already, like other cpu intensive processes.You can check using the command: top*
 
 To run the basic set of tests, use this command:
 
