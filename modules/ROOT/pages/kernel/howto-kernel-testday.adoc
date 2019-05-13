@@ -26,7 +26,7 @@ TIP: Check https://docs.fedoraproject.org/en-US/quick-docs/creating-and-using-a-
 
 You can then boot the live image and run the tests without worries of messing up with your OS.
 
-=== Using on a Virtual Machine
+=== Using a Virtual Machine
 
 You can also install the required kernel version on a Virtual Machine running an up to date Fedora release and do the test in the VM.
 In this case you can just add https://copr.fedorainfracloud.org/coprs/jforbes/kernel-stabilization/[this] *Copr repository* on the Fedora distro running in your VM.
