@@ -9,7 +9,7 @@ You can write all Fedora ISO images to a USB stick, making this a convenient way
 [id='using-fedora-media-writer']
 == Using Fedora Media Writer
 
-The official and supported tool to create a Fedora USB stick is the *Fedora Media Writer* utility, which was formerly known as *LiveUSB Creator*. To learn more about this application and how to use it, refer to the https://docs.fedoraproject.org/{MAJOROSVER}/install-guide/install/Preparing_for_Installation.html[Preparing for Installation] chapter of the Fedora Installation Guide.
+The official and supported tool to create a Fedora USB stick is the *Fedora Media Writer* utility, which was formerly known as *LiveUSB Creator*. To learn more about this application and how to use it, refer to the https://docs.fedoraproject.org/en-US/fedora/f{MAJOROSVER}/install-guide/install/Preparing_for_Installation/#sect-preparing-boot-media[Preparing for Installation] chapter of the Fedora Installation Guide.
 
 
 [IMPORTANT]
