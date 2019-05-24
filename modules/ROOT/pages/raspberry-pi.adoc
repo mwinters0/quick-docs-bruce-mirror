@@ -37,15 +37,15 @@ This documentation describes how to get started, and includes a Frequently Asked
 * A USB keyboard and USB mouse.
 * SD card reader.
 * A microSD Card (16 GB or larger).
-* A computer running Microsoft Windows, Apple OS X, or Linux.
+* A computer running Microsoft Windows, macOS, or Linux.
 * A Fedora ARM image from: link:https://arm.fedoraproject.org/[].
 
-The procedure for installing Fedora ARM on a microSD in preparation for using Fedora on a Raspberry Pi depends on your computers' operating system (Microsoft Windows, Apple OS X, or Linux).
+The procedure for installing Fedora ARM on a microSD in preparation for using Fedora on a Raspberry Pi depends on your computers' operating system (Microsoft Windows, macOS, or Linux).
 
 * For Fedora users, see: <<installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer_{context}>>.
 * For users of other Linux distributions, see: <<installing-fedora-on-a-raspberry-pi-for-linux-users_{context}>>.
 * For Microsoft Windows users, see: <<installing-fedora-on-a-raspberry-pi-for-microsoft-windows-users_{context}>>.
-* For Apple OS X users, see: <<installing-fedora-on-a-raspberry-pi-for-apple-osx-users_{context}>>.
+* For macOS users, see: <<installing-fedora-on-a-raspberry-pi-for-macos-users_{context}>>.
 
 // The following include statements pull in the module files that comprise the assembly. Include any combination of concept, procedure, or reference modules required to cover the user story. You can also include other assemblies.
 
@@ -57,7 +57,7 @@ include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-for-linux-users.
 
 include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-for-microsoft-windows-users.adoc[leveloffset=+1]
 
-include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-for-apple-osx-users.adoc[leveloffset=+1]
+include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-for-macos-users.adoc[leveloffset=+1]
 
 include::{partialsdir}/proc_booting-fedora-on-a-raspberry-pi-for-the-first-time.adoc[leveloffset=+1]
 

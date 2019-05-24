@@ -48,7 +48,7 @@ These methods are considered unsupported. You can use them on your own risk.
 
 IMPORTANT: This method will destroy all data on the USB stick _if the `--format` parameter is passed_.
 
-The `livecd-iso-to-disk` method is slightly less reliable than Fedora Media Writer and can be used reliably only from within Fedora: it does not work in Windows or OS X, and is not supported (and will usually fail) in non-Fedora distributions. However, it supports three advanced features which FMW does not include:
+The `livecd-iso-to-disk` method is slightly less reliable than Fedora Media Writer and can be used reliably only from within Fedora: it does not work in Windows or macOS, and is not supported (and will usually fail) in non-Fedora distributions. However, it supports three advanced features which FMW does not include:
 
 . You may use a _non-destructive_ method to create the stick, meaning existing files on the stick will not be destroyed. This is less reliable than the _destructive_ write methods, and should be used only if you have no stick you can afford to wipe.
 . On live images, you can include a feature called a _persistent overlay_, which allows changes made to persist across reboots. You can perform updates just like a regular installation to your hard disk, except that kernel updates require manual intervention and overlay space may be insufficient. Without a _persistent overlay_, the stick will return to a fresh state each time it is booted.
@@ -124,7 +124,7 @@ You can combine `--home-size-mb` and `--overlay-size-mb`, in which case data wri
 This method will destroy all data on the USB stick. If you need a non-destructive write method, to preserve existing data on your USB stick, and/or support for `data persistence`, you can use the `livecd-iso-to-disk` utility on Fedora.
 ====
 
-This method directly writes the image to the USB stick much like xref:creating-and-using-a-live-installation-image.adoc#using-fedora-media-writer[Fedora Media Writer] or GNOME Disk Utility, but uses a command line utility named `dd`. Like the other _direct write_ methods, it will destroy all data on the stick and does not support any of the advanced features like data persistence, but it is a very reliable method. The `dd` tool is available on most Unix-like operating systems, including Linux distributions and OS X, and a Windows port is available. This may be your best method if you cannot use xref:creating-and-using-a-live-installation-image.adoc#using-fedora-media-writer[Fedora Media Writer] or GNOME Disk Utility, or just if you prefer command line utilities and want a simple, quick way to write a stick.
+This method directly writes the image to the USB stick much like xref:creating-and-using-a-live-installation-image.adoc#using-fedora-media-writer[Fedora Media Writer] or GNOME Disk Utility, but uses a command line utility named `dd`. Like the other _direct write_ methods, it will destroy all data on the stick and does not support any of the advanced features like data persistence, but it is a very reliable method. The `dd` tool is available on most Unix-like operating systems, including Linux distributions and macOS, and a Windows port is available. This may be your best method if you cannot use xref:creating-and-using-a-live-installation-image.adoc#using-fedora-media-writer[Fedora Media Writer] or GNOME Disk Utility, or just if you prefer command line utilities and want a simple, quick way to write a stick.
 
 . Identify the name of the USB drive partition. If using this method on Windows, with the port linked above, the `dd --list` command should provide you with the correct name.
 . *Unmount all mounted partition from that device*. This is very important, otherwise the written image might get corrupted. You can umount all mounted partitions from the device with `umount /dev/sdX*`, where `_X_` is the appropriate letter, e.g. `umount /dev/sdc*`.
@@ -140,7 +140,7 @@ NOTE: If you see `dd: invalid status flag: 'progress'`, your dd version doesn't 
 
 
 [id='unetbootin']
-== Using UNetbootin for Windows, OS X, and Linux
+== Using UNetbootin for Windows, macOS, and Linux
 
 [WARNING]
 ====

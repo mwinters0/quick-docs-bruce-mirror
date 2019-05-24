@@ -27,7 +27,7 @@ For instructions about Fedora ARM on Raspberry Pi:
 ** For Fedora users, see: <<installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer_{context}>>.
 ** For users of other Linux distributions, see: <<installing-fedora-on-a-raspberry-pi-for-linux-users_{context}>>.
 ** For Microsoft Windows users, see: <<installing-fedora-on-a-raspberry-pi-for-microsoft-windows-users_{context}>>.
-** For Apple OS X users, see: <<installing-fedora-on-a-raspberry-pi-for-apple-macos-users_{context}>>.
+** For macOS users, see: <<installing-fedora-on-a-raspberry-pi-for-macos-users_{context}>>.
 
 * If you try to use Fedora on a Raspberry Pi 1, Raspberry Pi Zero, or a Raspberry Pi model A, you will receive the rainbow display. This occurs because your Raspberry Pi is not supported (ARMv6 SoCs architectures are not supported).
 
