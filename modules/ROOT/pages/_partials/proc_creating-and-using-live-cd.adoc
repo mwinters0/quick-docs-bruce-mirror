@@ -133,13 +133,6 @@ If you do not have https://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine[KV
 
 Replace `_filename.iso_` with the name of your created Live CD image and `_qemu-system-x86_64_` with an appropriate qemu binary for the target system, e.g. `qemu-system-i386`.
 
-
-[id='using-your-new-live-image']
-== Using your new live image
-
-You can http://docs.fedoraproject.org/readme-burning-isos/[burn your image directly to a CD or a DVD] if it fits, or you can link:#proc_creating-and-using-live-usb[write it to a USB stick].
-
-
 [id='live-image-media-verification']
 == Live image media verification
 
