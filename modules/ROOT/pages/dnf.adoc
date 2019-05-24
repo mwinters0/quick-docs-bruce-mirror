@@ -1,8 +1,6 @@
 [[chap-dnf]]
 = Using the DNF software package manager
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 DNF is a software package manager that installs, updates, and removes packages on Fedora and is the successor to YUM (Yellow-Dog Updater Modified).
 DNF makes it easy to maintain packages by automatically checking for dependencies and determines the actions required to install packages.
 This method eliminates the need to manually install or update the package, and its dependencies, using the `rpm` command.
@@ -43,7 +41,7 @@ Other common DNF commands include:
 
 * `reinstall` - reinstalls the currently installed package.
 
-* `update/upgrade` - checks the repositories for newer packages and updates them.
+* `upgrade` - checks the repositories for newer packages and updates them.
 
 For more DNF commands refer to the man pages by typing `man dnf` at the command-line, or link:http://dnf.readthedocs.io/en/latest/command_ref.html[DNF Read The Docs]
 
@@ -89,7 +87,5 @@ or
 == References
 
 . http://dnf.readthedocs.org/en/latest/command_ref.html[DNF Command Reference]
-
-. http://dnf.baseurl.org/[DNF blog]
 
 . https://github.com/rpm-software-management/dnf/wiki[DNF wiki]
