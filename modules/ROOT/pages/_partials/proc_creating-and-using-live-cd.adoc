@@ -1,9 +1,6 @@
 [id='proc_creating-and-using-live-cd']
 = Creating and using live CD
 
-#FIXME# Needs modularization
-
-
 [[getting-started]]
 == Getting started
 

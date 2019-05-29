@@ -2,8 +2,6 @@ ifdef::context[:parent-context: {context}]
 :context: creating-an-using-a-live-installation-image
 = Creating and using a live installation image
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 include::{partialsdir}/proc_downloading-fedora.adoc[leveloffset=+1]
 
 include::{partialsdir}/proc_creating-and-using-live-usb.adoc[leveloffset=+1]
