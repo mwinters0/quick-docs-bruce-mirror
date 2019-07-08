@@ -1,5 +1,7 @@
 * xref:howto-file-a-bug.adoc[How to file a bug]
 
+* xref:getting-started-guide.adoc[Getting started with Fedora]
+
 * Installation
 ** xref:creating-and-using-a-live-installation-image.adoc[Creating and using a live installation image]
 ** xref:raspberry-pi.adoc[Fedora on Raspberry Pi]

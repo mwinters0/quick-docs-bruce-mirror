@@ -1,0 +1,111 @@
+= Getting started with Fedora
+:experimental:
+:toc:
+
+The Fedora Project is a community of people working together to build a free and open source software platform and to collaborate on and share user-focused solutions built on that platform.
+Or, in plain English, we make an operating system and we make it easy for you do useful stuff with it.
+
+Actually, we produce several operating systems, or editions anyway.
+The one that you're most likely interested in, and the one that we'll be focusing on, is **Fedora Workstation**.
+Fedora Workstation has a wide range of software that's suitable for almost anyone.
+You can use it for home use like browsing the Web, watching streaming video, editing photos, and playing games.
+You can use it for work creating documents, crunching numbers in spreadsheets, or programming.
+
+All of the software provided with Fedora is open source and free to download and use.
+You can even modify it and distribute it yourself, if you want—but that's beyond the scope of this guide.
+We're just going to focus on the new user experience and some "day two" stuff so you can acclimate to Fedora and start being productive right away.
+
+== Who this document is for
+
+This document is for folks new to Fedora Workstation, or who've been using it a while and would like to get a little more background and tips on how to make the most of Fedora Workstation.
+We're focusing on desktop use and common tasks like web browsing, streaming media, editing photos or audio, and all kinds of productivity tasks that you may want to tackle with your desktop or laptop computer.
+Typical daily computer usage, you might say.
+
+== What's a Linux distribution?
+
+Fedora Workstation is a Linux distribution, an operating system with the Linux kernel at its core plus the software you need to install it, manage it, and the applications that you want to use for daily work.
+
+Fedora is one of many Linux distributions, and includes a lot of software you'll find in many Linux distributions.
+For example, the GNOME desktop environment, and the **Firefox** web browser, **LibreOffice** office suite, and a lot of **GNU utilities** and so much more.
+
+== Understanding Linux
+
+Linux is very different from other operating systems, such as Microsoft Windows, the leading desktop OS.
+This section explains concepts about Linux and how it works, which help make it clear, for example, why Linux asks for various passwords.
+
+=== Root
+
+By default Linux creates the `root` user account.
+The `root` account is the highest level account on the system and is used for administration.
+During the installation of Fedora, the user is asked to create a password for the root account.
+This password should be remembered for future use.
+
+The `root` account gives the user full permission to modify files, and start and stop critical programs (called processes) on the system.
+This is a security feature in Linux that limits normal user privileges only to those required for normal tasks.
+The user is prompted for the root password when making system-wide changes, such as installing new software or starting/stopping fundamental programs required by the operating system.
+
+=== The command line/terminal
+
+Use the **Terminal** program to perform command line tasks.
+Benefits to using the command line include the ability to give multiple commands on one line, but it requires greater knowledge of Linux commands.
+Documentation published on this site, as well as various tutorials and guides on the internet and elsewhere, often makes use of these terminal commands.
+
+== Fist impressions
+
+=== GNOME
+
+**GNOME**, Fedora's default _window manager_, is the underlying graphical user environment.
+It provides a visual front-end using a desktop analogy.
+When you log into Fedora, GNOME is started with a predefined set of icons and menus on the desktop.
+
+=== The internet
+
+Mozilla **Firefox** is the default web browsing application. It is accessed through menu:Applications[Internet > Firefox Web Browser].
+Firefox is also available on other platforms such as Microsoft Windows and Mac OS X.
+
+=== E-mail
+
+**Evolution** is the default email client application.
+Use it to access e-mail, organize contacts, manage tasks, and schedule calendars.
+Evolution is similar in functionality to Microsoft Outlook.
+Access it by clicking on the envelope icon in the toolbar panel or through menu:Applications[Internet > Email].
+
+Another choice for an email client is **Thunderbird**, developed by the Mozilla Foundation.
+It is a popular email client on multiple operating systems.
+It is used for handling email and newsgroups without the calendaring functions that Evolution provides.
+Thunderbird is not installed by default. It can be installed by selecting menu:Applications[Add/Remove Software].
+
+=== Instant messaging
+
+The **Pidgin** application is popularly used for instant messaging.
+The instant messaging protocols that Pidgin supports include MSN, AIM, IRC, and Yahoo.
+Pidgin is accessed through menu:Applications[Internet > Internet Messenger].
+
+=== Music & audio
+
+Fedora provides built-in support for sound cards and playing music CDs.
+Applications to import audio from CDs and manage music files are available.
+Extracting audio from CDs and storing it in compressed format on the hard drive is one way to manage a music collection.
+
+To extract, or _rip_, the music from a CD, use the **Sound Juicer** program.
+It is accessed through menu:Applications[Sound and Video > Audio CD Extractor].
+By default, Sound Juicer encodes music files to the free and open OGG Vorbis format.
+Once music files are generated, use **Rhythmbox** to manage and play tracks.
+In addition to playing audio file formats, Rhythmbox is also used for streaming media from Internet radio stations.
+
+=== Productivity tools
+
+The office suite included by default in Fedora is **OpenOffice.org**, a well-known and mature collection of software.
+OpenOffice.org, or OO.org, includes a word processor (**Write**), a spreadsheet program (**Calc**), and presentation software (**Impress**).
+A simple image editing package (**Draw**) and a relational database (**Base**) are also available for optional installation.
+
+== Moving further
+
+//* Linux Games - included with Fedora
+* Configuring an internet connection via menu:System[Administration > Network]
+* Configuring graphics cards / video drivers
+
+== Cool things to do with Fedora
+
+* **LinPhone** - demonstrates installing from Extras, and free phone calls. Requires: headset.
+* **GnuCash** - installs from `Core`, home finance software isn't cool, but is important.
