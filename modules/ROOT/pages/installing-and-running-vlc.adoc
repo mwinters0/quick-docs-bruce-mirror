@@ -10,7 +10,7 @@ ifdef::context[:parent-context: {context}]
 
 include::{partialsdir}/3rdparty-message.adoc[]
 
-== Prerequisits
+== Prerequisites
 
 * VLC is provided by the RPMFusion repositories.  xref:setup_rpmfusion.adoc[Use these instructions to enable them].
 
