@@ -45,7 +45,7 @@ snapshot::
   A snapshot of the current systemd state. Usually used to rollback after making temporary changes to systemd.
 
 slice::
-  Restrivtion of resources through Linux Control Group nodes (cgroups).
+  Restriction of resources through Linux Control Group nodes (cgroups).
 
 scope::
   Information from systemd bus interfaces. Usually used to manage external system processes.
