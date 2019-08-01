@@ -60,9 +60,9 @@ Type::
 +
 * `simple` - The service starts as the main process. This is the default.
 * `forking` - The service calls forked processes and run as part of the main daemon.
-* `oneshot` - Similar to `simple`, except the process must exits before systemd starts follow-up services.
+* `oneshot` - Similar to `simple`, except the process must exit before systemd starts follow-up services.
 * `dbus` - Similar to `simple`, except the daemon acquires a name of the D-Bus bus.
-* `notify` - Similar to `simple`, except the daemon sends a motification message using `sd_notify` or an equivalent call after starting up.
+* `notify` - Similar to `simple`, except the daemon sends a notification message using `sd_notify` or an equivalent call after starting up.
 * `idle` - Similar to `simple`, except the execution of the service is delayed until all active jobs are dispatched.
 
 RemainAfterExit::
@@ -90,7 +90,7 @@ ExecStop::
   The commands and arguments to execute when the service stops. 
 
 ExecStopPost::
-  Additional commands to executed after the service stops.
+  Additional commands to execute after the service stops.
 
 RestartSec::
   The time in seconds to sleep before restarting a service.
