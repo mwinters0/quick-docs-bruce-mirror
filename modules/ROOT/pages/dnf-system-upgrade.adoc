@@ -4,7 +4,7 @@
 :experimental:
 include::{partialsdir}/attributes.adoc[]
 
-link:++https://github.com/rpm-software-management/dnf-plugin-system-upgrade++[`dnf-plugin-system-upgrade`] is a plugin for the xref:dnf.adoc[DNF] package manager and is used to upgrade your system to the current release of Fedora.
+link:++https://github.com/rpm-software-management/dnf-plugins-extras++[`dnf-plugin-system-upgrade`] is a plugin for the xref:dnf.adoc[DNF] package manager and is used to upgrade your system to the current release of Fedora.
 For Fedora Silverblue and Fedora CoreOS, which use rpm-ostree, you may refer to link:++https://rpm-ostree.readthedocs.io/en/latest/manual/administrator-handbook/++[Read The Docs: rpm-ostree] for details.
 
 This is the recommended command-line upgrade method for Fedora 21 and later and works as follows:
