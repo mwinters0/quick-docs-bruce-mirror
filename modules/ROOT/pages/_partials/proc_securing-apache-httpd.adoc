@@ -117,5 +117,5 @@ To use SSL/TLS for a specific virtual host with a different certificate as defau
 ----
 SSLEngine on
 SSLCertificateFile /etc/pki/tls/certs/hostname.crt
-SSLCertificateKeyFile /etc/pki/tls/private/hostname.key</pre>
+SSLCertificateKeyFile /etc/pki/tls/private/hostname.key
 ----
