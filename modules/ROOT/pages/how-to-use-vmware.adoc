@@ -1,0 +1,102 @@
+[id='what-is-VMware']
+== What is *VMware*?
+
+VMware provides cloud computing and virtualization software and services, their most important product are:
+
+** VMware Workstation Player, is a virtualization software package and can run existing virtual appliances and create its own virtual machines (which require an operating system to be installed to be functional). VMware Player is available for personal non-commercial use.
+** VMware Workstation Pro, it enables users to set up virtual machines (VMs) on a single physical machine, and use them simultaneously along with the actual machine. Each virtual machine can execute its own operating system, including versions of Microsoft Windows, Linux, BSD, and MS-DOS.
+
+[IMPORTANT]
+
+You should have a valid license to work with VMware Workstation Pro, this document doesn't provide that function, it's only intent to deal with Vmware issues in Fedora.
+
+== How to Resolve Issues for VMWORKSTATION and VMPLAYER (ANY KERNEL + ANY VERSION)
+
+=== Installing *VMware*
+
+----
+$ sudo ./VMware-Workstation-Full-x.y.z-xx.x86_64.bundle
+$ sudo chmod +x ./VMware-Workstation-Full-x.y.z-xx.x86_64.bundle
+$ sudo ./VMware-Workstation-Full-x.y.z-xx.x86_64.bundle
+----
+
+=== Resolving Conflict with Kernel
+
+The problem here is always the same `vmnet` and `vmmon` doesn’t start well or doesn’t start at all, You should find a PATCH deal with changes in vmmon.c and vmnet.c because something breaks or add some parameters to these files, you can found the following:
+
+** know what is your kernel version?: `uname -r`.
+** know your Vmware version or install the latest. `/usr/bin/vmware -v`
+** Try to find the PATCH for a specific KERNEL version and Vmware.
+** You have to deal with sources ( **vmnet** and **vmmon** ) and apply fixed in both of them.
+** Try to find the fix for the specific product Vmware and Kernel version.
+
+NOTE: This guide try to help with all this boring stuff.
+
+=== Prerequisite
+
+----
+$ sudo dnf install kernel-devel kernel-headers gcc gcc-c++ make git
+----
+
+=== Installation
+
+----
+wget https://github.com/mkubecek/vmware-host-modules/archive/workstation-x.y.z.tar.gz
+tar -xzf workstation-x.y.z.tar.gz
+cd vmware-host-modules-workstation-x.y.z
+make
+sudo make install
+----
+
+[IMPORTANT]
+
+Based on your VMware product, replace “x.y.z” with your installed version and/or “workstation” with “player”.
+
+=== Deal with Kernel Updates
+
+You can create a script to take of this after a kernel update. Save it as `/etc/kernel/install.d/99-vmmodules.install`:
+
+----
+
+#!/usr/bin/bash
+
+export LANG=C
+
+COMMAND="$1"
+KERNEL_VERSION="$2"
+BOOT_DIR_ABS="$3"
+KERNEL_IMAGE="$4"
+
+ret=0
+
+case "$COMMAND" in
+    add)
+       VMWARE_VERSION=$(cat /etc/vmware/config | grep player.product.version | sed '/.*\"\(.*\)\".*/ s//\1/g')
+
+       [ -z VMWARE_VERSION ] && exit 0
+
+       mkdir -p /tmp/git; cd /tmp/git
+       git clone -b workstation-${VMWARE_VERSION} https://github.com/mkubecek/vmware-host-modules.git
+       cd vmware-host-modules
+       make VM_UNAME=${KERNEL_VERSION}
+       make install VM_UNAME=${KERNEL_VERSION}
+
+       ((ret+=$?))
+       ;;
+    remove)
+        exit 0
+        ;;
+    *)
+        usage
+        ret=1;;
+esac
+
+exit $ret
+
+----
+
+=== Additional Resources
+
+- link:https://github.com/mkubecek/vmware-host-modules[VMware Git Repo]
+
+This repository tracks patches needed to build VMware (Player and Workstation) host modules against recent kernels.
