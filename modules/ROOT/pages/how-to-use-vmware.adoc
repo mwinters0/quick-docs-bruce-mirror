@@ -1,23 +1,38 @@
 [id='what-is-VMware']
 == What is *VMware*?
 
-VMware provides cloud computing and virtualization software and services, their most important product are:
+VMware provides cloud computing and virtualization software and services, their most important products are:
 
 ** VMware Workstation Player, is a virtualization software package and can run existing virtual appliances and create its own virtual machines (which require an operating system to be installed to be functional). VMware Player is available for personal non-commercial use.
+
+- link:https://www.vmware.com/products/workstation-player.html[Player]
+
 ** VMware Workstation Pro, it enables users to set up virtual machines (VMs) on a single physical machine, and use them simultaneously along with the actual machine. Each virtual machine can execute its own operating system, including versions of Microsoft Windows, Linux, BSD, and MS-DOS.
+
+- link:https://www.vmware.com/products/workstation-pro.html[Workstation]
 
 [IMPORTANT]
 
-You should have a valid license to work with VMware Workstation Pro, this document doesn't provide that function, it's only intent to deal with Vmware issues in Fedora.
+You should have a valid license to work with VMware Workstation Pro.
 
-== How to Resolve Issues for VMWORKSTATION and VMPLAYER (ANY KERNEL + ANY VERSION)
+== How to Resolve Issues for WORKSTATION and PLAYER (ANY KERNEL + ANY VERSION)
 
-=== Installing *VMware*
+=== Installation
+
+==== Player
 
 ----
-$ sudo ./VMware-Workstation-Full-x.y.z-xx.x86_64.bundle
-$ sudo chmod +x ./VMware-Workstation-Full-x.y.z-xx.x86_64.bundle
-$ sudo ./VMware-Workstation-Full-x.y.z-xx.x86_64.bundle
+$ sudo ./VMware-Player-x.y.z-nn.x86_64.bundle                                   
+$ sudo chmod +x ./VMware-Player-x.y.z-nn.x86_64.bundle                          
+$ sudo ./VMware-Workstation-Full-x.y.z-nn.x86_64.bundle                                   
+----
+
+==== Workstation
+
+----
+$ sudo ./VMware-Workstation-Full-x.y.z-nn.x86_64.bundle
+$ sudo chmod +x ./VMware-Workstation-Full-x.y.z-nn.x86_64.bundle
+$ sudo ./VMware-Workstation-Full-x.y.z-nn.x86_64.bundle
 ----
 
 === Resolving Conflict with Kernel
@@ -39,6 +54,10 @@ $ sudo dnf install kernel-devel kernel-headers gcc gcc-c++ make git
 ----
 
 === Installation
+
+This repository tracks patches needed to build VMware (Player and Workstation) host modules against recent kernels.
+
+For Example, I would like to Patch Workstation:
 
 ----
 wget https://github.com/mkubecek/vmware-host-modules/archive/workstation-x.y.z.tar.gz
@@ -98,5 +117,3 @@ exit $ret
 === Additional Resources
 
 - link:https://github.com/mkubecek/vmware-host-modules[VMware Git Repo]
-
-This repository tracks patches needed to build VMware (Player and Workstation) host modules against recent kernels.
