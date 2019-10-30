@@ -43,6 +43,8 @@ Other common DNF commands include:
 
 * `upgrade` - checks the repositories for newer packages and updates them.
 
+* `exclude` - exclude a package for lock it.
+
 For more DNF commands refer to the man pages by typing `man dnf` at the command-line, or link:http://dnf.readthedocs.io/en/latest/command_ref.html[DNF Read The Docs]
 
 [[sect-automatic-updates]]
@@ -83,9 +85,54 @@ or
 # dnf install dnf-plugins-extras-PLUGIN_NAME
 ----
 
+[[exclude-updates]]                                                                              
+== Exclude Updates
+
+=== WHY??
+
+Sometimes we need block specific package because some people want to keep old and outdate software because it works fine compare to newer version in their case.
+
+* With the Command Line
+
+Until a fix is available you can block the offending package from updating by adding an option to the command.
+
+----
+sudo dnf upgrade --exclude=packagename
+----
+
+* In Configuration Files
+
+It is also possible to add the exclude option to the configuration file. If you use a gui update application this is the best option. You will need root permission to edit this file so use su - or prefix the command with sudo. Add it to `/etc/dnf/dnf.conf` and Exclude packages of this repository.
+
+----
+excludepkgs=packagename
+----
+
+CAUTION: use **packagename** with glob https://en.wikipedia.org/wiki/Glob_(programming)[GLOBE] and separated by a comma, from all operations. Can be disabled using `--disableexcludes` command line switch.
+
+* **Locking the package version**
+
+You can use the `versionlock` plugin for DNF to keep it, is part of `dnf-plugins-core` or
+
+----
+sudo dnf install 'dnf-command(versionlock)'
+----
+
+Then add the version desired. For example:
+
+----
+sudo dnf versionlock add package
+----
+
+If you want to remove the locked version, use the delete option:
+
+----
+sudo dnf versionlock delete package
+----
+
 [[sect-references]]
 == References
 
 . http://dnf.readthedocs.org/en/latest/command_ref.html[DNF Command Reference]
-
 . https://github.com/rpm-software-management/dnf/wiki[DNF wiki]
+. https://dnf-plugins-core.readthedocs.io/en/latest/versionlock.html[DNF VersionLock]
