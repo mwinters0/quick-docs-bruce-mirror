@@ -43,7 +43,7 @@ Other common DNF commands include:
 
 * `upgrade` - checks the repositories for newer packages and updates them.
 
-* `exclude` - exclude a package for lock it.
+* `exclude` - exclude a package from the transaction.
 
 For more DNF commands refer to the man pages by typing `man dnf` at the command-line, or link:http://dnf.readthedocs.io/en/latest/command_ref.html[DNF Read The Docs]
 
@@ -85,50 +85,57 @@ or
 # dnf install dnf-plugins-extras-PLUGIN_NAME
 ----
 
-[[exclude-updates]]                                                                              
-== Exclude Updates
+[[exclude-package]]
+== Excluding Packages From Transactions
 
-=== WHY??
+Sometimes it is useful to ignore specific packages from transactions, such as updates.
+One such case, for example, could be when an update includes a regression or a bug.
+DNF allows you to exclude a package from the transaction:
 
-Sometimes we need block specific package because some people want to keep old and outdate software because it works fine compare to newer version in their case.
-
-* With the Command Line
-
-Until a fix is available you can block the offending package from updating by adding an option to the command.
+* using the command line
 
 ----
 sudo dnf upgrade --exclude=packagename
 ----
 
-* In Configuration Files
+* using its configuration files
 
-It is also possible to add the exclude option to the configuration file. If you use a gui update application this is the best option. You will need root permission to edit this file so use su - or prefix the command with sudo. Add it to `/etc/dnf/dnf.conf` and Exclude packages of this repository.
+You can add a line to `/etc/dnf/dnf.conf` to exclude packages:
 
 ----
 excludepkgs=packagename
 ----
 
-CAUTION: use **packagename** with glob https://en.wikipedia.org/wiki/Glob_(programming)[GLOBE] and separated by a comma, from all operations. Can be disabled using `--disableexcludes` command line switch.
+This can also be added to the specific repository configuration files in `/etc/yum.repos.d/`.
+https://en.wikipedia.org/wiki/Glob_(programming)[Globs] may be used here to list multiple packages, and each specification must be separated by a comma.
+If you have used this configuration, you can disable it in individual DNF commands using using the `--disableexcludes` command line switch.
 
-* **Locking the package version**
+If you use a GUI update application which does not allow you to specify packages to exclude when they run, this method can be used.
 
-You can use the `versionlock` plugin for DNF to keep it, is part of `dnf-plugins-core` or
+=== Using the DNF Versionlock plugin
+
+You can also use the DNF `versionlock` plugin to limit the packages that are included in a transaction.
+It allows you to list what versions of particular packages should be considered in a transaction.
+All other versions of the specified packages will be ignored.
+The plugin is part of `dnf-plugins-core` package and can be installed using the command below:
 
 ----
 sudo dnf install 'dnf-command(versionlock)'
 ----
 
-Then add the version desired. For example:
+To lock the currently installed version of a package, use:
 
 ----
 sudo dnf versionlock add package
 ----
 
-If you want to remove the locked version, use the delete option:
+To remove the version lock, use:
 
 ----
 sudo dnf versionlock delete package
 ----
+
+The `list` command can be used to list all locked packages, while the `clear` command will delete all locked entries.
 
 [[sect-references]]
 == References
