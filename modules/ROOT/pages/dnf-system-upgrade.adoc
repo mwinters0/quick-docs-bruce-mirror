@@ -46,7 +46,7 @@ sudo dnf install dnf-plugin-system-upgrade
 +
 [source,bash,subs="attributes"]
 ----
-sudo dnf system-upgrade download --refresh --releasever={MAJOROSVER} 
+sudo dnf system-upgrade download --refresh --releasever={MAJOROSVER}
 ----
 +
 Change the `--releasever=` number if you want to upgrade to a different release.
@@ -135,6 +135,13 @@ You can see duplicate packages (packages with multiple versions installed) with:
 sudo dnf repoquery --duplicated
 ----
 
+[NOTE]
+====
+Run `sudo dnf update` first, as this list is only valid if you have a fully updated system.
+Otherwise, you will see a list of installed packages that are no longer in the repositories because an update is available.
+This list may also contain packages installed from third-party repositories who may not have updated their repositories.
+====
+
 For packages from the official repositories, the latest version should be installed.
 However, some packages that are still on your system may no longer be in the repositories.
 To see a list of these packages do:
@@ -150,13 +157,6 @@ If you see a package you do not need, or use, you can remove it with:
 ----
 sudo dnf remove $(dnf repoquery --extras --exclude=kernel,kernel-\*)
 ----
-
-[NOTE]
-====
-Run `sudo dnf update` first, as this list is only valid if you have a fully updated system.
-Otherwise, you will see a list of installed packages that are no longer in the repositories because an update is available.
-This list may also contain packages installed from third-party repositories who may not have updated their repositories.
-====
 
 You can safely remove packages no longer in use with:
 
