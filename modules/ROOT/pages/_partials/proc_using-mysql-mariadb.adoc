@@ -1,0 +1,41 @@
+= Using the RDBMS
+
+Connect to the MySQL/MariaDB shell using the `mysql` command.
+
+For both of them, the command is `mysql`. The syntax an the options are generally the same.
+
+----
+$ mysql -u root -p
+----
+
+Once gained access to the shell you can get the running version of the software:
+
+----
+mysql> SELECT version();
+----
+
+You can create a database:
+
+----
+mysql> create schema test;
+----
+
+Create a user:
+
+----
+mysql> GRANT ALL PRIVILEGES ON test.* TO 'my_user'@'localhost' IDENTIFIED BY 'PaSsWoRd';
+----
+
+List the available databases:
+
+----
+mysql> show schemas;
+----
+
+== Files location
+
+For both of them, the main configuration file is `/etc/my.cnf`; eventually the configuration can be splitted in many files inside the include directory `/etc/my.cnf.d`.
+
+Log files can be located in `/var/log/mysql` for MySQL, and `/var/log/mariabd` for MariaDB.
+
+The database disk storage is located in `/var/lib/mysql`.

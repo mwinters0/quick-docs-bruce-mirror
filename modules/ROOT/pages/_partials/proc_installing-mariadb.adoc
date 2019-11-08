@@ -1,0 +1,7 @@
+= Installing MariaDB
+
+To install the MariaDB version included in the Fedora repository:
+
+----
+$ sudo dnf install mariadb-server
+----
