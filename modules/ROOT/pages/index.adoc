@@ -13,7 +13,7 @@ So, this is kind of a seed project. *Your help wanted!*
 
 There is a https://fedoraproject.org/wiki/Category:How_to[How To category]
 on the wiki. Many of those documents are ripe for conversion.
-https://ask.fedoraproject.org/en/questions/scope:all/sort:votes-desc/page:1/[Popular
+https://ask.fedoraproject.org/top/all[Popular
 questions on Ask Fedora] are also likely to be useful starting points — or,
 also, frequent
 https://unix.stackexchange.com/questions/tagged/fedora?sort=frequent&pageSize=50[Fedora
