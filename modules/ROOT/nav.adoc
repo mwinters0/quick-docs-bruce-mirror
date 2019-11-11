@@ -49,7 +49,6 @@
 ** xref:using-aide.adoc[Checking file integrity with AIDE]
 ** xref:getting-started-with-apache-http-server.adoc[Getting started with Apache HTTP Server]
 ** xref:how-to-edit-iptables-rules.adoc[How to edit iptables rules]
-** xref:installing-mysql-mariadb.adoc[Installing MySQL/MariaDB]
 
 
 * xref:getting-started-with-selinux.adoc[SELinux]
@@ -90,6 +89,7 @@
 //FIXME * xref:uefi-with-qemu.adoc[Using UEFI with QEMU]
 //FIXME * xref:upgrading-fedora-online.adoc[Upgrading Fedora using package manager]
 
+
 * xref:anaconda/anaconda.adoc[Anaconda: the Fedora installer]
 ** xref:anaconda/anaconda_distros.adoc[Anaconda-based Distributions]
 ** xref:anaconda/anaconda_updates.adoc[Anaconda Updates]
@@ -99,6 +99,10 @@
 
 * xref:creating-rpm-packages.adoc[Creating RPM packages]
 ** xref:create-hello-world-rpm.adoc[Creating a GNU Hello World RPM Package]
+
+
+* Databases
+** xref:installing-mysql-mariadb.adoc[Installing, Configuring and Troubleshooting MySql/MariaDB]
 
 
 * FAQ
