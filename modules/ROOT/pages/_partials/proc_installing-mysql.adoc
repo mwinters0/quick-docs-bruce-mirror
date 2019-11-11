@@ -1,0 +1,22 @@
+= Installing MySQL
+== From the Fedora repository
+
+In order to install MySQL Community Edition from the Fedora repository:
+
+----
+$ sudo dnf install community-mysql-server
+----
+
+== From the MySQL repository
+
+include::{partialsdir}/3rdparty-message.adoc[]
+
+If you prefer to install the package from the third party repository maintained by MySQL (substitute the Fedora release accordingly):
+
+----
+$ sudo dnf install https://repo.mysql.com//mysql80-community-release-fc31-1.noarch.rpm
+----
+
+----
+$ sudo dnf install mysql-community-server
+----

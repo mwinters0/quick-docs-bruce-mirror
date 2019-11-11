@@ -1,0 +1,18 @@
+[discrete]
+= Configuring MariaDB
+
+Enable the service at boot and start it right now
+
+----
+$ sudo systemctl enable mariadb --now
+----
+
+MariaDB default root password is empty.
+
+Perform the initial setup
+
+----
+$ sudo mysql_secure_installation
+----
+
+Some questions will be asked: answer to them as you prefer; answering _yes_ to all of them is perfectly fine.
