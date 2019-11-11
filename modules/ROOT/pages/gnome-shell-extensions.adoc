@@ -15,7 +15,7 @@ Some features first implemented as extensions might find their way into future v
 So, please report bugs in these extensions directly to their developers.
 
 Extensions can either be local or system-wide.
-Local extensions are ones installed by each user in their home directories (`~/local/share/gnome-shell/extensions`), whereas system-wide extensions are installed by administrators in system directories (`/usr/share/gnome-shell/extensions/`).
+Local extensions are ones installed by each user in their home directories (`~/.local/share/gnome-shell/extensions`), whereas system-wide extensions are installed by administrators in system directories (`/usr/share/gnome-shell/extensions/`).
 System extensions, therefore, cannot be installed, updated or removed by non-administrator users.
 They can, however, be enabled or disabled by each user.
 
