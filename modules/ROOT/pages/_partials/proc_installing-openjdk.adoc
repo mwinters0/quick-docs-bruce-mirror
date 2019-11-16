@@ -4,38 +4,24 @@
 To install OpenJDK from the Fedora repository:
 
 . Run the following command to list available versions:
-+
+
 ----
 $ dnf search openjdk
 ----
+
 . Copy the version of OpenJDK you want to install.
-+
+
 [NOTE]
-====
 Various flavors of OpenJDK are available. For information about these options, search the link:http://openjdk.java.net/[OpenJDK web site].
-====
-+
-. Run the following command to install OpenJDK:
-+
+
+* Run the following command to install OpenJDK:
+
 ----
 # dnf install <openjdk-package-name>
 ----
-+
+
 For example:
-+
-----
-# dnf install java-1.8.0-openjdk.x86_64
-----
-
-// tag::java-alternatives[]
-[NOTE]
-====
-If you have installed other versions of Java, you might need to switch the active version of Java:
 
 ----
-# alternatives --config java
+# dnf install java-{1.8.0|11|latest}-openjdk.x86_64
 ----
-
-A list of installed Java versions is displayed. Choose the version you require.
-====
-// end::java-alternatives[]

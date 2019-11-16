@@ -17,6 +17,14 @@ Most Java applications run on one of the following:
 * Oracle Java SE -- a free JDK from Oracle.
   This version is not open-source and we recommend that it only be used if OpenJDK is not sufficient.
 
+You can find the following Versions:
+
+* Version (Ex. 8)
+
+* Long Term Support or `LTS`
+
+* Latest
+
 include::{partialsdir}/proc_installing-openjdk.adoc[leveloffset=+1]
 
 include::{partialsdir}/proc_installing-oracle-java.adoc[leveloffset=+1]
@@ -31,7 +39,7 @@ For Java in Fedora, see:
 
 * link:https://admin.fedoraproject.org/mailman/listinfo/java-devel[java-devel mailing list]
 * Freenode IRC channel link:irc://irc.freenode.net/fedora-java[#fedora-java]
-* link:https://Ask.FedoraProject.org/en/questions/scope:all/sort:activity-desc/tags:java/page:1/[Ask Fedora about Java]
+* link:https://ask.fedoraproject.org/tags/java[Ask Fedora about Java]
 
 For more information about Java in general, see:
 
