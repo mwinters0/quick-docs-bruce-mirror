@@ -172,6 +172,29 @@ However, that doesn't mean that the package is not useful or that you don't use 
 *Only remove what you are sure you don't need*.
 ====
 
+[[sect-clean-up-old-symlinks]]
+=== Clean-Up Old Symlinks
+
+There may be some dangling symlinks in the filesystem after an upgrade. You can clean the dangling links by installing the symlinks utility and deleteing the old links.
+
+[source,bash]
+----
+sudo dnf install symlinks
+----
+
+Once the utility is installed you can audit for broken symlinks like shown below. `-r` means recursive.
+
+[source,bash]
+----
+sudo symlinks -r /usr | grep dangling
+----
+
+After you verify the list of broken symlinks you can delete them like shown below. `-d` means delete.
+[source,bash]
+----
+sudo symlinks -r -d /usr
+----
+
 [[sect-resolving-post-upgrade-issues]]
 == Resolving Post-Upgrade Issues
 
