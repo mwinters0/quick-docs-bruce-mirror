@@ -1,5 +1,4 @@
 [id='viewing-logs in Fedora']
-= Viewing logs in Fedora
 
 Log files contain messages about the system, including the kernel, services, and applications running on it.
 These contain information that helps troubleshoot issues, or simply monitor system functions.
