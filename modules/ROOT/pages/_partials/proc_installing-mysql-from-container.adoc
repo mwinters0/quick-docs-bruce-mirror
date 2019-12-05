@@ -1,0 +1,76 @@
+[id='install-from-container']
+= Install from Podman
+
+== Downloading a SQL Server Docker Image
+
+----
+podman pull {mysql/mysql-server|mariadb/server}
+----
+
+== See Logs
+
+----
+podman logs {mysql|mariadb}
+----
+
+== Starting a MYSQL Server Instance
+
+The command's below contain the random password generated for the root user;
+
+----
+podman logs mysql 2>&1 | grep GENERATED                                                   
+----
+
+----
+podman  -d -e MYSQL_ROOT_PASSWORD=mypassword mysql/mysql-Server
+----
+
+== Starting a MariaDB Server Instance 
+
+----
+podman run -d --name=mariadb -ed MYSQL_ROOT_PASSWORD=mypassword -d mariadb/server
+----
+
+WARNING: Password blank default for MariaDB
+
+NOTE: The -d option used for _BOTH_ in the podman run command above makes the container run in the background. Use this command to monitor the output from the container:
+
+== Connecting to MySQL Server from within the Container
+
+----
+podman exec -it mysql mysql -uroot -p
+----
+
+you must reset the server root password by issuing this statement:                        
+ 
+----
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';                            
+----
+
+== Connecting to Mariadb Server from within the Container
+
+----
+podman exec -it mariadb bash
+----
+
+== Reseting SQL_ROOT_PASSWORD
+
+you must reset the server root password by issuing this statement:                        
+
+----
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';                            
+----
+
+== Stopping and Deleting a SQL Container
+
+----
+podman {start|stop|restart} {mysql|mariadb}
+----
+
+== Deleting a SQL Container
+
+----
+podman rm {mysql|mariadb}
+----
+
+WARNING: you can do the same with _docker_ just change _podman_ with _docker_.

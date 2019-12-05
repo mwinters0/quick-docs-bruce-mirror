@@ -34,8 +34,4 @@ mysql> show schemas;
 
 == Files location
 
-For both of them, the main configuration file is `/etc/my.cnf`; eventually the configuration can be splitted in many files inside the include directory `/etc/my.cnf.d`.
-
-Log files can be located in `/var/log/mysql` for MySQL, and `/var/log/mariabd` for MariaDB.
-
 The database disk storage is located in `/var/lib/mysql`.

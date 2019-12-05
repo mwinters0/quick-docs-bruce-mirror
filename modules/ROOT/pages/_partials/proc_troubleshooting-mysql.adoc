@@ -1,0 +1,96 @@
+[id='how-to-troubleshoot-issues-in-sql'] 
+= How To Troubleshoot Issues in SQL
+
+Version:
+
+----
+dnf list installed | grep -i -e maria -e mysql -e galera
+----
+
+Check parameters in configuration file:
+
+* MySQL:
+
+----
+mysqld --print-defaults
+----
+
+* MariaDB/MySQL Comunnity:
+
+----
+/usr/libexec/mysqld --print-defaults
+----
+
+WARNING: Compatiblity between different version are not allowed Just install one of them.
+
+== How to Access SQL Error Logs                                                           
+
+Oftentimes, the root cause of slowdowns, crashes, or other unexpected behavior in SQL can 
+In many cases, the error logs are most easily read with the less program, a command line u
+
+if SQL isn’t behaving as expected, you can obtain more information about the source of the
+
+* **systemctl status mysqld.service** doesn't start well, This information doesn’t explain
+well what is happening?, after this command you should type `journalctl -xe -u mariadb -u mysqld`.                                      
+* Look at Log files, can be located in `/var/log/mysql/mysqld.log` for MySQL, and `/var/log/mariabd` for MariaDB.
+
+== How To Troubleshoot Socket Errors in SQL
+
+SQL manages connections to the database server through the use of a socket file, a special kind of file that facilitates communications between different processes. The MySQL server’s socket file is named mysqld.sock and on Ubuntu systems it’s usually stored in the /var/run/mysqld/ directory. This file is created by the MySQL service automatically.
+
+Sometimes, changes to your system or your SQL configuration can result in SQL being unable to read the socket file, preventing you from gaining access to your databases. The most common socket error looks like this:
+
+----
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+----
+
+There are a few reasons why this error may occur, and a few potential ways to resolve it.
+One common cause of this error is that the SQL service is stopped or did not start to begin with, meaning that it was unable to create the socket file in the first place. To find out if this is the reason you’re seeing this error, try starting the service with _systemctl_:
+
+----
+sudo systemctl start {mysqld|mariadb}
+----
+
+Then try accessing the MySQL prompt again. If you still receive the socket error, double check the location where your MySQL installation is looking for the socket file. This information can be found in the `mysqld.cnf` file:
+
+look for the socket parameter in the [mysqld] section of this file. It will look like this:
+
+----
+[mysqld]
+user            = mysql
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+port            = 3306
+----
+
+Close this file, then ensure that the mysqld.sock file exists by running an ls command on the directory where SQL expects to find it:
+
+----
+ls -a /var/run/mysqld/
+----
+
+If the socket file exists, you will see it in this command’s output:
+
+----
+mysqld.pid  mysqld.sock  mysqld.sock.lock
+----
+
+if the file does not exist, the reason may be that MySQL is trying to create it, but does not have adequate permissions to do so. You can ensure that the correct permissions are in place by changing the directory’s ownership to the mysql user and group:
+
+----
+sudo chown mysql:mysql /var/run/mysqld/
+----
+
+Then ensure that the mysql user has the appropriate permissions over the directory. Setting these to 775 will work in most cases:
+
+----
+sudo chmod -R 755 /var/run/mysqld/
+----
+
+Finally, restart the MySQL service so it can attempt to create the socket file again:
+
+----
+sudo systemctl restart {mysqld|mariadb}
+----
+
+Then try accessing the MySQL prompt once again. If you still encounter the socket error, there’s likely a deeper issue with your MySQL instance, in which case you should review the error log to see if it can provide any clues.

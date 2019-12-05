@@ -17,19 +17,12 @@ NOTE: MariaDB and MySQL packages conflict each other. You have to install MariaD
 
 In addition you can install MySQL commmunity edition (8.0 or 5.7) from the repository maintained by MySQL itself: https://dev.mysql.com/downloads/repo/yum/
 
-include::{partialsdir}/proc_installing-mysql.adoc[leveloffset=+1]
-
-include::{partialsdir}/proc_configuring-mysql.adoc[leveloffset=+1]
-
-include::{partialsdir}/proc_installing-mariadb.adoc[leveloffset=+1]
-
-include::{partialsdir}/proc_installing-mariadb-module.adoc[leveloffset=+1]
-
-include::{partialsdir}/proc_configuring-mariadb.adoc[leveloffset=+1]
-
+include::{partialsdir}/proc_installing-mysql-from-oracle.adoc[leveloffset=+1]
+include::{partialsdir}/proc_installing-mysql-from-fedora-repo.adoc[leveloffset=+1]
+include::{partialsdir}/proc_installing-mysql-from-container.adoc[leveloffset=+1]
 include::{partialsdir}/proc_using-mysql-mariadb.adoc[leveloffset=+1]
-
-include::{partialsdir}/proc_configuring-mysql-mariadb-firewall.adoc[leveloffset=+1]
+include::{partialsdir}/proc_expose-outside-mysql.adoc[leveloffset=+1]
+include::{partialsdir}/proc_troubleshooting-mysql.adoc[leveloffset=+1]
 
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]

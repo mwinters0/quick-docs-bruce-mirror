@@ -1,0 +1,51 @@
+[id='install-from-oracle-mysql']
+= Install from Oracle MySql
+
+include::{partialsdir}/3rdparty-message.adoc[]
+
+== Adding the MySQL repository to Fedora
+
+----
+sudo dnf install https://repo.mysql.com//mysql80-community-release-fc31-1.noarch.rpm
+----
+
+== Installing MySQL on Fedora 
+
+----
+sudo dnf install mysql-community-server
+----
+
+== Start MySQL Service and Enable at Loggin:
+
+----
+sudo systemctl start mysqld
+sudo systemctl enable mysqld
+----
+
+find Default Password,  For security reasons, MySQL generates a temporary root key. Please note that MySQL has even stricter security policies than MariaDB.
+
+----
+sudo grep 'temporary password' /var/log/mysqld.log
+----
+
+== Configuring MySQL before the first use
+
+----
+sudo mysql_secure_installation
+----
+
+Then, answer the security questions as you prefer. or just say **yes** to all of them.
+
+== Using MYSQL
+
+----
+sudo mysql -u root -p
+----
+
+== Removing MySQL
+
+I suggest to remove in the following way, the most appropriate and safe way without removing many dependencies is:
+
+----
+sudo rpm -e --nodeps mysql-community-libs mysql-community-common mysql-community-server
+----
