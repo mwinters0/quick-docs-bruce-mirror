@@ -1,18 +1,37 @@
 [id='installing-oracle-java-se']
 = Installing Oracle Java SE
 
+include::{partialsdir}/3rdparty-message.adoc[] 
+
 To install Oracle Java SE:
 
-. Navigate to link:http://www.oracle.com/technetwork/java/javase/downloads[Oracle Java SE downloads page].
-
-. Choose the version of Java you wish to use. Typically, you would navigate to the link:http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[version 8 page].
+. Navigate to link:http://www.oracle.com/technetwork/java/javase/downloads[Oracle Java SE downloads page], and
+  choose the version of Java you wish to use.
 
 . Accept the license agreement and download the appropriate tar.gz file for your systems architecture. Do NOT use Oracle rpms as these are NOT compatible with fedora/openjdk packages. Download tar.gz instead and unpack it somewhere.
 
-. Use tar to unpack downloaded archive e.g.:
-+
+. Use `DNF` to install it the downloaded version e.g.:
+
 ----
-# tar -xvzf jdk-8u201-linux-x64.tar.gz
+sudo dnf install version-downloaded.rpm
 ----
 
-Note that jdk-8u201-linux-x64.tar.gz is used as example only. Always make sure to download latest version available.
+Note: Always make sure to download latest version available.
+
+== Switching between Java Versions                                                        
+
+You might have installed several versions of Java on your system, you can switch from one 
+
+After running this command, you will see a a list of all installed Java versions, select t
+
+----
+sudo alternatives --config java
+----
+
+Simply enter a selection number to choose which java executable should be used by default.
+
+* verify:                                                                                 
+
+----
+java --Versions
+----
