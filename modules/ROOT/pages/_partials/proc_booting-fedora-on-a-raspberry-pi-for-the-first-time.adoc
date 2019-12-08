@@ -47,12 +47,6 @@ Follow these steps to resize the partitions for Fedora ARM on Raspberry Pi:
 $ growpart /dev/mmcblk0p4
 ----
 +
-. Grow the filesystem to fill the available space.
-+
-----
-$ resize2fs /dev/mmcblk0p4
-----
-+
 . Resize root partition for the server image (which uses xfs).
 +
 ----
