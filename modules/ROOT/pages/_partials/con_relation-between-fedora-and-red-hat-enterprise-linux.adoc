@@ -39,6 +39,8 @@ Fedora 13 and several modifications
 
 |Red Hat Enterprise Linux 7 |Maipo |2014-06-10 |Primarily Fedora 19 with
 several changes from 20 and later
+
+|Red Hat Enterprise Linux 8|Ootpa |2019-05-07 |Fedora 28
 |=======================================================================
 
 == Difference between Red Hat Enterprise Linux and Fedora
