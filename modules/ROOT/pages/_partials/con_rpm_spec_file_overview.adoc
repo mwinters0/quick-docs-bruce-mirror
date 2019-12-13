@@ -9,10 +9,10 @@ NOTE: You can use the macros `%\{name}`, `%\{version}` and `%\{release}` to refe
 Add the base name of the package, which must match the `.spec` file name. Follow the http://fedoraproject.org/wiki/Packaging:Naming[Package Naming Guidelines] and write the file name in lower-case letters. 
 
 `Version`::
-Add the upstream version number. See http://fedoraproject.org/wiki/Packaging:Versioning[Package Versioning]. If the version contains tags that are non-numeric, you might need to include the non-numeric characters in the `Release` tag. If upstream uses full dates to distinguish versions, consider using version numbers of the form. For example, `yy.mm[dd]` where `2008-05-01` becomes `8.05`.
+Add the upstream version number. See https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/[Package Versioning]. If the version contains tags that are non-numeric, you might need to include the non-numeric characters in the `Release` tag. If upstream uses full dates to distinguish versions, consider using version numbers of the form. For example, `yy.mm[dd]` where `2008-05-01` becomes `8.05`.
 
 `Release`::
-Set the initial value to `1%\{?dist}`. Increment the number every time you release a new package for the same version of software. When a new upstream version is released, change the `Version` tag to match and reset the `Release` number to `1`. For more information, see the http://fedoraproject.org/wiki/Packaging:Versioning[Versioning Guide] of the packaging guidelines. 
+Set the initial value to `1%\{?dist}`. Increment the number every time you release a new package for the same version of software. When a new upstream version is released, change the `Version` tag to match and reset the `Release` number to `1`. For more information, see the https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/[Versioning Guide] of the packaging guidelines. 
 
 `Summary`::
 Enter a brief, one-line summary of the package. Use American English. Do not end with a period.
