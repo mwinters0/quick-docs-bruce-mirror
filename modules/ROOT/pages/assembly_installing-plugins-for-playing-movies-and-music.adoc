@@ -52,12 +52,11 @@ WARNING: If you live in a country where software patents apply, such as in the U
 * Use the `dnf` utility to install packages that provide multimedia libraries:
 +
 ----
-$ sudo dnf install gstreamer1-libav gstreamer1-plugins-bad-free \
-       gstreamer1-plugins-bad-free gstreamer1-plugins-bad-free-extras \
-       gstreamer1-plugins-bad-freeworld gstreamer1-plugins-bad-nonfree \
-       gstreamer1-plugins-good gstreamer1-plugins-ugly lame-libs lame-libs
+sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
 
-$ sudo dnf group upgrade --with-optional Multimedia
+sudo dnf install lame\* --exclude=lame-devel 
+
+sudo dnf group upgrade --with-optional Multimedia
 ----
 
 [id='related-information-{context}']
