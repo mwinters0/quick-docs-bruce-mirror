@@ -65,15 +65,14 @@ Firefox is also available on other platforms such as Microsoft Windows and Mac O
 
 === E-mail
 
-**Evolution** is the default email client application.
-Use it to access e-mail, organize contacts, manage tasks, and schedule calendars.
+There is no longer a default email client bundled with Fedora, but you can install one by selecting menu:Applications[Software].
+
+You can choose **Evolution**. Use it to access e-mail, organize contacts, manage tasks, and schedule calendars.
 Evolution is similar in functionality to Microsoft Outlook.
-Access it by clicking on the envelope icon in the toolbar panel or through menu:Applications[Internet > Email].
 
 Another choice for an email client is **Thunderbird**, developed by the Mozilla Foundation.
 It is a popular email client on multiple operating systems.
 It is used for handling email and newsgroups without the calendaring functions that Evolution provides.
-Thunderbird is not installed by default. It can be installed by selecting menu:Applications[Add/Remove Software].
 
 === Instant messaging
 
