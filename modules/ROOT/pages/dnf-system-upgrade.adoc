@@ -132,7 +132,7 @@ You can see duplicate packages (packages with multiple versions installed) with:
 
 [source,bash]
 ----
-sudo dnf repoquery --duplicated
+sudo dnf repoquery --duplicates
 ----
 
 [NOTE]
