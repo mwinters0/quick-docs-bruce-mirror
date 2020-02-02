@@ -7,12 +7,12 @@ NOTE: For a general-purpose RPM building guide for packagers on Fedora, CentOS, 
 
 For more information about packaging guidelines, see the following guides:
 
-* https://fedoraproject.org/wiki/Packaging:Guidelines[Packaging Guidelines]
-* http://fedoraproject.org/wiki/Packaging:LicensingGuidelines[Licensing Guidelines]
-* http://fedoraproject.org/wiki/Packaging:Naming[Package Naming Guidelines]
-* http://fedoraproject.org/wiki/Packaging:DistTag[Dist Tag Guidelines]
-* http://fedoraproject.org/wiki/Packaging:ReviewGuidelines[Package Review Guidelines]
-* http://fedoraproject.org/wiki/Packaging:Scriptlets[Recipes for RPM scriptlets]
+* https://docs.fedoraproject.org/en-US/packaging-guidelines/[Packaging Guidelines]
+* https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/[Licensing Guidelines]
+* https://docs.fedoraproject.org/en-US/packaging-guidelines/Naming/[Package Naming Guidelines]
+* https://docs.fedoraproject.org/en-US/packaging-guidelines/DistTag/[Dist Tag Guidelines]
+* https://docs.fedoraproject.org/en-US/packaging-guidelines/ReviewGuidelines/[Package Review Guidelines]
+* https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/[Recipes for RPM scriptlets]
 
 
 If you plan to submit a package to the official Fedora repository, follow the procedure in http://fedoraproject.org/wiki/Join_the_package_collection_maintainers[Join the package collection maintainers].
