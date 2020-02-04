@@ -7,7 +7,7 @@
 
 To install a virtual operating system:
 
-. Run *GNOME Boxes* using the *Super* key and typing `Boxes`. In GNOME Boxes, click the *New* button.
+. Run *GNOME Boxes* using the *Super* key and type `Boxes`. In GNOME Boxes, click the *New* button.
 +
 image::Boxes_new_machine.png[New machine]
 
@@ -23,7 +23,7 @@ Alternatively, download an ISO image from the relevant website and select the fi
 +
 image::Select_from_file.png[Select from file]
 +
-. Choose your user name, password, and installation type.
+. Choose your username, password, and installation type.
 +
 image::Setup_machine.png[Setup machine]
 +
