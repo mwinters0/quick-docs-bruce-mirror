@@ -4,8 +4,6 @@ ifdef::context[:parent-context: {context}]
 [id='encrypting-drives-using-luks']
 = Encrypting drives using LUKS
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 As a system administrator, you can encrypt a block device. This section gives a brief introduction to block encryption, describes Linux Unified Key Setup (LUKS), and lists the steps to create an encrypted block device.
 
 :leveloffset: +1
