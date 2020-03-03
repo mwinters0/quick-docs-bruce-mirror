@@ -2,7 +2,6 @@
 :FedoraVersionNumberNext: 30
 :FedoraVersionNumber: 29
 
-include::{partialsdir}/unreviewed-message.adoc[]
 include::{partialsdir}/attributes.adoc[]
 
 This page explains the various Fedora repositories that exist for
@@ -19,7 +18,7 @@ The _fedora_ repository exists for all Fedora releases after they have link:http
 
 For stable releases, _fedora_ represents the frozen release state. It is a part of the frozen tree that is created by https://fedoraproject.org/wiki/ReleaseEngineering[Release Engineering] when a release is approved at a https://fedoraproject.org/wiki/Go_No_Go_Meeting[Go/No-Go Meeting]. The package set it contains never changes after that time. It represents the _stable_ state of a stable release in conjunction with _updates_ repository.
 
-The stable release _fedora_ repositories for the various primary architectures can be found in the `/fedora/linux/releases/XX/Everything` directory on the mirrors (where XX is the release), and can also be queried from MirrorManager. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-{FedoraVersionNumber}&arch=x86_64 will return mirrors for the x86_64 _fedora_ repository for {FedoraVersionNumber} release.
+The stable release _fedora_ repositories for the various primary architectures can be found in the `/fedora/linux/releases/XX/Everything` directory on the mirrors (where XX is the release), and can also be queried from MirrorManager. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-{FedoraVersionNumber}&arch=x86_64 will return mirrors for the x86_64 _fedora_ repository for release {FedoraVersionNumber}.
 
 [[the-fedora-repository-in-branched-releases]]
 === The _fedora_ repository in Branched releases
@@ -35,7 +34,7 @@ The _updates_ repository exists for Branched and stable releases, but is only po
 
 For stable releases, _updates_ together with _fedora_ represents the current _stable_ state of the release. Package builds that pass the https://fedoraproject.org/wiki/Updates_Policy[Updates Policy] move from the _updates-testing_ repository to this repository. This difference from Branched is a result of the need to maintain a precise representation of the initial, 'frozen' state of a stable release.
 
-The stable release _updates_ repositories for the various primary architectures can be found in the `/fedora/linux/updates/XX` directory on the mirrors (where XX is the release), and can also be queried from https://fedoraproject.org/wiki/MirrorManager[MirrorManager]. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=updates-released-f{FedoraVersionNumber}&arch=x86_64 will return mirrors for the x86_64 _updates_ repository for {FedoraVersionNumber}.
+The stable release _updates_ repositories for the various primary architectures can be found in the `/fedora/linux/updates/XX` directory on the mirrors (where XX is the release), and can also be queried from https://fedoraproject.org/wiki/MirrorManager[MirrorManager]. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=updates-released-f{FedoraVersionNumber}&arch=x86_64 will return mirrors for the x86_64 _updates_ repository for release {FedoraVersionNumber}.
 
 [[the-updates-testing-repository]]
 === The _updates-testing_ repository
@@ -49,7 +48,7 @@ The https://fedoraproject.org/wiki/Updates_Policy[Updates Policy] defines the ru
 
 The _updates-testing_ repository is enabled by default for Branched releases, but disabled by default for stable releases. The switchover is made around the time of the https://fedoraproject.org/wiki/Milestone_freezes[Final Freeze] for each release. Testers moving from Branched to stable may encounter errors running updates around this time, caused by dependency mismatches between packages already installed from the now-disabled _updates-testing_ repository. Running `dnf distro-sync`(or with yum command) or re-enabling the _updates-testing_ repository will both usually alleviate the issue; it is up to the individual user whether they wish to continue using the _updates-testing_ repository after the stable release or not.
 
-The _updates-testing_ repositories for both Branched and stable releases can be found in the `/fedora/linux/updates/testing/XX` directory on the mirrors (where XX is the release), and can also be queried from https://fedoraproject.org/wiki/MirrorManager[MirrorManager]. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=updates-testing-f{FedoraVersionNumber}&arch=x86_64 will return mirrors for the x86_64 _updates-testing_ repository for {FedoraVersionNumber}.
+The _updates-testing_ repositories for both Branched and stable releases can be found in the `/fedora/linux/updates/testing/XX` directory on the mirrors (where XX is the release), and can also be queried from https://fedoraproject.org/wiki/MirrorManager[MirrorManager]. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=updates-testing-f{FedoraVersionNumber}&arch=x86_64 will return mirrors for the x86_64 _updates-testing_ repository for release {FedoraVersionNumber}.
 
 [[the-rawhide-repository]]
 === The _rawhide_ repository
