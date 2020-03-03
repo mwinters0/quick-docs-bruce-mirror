@@ -26,7 +26,7 @@ The stable release _fedora_ repositories for the various primary architectures c
 
 In Branched releases - the state a release is in between branching from Rawhide and stable release, see https://fedoraproject.org/wiki/Releases/Branched[Branched] for more details - the fedora repository alone represents the release's stable state. The _updates_ repository for Branched releases is not used until they become stable. Before the https://fedoraproject.org/wiki/Updates_Policy#Bodhi_enabling[Bodhi enabling point], package builds for the Branched release are sent directly to this repository. After the _Bodhi enabling point_, package builds that pass the https://fedoraproject.org/wiki/Updates_Policy[Updates Policy] move from _updates-testing_ repository to this repository.
 
-The Branched _fedora_ repositories for the various primary https://fedoraproject.org/wiki/Architectures[architectures] can be found in the `/fedora/linux/development/XX` directory on the mirrors (where XX is the release), and can also be queried from MirrorManager. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-{FedoraVersionNumberNext}&arch=x86_64 will return mirrors for the x86_64 _fedora_ repository for {FedoraVersionNumberNext} version.
+The Branched _fedora_ repositories for the various primary https://fedoraproject.org/wiki/Architectures[architectures] can be found in the `/fedora/linux/development/XX` directory on the mirrors (where XX is the release), and can also be queried from MirrorManager. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-{FedoraVersionNumberNext}&arch=x86_64 will return mirrors for the x86_64 _fedora_ repository for version {FedoraVersionNumberNext}.
 
 [[the-updates-repository]]
 == The _updates_ repository
