@@ -2,9 +2,7 @@ include::{partialsdir}/attributes.adoc[]
 
 = How to Create a GNU Hello World RPM Package
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
-This is a short hands-on tutorial on writing RPM files, showing how to quickly step up to create simple source and binary software packages.
+This is a short hands-on tutorial on writing RPM files, showing how to quickly set up and create simple source and binary software packages.
 It assumes some familiarity with using pre-made RPM packages, and with the FOSS building process.
 
 For comprehensive information on how to create RPM files, including more detailed tips, refer to xref:creating-rpm-packages.adoc[How to create an RPM package].
@@ -96,7 +94,7 @@ project, including configuration, build, internationalization, help files, etc.
 - Initial version of the package
 ----
 
-The `Version` should mirror upstream while `Release` numbers our work within Fedora.
+The `Version` should mirror the upstream, while `Release` numbers our work within Fedora.
 
 The first letter of the `Summary` should be uppercase to avoid `rpmlint` complaints.
 
@@ -259,7 +257,7 @@ $ mock --verbose ../SRPMS/hello-2.10-1.fc25.src.rpm
 
 == History
 
-Przemek Klosowski wrote this tutorial when he worked through link:https://fedoraproject.org/wiki/Building_RPM_packages_(20090405)[Christoph Wickert's IRC session on building RPMs] using Rahul Sundaram suggestion of GNU "Hello World" as a test case.
+Przemek Klosowski wrote this tutorial when he worked through link:https://fedoraproject.org/wiki/Building_RPM_packages_(20090405)[Christoph Wickert's IRC session on building RPMs] using Rahul Sundaram's suggestion of GNU "Hello World" as a test case.
 After he wrote up his experience, he found out about the excellent and extensive xref:creating-rpm-packages.adoc[How to create an RPM package] page on this wiki, as well as the Christian Lyder Jacobsen's website, which is unfortunately not available anymore.
 However, Christian isn't planning to update his site, and it seemed that a 5-minute 'fast food' alternative to the more extensive article might suit some people.
 More in-depth information on using and building RPM packages is available from link:dnf.adoc[other sources].
