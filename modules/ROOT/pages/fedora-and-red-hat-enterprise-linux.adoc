@@ -3,8 +3,6 @@ ifdef::context[:parent-context: {context}]
 [id='fedora-and-red-hat-enterprise-linux']
 = Fedora and Red Hat Enterprise Linux
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 What is the difference between Fedora and Red Hat Enterprise Linux?
 
 include::{partialsdir}/con_relation-between-fedora-and-red-hat-enterprise-linux.adoc[leveloffset=+1]
