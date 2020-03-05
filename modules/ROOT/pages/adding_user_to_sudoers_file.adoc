@@ -25,5 +25,7 @@ $ sudo visudo
 ...
 ----
 
+You will need to logout and back in for changes to take effect.
+
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
