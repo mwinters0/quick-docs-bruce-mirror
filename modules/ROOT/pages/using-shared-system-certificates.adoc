@@ -3,8 +3,6 @@ ifdef::context[:parent-context: {context}]
 [[using-shared-system-certificates]]
 = Using Shared System Certificates
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 The Shared System Certificates storage enables NSS, GnuTLS, OpenSSL, and Java to share a default source for retrieving system certificate anchors and black list information. By default, the trust store contains the Mozilla CA list, including positive and negative trust. The system allows updating of the core Mozilla CA list or choosing another certificate list.
 
 include::{partialsdir}/con_using-the-system-wide-trust-store.adoc[leveloffset=+1]
