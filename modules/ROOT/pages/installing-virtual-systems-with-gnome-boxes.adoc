@@ -6,8 +6,6 @@ ifdef::context[:parent-context: {context}]
 :md: en-US/modules
 :imagesdir: ../images
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 GNOME Boxes is an application in GNOME Desktop Environment, which enables you to virtually access various operating systems.
 
 :leveloffset: +1
