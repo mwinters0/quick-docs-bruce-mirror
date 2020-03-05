@@ -4,8 +4,6 @@ ifdef::context[:parent-context: {context}]
 = Adding a user to sudoers
 [id=adding_user_to_sudoers_{context}]
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 One of the most common operations that administrators want to accomplish when managing `sudo` permissions is to grant a new user general `sudo` access. This is helpful if you want to give an account full administrative access to the system.
 
 [discrete]
