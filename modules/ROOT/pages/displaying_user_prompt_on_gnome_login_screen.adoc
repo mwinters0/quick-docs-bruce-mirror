@@ -4,7 +4,6 @@ ifdef::context[:parent-context: {context}]
 
 = Displaying a user prompt on the GNOME login screen
 
-include::{partialsdir}/unreviewed-message.adoc[]
 
 include::{partialsdir}/proc_displaying_user_prompt_on_gnome_login_screen.adoc[leveloffset=+1]
 ifdef::parent-context[:context: {parent-context}]
