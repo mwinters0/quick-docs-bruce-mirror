@@ -12,7 +12,7 @@ image::shortcuts-settings-devices.png[]
 +
 NOTE: Earlier Fedora versions might not need this step.
 
-. Choose the *Keyboard* entry from the list and scroll down to the bottom of the list of keyboard shortcuts:
+. Choose the *Keyboard Shortcuts* entry from the list and scroll down to the bottom of the list of keyboard shortcuts:
 +
 image::shortcuts-keyboard-scroll.png[]
 
@@ -26,7 +26,7 @@ A window for editing the shortcut appears:
 +
 image::shortcuts-edit.png[]
 
-. Click the small *x* button to the right of the disaplyed shortcut.
+. Click the small *x* button to the right of the displayed shortcut.
 +
 The keyboard shortcut is removed from this shortcut and the shortcut list now displays _Disabled_ instead of the key combination:
 +
