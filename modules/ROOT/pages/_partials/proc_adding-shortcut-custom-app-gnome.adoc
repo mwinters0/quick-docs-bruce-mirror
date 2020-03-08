@@ -12,7 +12,7 @@ image::shortcuts-settings-devices.png[]
 +
 NOTE: Earlier Fedora versions might not need this step.
 
-. Choose the *Keyboard* entry from the list and scroll down to the bottom of the list of keyboard shortcuts:
+. Choose the *Keyboard Shortcuts* entry from the list and scroll down to the bottom of the list of keyboard shortcuts:
 +
 image::shortcuts-keyboard-scroll.png[]
 
