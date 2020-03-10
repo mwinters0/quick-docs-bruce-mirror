@@ -7,6 +7,9 @@
 * Installation
 ** xref:creating-and-using-a-live-installation-image.adoc[Creating and using a live installation image]
 ** xref:raspberry-pi.adoc[Fedora on Raspberry Pi]
+** xref:anaconda/anaconda.adoc[Anaconda: the Fedora installer]
+*** xref:anaconda/anaconda_logging.adoc[Anaconda Logging]
+
 
 
 * Usage and customisation
@@ -89,12 +92,6 @@
 //FIXME * xref:uefi-with-qemu.adoc[Using UEFI with QEMU]
 //FIXME * xref:upgrading-fedora-online.adoc[Upgrading Fedora using package manager]
 
-
-* xref:anaconda/anaconda.adoc[Anaconda: the Fedora installer]
-** xref:anaconda/anaconda_distros.adoc[Anaconda-based Distributions]
-** xref:anaconda/anaconda_updates.adoc[Anaconda Updates]
-** xref:anaconda/anaconda_logging.adoc[Anaconda Logging]
-** xref:anaconda/anaconda_product_image.adoc[Anaconda Product Image]
 
 
 * xref:creating-rpm-packages.adoc[Creating RPM packages]
