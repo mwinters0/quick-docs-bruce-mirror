@@ -7,8 +7,6 @@ ifdef::context[:parent-context: {context}]
 
 :md: en-US/modules
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 :leveloffset: +1
 
 include::{partialsdir}/proc_adding-shortcut-custom-app-gnome.adoc[]

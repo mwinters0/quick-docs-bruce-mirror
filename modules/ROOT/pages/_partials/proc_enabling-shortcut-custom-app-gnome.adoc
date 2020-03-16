@@ -36,3 +36,4 @@ As soon as you release the key combination, the window for entering the shortcut
 image::shortcuts-enabling-entered.png[]
 
 . Close the shortcut editing window.
+

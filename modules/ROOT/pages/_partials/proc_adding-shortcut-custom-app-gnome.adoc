@@ -36,7 +36,7 @@ image::shortcuts-add-enter.png[]
 
 . Press the key combination that should become the shortcut for starting the application.
 +
-As soon as you release the key combination, the window for entering the shortcut closes. The window for application name and command now displays the entered shortctut:
+As soon as you release the key combination, the window for entering the shortcut closes. The window for application name and command now displays the entered shortcut:
 +
 image::shortcuts-add-shortcut.png[]
 
@@ -46,7 +46,7 @@ Your application shortcut now appears in the list under _Custom Shortcuts_:
 +
 image::shortcuts-added.png[]
 
-// optional - close settings?
+// o																																																																																							ptional - close settings?
 
 ////
 info sources:
