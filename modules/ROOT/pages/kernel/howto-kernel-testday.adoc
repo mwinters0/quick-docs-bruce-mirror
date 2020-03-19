@@ -49,7 +49,7 @@ IMPORTANT: *Disclaimer*: You could also install and test the new kernel on your 
 
 Before testing, you need to install some packages:
 
- sudo dnf install gcc git python3-fedora keyutils libtirpc-devel
+ sudo dnf install gcc make git libtirpc python3-fedora keyutils libtirpc-devel policycoreutils-python-utils
 
 * If you are using the _*test day image*_ you already have the kernel-test suite in the kernel-tests folder; enter the folder with 
 
@@ -85,7 +85,15 @@ The results of your test will be uploaded https://apps.fedoraproject.org/kernelt
 
 === Running tests
 
-IMPORTANT: *Before running the test, be sure your machine has no workload already, like other cpu intensive processes.You can check using the command: top*
+NOTE: *Before running the test, be sure your machine has no workload already, like other cpu intensive processes.You can check using the command: top*
+
+Before running tests, we need to allow the testsuite to make their heap memory executable with this command:
+
+     sudo semanage boolean -m --on selinuxuser_execheap
+
+IMPORTANT: When you finish with the tests, remember to turn SELinux boolean selinuxuser_execheap back to default state, by issuing the command: *sudo semanage boolean -m --off selinuxuser_execheap*
+
+Now let's start testing! 
 
 To run the basic set of tests, use this command:
 
