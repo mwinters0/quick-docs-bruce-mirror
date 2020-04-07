@@ -19,10 +19,10 @@ Although Spotify is not officially supported on Fedora, it can be installed on F
 // UNVERIFIED
 
 . xref:setup_rpmfusion.adoc[Enable the RPMFusion repositories].
-. Install the lpf-spotify-client package:
+. Install the `lpf-spotify-client` package:
 +
 ----
-$ sudo dnf install lpf-spotify-client
+sudo dnf install lpf-spotify-client
 ----
 
 . Install Spotify:
@@ -30,7 +30,7 @@ $ sudo dnf install lpf-spotify-client
 .. or use the following command in a terminal:
 +
 ----
-$ lpf update
+lpf update
 ----
 
 
@@ -41,10 +41,16 @@ $ lpf update
 
 To install Spotify using link:https://flatpak.org/index.html[Flatpak]:
 
-. Install Flatpak using dnf:
+. Install Flatpak using DNF:
 +
 ----
-# dnf install -y flatpak
+sudo dnf install -y flatpak
+----
+
+. Enable the Flathub remote:
++
+----
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 ----
 
 . Install Spotify:
@@ -57,7 +63,7 @@ To install Spotify using link:https://flatpak.org/index.html[Flatpak]:
 .. Using the command line:
 +
 ----
-# flatpak install flathub com.spotify.Client
+sudo flatpak install flathub com.spotify.Client
 ----
 
 . Run Spotify:
@@ -65,7 +71,7 @@ To install Spotify using link:https://flatpak.org/index.html[Flatpak]:
 .. or use the following command in the terminal:
 +
 ----
-$ flatpak run com.spotify.Client
+flatpak run com.spotify.Client
 ----
 
 
@@ -80,13 +86,13 @@ Snap is the officially recommended distribution method for Spotify. To install S
 . Install Snap
 +
 ----
-$ sudo dnf install snapd
-$ sudo ln -s /var/lib/snapd/snap /snap
+sudo dnf install snapd
+sudo ln -s /var/lib/snapd/snap /snap
 ----
 
 . Install Spotify using Snap:
 ----
-$ snap install spotify
+snap install spotify
 ----
 
 == References
