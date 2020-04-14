@@ -147,7 +147,7 @@ If the program uses GNU `info` files, you need to make sure the installation and
 * delete the `dir` file in `%install`:
 
 ----
-$ rm -f %{buildroot}/%{_infodir}/dir
+$ rm -f %{buildroot}%{_infodir}/dir
 ----
 
 * `Requires(post): info` and `Requires(preun): info`
@@ -202,7 +202,7 @@ make %{?_smp_mflags}
 %install
 %make_install
 %find_lang %{name}
-rm -f %{buildroot}/%{_infodir}/dir
+rm -f %{buildroot}%{_infodir}/dir
 
 %post
 /sbin/install-info %{_infodir}/%{name}.info %{_infodir}/dir || :

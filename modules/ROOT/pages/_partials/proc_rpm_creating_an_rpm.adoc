@@ -61,8 +61,8 @@ A simple program to greet the user, Texas style.
 +
 [source]
 ----
-mkdir -p %{buildroot}/%{_bindir}
-install -p -m 755 %{SOURCE0} %{buildroot}/%{_bindir}
+mkdir -p %{buildroot}%{_bindir}
+install -p -m 755 %{SOURCE0} %{buildroot}%{_bindir}
 ----
 +
 NOTE: In this example, we use the following three macros: `%\{buildroot}`, `%\{_bindir}`, and `%\{SOURCE0}`. This method ignores the origin of the files and directories and focuses on the destination of the files. Without `%\{buildroot}` the files might install directly onto your development machine. This is not recommended, especially if you run as root. For more information on macros and `.spec` file entries, see xref:con_rpm_spec_file_overview[].
