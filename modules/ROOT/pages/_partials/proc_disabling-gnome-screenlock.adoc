@@ -8,6 +8,15 @@ You can disable this feature at any time.
 
 To disable the GNOME automatic screen lock, complete the following steps.
 
+For Fedora 31 (GNOME 3.34):
+
+. On the desktop, navigate to the upper-right corner of the screen, click the arrow icon to expand the desktop options and then click the *Settings* icon.
+. From the the *Settings* menu, select *Privacy*.
+. On the *Privacy* page, select *Screen Lock*, and toggle the *Automatic Screen Lock* switch from *On* to *Off*.
+. Close the window and verify that in the *Privacy* page, the *Screen Lock* is *Off*.
+
+For Fedora 32 (GNOME 3.36):
+
 . On the desktop, navigate to the upper-right corner of the screen, click the arrow icon to expand the desktop options and then click *Settings*.
 . From the *Settings* menu, select *Privacy*, and then select *Screen Lock*.
 . On the *Screen Lock* page, toggle the *Automatic Screen Lock* switch from *On* to *Off*
