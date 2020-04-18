@@ -36,12 +36,12 @@ boot process, there may or may not be any output. Some good first steps are:
  going on.
 
 * The SysRq magic keys may still work. You may need to add
- `sysrq_always_enabled=1` to the kernel boot command line. See
- https://fedoraproject.org/wiki/QA/Sysrq[the wiki article on SysRq on usage
- details].
+  `sysrq_always_enabled=1` to the kernel boot command line. See
+  https://fedoraproject.org/wiki/QA/Sysrq[the wiki article on SysRq on usage
+  details].
 
 * Setting `nmi_watchdog=1` on the kernel command line will cause a panic when
-an NMI watchdog timeout occurs.
+  an NMI watchdog timeout occurs.
 
 == Logs to collect ==
 
@@ -80,38 +80,38 @@ considerably in most cases.
 ====
 
 . Find the newest version you can that works. This will be the initial "good"
-version. The first version you find that doesn't work will be the initial "bad"
-version.
+  version. The first version you find that doesn't work will be the initial "bad"
+  version.
 
 . Install the <<build-custom-kernel.adoc#get-the-dependencies,dependencies>>
-required to build the kernel.
+  required to build the kernel.
 
 . Next, <<build-custom-kernel.adoc#getting-the-sources,get the source code>>.
 
 . Prepare a `.config` file. Assuming you've got both the good and bad kernel
-installed, the config for both will be in `/boot/`.footnote:[When bisecting
-between major versions (e.g. `v4.16` and `v4.15`) new configuration options
-will be added and removed as you bisect. It's _usually_ safe to select the
-default.]
+  installed, the config for both will be in `/boot/`.footnote:[When bisecting
+  between major versions (e.g. `v4.16` and `v4.15`) new configuration options
+  will be added and removed as you bisect. It's _usually_ safe to select the
+  default.]
 
 . Start a new `git-bisect` with `git bisect start`.
 
 . Mark the newest version that works as "good" with `git bisect good <tag>`.
-For example: `git bisect good v4.16.8`.
+  For example: `git bisect good v4.16.8`.
 
 . Mark the first version that does not work as "bad" with `git bisect bad
-<tag>`.  For example: `git bisect bad v4.17`.
+  <tag>`.  For example: `git bisect bad v4.17`.
 
 . <<build-custom-kernel.adoc#building-the-kernel,Build the kernel>>. Sometimes
-commits cannot be built. If this happens, skip the commit with `git bisect
-skip`.
+  commits cannot be built. If this happens, skip the commit with `git bisect
+  skip`.
 
 . <<build-custom-kernel.adoc#installing-the-kernel,Install the kernel>>.
 
 . Reboot into the new kernel and test to see if it works.
 
 . If the new kernel works, mark it as good with `git bisect good`. Otherwise,
-mark it as bad with `git bisect bad`.
+  mark it as bad with `git bisect bad`.
 
 . Repeat the previous five steps until you've found the commit that introduced
-the problem.
+  the problem.

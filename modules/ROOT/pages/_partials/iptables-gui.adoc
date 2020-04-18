@@ -3,14 +3,14 @@
 There are several graphical user interfaces available to configure iptables.
 
 * link:http://www.fwbuilder.org/_fwbuilder[fwbuilder]: Very complete GUI tools
- to configure iptables.
+  to configure iptables.
 * link:http://shorewall.net/_Shorewall[Shorewall]: Another very complete GUI
-like fwbuilder.
+  like fwbuilder.
 * link:http://www.turtlefirewall.com/_Turtle_firewall_project[Turtle firewall
-project]: Web interface and integrated to webmin. But it can not handle all
-iptables options.
+  project]: Web interface and integrated to webmin. But it can not handle all
+  iptables options.
 * link:http://users.telenet.be/stes/ipmenu.html_IPmenu[IPmenu] :A console based
-interface that covers all iptables functionality.
+  interface that covers all iptables functionality.
 
 The following section describes yet another frontend: `system-config-firewall`.
 

@@ -12,7 +12,7 @@ Other people use your public key to authenticate and/or decrypt your communicati
 Distribute your *public* key as widely as possible, especially to people who you know will want to receive authentic communications from you, such as a mailing list..
 
 . Press the kbd:[Enter] key to assign a default value if desired.
-The first prompt asks you to select what kind of key you prefer:
+  The first prompt asks you to select what kind of key you prefer:
 +
 ----
 Please select what kind of key you want:
@@ -36,8 +36,8 @@ What keysize do you want? (2048)
 Again, the default is sufficient for almost all users, and represents an _extremely_ strong level of security.
 
 . Choose when the key will expire.
-It is a good idea to choose an expiration date instead of using the default, which is _none._
-If, for example, the email address on the key becomes invalid, an expiration date will remind others to stop using that public key.
+  It is a good idea to choose an expiration date instead of using the default, which is _none._
+  If, for example, the email address on the key becomes invalid, an expiration date will remind others to stop using that public key.
 +
 ----
 Please specify how long the key should be valid.
@@ -60,22 +60,22 @@ Is this correct (y/n)?
 . Enter `y` to finish the process.
 
 . Enter your name and email address.
-_Remember this process is about authenticating you as a real individual._
-For this reason, include your _real name_.
-Do not use aliases or handles, since these disguise or obfuscate your identity.
+  _Remember this process is about authenticating you as a real individual._
+  For this reason, include your _real name_.
+  Do not use aliases or handles, since these disguise or obfuscate your identity.
 
 . Enter your real email address for your GPG key.
-If you choose a bogus email address, it will be more difficult for others to find your public key.
-This makes authenticating your communications difficult.
-If you are using this GPG key for https://fedoraproject.org/wiki/Introduce_yourself_to_the_Docs_Project[self-introduction] on a mailing list, for example, enter the email address you use on that list.
+  If you choose a bogus email address, it will be more difficult for others to find your public key.
+  This makes authenticating your communications difficult.
+  If you are using this GPG key for https://fedoraproject.org/wiki/Introduce_yourself_to_the_Docs_Project[self-introduction] on a mailing list, for example, enter the email address you use on that list.
 
 . Use the comment field to include aliases or other information.
-(Some people use different keys for different purposes and identify each key with a comment, such as "Office" or "Open Source Projects.")
+  (Some people use different keys for different purposes and identify each key with a comment, such as "Office" or "Open Source Projects.")
 
 . Enter the letter `O` at the confirmation prompt to continue if all entries are correct, or use the other options to fix any problems.
 
 . Enter a passphrase for your secret key.
-The `gpg2` program asks you to enter your passphrase twice to ensure you made no typing errors.
+  The `gpg2` program asks you to enter your passphrase twice to ensure you made no typing errors.
 
 Finally, `gpg2` generates random data to make your key as unique as possible.
 Move your mouse, type random keys, or perform other tasks on the system during this step to speed up the process.

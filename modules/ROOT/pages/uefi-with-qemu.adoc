@@ -91,11 +91,11 @@ Create a new VM in virt-manager. When you get to the final page of the
 
 * Click 'Customize before install', then select 'Finish'
 * On the 'Overview' screen, Change the 'Firmware' field to select the
-'UEFI x86_64' option.
+  'UEFI x86_64' option.
 * Click 'Begin Installation'
 * The boot screen you'll see should use `linuxefi` commands to boot the
-installer, and you should be able to run `efibootmgr` inside that
-system, to verify that you're running an UEFI OS.
+  installer, and you should be able to run `efibootmgr` inside that
+  system, to verify that you're running an UEFI OS.
 
 [[virt-install]]
 virt-install
@@ -136,7 +136,7 @@ CD-ROM image and it should boot into the UEFI shell. At the prompt
 * FS0:\> reset
 * The VM will restart. Let it boot into Fedora as normal. Log in
 * You should see the string 'Secure boot enabled' in dmesg. Secureboot
-is now enabled for every subsequent boot.
+  is now enabled for every subsequent boot.
 
 [[testing-fedora-cddvd-secure-boot-in-a-vm]]
 Testing Fedora CD/DVD Secure Boot in a VM
@@ -149,7 +149,7 @@ to use this to test ISO media secureboot support.
 * Use virt-manager to change the VM boot settings to boot off the CDROM
 * Start the VM
 * Switch to a terminal inside the VM, verify Secureboot is enabled by
-checking dmesg
+  checking dmesg
 
 [[notes]]
 Notes
@@ -171,11 +171,11 @@ Extra links
 * QA:Testcase_Virtualization_UEFI[QA:Testcase Virtualization UEFI]
 * http://www.linux-kvm.org/page/OVMF[KVM wiki OVMF page]
 * https://wiki.ubuntu.com/SecurityTeam/SecureBoot[Ubuntu secureboot
-page]
+  page]
 * http://en.opensuse.org/openSUSE:UEFI_Secure_boot_using_qemu-kvm[OpenSUSE
-secureboot page]
+  secureboot page]
 * http://www.labbott.name/blog/2016/09/15/secure-ish-boot-with-qemu/[Using
-SecureBoot with QEMU]
+  SecureBoot with QEMU]
 
 Category:Virtualization Category:QA
 '''

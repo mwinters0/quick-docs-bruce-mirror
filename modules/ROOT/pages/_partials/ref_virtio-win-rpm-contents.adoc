@@ -23,8 +23,7 @@ ISO is used to install paravirtual drivers in Windows guests. The `virtio-win/*.
 * `qxldod/` -  QXL graphics driver for Windows 8 and later. (build virtio-win-0.1.103-2 and later)
 * `pvpanic/` - https://github.com/qemu/qemu/blob/master/docs/specs/pvpanic.txt[QEMU pvpanic] device driver (build virtio-win-0.1.103-2 and later)
 * `guest-agent/` - QEMU Guest Agent 32bit and 64bit MSI installers
-* `qemupciserial/` - https://github.com/qemu/qemu/blob/master/docs/qemupciserial.inf[QEMU PCI
-serial] device driver
+* `qemupciserial/` - https://github.com/qemu/qemu/blob/master/docs/qemupciserial.inf[QEMU PCI serial] device driver
 * `*.vfd`  VFD floppy images for using during install of Windows XP
 
 NOTE: If you previously used isos from alt.fedoraproject.org, note that the current isos have a different file layout that matches the layout of the Red Hat Enterprise Linux isos.   If you need old isos for backwards compatiblity you can find them on the  https://fedorapeople.org/groups/virt/virtio-win/deprecated-isos/[deprecated isos page].

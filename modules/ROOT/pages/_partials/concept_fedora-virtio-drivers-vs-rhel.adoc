@@ -11,5 +11,5 @@ The current Fedora RPM/ISO directory structure is laid out to mirror exactly the
 
 * The `.iso` directories are named after the driver code directories from the upstream driver git tree. 
 * Below the driver directories, the `$winversion/$arch/` directory naming
-is a Windows convention.
+  is a Windows convention.
 * The RPM layout is arbitrary in that it ships the `.vfd` content in the `drivers/` dir, but not many of the other drivers from the `.iso`. This seems to be an historical oversight and should probably be fixed.

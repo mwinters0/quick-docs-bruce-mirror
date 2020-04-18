@@ -83,7 +83,7 @@ To see which services a target pulls in. ( In the above example the
 multi-user.target )
 
 * Run
-`/usr/lib/systemd/systemd --test --system --unit=multi-user.target`
+  `/usr/lib/systemd/systemd --test --system --unit=multi-user.target`
 
 To examine what gets started when when booted into a specific target. (
 In the above example the multi-user.target )

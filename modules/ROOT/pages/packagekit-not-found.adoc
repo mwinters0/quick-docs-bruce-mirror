@@ -41,12 +41,12 @@ Fedora. There are a few common reasons why a package might not be in
 Fedora's repositories:
 
 * Fedora does not include software that is
-link:Package_Not_Found#Patents[ encumbered by software patents].
+  link:Package_Not_Found#Patents[ encumbered by software patents].
 * Fedora does not include proprietary software, only software with an
-link:Licensing[ acceptable license].
+  link:Licensing[ acceptable license].
 * It is possible that no one has packaged it yet. You might consider
-adding it to the link:PackageMaintainers/WishList[Package WishList], or
-even link:PackageMaintainers/Join[packaging it yourself]!
+  adding it to the link:PackageMaintainers/WishList[Package WishList], or
+  even link:PackageMaintainers/Join[packaging it yourself]!
 
 [[missing-codec]]
 == Missing Codec
@@ -59,9 +59,9 @@ There are a few common reasons why a codec might not be in Fedora's
 repositories:
 
 * Many codecs are proprietary or link:Package_Not_Found#Patents[patent
-encumbered].
+  encumbered].
 * Some codecs may not be encumbered, but may be under an
-link:Licensing[unacceptable license].
+  link:Licensing[unacceptable license].
 
 The Fedora Project FAQ and community sites provide answers to commonly
 asked questions. link:Third_party_repositories[Third party repositories]
@@ -84,9 +84,9 @@ Fedora. There are a few common reasons why a driver might not be in
 Fedora's repositories:
 
 * Some drivers are proprietary or link:Package_Not_Found#Patents[patent
-encumbered].
+  encumbered].
 * Some hardware may not be supported under Linux yet, or is not yet in
-the upstream Linux kernel.
+  the upstream Linux kernel.
 
 Fedora strongly encourages new drivers to be included in upstream, and
 does not package individual, out-of-tree, kernel drivers.
@@ -108,10 +108,10 @@ Fedora. There are a few common reasons why a font might not be in
 Fedora's repositories:
 
 * Fedora does not include proprietary fonts, it only uses fonts with an
-link:Licensing/Fonts[ acceptable font license].
+  link:Licensing/Fonts[ acceptable font license].
 * It is possible that no one has packaged that font yet. You might
-consider adding it to the :Category:Font_wishlist[Font WishList], or
-even link:PackageMaintainers/Join[packaging it yourself]!
+  consider adding it to the :Category:Font_wishlist[Font WishList], or
+  even link:PackageMaintainers/Join[packaging it yourself]!
 
 [[missing-mime-support]]
 == Missing MIME Support
@@ -121,14 +121,14 @@ MIME type you were searching for. There are a few common reasons why
 Fedora may not have support for a MIME type:
 
 * Many MIME types are Windows-only. You may be able to use
-http://en.wikipedia.org/wiki/Wine_(software)[Wine] to run a Windows
-program under Linux that supports your MIME type.
+  http://en.wikipedia.org/wiki/Wine_(software)[Wine] to run a Windows
+  program under Linux that supports your MIME type.
 * Some MIME types are only supported by proprietary or
-link:Package_Not_Found#Patents[patent encumbered] software.
+  link:Package_Not_Found#Patents[patent encumbered] software.
 * It is possible that acceptable software to support your MIME type
-exists, but that no one has packaged it yet. You might consider adding
-it to the link:PackageMaintainers/WishList[Package WishList], or even
-link:PackageMaintainers/Join[packaging it yourself]!
+  exists, but that no one has packaged it yet. You might consider adding
+  it to the link:PackageMaintainers/WishList[Package WishList], or even
+  link:PackageMaintainers/Join[packaging it yourself]!
 
 [[fedora-position-on-software-patents]]
 == Fedora Position on Software Patents

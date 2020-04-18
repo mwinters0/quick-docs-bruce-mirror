@@ -24,9 +24,9 @@ The configuration of the live image is defined by a file called _kickstart_. It 
 For the Fedora project, the most important live image configurations files are:
 
 * https://git.fedorahosted.org/cgit/spin-kickstarts.git/tree/fedora-live-base.ks[fedora-live-base.ks]
-: The base live image system, included in the _livecd-tools_ package.
+  : The base live image system, included in the _livecd-tools_ package.
 * For _Fedora 20 and earlier_: https://git.fedorahosted.org/cgit/spin-kickstarts.git/tree/fedora-livecd-desktop.ks[fedora-livecd-desktop.ks]
-: Complete desktop with applications and input/output support for all supported locales in Fedora. This one is part of the `spin-kickstarts` package. Despite the name, this is the kickstart that generates the ~1GB-sized images for recent releases.
+  : Complete desktop with applications and input/output support for all supported locales in Fedora. This one is part of the `spin-kickstarts` package. Despite the name, this is the kickstart that generates the ~1GB-sized images for recent releases.
 * For _Fedora 21 and later_: https://git.fedorahosted.org/cgit/spin-kickstarts.git/tree/fedora-live-workstation.ks[fedora-live-workstation.ks]. This is the Workstation product configuration.
 
 _kickstart_ files for other spins, e.g. Fedora Electronics Lab, can be found in `/usr/share/spin-kickstarts/` after installing the `spin-kickstarts` package. These pre-made configuration files can be a great place to start, as they already have some useful pre and post-installation scripts.

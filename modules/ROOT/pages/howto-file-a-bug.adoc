@@ -16,10 +16,10 @@ There are a few terms that are commonly used in this document:
 * *Bug*: A bug is any behaviour in a software that appears unexpected/undesired.
 * *Bug tracker*: The Fedora bug tracking system at https://bugzilla.redhat.com.
 * *Package*: Each software that is available in Fedora has a formal package name that is used by the bug tracker and other infrastructure tools.
-Packages can be searched using the https://apps.fedoraproject.org/packages/[Fedora Packages web application].
+  Packages can be searched using the https://apps.fedoraproject.org/packages/[Fedora Packages web application].
 * *Maintainer*: A body of volunteers that takes care of the software packages provided in Fedora.
-These are referred to as "package maintainers".
-They keep track of bugs, help with issues, and generally act as middlemen between the developers of the software and Fedora users.
+  These are referred to as "package maintainers".
+  They keep track of bugs, help with issues, and generally act as middlemen between the developers of the software and Fedora users.
 * *QA*: Quality assurance is the process of ensuring that the software works as intended.
 * *Bodhi*: The http://bodhi.fedoraproject.org[Fedora QA Web Application].
 
@@ -100,9 +100,9 @@ The following fields need to be set:
 * *Version*: You should set this to the version of Fedora that you observed the bug on.
 * *Summary*: You should provide a useful short summary of the issue here.
 * *Description*: More detailed information about the issue should be provided here.
-It already contains a template, which is explained below.
+  It already contains a template, which is explained below.
 * *Attachment*: Files that provide more information of the issue can be uploaded with the bug report using the button here.
-E.g,, screen-shots, log files, screen recordings.
+  E.g,, screen-shots, log files, screen recordings.
 * *Severity, Hardware, OS*: These fields are optional and need not be set.
 
 

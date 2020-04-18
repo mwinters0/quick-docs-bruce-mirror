@@ -115,7 +115,7 @@ The kernel, like any other Fedora package, has a branch per Fedora release.
 to check out that branch with:
 
 1. Check out the branch for which you would like to build a kernel (`master`
-corresponds to Rawhide):
+   corresponds to Rawhide):
 
     [source,bash]
     ----
@@ -123,8 +123,8 @@ corresponds to Rawhide):
     ----
 
 2. To avoid conflicts with existing kernels, you can set a custom buildid by
-changing `# define buildid .local` to `%define buildid .<your_custom_id_here>`
-in `kernel.spec`.
+   changing `# define buildid .local` to `%define buildid .<your_custom_id_here>`
+   in `kernel.spec`.
 
 3. Make whatever changes or customizations you need.
 

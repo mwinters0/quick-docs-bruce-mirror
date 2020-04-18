@@ -117,7 +117,7 @@ As of Fedora 26 there are now three timers that control dnf-automatic.
 * dnf-automatic-download.timer - Only download
 * dnf-automatic-install.timer - Download and install
 * dnf-automatic-notifyonly.timer - Only notify via configured emitters
-in _/etc/dnf/automatic.conf_
+  in _/etc/dnf/automatic.conf_
 
 You can still use _download_updates_ and _apply_updates_ settings from
 inside _/etc/dnf/automatic.conf_.
@@ -200,11 +200,11 @@ updates are:
 
 * You are unlikely to apply updates manually for whatever reason(s).
 * The machine is not critical and occasional unplanned downtime is
-acceptable.
+  acceptable.
 * You can live without remote access to the machine until you can get to
-its physical location to resolve problems.
+  its physical location to resolve problems.
 * You do not have any irreplaceable data on the machine, or have proper
-backups of such data.
+  backups of such data.
 
 If all of the above apply to your machine(s), then automatic updates may
 be your best option to help secure your machine. If not all of the above
@@ -223,46 +223,46 @@ Some things which might make your machine be a bad candidate for
 automatic updates are:
 
 * It provides a critical service that you don't want to risk having
-unscheduled downtime.
+  unscheduled downtime.
 * You installed custom software, compiled software from source, or use
-third party software that has strict package version requirements.
+  third party software that has strict package version requirements.
 * You installed a custom kernel, custom kernel modules, third party
-kernel modules, or have a third party application that depends on kernel
-versions (this may not be a problem if you exclude kernel updates, which
-is the default in Fedora dnf.conf or yum.conf files). (But see also
-https://bugzilla.redhat.com/show_bug.cgi?id=870790[bug #870790] - you
-may need to modify in Fedora 22 or later versions in base section to add
-exclude=kernel*. or in Fedora 21 or earlier versions to
-exclude=kernel*.)
+  kernel modules, or have a third party application that depends on kernel
+  versions (this may not be a problem if you exclude kernel updates, which
+  is the default in Fedora dnf.conf or yum.conf files). (But see also
+  https://bugzilla.redhat.com/show_bug.cgi?id=870790[bug #870790] - you
+  may need to modify in Fedora 22 or later versions in base section to add
+  exclude=kernel*. or in Fedora 21 or earlier versions to
+  exclude=kernel*.)
 * Your enviroment requires meticulous change-control procedures.
 * You update from other third party yum|dnf repositories besides Fedora
-(core, extras, legacy ) repositories which may conflict in versioning
-schemes for the same packages.
+  (core, extras, legacy ) repositories which may conflict in versioning
+  schemes for the same packages.
 
 There are also some other reasons why installing automatic updates
 without testing may be a bad idea. A few such reasons are:
 
 * The need to back up your configuration files before an update. Even
-the best package spec files can have mistakes. If you have modified a
-file which is not flagged as a configuration file, then you might lose
-your configuration changes. Or an update may have a different format of
-configuration file, requiring a manual reconfiguration. It is often best
-to backup your configuration files before doing updates on critical
-packages such as mail, web, or database server packages.
+  the best package spec files can have mistakes. If you have modified a
+  file which is not flagged as a configuration file, then you might lose
+  your configuration changes. Or an update may have a different format of
+  configuration file, requiring a manual reconfiguration. It is often best
+  to backup your configuration files before doing updates on critical
+  packages such as mail, web, or database server packages.
 * Unwanted side effects. Some packages can create annoying side effects,
-particularly ones which have cron jobs. Updates to base packages like
-openssl, openldap, sql servers, etc. can have an effect on many other
-seemingly unrelated packages.
+  particularly ones which have cron jobs. Updates to base packages like
+  openssl, openldap, sql servers, etc. can have an effect on many other
+  seemingly unrelated packages.
 * Bugs. Many packages contain buggy software or installation scripts.
-The update may create problems during or after installation. Even
-cosmetic bugs like those found in previous Mozilla updates (causing the
-user's icons to be removed or break) can be annoying or problematic.
+  The update may create problems during or after installation. Even
+  cosmetic bugs like those found in previous Mozilla updates (causing the
+  user's icons to be removed or break) can be annoying or problematic.
 * Automatic updates may not complete the entire process needed to make
-the system secure. For example, dnf or yum can install a kernel update,
-but until the machine is rebooted (which dnf or yum will not do
-automatically) the new changes won't take effect. The same may apply to
-restarting daemons. This can leave the user feeling that he is secure
-when he is not.
+  the system secure. For example, dnf or yum can install a kernel update,
+  but until the machine is rebooted (which dnf or yum will not do
+  automatically) the new changes won't take effect. The same may apply to
+  restarting daemons. This can leave the user feeling that he is secure
+  when he is not.
 
 [[best-practices-when-using-automatic-updates]]
 Best practices when using automatic updates

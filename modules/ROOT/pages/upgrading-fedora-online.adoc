@@ -247,7 +247,7 @@ grub by running
 ....
 
 - where BOOTDEVICE is often , or for some virtual machine installs. If
-you have more than one hard disk, make sure you use the correct device!
+  you have more than one hard disk, make sure you use the correct device!
 
 If you get an error (e.g. ) from that, then try ).
 

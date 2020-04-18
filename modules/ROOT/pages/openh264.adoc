@@ -91,7 +91,7 @@ Manual install of binary
 
 * View and agree to the http://www.openh264.org/BINARY_LICENSE.txt
 * Download the appropriate binary for your system here:
-https://github.com/cisco/openh264/releases
+  https://github.com/cisco/openh264/releases
 
 Example installation for version 1.1:
 
@@ -108,8 +108,8 @@ Type about:config into the Firefox address/URL field and accept the
 warning.
 
 * From the Search field type in 264 and a handful of options will
-appear. Give the following Preference Names a value of true by
-double-clicking on false:
+  appear. Give the following Preference Names a value of true by
+  double-clicking on false:
 
 ` media.gmp-gmpopenh264.autoupdate` +
 ` media.gmp-gmpopenh264.enabled` +
@@ -118,7 +118,7 @@ double-clicking on false:
 
 * Restart Firefox
 * After restarting, the following string in about:config will change to
-the current version that has been installed from the web:
+  the current version that has been installed from the web:
 
 ` media.gmp-gmpopenh264.version`
 '''

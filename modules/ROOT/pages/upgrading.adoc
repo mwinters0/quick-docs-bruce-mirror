@@ -6,7 +6,7 @@
 
 . Be sure to *back-up your data* before upgrading your Fedora system in the event something breaks and leaves your system unusable.
 . Read the link:++https://fedoraproject.org/wiki/Releases#Current_Supported_Releases++[Release
-Notes] carefully before attempting an upgrade.
+  Notes] carefully before attempting an upgrade.
 
 ====
 

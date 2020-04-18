@@ -63,13 +63,13 @@ sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-31-primary
 ----
 
 . If some of your packages have unsatisfied dependencies, the upgrade will refuse to continue until you run it again with an extra `--allowerasing` option.
-This often happens with packages installed from third-party repositories for which an updated repositories hasn't been yet published.
-Study the output very carefully and examine which packages are going to be removed.
-None of them should be essential for system functionality, but some of them might be important for your productivity.
+  This often happens with packages installed from third-party repositories for which an updated repositories hasn't been yet published.
+  Study the output very carefully and examine which packages are going to be removed.
+  None of them should be essential for system functionality, but some of them might be important for your productivity.
 +
 * In case of unsatisfied dependencies, you can sometimes see more details if you add `--best` option to the command line.
 * If you want to remove/install some packages manually before running `dnf system-upgrade download` again, it is advisable to perform those operations with `--setopt=keepcache=1` dnf command line option.
-Otherwise the whole package cache will be removed after your operation, and you will need to download all the packages once again.
+  Otherwise the whole package cache will be removed after your operation, and you will need to download all the packages once again.
 
 . Trigger the upgrade process. This will restart your machine into the upgrade process:
 +

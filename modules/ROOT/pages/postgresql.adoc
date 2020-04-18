@@ -282,11 +282,11 @@ Last column specifies which authentication method will be used.
 
 * *md5* — client has to supply password processed with MD5 algorithm
 * *ident* — obtain user name of connecting client from operating system
-and consult it with specified map
+  and consult it with specified map
 * *trust* — anyone who is able to connect to PostgreSQL server may act
-as any user without supplying password
+  as any user without supplying password
 * *peer* — obtains user's name from operating system and checks if it
-matches database user name
+  matches database user name
 
 When database server is authenticating client, it seeks for a record
 with matching connection type, client address, requested database and

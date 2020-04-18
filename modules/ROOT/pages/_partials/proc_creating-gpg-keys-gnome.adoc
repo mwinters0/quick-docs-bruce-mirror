@@ -8,7 +8,7 @@ Install the Seahorse utility, which makes GPG key management easier.
 . Select the _Search_ tab and enter the name `seahorse`.
 
 . Select the checkbox next to the `seahorse` package and select _Apply_ to add the software.
-You can also install Seahorse using the command line with the command `su -c "dnf install seahorse"`.
+  You can also install Seahorse using the command line with the command `su -c "dnf install seahorse"`.
 
 To create a key:
 

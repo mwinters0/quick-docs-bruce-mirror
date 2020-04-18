@@ -70,12 +70,12 @@ GNOME documentation]
 
 1.  enter KDE System Settings
 2.  choose Hardware / Input Devices / Touchpad (If it's not there,
-install kcm_touchpad first, then restart System Settings. It's installed
-by default.)
+    install kcm_touchpad first, then restart System Settings. It's installed
+    by default.)
 3.  select the Tapping tab
 4.  check the "Enable tapping" checkbox
 5.  set some tapping actions under "Buttons" below, the default is to do
-nothing
+    nothing
 
 Alternatively, the systemwide method described under
 link:#Other_window_managers[Other window managers] can also be used.

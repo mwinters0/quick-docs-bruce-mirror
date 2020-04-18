@@ -104,5 +104,5 @@ You can also use the following abbreviations of the [application]*nmcli* command
 == Additional resources
 
 * For more examples, see the
-[citetitle]_pass:attributes[{blank}]*nmcli-examples*(5)_
-man page.
+  [citetitle]_pass:attributes[{blank}]*nmcli-examples*(5)_
+  man page.

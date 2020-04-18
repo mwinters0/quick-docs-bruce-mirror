@@ -23,7 +23,7 @@ Common causes of the rainbow display include:
 * Insufficient power supply. See the xref:raspberry-pi-prerequisites[Prerequisites] section at the beginning of this document.
 
 * There's no operating system installed. Check that an operating system was installed and the microSD card was properly inserted into the Raspberry Pi.
-For instructions about Fedora ARM on Raspberry Pi:
+  For instructions about Fedora ARM on Raspberry Pi:
 ** For Fedora users, see: <<installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer_{context}>>.
 ** For users of other Linux distributions, see: <<installing-fedora-on-a-raspberry-pi-for-linux-users_{context}>>.
 ** For Microsoft Windows users, see: <<installing-fedora-on-a-raspberry-pi-for-microsoft-windows-users_{context}>>.

@@ -56,7 +56,7 @@ Before testing, you need to install some packages:
  cd /home/liveuser/kernel-tests
 
 * If you are not using the test day image you will need to clone the kernel-tests repo.
-Use this command in terminal: 
+  Use this command in terminal:
 
  git clone https://pagure.io/kernel-tests.git
 

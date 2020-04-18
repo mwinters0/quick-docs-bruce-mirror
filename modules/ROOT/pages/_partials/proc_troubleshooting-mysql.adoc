@@ -31,7 +31,7 @@ In many cases, the error logs are most easily read with the less program, a comm
 if SQL isn’t behaving as expected, you can obtain more information about the source of the
 
 * **systemctl status mysqld.service** doesn't start well, This information doesn’t explain
-well what is happening?, after this command you should type `journalctl -xe -u mariadb -u mysqld`.                                      
+  well what is happening?, after this command you should type `journalctl -xe -u mariadb -u mysqld`.
 * Look at Log files, can be located in `/var/log/mysql/mysqld.log` for MySQL, and `/var/log/mariabd` for MariaDB.
 
 == How To Troubleshoot Socket Errors in SQL

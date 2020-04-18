@@ -57,17 +57,17 @@ where:
 
 * `H:M:S` is the message timestamp
 * `ms` is the millisecond part of timestamp.
-Note that this will usually become zero on a remote syslog.
+  Note that this will usually become zero on a remote syslog.
 * `LOGLEVEL` is the message loglevel.
-In theory, because kernel messages are part of anaconda logs, all loglevels that are defined in rsyslog can appear in the logfiles.
-Anaconda itself will however log only at the following loglevels:
+  In theory, because kernel messages are part of anaconda logs, all loglevels that are defined in rsyslog can appear in the logfiles.
+  Anaconda itself will however log only at the following loglevels:
 ** `DEBUG`
 ** `INFO`
 ** `WARN`
 ** `ERR`
 ** `CRIT`
 * `facility` is the program or component that created the message.
-Could be for instance `kernel`, `anaconda`, `storage` or similar.
+  Could be for instance `kernel`, `anaconda`, `storage` or similar.
 * `message` is the log message itself.
 
 For the logs running in terminals, the format simply is:
@@ -144,7 +144,7 @@ Step by step instructions to set everything up follow:
 
 . Create a testing virtual machine, e.g. using Virtual Manager </li>
 . Add the virtio-serial port to your virtual machine, direct it to the TCP port 6080 on the host.
-Start by editing the guest configuration:`virsh edit <machine name>`
+  Start by editing the guest configuration:`virsh edit <machine name>`
 . In the guest editor, add following information into the `<devices>` section:
 [source,xml]
 ----
@@ -159,7 +159,7 @@ eval `analog -p 6080 -o rsyslogd.conf -s /home/akozumpl/remote_inst`
 ----
 . Start the virtual machine.
 . Continue with the installation.
-Immediately after the Anaconda greeting is displayed the log messages will appear in the directory given to `analog` script, in the `127.0.0.1` subdirectory.
+  Immediately after the Anaconda greeting is displayed the log messages will appear in the directory given to `analog` script, in the `127.0.0.1` subdirectory.
 
 ==== virt-install
 
@@ -174,8 +174,8 @@ If you are using virt-install you can configure it with the --channel option:
 * chroot syslog messages from `/mnt/sysimage/root/install.log.syslog` are not forwarded.
 * it is not possible to start the machine unless something is listening on the TCP port where virtio-serial is connected.
 * if you want to test that the virtio connection is working, instead of using analog and rsyslog just let a netcat utility listen on the given port, e.g.
-`nc -l 0.0.0.0 6080`.
-You should start seeing raw logs in the terminal once the guest machine starts booting.
+  `nc -l 0.0.0.0 6080`.
+  You should start seeing raw logs in the terminal once the guest machine starts booting.
 * if both remote TCP logging via `syslog=` and remote virtio logging via `virtiolog=` are specified on the command line, one has to setup two rsyslogd instances on the server/host to listen to both the connections otherwise the sending rsyslog's queues get full and the forwarding stops.
 
 === See also

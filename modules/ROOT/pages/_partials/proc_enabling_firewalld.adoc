@@ -43,7 +43,7 @@ If you are not sure whether FirewallD is on your Fedora installation use the fol
 
 
 . Check if your system has FirewallD enabled.
-Enter the folowing on the command line:
+  Enter the folowing on the command line:
  
 [source,bash]
 
