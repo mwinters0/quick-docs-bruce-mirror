@@ -1,7 +1,5 @@
 = Anaconda Logging
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 == Introduction
 Anaconda tracks all of its activities in logs.
 This includes:
@@ -103,7 +101,7 @@ It's up to you how the remote logging daemon is configured, you can for instance
 The anaconda RPM provides the `analog` script, which generates a suitable rsyslogd configuration file based on a couple of install parameters.
 It is also able to generate a bash command to launch rsyslogd with the generated configuration.
 Thus you can do from a shell:
- $ eval `scripts/analog -p 6080 -s -o ./someconf /home/akozumpl/remote_inst`
+ `$ eval scripts/analog -p 6080 -s -o ./someconf /home/akozumpl/remote_inst`
 This starts an rsyslog daemon that will listen on port 6080.
 The logs from the remote machine with IP 10.34.33.221 will be stored under  `/home/akozumpl/remote_inst/10.34.33.221/`, e.g. `/home/akozumpl/remote_inst/10.34.33.221/anaconda.log`.
 
