@@ -239,17 +239,15 @@ sudo dnf distro-sync --allowerasing
 === Relabel Files With The Latest SELinux Policy
 
 If you encounter any warnings regarding policies with SELinux, some files may have incorrect SELinux permissions.
-This may happen if SELinux was disabled at some point in the past.
-To relabel the entire system run:
+This may happen if SELinux was disabled in the past.
+To relabel SELinux on the system, run the following command and then reboot:
 
 [source,bash]
 ----
-sudo touch /.autorelabel
+sudo fixfiles -B onboot
 ----
 
-and reboot.
-
-The boot process may take a long time as it is checking and fixing all SELinux permission labels on all the files in your system.
+The boot process will likely take a long time, as it checks and fixes SELinux permission labels on all files in your system.
 
 [[sect-frequently-asked-questions]]
 == Frequently Asked Questions
