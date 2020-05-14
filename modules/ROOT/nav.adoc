@@ -1,16 +1,12 @@
 * xref:howto-file-a-bug.adoc[How to file a bug]
 
-
 * xref:getting-started-guide.adoc[Getting started with Fedora]
-
 
 * Installation
 ** xref:creating-and-using-a-live-installation-image.adoc[Creating and using a live installation image]
 ** xref:raspberry-pi.adoc[Fedora on Raspberry Pi]
 ** xref:anaconda/anaconda.adoc[Anaconda: the Fedora installer]
 *** xref:anaconda/anaconda_logging.adoc[Anaconda Logging]
-
-
 
 * Usage and customisation
 ** xref:dnf.adoc[Using the DNF software package manager]
@@ -47,27 +43,26 @@
 ** xref:firewalld.adoc[Controlling network traffic with firewalld]
 ** xref:managing-keyboard-shortcuts-for-running-app-in-gnome.adoc[Managing keyboard shortcuts for running an application in GNOME]
 ** xref:creating-a-disk-partition-in-linux.adoc[Creating disk partitions]
-** xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]
 ** xref:reset-root-password.adoc[Resetting a root password]
 ** xref:using-aide.adoc[Checking file integrity with AIDE]
 ** xref:getting-started-with-apache-http-server.adoc[Getting started with Apache HTTP Server]
 ** xref:how-to-edit-iptables-rules.adoc[How to edit iptables rules]
 
+* NVIDIA
+** xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]
+** xref:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops.adoc[How to Set NVIDIA as Primary GPU on Optimus-based Laptops]
 
 * xref:getting-started-with-selinux.adoc[SELinux]
 ** xref:changing-selinux-states-and-modes.adoc[Changing SELinux states and modes]
 ** xref:troubleshooting_selinux.adoc[Troubleshooting SELinux]
 
-
 * xref:upgrading.adoc[Upgrading to a new release]
 ** xref:dnf-system-upgrade.adoc[Upgrading Fedora using the DNF system upgrade]
-
 
 * xref:kernel/overview.adoc[Kernel]
 ** xref:kernel/troubleshooting.adoc[Troubleshooting]
 ** xref:kernel/build-custom-kernel.adoc[Building a Custom Kernel]
 ** xref:kernel/howto-kernel-testday.adoc[Guide for Kernel Test Days]
-
 
 * Virtualization
 ** xref:getting-started-with-virtualization.adoc[Getting started with virtualization (libvirt)]
