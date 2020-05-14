@@ -72,7 +72,6 @@
 ** xref:creating-windows-virtual-machines-using-virtio-drivers.adoc[Creating Windows virtual machines using virtIO drivers]
 ** xref:how-to-use-vmware.adoc[How to use Vmware Product's]
 
-
 //FIXME * xref:autoupdates.adoc[AutoUpdates]
 //FIXME * xref:debug-dracut-problems.adoc[How to debug Dracut problems]
 //FIXME * xref:debug-systemd-problems.adoc[How to debug systemd problems]
@@ -87,15 +86,11 @@
 //FIXME * xref:uefi-with-qemu.adoc[Using UEFI with QEMU]
 //FIXME * xref:upgrading-fedora-online.adoc[Upgrading Fedora using package manager]
 
-
-
 * xref:creating-rpm-packages.adoc[Creating RPM packages]
 ** xref:create-hello-world-rpm.adoc[Creating a GNU Hello World RPM Package]
 
-
 * Databases
 ** xref:installing-mysql-mariadb.adoc[Installing, Configuring and Troubleshooting MySql/MariaDB]
-
 
 * FAQ
 ** xref:fedora-and-red-hat-enterprise-linux.adoc[Difference between Fedora and Red Hat Enterprise Linux]
