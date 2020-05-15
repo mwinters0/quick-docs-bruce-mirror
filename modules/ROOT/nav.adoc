@@ -47,10 +47,9 @@
 ** xref:using-aide.adoc[Checking file integrity with AIDE]
 ** xref:getting-started-with-apache-http-server.adoc[Getting started with Apache HTTP Server]
 ** xref:how-to-edit-iptables-rules.adoc[How to edit iptables rules]
-
-* NVIDIA
-** xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]
-** xref:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops.adoc[How to Set NVIDIA as Primary GPU on Optimus-based Laptops]
+** NVIDIA
+*** xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]
+*** xref:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops.adoc[How to Set NVIDIA as Primary GPU on Optimus-based Laptops]
 
 * xref:getting-started-with-selinux.adoc[SELinux]
 ** xref:changing-selinux-states-and-modes.adoc[Changing SELinux states and modes]
