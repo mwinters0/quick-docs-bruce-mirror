@@ -9,7 +9,7 @@ link:https://www.spotify.com/[Spotify] is a cross-platform proprietary music str
 Spotify is a freemium service, with advertisements which can be removed by purchasing a subscription.
 Although Spotify is not officially supported on Fedora, it can be installed on Fedora in a number of ways:
 
-. Using unofficial repositories https://rpmfusion.org/[RPM Fusion] repositories.
+. Using the third-party https://rpmfusion.org/[RPM Fusion] repositories.
 . Using a Flatpak hosted by http://flathub.org[Flathub].
 
 [install-spotify-using-rpmfusion]
