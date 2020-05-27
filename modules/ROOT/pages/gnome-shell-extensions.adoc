@@ -34,8 +34,6 @@ Local GNOME Shell extensions can be installed in multiple ways.
   This requires the installation of a browser extension.
   If it is not installed, the website displays a notification with a link that installs it.
 
-- Using GNOME Software, under `Addons > Shell Extensions`.
-
 - Manual installation.
   This is not recommended.
   Advanced users that would like to do so should follow the instructions provided by the developers.
@@ -46,10 +44,7 @@ These can all be used to update installed local extensions also.
 
 All extensions can be enabled, disabled, and their preferences modified by each user using:
 
-- the https://extensions.gnome.org/local/[website] using Firefox.
-
-- GNOME Software, under `Addons > Shell Extensions > Extension settings`.
-  This launches the `gnome-shell-extension-prefs` tool, which can also be launched manually in a terminal.
+- https://extensions.gnome.org/local/[Gnome's Extensions website] using Firefox.
 
 - `gnome-shell-extension-tool`.
   While this tool allows you to enable and disable extensions, it does not allow you to modify their settings.
