@@ -99,7 +99,7 @@ You can search for these files, or use the `rpmconf` tool that simplifies this p
 
 [source,bash]
 ----
-dnf install rpmconf
+sudo dnf install rpmconf
 ----
 
 Once the install is complete enter:
