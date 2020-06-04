@@ -29,8 +29,9 @@ include::{partialsdir}/proc_installing-openjdk.adoc[leveloffset=+1]
 
 include::{partialsdir}/proc_installing-oracle-java.adoc[leveloffset=+1]
 
-include::{partialsdir}/ref_jdk-tools.adoc[leveloffset=+1]
+include::{partialsdir}/proc_switching-between-java-versions.adoc[leveloffset=+1]
 
+include::{partialsdir}/ref_jdk-tools.adoc[leveloffset=+1]
 
 [discrete]
 == Additional resources

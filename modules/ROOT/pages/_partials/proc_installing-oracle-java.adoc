@@ -1,7 +1,7 @@
 [id='installing-oracle-java-se']
 = Installing Oracle Java SE
 
-include::{partialsdir}/3rdparty-message.adoc[] 
+include::{partialsdir}/3rdparty-message.adoc[]
 
 To install Oracle Java SE:
 
@@ -17,21 +17,3 @@ sudo dnf install version-downloaded.rpm
 ----
 
 Note: Always make sure to download latest version available.
-
-== Switching between Java Versions                                                        
-
-You might have installed several versions of Java on your system, you can switch from one 
-
-After running this command, you will see a a list of all installed Java versions, select t
-
-----
-sudo alternatives --config java
-----
-
-Simply enter a selection number to choose which java executable should be used by default.
-
-* verify:                                                                                 
-
-----
-java --Versions
-----
