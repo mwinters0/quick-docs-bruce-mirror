@@ -20,10 +20,18 @@ Various flavors of OpenJDK are available. For information about these options, s
 sudo dnf install <openjdk-package-name>
 ----
 
-For example:
+Examples:
 
 ----
-sudo dnf install java-{1.8.0|11|latest}-openjdk.x86_64
+sudo dnf install java-1.8.0-openjdk.x86_64
+----
+
+----
+sudo dnf install java-11-openjdk.x86_64
+----
+
+----
+sudo dnf install java-latest-openjdk.x86_64
 ----
 
 == Installing OpenJDK for development
@@ -34,9 +42,16 @@ In order to install the Java Development Kit, runtime environment and associated
 sudo dnf install <openjdk-package-name>-devel
 ----
 
-For example:
+Examples:
 
 ----
-sudo dnf install java-{1.8.0|11|latest}-openjdk-devel.x86_64
+sudo dnf install java-1.8.0-openjdk-devel.x86_64
 ----
 
+----
+sudo dnf install java-11-openjdk-devel.x86_64
+----
+
+----
+sudo dnf install java-latest-openjdk-devel.x86_64
+----
