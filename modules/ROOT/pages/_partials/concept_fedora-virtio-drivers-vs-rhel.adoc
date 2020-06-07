@@ -5,6 +5,8 @@ The RPMs in the *virtio-win-stable* repository are the same driver builds as wha
 
 The drivers are cryptographically signed with Red Hat's vendor signature. However they are not signed with Microsoft's https://docs.microsoft.com/en-us/windows-hardware/drivers/install/whql-release-signature[WHQL signature].
 
+WARNING: Due to the https://docs.microsoft.com/en-us/windows-hardware/drivers/install/kernel-mode-code-signing-policy\--windows-vista-and-later-#signing-requirements-by-version[signing requirements of the Windows Driver Signing Policy], drivers which are not signed by Microsoft will not be loaded by some versions of Windows when https://docs.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-secure-boot[Secure Boot] is enabled in the virtual machine.  See https://bugzilla.redhat.com/1844726[bug #1844726].
+
 NOTE: Historically the .iso files shipped on alt.fedoraproject.org did _not_ match the layout of the .iso shipped with Red Hat Enterprise Linux. This changed in April 2015.
 
 The current Fedora RPM/ISO directory structure is laid out to mirror exactly the layout that is shipped with the latest release of Red Hat Enterprise Linux. This is so that users and developers don't seen any differences between the two distros.
