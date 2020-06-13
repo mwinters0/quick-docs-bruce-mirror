@@ -197,7 +197,7 @@ No locked files
 ....
 
 [[trouble_with_accessing_the_share]]
-==== Trouble with accessing the share
+=== Trouble with accessing the share
 
 Some things to check if you cannot access the share.
 
@@ -258,7 +258,7 @@ user and group have access rights.
 In this case, the user should be in the `myfamily` group.
 
 [[trouble_with_writing_in_the_share]]
-==== Trouble with writing in the share
+=== Trouble with writing in the share
 
 {empty}1. Check in the samba configuration file if the user/group has
 write permissions.
