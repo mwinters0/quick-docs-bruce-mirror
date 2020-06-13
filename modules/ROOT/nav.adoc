@@ -56,6 +56,7 @@
 ** xref:using-aide.adoc[Checking file integrity with AIDE]
 ** xref:getting-started-with-apache-http-server.adoc[Getting started with Apache HTTP Server]
 ** xref:how-to-edit-iptables-rules.adoc[How to edit iptables rules]
+** xref:samba.adoc[How to create a Samba share]
 ** NVIDIA
 *** xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]
 *** xref:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops.adoc[How to Set NVIDIA as Primary GPU on Optimus-based Laptops]
