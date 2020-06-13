@@ -1,0 +1,291 @@
+[[how_to_create_a_samba_share]]
+= How to create a Samba share
+
+Samba allows for Windows and other clients to connect to file share directories on Linux hosts. It implements the server message block (SMB) protocol. This guide covers creating a shared file location on a Fedora machine that can be accessed by other computers on the local network.
+
+[[install_and_enable_samba]]
+== Install and enable Samba
+
+The following commands install Samba and set it to run via `systemctl`.
+This also sets the firewall to allow access to Samba from other
+computers.
+
+....
+$ sudo dnf install samba
+
+$ sudo systemctl enable smb --now
+
+$ firewall-cmd --get-active-zones
+$ sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-service=samba
+$ sudo firewall-cmd --reload
+....
+
+[[sharing_a_directory_under_your_home]]
+== Sharing a directory under your home
+
+In this example you will share a directory under your home directory, accessible only by your user.
+
+Samba does not use the operating system users for authentication, so
+your user account must be duplicated in Samba. So if your account is
+"jane" on the host, the user "jane" must also be added to Samba. While the usernames must match, the passwords can be different.
+
+Create a user called "jane" in Samba:
+....
+$ sudo smbpasswd -a jane
+....
+
+Create a directory to be the share for jane, and set the correct SELinux
+context:
+....
+$ mkdir /home/jane/share
+
+$ sudo semanage fcontext --add --type "samba_share_t" ~/share
+$ sudo restorecon -R ~/share
+....
+
+Samba configuration lives in the `/etc/samba/smb.conf` file. Adding the following section at the end of the file will instruct Samba to set up a share for jane called "share" at the `/home/jane/share` directory just created.
+....
+[share]
+        comment = My Share
+        path = /home/jane/share
+        writeable = yes
+        browseable = yes
+        public = yes
+        create mask = 0644
+        directory mask = 0755
+        write list = user
+....
+
+Restart Samba for the changes to take effect:
+
+....
+$ sudo systemctl restart smb
+....
+
+[[sharing_a_directory_for_many_users]]
+== Sharing a directory for many users
+
+In this example, you will share a directory (outside your home directory) and create a group of users with the ability to read and write to the share.
+
+Remember that a Samba user must also be a system user, in order to
+respect filesystem permissions. This example creates a system group
+"myfamily" for two new users "jack" and "maria".
+....
+$ sudo groupadd myfamily
+$ sudo useradd  -G myfamily jack
+$ sudo useradd  -G myfamily maria
+....
+
+[TIP]
+====
+You could create these users without a system password. This would prevent access to the system via SSH or local login.
+====
+
+Add `jack` and `maria` to Samba and create their passwords:
+
+....
+$ sudo smbpasswd -a jack
+$ sudo smbpasswd -a maria
+....
+
+Setting up the shared folder:
+....
+$ sudo mkdir /home/share
+$ sudo chgrp myfamily /home/share
+$ sudo chmod 770 /home/share
+$ sudo semanage fcontext --add --type "samba_share_t" /home/share
+$ sudo restorecon -R /home/share
+....
+
+Each share is described by its own section in the `/etc/samba/smb.conf`
+file. Add this section to the bottom of the file:
+....
+[family]
+        comment = Family Share
+        path = /home/share
+        writeable = yes
+        browseable = yes
+        public = yes
+        valid users = @myfamily
+        create mask = 0660
+        directory mask = 0770
+        force group = +myfamily
+....
+
+Explanation of the above:
+
+* `valid users`: only users of the group `family` have access rights. The @
+denotes a group name.
+* `force group = +myfamily`: files and directories are created with this
+group, instead of the user group.
+* `create mask = 0660`: files in the share are created with permissions to
+allow all group users to read and write files created by other users.
+* `directory mask = 0770`: as before, but for directories.
+
+Restart Samba for the changes to take effect:
+
+....
+$ sudo systemctl restart smb
+....
+
+[[managing_samba_users]]
+==Managing Samba Users
+
+[[change_a_samba_user_password]]
+=== Change a samba user password
+
+Remember: the system user and Samba user passwords can be different. The
+system user is mandatory in order to handle filesystem permissions.
+
+....
+$ sudo smbpasswd maria
+....
+
+[[remove_a_samba_user]]
+=== Remove a samba user
+
+....
+$ sudo smbpasswd -x maria
+....
+
+If you don't need the system user, remove it as well:
+
+....
+$ sudo userdel -r maria
+....
+
+[[troubleshooting_and_logs]]
+== Troubleshooting and logs
+
+Samba log files are located in `/var/log/samba/`
+
+....
+$ tail -f /var/log/samba/log.smbd
+....
+
+You can increase the verbosity by adding this to the [global] section of
+`/etc/samba/smb.conf`:
+
+....
+[global]
+        loglevel = 5
+....
+
+To validate the syntax of the configuration file `/etc/samba/smb.conf`
+use the command `testparm`. Example output:
+
+....
+Load smb config files from /etc/samba/smb.conf
+Loaded services file OK.
+Server role: ROLE_STANDALONE
+....
+
+To display current samba connections, use the `smbstatus` command.
+Example output:
+
+....
+Samba version 4.12.3
+PID     Username     Group        Machine                                   Protocol Version  Encryption           Signing              
+----------------------------------------------------------------------------------------------------------------------------------------
+7259    jack         jack         192.168.122.1 (ipv4:192.168.122.1:40148)  SMB3_11           -                    partial(AES-128-CMAC)
+
+Service      pid     Machine       Connected at                     Encryption   Signing     
+---------------------------------------------------------------------------------------------
+family       7259    192.168.122.1 Fri May 29 14:03:26 2020 AEST    -            -           
+
+No locked files
+....
+
+[[trouble_with_accessing_the_share]]
+==== Trouble with accessing the share
+
+Some things to check if you cannot access the share.
+
+{empty}1. Be sure that the user exists as a system user as well as a
+Samba user
+
+Find `maria` in the Samba database:
+
+....
+$ sudo pdbedit -L | grep maria
+
+maria:1002:
+....
+
+Confirm that `maria` also exists as a system user.
+
+....
+$ cat /etc/passwd | grep maria
+
+maria:x:1002:1002::/home/maria:/bin/bash
+....
+
+{empty}2. Check if the shared directory has the right SELinux context.
+
+....
+$ ls -dZ /home/share
+
+unconfined_u:object_r:samba_share_t:s0 /home/share
+....
+
+{empty}3. Check if the system user has access rights to the shared
+directory.
+
+....
+$ ls -ld /home/share 
+
+drwxrwx---. 2 root myfamily 4096 May 29 14:03 /home/share
+....
+
+In this case, the user should be in the `myfamily` group.
+
+{empty}4. Check in the configuration file `/etc/samba/smb.conf` that the
+user and group have access rights.
+
+....
+[family]
+        comment = Family Share
+        path = /home/share
+        writeable = yes
+        browseable = yes
+        public = yes
+        valid users = @myfamily
+        create mask = 0660
+        directory mask = 0770
+        force group = +myfamily
+....
+
+In this case, the user should be in the `myfamily` group.
+
+[[trouble_with_writing_in_the_share]]
+==== Trouble with writing in the share
+
+{empty}1. Check in the samba configuration file if the user/group has
+write permissions.
+
+....
+...
+[family]
+        comment = Family Share
+        path = /home/share
+        writeable = yes
+        browseable = yes
+        public = yes
+        valid users = @myfamily
+        create mask = 0660
+        directory mask = 0770
+        force group = +myfamily
+....
+
+In this example, the user should be in the `myfamily` group.
+
+{empty}2. Check the share directory permissions.
+
+....
+$ ls -ld /home/share 
+
+drwxrwx---. 2 root myfamily 4096 May 29 14:03 /home/share
+....
+
+This example assumes the user is part of the `myfamily` group which has
+read, write, and execute permissions for the folder.
