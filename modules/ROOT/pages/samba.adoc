@@ -129,7 +129,7 @@ $ sudo systemctl restart smb
 ....
 
 [[managing_samba_users]]
-==Managing Samba Users
+== Managing Samba Users
 
 [[change_a_samba_user_password]]
 === Change a samba user password
