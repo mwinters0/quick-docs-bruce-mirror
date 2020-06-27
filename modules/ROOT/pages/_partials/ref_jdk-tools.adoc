@@ -50,8 +50,8 @@ The JDK has as its primary components a collection of programming tools, includi
 `jstatd`:: jstat daemon (experimental)
 `keytool`:: tool for manipulating the keystore
 `pack200`:: JAR compression tool
-`policytool`:: the policy creation and management tool, which can determine policy for a Java runtime, specifying which permissions are
-`available for code from various sources VisualVM`:: visual tool integrating several command-line JDK tools and lightweight clarification needed] performance and memory profiling capabilities
+`policytool`:: the policy creation and management tool, which can determine policy for a Java runtime, specifying which permissions are available for code from various sources
+`VisualVM`:: visual tool integrating several command-line JDK tools and lightweight clarification needed] performance and memory profiling capabilities
 `wsimport`:: generates portable JAX-WS artifacts for invoking a web service.
 `xjc`:: Part of the Java API for XML Binding (JAXB) API. It accepts an XML schema and generates Java classes.
 
