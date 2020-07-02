@@ -46,7 +46,7 @@ $ rpmdev-setuptree
 == Building a "Hello World" RPM
 
 We need the source code of the project we are packaging, often referred to as the 'upstream' source.
-We will download it from the project's website into the `~/rpmbuild/SOURCE` directory.
+We will download it from the project's website into the `~/rpmbuild/SOURCES` directory.
 We are getting the compressed tarball archive, which happens to be the preferred distribution form for most FOSS projects.
 
 ----
