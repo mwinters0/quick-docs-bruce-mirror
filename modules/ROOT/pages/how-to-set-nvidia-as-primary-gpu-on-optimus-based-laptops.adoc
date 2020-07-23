@@ -2,7 +2,7 @@
 
 include::{partialsdir}/3rdparty-message.adoc[]
 
-=== Introduction
+== Introduction
 The objective is to enable NVIDIA GPU of an Optimus-based laptop *all the time* and use it for every single activity.
 Please do not use this guide if you want to render your desktop using the integrated GPU and specifically select applications to be rendered using the NVIDIA GPU.
 
@@ -16,15 +16,15 @@ In order to make all the rendering default to the NVIDIA GPU, you need the follo
 
 First, you need to see if you really want to achieve this.
 
-==== Why would you want to do that?
-1. The use of NVIDIA GPU all the time would allow for smoother transitions and richer animation effects. Premium desktop environments like GNOME would benefit a lot from this.
-2. Enabling the NVIDIA GPU all the time would lead to lower CPU load and memory consumption which otherwise would have been high due to added in-memory video buffer.
+=== Why would you want to do that?
+. The use of NVIDIA GPU all the time would allow for smoother transitions and richer animation effects. Premium desktop environments like GNOME would benefit a lot from this.
+. Enabling the NVIDIA GPU all the time would lead to lower CPU load and memory consumption which otherwise would have been high due to added in-memory video buffer.
 
-==== Why would you not want to do that?
-1. With the NVIDIA GPU used all the time, there would be a slight increase in battery consumption which should not be a concern if your device is used while being plugged in.
-2. Increased generation of heat from the all-the-time enabled NVIDIA GPU can be worrisome. You would not want to play AAA-titles on Proton while placing your laptop on your lap.
+=== Why would you not want to do that?
+. With the NVIDIA GPU used all the time, there would be a slight increase in battery consumption which should not be a concern if your device is used while being plugged in.
+. Increased generation of heat from the all-the-time enabled NVIDIA GPU can be worrisome. You would not want to play AAA-titles on Proton while placing your laptop on your lap.
 
-=== Step #1: Update from the existing repositories
+== Step #1: Update from the existing repositories
 Execute
 ----
 sudo dnf update
@@ -33,14 +33,14 @@ once to update all your packages first.
 
 image:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops-0.png[]
 
-=== Step #2: Add the RPMFusion repository for NVIDIA drivers
+== Step #2: Add the RPMFusion repository for NVIDIA drivers
 Then you need to add the *RPM Fusion repository for NVIDIA drivers*. To do that, open up *GNOME Software* and click on the *hamburger menu* (three horizontal lines) on the top-right corner. Then click on *Software Repositories* from the dropdown menu. There you will see this.
 
 image:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops-1.png[]
 
 Select *RPM Fusion for Fedora 32 - Nonfree - NVIDIA Driver* and *ENABLE* it. It requires elevated privileges so enter your password and it will be done.
 
-=== Step #3: Update from the newly added repositories
+== Step #3: Update from the newly added repositories
 Execute
 ----
 sudo dnf update --refresh
@@ -49,7 +49,7 @@ to fetch all available updates from the newly added repository.
 
 image:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops-2.png[]
 
-=== Step #4: Install the driver and its dependencies
+== Step #4: Install the driver and its dependencies
 Execute
 ----
 sudo dnf install gcc kernel-headers kernel-devel akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-libs xorg-x11-drv-nvidia-libs.i686
@@ -58,10 +58,10 @@ to get the driver and all necessary dependencies.
 
 image:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops-3.png[]
 
-=== Step #5: Wait for the kernel modules to load up
+== Step #5: Wait for the kernel modules to load up
 You **must** wait 5-10 minutes for the kernel modules to load. Please do not proceed to the next steps immediately.
 
-=== Step #6: Read from the updated kernel modules
+== Step #6: Read from the updated kernel modules
 Execute
 ----
 sudo akmods --force
@@ -69,7 +69,7 @@ sudo dracut --force
 ----
 This would force the configuration to be read from the updated kernel modules which now have the NVIDIA drivers in them.
 
-=== Step #7: Reboot your system
+== Step #7: Reboot your system
 Wait for 3-5 minutes for the changes to take effect and then reboot your system.
 
 Once your system has started, go to the *About* page in the *Settings* application. You are likely to see the following output.
@@ -78,7 +78,7 @@ image:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops-4.png[]
 
 This means that the driver installation was successful leading to the detection of two distinct video accelerators - internal and dedicated.
 
-=== Step #8: Edit the X11 configuration
+== Step #8: Edit the X11 configuration
 Execute the following command to copy the display render details for the X11.
 
 ----
@@ -105,10 +105,10 @@ You can see the additions in both sections.
 
 Save it using `[Ctrl]+[S]` and exit out using `[Ctrl]+[X]`.
 
-=== Step #9: Reboot your system
+== Step #9: Reboot your system
 Reboot your system and proceed to the next steps to verify the change in configuration.
 
-=== Step #10: Verify the configuration
+== Step #10: Verify the configuration
 Open a terminal and type in
 ----
 glxinfo | egrep "OpenGL vendor|OpenGL renderer"
@@ -135,15 +135,15 @@ Also the GPU would show activity in its utilization percentage to signify that i
 
 image:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops-9.png[]
 
-=== References
+== References
 Should you face issues while following these steps or if these do not match your use case,
 feel free to convey your queries on https://ask.fedoraproject.org[Fedora Forums].
 
 Here are the links you can refer to for obtaining more information.
 
-1. https://rpmfusion.org/Howto/Optimus[RPMFusion's Optimus How-to guide]
-2. https://rpmfusion.org/Howto/NVIDIA[RPMFusion's NVIDIA How-to guide]
-3. https://unix.stackexchange.com/questions/16407/how-to-check-which-gpu-is-active-in-linux[GPU Activity on UNIX StackExchange]
-4. https://www.reddit.com/r/Fedora/comments/bw4b0p/how_to_fedora_nvidia_prime/[Fedora Subreddit (zvitaly’s response only)]
+. https://rpmfusion.org/Howto/Optimus[RPMFusion's Optimus How-to guide]
+. https://rpmfusion.org/Howto/NVIDIA[RPMFusion's NVIDIA How-to guide]
+. https://unix.stackexchange.com/questions/16407/how-to-check-which-gpu-is-active-in-linux[GPU Activity on UNIX StackExchange]
+. https://www.reddit.com/r/Fedora/comments/bw4b0p/how_to_fedora_nvidia_prime/[Fedora Subreddit (zvitaly’s response only)]
 
 Please do not refer to the misleading information available on this site https://www.if-not-true-then-false.com/2015/fedora-nvidia-guide/
