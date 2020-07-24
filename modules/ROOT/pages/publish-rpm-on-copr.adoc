@@ -201,10 +201,10 @@ If you again push the tag to the remote repo, Copr will again automatically trig
 == Release procedure in brief
 From now on, updating your software in the Copr repository is as simple as
 
-0. Commit all changes for your new version.
-1. Perform a test build using `tito build --test`
-2. Tag the release with `tito tag` (add `--use-version` if necessary)
-3. Push the tag to your git repo using `git push --follow-tags`
+1. Commit all changes for your new version.
+2. Perform a test build using `tito build --test`
+3. Tag the release with `tito tag` (add `--use-version` if necessary)
+4. Push the tag to your git repo using `git push --follow-tags`
 
 and Copr will take care of the rest.
 
