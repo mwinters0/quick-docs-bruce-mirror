@@ -1,0 +1,213 @@
+= How to automatically Publish your Software in the Copr User Repository
+
+This is a short tutorial on how to create and maintain a Copr repository for your software in an automated fashion. It assumes some basic familiarity with Git & how to create a RPM package.
+
+In this guide, we'll
+
+ - create a RPM package for a program
+ - create a Copr repository and publish the program to it
+ - set up automatic management of program version, package release and package changelog
+ - set up automatic building of new package versions
+
+The aim is to let you keep your software up-to-date in Copr without ever having to interact with anything other than your software's git repository.
+
+== Prerequisites
+The following is needed:
+1) Our program's source in a publicly available git repository somewhere. This tutorial uses a simple example program - hellocopr - to demonstrate the process.
+The program and all files referenced in this guide can be found in the link:https://pagure.io/lcts/copr-tito-quickdoc[project's git repository] - to follow along, fork that repository & check out the `initial` tag. It's a very simple (& pointless) python program with a setuptools installer:
+```
+user@host ~/copr-tito-quickdoc % ls
+doc  LICENSE  README.md  requirements.txt  setup.py  src
+user@host ~/copr-tito-quickdoc % ls src/hellocopr 
+colors.py  hellocopr.py  __init__.py
+```
+
+2) A Fedora (FAS) account in order to be able to create repositories on Copr. This tutorials demo repository can be found link:https://copr.fedoraproject.....[here].
+
+3) `tito` installed on your system. link:https://github.com/rpm-software-management/tito[Tito] is capable of a lot of advanced automation for package creation, most of which we won't need here. Check out its documentation to learn more.
+
+4) A specfile for our program. For more information on how to create one, refer to xref:creating-rpm-packages.adoc[How to create an RPM package] and xref:... or adapt this tutorial's link:...[annotated example specfile].
+
+== Step 1: Creating the package using tito
+
+Copy link:https://pagure.io/copr-tito-quickdoc/c/00963ac9339a13eefd2ab1ca42b1f72af12d3cac?branch=master[the spec file] into the project's base directory. A few changes should be made before proceeding:
+
+1. The values of `Version:` and `Release:` do not matter, since these will be managed by tito. It makes sense to set them to `Version: 0.0.0` and `Release: 0%{?dist}` to mark that this package hasn't been built yet.
+
+2. tito will also handle the creation of the source tarball from the git repository, so change the `Source0:` URL to the filename `%{name}-%{version}.tar.gz` & add a comment to tell users how to get the tarball
+
+3. The changelog can be left empty.
+
+```
+user@host ~/copr-tito-quickdoc % cat hellocopr.spec
+...
+Version: 0.0.0
+Release: 0%{?dist}
+...	
+# Sources can be obtained by
+# git clone https://pagure.io/copr-tito-quickdoc
+# cd copr-tito-quickdoc
+# tito build --tgz
+Source0: %{name}-%{version}.tar.gz
+...	
+%changelog
+```
+
+Commit the changes.
+
+Next, we link:https://pagure.io/copr-tito-quickdoc/c/7a6919d3dd56943bb988a755f8233157965aa9bb?branch=master[initialize the project for use with tito].
+```
+user@host ~/copr-tito-quickdoc % tito init
+Creating tito metadata in: ~/copr-tito-quickdoc/.tito
+   - created ~/copr-tito-quickdoc/.tito
+   - wrote tito.props
+   - created ~/copr-tito-quickdoc/.tito/packages
+   - wrote ~/copr-tito-quickdoc/.tito/packages/.readme
+   - committed to git
+Done!
+```
+This creates a subdirectory `.tito` with some default configuration, which can be left unchanged for now.
+
+We can now do a test build of the package using `tito build`. Usually, tito will build from a tag, which we haven't created yet. However, using the `--test` flag, we can build from the most recent commit instead, which will be written to `/tmp/tito`:
+```
+user@host ~/copr-tito-quickdoc % tito build --rpm --test
+Creating output directory: /tmp/tito
+WARNING: unable to lookup latest package tag, building untagged test project
+WARNING: .tito/packages/hellocopr doesn't exist in git, using current directory
+Building package [hellocopr-0.0.0-0]
+Wrote: /tmp/tito/hellocopr-git-11.7a6919d.tar.gz
+...
+
+Successfully built: /tmp/tito/hellocopr-0.0.0-0.git.11.7a6919d.fc32.src.rpm
+	- /tmp/tito/noarch/hellocopr-0.0.0-0.git.11.7a6919d.fc32.noarch.rpm
+``` 
+Once we've fixed any issues with the package that might crop up, we can let tito create a package release using `tito tag`. Since we haven't set a proper version yet, we need to pass it to tito for the first tag:
+```
+user@host ~/copr-tito-quickdoc % tito tag --use-version 1.0.0
+```
+
+This will open the editor & display a pre-formatted changelog entry build up from all commits since the last release, which we can edit as needed. Since there have been none so far, the entry will just contain "- new package built with tito". Save the file, link:https://pagure.io/copr-tito-quickdoc/c/f44e81d695df669bcdb7237612baf41b80da98e0?branch=master[and tito will]
+
+1. set the Version in the specfile to 1.0.0
+2. set the Release in the specfile to 1
+3. append the changelog entry to the specfile's `%changelog` section
+4. commit the result and tag it with `<name>-<version>-<release>`, i.e. `hellocopr-1.0.0-1`
+
+```
+user@host ~/copr-tito-quickdoc % tito tag --use-version 1.0.0
+Creating output directory: /tmp/tito
+Tagging new version of hellocopr: untagged -> 1.0.0-1
+Created tag: hellocopr-1.0.0-1
+   View: git show HEAD
+   Undo: tito tag -u
+   Push: git push --follow-tags origin
+```
+
+Push to the commits & tags to the remote using `git push --follow-tags`, and we're ready to release the package on Copr.
+
+== Step 2: Publishing the package in a Copr repository
+
+1. Go to https://copr.fedorainfracloud.org/ and log in. Once done, click on *New Project* to start creating a repository for our program. On the following input mask,
+
+   - Under *1. Project information* -> *Prject name* set the name to what you want your repo to be called - since this will only contain a single package, it makes sense to use projectname = packagename, i.e. *hellocopr*. This is the only settings that cannot be changed later.
+
+   - Under *2. Build options* tick all distributions you want to create repositories for - usually all Fedora versions & maybe EPEL versions as well
+
+   - Under *4. Other Options* make sure that *Follow Fedora branching* is ticked, this will ensure that your repository will automatically update for new Fedora release.
+
+2. Go to *Packages* -> *New Package*
+
+  - Under *1. Provide the source*, set the package name & the URL of your git repository
+  - Under *2. How to build SRPM from the source* select *tito*
+  - Under *3. Generic package setup* tick the box for *Auto-rebuild*
+  
+3. Your package will appear in the list of packages. Hit *Rebuild* to trigger a build. The following page lets you change any build options if necessary, we'll just use the defaults, i.e. the options we set in the previous step. Hit *Submit* and Copr will build the package from the tito tag we created in Step 1.
+
+Once the build has finished, you can test installing the package from Copr by activating your repository.
+```
+user@host ~/copr-tito-quickdoc % sudo dnf copr enable <username>/hellocopr
+user@host ~/copr-tito-quickdoc % sudo dnf install hellocopr
+```
+
+== Step 3: Automate package (re)-builds
+
+Next, we want to set up Copr to automatically build a new package version whenever we create one, so that we no longer need to log in and trigger one manually. To achieve this, we simply need to trigger a build whenever we push a new tag to the repository.
+
+This requires some configuration both of your Git repository and of the Copr project.
+
+Configuration can be found under link:https://copr.fedorainfracloud.org/coprs/lcts/hellocopr/integrations/[Settings -> Integrations], the page also explains the steps to configure your git repository for all common Git forges (Pagure, Github, Gitlab & Bitbucket).
+
+Now, to test this, let's make some changes to our program that will come in handy for the final layer of automation and create a new release for our software.
+
+Currently, the example program has its version hardcoded at multiple places. link:https://pagure.io/copr-tito-quickdoc/c/61abf1cdf622d8c9fb4f03eb6b06c4ddc1677362?branch=master[Let's change this] so that the version string is sourced from a single file. Which file this is doesn't matter, but ideally the version variable should be the only thing in it that is likely to change. In this case, we use the previously empty `src/hellocopr/\__init__py`. We name this new version '1.0.1'.
+
+Commit the changes, and create a new release with tito
+```
+user@host ~/copr-tito-quickdoc % tito tag                                  
+Creating output directory: /tmp/tito
+Tagging new version of hellocopr: 1.0.0-1 -> 1.0.1-1
+Created tag: hellocopr-1.0.1-1
+   View: git show HEAD
+   Undo: tito tag -u
+   Push: git push --follow-tags origin
+```
+Note that by ommiting the `--use-version` option, tito now updates the version automatically. It does so by
+
+1. Increasing the Version's final digit by 1 - `1.0.0` -> `1.0.1`
+2. Resetting the Release to 1 it it isn't already.
+
+If you want to bump to a different version, say `1.1.0`, you can do so again by passing `--use-version`.
+
+Push the resulting commit & tag, and if you now check your projects page on Copr, you'll see that a new build of hellocopr-1.0.1-1 has been triggered by our pushing a tag.
+
+== Step 4: Let tito manage the program version
+
+If you check the git log, you'll find that I actually forgot to update hellocopr's version variable to 1.0.1. We don't want that to happen again. Luckily, since we single-source our version, we can let tito automatically generate this file from a template.
+
+First, copy the version source file `src/hellocopr/__init__.py` to `.tito/templates/__init__.py.template`. Then, open the template file and replace the version string with `$version`. It also makes sense to add a note that the file is managed by tito and should not be edited manually.
+```
+user@host ~/copr-tito-quickdoc % cat .tito/templates/__init__.py.template
+...
+# This file is automatically created from a template by tito. Do not edit it manually.
+
+__version__ = '$version'
+```
+
+Next, add the following to `.tito/tito.props`
+```
+[version_template]
+destination_file = src/hellocopr/__init__.py
+template_file = .tito/templates/__init__.py.template
+```
+Commit the changes. Now, when we tag a new release, tito will take the template, replace `$version` with whatever version was tagged, and copy the resulting file to `src/hellocopr/__init__.py` before updating the spec file and commiting the changes.
+
+We can test this by tagging a new release:
+```
+user@host ~/copr-tito-quickdoc % % tito tag
+Creating output directory: /tmp/tito
+Tagging new version of hellocopr: 1.0.1-1 -> 1.0.2-1
+Created tag: hellocopr-1.0.2-1
+   View: git show HEAD
+   Undo: tito tag -u
+   Push: git push --follow-tags origin
+user@host ~/copr-tito-quickdoc % cat src/hellocopr/__init__.py
+...
+# This file is automatically created from a template by tito. Do not edit it manually.
+
+__version__ = '1.0.2'
+```
+If you again push the tag to the remote repo, Copr will again automatically trigger a rebuild.
+
+== Release procedure in brief
+From now on, updating your software in the Copr repository is as simple as
+
+0. Commit all changes for your new version.
+1. Perform a test build using `tito build --test`
+2. Tag the release with `tito tag` (add `--use-version` if necessary)
+3. Push the tag to your git repo using `git push --follow-tags`
+
+and Copr will take care of the rest.
+
+== Addendum
+
+You can use a similar process to manage someone elses software on Copr, i.e. build from a tarball downloaded from upstream. To see how, check out the link:https://pagure.io/copr-tito-quickdoc/tree/foreign-source[`foreign-sources`] branch of the project repo.
