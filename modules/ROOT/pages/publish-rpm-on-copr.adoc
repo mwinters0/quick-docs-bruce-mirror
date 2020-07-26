@@ -203,7 +203,7 @@ Next, add the following to `.tito/tito.props`
 destination_file = src/hellocopr/__init__.py
 template_file = .tito/templates/__init__.py.template
 ```
-Commit the changes. Now, when we tag a new release, tito will take the template, replace `$version` with whatever version was tagged, and copy the resulting file to `src/hellocopr/pass:[__]initpass:[__].py` before updating the spec file and commiting the changes.
+https://pagure.io/copr-tito-quickdoc/c/28600f6e41d5a4b60f2e47cf077f2fe2d9224e1d?branch=master[Commit the changes]. Now, when we tag a new release, tito will take the template, replace `$version` with whatever version was tagged, and copy the resulting file to `src/hellocopr/pass:[__]initpass:[__].py` before updating the spec file and commiting the changes.
 
 We can test this by tagging a new release:
 ```
@@ -254,4 +254,4 @@ tagger = tito.tagger.ReleaseTagger
 
 The rest of the procedure stays the same. If you make changes to the package without changing the source, you can just tag a new release with tito. If you do update the source tarball, you need to update the `Version:` field and reset `Release:` to `0%{?dist}` before tagging.
 
-TIP: The tarball-adapted version of the project can be found in the `foreign-sources` branch of the git repo.
+TIP: The tarball-adapted version of the project can be found in the `https://pagure.io/copr-tito-quickdoc/tree/foreign-sources[foreign-sources]` branch of the git repo.
