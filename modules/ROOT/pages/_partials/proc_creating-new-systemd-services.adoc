@@ -3,10 +3,12 @@
 
 This example shows how to create a unit file for a custom service. Custom unit files are located in `/etc/systemd/system/` and have a `.service` extension. For example, a custom `foo` service uses `/etc/systemd/system/foo.service` unit file.
 
+[discrete]
 == Prerequisites
 
 * You are logged in as a user with administrator-level permissions.
 
+[discrete]
 == Procedure
 
 This procedure creates a basic configuration file to control the `foo` service.
@@ -92,6 +94,7 @@ $ systemctl status foo
 Dec 14 14:09:12 dansmachine systemd[1]: Started My custom service.
 ----
 
+[discrete]
 == Related Information
 
 * See link:#common-service-parameters[Common service parameters] for more information about the parameters used in this procedure.

@@ -3,12 +3,14 @@
 
 Older versions of Fedora use SysVinit scripts to manage services. This section provides some guidelines on how to convert a SysVinit script to a systemd equivalent.
 
+[discrete]
 == Prerequisites
 
 * You are logged in as a user with administrator-level permissions.
 
 * You have a custom SysVinit script to convert to a systemd configuration.
 
+[discrete]
 == Procedure
 
 . Identify the runlevels in your SysVinit script. This is usually defined with `chkconfig` directive in the commented section at the beginning of the script. For example, the following indicates the service is using runlevels 3, 4, and 5:
@@ -91,6 +93,7 @@ Alternatively, you can omit `ExecStop` and use the default behavior, which kills
 
 . Review the SysVinit script and identify any additional parameters or functions. Use systemd parameters to replicate any identified SysVinit functions that might be relevant to your service.
 
+[discrete]
 == Related Information
 
 * See link:#common-service-parameters[Common service parameters] for more information about the parameters used in this procedure.

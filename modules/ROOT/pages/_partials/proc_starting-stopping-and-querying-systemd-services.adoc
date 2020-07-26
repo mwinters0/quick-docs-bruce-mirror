@@ -3,10 +3,12 @@
 
 You can perform various management tasks to control systemd services using the `systemctl` command. The following is a set of example commands to demonstrate how to use `systemctl` to manage systemd services.
 
+[discrete]
 == Prerequisites
 
 You are logged in as a user with administrator-level permissions.
 
+[discrete]
 == Procedure
 
 The following commands control the `foo` service:
@@ -59,6 +61,7 @@ The following commands control the `foo` service:
 # systemctl is-enabled foo
 ----
 
+[discrete]
 == Related Information
 
 * Run `man systemctl` for more details.

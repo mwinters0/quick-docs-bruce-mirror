@@ -27,7 +27,6 @@ include::{partialsdir}/ref_mapping-runlevel-to-targets.adoc[leveloffset=+1]
 include::{partialsdir}/ref_mapping-service-commands.adoc[leveloffset=+1]
 
 
-[discrete]
 == Additional resources
 
 * http://www.freedesktop.org/wiki/Software/systemd[Project homepage]
