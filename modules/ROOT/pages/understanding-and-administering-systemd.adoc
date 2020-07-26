@@ -6,8 +6,6 @@ ifdef::context[:parent-context: {context}]
 = Understanding and administering systemd
 :toc:
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 Learn the basic principles of systemd: how to configure it and use to administer the system.
 
 include::{partialsdir}/con_understanding-systemd.adoc[leveloffset=+1]
