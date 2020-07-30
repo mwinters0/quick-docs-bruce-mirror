@@ -116,7 +116,9 @@ You can see the additions in both sections.
 
 Save it using `[Ctrl]+[S]` and exit out using `[Ctrl]+[X]`.
 
-== Step #9: Reboot your system
+NOTE: If you are using a display manager other than GDM (the defualt of Fedora Workstation), you will need to configure it appropriately. Please refer https://wiki.archlinux.org/index.php/NVIDIA_Optimus#Display_managers[to the Arch wiki for instructions]. For SDDM (the KDE spin default) on Fedora32, the Arch wiki is _wrong_, and you need to edit the `/etc/sddm/Xsetup` file, _not_ `/usr/share/sddm/scripts/Xsetup`.
+
+=== Step #9: Reboot your system
 Reboot your system and proceed to the next steps to verify the change in configuration.
 
 == Step #10: Verify the configuration
