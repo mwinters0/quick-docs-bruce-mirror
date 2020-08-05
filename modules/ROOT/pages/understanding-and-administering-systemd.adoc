@@ -6,7 +6,7 @@ ifdef::context[:parent-context: {context}]
 = Understanding and administering systemd
 :toc:
 
-Learn the basic principles of systemd: how to configure it and use to administer the system.
+Learn the basic principles of the _systemd_ init system: how to configure it and use it to administer the system.
 
 include::{partialsdir}/con_understanding-systemd.adoc[leveloffset=+1]
 
@@ -28,9 +28,9 @@ include::{partialsdir}/ref_mapping-service-commands.adoc[leveloffset=+1]
 == Additional resources
 
 * http://www.freedesktop.org/wiki/Software/systemd[Project homepage]
-* http://0pointer.de/blog/[Lennart Poettering's blog] with lots of information about systemd. Lennart is the primary systemd developer
-* http://www.freedesktop.org/wiki/Software/systemd/FrequentlyAskedQuestions[freedesktop.org's systemd FAQ]
-* http://www.freedesktop.org/wiki/Software/systemd/TipsAndTricks[freedesktop.org's systemd Tips & Tricks]
+* http://0pointer.de/blog/[Lennart Poettering's blog] with lots of information about _systemd_. Lennart is the primary _systemd_ developer
+* http://www.freedesktop.org/wiki/Software/systemd/FrequentlyAskedQuestions[freedesktop.org's _systemd_ FAQ]
+* http://www.freedesktop.org/wiki/Software/systemd/TipsAndTricks[freedesktop.org's _systemd_ Tips & Tricks]
 * http://fosdem.org/2011/interview/lennart-poettering.html[Interview with the developer]
 
 ifdef::parent-context[:context: {parent-context}]

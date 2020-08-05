@@ -16,7 +16,7 @@ This procedure creates a basic configuration file to control the `foo` service.
 . Create and edit the new configuration file:
 +
 ----
-# vi /etc/systemd/system/foo.service
+# nano /etc/systemd/system/foo.service
 ----
 
 . The next few steps describe each section its parameters to add to the file:
@@ -24,9 +24,9 @@ This procedure creates a basic configuration file to control the `foo` service.
 .. The `[Unit]` section provides basic information about the service. The `foo` service uses the following parameters:
 +
 `Description`::
-  A string describing the unit. systemd displays this description next to the unit name in the user interface. 
+  A string describing the unit. _systemd_ displays this description next to the unit name in the user interface. 
 `Requires`::
-  Defines unit to use as a dependency for the service. If you activate the unit, systemd activates the units listed in `Requires` as well. For example, the `foo` service might require network connectivity, which means the `foo` services requires `network.target` as a dependency. 
+  Defines unit to use as a dependency for the service. If you activate the unit, _systemd_ activates the units listed in `Requires` as well. For example, the `foo` service might require network connectivity, which means the `foo` services requires `network.target` as a dependency. 
 +
 The resulting `[Unit]` section looks like this:
 +
@@ -39,7 +39,7 @@ Requires=network.target
 .. The `[Service]` section provides instructions on how to control the service. The `foo` service uses the following parameters:
 +
 `Type`::
-  Defines the type of systemd service. In this example, the `foo` service is a `simple` service, which starts the service without any special consideration.
+  Defines the type of _systemd_ service. In this example, the `foo` service is a `simple` service, which starts the service without any special consideration.
 `ExecStart`::
   The command to run to start the service. This includes the full path to the command and arguments to modify the service.
 +
@@ -51,10 +51,10 @@ Type=simple
 ExecStart=/usr/bin/sleep infinity
 ----
 
-.. The `[Install]` section provides instructions on how systemd installs the service. The `foo` service uses the following parameters:
+.. The `[Install]` section provides instructions on how _systemd_ installs the service. The `foo` service uses the following parameters:
 +
 `WantedBy`::
-  Defines which service triggers the custom service if enabled with `systemctl enable`. This is mostly used for starting the custom service on boot. In this example, `foo.service` uses `multi-user.target`, which starts `foo.service` when systemd loads `multi-user.target` on boot.
+  Defines which service triggers the custom service if enabled with `systemctl enable`. This is mostly used for starting the custom service on boot. In this example, `foo.service` uses `multi-user.target`, which starts `foo.service` when _systemd_ loads `multi-user.target` on boot.
 
 . The full `foo.service` file contains the following contents:
 +
@@ -72,6 +72,13 @@ WantedBy=multi-user.target
 ----
 +
 Save the file.
+
+. To make _systemd_ aware of the new service, reload its service files
++
+----
+# systemctl daemon-reload
+----
+
 
 . Start the custom `foo` service:
 +

@@ -1,7 +1,7 @@
 [#starting-stopping-and-querying-systemd-services]
 = Starting, stopping, and querying systemd services
 
-You can perform various management tasks to control systemd services using the `systemctl` command. The following is a set of example commands to demonstrate how to use `systemctl` to manage systemd services.
+You can perform various management tasks to control _systemd_ services using the `systemctl` command. The following is a set of example commands to demonstrate how to use `systemctl` to manage _systemd_ services.
 
 [discrete]
 == Prerequisites
@@ -31,19 +31,19 @@ The following commands control the `foo` service:
 # systemctl restart foo 
 ----
 
-* Show the status of a service including if it is running or not:
+* Show the status of a service including, whether it is running or not:
 +
 ----
 # systemctl status foo 
 ----
 
-* Enable a service to be started on bootup:
+* Enable a service to be started on boot:
 +
 ----
 # systemctl enable foo 
 ----
 
-* Disable a service to not start during bootup:
+* Disable a service to not start during boot:
 +
 ----
 # systemctl disable foo 
@@ -55,7 +55,7 @@ The following commands control the `foo` service:
 # systemctl mask foo 
 ----
 
-* Check if a service is already enabled or not:
+* Check if a service is enabled or not:
 +
 ----
 # systemctl is-enabled foo
