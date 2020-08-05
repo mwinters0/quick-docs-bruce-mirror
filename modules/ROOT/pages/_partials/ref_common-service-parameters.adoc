@@ -1,7 +1,7 @@
 [#common-service-parameters]
 = Common service parameters
 
-.Unit Parameters
+== Unit Parameters
 
 This section contains parameters you can use in the `[Unit]` section of a service. These parameters are common to other systemd units.
 
@@ -34,7 +34,7 @@ Before, After::
 OnFailure::
   A space-separated list of unit names that are activated when this service enters a failed state.
 
-.Install Parameters
+== Install Parameters
 
 This section contains parameters you can use in the `[Install]` section of a service. These parameters are common to other systemd units.
 
@@ -49,7 +49,7 @@ RequiredBy, WantedBy::
 Also::
     Additional units to install or uninstall when this service is installed or uninstalled.
 
-.Service Parameters
+== Service Parameters
 
 This section contains parameters you can use in the `[Service]` section of a service unit. These parameters are specific only to systemd service units.
 
