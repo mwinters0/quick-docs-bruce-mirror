@@ -4,6 +4,7 @@ ifdef::context[:parent-context: {context}]
 
 [id='understanding-and-administering-systemd']
 = Understanding and administering systemd
+:toc:
 
 include::{partialsdir}/unreviewed-message.adoc[]
 
