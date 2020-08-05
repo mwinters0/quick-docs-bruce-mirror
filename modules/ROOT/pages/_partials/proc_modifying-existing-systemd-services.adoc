@@ -3,13 +3,13 @@
 
 This example shows how to modify an existing service. The files for service modification are stored in a directory within `/etc/systemd/system`. This directory is named after the service. For example, this procedure modifies the `httpd` service.
 
-.Prerequisites
+== Prerequisites
 
 * You are logged in as a user with administrator-level permissions.
 
 * You have a configured `httpd` server running through systemd.
 
-.Procedure
+== Procedure
 
 . Create a directory for the service modification in the following format: `[SERVICE NAME].service.d`. For example, the directory for the `httpd.service` modification is `httpd.service.d`:
 +
@@ -39,6 +39,6 @@ RestartSec=30
 # systemctl restart httpd
 ----
 
-.Related Information
+== Related Information
 
 * See link:#common-service-parameters[Common service parameters] for more information about the parameters used in this procedure.
