@@ -1,0 +1,74 @@
+= APT commands on Fedora
+
+APT is the package manager/dependency solver for the Debian ecosystem, i.e. it manages `.deb` packages installed by the dpkg program. Fedora software uses `.rpm` packages, and thus uses DNF, the package manager/dependency solver for the RPM program. This document gives a brief overview of the most common APT commands one might find in tutorials and their DNF equivalents.
+
+== APT vs. DNF commands
+
+.Apt vs DNF commands
+|===
+| APT command | DNF command | notes
+
+| `apt update`
+
+`apt-get update`
+
+| `dnf check-update`
+| This command is rarely needed, as dnf updates its package cache automatically when it is stale. A cache update can be forced by appending `--refresh` to other commands, e.g. `dnf upgrade --refresh`
+
+| `apt upgrade`
+
+`apt-get upgrade`
+
+| `dnf upgrade`
+| 
+
+| `apt full-upgrade`
+
+`apt-get dist-upgrade`
+
+| `dnf distro-sync` or
+
+`dnf system-upgrade` (see note)
+
+| While `distro-sync` is the most direct functional equivalent, `dnf system-upgrade` should be used to upgrade from one release to another, e.g. from Fedora 31 to 32. This is a multi-step process as described xref:dnf-system-upgrade.adoc[here].
+
+| `apt remove`
+
+`apt-get remove`
+
+| `dnf remove`
+| 
+
+| `apt purge`
+
+`apt-get purge`
+
+| ---
+|
+
+| `apt autoremove`
+
+`apt-get autoremove`
+
+| `dnf autoremove`
+| 
+
+| `apt search`
+
+`apt-cache search`
+
+| `dnf search`
+|
+
+|===
+
+With the exception of of the dist-upgrade working different and dnf updating the cache automatically, the commands are very similar. More info on DNF can be found xref:dnf.adoc[here].
+
+== Why is APT in the Fedora repositories?
+
+WARNING: APT *can not* be used to install packages on Fedora, you *have to use DNF* instead.
+
+The `apt` command on Fedora used to actually be - until https://fedoraproject.org/wiki/Changes/Move_apt_package_from_RPM_to_DPKG_backend[Fedora 32] - `apt-rpm`, which basically mapped normal apt commands so that they worked with Fedora's RPM package management system.
+
+However, `apt-rpm` is unmaintained, broken  & insecure, and so was dropped in favour of shipping the actual Debian `apt` software. Since `apt` exclusively deals with `.deb` packages, the `apt` command can no longer be used to manage Fedora packages. It's purpose is now purely as a tool for people trying to build packages for Debian-based distributions on a Fedora system.
+

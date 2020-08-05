@@ -94,4 +94,4 @@
 
 * FAQ
 ** xref:fedora-and-red-hat-enterprise-linux.adoc[Difference between Fedora and Red Hat Enterprise Linux]
-** xref:dnf-vs-apt.adoc[DNF vs. APT]
+** xref:dnf-vs-apt.adoc[APT commands on Fedora]
