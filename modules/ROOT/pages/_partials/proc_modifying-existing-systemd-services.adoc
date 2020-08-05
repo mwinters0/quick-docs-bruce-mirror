@@ -1,7 +1,7 @@
 [#modifying-existing-systemd-services]
 = Modifying existing systemd services
 
-This example shows how to modify an existing service. The files for service modification are stored in a directory within `/etc/systemd/system`. This directory is named after the service. For example, this procedure modifies the `httpd` service.
+This example shows how to modify an existing service. Service modification are stored within `/etc/systemd/system`, in a single file or in a subdirectory named after the service. For example, this procedure modifies the `httpd` service.
 
 [discrete]
 == Prerequisites
@@ -13,17 +13,13 @@ This example shows how to modify an existing service. The files for service modi
 [discrete]
 == Procedure
 
-. Create a directory for the service modification in the following format: `[SERVICE NAME].service.d`. For example, the directory for the `httpd.service` modification is `httpd.service.d`:
+. _Systemd_ services can be modified using the `systemctl edit` command.
 +
 ----
-# mkdir /etc/systemd/system/httpd.service.d/
+# systemctl edit httpd.service
 ----
-
-. Create a configuration file within this directory:
 +
-----
-# vi /etc/systemd/system/httpd.service.d/custom.conf
-----
+This creates an override file `/etc/systemd/system/httpd.service.d/override.conf` and opens it in your text editor. Anything you put into this file will be *added* to the existing service file.
 
 . Add your custom configuration. For example:
 +
@@ -32,14 +28,24 @@ This example shows how to modify an existing service. The files for service modi
 Restart=always
 RestartSec=30
 ----
++
+To replace an option that can be set multiple times, it must cleared first, otherwise the override file will add the option a second time.
++
+----
+[Service]
+ExecStart=
+ExecStart=<new command>
+----
 
-. Save the file.
+. Save the file. _Systemd_ automatically loads the new service configuration.
 
 . Restart the `httpd` service:
 +
 ----
 # systemctl restart httpd
 ----
+
+To completely replace (instead of just add to/modify) an existing service file, use `systemctl edit --full`, e.g.  `systemctl edit --full httpd.service`. This will create `/etc/systemctl/system/httpd.service`, which will be used instead of the existing service file.
 
 [discrete]
 == Related Information
