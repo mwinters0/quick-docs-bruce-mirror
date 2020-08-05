@@ -1,6 +1,6 @@
 = APT commands on Fedora
 
-APT is the package manager/dependency solver for the Debian ecosystem, i.e. it manages `.deb` packages installed by the dpkg program. Fedora software uses `.rpm` packages, and thus uses DNF, the package manager/dependency solver for the RPM program. This document gives a brief overview of the most common APT commands one might find in tutorials and their DNF equivalents.
+APT is the package manager/dependency solver for the Debian ecosystem, i.e. it manages `.deb` packages installed by the DPKG program. Fedora software uses `.rpm` packages, and thus uses DNF, the package manager/dependency solver for the RPM program, instead. This document gives a brief overview of the most common APT commands one might find in tutorials and their DNF equivalents.
 
 == APT vs. DNF commands
 
@@ -68,7 +68,7 @@ With the exception of of the dist-upgrade working different and dnf updating the
 
 WARNING: APT *can not* be used to install packages on Fedora, you *have to use DNF* instead.
 
-The `apt` command on Fedora used to - until https://fedoraproject.org/wiki/Changes/Move_apt_package_from_RPM_to_DPKG_backend[Fedora 32] - actually be `apt-rpm`, which basically mapped normal apt commands so that they worked with Fedora's RPM package management system.
+The `apt` command on Fedora used to - until https://fedoraproject.org/wiki/Changes/Move_apt_package_from_RPM_to_DPKG_backend[Fedora 32] - actually be APT-RPM, which basically mapped normal apt commands so that they worked with Fedora's RPM package management system.
 
 However, `apt-rpm` is unmaintained, broken  & insecure, and so was dropped in favour of shipping the actual Debian `apt` software. Since `apt` exclusively deals with `.deb` packages, the `apt` command can no longer be used to manage Fedora packages. It's purpose is now purely as a tool for people trying to build packages for Debian-based distributions on a Fedora system.
 
