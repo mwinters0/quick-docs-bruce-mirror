@@ -1,6 +1,7 @@
 include::{partialsdir}/attributes.adoc[]
 
 = How to Publish your Software on Copr, Fedora's User Repository
+:toc:
 
 This is a short tutorial on how to create and maintain a Copr repository for your software in an automated fashion. It assumes some basic familiarity with Git & how to create a RPM package.
 
