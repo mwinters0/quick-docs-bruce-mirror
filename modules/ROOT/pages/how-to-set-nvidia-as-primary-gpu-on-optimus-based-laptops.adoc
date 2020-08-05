@@ -17,12 +17,12 @@ In order to make all the rendering default to the NVIDIA GPU, you need the follo
 First, you need to see if you really want to achieve this.
 
 === Why would you want to do that?
-. The use of NVIDIA GPU all the time would allow for smoother transitions and richer animation effects. Premium desktop environments like GNOME would benefit a lot from this.
-. Enabling the NVIDIA GPU all the time would lead to lower CPU load and memory consumption which otherwise would have been high due to added in-memory video buffer.
+* The use of NVIDIA GPU all the time would allow for smoother transitions and richer animation effects. Premium desktop environments like GNOME would benefit a lot from this.
+* Enabling the NVIDIA GPU all the time would lead to lower CPU load and memory consumption which otherwise would have been high due to added in-memory video buffer.
 
 === Why would you not want to do that?
-. With the NVIDIA GPU used all the time, there would be a slight increase in battery consumption which should not be a concern if your device is used while being plugged in.
-. Increased generation of heat from the all-the-time enabled NVIDIA GPU can be worrisome. You would not want to play AAA-titles on Proton while placing your laptop on your lap.
+* With the NVIDIA GPU used all the time, there would be a slight increase in battery consumption which should not be a concern if your device is used while being plugged in.
+* Increased generation of heat from the all-the-time enabled NVIDIA GPU can be worrisome. You would not want to play AAA-titles on Proton while placing your laptop on your lap.
 
 == Step #1: Update from the existing repositories
 Execute
@@ -141,9 +141,9 @@ feel free to convey your queries on https://ask.fedoraproject.org[Fedora Forums]
 
 Here are the links you can refer to for obtaining more information.
 
-. https://rpmfusion.org/Howto/Optimus[RPMFusion's Optimus How-to guide]
-. https://rpmfusion.org/Howto/NVIDIA[RPMFusion's NVIDIA How-to guide]
-. https://unix.stackexchange.com/questions/16407/how-to-check-which-gpu-is-active-in-linux[GPU Activity on UNIX StackExchange]
-. https://www.reddit.com/r/Fedora/comments/bw4b0p/how_to_fedora_nvidia_prime/[Fedora Subreddit (zvitaly’s response only)]
+* https://rpmfusion.org/Howto/Optimus[RPMFusion's Optimus How-to guide]
+* https://rpmfusion.org/Howto/NVIDIA[RPMFusion's NVIDIA How-to guide]
+* https://unix.stackexchange.com/questions/16407/how-to-check-which-gpu-is-active-in-linux[GPU Activity on UNIX StackExchange]
+* https://www.reddit.com/r/Fedora/comments/bw4b0p/how_to_fedora_nvidia_prime/[Fedora Subreddit (zvitaly’s response only)]
 
 Please do not refer to the misleading information available on this site https://www.if-not-true-then-false.com/2015/fedora-nvidia-guide/
