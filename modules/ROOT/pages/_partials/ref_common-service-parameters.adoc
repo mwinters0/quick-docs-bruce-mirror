@@ -72,7 +72,7 @@ GuessMainPID::
   A boolean value that specifies whether _systemd_ should guess the main PID of a service if it cannot be determined reliably. This option is ignored unless `Type=forking` is set and `PIDFile` is not set. Defaults to yes.
 
 PIDFile::
-  An absolute filename pointing to the PID file of this daemon. Use of this option is recommended for services where `Type=forking`. _systemd_ reads the PID of the main process of the daemon after start-up of the service. _systemd_ does not write to the file configured here, although it removes the file after the service has shut down. 
+  An absolute filename pointing to the PID file of this daemon. Use of this option is recommended for services where `Type=forking`. _Systemd_ reads the PID of the main process of the daemon after start-up of the service. _Systemd_ does not write to the file configured here, although it removes the file after the service has shut down. 
 
 BusName::
   A D-Bus bus name to reach this service. This option is mandatory for services where `Type=dbus`.

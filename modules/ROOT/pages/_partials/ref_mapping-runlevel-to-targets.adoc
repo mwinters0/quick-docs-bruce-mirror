@@ -1,7 +1,7 @@
 [#mapping-runlevels-to-targets]
 = Mapping runlevels to targets
 
-_systemd_ targets serve a similar purpose to SysVinit runlevels but act a little differently. Each target has a name instead of a number and each serves a specific purpose. _systemd_ implements some targets by inheriting all of the services of another target and adding additional services to it. Some _systemd_ targets mimic the common sysvinit runlevels, which means you can switch targets with the familiar `telinit RUNLEVEL` command. The runlevels assigned a specific purpose on vanilla Fedora installs (0, 1, 3, 5, and 6) have a 1:1 mapping with a specific _systemd_ target.
+_Systemd_ targets serve a similar purpose to SysVinit runlevels but act a little differently. Each target has a name instead of a number and each serves a specific purpose. _Systemd_ implements some targets by inheriting all of the services of another target and adding additional services to it. Some _systemd_ targets mimic the common sysvinit runlevels, which means you can switch targets with the familiar `telinit RUNLEVEL` command. The runlevels assigned a specific purpose on vanilla Fedora installs (0, 1, 3, 5, and 6) have a 1:1 mapping with a specific _systemd_ target.
 
 However, this is not the case for user-defined runlevels 2 and 4. To make use of those runlevels, create a new named _systemd_ target such as `/etc/systemd/system/$YOURTARGET` that takes one of the existing runlevels as a base, make a directory `/etc/systemd/system/$YOURTARGET.wants`, and then symlink the additional services to enable into that directory.
 

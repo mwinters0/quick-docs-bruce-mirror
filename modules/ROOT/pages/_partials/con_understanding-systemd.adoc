@@ -1,7 +1,7 @@
 [id='understanding-systemd']
 = Understanding systemd
 
-_systemd_ is a system and service manager for Linux, compatible with SysV and LSB init scripts. _systemd_ provides:
+_Systemd_ is a system and service manager for Linux, compatible with SysV and LSB init scripts. _Systemd_ provides:
 
 * Aggressive parallelization capabilities
 * Uses socket and D-Bus activation for starting services
@@ -12,7 +12,7 @@ _systemd_ is a system and service manager for Linux, compatible with SysV and LS
 
 The `systemctl` command is the primary tool to manage _systemd_. It combines the functionality of SysVinit's `service` and `chkconfig` commands into a single tool you can use to enable and disable services permanently or only for the current session.
 
-_systemd_ manages so-called *_units_*, which are representations of system resources and services. This following list shows the unit types that _systemd_ can manage:
+_Systemd_ manages so-called *_units_*, which are representations of system resources and services. This following list shows the unit types that _systemd_ can manage:
 
 service::
   A service on the system, including instructions for starting, restarting, and stopping the service.

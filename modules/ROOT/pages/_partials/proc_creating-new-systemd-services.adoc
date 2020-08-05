@@ -24,7 +24,7 @@ This procedure creates a basic configuration file to control the `foo` service.
 .. The `[Unit]` section provides basic information about the service. The `foo` service uses the following parameters:
 +
 `Description`::
-  A string describing the unit. _systemd_ displays this description next to the unit name in the user interface. 
+  A string describing the unit. _Systemd_ displays this description next to the unit name in the user interface. 
 `Requires`::
   Defines unit to use as a dependency for the service. If you activate the unit, _systemd_ activates the units listed in `Requires` as well. For example, the `foo` service might require network connectivity, which means the `foo` services requires `network.target` as a dependency. 
 +
