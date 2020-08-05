@@ -21,7 +21,7 @@ NOTE: All recent versions of `systemctl` assume the `.service` suffix if left of
 |`service frobozz status`|`systemctl status frobozz`|Tells whether a service is currently running.
 
 |`ls /etc/rc.d/init.d/`|`systemctl` or `systemctl list-unit-files --type=service` or +
-`ls /lib/systemd/system/*.service /etc/systemd/system/*.service`|Used to list the services that can be started or stopped +
+`ls /lib/systemd/system/\*.service /etc/systemd/system/*.service`|Used to list the services that can be started or stopped +
 Used to list all the services and other units
 
 |`chkconfig frobozz on`|`systemctl enable frobozz`|Turn the service on, for start at next boot, or other trigger.
