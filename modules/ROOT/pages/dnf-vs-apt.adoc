@@ -62,7 +62,7 @@ APT is the package manager/dependency solver for the Debian ecosystem, i.e. it m
 
 |===
 
-With the exception of the dist-upgrade working different and dnf updating the cache automatically, the commands are very similar. More info on DNF can be found xref:dnf.adoc[here].
+With the exception of the distribution upgrade working differently and DNF updating the cache automatically, the commands are very similar. More info on DNF can be found xref:dnf.adoc[here].
 
 == Why is APT in the Fedora repositories?
 
