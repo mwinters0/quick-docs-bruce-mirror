@@ -70,5 +70,5 @@ WARNING: APT *can not* be used to install packages on Fedora, you *have to use D
 
 The `apt` command on Fedora used to - until https://fedoraproject.org/wiki/Changes/Move_apt_package_from_RPM_to_DPKG_backend[Fedora 32] - actually be APT-RPM, which basically mapped normal apt commands so that they worked with Fedora's RPM package management system.
 
-However, `apt-rpm` is unmaintained, broken  & insecure, and so was dropped in favour of shipping the actual Debian `apt` software. Since `apt` exclusively deals with `.deb` packages, the `apt` command can no longer be used to manage Fedora packages. It's purpose is now purely as a tool for people trying to build packages for Debian-based distributions on a Fedora system.
+However, APT-RPM is unmaintained, broken  & insecure, and so was dropped in favour of shipping the actual Debian APT software. Since APT exclusively deals with `.deb` packages, the `apt` command can no longer be used to manage Fedora packages. Its purpose is now purely as a tool for people building packages for Debian-based distributions on a Fedora system.
 
