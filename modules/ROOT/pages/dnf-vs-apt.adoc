@@ -1,6 +1,6 @@
 = APT commands on Fedora
 
-APT is the package manager/dependency solver for the Debian ecosystem, i.e. it manages `.deb` packages installed by the DPKG program. Fedora software uses `.rpm` packages, and thus uses DNF, the package manager/dependency solver for the RPM program, instead. This document gives a brief overview of the most common APT commands one might find in tutorials and their DNF equivalents.
+APT is the package manager/dependency solver for the Debian ecosystem, i.e. it manages `.deb` packages installed by the DPKG program. Fedora software is based on `.rpm` packages, and thus uses DNF, the package manager/dependency solver for the RPM program, instead. This document gives a brief overview of the most common APT commands one might find in tutorials and their DNF equivalents.
 
 == APT vs. DNF commands
 
@@ -62,7 +62,7 @@ APT is the package manager/dependency solver for the Debian ecosystem, i.e. it m
 
 |===
 
-With the exception of of the dist-upgrade working different and dnf updating the cache automatically, the commands are very similar. More info on DNF can be found xref:dnf.adoc[here].
+With the exception of the dist-upgrade working different and dnf updating the cache automatically, the commands are very similar. More info on DNF can be found xref:dnf.adoc[here].
 
 == Why is APT in the Fedora repositories?
 
