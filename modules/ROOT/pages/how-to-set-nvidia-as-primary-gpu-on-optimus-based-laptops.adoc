@@ -6,11 +6,22 @@ include::{partialsdir}/3rdparty-message.adoc[]
 The objective is to enable NVIDIA GPU of an Optimus-based laptop *all the time* and use it for every single activity.
 Please do not use this guide if you want to render your desktop using the integrated GPU and specifically select applications to be rendered using the NVIDIA GPU.
 
-NOTE: The steps listed here have been verified to be working on Fedora 32 Workstation. Please update your installation to include your experiences and any other tweaks that may be needed if you are using any other desktop environments.
+[NOTE]
+====
+The steps listed here have been verified to be working on Fedora 32 Workstation. Please update your installation to include your experiences and any other tweaks that may be needed if you are using any other desktop environments.
 
-NOTE: As Prime works less satisfactorily with Wayland server, following the steps provided in this guide would default the server to Xorg.
+Some guides on the internet advise a different approach to installing nVidia drivers on Fedora, such as directly using the binaries provided by nVidia. The Fedora Project cannot ensure these will always work on every Fedora release, and we therefore recommend following the steps in this document instead.
+====
 
-WARNING: This guide requires the secure boot to be **turned off** to load up the unsigned NVIDIA kernel modules.
+[NOTE]
+====
+As Prime works less satisfactorily with Wayland server, following the steps provided in this guide would default the server to Xorg.
+====
+
+[WARNING]
+====
+This guide requires the secure boot to be **turned off** to load up the unsigned NVIDIA kernel modules.
+====
 
 In order to make all the rendering default to the NVIDIA GPU, you need the follow the steps very carefully.
 
@@ -145,5 +156,3 @@ Here are the links you can refer to for obtaining more information.
 * https://rpmfusion.org/Howto/NVIDIA[RPMFusion's NVIDIA How-to guide]
 * https://unix.stackexchange.com/questions/16407/how-to-check-which-gpu-is-active-in-linux[GPU Activity on UNIX StackExchange]
 * https://www.reddit.com/r/Fedora/comments/bw4b0p/how_to_fedora_nvidia_prime/[Fedora Subreddit (zvitaly’s response only)]
-
-Please do not refer to the misleading information available on this site https://www.if-not-true-then-false.com/2015/fedora-nvidia-guide/
