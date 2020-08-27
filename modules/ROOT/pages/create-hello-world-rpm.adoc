@@ -36,7 +36,7 @@ To be able to test the build procedure in a clean chroot you need to configure y
 Those are the only commands requiring `root` privileges.
 All the remaining work should be done from your regular, non-privileged account, or even from a separate account created just for development work.
 Modern RPM-based systems, including Fedora, are set up to build and test RPM packages purely from within a non-privileged account.
-The follwing command sets up an RPM build area in your `~/rpmbuild` directory.
+The following command sets up an RPM build area in your `~/rpmbuild` directory.
 This directory will contain several subdirectories, for the project source code, RPM configuration files and for the resulting source and binary packages.
 
 ----
