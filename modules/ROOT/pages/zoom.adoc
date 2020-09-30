@@ -9,7 +9,7 @@ In Fedora one can setup zoom using the following steps
 
 === Using a graphical installer (Fedora only)
 
-If you're using Fedora GNOME edition, you can install Zoom using the GNOME application center.
+If you're using Fedora Workstation Edition, you can install Zoom using the GNOME application center.
 
 * Download the RPM installer file at our https://zoom.us/download?os=linux[Download Center].
 * Open the download location using a file manager.
@@ -20,6 +20,7 @@ If you're using Fedora GNOME edition, you can install Zoom using the GNOME appli
 
 === Using the Terminal 
 
+* Open Terminal and navigate to /Downloads
 * Download the RPM installer file at our https://zoom.us/download?os=linux[Download Center].
 * Type in the following command and press Enter to run it. 
 --------------------------------
