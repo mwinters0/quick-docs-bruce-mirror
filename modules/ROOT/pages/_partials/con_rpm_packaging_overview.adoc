@@ -40,7 +40,7 @@ A short string, starting with `%` at the beginning of a line, which introduces a
 macro::
 A short string, always prefixed by `%` and generally surrounded by curly brackets `{}` which RPM converts to a different and usually longer string. Some macros can take arguments and some arguments are quite complex. Some macros are provided by RPM, some are part of https://apps.fedoraproject.org/packages/redhat-rpm-config[redhat-rpm-config] and https://apps.fedoraproject.org/packages/fedora-rpm-macros[fedora-rpm-macros] packages, but many other packages also provide macros. You can run `rpm --showrc` to view all of the macros currently available on your system, but you do not need to run most of the macros you see there. 
 +
-For a full list of guidelines related to macros, see http://fedoraproject.org/wiki/Packaging:Guidelines#Macros[Macros] in the Packaging Guidelines.
+For a full list of guidelines related to macros, see https://docs.fedoraproject.org/en-US/packaging-guidelines/RPMMacros/[Macros] in the Packaging Guidelines.
 
 mock::
 A system for building RPMs locally within your own Fedora installation. This avoids the need to install a full set of build dependencies on your operating system installation, and allows you to build packages for different Fedora releases.
