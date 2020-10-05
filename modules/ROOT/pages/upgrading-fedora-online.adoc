@@ -1,40 +1,9 @@
 = Upgrading Fedora using package manager
 
-'''
-
-[IMPORTANT]
-======
-
-This page was automatically converted from https://fedoraproject.org/wiki/Upgrading_Fedora_using_package_manager
-
-It is probably
-
-* Badly formatted
-* Missing graphics and tables that do not convert well from mediawiki
-* Out-of-date
-* In need of other love
-
-
-Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
-
-Once you've fixed this page, remove this notice, and update
-[filename]`modules/ROOT/nav.adoc`.
-
-Once the document is live, go to the original wiki page and replace its text
-with the following macro:
-
-....
-{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
-....
-
-======
-
-'''
-
 include::{partialsdir}/unreviewed-message.adoc[]
 
 This page contains information explaining how to upgrade Fedora online
-using (without the DNF system upgrade plugin).
+using `dnf` (without the DNF system upgrade plugin).
 
 [[upgrading-fedora-using-dnf-directly]]
 == Upgrading Fedora using dnf directly
@@ -42,21 +11,21 @@ using (without the DNF system upgrade plugin).
 [[participate]]
 == Participate
 
-If you are upgrading using Dnf and it shows any general dependency
+If you are upgrading using link:https://fedoraproject.org/wiki/DNF?rd=Dnf[Dnf] and it shows any general dependency
 issues, please file them in http://bugzilla.redhat.com[Bugzilla]. But
 please read this page, all references pages and search the mailing list
 archives before filing bugs. And of course, please help keep this page
 updated.
 
 If you want to help make live upgrades work smoothly, join the
-link:SIGs/LiveUpgrade[ Live Upgrade Special Interest Group].
+link:SIGs/LiveUpgrade[Live Upgrade Special Interest Group].
 
 [[upgrading-across-multiple-releases]]
 == Upgrading across multiple releases
 
 If you need to upgrade across several releases, it is generally
 recommended to go one release at a time: for example, rather than going
-directly from to , first go to and then from there to . This tends to
+directly from Fedora 31 to Fedora 33, first go to Fedora 32 and then to Fedora 33. This tends to
 reduce the number of package dependency issues you may encounter. If you
 are upgrading from an link:End_of_life[End of life] release, please also
 see link:#eol[the end-of-life section].
@@ -78,7 +47,7 @@ Further down in this page there is a list of common problems specific to
 dnf upgrades for specific versions. Some of them require attention
 before the upgrade.
 
-General advice on upgrading Fedora can be found on the Upgrading page.
+General advice on upgrading Fedora can be found on the link:https://docs.fedoraproject.org/en-US/quick-docs/upgrading/[Upgrading] page.
 You should also read the
 http://docs.fedoraproject.org/install-guide/[Installation Guide] and
 http://docs.fedoraproject.org/release-notes/[Release Notes] for the
@@ -93,8 +62,15 @@ Review and remove all .rpmsave and .rpmnew files before and after
 upgrading. (And if you have selinux enabled then remember to check
 security context if you move config files around.)
 
+TIP: *Find unused config files* + Merge and resolve the changes found by the following script: `dnf install rpmconf; rpmconf -a`. Now find and remove old config which nobody owns: `rpmconf -c`.
+
 Now is a good time to remove packages you don't use - especially
 non-standard packages.
+
+TIP: *Find and review "unused" packages* + You can find packages not required by other packages with the tool `package-cleanup` from the `yum-utils` package: `dnf install yum-utils; package-cleanup --leaves`. These packages could be candidates for removal, but check to see whether you use them directly or if they are used by applications not backed by rpm packages. Remove them with `dnf remove package-name-and-version`.
+Another useful tool for cleaning up unused packages is `rpmreaper`. It's an ncurses application that lets you view rpm dependency graph and mark packages for deletion. Marking one package can make other packages leaf, which you can see immediately, so you don't have to run the tool several times to get rid of a whole sub-tree unused packages. Install with `dnf install rpmreaper`.
+
+TIP: *Find and review "lost" packages* + You can find orphaned packages (i.e. packages not in the repositories anymore) with `package-cleanup --orphans`. This will also show packages which have been partially uninstalled but where the "%postun" script failed.
 
 [[do-the-upgrade]]
 === 4. Do the upgrade
@@ -124,7 +100,7 @@ $ sudo dnf install fedora-upgrade
 $ sudo fedora-upgrade
 ....
 
-When performing upgrade via remote shell, it is good idea to use screen
+When performing upgrade via remote shell, it is a good idea to use screen
 or tmux utility to be able to get back to running transaction in case
 your connection drops.
 
@@ -180,8 +156,8 @@ Copy that URL, and run:
  # rpm --import (url)
 ....
 
-to install the key. On old releases, may have trouble doing this; if
-that happens, download the file with or and import the downloaded file.
+to install the key. On old releases, `rpm` may have trouble doing this; if
+that happens, download the file with `curl -o` or `wget` and import the downloaded file.
 
 [[clean-the-cache]]
 ==== Clean the cache
@@ -196,17 +172,28 @@ in `/var/cache/dnf`.
 [[upgrade-all-packages]]
 ==== Upgrade all packages
 
+CAUTION: *Never upgrade on battery power* + Never run the upgrade operation on battery power! Always connect to the mains, if using a laptop. However, if your system does have a battery, it's a good idea to ensure it's charged and connected in case of a power outage during the upgrade.
+
+CAUTION: *Do not interrupt an upgrade for any reason* + Once a live upgrade is started, do not stop the upgrade by rebooting, killing the process, or by any other method until it is complete. Interrupting an upgrade will cause the affected system to be in a mixed state -- partially the old release and partially the new release. In this state, the system will not be reliable and will not operate as expected. You can try running `dnf distro-sync` and `package-cleanup --problems` to try and fix the problems.
+
 Run the upgrade command:
 
 ....
 # dnf --releasever=<target_release_number> --setopt=deltarpm=false distro-sync
 ....
 
+NOTE: *Dependency issues* + If you experience any dependency problems, you have to solve them manually. These are often caused by packages being retired in the newer release, but not properly obsoleted. Often it is enough to remove several problematic package(s).
+You may find that a package you care about depends on a package that must be removed for the upgrade to proceed. Usually you will be able to reinstall the important package once the upgrade is complete.
+
+If it seems like you must remove a package with many dependencies, especially ones that look important, please be careful. If you are attempting to upgrade across multiple releases, try a smaller jump to see if that avoids the problem.
+
+If you are at all unsure in any way, ask for help on a mailing list, forum or IRC before removing packages.
+
 [[make-sure-fedora-is-upgraded]]
 === 5. Make sure Fedora is upgraded
 
 Distro-sync will usually take care of upgrades for the third party
-repositories you have enabled as well. Confirm with after the upgrade
+repositories you have enabled as well. Confirm with `dnf repolist` after the upgrade
 process is over. `dnf` might complain about conflicts or requirements.
 That is probably because you have used non-standard repositories or
 installed non-standard packages manually. Try to guess which packages
@@ -246,10 +233,10 @@ grub by running
 /usr/sbin/grub2-install BOOTDEVICE
 ....
 
-- where BOOTDEVICE is often , or for some virtual machine installs. If
+- where BOOTDEVICE is often `/dev/sda` or `/dev/vda` for some virtual machine installs. If
   you have more than one hard disk, make sure you use the correct device!
 
-If you get an error (e.g. ) from that, then try ).
+If you get an error (e.g. `/dev/sda does not have any corresponding BIOS drive`) from that, then try `/usr/sbin/grub2-install --recheck BOOTDEVICE`.
 
 It might also be necessary to update the grub config file:
 
@@ -302,13 +289,29 @@ on Rawhide.
 # touch /.autorelabel
 ....
 
-[[fedora-25]]
-=== Fedora 25
+[[fedora-31]]
+=== Fedora 31
+Before running
+
+....
+dnf distro-sync
+....
+
+you must run
+
+....
+dnf module reset libgit2 exa bat
+....
+
+See link:https://bugzilla.redhat.com/show_bug.cgi?id=1747408[Bug 1747408].
+
+[[fedora-30]]
+=== Fedora 30
 
 No special instructions. Follow the above instructions.
 
-[[fedora-24]]
-=== Fedora 24
+[[fedora-29]]
+=== Fedora 29
 
 No special instructions. Follow the above instructions.
 
