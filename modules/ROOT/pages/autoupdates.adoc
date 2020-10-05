@@ -1,35 +1,5 @@
 = AutoUpdates
 
-'''
-
-[IMPORTANT]
-======
-
-This page was automatically converted from https://fedoraproject.org/wiki/AutoUpdates
-
-It is probably
-
-* Badly formatted
-* Missing graphics and tables that do not convert well from mediawiki
-* Out-of-date
-* In need of other love
-
-Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
-
-Once you've fixed this page, remove this notice, and update
-[filename]`modules/ROOT/nav.adoc`.
-
-Once the document is live, go to the original wiki page and replace its text
-with the following macro:
-
-....
-{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
-....
-
-======
-
-'''
-
 include::{partialsdir}/unreviewed-message.adoc[]
 
 [[automatic-updates]]
@@ -39,7 +9,7 @@ Automatic Updates
 You must decide whether to use automatic xref:dnf.adoc[DNF]
 updates on each of your machines. There are a number of arguments both
 for and against automatic updates to consider. However, there is no
-single answer to this question: It is up to the system administrator or
+single answer to this question: it is up to the system administrator or
 owner of each machine to decide whether automatic updates are desirable
 or not for that machine. One of the things which makes one a good system
 administrator is the ability to evaluate the facts and other people's
@@ -114,9 +84,9 @@ Changes as of Fedora 26
 
 As of Fedora 26 there are now three timers that control dnf-automatic.
 
-* dnf-automatic-download.timer - Only download
-* dnf-automatic-install.timer - Download and install
-* dnf-automatic-notifyonly.timer - Only notify via configured emitters
+* `dnf-automatic-download.timer` - Only download
+* `dnf-automatic-install.timer` - Download and install
+* `dnf-automatic-notifyonly.timer` - Only notify via configured emitters
   in _/etc/dnf/automatic.conf_
 
 You can still use _download_updates_ and _apply_updates_ settings from
@@ -159,7 +129,7 @@ Can we trust dnf or yum updates?
 
 Dnf and Yum in Fedora has the GPG key checking enabled by default.
 Assuming that you have imported the correct GPG keys, and still have
-gpgcheck=1 in your for dnf or for yum, then we can at least assume that
+gpgcheck=1 in your `/etc/dnf/dnf.conf` for dnf or `/etc/yum.conf` for yum, then we can at least assume that
 any automatically installed updates were not corrupted or modified from
 their original state. Using the GPG key checks, there is no way for an
 attacker to generate packages that your system will accept as valid
@@ -231,12 +201,12 @@ automatic updates are:
   versions (this may not be a problem if you exclude kernel updates, which
   is the default in Fedora dnf.conf or yum.conf files). (But see also
   https://bugzilla.redhat.com/show_bug.cgi?id=870790[bug #870790] - you
-  may need to modify in Fedora 22 or later versions in base section to add
-  exclude=kernel*. or in Fedora 21 or earlier versions to
+  may need to modify `/etc/dnf/automatic.conf` in Fedora 22 or later versions in base section to add
+  exclude=kernel*. or in Fedora 21 or earlier versions `/etc/yum/yum-cron.conf` to
   exclude=kernel*.)
 * Your enviroment requires meticulous change-control procedures.
 * You update from other third party yum|dnf repositories besides Fedora
-  (core, extras, legacy ) repositories which may conflict in versioning
+  (core, extras, legacy) repositories which may conflict in versioning
   schemes for the same packages.
 
 There are also some other reasons why installing automatic updates
@@ -273,14 +243,14 @@ things to make sure you are up-to-date.
 
 Check for package updates which have been automatically performed, and
 note if they need further (manual) intervention. You can monitor what
-dnf or yum has updated via its log file (usually or ).
+dnf or yum has updated via its log file (usually or `/var/log/dnf.log` or `/var/log/yum.log`).
 
 [[fedora-22-or-later-versions-1]]
 Fedora 22 or later versions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can monitor updates availability automatically by email after
-modifying dnf-automatic configuration file (usually ).
+modifying dnf-automatic configuration file (usually `/etc/dnf/automatic.conf`).
 
 ....
 [emitters]
@@ -301,7 +271,7 @@ You would replace root with a actual email address to which you want to
 report sent, and localhost with a actual address of SMTP server. This
 change will mean that after dnf-automatic runs, it will email you
 information you about available updates, or log about downloaded
-packages, or installed updates according to settings in .
+packages, or installed updates according to settings in `automatic.conf`.
 
 [[fedora-21-or-earlier-versions-1]]
 Fedora 21 or earlier versions
@@ -309,7 +279,7 @@ Fedora 21 or earlier versions
 
 You can monitor this automatically by email by modifying the cron job to
 mail you the last part of the log file. For example, edit
-/etc/cron.daily/yum.cron so that it looks like the following:
+`/etc/cron.daily/yum.cron` so that it looks like the following:
 
 ....
 #!/bin/sh
@@ -335,7 +305,7 @@ As an alternative to dnf-automatic or yum-cron,
 https://github.com/rackerlabs/auter[auter] can be used. This operates in
 a similar way to yum-cron, but provides more flexibility in scheduling,
 and some additional options including running custom scripts before or
-after updates, and automatic reboots. This comes at the expensive of
+after updates, and automatic reboots. This comes at the expense of
 more complexity to configure.
 
 ....
@@ -385,7 +355,7 @@ Fedora 22 or later versions
 
 Instead of automatic updates, dnf-automatic can only download new
 updates and can alert your via email of available updates which you
-could then install manually. It can be set by editing of file.
+could then install manually. It can be set by editing of `/etc/dnf/automatic.conf` file.
 
 [[fedora-21-or-earlier-versions-2]]
 Fedora 21 or earlier versions
@@ -394,8 +364,8 @@ Fedora 21 or earlier versions
 Instead of automatic updates yum can alert your via email of available
 updates which you could then install manually. You could accomplish such
 a setup with a cron job such as that listed below. Simply put this in
-/etc/cron.daily with a suitable filename (such as
-yum-check-updates.cron).
+`/etc/cron.daily` with a suitable filename (such as
+`yum-check-updates.cron`).
 
 ....
 #!/bin/sh
@@ -429,7 +399,7 @@ Fedora 21 or earlier versions
 +++++++++++++++++++++++++++++
 
 One method is to use a crontab entry instead of the
-/etc/cron.daily/yum.conf provided by default. For example, to only run
+`/etc/cron.daily/yum.conf` provided by default. For example, to only run
 updates from Monday through Friday mornings (avoiding weekends), you
 might use a crontab entry such as the following:
 
@@ -438,11 +408,11 @@ might use a crontab entry such as the following:
 ....
 
 If you need more control over when it runs, you could create a file
-called, for example, /usr/local/etc/no-yum-update.conf, which contains a
+called, for example, `/usr/local/etc/no-yum-update.conf`, which contains a
 list of dates not to update on. What dates go in this file is up to you
 to decide (vacations, holidays, etc). The dates would be in the format
 YYYY-MM-DD (e.g. 2005-03-31). Then create a
-/etc/cron.daily/yum-update.cron script something like the following:
+`/etc/cron.daily/yum-update.cron` script something like the following:
 
 ....
 #!/bin/sh
