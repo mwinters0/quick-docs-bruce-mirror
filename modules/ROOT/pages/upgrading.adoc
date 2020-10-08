@@ -26,7 +26,7 @@ Clicking this, or running the _Software_ application and going to the _Updates_ 
 It will download the upgrade files, then prompt for a reboot to install them, similar to a system update.
 When the upgrade is complete, the system will automatically reboot into the new release.
 
-image:Upgradef24f25-gs.png[Upgradef24f25-gs.png,title="Upgradef24f25-gs.png",width=640]
+image:Upgradef31f32-gs.png[Upgradef31f32-gs.png,title="Release Upgrade Gnome Software",width=640]
 
 [[sect-upgrading-using-the-dnf-system-upgrade-plugin]]
 == Upgrading using the DNF System Upgrade plugin
