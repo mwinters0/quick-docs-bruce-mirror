@@ -1,7 +1,5 @@
 = Upgrading Fedora using package manager
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 This page contains information explaining how to upgrade Fedora online
 using `dnf` (without the DNF system upgrade plugin).
 
