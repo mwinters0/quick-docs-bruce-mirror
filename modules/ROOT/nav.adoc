@@ -78,7 +78,7 @@
 //FIXME * xref:fedora-life-cycle.adoc[Fedora Release Life Cycle] - note: maintained on wiki, does not fit quick-docs IMHO
 //FIXME * xref:enable-touchpad-click.adoc[How to enable touchpad click]
 //FIXME * xref:mirroring.adoc[Mirroring]
-//FIXME * xref:openh264.adoc[OpenH264]
+* xref:openh264.adoc[OpenH264]
 * xref:package-management.adoc[Package management system]
 * xref:packagekit-not-found.adoc[PackageKit Items Not Found]
 //FIXME * xref:postgresql.adoc[PostgreSQL]
