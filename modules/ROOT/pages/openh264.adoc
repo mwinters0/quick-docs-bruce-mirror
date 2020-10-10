@@ -1,38 +1,5 @@
 = OpenH264
 
-'''
-
-[IMPORTANT]
-======
-
-This page was automatically converted from https://fedoraproject.org/wiki/OpenH264
-
-It is probably
-
-* Badly formatted
-* Missing graphics and tables that do not convert well from mediawiki
-* Out-of-date
-* In need of other love
-
-
-Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
-
-Once you've fixed this page, remove this notice, and update
-[filename]`modules/ROOT/nav.adoc`.
-
-Once the document is live, go to the original wiki page and replace its text
-with the following macro:
-
-....
-{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
-....
-
-======
-
-'''
-
-include::{partialsdir}/unreviewed-message.adoc[]
-
 
 This page contains information on the Cisco
 http://www.openh264.org/[OpenH264] codec.
@@ -45,8 +12,7 @@ Cisco provides an OpenH264 codec (as a source and a binary), which is
 their of implementation H.264 codec, and they cover all licensing fees
 for all parties using their binary. This codec allows you to use H.264
 in WebRTC with gstreamer and Firefox. It does *not* enable generic H.264
-playback, only WebRTC (see Mozilla
-https://bugzilla.mozilla.org/show_bug.cgi?id=1057646[bug 1057646]).
+playback, only WebRTC (see link:https://bugzilla.mozilla.org/show_bug.cgi?id=1057646[Mozilla bug 1057646]).
 
 The code source is available at https://github.com/cisco/openh264 under
 a BSD license. The binary is released under this agreement from Cisco:
@@ -95,10 +61,12 @@ Manual install of binary
 
 Example installation for version 1.1:
 
-`wget `http://ciscobinary.openh264.org/openh264-linux64-v1.1-Firefox33.zip[`http://ciscobinary.openh264.org/openh264-linux64-v1.1-Firefox33.zip`] +
-`mkdir -p ~/.mozilla/firefox/``/gmp-gmpopenh264/1.1/` +
-`cd ~/.mozilla/firefox/``/gmp-gmpopenh264/1.1/` +
-`unzip ~/openh264-linux64-v1.1-Firefox33.zip`
+....
+wget http://ciscobinary.openh264.org/openh264-linux64-v1.1-Firefox33.zip[http://ciscobinary.openh264.org/openh264-linux64-v1.1-Firefox33.zip] +
+mkdir -p ~/.mozilla/firefox/<yourprofile>/gmp-gmpopenh264/1.1/ +
+cd ~/.mozilla/firefox/<yourprofile>/gmp-gmpopenh264/1.1/ +
+unzip ~/openh264-linux64-v1.1-Firefox33.zip
+....
 
 [[firefox-config-changes]]
 Firefox config changes
@@ -111,17 +79,20 @@ warning.
   appear. Give the following Preference Names a value of true by
   double-clicking on false:
 
-` media.gmp-gmpopenh264.autoupdate` +
-` media.gmp-gmpopenh264.enabled` +
-` media.gmp-gmpopenh264.provider.enabled` +
-` media.peerconnection.video.h264_enabled`
+....
+media.gmp-gmpopenh264.autoupdate
+media.gmp-gmpopenh264.enabled
+media.gmp-gmpopenh264.provider.enabled
+media.peerconnection.video.h264_enabled
+....
 
 * Restart Firefox
 * After restarting, the following string in about:config will change to
   the current version that has been installed from the web:
-
-` media.gmp-gmpopenh264.version`
-'''
+  
+....
+media.gmp-gmpopenh264.version
+....
 
 See a typo, something missing or out of date, or anything else which can be
 improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
