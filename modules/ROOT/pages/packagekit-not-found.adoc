@@ -105,7 +105,7 @@ WARNING: This information is provided only for answering common questions from F
 === What is a software patent?
 A patent is a set of exclusionary rights granted by a government to a patent holder for a limited period of time, usually 20 years from the earliest effective filing date of the patent application. These monopoly rights are granted to patent applicants in exchange for their disclosure of the invention claimed by the patent. Once a patent is granted in a given country, the patent holder may exclude someone from making, using, selling or importing embodiments of the claimed invention in that country. Software patents are different from copyright or trademarks despite being lumped together with them under the collective term link:http://www.gnu.org/philosophy/not-ipr.html[Intellecutal Property].
 
-[[who-is-responsible-for=taking-care-of-any-legal-issues-in-fedora]]
+[[who-is-responsible-for-taking-care-of-any-legal-issues-in-fedora]]
 === Who is responsible for taking care of any legal issues in Fedora?
 The Fedora Project is not a separate and distinct legal entity. Red Hat, the primary sponsor of the Fedora Project, is actively involved in legal matters relating to Fedora, along with other Fedora participants. For example, Red Hat lawyers assist Fedora Project contributors in issues pertaining to free and open source software licensing, trademarks and patents. Refer to the link:https://fedoraproject.org/wiki/Legal:Main?rd=Legal[Legal] page for more information.
 
