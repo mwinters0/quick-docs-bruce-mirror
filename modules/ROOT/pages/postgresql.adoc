@@ -1,111 +1,94 @@
 = PostgreSQL
 
-'''
-
-[IMPORTANT]
-======
-
-This page was automatically converted from https://fedoraproject.org/wiki/PostgreSQL
-
-It is probably
-
-* Badly formatted
-* Missing graphics and tables that do not convert well from mediawiki
-* Out-of-date
-* In need of other love
-
-
-Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
-
-Once you've fixed this page, remove this notice, and update
-[filename]`modules/ROOT/nav.adoc`.
-
-Once the document is live, go to the original wiki page and replace its text
-with the following macro:
-
-....
-{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
-....
-
-======
-
-'''
-
-include::{partialsdir}/unreviewed-message.adoc[]
-
 [[installation]]
 == Installation
 
 The installation and initialization of the postgresql server is a little
 bit different in comparison to other packages and other linux distros.
 This document aims to summarize basic installation steps relevant to
-recent fedora release. In first place, you may consider to install newer
-version than is packaged for fedora, see http://yum.postgresql.org/[1].
+recent fedora release. In the first place, you may consider to a install newer
+version than is packaged for Fedora, see http://yum.postgresql.org/[1].
 However, this is not recommended.
 
-`$ sudo yum install postgresql-server postgresql-contrib`
+....
+$ sudo yum install postgresql-server postgresql-contrib
+....
 
 Or with dnf in Fedora 22 and later versions:
 
-`$ sudo dnf install postgresql-server postgresql-contrib`
+....
+$ sudo dnf install postgresql-server postgresql-contrib
+....
 
 The postgresql server is turned off and disabled by default. You can
 enable its start during the boot using following command:
 
-`$ sudo systemctl enable postgresql`
+....
+$ sudo systemctl enable postgresql
+....
 
 You can start the postgresql server only when necessary as follows.
 
-`$ sudo systemctl start postgresql` +
-`Job for postgresql.service failed. See 'systemctl status postgresql.service' and 'journalctl -xn' for details.`
+....
+$ sudo systemctl start postgresql 
+Job for postgresql.service failed. See 'systemctl status postgresql.service' and 'journalctl -xn' for details.
+....
 
 The database needs to be populated with initial data after installation.
-The error log describes problem and its solution.
+The error log describes the problem and its solution.
 
-`$ journalctl -xn` +
-`-- Logs begin at Mon 2013-11-04 14:38:33 CET, end at Thu 2013-11-14 11:45:56 CET. --` +
-`Nov 14 11:45:34 mlich-lenovo.usersys.redhat.com sudo[2054]: jmlich : TTY=pts/2 ; PWD=/home/jmlich ; USER=root ; COMMAND=/bin/systemctl status postgresql` +
-`Nov 14 11:45:37 mlich-lenovo.usersys.redhat.com sudo[2073]: jmlich : TTY=pts/2 ; PWD=/home/jmlich ; USER=root ; COMMAND=/bin/systemctl status postgresql` +
-`Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com sudo[2105]: jmlich : TTY=pts/2 ; PWD=/home/jmlich ; USER=root ; COMMAND=/bin/systemctl start postgresql` +
-`Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com systemd[1]: Starting PostgreSQL database server...` +
-`-- Subject: Unit postgresql.service has begun with start-up` +
-`-- Defined-By: systemd` +
-`-- Support: `http://lists.freedesktop.org/mailman/listinfo/systemd-devel[`http://lists.freedesktop.org/mailman/listinfo/systemd-devel`] +
-`--` +
-`-- Unit postgresql.service has begun starting up.` +
-`Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: An old version of the database format was found.` +
-`Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: Use "postgresql-setup upgrade" to upgrade to version 9.3.` +
-`Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: See /usr/share/doc/postgresql/README.rpm-dist for more information.` +
-`Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com systemd[1]: postgresql.service: control process exited, code=exited status=1` +
-`Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com systemd[1]: Failed to start PostgreSQL database server.` +
-`-- Subject: Unit postgresql.service has failed` +
-`-- Defined-By: systemd` +
-`-- Support: `http://lists.freedesktop.org/mailman/listinfo/systemd-devel[`http://lists.freedesktop.org/mailman/listinfo/systemd-devel`] +
-`-- Documentation: `http://www.freedesktop.org/wiki/Software/systemd/catalog/be02cf6855d2428ba40df7e9d022f03d[`http://www.freedesktop.org/wiki/Software/systemd/catalog/be02cf6855d2428ba40df7e9d022f03d`] +
-`--` +
-`-- Unit postgresql.service has failed.` +
-`--` +
-`-- The result is failed.`
+....
+$ journalctl -xn
+-- Logs begin at Mon 2013-11-04 14:38:33 CET, end at Thu 2013-11-14 11:45:56 CET. --
+Nov 14 11:45:34 mlich-lenovo.usersys.redhat.com sudo[2054]: jmlich : TTY=pts/2 ; PWD=/home/jmlich ; USER=root ; COMMAND=/bin/systemctl status postgresql
+Nov 14 11:45:37 mlich-lenovo.usersys.redhat.com sudo[2073]: jmlich : TTY=pts/2 ; PWD=/home/jmlich ; USER=root ; COMMAND=/bin/systemctl status postgresql
+Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com sudo[2105]: jmlich : TTY=pts/2 ; PWD=/home/jmlich ; USER=root ; COMMAND=/bin/systemctl start postgresql
+Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com systemd[1]: Starting PostgreSQL database server...
+-- Subject: Unit postgresql.service has begun with start-up
+-- Defined-By: systemd
+- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel[http://lists.freedesktop.org/mailman/listinfo/systemd-devel]
+--
+-- Unit postgresql.service has begun starting up.
+Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: An old version of the database format was found.
+Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: Use "postgresql-setup upgrade" to upgrade to version 9.3.
+Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: See /usr/share/doc/postgresql/README.rpm-dist for more information.
+Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com systemd[1]: postgresql.service: control process exited, code=exited status=1
+Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com systemd[1]: Failed to start PostgreSQL database server.
+-- Subject: Unit postgresql.service has failed
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel[http://lists.freedesktop.org/mailman/listinfo/systemd-devel]
+-- Documentation: `http://www.freedesktop.org/wiki/Software/systemd/catalog/be02cf6855d2428ba40df7e9d022f03d[`http://www.freedesktop.org/wiki/Software/systemd/catalog/be02cf6855d2428ba40df7e9d022f03d]
+--
+-- Unit postgresql.service has failed.
+--
+-- The result is failed.
+....
 
 The database initialization could be done using following command. It
 creates the configuration files postgresql.conf and pg_hba.conf
 
-`$ sudo postgresql-setup initdb`
+....
+$ sudo postgresql-setup initdb
+....
 
 Or on Fedora 22 and later:
 
-`$ sudo postgresql-setup --initdb --unit postgresql`
+....
+$ sudo postgresql-setup --initdb --unit postgresql
+....
 
 [[upgrade]]
 == Upgrade
 
-As you can see from error message in my example, it is not a fresh
-installation, but ugprade.
+As you can see from the error message in my example, it is not a fresh
+installation, but an ugprade.
 
-`Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: An old version of the database format was found.` +
-`Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: Use "postgresql-setup upgrade" to upgrade to version 9.3.`
+....
+Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: An old version of the database format was found.
+Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: Use "postgresql-setup upgrade" to upgrade to version 9.3.
+....
 
-With version 9 you can use upgrade tool. It is packaged as
+With version 9 you can use the upgrade tool. It is packaged as
 `postgresql-upgrade`:
 
 ....
@@ -126,28 +109,32 @@ The data are located at
 * /var/lib/pgsql/data-old
 
 The upgrade itself will backup your existing data and migrate your
-database. Don't forget to migrate your configuration (with meld for
+database. Don't forget to migrate your configuration (with meld, for
 example: `meld /var/lib/pgsql/data{,-old}/postgresql.conf`).
 
-You may need to switch postgresql to trust mode before update. This
+You may need to switch postgresql to trust mode before updating. This
 should be fixed already.
 
 You can also upgrade by dumping your database and loading it again. For
-more information, see link:#link-upgrade[official documentation].
+more information, see the link:#link-upgrade[official documentation].
 
 [[tips-and-tricks]]
 == Tips and tricks
 
-For database management is comfortable to use graphical tools such as
+For database management, it is more user-friendly to use graphical tools such as
 phpPgAdmin or pgadmin3
 
-`$ sudo yum install phpPgAdmin` +
-`$ sudo yum install pgadmin3`
+....
+$ sudo yum install phpPgAdmin
+$ sudo yum install pgadmin3
+....
 
 Or with dnf in Fedora 22 and later versions:
 
-`$ sudo dnf install phpPgAdmin` +
-`$ sudo dnf install pgadmin3`
+....
+$ sudo dnf install phpPgAdmin
+$ sudo dnf install pgadmin3
+....
 
 [[firewall]]
 == Firewall
@@ -155,14 +142,18 @@ Or with dnf in Fedora 22 and later versions:
 PostgreSQL operates on port 5432 (or whatever else you set in your
 `postgresql.conf`). In firewalld you can open it like this:
 
-`$ # make it last after reboot` +
-`$ firewall-cmd --permanent --add-port=5432/tcp` +
-`$ # change runtime configuration` +
-`$ firewall-cmd --add-port=5432/tcp`
+....
+$ # make it last after reboot
+$ firewall-cmd --permanent --add-port=5432/tcp
+$ # change runtime configuration
+$ firewall-cmd --add-port=5432/tcp
+....
 
-In case of iptables:
+In the case of iptables:
 
-`$ iptables -A INPUT -p tcp --dport 5432 -m state --state NEW,ESTABLISHED -j ACCEPT`
+....
+$ iptables -A INPUT -p tcp --dport 5432 -m state --state NEW,ESTABLISHED -j ACCEPT
+....
 
 Bear in mind that you probably don't want to open your database server
 to the whole world.
@@ -171,30 +162,37 @@ to the whole world.
 == SELinux
 
 If you have SELinux enforced, you may run into trouble when trying to do
-some non-standard configuration. For example if you would like to change
+some non-standard configuration. For example, if you would like to change
 a location of your database, you have to add new context mapping for the
 new location:
 
-`$ semanage fcontext -a -t postgresql_db_t "/my/new/location(/.*)?"`
+....
+$ semanage fcontext -a -t postgresql_db_t "/my/new/location(/.*)?"
+....
 
-If default port doesn't work for you, you may need to map postgre's port
-type to your desired port:
+If the default port doesn't work for you, you may need to map postgre's port type to your desired port:
 
-`$ semanage port -a -t postgresql_port_t -p tcp 5433`
+....
+$ semanage port -a -t postgresql_port_t -p tcp 5433
+....
 
 If you install a webapp that wants to communicate with PostgreSQL via
 TCP/IP, you will have to tell SELinux to allow this on the webserver
 host:
 
-`# setsebool -P httpd_can_network_connect_db on`
+....
+# setsebool -P httpd_can_network_connect_db on
+....
 
 [[user-creation-and-database-creation]]
 == User Creation and Database Creation
 
-Soon you run into need of creating a user (and database for the user).
-First, you have to switch user to interact with postgres:
+Eventually, you need to create a user (and database for the user).
+First, you have to switch the user to interact with `postgres`:
 
-`# su - postgres`
+....
+# su - postgres
+....
 
 and then run postgre's interactive shell:
 
@@ -206,19 +204,25 @@ Type "help" for help.
 postgres=#
 ....
 
-It might be good idea to add password for `postgres` user:
+From there you can run user creation commands:
 
-`postgres=# \password postgres`
+....
+postgres=# CREATE USER lenny WITH PASSWORD 'leonard';
+postgres=# CREATE DATABASE carl OWNER lenny;
+....
 
-Lets get back to user creation:
+You can do this from the system shell as well:
 
-`postgres=# CREATE USER lenny WITH PASSWORD 'leonard';` +
-`postgres=# CREATE DATABASE carl OWNER lenny;`
+....
+$ createuser lenny
+$ createdb --owner=lenny carl
+....
 
-this could be done from system shell too:
+It might be good idea to add password for the `postgres` user:
 
-`$ createuser lenny` +
-`$ createdb --owner=lenny carl`
+....
+postgres=# \password postgres
+....
 
 [[configuration]]
 == Configuration
@@ -232,13 +236,15 @@ The postgresql server is using two main configuration files
 === systemd
 
 Some configuration parameters are passed to daemon via command line
-options. This behaviour may override settings in postgresql.conf. For
+options. This behaviour may override settings in `postgresql.conf`. For
 example, if you want to change the server's port number to 5433, create
-a file named "/etc/systemd/system/postgresql.service" containing:
+a file named `/etc/systemd/system/postgresql.service` containing:
 
-`.include /lib/systemd/system/postgresql.service` +
-`[Service]` +
-`Environment=PGPORT=5433`
+....
+.include /lib/systemd/system/postgresql.service
+[Service]
+Environment=PGPORT=5433
+....
 
 Note: changing PGPORT or PGDATA will typically require adjusting SELinux
 configuration as well; see section selinux.
@@ -252,11 +258,15 @@ for more details.
 
 If you want postgres to accept network connections, you should change
 
-`listen_addresses = 'localhost'`
+....
+listen_addresses = 'localhost'
+....
 
 to
 
-`listen_addresses = '*'`
+....
+listen_addresses = '*'
+....
 
 [[pg_hba.conf]]
 === pg_hba.conf
@@ -266,16 +276,18 @@ database server. This may be done by editing file
 `/var/lib/pgsql/data/pg_hba.conf`. There are rules like this in the
 file:
 
-`# TYPE    DATABASE        USER            ADDRESS                 METHOD` +
-`  host    all             all             127.0.0.1/32            md5` +
-`  host    all             all             ::1/128                 md5` +
-`  local   all             postgres                                peer`
+....
+# TYPE    DATABASE        USER            ADDRESS                 METHOD
+  host    all             all             127.0.0.1/32            md5
+  host    all             all             ::1/128                 md5
+  local   all             postgres                                peer
+....
 
 First field stands for connection type. It can have these values:
 
 * *local* — Unix-domain socket
 * *host* — plain or SSL-encrypted TCP/IP socket
-* *hostssl* — is an SSL-encrypted TCP/IP socket
+* *hostssl* — an SSL-encrypted TCP/IP socket
 * *hostnossl* — plain TCP/IP socket
 
 Last column specifies which authentication method will be used.
@@ -288,150 +300,169 @@ Last column specifies which authentication method will be used.
 * *peer* — obtains user's name from operating system and checks if it
   matches database user name
 
-When database server is authenticating client, it seeks for a record
-with matching connection type, client address, requested database and
-user name. As soon as it finds it, it performs the authentication. If
-authentication fails, no more subsequent records are taken into account.
-If no record matches, client's access is denied.
+When the database server is authenticating the client, it seeks for a record with a matching connection type, client address, requested database, and user name. As soon as it finds these credentials, it performs the authentication. If the authentication fails, no more subsequent records are taken into account. If no record matches, the client's access is denied.
 
-The default settings is usually restricted to localhost.
+The default settings are usually restricted to localhost.
 
 When you install your database server and at first you try to "make it
-work", you should turn off firewall, SELinux and make postgres'
-authentication permissive (bear in mind this will greatly expose your
-server, so do it _only_ on trusted network — preferably without not
-network at all):
+work", you should turn off firewall, SELinux and make the `postgres`
+authentication permissive. _Bear in mind this will greatly expose your
+server, so do it [.underline]#only# on a trusted network — preferably with no network at all_:
 
-`host    all             all             127.0.0.1/32            trust`
+....
+host    all             all             127.0.0.1/32            trust
+....
 
-As soon as you are able to connect, turn the security systems on one by
+As soon as you are able to connect, turn on the security systems one by
 one while verifying the connection can be established.
 
 For more information see official documentation for
 link:#link-pghba[pg_hba.conf file].
 
-[[optimisation]]
-== Optimisation
+[[optimization]]
+== Optimization
 
-Default configuration of postgres is severely undertuned. It can handle
-simple application with not so often database access but if you require
-higher performance, you should configure your instance better. All the
-magic is happening in `/var/lib/pgsql/data/postgresql.conf\``. Also
-logging mechanism is configured not very intuitively.
+The default configuration of postgres is severely undertuned. It can handle simple applications without consistent database access, but if you require higher performance, you should re-configure your instance. All the magic is happening in `/var/lib/pgsql/data/postgresql.conf\``. Also, the logging mechanism is not configured very intuitively.
 
 [[performance]]
 === Performance
 
-Number of clients which may be connected to PostgreSQL at the same time:
+The number of clients which may be connected to PostgreSQL at the same time:
 
-`max_connections = `
+....
+max_connections = <number>
+....
 
 `shared_buffers` is the entry point. This is telling PostgreSQL how much
 memory is dedicated for caching. Setting this to 25% of total memory of
 your system is a good start. If it doesn't work for you, try to go for
 something between 15% - 40% of total memory.
 
-`shared_buffers = `
+....
+shared_buffers = <memory unit>
+....
 
-This value is used by query planner to know how much memory is available
-in the system. Query planner uses this information to figure out whether
-plan fits into memory or not. Setting this to 50% of total memory is a
-common practise.
+This value is used by the query planner to know how much memory is available in the system. The query planner uses this information to figure out whether the plan fits into memory or not. Setting this to 50% of total memory is a common practice.
 
-`effective_cache_size = `
+....
+effective_cache_size = <memory unit>
+....
 
-When PostgreSQL performs sorting operations it plans its strategy
+When PostgreSQL performs sorting operations, it plans its strategy
 whether to sort the query on disk or in memory. Bear in mind that this
 memory is available for every sorting instance. In case of multiple
-users submitting queries to your database server, this can rump up
+users submitting queries to your database server, this can ramp up
 pretty high. Therefore this is tightly bound to `max_connections`.
 
-`work_mem = `
+....
+work_mem = <memory unit>
+....
 
-For more information about this topic I advise you to read official
-link:#link-tuning[documentation about] tuning PostgreSQL.
+For more information about this topic I advise you to read the
+link:#link-tuning[official documentation] about tuning PostgreSQL.
 
 [[logging]]
 === Logging
 
-By default, logs are rotated every week and you don't find much
-information in there (one could miss log level, date, time, ...). Also
-for simple web applications I prefer to increase verbosity.
+By default, logs are rotated every week and you might not find much
+information in there. One could miss a log level, date, time, etc. Also,
+for simple web applications, some prefer to increase verbosity.
 
-`log_destination = 'stderr'`
+....
+log_destination = 'stderr'
+....
 
 This is just fine. If you would like syslog to take care of your logs,
-change it to `'syslog'`, or even `'syslog,stderr'` (if you go for
+change `'stderr'` to `'syslog'`, or even `'syslog,stderr'`. If you go for
 syslog, don't forget to configure syslog itself too; for more info, see
-link:#link-logging[official documentation])
+link:#link-logging[official documentation].
 
-`logging_collector = on`
+....
+logging_collector = on
+....
 
-In case of logging to stderr, postgres will grab all the logs if you
-enable `logging_collector` option.
+In case of logging to `stderr`, `postgres` will grab all the logs if you
+enable the `logging_collector` option.
 
 This is default option:
 
-`log_filename = 'postgresql-%a.log'`
+....
+log_filename = 'postgresql-%a.log'
+....
 
-Much preferred could be to name log files by date when they were
+A preferred method could be to name log files by date when they were
 created:
 
-`log_filename = 'postgresql-%G-%m.log'`
+....
+log_filename = 'postgresql-%G-%m.log
+....
 
-Rotation. This really depends on the app itself. In case of simple app
-with a few data in database, all the logs may be kept persistently on
-disk without rotation.
+Rotation. This really depends on the app itself. In the case of a simple app with little data in the database, all the logs may be kept persistently on disk without rotation.
 
-`log_truncate_on_rotation = off` +
-`log_rotation_age = 31d`
+....
+log_truncate_on_rotation = off
+log_rotation_age = 31d
+....
 
 Increase number of entries in log:
 
-`client_min_messages = notice      # default notice` +
-`log_min_messages = info           # default warning` +
-`log_min_error_statement = notice  # default error`
+....
+client_min_messages = notice      # default notice
+log_min_messages = info           # default warning
+log_min_error_statement = notice  # default error
+....
 
 If you would like to log slow queries, feel free to use this option:
 
-`log_min_duration_statement = 1000  # in ms`
+....
+log_min_duration_statement = 1000  # in ms
+....
 
-Default log entry doesn't contain much info:
+The default log entry doesn't contain much info:
 
-`FATAL:  Ident authentication failed for user "test"` +
-`DETAIL:  Connection matched pg_hba.conf line 84: "host    all             all             ::1/128                 ident"`
+....
+FATAL:  Ident authentication failed for user "test"
+DETAIL:  Connection matched pg_hba.conf line 84: "host    all             all             ::1/128                 ident"
+....
 
-Lets improve it to:
+Let's improve it to:
 
-`2013-12-30 17:51:36 CET testx@::1(50867):postgres [11213] FATAL:  password authentication failed for user "testx"` +
-`2013-12-30 17:51:36 CET testx@::1(50867):postgres [11213] DETAIL:  Connection matched pg_hba.conf line 84: "host   all             all             ::1/128                 md5 "`
+....
+2013-12-30 17:51:36 CET testx@::1(50867):postgres [11213] FATAL:  password authentication failed for user "testx"
+2013-12-30 17:51:36 CET testx@::1(50867):postgres [11213] DETAIL:  Connection matched pg_hba.conf line 84: "host   all             all             ::1/128                 md5 "
+....
 
-You just have to alter option `log_line_prefix`.
+You just have to alter the option `log_line_prefix`.
 
-`# %t -- timestamp` +
-`# %u -- user` +
-`# %r -- client's host` +
-`# %d -- database` +
-`# %p -- PID` +
-`log_line_prefix = '%t %u@%r:%d [%p] '`
+....
+# %t -- timestamp
+# %u -- user
+# %r -- client's host
+# %d -- database
+# %p -- PID
+log_line_prefix = '%t %u@%r:%d [%p] '
+....
 
-If you are running only single database with single user connecting, it
-would make more sense to simplify the prefix to
+If you are running only a single database with a single user connecting, it makes more sense to simplify the prefix to
 
-`log_line_prefix = '%t [%p] '`
+....
+log_line_prefix = '%t [%p] '
+....
 
 [[final-recipe]]
 ==== Final recipe
 
-`log_destination = 'stderr'` +
-`logging_collector = on` +
-`log_filename = 'postgresql-%G-%m.log'` +
-`log_truncate_on_rotation = off` +
-`log_rotation_age = 31d` +
-`client_min_messages = notice` +
-`log_min_messages = info` +
-`log_min_error_statement = notice` +
-`log_line_prefix = '%t %u@%r:%d [%p] '`
+....
+log_destination = 'stderr'
+logging_collector = on
+log_filename = 'postgresql-%G-%m.log'
+log_truncate_on_rotation = off
+log_rotation_age = 31d
+client_min_messages = notice
+log_min_messages = info
+log_min_error_statement = notice
+log_line_prefix = '%t %u@%r:%d [%p] '
+....
 
 [[reference]]
 == Reference
@@ -449,7 +480,6 @@ PostgreSQL]
 
 http://www.postgresql.org/docs/8.3/static/auth-pg-hba-conf.html[pg_hba.conf
 file]
-'''
 
 See a typo, something missing or out of date, or anything else which can be
 improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
