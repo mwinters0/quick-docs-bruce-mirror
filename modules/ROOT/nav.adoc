@@ -83,7 +83,7 @@
 * xref:openh264.adoc[OpenH264]
 * xref:package-management.adoc[Package management system]
 * xref:packagekit-not-found.adoc[PackageKit Items Not Found]
-//FIXME * xref:postgresql.adoc[PostgreSQL]
+* xref:postgresql.adoc[PostgreSQL]
 //FIXME * xref:uefi-with-qemu.adoc[Using UEFI with QEMU]
 * xref:upgrading-fedora-online.adoc[Upgrading Fedora using package manager]
 
