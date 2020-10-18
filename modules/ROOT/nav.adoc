@@ -74,7 +74,7 @@
 ** xref:how-to-use-vmware.adoc[How to use Vmware Product's]
 
 * xref:autoupdates.adoc[AutoUpdates]
-//FIXME * xref:debug-dracut-problems.adoc[How to debug Dracut problems]
+* xref:debug-dracut-problems.adoc[How to debug Dracut problems]
 //FIXME * xref:debug-systemd-problems.adoc[How to debug systemd problems]
 //FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems] - note: maintained on wiki, does not fit quick-docs IMHO
 //FIXME * xref:fedora-life-cycle.adoc[Fedora Release Life Cycle] - note: maintained on wiki, does not fit quick-docs IMHO
