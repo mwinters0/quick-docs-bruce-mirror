@@ -6,8 +6,6 @@ ifdef::context[:parent-context: {context}]
 [[using-firewalld]]
 = Using firewalld
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 :leveloffset: +1
 
 include::{partialsdir}/con_firewalld.adoc[]
