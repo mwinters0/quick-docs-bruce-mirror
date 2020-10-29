@@ -172,6 +172,32 @@ However, that doesn't mean that the package is not useful or that you don't use 
 *Only remove what you are sure you don't need*.
 ====
 
+[[sect-clean-up-old-kernels]]
+=== Clean-Up Old Kernels
+
+After you boot into the latest kernel and test the system you can remove previous kernels. Old kernels remain even after `dnf autoremove` to avoid unintentional removals.
+
+One of the easier ways to remove old kernels is with a script that retains the latest kernel. The script below works whenever Fedora updates a kernel, and does not depend upon a system upgrade.
+
+[source,bash]
+----
+#!/usr/bin/env bash
+
+old_kernels=($(dnf repoquery --installonly --latest-limit=-1 -q))
+if [ "${#old_kernels[@]}" -eq 0 ]; then
+    echo "No old kernels found"
+    exit 0
+fi
+
+if ! dnf remove "${old_kernels[@]}"; then
+    echo "Failed to remove old kernels"
+    exit 1
+fi
+
+echo "Removed old kernels"
+exit 0
+----
+
 [[sect-clean-up-old-symlinks]]
 === Clean-up old symlinks
 
