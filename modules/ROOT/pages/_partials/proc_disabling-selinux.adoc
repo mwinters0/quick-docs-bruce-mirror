@@ -16,6 +16,7 @@ To permanently disable SELinux, follow the procedure below:
 
 . Configure [option]`SELINUX=disabled` in the `/etc/selinux/config` file:
 +
+[subs="quotes"]
 ----
 
 # This file controls the state of SELinux on the system.
@@ -23,7 +24,7 @@ To permanently disable SELinux, follow the procedure below:
 #       enforcing - SELinux security policy is enforced.
 #       permissive - SELinux prints warnings instead of enforcing.
 #       disabled - No SELinux policy is loaded.
-SELINUX=pass:quotes[*disabled*]
+SELINUX=*disabled*
 # SELINUXTYPE= can take one of these two values:
 #       targeted - Targeted processes are protected,
 #       mls - Multi Level Security protection.
@@ -33,6 +34,6 @@ SELINUXTYPE=targeted
 . Reboot your system. After reboot, confirm that the [command]`getenforce` command returns `Disabled`:
 +
 ----
-`~]$`pass:attributes[{blank}] pass:attributes[{blank}][command]`getenforce`
+~]$ getenforce
 Disabled
 ----
