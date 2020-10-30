@@ -9,6 +9,12 @@ When enabled, SELinux can run in one of two modes: enforcing or permissive. The 
 
 While enabling SELinux on systems that previously had it disabled, to avoid problems, such as systems unable to boot or process failures, follow this procedure:
 
+This procedure assumes that the [package]*selinux-policy-targeted*, [package]*selinux-policy*, [package]*libselinux-utils*, and [package]*grubby* packages are installed. To verify that the packages are installed, use the following command:
+[subs="quotes"]
+----
+~]$ rpm -q _package_name_
+----
+
 . In case your system has SELinux disabled at the kernel level (this is the recommended way, see <<{context}-disabling-selinux>>), make sure to undo that first.
 
 .. Check if you have `selinux=0` in your kernel command line:
@@ -26,6 +32,12 @@ _[...]_ rd.lvm.lv=fedora/swap rhgb quiet *selinux=0*
 ----
 
 .. The change will be applied after you reboot the system (see below).
+
+. Ensure the filesystem is relabeled on next boot:
++
+----
+~]# fixfiles onboot
+----
 
 . Enable SELinux in permissive mode. For more information, see <<{context}-changing-to-permissive-mode>>.
 
