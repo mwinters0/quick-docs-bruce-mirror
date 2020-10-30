@@ -71,14 +71,14 @@ sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-31-primary
 * If you want to remove/install some packages manually before running `dnf system-upgrade download` again, it is advisable to perform those operations with `--setopt=keepcache=1` dnf command line option.
   Otherwise the whole package cache will be removed after your operation, and you will need to download all the packages once again.
 
-. Trigger the upgrade process. This will restart your machine into the upgrade process:
+. Trigger the upgrade process. This will reboot your machine (immediately!, without a countdown or confirmation, so close other programs and save your work) into the upgrade process running in a console terminal:
 +
 [source,bash]
 ----
 sudo dnf system-upgrade reboot
 ----
 
-. Once the upgrade process to complete, your system will reboot into the updated release version of Fedora.
+. Once the upgrade process completes, your system will reboot a second time into the updated release version of Fedora.
 
 [[sect-optional-post-upgrade-tasks]]
 == Optional Post-Upgrade Tasks
