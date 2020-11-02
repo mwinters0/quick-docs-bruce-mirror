@@ -23,7 +23,7 @@
 ** xref:gnome-shell-extensions.adoc[Using GNOME Shell extensions]
 ** xref:wine.adoc[Running Windows applications with Wine]
 ** xref:using-adobe-flash.adoc[Using Adobe Flash]
-** xref:adding-new-fonts-fedora.adoc[Adding new fonts in Fedora]
+** xref:fonts.adoc[Adding new fonts]
 ** xref:create-gpg-keys.adoc[Creating GPG Keys]
 ** xref:bootloading-with-grub2.adoc[Bootloading with GRUB2]
 ** xref:securing-the-system-by-keeping-it-up-to-date.adoc[Securing the system by keeping it up-to-date]
