@@ -1,7 +1,5 @@
 = How to use QEMU
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 QEMU is a very flexible virtualization technology however it is quite slow and it is recommended that you understand and evaluate alternative solutions before picking this one.
 Refer to https://fedoraproject.org/wiki/Getting_started_with_virtualization[Getting started with virtualization]
 
@@ -66,7 +64,7 @@ Note: Even if you take 10GB this does NOT mean that the image does really HAVE t
 Now let's install the OS. Put in the install CD and type into your konsole (all in one line without break):
 
 ....
-$ qemu -cdrom /dev/cdrom -hda fedora.qcow -boot d -net nic -net user -m 196 -localtime
+$ qemu -cdrom /dev/cdrom -hda fedora.qcow -boot d -net nic -net user -m 196 -rtc base=localtime
 ....
 
 "-user -net" is important to have internet access within your new system.
@@ -77,7 +75,7 @@ Maybe this may fail (was the case for me) - but don't worry.
 If that happens: just close the qemu window and type the following command into your konsole to launch your new OS:
 
 ....
-$qemu fedora.qcow -boot c -net nic -net user -m 196 -localtime
+$qemu fedora.qcow -boot c -net nic -net user -m 196 -rtc base=localtime
 ....
 
 [[testing-iso-images]]
