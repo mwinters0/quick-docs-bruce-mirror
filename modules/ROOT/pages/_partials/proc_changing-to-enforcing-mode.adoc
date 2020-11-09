@@ -7,7 +7,15 @@
 
 When SELinux is running in enforcing mode, it enforces the SELinux policy and denies access based on SELinux policy rules. In Fedora, enforcing mode is enabled by default when the system was initially installed with SELinux.
 
-First check the current SELinux mode by running the [command]`getenforce` command. If it displays `Disabled`, then follow <<{context}-enabling-selinux>>. Otherwise, if it displays `Permissive`, follow the procedure below to change mode to enforcing again:
+. Check the current SELinux mode by using the [command]`getenforce` command:
++
+[subs="quotes"]
+----
+$ *getenforce*
+Permissive
+----
++
+If the command displays `Disabled`, then follow xref:{context}-enabling-selinux[]. If it displays `Permissive`, use the following steps to change mode to enforcing again:
 
 . Edit the `/etc/selinux/config` file as follows:
 +
@@ -25,23 +33,26 @@ SELINUX=*enforcing*
 SELINUXTYPE=targeted
 ----
 
-. Reboot the system:
+. Restart the system:
 +
+[subs="quotes"]
 ----
-~]# reboot
+$ *reboot*
 ----
 +
-On the next boot, SELinux relabels all the files and directories within the system and adds SELinux context for files and directories that were created when SELinux was disabled.
+On the next boot, SELinux relabels all files and directories in the system and adds the SELinux context for files and directories that were created when SELinux was disabled.
 
 [NOTE]
 ====
-After changing to enforcing mode, SELinux may deny some actions because of incorrect or missing SELinux policy rules. To view what actions SELinux denies, enter the following command as root:
+After changing to enforcing mode, SELinux may deny some actions because of incorrect or missing SELinux policy rules. To view what actions SELinux denies:
+[subs="quotes"]
 ----
-~]# ausearch -m AVC,USER_AVC,SELINUX_ERR -ts today
+$ *sudo ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts recent*
 ----
-Alternatively, with the [package]*setroubleshoot-server* package installed, enter the following command as root:
+Alternatively, with the [package]`setroubleshoot-server` package installed:
+[subs="quotes"]
 ----
-~]# grep "SELinux is preventing" /var/log/messages
+$ *sudo grep "SELinux is preventing" /var/log/messages*
 ----
-If SELinux denies some actions, see the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/chap-security-enhanced_linux-troubleshooting[Troubleshooting] chapter in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/index[Red Hat Enterprise Linux 7 SELinux User's and Administrator's Guide] for information about troubleshooting.
+If SELinux denies some actions, see the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/troubleshooting-problems-related-to-selinux_using-selinux[Troubleshooting problems related to SELinux] chapter in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/index[RHEL 8 Using SELinux] document for information about troubleshooting.
 ====
