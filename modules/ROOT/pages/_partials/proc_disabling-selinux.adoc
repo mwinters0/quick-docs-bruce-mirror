@@ -5,31 +5,47 @@
 [#{context}-disabling-selinux]
 = Disabling SELinux
 
-When SELinux is disabled, SELinux policy is not loaded at all; it is not enforced and AVC messages are not logged. Therefore, all benefits of running SELinux listed in link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/chap-security-enhanced_linux-introduction#sect-Security-Enhanced_Linux-Introduction-Benefits_of_running_SELinux[Benefits of SELinux] are lost.
+When SELinux is disabled, SELinux policy is not loaded at all; it is not enforced and AVC messages are not logged. Therefore, all benefits of running SELinux listed in link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/getting-started-with-selinux_using-selinux#benefits-of-selinux_getting-started-with-selinux[Benefits of SELinux] are lost.
 
 [IMPORTANT]
 ====
-It is recommended to use permissive mode instead of permanently disabling SELinux. See <<{context}-changing-to-permissive-mode>> for more information about permissive mode.
+It is recommended to use permissive mode instead of permanently disabling SELinux. See xref:{context}-changing-to-permissive-mode[] for more information about permissive mode.
 ====
 
-To permanently disable SELinux, follow the procedure below:
+.Prerequisites
 
-This procedure assumes that the [package]*grubby* package is installed. To verify that it is installed, use the following command:
-[subs="quotes"]
-----
-~]$ rpm -q grubby
-----
-
-. Configure your bootloader to add `selinux=0` to the kernel command-line:
+* The [package]`grubby` package is installed:
 +
 [subs="quotes"]
 ----
-~]# grubby --update-kernel ALL --args selinux=0
+$ *rpm -q grubby*
+grubby-_version_
 ----
 
-. Reboot your system. After reboot, confirm that the [command]`getenforce` command returns `Disabled`:
+.Procedure
+
+To permanently disable SELinux:
+
+. Configure your bootloader to add `selinux=0` to the kernel command line:
 +
+[subs="quotes"]
 ----
-~]$ getenforce
+$ *sudo grubby --update-kernel ALL --args selinux=0*
+----
+
+. Restart your system:
++
+[subs="quotes"]
+----
+$ *reboot*
+----
+
+.Verification step
+
+* After reboot, confirm that the [command]`getenforce` command returns `Disabled`:
++
+[subs="quotes"]
+----
+$ *getenforce*
 Disabled
 ----
