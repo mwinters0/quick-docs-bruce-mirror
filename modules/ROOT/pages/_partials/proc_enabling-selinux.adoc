@@ -7,52 +7,66 @@
 
 When enabled, SELinux can run in one of two modes: enforcing or permissive. The following sections show how to permanently change into these modes.
 
-While enabling SELinux on systems that previously had it disabled, to avoid problems, such as systems unable to boot or process failures, follow this procedure:
+While enabling SELinux on systems that previously had it disabled, to avoid problems, such as systems unable to boot or process failures, follow this procedure.
 
-This procedure assumes that the [package]*selinux-policy-targeted*, [package]*selinux-policy*, [package]*libselinux-utils*, and [package]*grubby* packages are installed. To verify that the packages are installed, use the following command:
-[subs="quotes"]
-----
-~]$ rpm -q _package_name_
-----
+.Prerequisites
 
-. In case your system has SELinux disabled at the kernel level (this is the recommended way, see <<{context}-disabling-selinux>>), make sure to undo that first.
-
-.. Check if you have `selinux=0` in your kernel command line:
+* The [package]`selinux-policy-targeted`, [package]`selinux-policy`, [package]`libselinux-utils`, and [package]`grubby` packages are installed. To check that a particular package is installed:
 +
 [subs="quotes"]
 ----
-~]$ cat /proc/cmdline
-_[...]_ rd.lvm.lv=fedora/swap rhgb quiet *selinux=0*
+$ *rpm -q _package_name_*
 ----
 
-.. If it is there, remove it from the bootloader configuration using [command]`grubby`:
+.Procedure
+
+. If your system has SELinux disabled at the kernel level (this is the recommended way, see xref:{context}-disabling-selinux[]), change this first. Check if you have the `selinux=0` option in your kernel command line:
 +
+[subs="quotes"]
 ----
-~]# grubby --update-kernel ALL --remove-args selinux
+$ *cat /proc/cmdline*
+BOOT_IMAGE=... ... selinux=0
 ----
 
-.. The change will be applied after you reboot the system (see below).
-
-. Ensure the filesystem is relabeled on next boot:
+.. Remove the `selinux=0` option from the bootloader configuration using [command]`grubby`:
 +
+[subs="quotes"]
 ----
-~]# fixfiles onboot
+$ *sudo grubby --update-kernel ALL --remove-args selinux*
 ----
 
-. Enable SELinux in permissive mode. For more information, see <<{context}-changing-to-permissive-mode>>.
+.. The change applies after you restart the system in one of the following steps.
 
-. Reboot your system.
+. Ensure the file system is relabeled on the next boot:
++
+[subs="quotes"]
+----
+$ *sudo fixfiles onboot*
+----
+
+. Enable SELinux in permissive mode. For more information, see xref:{context}-changing-to-permissive-mode[].
+
+. Restart your system:
++
+[subs="quotes"]
+----
+$ *reboot*
+----
 
 . Check for SELinux denial messages.
-// For more information, see <<Fixing_Problems-Searching_For_and_Viewing_Denials>>.
++
+[subs="quotes"]
+----
+$ *sudo ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts recent*
+----
 
-. If there are no denials, switch to enforcing mode. For more information, see <<{context}-changing-to-enforcing-mode>>.
+. If there are no denials, switch to enforcing mode. For more information, see link:{context}-changing-to-enforcing-mode[].
 
 To run custom applications with SELinux in enforcing mode, choose one of the following scenarios:
 
 * Run your application in the `unconfined_service_t` domain.
 // See <<Targeted_Policy-Unconfined_Processes>> for more information.
 
-* Write a new policy for your application. See the link:++https://access.redhat.com/solutions/117583++[Writing Custom SELinux Policy] Knowledgebase article for more information.
+* Write a new policy for your application. See the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/writing-a-custom-selinux-policy_using-selinux[Writing a custom SELinux policy] chapter in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/index[RHEL 8 Using SELinux] document for more information.
 
 // Temporary changes in modes are covered in <<{context}-selinux-states-and-modes>>.
