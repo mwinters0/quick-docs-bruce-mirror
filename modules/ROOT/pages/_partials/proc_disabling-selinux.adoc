@@ -5,7 +5,7 @@
 [#{context}-disabling-selinux]
 = Disabling SELinux
 
-When SELinux is disabled, SELinux policy is not loaded at all; it is not enforced and AVC messages are not logged. Therefore, all benefits of running SELinux listed in link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/getting-started-with-selinux_using-selinux#benefits-of-selinux_getting-started-with-selinux[Benefits of SELinux] are lost.
+When SELinux is disabled, SELinux policy is not loaded at all; it is not enforced and AVC messages are not logged. Therefore, all benefits of running SELinux listed in xref:{context}-benefits-of-selinux[Benefits of SELinux] are lost.
 
 [IMPORTANT]
 ====
