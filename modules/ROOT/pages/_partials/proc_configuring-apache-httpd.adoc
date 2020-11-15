@@ -7,20 +7,20 @@ Files in `/etc/httpd/conf.d/` are read in alphabetical order: a setting from `/e
 
 As a best practice, do not modify `/etc/httpd/conf/httpd.conf` or any of the `/etc/httpd/conf.d` files shipped by Fedora packages directly. If you make any local changes to these files, then any changes to them in newer package versions will not be directly applied. Instead, a `.rpmnew` file will be created, and you will have to merge the changes manually.
 
-It is recommended to create a new file in `/etc/httpd/conf.d` which will take precedence over the file you wish to modify, and edit the required settings. For instance, to change a setting specified in `/etc/httpd/conf.d/foo.conf` you could create the file `/etc/httpd/conf.d/z-foo-local.conf`, and place your setting in that file.
+It is recommended to create a new file in `/etc/httpd/conf.d/` which will take precedence over the file you wish to modify, and edit the required settings. For instance, to change a setting specified in `/etc/httpd/conf.d/foo.conf` you could create the file `/etc/httpd/conf.d/z-foo-local.conf`, and place your setting in that file.
 
 [NOTE]
 ====
 After making any changes to your server configuration, execute the following command:
 
 ----
-# apachectl reload
+# sudo systemctl reload httpd.service
 ----
 
 Certain changes may require Apache to be fully restarted. To fully restart Apache, execute the following command:
 
 ----
-# systemctl restart httpd.service
+# sudo systemctl restart httpd.service
 ----
 ====
 
@@ -99,13 +99,13 @@ To allow Apache through the firewall at each boot:
 * For plain HTTP connections:
 +
 ----
-# firewall-cmd --permanent --add-service=http
+# sudo firewall-cmd --permanent --add-service=http
 ----
 
 * For TLS/SSL connections:
 +
 ----
-# firewall-cmd --permanent --add-service=https
+# sudo firewall-cmd --permanent --add-service=https
 ----
 
 To allow Apache through the firewall instantly:
@@ -113,13 +113,13 @@ To allow Apache through the firewall instantly:
 * For plain HTTP connections:
 +
 ----
-# firewall-cmd --add-service=http
+# sudo firewall-cmd --add-service=http
 ----
 
 * For TLS/SSL connections:
 +
 ----
-# firewall-cmd --add-service=https
+# sudo firewall-cmd --add-service=https
 ----
 
 NOTE: If your server is running in a network with a NAT router, you will also need to configure your router to forward the HTTP and HTTPS ports to your server, if you wish to allow access from outside your local network.
