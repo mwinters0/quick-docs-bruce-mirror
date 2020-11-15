@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">  </head>
   <body class="article">
 <header class="header" role="banner">
-  <nav class="navbar" >
+  <nav class="navbar" style="">
     <div class="navbar-brand">
       <a class="navbar-item" href="../..">
         <img src="../../_/img/docs_logo.png" style="height:40px">
@@ -357,6 +357,22 @@
 <h1>Getting started with Apache HTTP Server</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This page has been converted from the Fedora Project Wiki and cleaned up for publishing here on the Fedora Docs Portal, but it has not yet been reviewed for technical accuracy.
+This means any information on this page may be outdated or inaccurate.
+Reviews for technical accuracy are greatly appreciated. If you want to help, see the <a href="https://pagure.io/fedora-docs/quick-docs/blob/master/f/README.md">README</a> file in the source repository for instructions.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>The Apache HTTP Server is one of the most commonly-used web servers. This section acts as a quick-start guide to deploying and configuring Apache on Fedora.</p>
 </div>
@@ -440,7 +456,7 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre># sudo dnf install mod_ssl -y</pre>
+<pre># dnf install mod_ssl -y</pre>
 </div>
 </div>
 </div>
@@ -461,8 +477,8 @@
 <p>Move the certificate and the key file to the correct folder</p>
 <div class="listingblock">
 <div class="content">
-<pre># sudo mv key_file.key /etc/pki/tls/private/myhost.com.key
-# sudo mv certificate.crt /etc/pki/tls/certs/myhost.com.crt</pre>
+<pre># mv key_file.key /etc/pki/tls/private/myhost.com.key
+# mv certificate.crt /etc/pki/tls/certs/myhost.com.crt</pre>
 </div>
 </div>
 </li>
@@ -483,8 +499,8 @@
 <p>Ownership</p>
 <div class="listingblock">
 <div class="content">
-<pre># sudo chown root.root /etc/pki/tls/private/myhost.com.key
-# sudo chown root.root /etc/pki/tls/certs/myhost.com.crt</pre>
+<pre># chown root.root /etc/pki/tls/private/myhost.com.key
+# chown root.root /etc/pki/tls/certs/myhost.com.crt</pre>
 </div>
 </div>
 </li>
@@ -492,8 +508,8 @@
 <p>Permissions</p>
 <div class="listingblock">
 <div class="content">
-<pre># sudo chmod 0600 /etc/pki/tls/private/myhost.com.key
-# sudo chmod 0600 /etc/pki/tls/certs/myhost.com.crt</pre>
+<pre># chmod 0600 /etc/pki/tls/private/myhost.com.key
+# chmod 0600 /etc/pki/tls/certs/myhost.com.crt</pre>
 </div>
 </div>
 </li>
@@ -605,7 +621,7 @@ SSLCertificateKeyFile /etc/pki/tls/private/hostname.key</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre># sudo dnf install wordpress</pre>
+<pre># dnf install wordpress</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -632,7 +648,7 @@ SSLCertificateKeyFile /etc/pki/tls/private/hostname.key</pre>
 <p>As a best practice, do not modify <code>/etc/httpd/conf/httpd.conf</code> or any of the <code>/etc/httpd/conf.d</code> files shipped by Fedora packages directly. If you make any local changes to these files, then any changes to them in newer package versions will not be directly applied. Instead, a <code>.rpmnew</code> file will be created, and you will have to merge the changes manually.</p>
 </div>
 <div class="paragraph">
-<p>It is recommended to create a new file in <code>/etc/httpd/conf.d/</code> which will take precedence over the file you wish to modify, and edit the required settings. For instance, to change a setting specified in <code>/etc/httpd/conf.d/foo.conf</code> you could create the file <code>/etc/httpd/conf.d/z-foo-local.conf</code>, and place your setting in that file.</p>
+<p>It is recommended to create a new file in <code>/etc/httpd/conf.d</code> which will take precedence over the file you wish to modify, and edit the required settings. For instance, to change a setting specified in <code>/etc/httpd/conf.d/foo.conf</code> you could create the file <code>/etc/httpd/conf.d/z-foo-local.conf</code>, and place your setting in that file.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -646,7 +662,7 @@ SSLCertificateKeyFile /etc/pki/tls/private/hostname.key</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre># sudo systemctl reload httpd.service</pre>
+<pre># apachectl reload</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -654,7 +670,7 @@ SSLCertificateKeyFile /etc/pki/tls/private/hostname.key</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre># sudo systemctl restart httpd.service</pre>
+<pre># systemctl restart httpd.service</pre>
 </div>
 </div>
 </td>
@@ -766,7 +782,7 @@ This exposes your computer to the Internet and potential attackers. Secure your 
 <p>For plain HTTP connections:</p>
 <div class="listingblock">
 <div class="content">
-<pre># sudo firewall-cmd --permanent --add-service=http</pre>
+<pre># firewall-cmd --permanent --add-service=http</pre>
 </div>
 </div>
 </li>
@@ -774,7 +790,7 @@ This exposes your computer to the Internet and potential attackers. Secure your 
 <p>For TLS/SSL connections:</p>
 <div class="listingblock">
 <div class="content">
-<pre># sudo firewall-cmd --permanent --add-service=https</pre>
+<pre># firewall-cmd --permanent --add-service=https</pre>
 </div>
 </div>
 </li>
@@ -789,7 +805,7 @@ This exposes your computer to the Internet and potential attackers. Secure your 
 <p>For plain HTTP connections:</p>
 <div class="listingblock">
 <div class="content">
-<pre># sudo firewall-cmd --add-service=http</pre>
+<pre># firewall-cmd --add-service=http</pre>
 </div>
 </div>
 </li>
@@ -797,7 +813,7 @@ This exposes your computer to the Internet and potential attackers. Secure your 
 <p>For TLS/SSL connections:</p>
 <div class="listingblock">
 <div class="content">
-<pre># sudo firewall-cmd --add-service=https</pre>
+<pre># firewall-cmd --add-service=https</pre>
 </div>
 </div>
 </li>
@@ -852,8 +868,8 @@ If your server is running in a network with a NAT router, you will also need to 
 <p><a href="https://httpd.apache.org/docs/current/misc/security_tips.html">Apache security tips</a></p>
 </li>
 <li>
-<p><a href="https://fedoraproject.org/wiki/OwnCloud">OwnCloud</a></p>
-<!--:!context:</p>-->
+<p><a href="https://fedoraproject.org/wiki/OwnCloud">OwnCloud</a>
+:!context:</p>
 </li>
 </ul>
 </div>
