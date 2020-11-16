@@ -5,8 +5,6 @@ ifdef::context[:parent-context: {context}]
 [id='adding-or-removing-software-repositories-in-fedora']
 = Adding or removing software repositories in Fedora
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 This section describes how to add, enable, or disable a software repository with the DNF application.
 
 include::{partialsdir}/proc_adding-repositories.adoc[leveloffset=+1]
