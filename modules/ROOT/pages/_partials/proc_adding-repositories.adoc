@@ -1,7 +1,7 @@
 [id='adding-repositories']
 = Adding repositories
 
-This section describes how to add software repositories with the `dnf config-manger` command.
+This section describes how to add software repositories with the `dnf config-manager` command.
 
 Use the following commands as the `root` user or under the `sudo` utility.
 
