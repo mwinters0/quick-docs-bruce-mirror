@@ -109,6 +109,11 @@ Once the install is complete enter:
 sudo rpmconf -a
 ----
 
+[NOTE]
+====
+Some thirdparty software drops edited configuration files in `/etc/yum.repos.d/` and reverting those to original verison may disable updates for the software. Review configuration files in this directory carefully.
+====
+
 For more information you can refer to the man pages (`man rpmconf`).
 
 [[sect-upgraded-package-configurations]]
