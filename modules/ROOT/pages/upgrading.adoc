@@ -42,15 +42,15 @@ It is also used to troubleshoot issues with packages preventing the graphical me
 
 For instructions on upgrading with the DNF system upgrade plugin, refer to the xref:dnf-system-upgrade.adoc[DNF System Upgrade Quick Doc].
 
-[[sect-online-rebases-for-fedora-atomic-host-via-rpm-ostree]]
-== Online rebases for Fedora Atomic Host via rpm-ostree
+[[sect-upgrading-to-major-versions-in-silverblue]]
+== Upgrading between major versions in Fedora Silverblue
 [NOTE]
 ====
 
-This is the recommended upgrade method for link:++https://getfedora.org/en/cloud/download/atomic.html++[Fedora Atomic Host] installations.
+Upgrading between major versions (such as from Fedora 32 to Fedora 33) can be completed using the Software application. Alternatively, Silverblue can be upgraded between major versions using the `ostree` command..
 
 ====
-For instructions on upgrading Fedora Atomic Host installations between Fedora releases, refer to the link:++https://fedoraproject.org/wiki/Atomic_Host_upgrade++[dedicated page].
+For instructions on upgrading Fedora Silverblue Host, refer to the link:++https://docs.fedoraproject.org/en-US/fedora-silverblue/updates-upgrades-rollbacks/#upgrading++[dedicated page].
 
 [[sect-can-i-upgrade-between-fedora-releases-using-only-dnf]]
 == Can I upgrade between Fedora releases using only DNF?
