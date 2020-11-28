@@ -13,15 +13,15 @@ When the installation of the guest operating system is complete, it can be manag
 # virt-manager
 ----
 +
-If you are not root, you will be prompted to enter the root password. Choose *Run unprivileged* to operate in read-only non-root mode.
+If you are not root, you will be prompted to enter the root password. 
 . Choose the host you wish to manage and click *Connect* in the *Open Connection* dialog window.
 . The list of virtual machines is displayed in the main window. Guests that are running will display a ">" icon. Guests that are not running will be greyed out.
 . To manage a particular guest, double click on it, or right click and select *Open*.
 . A new window for the guest will open that will allow you to use its console, see information about its virtual hardware and start, stop, and pause it.
 
-For further information about `virt-manager`, see http://virt-manager.et.redhat.com/.
+For further information about `virt-manager`, see https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-creating_guests_with_virt_manager[RedHat virt-manager guide].
 
-Bugs in the `virt-manager` tool should be reported in http://bugzilla.redhat.com[Bugzilla] against the `virt-manager`
+Bugs in the `virt-manager` tool should be reported in https://bugzilla.redhat.com[Bugzilla] against the `virt-manager`
 component.
 
 
@@ -90,7 +90,7 @@ For a complete list of commands available for use with `virsh`:
 
 Or consult the manual page: `man virsh`.
 
-Bugs in the `virsh` tool should be reported in http://bugzilla.redhat.com[Bugzilla] against the *libvirt* component.
+Bugs in the `virsh` tool should be reported in https://bugzilla.redhat.com[Bugzilla] against the *libvirt* component.
 
 
 [[remote-management]]
@@ -98,6 +98,6 @@ Bugs in the `virsh` tool should be reported in http://bugzilla.redhat.com[Bugzil
 
 The following remote management options are available:
 
-* If using non-root users via SSH, see the setup instructions in http://wiki.libvirt.org/page/SSHSetup
+* If using non-root users via SSH, see the setup instructions in https://wiki.libvirt.org/page/SSHSetup
 * If using root for access via SSH, then create SSH keys for root, and use `ssh-agent` and `ssh-add` before launching `virt-manager`.
-* To use TLS, set up a local certificate authority and issue x509 certs to all servers and clients. For information on configuring this option, see http://wiki.libvirt.org/page/TLSSetup.
+* To use TLS, set up a local certificate authority and issue x509 certs to all servers and clients. For information on configuring this option, see https://wiki.libvirt.org/page/TLSSetup.

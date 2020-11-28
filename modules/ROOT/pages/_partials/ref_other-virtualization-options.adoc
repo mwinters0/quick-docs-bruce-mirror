@@ -9,7 +9,7 @@ QEMU/KVM can be invoked directly without libvirt, however you cannot to use tool
 [[xen]]
 == Xen
 
-Fedora can run as a Xen guest operating system and also be used as a Xen host (with the latter being true from Fedora 16; for using an earlier version of Fedora as a Xen host, check out the experimental repo available at http://myoung.fedorapeople.org/dom0). For a guide on how to install and setup a Fedora Xen host, see http://wiki.xen.org/wiki/Fedora_Host_Installation[Fedora Host Installation] page on the Xen Project wiki.
+Fedora can run as a Xen guest operating system and also be used as a Xen host (with the latter being true from Fedora 16; for using an earlier version of Fedora as a Xen host, check out the experimental repo available at https://myoung.fedorapeople.org/dom0). For a guide on how to install and setup a Fedora Xen host, see https://wiki.xen.org/wiki/Fedora_Host_Installation[Fedora Host Installation] page on the Xen Project wiki.
 
 [[openstack]]
 == OpenStack

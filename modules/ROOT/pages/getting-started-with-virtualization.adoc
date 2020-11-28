@@ -3,8 +3,6 @@ ifdef::context[:parent-context: {context}]
 [id='getting-started-with-virtualization']
 = Getting started with virtualization
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 Fedora uses the libvirt family of tools as its virtualization solution.
 
 include::{partialsdir}/proc_enabling-hardware-virtualization-support.adoc[leveloffset=+1]

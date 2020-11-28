@@ -53,14 +53,14 @@ To create a fully allocated (non-sparse) raw file:
 
 [source,shell,subs="attributes"]
 ----
-dd if=/dev/zero of=/var/lib/libvirt/images/guest.img bs=1M count=20480
+# sudo dd if=/dev/zero of=/var/lib/libvirt/images/guest.img bs=1M count=20480
 ----
 
 you can also use fallocate(1):
 
 [source,shell,subs="attributes"]
 ----
-fallocate -l 20480M /var/lib/libvirt/images/guest.img
+# sudo fallocate -l 20480M /var/lib/libvirt/images/guest.img
 ----
 
 ===== Raw File (Sparse)
@@ -69,8 +69,8 @@ To create a dynamically allocated (sparse) raw file:
 
 [source,shell,subs="attributes"]
 ----
-rm -f /var/lib/libvirt/images/guest.img
-truncate --size=20480M /var/lib/libvirt/images/guest.img
+# sudo rm -f /var/lib/libvirt/images/guest.img
+# sudo truncate --size=20480M /var/lib/libvirt/images/guest.img
 ----
 
 
@@ -79,7 +79,7 @@ To create a new qcow2-formatted disk separately, you can use qemu-img (the examp
 
 [source,shell,subs="attributes"]
 ----
-# qemu-img create -f qcow2 /var/lib/libvirt/images/guest.qcow2 20480
+# sudo qemu-img create -f qcow2 /var/lib/libvirt/images/guest.qcow2 20480
 ----
 
 More information about libvirt storage options can be found at https://libvirt.org/storage.html.
@@ -88,7 +88,7 @@ Finally, run the virt-install command using the following format (adjusting para
 
 [source,shell,subs="attributes"]
 ----
-# virt-install --name Fedora{MAJOROSVER} \
+# sudo virt-install --name Fedora{MAJOROSVER} \
 --description 'Fedora {MAJOROSVER} Workstation' \
 --ram 4096 \
 --vcpus 2 \
@@ -117,7 +117,7 @@ If graphics were enabled, a VNC window will open and present the graphical insta
 +
 [source,shell,subs="attributes"]
 ----
-# virt-manager
+# sudo virt-manager
 ----
 +
 . Open a connection to a hypervisor by navigating to menu:File[Add connection].
