@@ -8,12 +8,6 @@ To install Oracle Java SE:
 . Navigate to link:http://www.oracle.com/technetwork/java/javase/downloads[Oracle Java SE downloads page], and
   choose the version of Java you wish to use.
 
-. Accept the license agreement and download the appropriate tar.gz file for your systems architecture. Do NOT use Oracle rpms as these are NOT compatible with fedora/openjdk packages. Download tar.gz instead and unpack it somewhere.
-
-. Use `DNF` to install it the downloaded version e.g.:
-
-----
-sudo dnf install version-downloaded.rpm
-----
+. Accept the license agreement and download the appropriate tar.gz file for your systems architecture. Do NOT use Oracle rpms as these are NOT compatible with fedora/openjdk packages. Download the tar.gz archive instead, unpack it somewhere and set to path if necessary. 
 
 Note: Always make sure to download latest version available.
