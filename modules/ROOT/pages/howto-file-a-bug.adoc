@@ -16,7 +16,7 @@ There are a few terms that are commonly used in this document:
 * *Bug*: A bug is any behaviour in a software that appears unexpected/undesired.
 * *Bug tracker*: The Fedora bug tracking system at https://bugzilla.redhat.com.
 * *Package*: Each software that is available in Fedora has a formal package name that is used by the bug tracker and other infrastructure tools.
-  Packages can be searched using the https://apps.fedoraproject.org/packages/[Fedora Packages web application].
+  Packages can be searched using the https://src.fedoraproject.org/[Fedora dist-git].
 * *Maintainer*: A body of volunteers that takes care of the software packages provided in Fedora.
   These are referred to as "package maintainers".
   They keep track of bugs, help with issues, and generally act as middlemen between the developers of the software and Fedora users.
