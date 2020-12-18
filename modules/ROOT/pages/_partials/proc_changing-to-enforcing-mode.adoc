@@ -54,7 +54,7 @@ $ *sudo ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts recent*
 Alternatively, with the [package]`setroubleshoot-server` package installed:
 [subs="quotes"]
 ----
-$ *sudo grep "SELinux is preventing" /var/log/messages*
+$ *sudo sealert -a /var/log/audit/audit.log*
 ----
 If SELinux denies some actions, see the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/troubleshooting-problems-related-to-selinux_using-selinux[Troubleshooting problems related to SELinux] chapter in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/index[RHEL 8 Using SELinux] document for information about troubleshooting.
 ====
