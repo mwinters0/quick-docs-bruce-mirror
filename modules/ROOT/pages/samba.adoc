@@ -1,5 +1,6 @@
 [[how_to_create_a_samba_share]]
 = How to create a Samba share
+:toc:
 
 Samba allows for Windows and other clients to connect to file share directories on Linux hosts. It implements the server message block (SMB) protocol. This guide covers creating a shared file location on a Fedora machine that can be accessed by other computers on the local network.
 
@@ -20,16 +21,15 @@ $ sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-service=samba
 $ sudo firewall-cmd --reload
 ....
 
-[[sharing_a_directory_under_your_home]]
-== Sharing a directory under your home
+[[sharing_a_directory_inside_home]]
+== Sharing a directory inside /home
 
-In this example you will share a directory under your home directory, accessible only by your user.
+In this example you will share a directory inside your home directory, accessible only by your user.
 
-Samba does not use the operating system users for authentication, so
-your user account must be duplicated in Samba. So if your account is
-"jane" on the host, the user "jane" must also be added to Samba. While the usernames must match, the passwords can be different.
+Samba does not use the operating system users for authentication, so your user account must be duplicated in Samba. So if your account is
+`jane` on the host, the user `jane` must also be added to Samba. While the usernames must match, the passwords can be different.
 
-Create a user called "jane" in Samba:
+Create a user called `jane` in Samba:
 ....
 $ sudo smbpasswd -a jane
 ....
@@ -69,7 +69,7 @@ In this example, you will share a directory (outside your home directory) and cr
 
 Remember that a Samba user must also be a system user, in order to
 respect filesystem permissions. This example creates a system group
-"myfamily" for two new users "jack" and "maria".
+`myfamily` for two new users `jack` and `maria`.
 ....
 $ sudo groupadd myfamily
 $ sudo useradd  -G myfamily jack
@@ -134,8 +134,10 @@ $ sudo systemctl restart smb
 [[change_a_samba_user_password]]
 === Change a samba user password
 
-Remember: the system user and Samba user passwords can be different. The
-system user is mandatory in order to handle filesystem permissions.
+[TIP] 
+====
+Remember: the system user and Samba user passwords can be different. The system user is needed in order to handle filesystem permissions.
+====
 
 ....
 $ sudo smbpasswd maria
@@ -163,7 +165,7 @@ Samba log files are located in `/var/log/samba/`
 $ tail -f /var/log/samba/log.smbd
 ....
 
-You can increase the verbosity by adding this to the [global] section of
+You can increase the verbosity by adding this to the `[global]` section of
 `/etc/samba/smb.conf`:
 
 ....
