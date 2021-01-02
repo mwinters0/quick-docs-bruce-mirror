@@ -9,6 +9,8 @@ Wayland is the default GNOME display server, and has been the default in Fedora 
 
 To confirm the current windowing system in use, go to *Settings* and select *About*. You will typically see Wayland listed as the windowing system for a default Fedora Workstation installation.
 
+image::configuring-xorg-as-default-gnome-session_1.png[Settings - About]
+
 include::{partialsdir}/proc_configuring-xorg-as-default-gnome-session.adoc[leveloffset=+1]
 
 
