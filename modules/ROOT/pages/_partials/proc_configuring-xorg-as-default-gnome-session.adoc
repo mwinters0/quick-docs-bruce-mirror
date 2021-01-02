@@ -10,7 +10,7 @@ Once login is completed the X11 windowing system will be in use, as can be seen 
 
 image::configuring-xorg-as-default-gnome-session_3.png[Settings - About]
 
-
+[discrete]
 == Changing the default GNOME session via configuration file
 
 As an alternative, this change can be made by editing a configuration file `/etc/gdm/custom.conf`.
@@ -24,3 +24,8 @@ As an alternative, this change can be made by editing a configuration file `/etc
 . Save the `custom.conf` file.
 
 . Logout or reboot to enter the new session.
+
+[NOTE]
+====
+With the above changes applied, the option to set the GNOME session to use Wayland will actually be removed from the "gear icon" menu on the login screen.
+====
