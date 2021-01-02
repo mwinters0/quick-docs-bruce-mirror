@@ -1,10 +1,14 @@
 [id='proc-configuring-xorg-as-default-gnome-session']
-= Configuring Xorg as the default GNOME session
+= Configuring GNOME to use X.Org
 
-To run GNOME in X11, click the gear icon on the Fedora log in screen and select *GNOME on Xorg*, or complete the following steps:
+At the login screen, select the "gear" icon and select *GNOME on Xorg*.
+
+This change will persist until changed back at the login screen.
 
 [discrete]
-== Procedure
+== Changing the default GNOME session via configuration file
+
+To make Xorg the default GNOME session: 
 
 . Open `/etc/gdm/custom.conf` and uncomment `WaylandEnable=false`.
 
@@ -13,3 +17,7 @@ To run GNOME in X11, click the gear icon on the Fedora log in screen and select 
   DefaultSession=gnome-xorg.desktop
 
 . Save the `custom.conf` file.
+
+. Logout or reboot to enter the new session.
+
+You can confirm the Windowing system in use by visiting *Settings* > *About*.
