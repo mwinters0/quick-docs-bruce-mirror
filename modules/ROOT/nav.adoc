@@ -32,7 +32,7 @@
 * Usage and customisation
 ** xref:switching-desktop-environments.adoc[Switching desktop environments]
 ** xref:configuring-x-window-system-using-the-xorg-conf-file.adoc[Configuring X Window System using the xorg.conf file]
-** xref:configuring-xorg-as-default-gnome-session.adoc[Configuring X.org as the default GNOME session]
+** xref:configuring-xorg-as-default-gnome-session.adoc[Configuring Xorg as the default GNOME session]
 ** xref:gnome-shell-extensions.adoc[Using GNOME Shell extensions]
 ** xref:wine.adoc[Running Windows applications with Wine]
 ** xref:using-adobe-flash.adoc[Using Adobe Flash]
