@@ -15,7 +15,9 @@ image::configuring-xorg-as-default-gnome-session_3.png[Settings - About]
 
 As an alternative, this change can be made by editing a configuration file `/etc/gdm/custom.conf`.
 
-. Open `/etc/gdm/custom.conf` and uncomment `WaylandEnable=false`.
+. Open `/etc/gdm/custom.conf` and uncomment the line:
+
+  WaylandEnable=false
 
 . Add the following line to the `[daemon]` section:
 
