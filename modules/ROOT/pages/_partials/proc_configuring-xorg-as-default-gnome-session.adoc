@@ -5,12 +5,12 @@ At the login screen, select the "gear" icon and select *GNOME on Xorg*.
 
 image::configuring-xorg-as-default-gnome-session_2.png[Login screen - select GNOME on Xorg]
 
-This change will persist until changed back at the login screen.
+This change will persist unless changed back at the login screen.
 
-[discrete]
+
 == Changing the default GNOME session via configuration file
 
-To make Xorg the default GNOME session: 
+As an alternative, this change can be made by editing a configuration file `/etc/gdm/custom.conf`.
 
 . Open `/etc/gdm/custom.conf` and uncomment `WaylandEnable=false`.
 
