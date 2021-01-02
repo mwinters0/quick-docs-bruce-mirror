@@ -5,7 +5,7 @@ At the login screen, select the "gear" icon and select *GNOME on Xorg*.
 
 image::configuring-xorg-as-default-gnome-session_2.png[Login screen - select GNOME on Xorg]
 
-Once login is completed the X11 windowing system will be in use, as can be seen at *Settings* > *About*. This change will persist unless changed back at the login screen.
+Once login is completed the X11 windowing system will be in use, as can be seen by returning to *Settings* > *About*. This change will persist unless changed back at the login screen.
 
 
 image::configuring-xorg-as-default-gnome-session_3.png[Settings - About]
