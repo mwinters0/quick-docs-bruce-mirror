@@ -3,7 +3,7 @@
 
 Google Chrome is a popular web browser developed by Google. Chrome is built on top of the open source browser, Chromium.
 
-Fedora Workstation, in its out of the box configuration, only includes free and open source software. Mozilla Firefox is the browser included by default. However, it easy to choose either Google Chrome or Chromium if preferred.
+Fedora Workstation, in its out of the box configuration, only includes free and open source software. Mozilla Firefox is the browser included by default. However, it easy to install either Google Chrome or Chromium if preferred.
 
 [id='chromium']
 == Chromium
