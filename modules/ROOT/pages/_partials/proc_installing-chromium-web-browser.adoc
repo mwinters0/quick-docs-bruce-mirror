@@ -35,16 +35,38 @@ Chromium can be installed using GUI and terminal.
 [id='installing-chrome']
 == Installing Chrome
 
-*Google Chrome* can be installed by downloading rpm.
+Chrome can be installed using GUI and terminal, once the repository is enabled.
 
-. Click the following link: https://www.google.com/chrome/browser/desktop/index.html .
+.Installing Chrome using GUI
 
-. Click on *Download Chrome* and select *Fedora 64* or *32 bits* download and install the repo.
+. Open the *Software* application.
 
-. Login as root and use the command to install Google Chrome:
+. Click on the menu at the top right and select *Software Repositories*.
+
+. Make sure Third Party Repositories is enabled. If the button label is *Install*, then click that button to install the third party repositiories. If the button reads *Remove All* then the third party repositories are already installed.
+
+. Scroll down to find the repository called *google-chrome*. Click on it and choose *Enable*. 
+
+You can now search for *Google Chrome* in Software, and install it.
+
+.Installing Chrome using terminal
+
+The additional repositories can also be managed using a terminal and DNF.
+
+. Install Third Party Repositories
+----
+$ sudo dnf install fedora-workstation-repositories
+----
++
+. Enable the Google Chrome repo:
 +
 ----
-# dnf install google-chrome
+$ sudo dnf config-manager --set-enabled google-chrome
+----
++
+. Finally, install Chrome:
+----
+$ sudo dnf install google-chrome
 ----
 
 [NOTE]
