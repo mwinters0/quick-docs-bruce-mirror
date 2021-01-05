@@ -1,20 +1,18 @@
 [id='chromium-web-browser']
 = Chromium and Google Chrome web browsers
 
-Only the Chromium browser is available from official Fedora repositories.
+Google Chrome is a popular web browser developed by Google. Chrome is built on top of the open source browser, Chromium.
 
+Fedora Workstation, in its out of the box configuration, only includes free and open source software. Mozilla Firefox is the browswer included by default. However, it easy to choose either Google Chrome or Chromium if preferred.
 
 [id='chromium']
 == Chromium
 
-Chromium is the upstream project for Google Chrome.
+Chromium is the upstream project for Google Chrome. Chromium is included in the Fedora Repositories.
 
-NOTE: As of August 2016, Chromium is included in the Fedora Repositories. If you were using the old Chromium http://copr.fedoraproject.org/coprs/spot/chromium/[Copr] repository, upgrade your Chromium.
-
-Fedora's Chromium package does not support h264, mp3, or aac because of legal concerns. It is built to support the *widevine* plugin (but does not include it).
-
+Fedora's Chromium package does not support h264, mp3, or aac. It is built to support the *widevine* plugin (but does not include it).
 
 [id='google-chrome']
 == Google Chrome
 
-Chromium is upstream for Google Chrome. Fedora does not include Google Chrome because it is a proprietary product and bundles other proprietary software, such as Adobe Flash plugin. However, Google does maintain a DNF or YUM repository for Fedora at link:https://www.google.com/chrome/[google.com/chrome]. The given link also includes downloadable RPMs that you can use to install Chrome.
+Google Chrome is available in Fedora Workstation via a curted third-party repository. Once this repository is enabled, Chrome can be installed via Software or via the command line.
