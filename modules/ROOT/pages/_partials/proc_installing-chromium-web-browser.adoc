@@ -54,6 +54,7 @@ You can now search for *Google Chrome* in Software, and install it.
 The additional repositories can also be managed using a terminal and DNF.
 
 . Install Third Party Repositories
++
 ----
 $ sudo dnf install fedora-workstation-repositories
 ----
@@ -65,6 +66,7 @@ $ sudo dnf config-manager --set-enabled google-chrome
 ----
 +
 . Finally, install Chrome:
++
 ----
 $ sudo dnf install google-chrome
 ----
