@@ -5,8 +5,6 @@ ifdef::context[:parent-context: {context}]
 
 include::{partialsdir}/3rdparty-message.adoc[]
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 include::{partialsdir}/concept_chromium-web-browser.adoc[leveloffset=+1]
 
 include::{partialsdir}/proc_installing-chromium-web-browser.adoc[leveloffset=+1]
