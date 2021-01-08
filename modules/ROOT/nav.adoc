@@ -83,7 +83,6 @@
 * xref:openh264.adoc[OpenH264]
 * xref:package-management.adoc[Package management system]
 * xref:packagekit-not-found.adoc[PackageKit Items Not Found]
-* xref:postgresql.adoc[PostgreSQL]
 //FIXME * xref:uefi-with-qemu.adoc[Using UEFI with QEMU]
 * xref:upgrading-fedora-online.adoc[Upgrading Fedora using package manager]
 
@@ -93,6 +92,8 @@
 
 * Databases
 ** xref:installing-mysql-mariadb.adoc[Installing, Configuring and Troubleshooting MySql/MariaDB]
+** xref:postgresql.adoc[PostgreSQL]
+** xref:manage-sql-server.adoc[How to Manage your SQL Server from GUI]
 
 * FAQ
 ** xref:fedora-and-red-hat-enterprise-linux.adoc[Difference between Fedora and Red Hat Enterprise Linux]

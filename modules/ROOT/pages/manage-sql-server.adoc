@@ -1,0 +1,103 @@
+== How to Manage SQL SERVER from GUI
+
+For database management, it is more user-friendly to use graphical tools:
+
+- MySQL/Mariadb:
+
+** phpMyAdmin.noarch : A web interface for MySQL and MariaDB
+
+----
+sudo dnf install phpMyAdmin
+----
+
+- MySQL Specific:
+
+** MySQL Workbench is a unified visual tool for database architects, developers, and DBAs.
+
+- Mixed:
+
+** DBeaver Community   Universal Database Manager.
+
+----
+flatpak install io.dbeaver.DBeaverCommunity
+----
+
+** PostgreSQL client for DBeaver Community  
+
+----
+flatpak install io.dbeaver.DBeaverCommunity.Client.pgsql
+----
+
+** MariaDB client for DBeaver Community     
+
+----
+flatpak install io.dbeaver.DBeaverCommunity.Client.mariadb
+----
+
+- PostgreSQL:
+
+** pgadmin3 Graphical client for PostgreSQL
+
+----
+sudo dnf install pgadmin3
+----
+
+** phpPgAdmin - A web interface for PostgreSQL
+
+for Fedora <= 32
+
+----
+sudo dnf install phpPgAdmin
+----
+
+for Fedora >= 33
+
+[[installation]]
+=== Installation
+
+The installation of the postgresql GUI web-server is a little bit different
+in comparison to older Fedora because the package is out of the repo.
+
+1. We assume you have php installed on your server and Working.
+
+2. Download the latest from GitHub repo:
+
+https://github.com/phppgadmin/phppgadmin/releases
+
+----
+sudo tar xf phpPgAdmin-x.y.z.tar.bz2 -C /var/www/phpPgadmin
+----
+
+In order to make phpPgAdmin navigable, we create a configuration file for the web service (Apache in this case):
+
+----
+sudo nano /etc/httpd/conf.d/phpPgAdmin.conf
+----
+
+The content will be an alias that will point to the installation path of 
+the application:
+
+----
+Alias /phppgadmin /var/www/phpPgAdmin
+----
+
+Save the file and Reload the Web Service:
+
+----
+sudo systemctl reload httpd
+----
+
+phpPgAdmin requires the presence in Fedora 31 of certain PHP extensions, 
+mainly the one that allows the connection with the database service, which 
+we will install from the system repositories:
+
+----
+sudo dnf install -y php-pgsql
+----
+
+To access the web installer of phpPgAdmin in Fedora from a browser we will
+indicate the IP address or DNS name of the server followed by the alias we
+have defined and follow the steps requested.
+
+See a typo, something missing or out of date, or anything else which can be
+improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.

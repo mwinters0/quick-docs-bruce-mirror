@@ -118,24 +118,6 @@ should be fixed already.
 You can also upgrade by dumping your database and loading it again. For
 more information, see the link:#link-upgrade[official documentation].
 
-[[tips-and-tricks]]
-== Tips and tricks
-
-For database management, it is more user-friendly to use graphical tools such as
-phpPgAdmin or pgadmin3
-
-....
-$ sudo yum install phpPgAdmin
-$ sudo yum install pgadmin3
-....
-
-Or with dnf in Fedora 22 and later versions:
-
-....
-$ sudo dnf install phpPgAdmin
-$ sudo dnf install pgadmin3
-....
-
 [[firewall]]
 == Firewall
 
