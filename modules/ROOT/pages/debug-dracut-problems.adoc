@@ -16,12 +16,12 @@ uncompressed, with MIME type set as text/plain.
 [[identifying-your-problem-area]]
 == Identifying your problem area
 
-1.  Remove `rhgb` and `quiet` from the kernel command line
-2.  Add `rd.shell` to the kernel command line. This will present a shell
+.  Remove `rhgb` and `quiet` from the kernel command line
+.  Add `rd.shell` to the kernel command line. This will present a shell
     in case dracut is unable to locate your root device
-3.  Add `rd.shell rd.debug log_buf_len=1M` to the kernel command line so
+.  Add `rd.shell rd.debug log_buf_len=1M` to the kernel command line so
     that dracut shell commands are printed as they are executed
-4.  Inspect the system logs:
+.  Inspect the system logs:
 ....
  # less /run/initramfs/rdsosreport.txt
  # journalctl -a
@@ -94,20 +94,20 @@ console connection to record boot messages. To enable serial console
 output for both the kernel and the bootloader, follow the procedure
 below.
 
-1.  Open the file `/etc/grub.conf` for editing. Below the line _timeout=5_, add the following:
-
+.  Open the file `/etc/grub.conf` for editing. Below the line _timeout=5_, add the following:
++
 ....
 serial --unit=0 --speed=9600
 terminal --timeout=5 serial console
 ....
 
-2.  Also in `/etc/grub.conf`, add the following boot arguments to the _kernel_ line:
-
+.  Also in `/etc/grub.conf`, add the following boot arguments to the _kernel_ line:
++
 ....
 console=tty0 console=ttyS0,9600
 ....
 
-3.  When finished, `/etc/grub.conf` should look similar to the example below:
+.  When finished, `/etc/grub.conf` should look similar to the example below:
 
 ....
 default=0
@@ -130,9 +130,9 @@ http://www.faqs.org/docs/Linux-HOWTO/Remote-Serial-Console-HOWTO.html#CONFIGURE-
 Dracut offers a shell for interactive debugging in the event dracut
 fails to locate your root filesystem. To enable the shell:
 
-1.  Add the boot parameter `rd.shell` to your bootloader configuration
+.  Add the boot parameter `rd.shell` to your bootloader configuration
     file (e.g. `/etc/grub/conf`)
-2.  Remove the boot arguments `rhgb` and `quiet`
+.  Remove the boot arguments `rhgb` and `quiet`
 
 A sample `/etc/grub.conf` bootloader configuration file is listed below:
 
@@ -179,8 +179,8 @@ The exact method for locating and preparing will vary. However, to
 continue with a successful boot, the objective is to locate your root
 volume and create a symlink `/dev/root` which points to the file system. For example, the following example demonstrates accessing and booting a root volume that is an encrypted LVM Logical volume.
 
-1.  Inspect your partitions using `parted`:
-
+.  Inspect your partitions using `parted`:
++
 ....
 # parted /dev/sda -s p
 Model: ATA HTS541060G9AT00 (scsi)
@@ -193,16 +193,16 @@ Number  Start   End     Size    Type      File system  Flags
  2      10.8GB  55.6GB  44.7GB  logical                lvm
 ....
 
-2.  You recall that your root volume was a LVM logical volume. Scan and
+.  You recall that your root volume was a LVM logical volume. Scan and
     activate any logical volumes:
-
++
 ....
 # lvm vgscan
 # lvm vgchange -ay
 ....
 
-3.  You should see any logical volumes now using the command `blkid`:
-
+.  You should see any logical volumes now using the command `blkid`:
++
 ....
 # blkid
 /dev/sda1: UUID="3de247f3-5de4-4a44-afc5-1fe179750cf7" TYPE="ext4"
@@ -212,12 +212,12 @@ Number  Start   End     Size    Type      File system  Flags
 /dev/mapper/linux-swap: UUID="47b4d329-975c-4c08-b218-f9c9bf3635f1" TYPE="swap"
 ....
 
-4.  From the output above, you recall that your root volume exists on an
+.  From the output above, you recall that your root volume exists on an
     encrypted block device. Following the guidance disk encryption guidance
     from the
     http://docs.fedoraproject.org/install-guide/f%7B%7BFedoraVersion%7D%7D/en-US/html/apcs04s04.html[
     Installation Guide], you unlock your encrypted root volume.
-
++
 ....
 UUID=$(cryptsetup luksUUID /dev/mapper/linux-root)
 cryptsetup luksOpen /dev/mapper/linux-root luks-$UUID
@@ -225,13 +225,13 @@ Enter passphrase for /dev/mapper/linux-root:
 Key slot 0 unlocked.
 ....
 
-5.  Next, make a symbolic link to the unlocked root volume
-
+.  Next, make a symbolic link to the unlocked root volume
++
 ....
 ln -s /dev/mapper/luks-$UUID /dev/root
 ....
 
-6.  With the root volume available, you may continue booting the system
+.  With the root volume available, you may continue booting the system
     by exiting the dracut shell
 
 ....
