@@ -1,7 +1,6 @@
 [id='sec-Using-AIDE']
 = Checking Integrity With *AIDE*
 :experimental:
-include::{partialsdir}/unreviewed-message.adoc[]
 include::{partialsdir}/attributes.adoc[]
 
 Advanced Intrusion Detection Environment (AIDE) is a utility that creates a database of files on the system, and then uses that database to ensure file integrity and detect system intrusions.
@@ -10,12 +9,15 @@ Advanced Intrusion Detection Environment (AIDE) is a utility that creates a data
 
 . To install the _aide_ package:
 +
+
 [source,shell,subs="attributes"]
 ----
 $ sudo dnf install aide
 ----
+
 . To generate an initial database:
 +
+
 [source,shell,subs="attributes"]
 ----
 $ sudo aide --init
@@ -24,9 +26,9 @@ AIDE initialized database at /var/lib/aide/aide.db.new.gz
 
 Number of entries:	150666
 
----------------------------------------------------
-The attributes of the (uncompressed) database(s):
----------------------------------------------------
+ ---------------------------------------------------
+ The attributes of the (uncompressed) database(s):
+ ---------------------------------------------------
 
 /var/lib/aide/aide.db.new.gz
   MD5      : 0isjEPsCORFk7laoGGz8tQ==
@@ -42,7 +44,8 @@ The attributes of the (uncompressed) database(s):
 
 End timestamp: 2018-07-11 12:37:35 +0200 (run time: 1m 48s)
 ----
-+
+
+
 NOTE: In the default configuration, the *aide --init* command checks just a set of directories and files defined in the `/etc/aide.conf` file. To include additional directories or files in the AIDE database, and to change their watched parameters, edit `/etc/aide.conf` accordingly.
 
 . To start using the database, remove the `.new` substring from the initial database file name:
@@ -54,6 +57,7 @@ $ sudo mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
 
 . To change the location of the *AIDE* database, edit the `/etc/aide.conf` file and modify the `DBDIR` value. For additional security, store the database, configuration, and the `/usr/sbin/aide` binary file in a secure location such as a read-only media.
 +
+
 IMPORTANT: To avoid SELinux denials after the AIDE database location change, update your SELinux policy accordingly. See the link:https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/SELinux_Users_and_Administrators_Guide/[SELinux User's and Administrator's Guide] for more information.
 
 == Performing Integrity Checks
@@ -72,9 +76,9 @@ Summary:
   Removed entries:		0
   Changed entries:		2
 
----------------------------------------------------
-Added entries:
----------------------------------------------------
+ ---------------------------------------------------
+ Added entries:
+ ---------------------------------------------------
 
 f++++++++++++++++: /etc/cups/subscriptions.conf.O
 ...
@@ -98,6 +102,7 @@ After verifying the changes of your system such as, package updates or configura
 ----
 $ sudo aide --update
 ----
+
 The *aide --update* command creates the `/var/lib/aide/aide.db.new.gz` database file. To start using it for integrity checks, remove the `.new` substring from the file name.
 
 == Additional Resources
