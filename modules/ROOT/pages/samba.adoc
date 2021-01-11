@@ -203,47 +203,46 @@ No locked files
 
 Some things to check if you cannot access the share.
 
-{empty}1. Be sure that the user exists as a system user as well as a
+. Be sure that the user exists as a system user as well as a
 Samba user
-
++
 Find `maria` in the Samba database:
-
++
 ....
 $ sudo pdbedit -L | grep maria
 
 maria:1002:
 ....
-
++
 Confirm that `maria` also exists as a system user.
-
++
 ....
 $ cat /etc/passwd | grep maria
 
 maria:x:1002:1002::/home/maria:/bin/bash
 ....
-
-{empty}2. Check if the shared directory has the correct SELinux context.
-
++
+. Check if the shared directory has the correct SELinux context.
++
 ....
 $ ls -dZ /home/share
 
 unconfined_u:object_r:samba_share_t:s0 /home/share
 ....
-
-{empty}3. Check if the system user has access permission to the shared
-directory.
-
++
+. Check if the system user has access permission to the shared directory.
++
 ....
 $ ls -ld /home/share 
 
 drwxrwx---. 2 root myfamily 4096 May 29 14:03 /home/share
 ....
-
++
 In this case, the user should be in the `myfamily` group.
 
-{empty}4. Check in the configuration file `/etc/samba/smb.conf` that the
+. Check in the configuration file `/etc/samba/smb.conf` that the
 user and group have access permission.
-
++
 ....
 [family]
         comment = Family Share
@@ -256,17 +255,16 @@ user and group have access permission.
         directory mask = 0770
         force group = +myfamily
 ....
-
++
 In this case, the user should be in the `myfamily` group.
 
 [[trouble_with_writing_in_the_share]]
 === Trouble with writing in the share
 
-{empty}1. Check in the samba configuration file if the user/group has
+. Check in the samba configuration file if the user/group has
 write permissions.
-
++
 ....
-...
 [family]
         comment = Family Share
         path = /home/share
@@ -278,16 +276,15 @@ write permissions.
         directory mask = 0770
         force group = +myfamily
 ....
-
++
 In this example, the user should be in the `myfamily` group.
 
-{empty}2. Check the share directory permissions.
-
+. Check the share directory permissions.
++
 ....
 $ ls -ld /home/share 
 
 drwxrwx---. 2 root myfamily 4096 May 29 14:03 /home/share
 ....
-
-This example assumes the user is part of the `myfamily` group which has
-read, write, and execute permissions for the folder.
++
+This example assumes the user is part of the `myfamily` group which has read, write, and execute permissions for the folder.
