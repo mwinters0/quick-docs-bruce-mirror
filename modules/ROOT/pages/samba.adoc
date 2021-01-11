@@ -222,7 +222,7 @@ $ cat /etc/passwd | grep maria
 maria:x:1002:1002::/home/maria:/bin/bash
 ....
 
-{empty}2. Check if the shared directory has the right SELinux context.
+{empty}2. Check if the shared directory has the correct SELinux context.
 
 ....
 $ ls -dZ /home/share
@@ -230,7 +230,7 @@ $ ls -dZ /home/share
 unconfined_u:object_r:samba_share_t:s0 /home/share
 ....
 
-{empty}3. Check if the system user has access rights to the shared
+{empty}3. Check if the system user has access permission to the shared
 directory.
 
 ....
@@ -242,7 +242,7 @@ drwxrwx---. 2 root myfamily 4096 May 29 14:03 /home/share
 In this case, the user should be in the `myfamily` group.
 
 {empty}4. Check in the configuration file `/etc/samba/smb.conf` that the
-user and group have access rights.
+user and group have access permission.
 
 ....
 [family]
