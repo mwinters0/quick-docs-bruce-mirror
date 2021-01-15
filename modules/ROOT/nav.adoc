@@ -79,7 +79,7 @@
 ** xref:qemu.adoc[Using virtualization emulation in QEMU]
 ** xref:using-nested-virtualization-in-kvm.adoc[Using nested virtualization in KVM]
 ** xref:creating-windows-virtual-machines-using-virtio-drivers.adoc[Creating Windows virtual machines using virtIO drivers]
-** xref:how-to-use-vmware.adoc[How to use Vmware Product's]
+** xref:how-to-use-vmware.adoc[How to use VMware products]
 
 //FIXME * xref:debug-systemd-problems.adoc[How to debug systemd problems]
 //FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems] - note: maintained on wiki, does not fit quick-docs IMHO
