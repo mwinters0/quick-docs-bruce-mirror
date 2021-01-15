@@ -5,16 +5,17 @@
 . On the virtual machine, run:
 +
 ----
-# dnf group install virtualization
+$ sudo dnf group install virtualization
 ----
 +
 . Verify that the virtual machine has virtualization correctly set up:
 +
 ----
-# virt-host-validate
+$ sudo virt-host-validate
   QEMU: Checking for hardware virtualization                                 : PASS
-  QEMU: Checking for device /dev/kvm                                         : PASS
-  QEMU: Checking for device /dev/vhost-net                                   : PASS
-  QEMU: Checking for device /dev/net/tun                                     : PASS
-  LXC: Checking for Linux >= 2.6.26                                          : PASS
+  QEMU: Checking if device /dev/kvm exists                                   : PASS
+  QEMU: Checking if device /dev/kvm is accessible                            : PASS
+  QEMU: Checking if device /dev/vhost-net exists                             : PASS
+  QEMU: Checking if device /dev/net/tun exists                               : PASS
+  ...
 ----

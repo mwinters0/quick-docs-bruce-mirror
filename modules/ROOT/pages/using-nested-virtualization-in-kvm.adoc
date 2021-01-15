@@ -1,8 +1,7 @@
 ifdef::context[:parent-context: {context}]
 :context: using-nested-virtiualization-in-kvm
+[id='using-nested-virtiualization-in-kvm']
 = How to enable nested virtualization in KVM
-
-include::{partialsdir}/unreviewed-message.adoc[]
 
 Learn how to run a virtual machine within a virtual machine.
 
@@ -16,7 +15,8 @@ include::{partialsdir}/proc_testing-nested-virtualization.adoc[leveloffset=+1]
 == Additional resources
 
 * https://bugzilla.redhat.com/show_bug.cgi?id=1055002
-* http://kashyapc.wordpress.com/2012/01/14/nested-virtualization-with-kvm-intel/
+* https://kashyapc.wordpress.com/2012/01/14/nested-virtualization-with-kvm-intel/
 * https://kashyapc.wordpress.com/2012/01/18/nested-virtualization-with-kvm-and-amd/
+
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
