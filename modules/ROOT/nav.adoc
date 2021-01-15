@@ -88,7 +88,7 @@
 //FIXME * xref:enable-touchpad-click.adoc[How to enable touchpad click]
 //FIXME * xref:mirroring.adoc[Mirroring]
 
-* xref:postgresql.adoc[PostgreSQL]
+
 //FIXME * xref:uefi-with-qemu.adoc[Using UEFI with QEMU]
 
 
@@ -97,6 +97,7 @@
 ** xref:publish-rpm-on-copr.adoc[Publishing your software on Copr]
 
 * Databases
+** xref:postgresql.adoc[PostgreSQL]
 ** xref:installing-mysql-mariadb.adoc[Installing, Configuring and Troubleshooting MySql/MariaDB]
 
 * FAQ
