@@ -76,12 +76,12 @@ $ sudo dnf install google-chrome-stable
 If you want to install the Chrome Dev Channel version, use the following command:
 
 ----
-# dnf install google-chrome-unstable
+$ sudo dnf install google-chrome-unstable
 ----
 
 If you want to install Chrome Beta use the following:
 
 ----
-# dnf install google-chrome-beta
+$ sudo dnf install google-chrome-beta
 ----
 ====
