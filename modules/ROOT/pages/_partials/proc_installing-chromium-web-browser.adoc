@@ -68,18 +68,18 @@ $ sudo dnf config-manager --set-enabled google-chrome
 . Finally, install Chrome:
 +
 ----
-$ sudo dnf install google-chrome
+$ sudo dnf install google-chrome-stable
 ----
 
 [NOTE]
 ====
-If you want to install unstable Google Chrome version, use the following command:
+If you want to install the Chrome Dev Channel version, use the following command:
 
 ----
 # dnf install google-chrome-unstable
 ----
 
-If you want to install stable Google Chrome version using the following command:
+If you want to install Chrome Beta use the following:
 
 ----
 # dnf install google-chrome-beta
