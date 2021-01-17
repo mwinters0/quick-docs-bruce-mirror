@@ -9,7 +9,7 @@ Both Chromium and Google Chrome can be installed on Fedora.
 
 Chromium can be installed using the Software application and via command line.
 
-.Installing Chromium using Software (GUI)
+=== Installing Chromium using Software (GUI)
 
 . Click on Software tool in Fedora.
 
@@ -17,7 +17,7 @@ Chromium can be installed using the Software application and via command line.
 
 . Click on Install.
 
-.Installing Chromium using Terminal
+=== Installing Chromium using Terminal
 
 . To install Chromium Web Browser, use the command:
 +
@@ -37,7 +37,7 @@ Chromium can be installed using the Software application and via command line.
 
 Chrome can be installed using Software or a terminal, once the repository is enabled.
 
-.Installing Chrome using Software (GUI)
+=== Installing Chrome using Software (GUI)
 
 . Open the *Software* application.
 
@@ -49,7 +49,7 @@ Chrome can be installed using Software or a terminal, once the repository is ena
 
 You can now search for *Google Chrome* in Software, and install it.
 
-.Installing Chrome using Terminal
+=== Installing Chrome using Terminal
 
 The additional repositories can also be managed using a terminal and DNF.
 
