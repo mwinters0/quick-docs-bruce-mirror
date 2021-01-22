@@ -48,11 +48,11 @@ Chrome can be installed using Software or a terminal, once the repository is ena
 . Click on the menu at the top right and select *Software Repositories*.
 
 . Make sure Third Party Repositories is enabled. If the button label is *Install*, then click that button to install the third party repositiories. If the button reads *Remove All* then the third party repositories are already installed.
-
++
 image:installing-chromium-or-google-chrome-browsers-0.png[]
-
++
 . Scroll down to find the repository called *google-chrome*. Click on it and choose *Enable*. 
-
++
 image:installing-chromium-or-google-chrome-browsers-1.png[]
 
 You can now search for *Google Chrome* in Software, and install it.
