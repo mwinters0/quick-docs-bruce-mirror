@@ -8,9 +8,7 @@ Fedora Workstation, in its out of the box configuration, only includes free and 
 [id='chromium']
 == Chromium
 
-Chromium is the upstream project for Google Chrome. Chromium is included in the Fedora Repositories.
-
-Fedora's Chromium package only contains free and open source software, so does not support H264, MP3, or AAC. If you require support for non-free multimedia software such as these, or to play DRM-protected media (such as Netflix, Spotify, etc.) it may be preferable to install Google Chrome rather than Chromium, as the necessary plug-ins are already built-in.
+Chromium is the upstream project for Google Chrome. Chromium is included in the Fedora Repositories. Fedora's Chromium package only contains free and open source software, so does not support H264, MP3, or AAC.
 
 [id='google-chrome']
 == Google Chrome

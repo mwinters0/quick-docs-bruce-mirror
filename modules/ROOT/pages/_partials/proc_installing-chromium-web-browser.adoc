@@ -31,6 +31,10 @@ Chromium can be installed using the Software application and via command line.
 # dnf upgrade chromium
 ----
 
+====
+TIP: 
+If you require support for non-free multimedia formats like H.264 or AAC, or the ability to play DRM-protected media such as Netflix, Spotify, etc. it may be preferable to install the *chromium-freeworld* package from the https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/[RPM Fusion] repositories, as the necessary plug-ins are already built-in.
+====
 
 [id='installing-chrome']
 == Installing Chrome
