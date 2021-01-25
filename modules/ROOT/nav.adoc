@@ -21,6 +21,7 @@
 ** xref:packagekit-not-found.adoc[PackageKit Items Not Found]
 ** xref:securing-the-system-by-keeping-it-up-to-date.adoc[Securing the system by keeping it up-to-date]
 ** xref:autoupdates.adoc[AutoUpdates]
+** xref:dnf-vs-apt.adoc[APT commands on Fedora]
 ** xref:installing-java.adoc[Installing Java]
 ** xref:assembly_installing-plugins-for-playing-movies-and-music.adoc[Installing plugins for playing movies and music]
 ** xref:openh264.adoc[OpenH264]
@@ -101,4 +102,4 @@
 
 * FAQ
 ** xref:fedora-and-red-hat-enterprise-linux.adoc[Difference between Fedora and Red Hat Enterprise Linux]
-** xref:dnf-vs-apt.adoc[APT commands on Fedora]
+
