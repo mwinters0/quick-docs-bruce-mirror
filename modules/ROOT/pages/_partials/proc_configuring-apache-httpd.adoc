@@ -14,13 +14,13 @@ It is recommended to create a new file in `/etc/httpd/conf.d/` which will take p
 After making any changes to your server configuration, execute the following command:
 
 ----
-# sudo systemctl reload httpd.service
+sudo systemctl reload httpd.service
 ----
 
 Certain changes may require Apache to be fully restarted. To fully restart Apache, execute the following command:
 
 ----
-# sudo systemctl restart httpd.service
+sudo systemctl restart httpd.service
 ----
 ====
 
@@ -99,13 +99,13 @@ To allow Apache through the firewall at each boot:
 * For plain HTTP connections:
 +
 ----
-# sudo firewall-cmd --permanent --add-service=http
+sudo firewall-cmd --permanent --add-service=http
 ----
 
 * For TLS/SSL connections:
 +
 ----
-# sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --permanent --add-service=https
 ----
 
 To allow Apache through the firewall instantly:
@@ -113,13 +113,13 @@ To allow Apache through the firewall instantly:
 * For plain HTTP connections:
 +
 ----
-# sudo firewall-cmd --add-service=http
+sudo firewall-cmd --add-service=http
 ----
 
 * For TLS/SSL connections:
 +
 ----
-# sudo firewall-cmd --add-service=https
+sudo firewall-cmd --add-service=https
 ----
 
 NOTE: If your server is running in a network with a NAT router, you will also need to configure your router to forward the HTTP and HTTPS ports to your server, if you wish to allow access from outside your local network.

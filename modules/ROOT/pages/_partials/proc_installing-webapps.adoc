@@ -14,7 +14,7 @@ They will also often have the default configuration tweaked according to Fedora'
 Most web applications are simply packaged according to their name. For instance, you can install Wordpress by executing the following command:
 
 ----
-# sudo dnf install wordpress
+sudo dnf install wordpress
 ----
 
 Packaged web applications will usually provide Fedora-specific instructions in a documentation file. For instance, Wordpress provides the files `/usr/share/doc/wordpress/README.fedora` and `/usr/share/doc/wordpress/README.fedora-multiuser`.

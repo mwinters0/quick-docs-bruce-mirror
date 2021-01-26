@@ -18,7 +18,7 @@ To enable TLS/SSL support, download and install one of the following packages:
 The https://apps.fedoraproject.org/packages/mod_ssl[mod_ssl] package will be automatically enabled post installation. Install the https://apps.fedoraproject.org/packages/mod_ssl[mod_ssl] package using the following command:
 
 ----
-# sudo dnf install mod_ssl -y
+sudo dnf install mod_ssl -y
 ----
 
 
@@ -37,8 +37,8 @@ If you already have a certificate generated on another computer, do the followin
 . Move the certificate and the key file to the correct folder
 +
 ----
-# sudo mv key_file.key /etc/pki/tls/private/myhost.com.key
-# sudo mv certificate.crt /etc/pki/tls/certs/myhost.com.crt
+sudo mv key_file.key /etc/pki/tls/private/myhost.com.key
+sudo mv certificate.crt /etc/pki/tls/certs/myhost.com.crt
 ----
 +
 . Ensure that the following parameters are correct:
@@ -46,22 +46,22 @@ If you already have a certificate generated on another computer, do the followin
 .. SELinux contexts
 +
 ----
-# restorecon /etc/pki/tls/private/myhost.com.key
-# restorecon /etc/pki/tls/certs/myhost.com.crt
+restorecon /etc/pki/tls/private/myhost.com.key
+restorecon /etc/pki/tls/certs/myhost.com.crt
 ----
 +
 .. Ownership
 +
 ----
-# sudo chown root.root /etc/pki/tls/private/myhost.com.key
-# sudo chown root.root /etc/pki/tls/certs/myhost.com.crt
+sudo chown root.root /etc/pki/tls/private/myhost.com.key
+sudo chown root.root /etc/pki/tls/certs/myhost.com.crt
 ----
 +
 .. Permissions
 +
 ----
-# sudo chmod 0600 /etc/pki/tls/private/myhost.com.key
-# sudo chmod 0600 /etc/pki/tls/certs/myhost.com.crt
+sudo chmod 0600 /etc/pki/tls/private/myhost.com.key
+sudo chmod 0600 /etc/pki/tls/certs/myhost.com.crt
 ----
 
 After installing the existing certificate, set up the certificate using <<mod_ssl configuration>>.

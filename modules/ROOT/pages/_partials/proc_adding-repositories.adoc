@@ -11,11 +11,11 @@ Use the following commands as the `root` user or under the `sudo` utility.
 +
 [literal,subs="+quotes,attributes"]
 ----
-# dnf config-manager --add-repo _repository_
+dnf config-manager --add-repo _repository_
 ----
 +
 Replace `_repository_` with the path to the created `.repo` file, for example:
 +
 ----
-# dnf config-manager --add-repo /etc/yum.repos.d/fedora_extras.repo
+dnf config-manager --add-repo /etc/yum.repos.d/fedora_extras.repo
 ----
