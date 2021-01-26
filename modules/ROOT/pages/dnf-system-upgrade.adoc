@@ -106,8 +106,14 @@ Once the install is complete enter:
 
 [source,bash]
 ----
-sudo rpmconf -a
+sudo rpmconf -a
 ----
+
+[NOTE]
+====
+Some third party software drop edited configuration files in `/etc/yum.repos.d/` and reverting these files to their original versions may disable updates for the software.
+Please remember to review configuration files in this directory carefully.
+====
 
 For more information you can refer to the man pages (`man rpmconf`).
 
@@ -123,7 +129,7 @@ You can see a list of packages with broken dependencies by typing:
 
 [source,bash]
 ----
-sudo dnf repoquery --unsatisfied
+sudo dnf repoquery --unsatisfied
 ----
 
 The list should be empty, but if this is not the case consider removing them as they are not likely to work.
@@ -132,7 +138,7 @@ You can see duplicate packages (packages with multiple versions installed) with:
 
 [source,bash]
 ----
-sudo dnf repoquery --duplicates
+sudo dnf repoquery --duplicates
 ----
 
 [NOTE]
@@ -148,7 +154,7 @@ To see a list of these packages do:
 
 [source,bash]
 ----
-sudo dnf list extras
+sudo dnf list extras
 ----
 
 If you see a package you do not need, or use, you can remove it with:
@@ -162,7 +168,7 @@ You can safely remove packages no longer in use with:
 
 [source,bash]
 ----
-sudo dnf autoremove
+sudo dnf autoremove
 ----
 
 [WARNING]
@@ -212,7 +218,7 @@ To rebuild the database, run:
 
 [source,bash]
 ----
-sudo rpm --rebuilddb
+sudo rpm --rebuilddb
 ----
 
 [[sect-using-distro-sync-to-resolve-dependency-issues]]
@@ -224,7 +230,7 @@ This will attempt to make your installed packages the same version in your curre
 
 [source,bash]
 ----
-sudo dnf distro-sync
+sudo dnf distro-sync
 ----
 
 You can also use the `--allowerasing` option will remove packages with dependencies that can not be satisfied.
@@ -232,7 +238,7 @@ Always review which packages will be removed before confirming this:
 
 [source,bash]
 ----
-sudo dnf distro-sync --allowerasing
+sudo dnf distro-sync --allowerasing
 ----
 
 [[sect-relabel-files-with-the-latest-selinux-policy]]
@@ -244,7 +250,7 @@ To relabel SELinux on the system, run the following command and then reboot:
 
 [source,bash]
 ----
-sudo fixfiles -B onboot
+sudo fixfiles -B onboot
 ----
 
 The boot process will likely take a long time, as it checks and fixes SELinux permission labels on all files in your system.

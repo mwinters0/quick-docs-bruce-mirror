@@ -6,7 +6,7 @@ The virtio-win RPM package contains the following files:
 * `/usr/share/virtio-win/*.iso` -  ISO CDROM containing all the drivers. 
 * `/usr/share/virtio-win/*.vfd` - VFD floppy images for using during install of Windows XP
 * `/usr/share/virtio-win/drivers` - Copy of the extracted VFD driver contents
-* `/usr/share/guest-agent/*.msi` - QEMU Guest Agent 32bit and 64bit MSI installers
+* `/usr/share/virtio-win/guest-agent/*.msi` - QEMU Guest Agent 32bit and 64bit MSI installers
 
 [[virtio-win-iso-contents]]
 == ISO contents

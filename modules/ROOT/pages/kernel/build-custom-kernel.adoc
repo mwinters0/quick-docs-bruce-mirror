@@ -114,33 +114,33 @@ The kernel, like any other Fedora package, has a branch per Fedora release.
 `f<version>`. For example, to build a Fedora 28 kernel, you would first need
 to check out that branch with:
 
-1. Check out the branch for which you would like to build a kernel (`master`
+. Check out the branch for which you would like to build a kernel (`master`
    corresponds to Rawhide):
++
+[source,bash]
+----
+git checkout origin/f28
+----
 
-    [source,bash]
-    ----
-    git checkout origin/f28
-    ----
-
-2. To avoid conflicts with existing kernels, you can set a custom buildid by
+. To avoid conflicts with existing kernels, you can set a custom buildid by
    changing `# define buildid .local` to `%define buildid .<your_custom_id_here>`
    in `kernel.spec`.
 
-3. Make whatever changes or customizations you need.
+. Make whatever changes or customizations you need.
 
-4. Build the RPMs:
+. Build the RPMs:
++
+[source,bash]
+----
+fedpkg local
+----
 
-    [source,bash]
-    ----
-    fedpkg local
-    ----
-
-5. Install the new kernel:
-
-    [source,bash]
-    ----
-    sudo dnf install --nogpgcheck ./x86_64/kernel-$version.rpm
-    ----
+. Install the new kernel:
++
+[source,bash]
+----
+sudo dnf install --nogpgcheck ./x86_64/kernel-$version.rpm
+----
 
 
 === Building a non-debugging kernel

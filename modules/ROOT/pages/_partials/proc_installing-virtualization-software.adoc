@@ -13,23 +13,18 @@ For existing Fedora installations, you can install the virtualization tools via 
 $ dnf groupinfo virtualization
 
 Group: Virtualization
-Group-Id: virtualization
-Description: These packages provide a virtualization environment.
-
-Mandatory Packages:
-   =virt-install
-
-Default Packages:
-   =libvirt-daemon-config-network
-   =libvirt-daemon-kvm
-   =qemu-kvm
-   =virt-manager
-   =virt-viewer
-
-Optional Packages:
-   guestfs-browser
+ Description: These packages provide a graphical virtualization environment.
+ Mandatory Packages:
+   virt-install
+ Default Packages:
+   libvirt-daemon-config-network
+   libvirt-daemon-kvm
+   qemu-kvm
+   virt-manager
+   virt-viewer
+ Optional Packages:
    libguestfs-tools
-   python-libguestfs
+   python3-libguestfs
    virt-top
 ----
 
@@ -37,28 +32,28 @@ Optional Packages:
 +
 [source,shell,subs="attributes"]
 ----
-# dnf install @virtualization
+# sudo dnf install @virtualization
 ----
 +
 Alternatively, to install the mandatory, default, and optional packages, run:
 +
 [source,shell,subs="attributes"]
 ----
-# dnf group install --with-optional virtualization
+# sudo dnf group install --with-optional virtualization
 ----
 +
 . After the packages install, start the `libvirtd` service:
 +
 [source,shell,subs="attributes"]
 ----
-# systemctl start libvirtd
+# sudo systemctl start libvirtd
 ----
 +
 To start the service on boot, run:
 +
 [source,shell,subs="attributes"]
 ----
-# systemctl enable libvirtd
+# sudo systemctl enable libvirtd
 ----
 +
 . To verify that the KVM kernel modules are properly loaded:
@@ -66,8 +61,8 @@ To start the service on boot, run:
 [source,shell,subs="attributes"]
 ----
 $ lsmod | grep kvm
-kvm_amd                55563  0
-kvm                   419458  1 kvm_amd
+kvm_amd               114688  0
+kvm                   831488  1 kvm_amd
 ----
 +
 If this command lists `kvm_intel` or `kvm_amd`, KVM is properly configured.

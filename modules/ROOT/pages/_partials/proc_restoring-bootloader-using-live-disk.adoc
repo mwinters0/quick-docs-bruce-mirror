@@ -1,9 +1,14 @@
 [[restoring-bootloader-using-live-disk]]
 = Restoring the bootloader using the Live disk.
 
-Sometimes, especially after a secondary operating systems has been installed, the master boot record gets damaged which then prevents the original Linux system from booting.
+Sometimes, especially after a secondary operating systems has been installed, 
+the master boot record gets damaged which then prevents the original Linux system
+from booting.
 
-If this happens, it is necessary to reinstall *GRUB2* to recreate the original settings. The process not only discovers all installed operating systems, but usually adds them to the *GRUB2* configuration files, so they will all become bootable by *GRUB2*.
+If this happens, it is necessary to reinstall *GRUB2* to recreate the original 
+settings. The process not only discovers all installed operating systems, but 
+usually adds them to the *GRUB2* configuration files, so they will all become 
+bootable by *GRUB2*.
 
 .Before you start
 
@@ -18,18 +23,22 @@ If this happens, it is necessary to reinstall *GRUB2* to recreate the original s
 . Open the terminal.
 
 . Examine the partition layout and identify the `boot` and the `root` partition.
-+
+
 ----
 # fdisk -l
 ----
-+
-If you are using the default Fedora layout, there will be one `/dev/sda1` partition that holds the `/boot` directory and one `/dev/mapper/fedora-root` that holds the root file system.
+
+== For Default Instalation in LVM.
 
 . Create the mount point for the root partition.
 +
 ----
 # mkdir -p /mnt/root
----- 
+----
+
+If you are using the default Fedora layout, there will be one `/dev/sda1`
+partition that holds the `/boot` directory and one `/dev/mapper/fedora-root`
+that holds the root file system.
 
 . Mount the root partition on the mount point.
 +
@@ -38,12 +47,33 @@ If you are using the default Fedora layout, there will be one `/dev/sda1` partit
 ----
 
 . Mount the boot partition in the `boot` directory of the filesystem that you have mounted in the previous step.
-+
+
 ----
 # mount /dev/sda1 /mnt/root/boot/
 ----
 
-. Mount system processes and devices into the root filesystem in `/mnt/root`.
+== For default Instalation in BTRF
+
+. Create the mount point for the root partition.
+
+----
+# mkdir -p /mnt/
+----
+
+If you are using the default Fedora layout, there will be one `/dev/sda1`
+partition that holds the `/boot` directory and one `/dev/sda2` that holds the root file system.
+
+----
+# mount /dev/sda2/ /mnt
+# mount /dev/sda1 /mnt/root/boot
+----
+
+IMPORTANT: Home Partition is mounted automatically under `/mnt/home`
+
+== Continue with the follow Procedure.
+
+. Mount system processes and devices into the root filesystem in 
+`/mnt/root`.
 +
 ----
 # mount -o bind /dev /mnt/root/dev
@@ -58,7 +88,8 @@ If you are using the default Fedora layout, there will be one `/dev/sda1` partit
 # chroot /mnt/root
 ----
 
-. Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
+. Regenerate the *GRUB2* configuration file and reinstall the bootloader 
+into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
 
 . Exit this temporary root filesystem.
 +
@@ -67,7 +98,7 @@ $ exit
 ----
 
 . Your bootloader should be now restored. Reboot your computer to boot into your normal system.
-+
+
 ----
 # systemctl reboot
 ----

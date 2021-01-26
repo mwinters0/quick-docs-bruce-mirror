@@ -13,5 +13,5 @@ Simply enter a selection number to choose which java executable should be used b
 * verify:
 
 ----
-java --Versions
+java --version
 ----
