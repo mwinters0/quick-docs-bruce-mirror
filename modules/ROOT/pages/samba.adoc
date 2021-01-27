@@ -12,13 +12,13 @@ This also sets the firewall to allow access to Samba from other
 computers.
 
 ....
-$ sudo dnf install samba
+sudo dnf install samba
 
-$ sudo systemctl enable smb --now
+sudo systemctl enable smb --now
 
-$ firewall-cmd --get-active-zones
-$ sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-service=samba
-$ sudo firewall-cmd --reload
+firewall-cmd --get-active-zones
+sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-service=samba
+sudo firewall-cmd --reload
 ....
 
 [[sharing_a_directory_inside_home]]
@@ -31,16 +31,16 @@ Samba does not use the operating system users for authentication, so your user a
 
 Create a user called `jane` in Samba:
 ....
-$ sudo smbpasswd -a jane
+sudo smbpasswd -a jane
 ....
 
 Create a directory to be the share for jane, and set the correct SELinux
 context:
 ....
-$ mkdir /home/jane/share
+mkdir /home/jane/share
 
-$ sudo semanage fcontext --add --type "samba_share_t" ~/share
-$ sudo restorecon -R ~/share
+sudo semanage fcontext --add --type "samba_share_t" ~/share
+sudo restorecon -R ~/share
 ....
 
 Samba configuration lives in the `/etc/samba/smb.conf` file. Adding the following section at the end of the file will instruct Samba to set up a share for jane called "share" at the `/home/jane/share` directory just created.
@@ -59,7 +59,7 @@ Samba configuration lives in the `/etc/samba/smb.conf` file. Adding the followin
 Restart Samba for the changes to take effect:
 
 ....
-$ sudo systemctl restart smb
+sudo systemctl restart smb
 ....
 
 [[sharing_a_directory_for_many_users]]
@@ -71,9 +71,9 @@ Remember that a Samba user must also be a system user, in order to
 respect filesystem permissions. This example creates a system group
 `myfamily` for two new users `jack` and `maria`.
 ....
-$ sudo groupadd myfamily
-$ sudo useradd  -G myfamily jack
-$ sudo useradd  -G myfamily maria
+sudo groupadd myfamily
+sudo useradd  -G myfamily jack
+sudo useradd  -G myfamily maria
 ....
 
 [TIP]
@@ -84,17 +84,17 @@ You could create these users without a system password. This would prevent acces
 Add `jack` and `maria` to Samba and create their passwords:
 
 ....
-$ sudo smbpasswd -a jack
-$ sudo smbpasswd -a maria
+sudo smbpasswd -a jack
+sudo smbpasswd -a maria
 ....
 
 Setting up the shared folder:
 ....
-$ sudo mkdir /home/share
-$ sudo chgrp myfamily /home/share
-$ sudo chmod 770 /home/share
-$ sudo semanage fcontext --add --type "samba_share_t" /home/share
-$ sudo restorecon -R /home/share
+sudo mkdir /home/share
+sudo chgrp myfamily /home/share
+sudo chmod 770 /home/share
+sudo semanage fcontext --add --type "samba_share_t" /home/share
+sudo restorecon -R /home/share
 ....
 
 Each share is described by its own section in the `/etc/samba/smb.conf`
@@ -125,7 +125,7 @@ allow all group users to read and write files created by other users.
 Restart Samba for the changes to take effect:
 
 ....
-$ sudo systemctl restart smb
+sudo systemctl restart smb
 ....
 
 [[managing_samba_users]]
@@ -140,20 +140,20 @@ Remember: the system user and Samba user passwords can be different. The system 
 ====
 
 ....
-$ sudo smbpasswd maria
+sudo smbpasswd maria
 ....
 
 [[remove_a_samba_user]]
 === Remove a samba user
 
 ....
-$ sudo smbpasswd -x maria
+sudo smbpasswd -x maria
 ....
 
 If you don't need the system user, remove it as well:
 
 ....
-$ sudo userdel -r maria
+sudo userdel -r maria
 ....
 
 [[troubleshooting_and_logs]]
@@ -162,7 +162,7 @@ $ sudo userdel -r maria
 Samba log files are located in `/var/log/samba/`
 
 ....
-$ tail -f /var/log/samba/log.smbd
+tail -f /var/log/samba/log.smbd
 ....
 
 You can increase the verbosity by adding this to the `[global]` section of
@@ -209,7 +209,7 @@ Samba user
 Find `maria` in the Samba database:
 +
 ....
-$ sudo pdbedit -L | grep maria
+sudo pdbedit -L | grep maria
 
 maria:1002:
 ....
@@ -217,7 +217,7 @@ maria:1002:
 Confirm that `maria` also exists as a system user.
 +
 ....
-$ cat /etc/passwd | grep maria
+cat /etc/passwd | grep maria
 
 maria:x:1002:1002::/home/maria:/bin/bash
 ....
@@ -225,7 +225,7 @@ maria:x:1002:1002::/home/maria:/bin/bash
 . Check if the shared directory has the correct SELinux context.
 +
 ....
-$ ls -dZ /home/share
+ls -dZ /home/share
 
 unconfined_u:object_r:samba_share_t:s0 /home/share
 ....
@@ -233,7 +233,7 @@ unconfined_u:object_r:samba_share_t:s0 /home/share
 . Check if the system user has access permission to the shared directory.
 +
 ....
-$ ls -ld /home/share 
+ls -ld /home/share 
 
 drwxrwx---. 2 root myfamily 4096 May 29 14:03 /home/share
 ....
@@ -282,7 +282,7 @@ In this example, the user should be in the `myfamily` group.
 . Check the share directory permissions.
 +
 ....
-$ ls -ld /home/share 
+ls -ld /home/share 
 
 drwxrwx---. 2 root myfamily 4096 May 29 14:03 /home/share
 ....
