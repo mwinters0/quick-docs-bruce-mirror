@@ -11,26 +11,26 @@ version than is packaged for Fedora, see http://yum.postgresql.org/[1].
 However, this is not recommended.
 
 ....
-$ sudo yum install postgresql-server postgresql-contrib
+sudo yum install postgresql-server postgresql-contrib
 ....
 
 Or with dnf in Fedora 22 and later versions:
 
 ....
-$ sudo dnf install postgresql-server postgresql-contrib
+sudo dnf install postgresql-server postgresql-contrib
 ....
 
 The postgresql server is turned off and disabled by default. You can
 enable its start during the boot using following command:
 
 ....
-$ sudo systemctl enable postgresql
+sudo systemctl enable postgresql
 ....
 
 You can start the postgresql server only when necessary as follows.
 
 ....
-$ sudo systemctl start postgresql 
+sudo systemctl start postgresql 
 Job for postgresql.service failed. See 'systemctl status postgresql.service' and 'journalctl -xn' for details.
 ....
 
@@ -38,7 +38,7 @@ The database needs to be populated with initial data after installation.
 The error log describes the problem and its solution.
 
 ....
-$ journalctl -xn
+journalctl -xn
 -- Logs begin at Mon 2013-11-04 14:38:33 CET, end at Thu 2013-11-14 11:45:56 CET. --
 Nov 14 11:45:34 mlich-lenovo.usersys.redhat.com sudo[2054]: jmlich : TTY=pts/2 ; PWD=/home/jmlich ; USER=root ; COMMAND=/bin/systemctl status postgresql
 Nov 14 11:45:37 mlich-lenovo.usersys.redhat.com sudo[2073]: jmlich : TTY=pts/2 ; PWD=/home/jmlich ; USER=root ; COMMAND=/bin/systemctl status postgresql
@@ -68,13 +68,13 @@ The database initialization could be done using following command. It
 creates the configuration files postgresql.conf and pg_hba.conf
 
 ....
-$ sudo postgresql-setup initdb
+sudo postgresql-setup initdb
 ....
 
 Or on Fedora 22 and later:
 
 ....
-$ sudo postgresql-setup --initdb --unit postgresql
+sudo postgresql-setup --initdb --unit postgresql
 ....
 
 [[upgrade]]
@@ -92,7 +92,7 @@ With version 9 you can use the upgrade tool. It is packaged as
 `postgresql-upgrade`:
 
 ....
-$ postgresql-setup upgrade
+postgresql-setup upgrade
 
 Redirecting to /bin/systemctl stop  postgresql.service
 Upgrading database: OK
@@ -125,16 +125,16 @@ PostgreSQL operates on port 5432 (or whatever else you set in your
 `postgresql.conf`). In firewalld you can open it like this:
 
 ....
-$ # make it last after reboot
-$ firewall-cmd --permanent --add-port=5432/tcp
-$ # change runtime configuration
-$ firewall-cmd --add-port=5432/tcp
+# make it last after reboot
+firewall-cmd --permanent --add-port=5432/tcp
+# change runtime configuration
+firewall-cmd --add-port=5432/tcp
 ....
 
 In the case of iptables:
 
 ....
-$ iptables -A INPUT -p tcp --dport 5432 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp --dport 5432 -m state --state NEW,ESTABLISHED -j ACCEPT
 ....
 
 Bear in mind that you probably don't want to open your database server
@@ -149,13 +149,13 @@ a location of your database, you have to add new context mapping for the
 new location:
 
 ....
-$ semanage fcontext -a -t postgresql_db_t "/my/new/location(/.*)?"
+semanage fcontext -a -t postgresql_db_t "/my/new/location(/.*)?"
 ....
 
 If the default port doesn't work for you, you may need to map postgre's port type to your desired port:
 
 ....
-$ semanage port -a -t postgresql_port_t -p tcp 5433
+semanage port -a -t postgresql_port_t -p tcp 5433
 ....
 
 If you install a webapp that wants to communicate with PostgreSQL via
@@ -163,7 +163,7 @@ TCP/IP, you will have to tell SELinux to allow this on the webserver
 host:
 
 ....
-# setsebool -P httpd_can_network_connect_db on
+setsebool -P httpd_can_network_connect_db on
 ....
 
 [[user-creation-and-database-creation]]
@@ -173,13 +173,13 @@ Eventually, you need to create a user (and database for the user).
 First, you have to switch the user to interact with `postgres`:
 
 ....
-# su - postgres
+su - postgres
 ....
 
 and then run postgre's interactive shell:
 
 ....
-$ psql
+psql
 psql (9.3.2)
 Type "help" for help.
 
@@ -196,8 +196,8 @@ postgres=# CREATE DATABASE carl OWNER lenny;
 You can do this from the system shell as well:
 
 ....
-$ createuser lenny
-$ createdb --owner=lenny carl
+createuser lenny
+createdb --owner=lenny carl
 ....
 
 It might be good idea to add password for the `postgres` user:
