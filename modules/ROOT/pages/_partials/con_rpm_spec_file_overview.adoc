@@ -6,13 +6,13 @@ Use this guide for information about the specific macros in a `.spec` file.
 NOTE: You can use the macros `%\{name}`, `%\{version}` and `%\{release}` to refer to the Name, Version and Release tags respectively. When you change the tag, the macros automatically update to use the new value.
 
 `Name`::
-Add the base name of the package, which must match the `.spec` file name. Follow the http://fedoraproject.org/wiki/Packaging:Naming[Package Naming Guidelines] and write the file name in lower-case letters. 
+Add the base name of the package, which must match the `.spec` file name. Follow the http://fedoraproject.org/wiki/Packaging:Naming[Package Naming Guidelines] and write the file name in lower-case letters.
 
 `Version`::
 Add the upstream version number. See https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/[Package Versioning]. If the version contains tags that are non-numeric, you might need to include the non-numeric characters in the `Release` tag. If upstream uses full dates to distinguish versions, consider using version numbers of the form. For example, `yy.mm[dd]` where `2008-05-01` becomes `8.05`.
 
 `Release`::
-Set the initial value to `1%\{?dist}`. Increment the number every time you release a new package for the same version of software. When a new upstream version is released, change the `Version` tag to match and reset the `Release` number to `1`. For more information, see the https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/[Versioning Guide] of the packaging guidelines. 
+Set the initial value to `1%\{?dist}`. Increment the number every time you release a new package for the same version of software. When a new upstream version is released, change the `Version` tag to match and reset the `Release` number to `1`. For more information, see the https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/[Versioning Guide] of the packaging guidelines.
 
 `Summary`::
 Enter a brief, one-line summary of the package. Use American English. Do not end with a period.
@@ -49,22 +49,22 @@ If you package files that are architecture-independent, for example shell script
 `BuildRoot`::
 This is now redundant in Fedora and is only needed for EPEL5. By default, the build root is placed in `%\{_topdir}/BUILDROOT/`.
 +
-In EPEL5, this is where files are installed during the %install process (after the %build process). 
+In EPEL5, this is where files are installed during the %install process (after the %build process).
 
 `BuildRequires`::
-Add a comma-separated list of packages that are required for compiling the program. Usually, this field is repeated on multiple lines. These dependencies are not automatically determined. You must include everything that the package needs to build the program. 
+Add a comma-separated list of packages that are required for compiling the program. Usually, this field is repeated on multiple lines. These dependencies are not automatically determined. You must include everything that the package needs to build the program.
 +
 Verify that you have specified all the necessary build requirements by performing a "mock build" of your package. You can specify a minimum version if necessary, for example, `ocaml >= 3.08`.
 +
-If you need the file `/EGGS`, determine the package that owns it by running `rpm -qf /EGGS`. 
+If you need the file `/EGGS`, determine the package that owns it by running `rpm -qf /EGGS`.
 +
-If you need the program `EGGS`, determine the package that owns it by running `rpm -qf \`which EGGS\``. Keep dependencies to a minimum. For example, use `sed` instead of `perl` if you do not need Perl, but note that some applications permanently disable functions if the associated dependency is not present; in those cases you might need to include the additional packages. 
+If you need the program `EGGS`, determine the package that owns it by running `rpm -qf \`which EGGS\``. Keep dependencies to a minimum. For example, use `sed` instead of `perl` if you do not need Perl, but note that some applications permanently disable functions if the associated dependency is not present; in those cases you might need to include the additional packages.
 
 `Requires`::
-Enter a comma-separate list of packages that are required when the program is installed. Note that the `BuildRequires` tag lists what is required to build the binary RPM, while the `Requires` tag lists what is required when installing and running the program; a package may be in one list or in both. 
+Enter a comma-separate list of packages that are required when the program is installed. Note that the `BuildRequires` tag lists what is required to build the binary RPM, while the `Requires` tag lists what is required when installing and running the program; a package may be in one list or in both.
 
 `%description`::
-Enter a longer, multi-line description of the program. Use American English. All lines must be 80 characters or less. Blank lines indicate a new paragraph. 
+Enter a longer, multi-line description of the program. Use American English. All lines must be 80 characters or less. Blank lines indicate a new paragraph.
 +
 Some graphical user interface installation programs reformat paragraphs; lines that start with whitespace might be treated as preformatted text and displayed as is, normally with a fixed-width font.
 
@@ -75,7 +75,7 @@ Add script commands to "prepare" the program. For example, to extract the progra
 Add script commands to compile the program and get it ready for installing. The program must come with instructions on how to do this.
 
 `%install`::
-Add script commands to "install" the program. The commands must copy the files from the `BUILD` directory `%\{_builddir}` into the buildroot directory, `%\{buildroot}`. 
+Add script commands to "install" the program. The commands must copy the files from the `BUILD` directory `%\{_builddir}` into the buildroot directory, `%\{buildroot}`.
 
 `%check`::
 Add script commands to "test" the program. This is run after the `%install` procedure, so place it there if you have this section. Often it contains `make test` or `make check`. This is separated from `%build` so that people can skip the self-test if they desire.
@@ -84,7 +84,7 @@ Add script commands to "test" the program. This is run after the `%install` proc
 Note that this section is now redundant in Fedora and is only necessary for EPEL. Typically this contains only the following command: `rm -rf %\{buildroot}`.
 
 `%files`::
-Add the list of files to be installed. 
+Add the list of files to be installed.
 
 `%changelog`::
 Add changes in the package. Use the format example above. Do not put software's change log here. This change log is only for the RPM.
@@ -97,9 +97,9 @@ RPM also supports the creation of several packages called subpackages from a sin
 Do *not* create a "relocatable" package; they do not add value in Fedora and make things more complicated.
 
 
-.Inserting comments 
+.Inserting comments
 
-* Insert comments with a leading `#` character, and beware of macros (beginning with `%`) that are potentially multi-line, as they are expanded first. 
+* Insert comments with a leading `#` character, and beware of macros (beginning with `%`) that are potentially multi-line, as they are expanded first.
 
 * When commenting out a line, double the percent signs (`%%`) of the macros appearing after the `#`.
 

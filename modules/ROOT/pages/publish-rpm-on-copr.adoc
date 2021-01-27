@@ -29,7 +29,7 @@ The program and all files referenced in this guide can be found in the link:http
 user@host ~/copr-tito-quickdoc % ls
 doc  LICENSE  README.md  requirements.txt  setup.py  src
 
-user@host ~/copr-tito-quickdoc % ls src/hellocopr 
+user@host ~/copr-tito-quickdoc % ls src/hellocopr
 colors.py  hellocopr.py  __init__.py
 ```
 +
@@ -45,9 +45,9 @@ TIP: You can follow along with this tutorial by cloning or forking the repositor
 
 Copy link:https://pagure.io/copr-tito-quickdoc/c/00963ac9339a13eefd2ab1ca42b1f72af12d3cac?branch=master[the spec file] into the project's base directory. A few changes should be made before proceeding:
 
-. The values of `Version:` and `Release:` do not matter, since these will be managed by tito. It makes sense to set them to `Version: 0.0.0` and `Release: 0%{?dist}` to mark that this package hasn't been built yet.
+. The values of `Version:` and `Release:` do not matter, since these will be managed by tito. It makes sense to set them to `Version: 0.0.0` and `Release: 0%\{?dist}` to mark that this package hasn't been built yet.
 
-. tito will also handle the creation of the source tarball from the git repository, so change the `Source0:` URL to the filename `%{name}-%{version}.tar.gz` & add a comment to tell users how to get the tarball
+. tito will also handle the creation of the source tarball from the git repository, so change the `Source0:` URL to the filename `%\{name}-%\{version}.tar.gz` & add a comment to tell users how to get the tarball
 
 . The changelog can be left empty.
 +
@@ -55,14 +55,14 @@ Copy link:https://pagure.io/copr-tito-quickdoc/c/00963ac9339a13eefd2ab1ca42b1f72
 user@host ~/copr-tito-quickdoc % cat hellocopr.spec
 ...
 Version: 0.0.0
-Release: 0%{?dist}
-...	
+Release: 0%\{?dist}
+...
 # Sources can be obtained by
 # git clone https://pagure.io/copr-tito-quickdoc
 # cd copr-tito-quickdoc
 # tito build --tgz
-Source0: %{name}-%{version}.tar.gz
-...	
+Source0: %\{name}-%\{version}.tar.gz
+...
 %changelog
 ```
 
@@ -96,7 +96,7 @@ Wrote: /tmp/tito/hellocopr-git-11.7a6919d.tar.gz
 
 Successfully built: /tmp/tito/hellocopr-0.0.0-0.git.11.7a6919d.fc32.src.rpm
 	- /tmp/tito/noarch/hellocopr-0.0.0-0.git.11.7a6919d.fc32.noarch.rpm
-``` 
+```
 
 Once we've fixed any issues with the package that might crop up, we can let tito create a package release using `tito tag`. Since we haven't set a proper version yet, we need to pass it to tito for the first tag:
 
@@ -143,7 +143,7 @@ Push to the commits & tags to the remote using `git push --follow-tags`, and we'
 .. Under _2. How to build SRPM from the source_ select _tito_
 
 .. Under _3. Generic package setup_ tick the box for _Auto-rebuild_
-  
+
 . Your package will appear in the list of packages. Hit _Rebuild_ to trigger a build. The following page lets you change any build options if necessary, we'll just use the defaults, i.e. the options we set in the previous step. Hit _Submit_ and Copr will build the package from the tito tag we created in Step 1.
 
 Once the build has finished, you can test installing the package from Copr by activating your repository.
@@ -167,7 +167,7 @@ Currently, the example program has its version hardcoded at multiple places. lin
 
 Commit the changes, and create a new release with tito
 ```
-user@host ~/copr-tito-quickdoc % tito tag                                  
+user@host ~/copr-tito-quickdoc % tito tag
 Creating output directory: /tmp/tito
 Tagging new version of hellocopr: 1.0.0-1 -> 1.0.1-1
 Created tag: hellocopr-1.0.1-1
@@ -241,7 +241,7 @@ To do so, the following changes need to be made to the procedure described above
 
 . Instead of the unpacked sources, download & commit the source tarball you want to package to your repository
 . Instead of modifying the source directly, add any changes you need to make in the form of patch files. List these as `PatchX:` in the spec file
-. Also in the spec file, set the `Version:` back to whatever version the program is at and `Source0:` back to the tarball URL. You can use macros like `%{version}` for the latter to automatically follow version changes.
+. Also in the spec file, set the `Version:` back to whatever version the program is at and `Source0:` back to the tarball URL. You can use macros like `%\{version}` for the latter to automatically follow version changes.
 . Modify tito's `.tito/tito.props` to, one, not try to build a source tarball and two, bump the `Release:` instead of the `Version:` when tagging
 +
 ```
@@ -252,6 +252,6 @@ tagger = tito.tagger.ReleaseTagger
 +
 . Don't do any tito templating
 
-The rest of the procedure stays the same. If you make changes to the package without changing the source, you can just tag a new release with tito. If you do update the source tarball, you need to update the `Version:` field and reset `Release:` to `0%{?dist}` before tagging.
+The rest of the procedure stays the same. If you make changes to the package without changing the source, you can just tag a new release with tito. If you do update the source tarball, you need to update the `Version:` field and reset `Release:` to `0%\{?dist}` before tagging.
 
 TIP: The tarball-adapted version of the project can be found in the `https://pagure.io/copr-tito-quickdoc/tree/foreign-sources[foreign-sources]` branch of the git repo.
