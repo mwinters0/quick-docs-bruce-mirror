@@ -3,8 +3,6 @@ ifdef::context[:parent-context: {context}]
 [id='getting-started-with-apache-http-server']
 = Getting started with Apache HTTP Server
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 The Apache HTTP Server is one of the most commonly-used web servers. This section acts as a quick-start guide to deploying and configuring Apache on Fedora.
 
 include::{partialsdir}/proc_installing-httpd.adoc[leveloffset=+1]

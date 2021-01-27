@@ -6,13 +6,13 @@ This procedure describes the steps to install Apache *HTTPD* on Fedora.
 . Install *HTTPD* packages.
 +
 ----
-# dnf install httpd -y
+sudo dnf install httpd -y
 ----
 
 . Start the *HTTPD* service.
 +
 ----
-# systemctl start httpd.service
+sudo systemctl start httpd.service
 ----
 
 [NOTE]
@@ -20,7 +20,7 @@ This procedure describes the steps to install Apache *HTTPD* on Fedora.
 To enable auto start of *HTTPD* service at boot, execute the following command:
 
 ----
-# systemctl enable httpd.service
+sudo systemctl enable httpd.service
 ----
 ====
 
