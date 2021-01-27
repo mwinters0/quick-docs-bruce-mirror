@@ -13,9 +13,7 @@ computers.
 
 ....
 sudo dnf install samba
-
 sudo systemctl enable smb --now
-
 firewall-cmd --get-active-zones
 sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-service=samba
 sudo firewall-cmd --reload
@@ -38,7 +36,6 @@ Create a directory to be the share for jane, and set the correct SELinux
 context:
 ....
 mkdir /home/jane/share
-
 sudo semanage fcontext --add --type "samba_share_t" ~/share
 sudo restorecon -R ~/share
 ....
