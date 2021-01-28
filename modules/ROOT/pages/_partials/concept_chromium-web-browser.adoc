@@ -1,16 +1,16 @@
-[id='chromium-web-browser']
+[id='chromium-and-google-chrome']
 = Chromium and Google Chrome web browsers
 
-Google Chrome is a popular web browser developed by Google. Chrome is built on top of the open source browser, Chromium.
-
-Fedora Workstation, in its out of the box configuration, only includes free and open source software. Mozilla Firefox is the browser included by default. However, it easy to install either Google Chrome or Chromium if preferred.
+Fedora Workstation, in its out of the box configuration, only includes free and open source software. **Mozilla Firefox** is the browser included in Fedora Workstation by default. However, it easy to install either **Google Chrome** or **Chromium**, if preferred.
 
 [id='chromium']
 == Chromium
 
-Chromium is the upstream project for Google Chrome. Chromium is included in the Fedora Repositories. Fedora's Chromium package only contains free and open source software, so does not support H264, MP3, or AAC.
+**Chromium** is the upstream project for Google Chrome. Chromium is included in the Fedora Repositories. Fedora's Chromium package only contains free and open source software, so does not include several features of Google Chrome that rely on proprietary software.
 
 [id='google-chrome']
 == Google Chrome
 
-Google Chrome is available in Fedora Workstation via a curated third-party repository. Once this repository is enabled, Chrome can be installed via Software or via the command line.
+**Google Chrome** is a popular web browser developed by Google. Chrome is built on top of the open-source browser project, Chromium. Chrome includes additional features such as support for proprietary media files (such as H.264 or AAC) and playback of rights-protected media (Netflix, etc.) Chrome also includes support for other Google services such as browser sync and location services, which are not supported by Chromium.
+
+Google Chrome is available in Fedora Workstation via a curated third-party repository. Once this repository is enabled, Chrome can be installed via Software or the command line.
