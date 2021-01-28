@@ -18,7 +18,7 @@ To get help on how to make a new partition, type: `help mkpart`.
   mkpart PART-TYPE [FS-TYPE] START END     make a partition
 
         PART-TYPE is one of: primary, logical, extended
-        FS-TYPE is one of: btrfs, nilfs2, ext4, ext3, ext2, fat32, fat16, hfsx, hfs+, hfs, jfs, swsusp,
+        FS-TYPE is one of: udf, btrfs, nilfs2, ext4, ext3, ext2, fat32, fat16, hfsx, hfs+, hfs, jfs, swsusp,
         linux-swap(v1), linux-swap(v0), ntfs, reiserfs, hp-ufs, sun-ufs, xfs, apfs2, apfs1, asfs, amufs5,
         amufs4, amufs3, amufs2, amufs1, amufs0, amufs, affs7, affs6, affs5, affs4, affs3, affs2, affs1,
         affs0, linux-swap, linux-swap(new), linux-swap(old)
@@ -31,7 +31,7 @@ To get help on how to make a new partition, type: `help mkpart`.
 
 [NOTE]
 ====
-* Filesystem type (fstype) will not create an ext4 filesystem on /dev/vdc1. 
+* Setting filesystem type (`FS-TYPE`) will not create an ext4 filesystem on /dev/vdc1. You still have to create the ext4 filesystem with `mkfs.ext4`.
 * A DOS partition table's partition types are primary, logical, and extended. 
 * Providing a partition name under GPT is a must. In a GPT partition table, the partition type is used as the partition name.
 ====
