@@ -11,6 +11,7 @@ For Fedora Workstation, using the default GNOME desktop, open the Settings appli
 image::changing-hostname-1.png[GNOME Settings - About]
 
 You can replace the value in the Device name field with the name of your choosing. The effect of this field is as follows:
+
 * If you use a name that is shorter, contains only lowercase letters, numbers and/or dashes ("-"), this will set the host's static name, and the pretty name will be left blank.
 * If you enter a name that is more descriptive, contains mixed-case and other types of characters, this will set the pretty name, and a static name will be derived from that automatically.
 
