@@ -15,6 +15,7 @@ You can replace the value in the Device name field with the name of your choosin
 * If you enter a name that is more descriptive, contains mixed-case and other types of characters, this will set the pretty name, and a static name will be derived from that automatically.
 
 You can see the effect of the change by running the `hostnamectl status` command again:
+
 ```
    Static hostname: emilys-2nd-dev-laptop
    Pretty hostname: Emily's 2nd dev laptop
@@ -26,13 +27,13 @@ You can see the effect of the change by running the `hostnamectl status` command
        CPE OS Name: cpe:/o:fedoraproject:fedora:33
             Kernel: Linux 5.10.10-200.fc33.x86_64
       Architecture: x86-64
-````
+```
+
 In the above example, "Emily's 2nd dev laptop" was entered via the Settings app, and the static hostname "emilys-2nd-dev-laptop" was set automatically.
 
-The hostnames can also be set via the `hostnamectl` command. For example:
+Hostnames can also be set at the command line with the `hostnamectl set-hostname` command. For example:
+
 ```
 sudo hostnamectl set-hostname --pretty "Emily's 2nd dev laptop"
 sudo hostnamectl set-hostname --static emily-dev-2
 ```
-
-

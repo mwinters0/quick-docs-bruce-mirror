@@ -12,9 +12,9 @@ There are three variations of a hostname in a Fedora system:
 . An optional **pretty** name can be longer and more descriptive, like "Emily's 2nd dev laptop".
 . A **transient** name is assigned by the network. It is probably going to be the same as the static name, unless there are multiple hosts with the same static name on the local network. For example, if there are two hosts both with static name `localhost`, one machine may be assigned a transient name of `localhost-1`.
 
-include::{partialsdir}/proc_displaying-current-hostname.adoc[leveloffset=+1]
+include::{partialsdir}/proc_displaying-current-hostname.adoc[leveloffset=0]
 
-include::{partialsdir}/proc_changing-the-hostname.adoc[leveloffset=+1]
+include::{partialsdir}/proc_changing-the-hostname.adoc[leveloffset=0]
 
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
