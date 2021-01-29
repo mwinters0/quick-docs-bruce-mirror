@@ -6,13 +6,11 @@ include::{partialsdir}/attributes.adoc[]
 [id='securing-the-system-by-keeping-it-up-to-date']
 = Securing the system by keeping it up-to-date
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 This section explains:
 
-* Why it is important to update your system regularly (xref:securing-the-system-by-keeping-it-up-to-date.adoc#why-it-is-important-to-keep-your-system-up-to-date[Why it is important to keep your system up-to-date])
-* How to apply updates manually by using GUI or CLI (xref:securing-the-system-by-keeping-it-up-to-date.adoc#manual-updating-using-cli[Manual updating using CLI])
-* How to enable automatic updates (xref:securing-the-system-by-keeping-it-up-to-date.adoc#setting-automatic-updates[Setting automatic updates])
+* xref:securing-the-system-by-keeping-it-up-to-date.adoc#why-it-is-important-to-keep-your-system-up-to-date[Why it is important to update your system regularly]
+* How to apply updates manually by using the xref:securing-the-system-by-keeping-it-up-to-date.adoc#manual-updating-using-gui[GUI] or xref:securing-the-system-by-keeping-it-up-to-date.adoc#manual-updating-using-cli[CLI]
+* xref:securing-the-system-by-keeping-it-up-to-date.adoc#setting-automatic-updates[How to enable automatic updates]
 
 include::{partialsdir}/con_why-it-is-important-keeping-your-system-up-to-date.adoc[leveloffset=+1]
 

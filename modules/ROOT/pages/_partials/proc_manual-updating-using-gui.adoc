@@ -8,8 +8,10 @@ This section describes how to manually download and install new updates by using
 
 . Hover the cursor over the upper-left corner of the screen and type "Software" and select the Software application to open it.
 
-. Click the btn:[Updates] button.
+. Click the btn:[Updates] button to view the available updates.
 
-. After the updates are downloaded click the btn:[Restart & Update] button.
+. Click the btn:[Download] button to download new updates.
+
+. After the updates are downloaded click the btn:[Restart & Update] button. Your system will restart to perform the upgrade.
 
 image::software-updates.png[Updating by using the Software application]
