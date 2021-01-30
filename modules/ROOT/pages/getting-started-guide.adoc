@@ -94,8 +94,8 @@ In addition to playing audio file formats, Rhythmbox is also used for streaming 
 
 === Productivity tools
 
-The office suite included by default in Fedora is **OpenOffice.org**, a well-known and mature collection of software.
-OpenOffice.org, or OO.org, includes a word processor (**Write**), a spreadsheet program (**Calc**), and presentation software (**Impress**).
+The office suite included by default in Fedora is **LibreOffice**, a well-known and mature collection of software.
+LibreOffice, includes a word processor (**Write**), a spreadsheet program (**Calc**), and presentation software (**Impress**).
 A simple image editing package (**Draw**) and a relational database (**Base**) are also available for optional installation.
 
 == Moving further
