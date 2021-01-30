@@ -12,9 +12,9 @@ image::displaying-current-hostname-1.png[GNOME Settings - About]
 
 To see the hostname from the command line, use the command `hostnamectl` with no options. The output below shows the static and pretty hostnames:
 
-```
-   Static hostname: emilys-2nd-dev-laptop
-   Pretty hostname: Emily's 2nd dev laptop
+....
+   Static hostname: localhost.localdomain 
+Transient hostname: fedora
          Icon name: computer-laptop
            Chassis: laptop
         Machine ID: 15fc9e69d007013025f31bc5272c4ed1
@@ -23,6 +23,6 @@ To see the hostname from the command line, use the command `hostnamectl` with no
        CPE OS Name: cpe:/o:fedoraproject:fedora:33
             Kernel: Linux 5.10.10-200.fc33.x86_64
       Architecture: x86-64
-```
+....
 
 To see the current transient hostname, you can use the command `hostnamectl --transient`. In many cases this will simply be the static name, unless a naming collision with another host has forced a change.
