@@ -30,6 +30,7 @@
 ** xref:installing-skype.adoc[Installing Skype on Fedora]
 
 * Usage and customisation
+** xref:changing-hostname.adoc[Changing hostname]
 ** xref:switching-desktop-environments.adoc[Switching desktop environments]
 ** xref:configuring-x-window-system-using-the-xorg-conf-file.adoc[Configuring X Window System using the xorg.conf file]
 ** xref:configuring-xorg-as-default-gnome-session.adoc[Configuring Xorg as the default GNOME session]
