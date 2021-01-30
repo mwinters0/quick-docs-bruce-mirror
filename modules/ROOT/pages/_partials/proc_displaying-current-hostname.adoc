@@ -10,7 +10,7 @@ For Fedora Workstation, using the default GNOME desktop,  open the Settings appl
 
 image::displaying-current-hostname-1.png[GNOME Settings - About]
 
-To see the hostname from the command line, use the command `hostnamectl` with no options. The output below shows the static and pretty hostnames:
+To see the hostname from the command line, use the command `hostnamectl` with no options. The example output below shows the static and transient hostnames. Your output may be slightly different depending on which hostname types have been set.
 
 ....
    Static hostname: localhost.localdomain 
@@ -25,4 +25,10 @@ Transient hostname: fedora
       Architecture: x86-64
 ....
 
-To see the current transient hostname, you can use the command `hostnamectl --transient`. In many cases this will simply be the static name, unless a naming collision with another host has forced a change.
+To see the current static, transient or pretty hostname, you can use the `hostnamectl` command with options, such as: 
+
+```
+hostnamectl --static
+hostnamectl --transient
+hostnamectl --pretty
+```
