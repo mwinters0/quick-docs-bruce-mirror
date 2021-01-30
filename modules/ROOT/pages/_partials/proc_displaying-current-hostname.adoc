@@ -27,8 +27,8 @@ Transient hostname: fedora
 
 To see the current static, transient or pretty hostname, you can use the `hostnamectl` command with options, such as: 
 
-```
+....
 hostnamectl --static
 hostnamectl --transient
 hostnamectl --pretty
-```
+....
