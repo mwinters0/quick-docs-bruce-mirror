@@ -8,7 +8,7 @@
 
 For Fedora Workstation, using the default GNOME desktop,  open the Settings application and choose About.
 
-image::changing-hostname-1.png[GNOME Settings - About]
+image::displaying-current-hostname-1.png[GNOME Settings - About]
 
 To see the hostname from the command line, use the command `hostnamectl` with no options. The output below shows the static and pretty hostnames:
 

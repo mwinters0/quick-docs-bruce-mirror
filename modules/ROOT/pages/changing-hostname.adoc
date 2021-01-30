@@ -5,7 +5,7 @@ ifdef::context[:parent-context: {context}]
 [[changing-hostname]]
 = Changing Hostname
 
-A new installation of Fedora will assign a default hostname of `localhost`. You may wish to set a different name for easier identification of your host(s).
+A new installation of Fedora will assign a default hostname. You may wish to set a different name for easier identification of your host(s) on a network.
 
 There are three variations of a hostname in a Fedora system:
 
