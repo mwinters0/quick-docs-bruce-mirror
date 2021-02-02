@@ -21,7 +21,7 @@ There are a few terms that are commonly used in this document:
   These are referred to as "package maintainers".
   They keep track of bugs, help with issues, and generally act as middlemen between the developers of the software and Fedora users.
 * *QA*: Quality assurance is the process of ensuring that the software works as intended.
-* *Bodhi*: The http://bodhi.fedoraproject.org[Fedora QA Web Application].
+* *Bodhi*: The https://bodhi.fedoraproject.org[Fedora QA Web Application].
 
 
 == Before filing a bug

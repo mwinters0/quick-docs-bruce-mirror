@@ -30,7 +30,7 @@ otherwise inherent in automatic updates.
 You can use a service to automatically download and install any new
 updates (for example security updates).
 
-The http://dnf.readthedocs.org/en/latest/automatic.html[dnf-automatic]
+The https://dnf.readthedocs.org/en/latest/automatic.html[dnf-automatic]
 RPM package as a link:dnf[DNF] component provides a service which is
 started automatically.
 
@@ -53,7 +53,7 @@ env EDITOR='gedit -w' sudoedit /etc/dnf/automatic.conf
 ----
 
 Detailed description of dnf-automatic settings is provided on
-http://dnf.readthedocs.org/en/latest/automatic.html[dnf-automatic] page.
+https://dnf.readthedocs.org/en/latest/automatic.html[dnf-automatic] page.
 
 [[run-dnf-automatic]]
 === Run dnf-automatic

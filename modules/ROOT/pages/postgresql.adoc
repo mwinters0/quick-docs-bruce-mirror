@@ -7,7 +7,7 @@ The installation and initialization of the postgresql server is a little
 bit different in comparison to other packages and other linux distros.
 This document aims to summarize basic installation steps relevant to
 recent fedora release. In the first place, you may consider installing a newer
-version than is packaged for Fedora, see http://yum.postgresql.org/[1].
+version than is packaged for Fedora, see https://yum.postgresql.org/[1].
 However, this is not recommended.
 
 ....
@@ -46,7 +46,7 @@ Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com sudo[2105]: jmlich : TTY=
 Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com systemd[1]: Starting PostgreSQL database server...
 -- Subject: Unit postgresql.service has begun with start-up
 -- Defined-By: systemd
-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel[http://lists.freedesktop.org/mailman/listinfo/systemd-devel]
+- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
 --
 -- Unit postgresql.service has begun starting up.
 Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: An old version of the database format was found.
@@ -56,8 +56,8 @@ Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com systemd[1]: postgresql.serv
 Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com systemd[1]: Failed to start PostgreSQL database server.
 -- Subject: Unit postgresql.service has failed
 -- Defined-By: systemd
--- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel[http://lists.freedesktop.org/mailman/listinfo/systemd-devel]
--- Documentation: `http://www.freedesktop.org/wiki/Software/systemd/catalog/be02cf6855d2428ba40df7e9d022f03d[`http://www.freedesktop.org/wiki/Software/systemd/catalog/be02cf6855d2428ba40df7e9d022f03d]
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+-- Documentation: `http://www.freedesktop.org/wiki/Software/systemd/catalog/be02cf6855d2428ba40df7e9d022f03d
 --
 -- Unit postgresql.service has failed.
 --

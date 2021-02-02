@@ -9,7 +9,7 @@ Introduction
 ~~~~~~~~~~~~
 
 Fedora is a distribution that uses a package management system. This
-system is based on http://rpm.org[rpm] , the RPM Package Manager, with
+system is based on https://rpm.org[rpm] , the RPM Package Manager, with
 several higher level tools built on top of it, most notably
 https://www.freedesktop.org/software/PackageKit/[PackageKit] (default
 gui) and Yum (command line tool). As of Fedora 22, yum has
@@ -105,7 +105,7 @@ xref:dnf.adoc[dnf] - Dandified Yum
 https://www.freedesktop.org/software/PackageKit/[PackageKit] -
 PackageKit gui tool ('add/remove software' in your menu)
 
-http://rpm.org[rpm] - RPM package manager.
+https://rpm.org[rpm] - RPM package manager.
 
 http://ww1.yum-extender.org/[yumex] - Yum Extender.
 

@@ -46,7 +46,7 @@ interfaces.,title="Trusted interfaces.",width=700]
 
 The masquerading menu lets you select an interface to be masqueraded.
 Masquerading is better known as
-*http://en.wikipedia.org/wiki/Network_address_translation[NAT]* (Network
+*https://en.wikipedia.org/wiki/Network_address_translation[NAT]* (Network
 Address Translation). It is useful, to setup your computer as a gateway
 between different networks:
 
@@ -54,7 +54,7 @@ image:Firewall_TUI_masquerading.PNG[Firewall TUI interface :
 masquerading.,title="Firewall TUI interface : masquerading.",width=700]
 
 Port forwarding, also known as
-*http://en.wikipedia.org/wiki/Network_address_translation#Port_address_translation[PAT]*
+*https://en.wikipedia.org/wiki/Network_address_translation#Port_address_translation[PAT]*
 (Port Address Translation), permits traffic from one port to be "rerouted" to
 another port.
 

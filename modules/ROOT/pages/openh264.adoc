@@ -2,7 +2,7 @@
 
 
 This page contains information on the Cisco
-http://www.openh264.org/[OpenH264] codec.
+https://www.openh264.org/[OpenH264] codec.
 
 [[background]]
 Background
@@ -16,7 +16,7 @@ playback, only WebRTC (see link:https://bugzilla.mozilla.org/show_bug.cgi?id=105
 
 The code source is available at https://github.com/cisco/openh264 under
 a BSD license. The binary is released under this agreement from Cisco:
-http://www.openh264.org/BINARY_LICENSE.txt
+https://www.openh264.org/BINARY_LICENSE.txt
 
 Upstream Firefox versions download and install the OpenH264 plugin by
 default automatically. Due to it's binary nature, Fedora disables this
@@ -55,14 +55,14 @@ _Require H.264 video_).
 Manual install of binary
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-* View and agree to the http://www.openh264.org/BINARY_LICENSE.txt
+* View and agree to the https://www.openh264.org/BINARY_LICENSE.txt
 * Download the appropriate binary for your system here:
   https://github.com/cisco/openh264/releases
 
 Example installation for version 1.1:
 
 ....
-wget http://ciscobinary.openh264.org/openh264-linux64-v1.1-Firefox33.zip[http://ciscobinary.openh264.org/openh264-linux64-v1.1-Firefox33.zip] +
+wget http://ciscobinary.openh264.org/openh264-linux64-v1.1-Firefox33.zip +
 mkdir -p ~/.mozilla/firefox/<yourprofile>/gmp-gmpopenh264/1.1/ +
 cd ~/.mozilla/firefox/<yourprofile>/gmp-gmpopenh264/1.1/ +
 unzip ~/openh264-linux64-v1.1-Firefox33.zip

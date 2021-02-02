@@ -4,7 +4,7 @@
 There are a number of third-party software repositories for Fedora. They have more liberal licensing policies and provide software packages that Fedora excludes for various reasons. These software repositories are not officially affiliated or endorsed by the Fedora Project. Use them at your own discretion. For complete list, see https://rpmfusion.org/FedoraThirdPartyRepos[FedoraThirdPartyRepos]
 The following repositories are commonly used by end users and do not conflict with each other:
 
-* http://rpmfusion.org
+* https://rpmfusion.org
 
 * rpm.livna.org (Obsoleted! Replaced by RPM Fusion free tainted)
 

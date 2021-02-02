@@ -45,8 +45,8 @@ For Java in Fedora, see:
 For more information about Java in general, see:
 
 * link:https://en.wikipedia.org/wiki/Java_(programming_language)[Wikipedia page for Java]
-* link:http://openjdk.java.net/[OpenJDK homepage]
-* link:http://oracle.com/java/[Oracle homepage for Java]
+* link:https://openjdk.java.net/[OpenJDK homepage]
+* link:https://oracle.com/java/[Oracle homepage for Java]
 
 To develop Java applications, consider the following open-source IDEs:
 

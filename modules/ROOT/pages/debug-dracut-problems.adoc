@@ -261,7 +261,7 @@ Set udev to loglevel info
 Set udev to loglevel debug
 
 See the `dracut.cmdline(7)`
-http://man7.org/linux/man-pages/man7/dracut.cmdline.7.html[man page] for
+https://man7.org/linux/man-pages/man7/dracut.cmdline.7.html[man page] for
 the complete reference.
 
 Category:Debugging[D] Category:How_to[Category:How to]

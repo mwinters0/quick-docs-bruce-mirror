@@ -45,7 +45,7 @@ Other common DNF commands include:
 
 * `exclude` - exclude a package from the transaction.
 
-For more DNF commands refer to the man pages by typing `man dnf` at the command-line, or link:http://dnf.readthedocs.io/en/latest/command_ref.html[DNF Read The Docs]
+For more DNF commands refer to the man pages by typing `man dnf` at the command-line, or link:https://dnf.readthedocs.io/en/latest/command_ref.html[DNF Read The Docs]
 
 [[sect-automatic-updates]]
 == Automatic Updates
@@ -53,7 +53,7 @@ For more DNF commands refer to the man pages by typing `man dnf` at the command-
 The `dnf-automatic` package is a component that allows automatic download and installation of updates.
 It can automatically monitor and report, via e-mail, the availability of updates or send a log about downloaded packages and installed updates.
 
-For more information, refer to the link:http://dnf.readthedocs.org/en/latest/automatic.html[Read the Docs: DNF-Automatic] page.
+For more information, refer to the link:https://dnf.readthedocs.org/en/latest/automatic.html[Read the Docs: DNF-Automatic] page.
 
 [[sect-system-upgrades]]
 == System Upgrades
@@ -140,6 +140,6 @@ The `list` command can be used to list all locked packages, while the `clear` co
 [[sect-references]]
 == References
 
-. http://dnf.readthedocs.org/en/latest/command_ref.html[DNF Command Reference]
+. https://dnf.readthedocs.io/en/latest/command_ref.html[DNF Command Reference]
 . https://github.com/rpm-software-management/dnf/wiki[DNF wiki]
 . https://dnf-plugins-core.readthedocs.io/en/latest/versionlock.html[DNF VersionLock]

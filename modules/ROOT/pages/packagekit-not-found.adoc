@@ -35,7 +35,7 @@ asked questions. link:Third_party_repositories[Third party repositories]
 contain a wide variety of software that has not been included in the
 official Fedora software repositories for various reasons. You can find
 additional software using a search engine like
-http://google.com[Google]. We would love to give you more specific
+https://google.com[Google]. We would love to give you more specific
 instructions on enabling additional codecs but our hands are tied up due
 to software patents and legal restrictions around them. We apologize for
 the inconvenience caused by software patents and our legal team is

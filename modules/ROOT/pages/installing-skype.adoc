@@ -16,7 +16,7 @@ Please note: the latest versions of Skype work only on 64 bit architectures.
 It is possible to install Skype on Fedora using these package methods.
 
 * Using the RPM by Skype
-* Using a Flatpak hosted by http://flathub.org[Flathub].
+* Using a Flatpak hosted by https://flathub.org[Flathub].
 
 [installing-skype-from-3rd-party-repositories]
 === Installing Skype using the Skype RPM repository

@@ -105,7 +105,7 @@ It is being phased out so you will not see it added by default.
 However, it doesn't hurt to add it anyway.
 
 The `%changelog` should document the work on preparing the RPM, especially if there are security and bug patches included on top of the base upstream source.
-Changelog data can be displayed by `rpm --changelog -q `, which is very useful for instance to find out if specific bug and security patches were included in the installed software, thanks to the diligent Fedora packagers who include this info with the relevant http://cve.mitre.org/[CVE] numbers.
+Changelog data can be displayed by `rpm --changelog -q `, which is very useful for instance to find out if specific bug and security patches were included in the installed software, thanks to the diligent Fedora packagers who include this info with the relevant https://cve.mitre.org/[CVE] numbers.
 
 The `%changelog` entry should include the version string to avoid `rpmlint` complaints.
 

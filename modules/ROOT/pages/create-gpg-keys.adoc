@@ -64,9 +64,9 @@ include::{partialsdir}/proc_revoking-gpg-keys.adoc[leveloffset=+1]
 
 == Additional resources
 
-* http://www.gnupg.org/[GPG home page]
-* http://www.gnupg.org/documentation/[Official GPG documentation]
-* http://en.wikipedia.org/wiki/Public-key_cryptography[Wikipedia - Public Key Cryptography]
+* https://www.gnupg.org/[GPG home page]
+* https://www.gnupg.org/documentation/[Official GPG documentation]
+* https://en.wikipedia.org/wiki/Public-key_cryptography[Wikipedia - Public Key Cryptography]
 
 See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://pagure.io/fedora-docs/quick-docs[quick-docs's git repository].
 ifdef::parent-context[:context: {parent-context}]

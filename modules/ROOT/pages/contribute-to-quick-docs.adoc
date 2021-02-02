@@ -1,7 +1,7 @@
 = Contribute to Quick Docs
 
 This repository represents
-http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[asciidoc]
+https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[asciidoc]
 documents roughly (semi-automatically) converted from the top 50
 document-like pages in the Fedora Wiki. We want to move away from exposing
 users to the wild territory of workspace wikis and to a nice, topic-oriented

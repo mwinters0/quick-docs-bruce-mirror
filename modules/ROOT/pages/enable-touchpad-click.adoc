@@ -62,7 +62,7 @@ Input_device_configuration#Example:_Tap-to-click[here].
 The "*mouse and touchpad*" utility can be used to enable tapping and set
 scrolling options in GNOME.
 
-http://library.gnome.org/users/gnome-help/stable/mouse-touchpad-click.html.en[Official
+https://help.gnome.org/users/gnome-help/stable/mouse-touchpad-click.html.en[Official
 GNOME documentation]
 
 [[kde-plasma-workspaces]]
