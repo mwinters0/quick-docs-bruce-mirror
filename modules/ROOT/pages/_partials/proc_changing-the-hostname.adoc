@@ -15,7 +15,7 @@ You can replace the value in the Device name field with the name of your choosin
 * If you use a name that is shorter, contains only lowercase letters, numbers and/or dashes ("-"), this will set the host's static name, and the pretty name will be left blank.
 * If you enter a name that is more descriptive, contains mixed-case and other types of characters, this will set the pretty name, and a static name will be derived from that automatically.
 
-You can see the effect of the change by running the `hostnamectl status` command again:
+You can see the effect of the change by using the `hostnamectl` command again:
 
 ....
    Static hostname: emilys-2nd-dev-laptop
@@ -30,7 +30,7 @@ You can see the effect of the change by running the `hostnamectl status` command
       Architecture: x86-64
 ....
 
-In the above example, "Emily's 2nd dev laptop" was entered via the Settings app, and the static hostname "emilys-2nd-dev-laptop" was set automatically.
+In the previous example, "Emily's 2nd dev laptop" was entered via the Settings app, and the static hostname "emilys-2nd-dev-laptop" was set automatically.
 
 Hostnames can also be set at the command line with the `hostnamectl set-hostname` command. For example:
 
