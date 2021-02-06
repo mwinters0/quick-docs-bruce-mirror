@@ -50,16 +50,16 @@ sudo dnf system-upgrade download --refresh --releasever={MAJOROSVER}
 ----
 +
 Change the `--releasever=` number if you want to upgrade to a different release.
-Most people will want to upgrade to the latest stable release, which is `{MAJOROSVER}`, but in some cases, such as when you're currently running Fedora `27`, you may want to upgrade just to Fedora `28`.
+Most people will want to upgrade to the latest stable release, which is `{MAJOROSVER}`, but in some cases, such as when you're currently running an older release than `{PREVVER}`, you may want to upgrade just to Fedora `{PREVVER}`.
 You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki/Releases/Branched[Branched] release, or `rawhide` to upgrade to link:https://fedoraproject.org/wiki/Releases/Rawhide[Rawhide]. Note that neither of these two are stable releases.
 +
 If you are upgrading to Rawhide, you will need to import the RPM GPG key for it.
 This will be the highest numbered key version in `/etc/pki/rpm-gpg/`.
-For example, if there is a Branched release that is `30`, then you should look for a `31`, and if there is currently no Branched release, it will be `30`:
+For example, if there is a Branched release that is `{NEXTVER}`, then you should look for a `{NEXTNEXTVER}`, and if there is currently no Branched release, it will be `{NEXTVER}`:
 +
-[source,bash]
+[source,bash,subs="attributes"]
 ----
-sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-31-primary
+sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-{NEXTVER}-primary
 ----
 
 . If some of your packages have unsatisfied dependencies, the upgrade will refuse to continue until you run it again with an extra `--allowerasing` option.
