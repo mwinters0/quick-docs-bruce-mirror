@@ -1,8 +1,14 @@
-[[exporting-gpg keys-kde]]
+[[exporting-gpg-keys-kde]]
 = Exporting a GPG Key Using the KDE Desktop
 
-After your key has been generated, you can export the key to a public keyserver by right-clicking on the key in the main window, and selecting _Export Public Keys._
-From there you can export your public key to the clipboard, an ASCII file, to an email, or directly to a key server.
-Export your public key to the default key server.
+After your key has been generated, you can export the key to a public keyserver 
 
-See now <<safeguarding-your-secret-key>>.
+. Right-click on the key in the main window.
+
+. Select  _Export Public Keys._
+
+. From there you can export your public key to the clipboard, an ASCII file, to an email, or directly to a key server.
+
+. Export your public key to the default key server.
+
+Now see <<safeguarding-your-secret-key>>.

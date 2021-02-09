@@ -3,26 +3,25 @@
 
 Install the Seahorse utility, which makes GPG key management easier.
 
-. Select menu:Applications[Add/Remove Software].
+. Select menu:Activities[Software].
 
-. Select the _Search_ tab and enter the name `seahorse`.
+. Click the _Search_ button and enter the name 'Seahorse'.
 
-. Select the checkbox next to the `seahorse` package and select _Apply_ to add the software.
-  You can also install Seahorse using the command line with the command `su -c "dnf install seahorse"`.
+. Click the Seahorse package and click btn:[Install] to add the software.
+  You can also install Seahorse using the command line with the command `sudo dnf install seahorse`.
 
 To create a key:
 
 . Select menu:Activities[Passwords and Encryption Keys], which starts the application Seahorse.
 
-. Select menu:File[New... > PGP Key].
-
-. Click btn:[Continue].
+. At the top left hand corner, click the menu:Plus Button[GPG Key].
 
 . Type your full name, email address, and an optional comment describing who you are (e.g.: John C. Smith, jsmith@example.com, The Man).
+
 . Click btn:[Create].
 
 . Choose a passphrase that is strong but also easy to remember in the dialog that is displayed.
 
 . Click btn:[OK] and the key is created.
 
-See now <<backup-gpg-keys-gnome>>.
+Now see <<backup-gpg-keys-gnome>>.

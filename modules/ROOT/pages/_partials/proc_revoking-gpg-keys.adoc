@@ -14,7 +14,7 @@ As long as you still have access to the private key, messages received previousl
 If you forget the passphrase, you will not be able to decrypt messages encrypted to that key.
 
 ----
-gpg2 --output revoke.asc --gen-revoke KEYNAME
+gpg --output revoke.asc --gen-revoke KEYNAME
 ----
 
 If you do not use the `--output` flag, the certificate will print to standard output.
@@ -30,7 +30,7 @@ It is a good idea to write the revocation certificate to secure removable media 
 . Revoke the key locally:
 +
 ----
-gpg2 --import revoke.asc
+gpg --import revoke.asc
 ----
 +
 Once you locally revoke the key, you must send the revoked certificate to a keyserver, regardless of whether the key was originally issued in this way.
@@ -39,7 +39,7 @@ Distribution through a server helps other users to quickly become aware the key 
 . Export to a keyserver with the following command:
 +
 ----
-gpg2 --keyserver subkeys.pgp.net --send KEYNAME
+gpg --keyserver hkp://pgp.mit.edu --send-keys KEYNAME
 ----
 +
 For `KEYNAME`, substitute either the key ID of your primary keypair or any part of a user ID that identifies your keypair.

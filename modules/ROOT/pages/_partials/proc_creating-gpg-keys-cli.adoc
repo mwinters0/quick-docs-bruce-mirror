@@ -4,12 +4,12 @@
 . Use the following shell command:
 +
 ----
-gpg2 --full-gen-key
+gpg --full-generate-key
 ----
 +
 This command generates a key pair that consists of a public and a private key.
 Other people use your public key to authenticate and/or decrypt your communications.
-Distribute your *public* key as widely as possible, especially to people who you know will want to receive authentic communications from you, such as a mailing list..
+Distribute your *public* key as widely as possible, especially to people who you know will want to receive authentic communications from you, such as a mailing list.
 
 . Press the kbd:[Enter] key to assign a default value if desired.
   The first prompt asks you to select what kind of key you prefer:
@@ -20,7 +20,8 @@ Please select what kind of key you want:
    (2) DSA and Elgamal
    (3) DSA (sign only)
    (4) RSA (sign only)
-Your selection?
+  (14) Existing key from card
+Your selection? 
 ----
 +
 In almost all cases, the default is the correct choice.
@@ -29,8 +30,8 @@ A RSA/RSA key allows you not only to sign communications, but also to encrypt fi
 . Choose the key size:
 +
 ----
-RSA keys may be between 1024 and 4096 bits long.  Larger is  almost  always recommended here, however your use case and  security models may dictate otherwise.
-What keysize do you want? (2048)
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (3072) 
 ----
 +
 Again, the default is sufficient for almost all users, and represents an _extremely_ strong level of security.
@@ -51,10 +52,10 @@ Key is valid for? (0)
 +
 Entering a value of `1y`, for example, makes the key valid for one year.
 (You may change this expiration date after the key is generated, if you change your mind.)
-Before the `gpg2` program asks for signature information, the following prompt appears:
+Before the `gpg` program asks for signature information, the following prompt appears:
 +
 ----
-Is this correct (y/n)?
+Is this correct (y/N)?
 ----
 +
 . Enter `y` to finish the process.
@@ -75,16 +76,17 @@ Is this correct (y/n)?
 . Enter the letter `O` at the confirmation prompt to continue if all entries are correct, or use the other options to fix any problems.
 
 . Enter a passphrase for your secret key.
-  The `gpg2` program asks you to enter your passphrase twice to ensure you made no typing errors.
+  The `gpg` program asks you to enter your passphrase twice to ensure you made no typing errors.
 
-Finally, `gpg2` generates random data to make your key as unique as possible.
+Finally, `gpg` generates random data to make your key as unique as possible.
 Move your mouse, type random keys, or perform other tasks on the system during this step to speed up the process.
 Once this step is finished, your keys are complete and ready to use:
 
 ----
-pub  1024D/1B2AFA1C 2005-03-31 John Q. Doe (Fedora Docs Project) <jqdoe@example.com>
-Key fingerprint = 117C FE83 22EA B843 3E86  6486 4320 545E 1B2A FA1C
-sub  1024g/CEA4B22E 2005-03-31 [expires: 2006-03-31]
+pub   rsa3072 2021-02-09 [SC] [expires: 2022-02-09]
+      3782CBB60147010B330523DD26FBCC7836BF353A
+uid                      John Doe (Fedora Docs) <johndoe@example.com>
+sub   rsa3072 2021-02-09 [E] [expires: 2022-02-09]
 ----
 
 The key fingerprint is a shorthand signature for your key.
@@ -93,12 +95,12 @@ You do not need to write this fingerprint down.
 To display the fingerprint at any time, use this command, substituting your email address:
 
 ----
-gpg2 --fingerprint jqdoe@example.com
+gpg --fingerprint johndoe@example.com
 ----
 
 Your _GPG key ID_ consists of 8 hex digits identifying the public key.
-In the example above, the GPG key ID is `1B2AFA1C`.
-In most cases, if you are asked for the key ID, you should prepend "0x" to the key ID, as in `0x1B2AFA1C`.
+In the example above, the GPG key ID is `36BF353A`.
+In most cases, if you are asked for the key ID, you should prepend "0x" to the key ID, as in `0x36BF353A`.
 
-See now <<backup-gpg-keys-cli>>.
+Now see <<backup-gpg-keys-cli>>.
 Make sure to back up your revocation keys for all active keys as this allows to revoke keys in the event of lost passphrase of key compromise.

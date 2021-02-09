@@ -4,16 +4,16 @@
 Use the following command to send your key to a public keyserver:
 
 ----
-gpg2 --send-key KEYNAME
+gpg --send-key KEYNAME
 ----
 
 For `KEYNAME`, substitute the key ID or fingerprint of your primary keypair.
-This will send your key to the gnupg default key server (keys.gnupg.net), if you prefer another one use:
+This will send your key to the gnupg default key server. If you prefer another one use:
 
 ----
-gpg2 --keyserver hkp://pgp.mit.edu --send-key KEYNAME
+gpg --keyserver hkp://pgp.mit.edu --send-key KEYNAME
 ----
 
 Replacing `pgp.mit.edu` with your server of choice.
 
-See now <<safeguarding-your-secret-key>>.
+Now see <<safeguarding-your-secret-key>>.

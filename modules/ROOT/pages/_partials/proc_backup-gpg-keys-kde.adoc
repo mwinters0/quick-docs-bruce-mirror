@@ -3,11 +3,12 @@
 
 . Right-click your key and select _Export Secret Key_.
 
-. Click btn:[Export] to continue at the confirmation dialog.
+. Click btn:[Continue] to continue at the confirmation dialog.
 
 . Select a destination filename.
 
 . Click btn:[Save].
 
 Store the copy in a secure place, such as a locked container.
-See <<exporting-gpg-keys-kde>>.
+
+Now see <<exporting-gpg-keys-kde>>.

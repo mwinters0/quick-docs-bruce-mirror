@@ -4,7 +4,7 @@
 If you want to give or send a file copy of your key to someone, use this command to write it to an ASCII text file:
 
 ----
-gpg2 --export --armor jqdoe@example.com > jqdoe-pubkey.asc
+gpg --export --armor johndoe@example.com > johndoe-pubkey.asc
 ----
 
-See now <<safeguarding-your-secret-key>>.
+Now see <<safeguarding-your-secret-key>>.
