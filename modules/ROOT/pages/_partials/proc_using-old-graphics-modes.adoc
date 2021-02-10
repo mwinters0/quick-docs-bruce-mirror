@@ -1,7 +1,7 @@
 [[using-old-graphics-modes]]
 = Using old graphics modes in bootloader
 
-The terminal device is chosen with GRUB_TERMINAL. For more information, see the link:http://www.gnu.org/software/grub/manual/grub.html#Simple-configuration[Grub manual].
+The terminal device is chosen with GRUB_TERMINAL. For more information, see the link:https://www.gnu.org/software/grub/manual/grub/grub.html#Simple-configuration[Grub manual].
 
 Valid terminal output names depend on the platform, but may include `console` (PC BIOS and EFI consoles), `serial` (serial terminal), `gfxterm` (graphics-mode output), `ofconsole` (Open Firmware console), or `vga_text` (VGA text output, mainly useful with Coreboot).
 

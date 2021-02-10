@@ -15,7 +15,7 @@ For more information about packaging guidelines, see the following guides:
 * https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/[Recipes for RPM scriptlets]
 
 
-If you plan to submit a package to the official Fedora repository, follow the procedure in http://fedoraproject.org/wiki/Join_the_package_collection_maintainers[Join the package collection maintainers].
+If you plan to submit a package to the official Fedora repository, follow the procedure in https://fedoraproject.org/wiki/Join_the_package_collection_maintainers[Join the package collection maintainers].
 
 Before you begin, select a text editor that you want to use, and ensure that you understand the following terminology. 
 

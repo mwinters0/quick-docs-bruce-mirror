@@ -6,7 +6,7 @@ Use this guide for information about the specific macros in a `.spec` file.
 NOTE: You can use the macros `%\{name}`, `%\{version}` and `%\{release}` to refer to the Name, Version and Release tags respectively. When you change the tag, the macros automatically update to use the new value.
 
 `Name`::
-Add the base name of the package, which must match the `.spec` file name. Follow the http://fedoraproject.org/wiki/Packaging:Naming[Package Naming Guidelines] and write the file name in lower-case letters.
+Add the base name of the package, which must match the `.spec` file name. Follow the https://fedoraproject.org/wiki/Packaging:Naming[Package Naming Guidelines] and write the file name in lower-case letters.
 
 `Version`::
 Add the upstream version number. See https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/[Package Versioning]. If the version contains tags that are non-numeric, you might need to include the non-numeric characters in the `Release` tag. If upstream uses full dates to distinguish versions, consider using version numbers of the form. For example, `yy.mm[dd]` where `2008-05-01` becomes `8.05`.
@@ -22,7 +22,7 @@ This tag is deprecated since Fedora 17. See https://docs-old.fedoraproject.org/e
 File Reference Preamble]
 
 `License`::
-Enter an open source software license. Do not use the old Copyright tag. Use a standard abbreviation, for example, `GPLv2+` and be specific. For example, use `GPLv2+` for GPL version 2 or greater rather than `GPL` or `GPLv2` where it's true. For more information, see the http://fedoraproject.org/wiki/Packaging:LicensingGuidelines[Licensing Guidelines].
+Enter an open source software license. Do not use the old Copyright tag. Use a standard abbreviation, for example, `GPLv2+` and be specific. For example, use `GPLv2+` for GPL version 2 or greater rather than `GPL` or `GPLv2` where it's true. For more information, see the https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/[Licensing Guidelines].
 +
 You can list multiple licenses by combining them with `and` and `or` (e.g. `GPLv2 and BSD`).
 
@@ -34,7 +34,7 @@ NOTE: Do not add a link to the original source code. Add the link to the source 
 `Source0`::
 Enter the full URL for the compressed archive that contains the original, pristine source code, as upstream released it. "`Source`" is synonymous with "`Source0`".
 +
-The full URL basename is used when looking in the `SOURCES` directory. If possible, embed `%\{name}` and `%\{version}`, so that changes to the  go to the right place. Preserve the timestamps when downloading source files. For more information, see http://fedoraproject.org/wiki/Packaging:Guidelines#Timestamps[Preserve timestamps].
+The full URL basename is used when looking in the `SOURCES` directory. If possible, embed `%\{name}` and `%\{version}`, so that changes to the  go to the right place. Preserve the timestamps when downloading source files. For more information, see https://docs.fedoraproject.org/en-US/packaging-guidelines/#_timestamps[Preserve timestamps].
 +
 If there is more than one source, name them `Source1`, `Source2`.
 +

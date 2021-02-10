@@ -154,11 +154,11 @@ UNetbootin may work in some cases but not others - for instance, it will likely 
 While your results may vary, it is usually the case that the Fedora Media Writer, `livecd-iso-to-disk`, GNOME, and `dd` methods give better results than UNetbootin. If you encounter problems with UNetbootin, please contact the UNetbootin developers, not the Fedora developers.
 ====
 
-http://unetbootin.github.io/[UNetbootin] is a graphical, bootable USB image creator. Using it will allow you to preserve any data you have in the USB drive. If you have trouble booting, however, you may wish to try with a blank, cleanly FAT32-formatted drive.
+https://unetbootin.github.io/[UNetbootin] is a graphical, bootable USB image creator. Using it will allow you to preserve any data you have in the USB drive. If you have trouble booting, however, you may wish to try with a blank, cleanly FAT32-formatted drive.
 
 NOTE: If you are running a 64-bit Linux distribution, UNetbootin may fail to run until you install the 32-bit versions of quite a lot of system libraries.
 
-. Download the latest UNetbootin version from the http://unetbootin.github.io/[official site] and install it. On Linux, the download is an executable file: save it somewhere, change it to be executable using `chmod ugo+x` filename or a file manager, and then run it.
+. Download the latest UNetbootin version from the https://unetbootin.github.io/[official site] and install it. On Linux, the download is an executable file: save it somewhere, change it to be executable using `chmod ugo+x` filename or a file manager, and then run it.
 . Launch UNetbootin. On Linux, you might have to type the root password.
 . Click on `Diskimage` and search for the ISO file you downloaded.
 . Select Type: USB drive and choose the correct device for your stick.

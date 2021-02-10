@@ -29,7 +29,7 @@ In fact, for most Linux distributions, including Fedora, all of the system insta
 
 == RPM
 
-Fedora's package management system uses the http://rpm.org[RPM] package format. The application that manages packages in Fedora (since version 22) is https://fedoraproject.org/wiki/DNF[DNF]. Graphical package management is provided by the Gnome Software utility. For automatic updates, Fedora uses the PackageKit utility. Command-line and graphical tools provide the same results.
+Fedora's package management system uses the https://rpm.org[RPM] package format. The application that manages packages in Fedora (since version 22) is https://fedoraproject.org/wiki/DNF[DNF]. Graphical package management is provided by the Gnome Software utility. For automatic updates, Fedora uses the PackageKit utility. Command-line and graphical tools provide the same results.
 
 
 == Repositories

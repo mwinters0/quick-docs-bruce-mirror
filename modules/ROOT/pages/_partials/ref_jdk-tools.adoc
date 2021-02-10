@@ -10,7 +10,7 @@ SDK:: Software Development Kit; see JDK
 JavaWS:: link:https://en.wikipedia.org/wiki/Java_Web_Start[Java Web Start] is a framework to start application from the Internet
 JavaFX:: link:https://en.wikipedia.org/wiki/JavaFX[JavaFX] is a plateform to create and deliver desktop and Rich Internet Apps
 OpenJFX:: is the JavaFX Open Source implementation
-OpenJDK:: Open Source project behind the Java Platform link:http://openjdk.java.net/[openjdk.java.net].
+OpenJDK:: Open Source project behind the Java Platform link:https://openjdk.java.net/[openjdk.java.net].
 IcedTea:: is a support project for OpenJDK (concern only developers) link:http://icedtea.classpath.org/[icedtea.classpath.org]
 IcedTea-Web:: is the Java Web Start package (contains only JavaWS, no applets anymore); install to run *JNPL* files
 applets:: are obsolete technology; Not implemented in any recent package

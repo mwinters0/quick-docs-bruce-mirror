@@ -18,7 +18,7 @@ Use the following commands as the `root` user or under the `sudo` utility.
 # dnf install dnf-automatic
 ----
 
-. Edit the [filename]`/etc/dnf/automatic.conf` configuration file as needed. See the http://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation for details. 
+. Edit the [filename]`/etc/dnf/automatic.conf` configuration file as needed. See the https://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation for details. 
 
 . Enable and start the `systemd` timer:
 +
@@ -65,4 +65,4 @@ Dec 14 11:33:14 mazlik systemd[1]: Started dnf-automatic-download timer.
 [discrete]
 == Additional Resources
 
-* The http://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation
+* The https://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation

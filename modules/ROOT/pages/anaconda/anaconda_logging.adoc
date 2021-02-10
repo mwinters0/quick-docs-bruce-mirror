@@ -115,11 +115,11 @@ Run `analog` without the `-o` option to see how exactly does a fitting configura
 Also notice that it uses the same message format for remote logging as anaconda does, but you can of course modify this to specify any format you want.
 
 === See also
-* link:http://www.rsyslog.com/doc[Rsyslog documentation]
+* link:https://www.rsyslog.com/doc/master/index.html[Rsyslog documentation]
 * `man tailf`
 
 == Remote logging via virtio
-QEMU/KVM in Fedora 13 and onwards allows one to create virtual machines with link:http://fedoraproject.org/wiki/Features/VirtioSerial[multiple virtio char devices] exposed to the guest machine.
+QEMU/KVM in Fedora 13 and onwards allows one to create virtual machines with link:https://fedoraproject.org/wiki/Features/VirtioSerial[multiple virtio char devices] exposed to the guest machine.
 One such device can be used to forward anaconda logs to the host machine.
 In that way we can get logs forwarded in real time, as soon the anaconda logging subsystem is initialized (early) and not need to wait for the network to come up.
 Also, it's the only way to forward the logs in a no-network setup.
@@ -178,8 +178,8 @@ If you are using virt-install you can configure it with the --channel option:
 
 === See also
 * link:https://fedoraproject.org/wiki/Features/VirtioSerial[VirtioSerial]
-* link:http://wiki.libvirt.org/page/Virtio[Virtio at the libvirt wiki]
-* link:http://libvirt.org/formatdomain.html#elementsConsole[libvirt domain XML format]
+* link:https://wiki.libvirt.org/page/Virtio[Virtio at the libvirt wiki]
+* link:https://libvirt.org/formatdomain.html#elementsConsole[libvirt domain XML format]
 
 == Anaconda logs on the running system
 After every successful installation, anaconda logs are copied into `/var/log` on the system you just installed.

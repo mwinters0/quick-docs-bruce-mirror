@@ -189,7 +189,7 @@ nmcli> quit
 
 To manually edit an `ifcfg` connection configuration, open or create with a text editor the configuration file of the connection located in `/etc/sysconfig/network-scripts/ifcfg-`.
 
-A description of most common configuration options is available in the link:http://access.redhat.com/site/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/s1-networkscripts-interfaces.html[RHEL6 Deployment Guide].
+A description of most common configuration options is available in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/deployment_guide/s1-networkscripts-interfaces[RHEL6 Deployment Guide].
 
 To modify a connection password, open with a text editor and edit the file `keys-` located in `/etc/sysconfig/network-scripts/`. The password is stored in plain text. For example:
 ----

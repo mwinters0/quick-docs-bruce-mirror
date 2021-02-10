@@ -24,7 +24,7 @@ IMPORTANT: Your computer could become unbootable or lose functionality if you ch
 
 If your system has a UEFI firmware, it will usually allow you to boot the stick in UEFI native mode or BIOS compatibility mode. If you boot in UEFI native mode and perform a Fedora installation, you will get a UEFI native Fedora installation. If you boot in BIOS compatibility mode and perform a Fedora installation, you will get a BIOS compatibility mode Fedora installation.
 
-For more information on all this, see the http://fedoraproject.org/wiki/Unified_Extensible_Firmware_Interface[UEFI page]. USB sticks written from x86_64 images with xref:creating-and-using-a-live-installation-image.adoc#using-fedora-media-writer[Fedora Media Writer], xref:creating-and-using-a-live-installation-image.adoc#gnome-disk-utility[GNOME Disk Utility], `dd`, other dd-style utilities should be UEFI native bootable. Sticks written with other utilities may not be UEFI native bootable, and sticks written from i686 images will never be UEFI bootable.
+For more information on all this, see the https://fedoraproject.org/wiki/Unified_Extensible_Firmware_Interface[UEFI page]. USB sticks written from x86_64 images with xref:creating-and-using-a-live-installation-image.adoc#using-fedora-media-writer[Fedora Media Writer], xref:creating-and-using-a-live-installation-image.adoc#gnome-disk-utility[GNOME Disk Utility], `dd`, other dd-style utilities should be UEFI native bootable. Sticks written with other utilities may not be UEFI native bootable, and sticks written from i686 images will never be UEFI bootable.
 
 
 [id='identifying_stick']

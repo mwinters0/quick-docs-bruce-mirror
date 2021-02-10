@@ -469,16 +469,16 @@ log_line_prefix = '%t %u@%r:%d [%p] '
 
 link:PostgreSQL/README.rpm-dist[Full RPM packaging documentation]
 
-http://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server[Tuning
+https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server[Tuning
 performance]
 
-http://www.postgresql.org/docs/9.1/static/runtime-config-logging.html[Logging
+https://www.postgresql.org/docs/9.1/runtime-config-logging.html[Logging
 configuration]
 
-http://www.postgresql.org/docs/9.1/static/upgrading.html[Upgrading
+https://www.postgresql.org/docs/9.1/static/upgrading.html[Upgrading
 PostgreSQL]
 
-http://www.postgresql.org/docs/8.3/static/auth-pg-hba-conf.html[pg_hba.conf
+https://www.postgresql.org/docs/8.3/static/auth-pg-hba-conf.html[pg_hba.conf
 file]
 
 See a typo, something missing or out of date, or anything else which can be

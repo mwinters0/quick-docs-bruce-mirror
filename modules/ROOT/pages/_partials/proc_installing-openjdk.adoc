@@ -12,7 +12,7 @@ dnf search openjdk
 * Copy the version of OpenJDK you want to install.
 
 [NOTE]
-Various flavors of OpenJDK are available. For information about these options, search the link:http://openjdk.java.net/[OpenJDK web site].
+Various flavors of OpenJDK are available. For information about these options, search the link:https://openjdk.java.net/[OpenJDK web site].
 
 * Run the following command to install OpenJDK:
 

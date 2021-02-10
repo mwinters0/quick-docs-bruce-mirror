@@ -25,13 +25,13 @@ This procedure shows Microsoft Windows users how to add Fedora ARM to a microSD 
 * A computer running Microsoft Windows.
 * SD card reader.
 * A Fedora ARM image from: link:https://arm.fedoraproject.org/[].
-* File-decompression software (such as link:http://www.7-zip.org/[7zip]).
+* File-decompression software (such as link:https://www.7-zip.org/[7zip]).
 
 ._Procedure_
 
 . Download a Fedora ARM image from the  link:https://arm.fedoraproject.org/[Fedora ARM website].
 +
-. Extract the `.raw` file from the Fedora ARM image using file-decompression software (such as link:http://www.7-zip.org/[7zip]).
+. Extract the `.raw` file from the Fedora ARM image using file-decompression software (such as link:https://www.7-zip.org/[7zip]).
 +
 For example:
 +

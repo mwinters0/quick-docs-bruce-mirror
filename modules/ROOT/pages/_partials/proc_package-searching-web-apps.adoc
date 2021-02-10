@@ -10,7 +10,7 @@ Most applications available on Linux are open-source software. You can use open-
 Access the following websites to review Linux alternatives to popular software packages:
 
 * https://linuxappfinder.com/alternatives
-* http://www.linuxalt.com/
+* https://www.linuxalt.com/
 * https://opensource.com/alternatives
 * https://www.osalt.com/
 * https://alternativeto.net/

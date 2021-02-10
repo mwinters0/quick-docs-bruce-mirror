@@ -73,4 +73,4 @@ If this command lists `kvm_intel` or `kvm_amd`, KVM is properly configured.
 
 By default, libvirt will create a private network for your guests on the host machine. This private network will use a 192.168.x.x subnet and not be reachable directly from the network the host machine is on. However, virtual guests can use the host machine as a gateway and can connect out via it. If you need to provide services on your guests that are reachable via other machines on your host network you can use iptables DNAT rules to forward in specific ports, or you can set up a bridged environment.
 
-See the http://wiki.libvirt.org/page/Networking[libvirt networking setup page] for more information on how to setup a bridged network.
+See the https://wiki.libvirt.org/page/Networking[libvirt networking setup page] for more information on how to setup a bridged network.

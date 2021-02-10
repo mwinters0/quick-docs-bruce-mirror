@@ -9,7 +9,7 @@ Only the Chromium browser is available from official Fedora repositories.
 
 Chromium is the upstream project for Google Chrome.
 
-NOTE: As of August 2016, Chromium is included in the Fedora Repositories. If you were using the old Chromium http://copr.fedoraproject.org/coprs/spot/chromium/[Copr] repository, upgrade your Chromium.
+NOTE: As of August 2016, Chromium is included in the Fedora Repositories. If you were using the old Chromium https://copr.fedorainfracloud.org/coprs/spot/chromium/[Copr] repository, upgrade your Chromium.
 
 Fedora's Chromium package does not support h264, mp3, or aac because of legal concerns. It is built to support the *widevine* plugin (but does not include it).
 

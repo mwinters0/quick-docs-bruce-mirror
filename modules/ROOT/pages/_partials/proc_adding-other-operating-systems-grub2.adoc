@@ -27,5 +27,5 @@ Adding other records into the *GRUB2* menu only means to run `grub2-mkconfig` co
 .More information
 
 * The `grub2-mkconfig` command will add entries for all operating systems it can find.  
-* When problems appear, see the link:http://www.gnu.org/software/grub/manual/grub.html#Multi_002dboot-manual-config[GRUB manual] to solve issues with booting secondary operating systems.
+* When problems appear, see the link:https://www.gnu.org/software/grub/manual/grub/grub.html#Multi_002dboot-manual-config[GRUB manual] to solve issues with booting secondary operating systems.
 
