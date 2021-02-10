@@ -8,12 +8,10 @@ package manager.
 [discrete]
 == Procedure
 
-Use the following commands as the `root` user or under the `sudo` utility.
-
 * Upgrade the system:
 +
 ----
-# dnf upgrade
+sudo dnf upgrade
 ----
 +
 Confirm to download the available packages.

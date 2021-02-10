@@ -10,12 +10,10 @@ This section describes how to use the DNF Automatic application to automatically
 [discrete]
 == Procedure
 
-Use the following commands as the `root` user or under the `sudo` utility.
-
 . Install the [package]_dnf-automatic_ package:
 +
 ----
-# dnf install dnf-automatic
+sudo dnf install dnf-automatic
 ----
 
 . Edit the [filename]`/etc/dnf/automatic.conf` configuration file as needed. See the https://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation for details. 
@@ -24,8 +22,7 @@ Use the following commands as the `root` user or under the `sudo` utility.
 +
 [literal,subs="+quotes,attributes"]
 ----
-# systemctl enable _timer_
-# systemctl start _timer_
+sudo systemctl enable --now _timer_
 ----
 +
 Replace `_timer_` with one of following ones depending on what action you want to do:
@@ -33,33 +30,34 @@ Replace `_timer_` with one of following ones depending on what action you want t
 --
 * `dnf-automatic-install.timer` to download and install packages
 * `dnf-automatic-download.timer` to only download packages
-* `dnf-automatic-notifyonly.timer` to only get a notification using configured emitters in the [filename]`/etc/dnf/automatic.dnf` file.
+* `dnf-automatic-notifyonly.timer` to only get a notification using configured emitters in the [filename]`/etc/dnf/automatic.conf` file.
 --
 +
 For example:
 +
 ----
-# systemctl enable dnf-automatic-install.timer
-Created symlink /etc/systemd/system/basic.target.wants/dnf-automatic-download.timer → /usr/lib/systemd/system/dnf-automatic-download.timer.
-# systemctl start dnf-automatic-install.timer
+sudo systemctl enable --now dnf-automatic-install.timer
+Created symlink /etc/systemd/system/timers.target.wants/dnf-automatic-install.timer → /usr/lib/systemd/system/dnf-automatic-install.timer.
 ----
 
 . Ensure that the timer has been successfully enabled and started:
 +
 [literal,subs="+quotes,attributes"]
 ----
-# systemctl status _timer_
+sudo systemctl status _timer_
 ----
 +
 Replace `_timer_` with the timer from the previous step, for example:
 +
 ----
-# systemctl status dnf-automatic-install.timer
-● dnf-automatic-download.timer - dnf-automatic-download timer
-   Loaded: loaded (/usr/lib/systemd/system/dnf-automatic-download.timer; enabled; vendor preset: disabled)
-   Active: active (waiting) since Thu 2017-12-14 11:33:14 CET; 7s ago
+sudo systemctl status dnf-automatic-install.timer
+● dnf-automatic-install.timer - dnf-automatic-install timer
+     Loaded: loaded (/usr/lib/systemd/system/dnf-automatic-install.timer; enabled; vendor preset: disabled)
+     Active: active (waiting) since Fri 2021-01-29 14:50:22 +08; 1s ago
+    Trigger: Sat 2021-01-30 06:05:57 +08; 15h left
+   Triggers: ● dnf-automatic-install.service
 
-Dec 14 11:33:14 mazlik systemd[1]: Started dnf-automatic-download timer.
+Jan 29 14:50:22 localhost.localdomain systemd[1]: Started dnf-automatic-install timer.
 ----
 
 [discrete]
