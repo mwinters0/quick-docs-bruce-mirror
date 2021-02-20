@@ -4,7 +4,7 @@
 [[getting-started]]
 == Getting started
 
-To create a live image, the `livecd-creator` tool is used. For this, super user privileges are needed. 
+To create a live image, the `livecd-creator` tool is used. For this, super user privileges are needed.
 
 The `livecd-creator` tool is part of the _livecd-tools_package. If it is not installed on your system, add it with DNF:
 
@@ -23,15 +23,15 @@ The configuration of the live image is defined by a file called _kickstart_. It 
 
 For the Fedora project, the most important live image configurations files are:
 
-* https://pagure.io/fedora-kickstarts/blob/master/f/fedora-live-base.ks[fedora-live-base.ks]
+* https://pagure.io/fedora-kickstarts/blob/main/f/fedora-live-base.ks[fedora-live-base.ks]
   : The base live image system, included in the _livecd-tools_ package.
-* For _Fedora 21 and later_: https://pagure.io/fedora-kickstarts/blob/master/f/fedora-live-workstation.ks[fedora-live-workstation.ks]. This is the Workstation product configuration.
+* For _Fedora 21 and later_: https://pagure.io/fedora-kickstarts/blob/main/f/fedora-live-workstation.ks[fedora-live-workstation.ks]. This is the Workstation product configuration.
 
 _kickstart_ files for other spins, e.g. Fedora Electronics Lab, can be found in `/usr/share/spin-kickstarts/` after installing the `spin-kickstarts` package. These pre-made configuration files can be a great place to start, as they already have some useful pre and post-installation scripts.
 
 image:system-config-kickstart.png[system-config-kickstart,title="fig:system-config-kickstart"]
 
-You can create a customized _kickstart_ file by running `system-config-kickstart`. 
+You can create a customized _kickstart_ file by running `system-config-kickstart`.
 
 [NOTE]
 ====
@@ -60,7 +60,7 @@ If you have the repositories available locally and don't want to wait for the do
 
 [NOTE]
 ====
-If you have an x86_64 machine you're building on but you want a 32-bit happy iso image, add the following before your livecd-creator command: 
+If you have an x86_64 machine you're building on but you want a 32-bit happy iso image, add the following before your livecd-creator command:
 
 [options="nowrap"]
 ----
