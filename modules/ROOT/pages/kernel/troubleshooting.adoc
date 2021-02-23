@@ -51,7 +51,7 @@ you may need to collect more logs.
 
 === Input issues (touchpad etc.) ===
 
-Information for collecting logs is documented at the https://wayland.freedesktop.org/libinput/doc/latest/reporting_bugs.html[libinput website].
+Information for collecting logs is documented at the https://wayland.freedesktop.org/libinput/doc/latest/reporting-bugs.html[libinput website].
 
 === Sound issues ===
 
@@ -83,10 +83,10 @@ considerably in most cases.
   version. The first version you find that doesn't work will be the initial "bad"
   version.
 
-. Install the <<build-custom-kernel.adoc#get-the-dependencies,dependencies>>
+. Install the xref:kernel/build-custom-kernel.adoc#_get_the_dependencies[dependencies]
   required to build the kernel.
 
-. Next, <<build-custom-kernel.adoc#getting-the-sources,get the source code>>.
+. Next, xref:kernel/build-custom-kernel.adoc#_getting_the_sources[get the source code].
 
 . Prepare a `.config` file. Assuming you've got both the good and bad kernel
   installed, the config for both will be in `/boot/`.footnote:[When bisecting
@@ -102,11 +102,11 @@ considerably in most cases.
 . Mark the first version that does not work as "bad" with `git bisect bad
   <tag>`.  For example: `git bisect bad v4.17`.
 
-. <<build-custom-kernel.adoc#building-the-kernel,Build the kernel>>. Sometimes
+. xref:kernel/build-custom-kernel.adoc#_building_the_kernel[Build the kernel]. Sometimes
   commits cannot be built. If this happens, skip the commit with `git bisect
   skip`.
 
-. <<build-custom-kernel.adoc#installing-the-kernel,Install the kernel>>.
+. xref:kernel/build-custom-kernel.adoc#_installing_the_kernel[Install the kernel].
 
 . Reboot into the new kernel and test to see if it works.
 
