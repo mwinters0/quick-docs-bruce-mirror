@@ -28,7 +28,7 @@ explain, you can create a new document from scratch.
 . Fork the https://pagure.io/fedora-docs/quick-docs repo.
 . Make your changes to the `.adoc` file you want to improve.
 . Uncomment the file in [filename]`nav.adoc` remove the `FIXME` from the xref..
-. Build a local preview to ensure your changes look the way you intended: Make sure you have *Docker* installed, and run `./build.sh && ./preview.sh`. Follow instructions printed on the command line.
+. Build a local preview to ensure your changes look the way you intended: Make sure you have *Podman* installed, and run `./build.sh && ./preview.sh`. Follow instructions printed on the command line.
 . When you are satisfied with your updates, submit a pull request with your improvements.
 . If migrating a wiki page, create a redirect on the old page — see below.
 
