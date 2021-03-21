@@ -38,7 +38,7 @@ This repo includes scripts to build and preview the contents of this repository.
 
 **NOTE**: Please note that if you reference pages from other repositories, such links will be broken in this local preview as it only builds this repository. If you want to rebuild the whole Fedora Docs site, please see [the Fedora Docs build repository](https://pagure.io/fedora-docs/docs-fp-o/) for instructions.
 
-Both scripts use podman in F30 and above. Please make sure you have podman installed on your system.
+Both scripts use podman in F30 and above. Please make sure you have podman installed on your system (you can also use Docker, but on Fedora podman is recommended).
 
 ### Installing podman on Fedora
 ```
