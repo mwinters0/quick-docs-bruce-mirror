@@ -9,21 +9,11 @@ Fedora's _chromium_ package is built to support the *widevine* plugin (but does 
 
 . Restart Chromium. You can see *Widevine Content Decryption Module* in *chrome://flags*.
 
-.Using the *Pepper Plugin Application Programming Interface (PPAPI)* flash plugin
-
-. Click the following link to download the flash plugin: link:https://get.adobe.com/flashplayer/otherversions/[get.adobe.com/flashplayer/otherversions].
-
-. Select *Linux 64-bit* and then *FP 22.0* (or later) for *Linux 64-bit(.tar.gz)-PPAPI*. You will then have `flash_player_ppapi_linux.x86_64.tar.gz`.
-
-. Unpack the tar into `/usr/lib64/chromium-browser/PepperFlash/`.
-
-. Restart chromium. You can see *Adobe Flash Player* in *chrome://plugins*.
-
 NOTE: To enable speech synthesis support, pass the `--enable-speech-dispatcher` flag to `chromium-browser`.
 
 
 [discrete]
 == Additional resources
 
-* https://get.adobe.com/flashplayer/otherversions/
+
 * https://fedoraproject.org/wiki/Chromium

@@ -17,4 +17,4 @@ Fedora's Chromium package does not support h264, mp3, or aac because of legal co
 [id='google-chrome']
 == Google Chrome
 
-Chromium is upstream for Google Chrome. Fedora does not include Google Chrome because it is a proprietary product and bundles other proprietary software, such as Adobe Flash plugin. However, Google does maintain a DNF or YUM repository for Fedora at link:https://www.google.com/chrome/[google.com/chrome]. The given link also includes downloadable RPMs that you can use to install Chrome.
+Chromium is upstream for Google Chrome. Fedora does not include Google Chrome because it is a proprietary product and bundles other proprietary software. However, Google does maintain a DNF or YUM repository for Fedora at link:https://www.google.com/chrome/[google.com/chrome]. The given link also includes downloadable RPMs that you can use to install Chrome.
