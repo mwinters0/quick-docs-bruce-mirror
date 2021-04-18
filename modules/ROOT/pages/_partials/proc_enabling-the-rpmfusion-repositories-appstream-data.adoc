@@ -15,5 +15,5 @@ This procedure describes how to install the Appstream data provided by the RPM F
 
 [subs=+quotes]
 ----
-$ sudo dnf groupupdate core
+$ sudo dnf group update core
 ----
