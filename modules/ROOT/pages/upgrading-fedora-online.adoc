@@ -1,7 +1,14 @@
 = Upgrading Fedora using package manager
 
 This page contains information explaining how to upgrade Fedora online
-using `dnf` (without the DNF system upgrade plugin).
+using `dnf` (without the xref:dnf-system-upgrade.adoc[DNF system upgrade plugin]).
+
+[WARNING]
+====
+
+This is not a supported upgrade method. Read xref:upgrading.adoc[] to see a list of supported and tested upgrade methods. The steps included in the guide are *at your own risk*.
+
+====
 
 [[upgrading-fedora-using-dnf-directly]]
 == Upgrading Fedora using dnf directly
@@ -9,7 +16,7 @@ using `dnf` (without the DNF system upgrade plugin).
 [[participate]]
 == Participate
 
-If you are upgrading using link:https://fedoraproject.org/wiki/DNF?rd=Dnf[Dnf] and it shows any general dependency
+If you are upgrading using link:https://fedoraproject.org/wiki/DNF[DNF] and it shows any general dependency
 issues, please file them in http://bugzilla.redhat.com[Bugzilla]. But
 please read this page, all references pages and search the mailing list
 archives before filing bugs. And of course, please help keep this page
@@ -328,9 +335,6 @@ it, though this is a less-tested and less-supported operation.
 For detailed instructions on upgrades from EOL releases, please read
 link:Upgrading_from_EOL_Fedora_using_package_manager[Upgrading from EOL
 Fedora using package manager].
-
-Category:FAQ Category:How_to[Category:How to] Category:Documentation
-'''
 
 See a typo, something missing or out of date, or anything else which can be
 improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.

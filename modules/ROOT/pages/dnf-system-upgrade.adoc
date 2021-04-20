@@ -5,7 +5,7 @@
 include::{partialsdir}/attributes.adoc[]
 
 link:++https://github.com/rpm-software-management/dnf-plugins-extras++[`dnf-plugin-system-upgrade`] is a plugin for the xref:dnf.adoc[DNF] package manager and is used to upgrade your system to the current release of Fedora.
-For Fedora Silverblue and Fedora CoreOS, which use rpm-ostree, you may refer to link:++https://rpm-ostree.readthedocs.io/en/latest/manual/administrator-handbook/++[Read The Docs: rpm-ostree] for details.
+For Fedora Silverblue and Fedora CoreOS, which use rpm-ostree, you may refer to link:++https://coreos.github.io/rpm-ostree/administrator-handbook/++[rpm-ostree documentation] for details.
 
 This is the recommended command-line upgrade method for Fedora 21 and later and works as follows:
 
@@ -16,7 +16,7 @@ This is the recommended command-line upgrade method for Fedora 21 and later and 
 . Upon completion, the system reboots into the new Fedora release
 
 [[sect-performing-system-upgrade]]
-== Performing System Upgrade
+== Performing system upgrade
 
 [WARNING]
 ====
@@ -34,6 +34,8 @@ sudo dnf upgrade --refresh
 ----
 +
 and reboot your computer.
++
+*Important:* Do not skip this step. System updates are required to receive signing keys of higher-versioned releases, and they often fix problems related to the upgrade process.
 
 . Install the dnf-plugin-system-upgrade package if it is not currently installed:
 +
@@ -46,21 +48,13 @@ sudo dnf install dnf-plugin-system-upgrade
 +
 [source,bash,subs="attributes"]
 ----
-sudo dnf system-upgrade download --refresh --releasever={MAJOROSVER}
+sudo dnf system-upgrade download --releasever={MAJOROSVER}
 ----
 +
 Change the `--releasever=` number if you want to upgrade to a different release.
-Most people will want to upgrade to the latest stable release, which is `{MAJOROSVER}`, but in some cases, such as when you're currently running an older release than `{PREVVER}`, you may want to upgrade just to Fedora `{PREVVER}`.
-You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki/Releases/Branched[Branched] release, or `rawhide` to upgrade to link:https://fedoraproject.org/wiki/Releases/Rawhide[Rawhide]. Note that neither of these two are stable releases.
+Most people will want to upgrade to the latest stable release, which is `{MAJOROSVER}`, but in some cases, such as when you're currently running an older release than `{PREVVER}`, you may want to upgrade just to Fedora `{PREVVER}`. System upgrade is only officially supported and tested over 2 releases at most (e.g. from `{PREVPREVVER}` to `{MAJOROSVER}`). If you need to upgrade over more releases, it is recommended to do it in several smaller steps (<<sect-how-many-releases-can-i-upgrade-across-at-once,read more>>).
 +
-If you are upgrading to Rawhide, you will need to import the RPM GPG key for it.
-This will be the highest numbered key version in `/etc/pki/rpm-gpg/`.
-For example, if there is a Branched release that is `{NEXTVER}`, then you should look for a `{NEXTNEXTVER}`, and if there is currently no Branched release, it will be `{NEXTVER}`:
-+
-[source,bash,subs="attributes"]
-----
-sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-{NEXTVER}-primary
-----
+You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki/Releases/Branched[Branched] release, or `rawhide` to upgrade to link:https://fedoraproject.org/wiki/Releases/Rawhide[Rawhide]. Note that neither of these two are stable releases. For details about the upgrade process and common issues related to those two releases, please look at appropriate sections on aforelinked pages.
 
 . If some of your packages have unsatisfied dependencies, the upgrade will refuse to continue until you run it again with an extra `--allowerasing` option.
   This often happens with packages installed from third-party repositories for which an updated repositories hasn't been yet published.
@@ -81,7 +75,7 @@ sudo dnf system-upgrade reboot
 . Once the upgrade process completes, your system will reboot a second time into the updated release version of Fedora.
 
 [[sect-optional-post-upgrade-tasks]]
-== Optional Post-Upgrade Tasks
+== Optional post-upgrade tasks
 
 These are some of the tasks you can do after a successful upgrade.
 
@@ -91,7 +85,7 @@ This section is mainly intended for power users. If you are a general user who d
 ====
 
 [[sect-update-system-configuration-files]]
-=== Update System Configuration Files
+=== Update system configuration files
 
 Most configuration files are stored in the `/etc` folder.
 If you have changed the package's configuration files, RPM creates new files with either `.rpmnew` (the new default config file), or `.rpmsave` (your old config file backed up).
@@ -123,7 +117,7 @@ For more information you can refer to the man pages (`man rpmconf`).
 If you use `rpmconf` to upgrade the system configuration files supplied with the upgraded packages then some configuration files may change. After the upgrade you should verify `/etc/ssh/sshd_config`, `/etc/nsswitch.conf`, `/etc/ntp.conf` and others are expected. For example, if OpenSSH is upgraded then `sshd_config` reverts to the default package configuration. The default package configuration *does not* enable public key authentication, and allows password authentication.
 
 [[sect-clean-up-old-packages]]
-=== Clean-Up Old Packages
+=== Clean-up old packages
 
 You can see a list of packages with broken dependencies by typing:
 
@@ -179,7 +173,7 @@ However, that doesn't mean that the package is not useful or that you don't use 
 ====
 
 [[sect-clean-up-old-symlinks]]
-=== Clean-Up Old Symlinks
+=== Clean-up old symlinks
 
 There may be some dangling symlinks in the filesystem after an upgrade. You can clean the dangling links by installing the symlinks utility and deleteing the old links.
 
@@ -202,7 +196,7 @@ sudo symlinks -r -d /usr
 ----
 
 [[sect-resolving-post-upgrade-issues]]
-== Resolving Post-Upgrade Issues
+== Resolving post-upgrade issues
 
 [NOTE]
 ====
@@ -210,7 +204,7 @@ Only follow these steps if you encounter problems with your upgraded system.
 ====
 
 [[sect-rebuilding-rpm-database]]
-=== Rebuilding the RPM Database
+=== Rebuilding the RPM database
 
 If you see warnings when working with RPM/DNF tools, your database might be corrupt.
 It is possible to rebuild it to see if resolves your issues. Always back up `/var/lib/rpm/` first.
@@ -222,7 +216,7 @@ sudo rpm --rebuilddb
 ----
 
 [[sect-using-distro-sync-to-resolve-dependency-issues]]
-=== Using distro-sync To Resolve Dependency Issues
+=== Using distro-sync to resolve dependency issues
 
 The system upgrade tool uses `dnf distro-sync` by default.
 If your system is partly upgraded or you see some package dependency issues, try running another distro-sync manually to see if this fixes the problem.
@@ -242,7 +236,7 @@ sudo dnf distro-sync --allowerasing
 ----
 
 [[sect-relabel-files-with-the-latest-selinux-policy]]
-=== Relabel Files With The Latest SELinux Policy
+=== Relabel files with the latest SELinux policy
 
 If you encounter any warnings regarding policies with SELinux, some files may have incorrect SELinux permissions.
 This may happen if SELinux was disabled in the past.
@@ -259,7 +253,7 @@ The boot process will likely take a long time, as it checks and fixes SELinux pe
 == Frequently Asked Questions
 
 [[sect-how-do-i-report-issues-with-the-upgrades]]
-=== How Do I Report Issues With The Upgrade?
+=== How do I report issues with the upgrade?
 
 . See link:++https://fedoraproject.org/wiki/Bugs/Common++[Common bugs] to check if it is a known problem the community is already aware of.
 
@@ -271,14 +265,14 @@ Please follow the bug reporting instructions mentioned in the link:++https://git
 If you encounter any issues after the upgrade with a specific package, file a bug against the package with which you are having issues.
 
 [[sect-does-dnf-system-upgrade-verify-the-software-it-runs-or-installs-during-an-upgrade]]
-=== Does DNF System Upgrade Verify The Software It Runs or Installs During An Upgrade?
+=== Does DNF System Upgrade verify the software it runs or installs during an upgrade?
 
 Yes.
 The package signing keys for the newer Fedora release are sent to older Fedora releases to allow DNF to verify the integrity of the downloaded packages.
 You can disable this function if needed, but is not recommended as you will be open to attacks from malicious software.
 
 [[sect-will-packages-in-third-party-repositories-be-upgraded]]
-=== Will Packages In Third-Party Repositories Be Upgraded?
+=== Will packages in third-party repositories be upgraded?
 
 Yes, if they are configured like regular DNF repositories and the version numbers are not hard-coded in the repository file (usually found in `/etc/yum.repos.d/`.)
 Commonly used third-party repositories like RPM Fusion should work.
@@ -287,39 +281,32 @@ Usually, this should not prevent the upgrade from running successfully.
 Also, you can update packages from the third-party repository later.
 
 [[sect-can-i-upgrade-from-an-end-of-life-release]]
-=== Can I upgrade from an End-Of-Life (EOL) Release?
+=== Can I upgrade from an End-of-Life (EOL) release?
 
 It is strongly recommended to upgrade an EOL release on any production system, or any system connected to the public internet.
 
 Any upgrade from Fedora 20 or earlier is done *at your own risk* as DNF was not the default package management tool.
 However, if you do have a release newer than Fedora 20 that is EOL, you can attempt to do an upgrade, but this method is *not supported*.
 You may try to upgrade through intermediate releases until you reach a currently-supported release, or try to upgrade to a currently-supported release in a single operation.
-Again this is un-supported and is *at your own risk*.
+Again this is unsupported and is *at your own risk*.
 
 [[sect-how-many-releases-can-i-upgrade-across-at-once]]
-=== Can I do a single upgrade across many releases (i.e. 20-27)?
+=== Can I do a single upgrade across many releases (i.e. 30->34)?
 
-It is highly recommended to upgrade across just one release (e.g. 27 to 28).
-However, for the first month or so after a new release, upgrades from the last-but-one release are 'supported' (N-2, where N is the current release).
-The link:https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle[Fedora Release Life Cycle] is specifically designed to provide this approximate one month "grace period" to allow users the choice to upgrade their systems on a yearly basis, or once every two releases.
-
-Around a month after the new release comes out, the last-but-one release becomes End Of Life (EOL).
-The upgrade is likely to work successfully after the release goes end-of-life, but the time period after the new release may be uncertain.
+Upgrades to the very next release (e.g. `{PREVVER}` to `{MAJOROSVER}`) as well as upgrades skipping one release (e.g. `{PREVPREVVER}` to `{MAJOROSVER}`) are both supported. However, it is highly recommended to perform the upgrade before your release gets End of Life (EOL). That happens roughly a month after N+2 release has been released (when you're currently on release N). The link:https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle[Fedora Release Life Cycle] is specifically designed to provide this approximate one month "grace period" to allow users the choice to upgrade their systems on a yearly basis, i.e. once every two releases. You can study link:https://fedoraproject.org/wiki/Releases[Releases] to see the current release status and schedule. Around a month after the new release comes out, the last-but-one release becomes End of Life (EOL). The upgrade is likely to work successfully after the release goes EOL, but the time period after the new release may be uncertain.
 
 Upgrades across more than two releases are *not supported*, and issues encountered with such upgrades may not be considered significant bugs.
 
-When upgrading across multiple releases, you may need to import the GPG key for the release you want to update to. You can do this with:
+When upgrading across more than two releases, you may need to import the GPG key for the release you want to update to. You can do this with:
 
 [source,bash]
 ----
-gpg --quiet --with-fingerprint /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-N-primary
+sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-N-primary
 ----
 
-(where N is the Fedora version.)
-
-Refer to the link:++https://getfedora.org/keys/faq/++[getfedora.org FAQ on Keys] for details.
+(where `N` is the Fedora version.)
 
 [[sect-can-i-use-dnf-system-upgrade-to-upgrade-to-a-pre-release]]
-=== Can I Use DNF System Upgrade To Upgrade To A Pre-Release (e.g. a Beta)?
+=== Can I use DNF System Upgrade to upgrade to a pre-release (e.g. a Beta)?
 
 Yes, but this is subject to temporary breakage as with any other aspect of a pre-release.
