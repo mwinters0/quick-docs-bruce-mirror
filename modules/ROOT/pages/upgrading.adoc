@@ -40,7 +40,7 @@ This is the recommended upgrade method for all other Fedora installations.
 This method is used to a upgrade Fedora installation using the command-line.
 It is also used to troubleshoot issues with packages preventing the graphical method from upgrading.
 
-For instructions on upgrading with the DNF system upgrade plugin, refer to the xref:dnf-system-upgrade.adoc[] page.
+For instructions on upgrading with the DNF system upgrade plugin, refer to the xref:dnf-system-upgrade.adoc[DNF System Upgrade] page.
 
 [[sect-upgrading-to-major-versions-in-silverblue]]
 == Upgrading between major versions in Fedora Silverblue
@@ -61,7 +61,7 @@ This is not a supported upgrade method.
 
 ====
 
-Upgrading between Fedora releases without the xref:dnf-system-upgrade.adoc[DNF System Upgrade plugin] or <<sect-upgrading-to-the-next-fedora-workstation-release,GNOME Software>> are not tested by the Fedora QA team, and are therefore not supported by the community. You can follow xref:upgrading-fedora-online.adoc[], but you're doing that *at your own risk*.
+Upgrading between Fedora releases without the xref:dnf-system-upgrade.adoc[DNF System Upgrade plugin] or <<sect-upgrading-to-the-next-fedora-workstation-release,GNOME Software>> are not tested by the Fedora QA team, and are therefore not supported by the community. You can follow xref:upgrading-fedora-online.adoc[Upgrading Fedora using package manager], but you're doing that *at your own risk*.
 
 [[sect-upgrade-from-prerelease-to-final-release]]
 == Upgrading from pre-release (beta) to final public release (stable)
@@ -77,7 +77,7 @@ They are *NOT SUITABLE* for regular day-to-day use unless you are a fairly exper
 You should read through those pages carefully before deciding to run Branched or Rawhide.
 See the link:++https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle++[Fedora Life Cycle] for more information on how the whole Fedora cycle works from Rawhide, to Branched, to the milestone releases (Beta), to the 'Final' release.
 
-Upgrading to a Branched release or to Rawhide can be done using xref:dnf-system-upgrade.adoc[].
+Upgrading to a Branched release or to Rawhide can be done using xref:dnf-system-upgrade.adoc[DNF System Upgrade].
 
 [[sect-upgrading-from-end-of-life-releases]]
 == Can I upgrade from an End Of Life (EOL) release?

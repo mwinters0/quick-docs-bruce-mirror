@@ -6,7 +6,7 @@ using `dnf` (without the xref:dnf-system-upgrade.adoc[DNF system upgrade plugin]
 [WARNING]
 ====
 
-This is not a supported upgrade method. Read xref:upgrading.adoc[] to see a list of supported and tested upgrade methods. The steps included in the guide are *at your own risk*.
+This is not a supported upgrade method. Read xref:upgrading.adoc[Upgrading to a new release of Fedora] to see a list of supported and tested upgrade methods. The steps included in the guide are *at your own risk*.
 
 ====
 
