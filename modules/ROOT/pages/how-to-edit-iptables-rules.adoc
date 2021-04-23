@@ -1,14 +1,23 @@
 = How to edit iptables rules
 
-In this how-to, we will illustrate three ways of editing iptables rules, via:
+.Outdated information
+[CAUTION]
+====
+A newer, more flexible access control service, firewalld,
+is now the default firewall manager for Fedora/CentOS.
+For most regular users' needs,
+firewalld has eliminated the need to edit iptables rules directly.
 
-* Command line interface (CLI): `iptables` and system configuration file `/etc/sysconfig/iptables`.
-* Text-based interfaces (TUI): `setup` or `system-config-firewall-tui`
-* Graphical user interface(GUI): `system-config-firewall`
+You may wish to read the <<firewalld.adoc#,Using firewalld>> Quick Doc instead of this document,
+as the information provided here is no longer current.
+It is preserved mainly for historical interest.
+====
 
-NOTE: This how-to illustrates editing existing iptables rules, not the
-initial creation of rules chains.
+In this how-to, we will illustrate how to edit iptables rules
+using the `iptables` command and the system configuration file
+`/etc/sysconfig/iptables`.
+
+NOTE: This how-to illustrates editing existing iptables rules,
+not the initial creation of rules chains.
 
 include::{partialsdir}/iptables-cli.adoc[leveloffset=+1]
-include::{partialsdir}/iptables-tui.adoc[leveloffset=+1]
-include::{partialsdir}/iptables-gui.adoc[leveloffset=+1]
