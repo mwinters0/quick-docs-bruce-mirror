@@ -155,7 +155,7 @@ If you see a package you do not need, or use, you can remove it with:
 
 [source,bash]
 ----
-sudo dnf remove $(dnf repoquery --extras --exclude=kernel,kernel-\*)
+sudo dnf remove $(sudo dnf repoquery --extras --exclude=kernel,kernel-\*)
 ----
 
 You can safely remove packages no longer in use with:
