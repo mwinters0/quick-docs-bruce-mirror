@@ -28,7 +28,7 @@ markup language. You may want to look at:
 
 
 * [AsciiDoc Syntax Quick Reference](http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/)
-* [AsciiDoc Writer’s  Guide](http://asciidoctor.org/docs/asciidoc-writers-guide/)
+* [AsciiDoc Writer's Guide](http://asciidoctor.org/docs/asciidoc-writers-guide/)
 * [Antora Documentation](https://docs.antora.org/antora/1.0/page/)
 
 
