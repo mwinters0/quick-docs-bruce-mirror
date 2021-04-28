@@ -98,7 +98,6 @@
 * Databases
 ** xref:postgresql.adoc[PostgreSQL]
 ** xref:installing-mysql-mariadb.adoc[Installing, Configuring and Troubleshooting MySql/MariaDB]
-** xref:postgresql.adoc[PostgreSQL]
 ** xref:manage-sql-server.adoc[How to Manage your SQL Server from GUI]
 
 * FAQ
