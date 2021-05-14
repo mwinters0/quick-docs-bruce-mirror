@@ -38,7 +38,38 @@ The location of your microSD card will be /dev/sdX or /dev/mmcblkX depending on 
 $ xzcat *Fedora-IMAGE-NAME.raw.xz* | sudo dd status=progress bs=4M of=*/dev/XXX*
 ----
 +
-. Resize the Root Partition on the microSD using gparted:
+. To resize the main partition, run `parted` and select the device.
++
+----
+(parted) select /dev/sdX
+----
++
+. Inspect the amount of unallocated space at the end and resize the root partition.
++
+----
+(parted) print free
+(parted) resizepart <partition_number> <target_size>
+----
++
+. Resize the LVM physical volume so it takes up all the available space. For this to work you must deactivate any logical volumes within.
++
+----
+# pvresize /dev/sdaX
+----
++
+. Then extend the logical volume that corresponds to the root directory (`/dev/fedora_fedora/root` in this example).
++
+----
+# lvextend -l +100%FREE /dev/fedora_fedora/root
+----
++
+. Finally, resize the XFS filesystem in the logical volume (`/dev/mapper/fedora_fedora-root` in this example).
++
+----
+# xfs_growfs -d /dev/mapper/fedora_fedora-root
+----
++
+. Alternatively, you can use gparted to resize the Root Partition on the microSD:
 +
 ----
 $ gparted /dev/XXX
