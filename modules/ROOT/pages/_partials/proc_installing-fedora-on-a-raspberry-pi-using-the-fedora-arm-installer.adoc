@@ -30,18 +30,18 @@ This procedure shows Fedora users how to add Fedora ARM to a microSD for use wit
 
 . Download a Fedora ARM image from the  link:https://arm.fedoraproject.org/[Fedora ARM website].
 +
-. Install the `fedora-arm-installer`:
+. Install the `arm-image-installer`:
 +
 [source,shell,subs="attributes"]
 ----
-$ dnf install -y fedora-arm-installer
+$ dnf install -y arm-image-installer
 ----
 +
 . As the root user, write the Fedora ARM image to the microSD card:
 +
 [source,shell,subs="quotes,attributes"]
 ----
-# fedora-arm-image-installer --image=__&#60;/path/to/fedora_image&#62;__ --target=__&#60;RPi_Version&#62;__ --media=/dev/__&#60;sd_card_device&#62;__ --resizefs
+# arm-image-installer --image=__&#60;/path/to/fedora_image&#62;__ --target=__&#60;RPi_Version&#62;__ --media=/dev/__&#60;sd_card_device&#62;__ --resizefs
 ----
 +
 Where:
@@ -55,11 +55,11 @@ Where:
 +
 [NOTE]
 ====
-* To see usage options for the `fedora-arm-image-installer`, run:
+* To see usage options for the `arm-image-installer`, run:
 +
 [source,shell,subs="attributes"]
 ----
-$ fedora-arm-image-installer --help
+$ arm-image-installer --help
 ----
 
 * For list of supported boards please check SUPPORTED-BOARDS file.
