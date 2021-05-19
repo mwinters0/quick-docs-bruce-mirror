@@ -1,6 +1,8 @@
 [id='adding-repositories']
 = Adding repositories
 
+include::{partialsdir}/attributes.adoc[]
+
 This section describes how to add software repositories with the `dnf config-manager` command.
 
 Use the following commands as the `root` user or under the `sudo` utility.
