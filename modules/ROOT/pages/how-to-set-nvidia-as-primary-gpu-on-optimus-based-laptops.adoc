@@ -100,9 +100,9 @@ Once done, open up the `nvidia.conf` from the copy destination and edit it to ad
 ----
 Option "PrimaryGPU" "yes"
 ----
-to every section of it.
+to the `OutputClass` section of it.
 
-For example, using `nano`
+For example, use `nano`
 ----
 sudo nano /etc/X11/xorg.conf.d/nvidia.conf
 ----
