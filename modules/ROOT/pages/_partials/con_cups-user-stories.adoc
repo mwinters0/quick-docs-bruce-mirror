@@ -1,0 +1,112 @@
+[id='proc_cups-user-stories']
+= User stories
+
+There are several common user stories when it comes to debugging printing issues. I'll mention some of them with steps how to get necessary information.
+
+== I have HP printer and have a problem with HPLIP script
+
+Please follow the steps in the following sections:
+
+* xref:how-to-debug-printing-problems.adoc#_enable_cups_debug_logging[enable CUPS debug logging]
+* xref:how-to-debug-printing-problems.adoc#_how_to_start_to_capture_incident_bound_journal_logging[start to capture journal logs]
+* xref:how-to-debug-printing-problems.adoc#_hplip_scripts_debug_logging[run the script with enabled debugging]
+* xref:how-to-debug-printing-problems.adoc#_how_to_get_incident_bound_journal_logging[get the journal logs]
+* attach the files to the bugzilla ticket and xref:how-to-debug-printing-problems.adoc#_turning_off_debug_logging[turn off debug logging]
+* provide printer model name and printer PPD file from `/etc/cups/ppd/`
+
+== I have HP printer, installed it with HPLIP and have a problem with it
+
+HPLIP installed print queue has a device uri starting with hp://.
+
+Please follow the steps in the following sections:
+
+* xref:how-to-debug-printing-problems.adoc#_enable_cups_debug_logging[enable CUPS debug logging]
+* xref:how-to-debug-printing-problems.adoc#_how_to_start_to_capture_incident_bound_journal_logging[start to capture journal logs]
+* trigger your issue
+* xref:how-to-debug-printing-problems.adoc#_how_to_get_incident_bound_journal_logging[get the journal logs]
+* attach the files to the bugzilla ticket and xref:how-to-debug-printing-problems.adoc#_turning_off_debug_logging[turn off debug logging]
+* provide printer model name and printer PPD file from `/etc/cups/ppd/`
+
+== My printer doesn't print correctly or at all, but I can see the printer in print dialog
+
+Please follow the steps in the following sections:
+
+* xref:how-to-debug-printing-problems.adoc#_enable_cups_debug_logging[enable CUPS debug logging]
+* xref:how-to-debug-printing-problems.adoc#_prepare_cups_for_job_logging[prepare CUPS for job logging]
+* xref:cups-useful-tricks.adoc#_restarting_cups_service[restart CUPS service]
+* trigger your issue - print the specific document to the specific print queue you have problem with
+* xref:how-to-debug-printing-problems.adoc#_get_a_job_log_for_a_specific_job_id[get the job log for the job you have just triggered]
+* attach the created files to the ticket and xref:how-to-debug-printing-problems.adoc#_turning_off_debug_logging[turn off debug logging]
+* attach your printer PPD file from `/etc/cups/ppd/` if available
+* attach the file you wanted to print
+* tell what application you printed from
+* mention your xref:how-to-debug-printing-problems.adoc#_which_driver_am_i_using[printer model]
+
+== CUPS generic issue
+
+For generic issues - printer wasn't found, segfault - please follow the steps in the following sections (`avahi-daemon` must run):
+
+* xref:how-to-debug-printing-problems.adoc#_enable_cups_debug_logging[enable CUPS debug logging]
+* xref:how-to-debug-printing-problems.adoc#_how_to_start_to_capture_incident_bound_cupsd_logging[start to capture logs]
+* trigger the issue - e.g. try to find printers via [command]`sudo lpinfo -l -v`, do some action in web ui - depends on your problem
+* xref:how-to-debug-printing-problems.adoc#_how_to_get_incident_bound_cupsd_logging[get the logs]
+* attach created files to the ticket and xref:how-to-debug-printing-problems.adoc#_turning_off_debug_logging[turn off debug logging]
+* put the output of xref:how-to-debug-printing-problems.adoc#_what_make_and_model_is_my_printer[lpinfo] into a file and attach it
+* put the output of xref:how-to-debug-printing-problems.adoc#_which_print_queues_are_available_for_me[both lpstat commands] into a file and attach it
+
+== My printer doesn't print correctly - I use 'everywhere' model
+
+Please follow the steps in the following sections:
+
+* xref:how-to-debug-printing-problems.adoc#_cups_everywhere_model[get data from get-printer-attributes request]
+* xref:how-to-debug-printing-problems.adoc#_my_printer_doesnt_print_correctly_or_at_all_but_i_can_see_the_printer_in_print_dialog[follow the steps with CUPS job log user story]
+
+== I have a generic problem with cups-browsed
+
+Please follow the steps in the following sections:
+
+* xref:how-to-debug-printing-problems.adoc#_enable_cups_debug_logging[enable CUPS debug logging]
+* xref:how-to-debug-printing-problems.adoc#_cups_browsed_logging[enable cups-browsed logging], but don't restart cups-browsed yet.
+* xref:how-to-debug-printing-problems.adoc#_how_to_start_to_capture_incident_bound_cupsd_logging[start to capture cupsd logs]
+* start cups-browsed via `systemctl` and start to capture its logs:
+
+----
+$ journalctl -u cups-browsed -f > cups_browsed_log
+----
+
+* trigger the issue or wait until cups-browsed triggers the issue itself
+* cancel cups-browsed and xref:how-to-debug-printing-problems.adoc#_how_to_get_incident_bound_cupsd_logging[cupsd log] captures
+* attach created files [filename]`cups_whole_log` and [filename]`cups_browsed_log` to the ticket and xref:how-to-debug-printing-problems.adoc#_turning_off_debug_logging[turn off debug logging]
+
+== Printer found by cups-browsed doesn't print or print badly
+
+The most difficult user story - we need to know how the print queue was created and how it behaves during printing. The print queue found by cups-browsed has a device uri starting with `implicitclass://`.
+
+Please follow the steps:
+
+* xref:how-to-debug-printing-problems.adoc#_cups_filters_driverless_driver[get printer info from get-printer-attributes and PPD file]
+* xref:how-to-debug-printing-problems.adoc#_enable_cups_debug_logging[enable CUPS debug logging]
+* xref:how-to-debug-printing-problems.adoc#_cups_browsed_logging[enable cups-browsed logging], but don't restart cups-browsed yet.
+* xref:how-to-debug-printing-problems.adoc#_how_to_start_to_capture_incident_bound_cupsd_logging[start to capture cupsd logs]
+* start cups-browsed via `systemctl` and start to capture its logs:
+
+----
+$ journalctl -u cups-browsed -f > cups_browsed_queue_creation
+----
+
+* give cups-browsed some time to process found devices (depends on how many devices you have in the local network or how many print queues are stored in the location you set with [option]`BrowsePoll` directive)
+* cancel cups-browsed and xref:how-to-debug-printing-problems.adoc#_how_to_get_incident_bound_cupsd_logging[cupsd log] captures - save the files as `cups_queue_creation` and `cups_browsed_queue_creation`
+
+Now we need to capture the logs during printing:
+
+* xref:how-to-debug-printing-problems.adoc#_prepare_cups_for_job_logging[prepare CUPS for job logging]
+* xref:cups-useful-tricks.adoc#_restarting_cups_service[restart CUPS service]
+* start to capture cups_browsed logs again:
+
+----
+$ journalctl -u cups-browsed -f > cups_browsed_printing
+----
+
+* trigger your issue - print the specific document to the specific print queue you have problem with
+* xref:how-to-debug-printing-problems.adoc#_get_a_job_log_for_a_specific_job_id[get the job log for the job you have just triggered] and cancel the capture of cups-browsed logging
+* attach all gathered log files

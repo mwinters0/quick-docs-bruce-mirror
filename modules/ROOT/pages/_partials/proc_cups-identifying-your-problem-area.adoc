@@ -1,0 +1,417 @@
+[id='proc_cups-identifying-your-problem-area']
+= Identifying your problem area
+
+Printing issues can be fairly complex and active cooperation or lots of data can be requested from reporter by maintainer to helping maintainer to at least understand and (if it is not hardware specific issue) reproduce the issue, so please have a patience and try to narrow the problem as much you are able to for maintainers.
+
+There can be:
+
+* issues with seeing or connecting to the printer (it can be cups backend issues, avahi issues, libusb issues, cups-browsed issues),
+* accessibility issues (correct/wrong setup in cupsd.conf or its bad interpretation by cupsd daemon, bad cooperation with NIS, SSSD...),
+* printing with help of samba (issues with smb backend, which is part of samba) or with samba authenticated through Kerberos (samba_krb5_printing),
+* issues with filters used during filtering the document into document format supported by printer, which influence how or if the document will be printed (issue with filters - pdftops, pdftopdf, pstops, bannertopdf etc. - or issues with binaries or libraries which filters uses - libgs, qpdf, poppler...),
+* issues with Postscript Printer Description files, which are old way of defining printers capabilities like supported page sizes, borders etc...
+
+Not mentioning possible limitations or issues in firmware or hardware of printer itself, so any kind of data or narrowing the issue is welcomed.
+
+The best start is to attach files with logs described further down.
+
+== CUPS logging
+
+All CUPS logging is redirected to journal by default since Fedora 28 (there was a redirecting of error_log to journal by default before Fedora 28).
+
+We need to define two different ways of capturing incident-bound CUPS whole logs - the one if the broken print queue isn't provided by HPLIP and the other if it is. They differs in the filter option of journald - if you use non-HPLIP queue for debugging, it is okay to gather the logs from cups systemd unit (by '-u cups'), because all error messages are correctly redirected to cups systemd unit logging and they are accessible in the output after unit filtering. HPLIP libraries are not implemented to do the same (upstream is unresponsive to accept a potencial fix into the project and the issue is not critical enough to drag a downstream patch forever), so their messages aren't marked for cups systemd unit and they're filtered out after calling journald with '-u cups'. For such queues journald log without filtering is required.
+
+[NOTE]
+===============================
+Incident-bound journald log without filtering is required only for HPLIP print queues (their device uri starts with hp://) and it is unwanted for other queues, because it can be hard to read in larger cases. Please attach incident-bound journald log only when it is necessary.
+===============================
+
+=== Location of CUPS logging
+
+CUPS logging is located in the system journal by default, but the logging into a file can be set in [filename]`/etc/cups/cups-files.conf` with directive [option]`ErrorLog`. If you want to change the default settings, then the name of the logging file is irrelevant, but it is recommended to put the file into path `/var/log/cups`, otherwise SELinux will block cupsd from accessing it.
+
+Setting the logging to a file has following cons (without further operations):
+
+* unable to get only logs connected to a job without chaining more commands
+* unable to get logs for specified time frame without chaining more commands
+
+For capturing a incident-bound logs `tail -f` can be used e.g.:
+
+----
+tail -f /var/log/cups/error_log
+----
+
+=== Enable CUPS debug logging
+
+Enable full debugging information with:
+
+----
+$ sudo sed -i 's,LogLevel .*$,LogLevel debug2,' /etc/cups/cupsd.conf
+$ sudo systemctl restart cups
+----
+
+=== CUPS job log
+
+[IMPORTANT]
+===============================
+If the problem appears when you sent document to print or if you are trying to, capture logs for this job. If the job log is available, its attaching is *REQUIRED*.
+===============================
+
+==== Prepare CUPS for job logging
+
+For being able to see specific job log, please turn on:
+
+----
+PreserveJobFiles Yes
+----
+
+in your [filename]`/etc/cups/cupsd.conf` file and restart cup service. Do not forget to remove the line after you are done with debugging. [command]`lpstat -W all` seems to be empty after printing if you do not enable the directive.
+
+==== Get a job log for a specific job ID
+
+To capture job log you need to know Job ID (JID) of the job - it is a number which together with print queue name specifies the job as request ID - for getting logs specific for the job.
+
+Job ID can be seen in terminal if you send a document to print by [command]`lp` command:
+
+----
+$ lp -d <print_queue_name> <file1> ... <fileN>
+request id is <print_queue_name>-<JID> (N file(s))
+----
+
+Or when you list jobs (see [command]`man lpstat`) - the latest job is at the end:
+
+----
+$ lpstat -W all
+...
+<print_queue_name>-<JID>           <user>           1024   Wed 11 Jan 2017 05:52:19 PM CET
+----
+
+You can get the latest job logs automatically (if you have [command]`awk` installed and [command]`lpstat -W` all returns jobs) by:
+
+----
+$ journalctl -u cups JID=`lpstat -W all | awk '{print $1}' | awk -F '-' '{print $NF}' | tail -n 1` > cups_job_log
+----
+
+Or manually, if you found JID by yourself:
+
+----
+journalctl -u cups JID=<JID> > cups_job_log
+----
+
+=== Incident-bound cupsd log (broken print queue isn't HPLIP supported)
+
+Sometimes we cannot bind the error with a specific print job, so the job log is uneffective. Incident-bound cupsd log is needed.
+
+==== How to start to capture incident-bound cupsd logging
+
+In new terminal/terminal tab, please issue:
+
+----
+journalctl -f -u cups > cups_whole_log
+----
+
+==== How to get incident-bound cupsd logging
+
+After you trigger the error condition you are trying to diagnose e.g. printing something, try to find a printer via [command]`lpinfo` etc., you terminate capturing incident-bound cupsd log from xref:_how_to_start_to_capture_incident_bound_cupsd_logging[step above] by `<ctrl>+<c>`.
+
+===  Incident-bound cupsd log (broken print queue is HPLIP supported)
+
+Unfortunately, HPLIP libraries don't log into CUPS unit in journal, so if your print queue is installed with HPLIP driver (its device uri starts with `hp://`), we need incident-bound journal log.
+
+==== How to start to capture incident-bound journal logging
+
+In new terminal/terminal tab, please issue:
+
+----
+journalctl -f > journal_whole_log
+----
+
+==== How to get incident-bound journal logging
+
+After you trigger the error condition you are trying to diagnose e.g. printing something, running HP script etc., you terminate capturing incident-bound journal log from xref:_how_to_start_to_capture_incident_bound_journal_logging[step above] by `<ctrl>+<c>`.
+
+=== Turning off debug logging
+
+Please attach [filename]`cups_job_log` for the problematic job, [filename]`cups_whole_log` or [filename]`journal_log` if you caught whole cupsd log during the problematic event to bug report as an attachment.
+
+Then to turn off debugging information, do this:
+
+----
+$ sudo sed -i 's,LogLevel debug2,LogLevel warn,' /etc/cups/cupsd.conf
+$ sudo systemctl restart cups
+----
+
+=== More commands for working with systemd-journald
+
+View the log messages with:
+
+----
+journalctl -u cups -e
+----
+
+or:
+
+----
+journalctl -u cups --since=...
+----
+
+To filter out messages relating to a specific job ID, use:
+
+----
+journalctl -u cups JID=...
+----
+
+(tab completion will show you which job IDs have log messages)
+
+== cups-browsed logging
+
+cups-browsed daemon was introduced in Fedora around cups-1.5 version. It can browse Bonjour broadcasts, CUPS broadcasts (deprecated) and LDAP servers for printers and create or remove local queues pointing to those printers. It can creates broadcasts of local CUPS queues, but it is marked as deprecated.
+
+For setting debug logging on you need to add:
+
+----
+DebugLogging stderr
+----
+
+to [filename]`/etc/cups/cups-browsed.conf`.
+
+The logs will be available in system journal after cups-browsed restart.
+
+== HPLIP scripts debug logging
+
+Python scripts from HPLIP (e.g. [command]`hp-setup`, [command]`hp-clean`, [command]`hp-scan`) have debug logging redirected to the standard error file descriptor, so they are not logged in journal. For getting their debug logging, run the script with `-ldebug` parameter e.g.:
+
+----
+$ hp-setup -ldebug -i
+----
+
+and reproduce the issue. Then copy the messages from terminal into [filename]`hp_script_log`. Please attach the file to the bugzilla ticket too.
+
+== What make and model is my printer?
+
+Each different printer has a model-specific Device ID. You can find out with the [command]`lpinfo` command:
+
+----
+su -c "lpinfo -l -v"
+----
+
+This command runs each of the backends in discovery mode, to get them to report devices they can automatically detect. This will output a series of blocks of lines, each one like this:
+
+----
+Device: uri = usb://HP/DESKJET%20990C?serial=U123456789AB
+        class = direct
+        info = HP DESKJET 990C
+        make-and-model = HP DESKJET 990C
+        device-id = MFG:HEWLETT-PACKARD;MDL:DESKJET 990C;CMD:MLC,PCL,PML;CLS:PRI
+NTER;DES:Hewlett-Packard DeskJet 990C;SN:U123456789AB;S:00808880800010032C100000
+0C2000000;P:0800,FL,B0;J:                    ;
+        location = 
+----
+
+The line which identifies this particular model type is the long one that starts "device-id =" (shown here wrapping over three lines).
+
+Note that if your printer cannot be automatically detected, you may still be able to find out the Device ID by running the appropriate backend with the printer hostname as the argument. The *usb*, *parallel*, *snmp*, and *dnssd* backends all try to report the actual Device ID given by the printer.
+
+----
+$ /usr/lib/cups/backend/snmp 10.34.18.3
+
+network socket://10.34.18.3 "HP Color LaserJet CP2025dn" "HP Color LaserJet CP2025dn"
+"MFG:Hewlett-Packard;CMD:PJL,PML,PCLXL,POSTSCRIPT,PCL;MDL:HP Color LaserJet CP2025dn;
+CLS:PRINTER;DES:Hewlett-Packard Color LaserJet CP2025dn;MEM:MEM=55MB;COMMENT:RES=600x8;" "HP Color LaserJet CP2025dn" 
+----
+
+Device ID is in this case (see http://www.cups.org/documentation.php/doc-1.5/man-backend.html[backend(7)]) the last but one field.
+
+== Which print queues are available for me?
+
+The queues on your machine can be permanent ones or temporary. CUPS is capable to list all available print queues on the local network (permanent and temporary queues) by:
+
+----
+$ lpstat -e
+----
+
+For permanent queues you are able to get more info with:
+
+----
+$ lpstat -t
+----
+
+== Which driver am I using?
+
+The PPD file for the printer queue can tell you which driver is in use. You can use this command to find out which driver is being used:
+
+----
+grep -H '^*NickName:' /etc/cups/ppd/*.ppd
+----
+
+You can also find this out using the [command]`system-config-printer` application. Double-click on the icon for the queue and look at the Make and Model field.
+
+To see the available drivers, click on the _Change..._ button next to that field. You might find it useful to try another driver to see if that shows the same problem.
+
+=== Driverless models
+
+Most printers released since 2010 are capable of AirPrint or IPP Everywhere, which means they don't need to be installed to work - the device is found by Avahi and the print capabilities are communicated via IPP protocol - they are basically driverless devices. There are two solutions in Fedora which implement IPP everywhere:
+
+- CUPS 'everywhere' model
+- cups-filters 'driverless' driver
+
+==== CUPS 'everywhere' model
+
+It is CUPS implementation of IPP everywhere standard, available as a special printer model. The model is used when you use CUPS temporary queue for your device or if you install your device with as IPP Everywhere model in CUPS web ui or via lpadmin (using `-m everywhere`).
+
+Because the created PPD file depends on IPP communication with printer, we need info which is gathered from the device. You can use [command]`ipptool` for that:
+
+----
+$ ipptool -tv <your_printer_device_uri> get-printer-attributes.test &> ipptool_log
+----
+
+Attach the created [filename]`ipptool_log` to the bugzilla ticket if needed.
+
+==== cups-filters 'driverless' driver
+
+Cups-filters special driver which is used for generating PPD according IPP Everywhere standard. The driver is used if you choose *driverless* model during printer installation.
+
+We need get-printer-attributes request output too:
+
+----
+$ ipptool -tv <your_printer_device_uri> get-printer-attributes.test &> ipptool_log
+----
+
+and debug logs from the driver itself when it generates PPD for your device:
+
+----
+$ driverless -d cat <ipp_device_uri> 2> driverless_debug > created_ppd
+----
+
+Attach all created files to the bugzilla ticket if needed.
+
+== Finding where the problem lies
+
+When a print job is processed it is sent through a chain of _filters_ to convert the file into a format the printer can understand, and then finally sent to a _backend_, a program which can transport the data to the printer. By slightly changing how you print you can try a different printing path to see if that changes anything. If it works around the problem, you know which area the problem was in -- include that information in a bug report so that we can fix it.
+
+=== Application
+
+Try printing from a different application to see if the problem goes away or if it occurs regardless of how a file is printed. Try printing the document from the command line using the [command]`lp` command.
+
+=== Document format
+
+If you are having problems printing PDF files, try printing other types of file to see if the problem is with printing anything or if it is specific to printing PDF files. Try converting the file to a different format and printing that.
+
+If the problem relates to printing text files, try removing/installing the paps package. This package provides an alternative text-to-PostScript filter to the one that comes with CUPS.
+
+To inspect the document that was submitted to CUPS for printing, enable the [option]`PreserveJobFiles` option like this:
+
+----
+cupsctl PreserveJobFiles=yes
+----
+
+Submitted job documents will remain in `/var/spool/cups`. There are files with two types of names - [filename]`dXXXXX-YYY` and [filename]`cXXXXX`. [filename]`dXXXXX-YYY` is file which goes to CUPS system, unfiltered file - `XXXXX` is job ID, which is filled with zeros to be 5 characters long, and `YYY` is sequence number of file in the job. [filename]`cXXXXX` is file which contains printing options for a job specified by job ID in `XXXXX`. Please attach [filename]`dXXXXX-YYY` to the bug for a job when you experience the issue
+
+==== Running filters by hand
+
+More advanced users may like to try running the CUPS filters by hand and examining the data file at each step as it is converted between different formats. Here is an example of doing this for a gutenprint queue named pqueue with the CUPS test page which is its own special MIME type, `application/vnd.cups-banner`:
+
+First you need to know the filter pipeline for `application/vnd.cups-banner` -> `printer/pqueue` (output MIME type). You can either xref:_enable_cups_debug_logging[enable debugging], print a test page, get xref:_cups_job_log[CUPS job log] and in cups_job_log you'll find something similar to:
+
+----
+envp[29]="FINAL_CONTENT_TYPE=printer/pqueue"
+Started filter /usr/lib/cups/filter/bannertopdf (PID 1111)
+Started filter /usr/lib/cups/filter/pdftopdf (PID 1112)
+Started filter /usr/lib/cups/filter/gstoraster (PID 1113)
+Started filter /usr/lib/cups/filter/rastertogutenprint.5.2 (PID 1114)
+----
+
+or run
+
+----
+/usr/lib/cups/filter/bannertopdf 1 me '' 1 '' </usr/share/cups/data/testprint >bannertopdf.pdf
+cupsfilter -e -m printer/pqueue -p /etc/cups/ppd/pqueue.ppd bannertopdf.pdf > /dev/null
+----
+
+and you'll see:
+
+----
+INFO: pdftopdf (PID 1111) started.
+INFO: gstoraster (PID 1112) started.
+INFO: rastertogutenprint.5.2 (PID 1113) started.
+----
+
+
+[NOTE]
+===============================
+This filter pipeline is from cups-1.6. With cups < 1.6 you can see bannertops -> pstops -> pstoraster instead.
+===============================
+
+Now you can run filters by hand:
+
+----
+export PPD=/etc/cups/ppd/pqueue.ppd
+/usr/lib/cups/filter/bannertopdf 1 me '' 1 '' </usr/share/cups/data/testprint >bannertopdf.pdf
+/usr/lib/cups/filter/pdftopdf 1 me '' 1 '' <bannertopdf.pdf >pdftopdf.pdf
+/usr/lib/cups/filter/pdftoraster 1 me '' 1 ''<pdftopdf.pdf >out.ras
+/usr/lib/cups/filter/rastertogutenprint.5.2 1 me '' 1 ''<out.ras >out.prn
+----
+
+Here, [command]`evince` or [command]`okular` can be used to examine the output after the first two filters, [command]`rasterview` can be used to examine the output of the third filter, and the last filter's output must be inspected by hand or sent directly ([command]`lpr -oraw out.prn`) to the printer.
+
+=== Driver
+
+If you have access to a different make/model of printer it might be worth trying to see if the problem occurs on both of them or just one. This can give an indication about whether it is a problem with a particular driver, or if it is a more general problem.
+
+Even if you only have access to the one printer there is often a choice of drivers to use for a given printer model, and trying each one in turn can be useful in narrowing down the problem. See xref:_which_driver_am_i_using[above] for how to do that.
+
+==== Foomatic
+
+For Foomatic drivers you can try enabling Foomatic debugging by editing the file [filename]`/etc/foomatic/filter.conf` and adding a line:
+
+----
+debug: 1
+----
+
+Next time you print a job to a queue using foomatic the debugging will be put in [filename]`/tmp/foomatic-rip.log`, and the input file as received by foomatic-rip will be in [filename]`/tmp/foomatic-rip.ps`.
+
+=== Backend (job transport)
+
+It may be possible for you to try a different backend. Using [command]`system-config-printer`, double-click on the printer queue icon and click the _Change..._ button next to the _Device URI_ field. You may see a _Connection_ expander arrow near the bottom right hand corner of the window -- click that to see which backends are available. For USB-connected HP printers, typically either of the *hp* and *usb* backends can be used.
+
+For capturing USB communication:
+
+* find out the bus number where USB device is connected, f.e.:
+
+----
+$ lsusb
+Bus 002 Device 010: ID 03f0:012a HP, Inc HP LaserJet M1536dnf MFP
+
+      =
+----
+
+* start USB packet capture:
+
+----
+$ sudo tcpdump -i usbmonN -s0 -w usb.pcap
+----
+
+where N is the bus number.
+
+For network printers you may have different protocols you can try.
+
+* *socket* is for HP JetDirect (usually port 9100)
+* *lpd* is for older style UNIX print shares
+* *smb* is for CIFS shares from Windows systems
+* *ipp* is for Internet Printing Protocol-enabled devices and also for other CUPS servers
+-- You can capture the IPP traffic with [command]`tcpdump` like this (the interface name may differ from *p4p1*):
+
+----
+ tcpdump -n -i p4p1 -U -s0 -w ipp.pcap port ipp
+----
+
+* *bjnp* is for Canon's proprietary bjnp network protocol (usually port 8611)
+
+=== Configuration tool
+
+If your problem relates to configuring print queues, try using one of the other methods of doing so. There are four available:
+
+* The GNOME 3 System Settings application (*control-center*), _System Settings_ > _Printers_ from the GNOME Shell
+* [command]`system-config-printer`, _System_ > _Administration_ > _Printing_ from the GNOME menu
+* the CUPS web interface, http://localhost:631/
+* the command line tools [command]`lpadmin`, [command]`lpoptions`, [command]`cupsctl`, [command]`cupsaccept`, [command]`cupsenable` etc.

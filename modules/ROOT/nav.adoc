@@ -59,6 +59,7 @@
 ** xref:how-to-edit-iptables-rules.adoc[How to edit iptables rules]
 ** xref:samba.adoc[How to create a Samba share]
 ** xref:join-active-directory-freeipa.adoc[How to join an Active Directory or FreeIPA domain]
+
 ** NVIDIA
 *** xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]
 *** xref:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops.adoc[How to Set NVIDIA as Primary GPU on Optimus-based Laptops]
@@ -101,6 +102,14 @@
 ** xref:postgresql.adoc[PostgreSQL]
 ** xref:installing-mysql-mariadb.adoc[Installing, Configuring and Troubleshooting MySql/MariaDB]
 ** xref:manage-sql-server.adoc[How to Manage your SQL Server from GUI]
+
+* Printing and scanning
+** xref:how-to-debug-printing-problems.adoc[Troubleshooting printing issues]
+** xref:how-to-debug-scanning-problems.adoc[Troubleshooting scanning issues]
+** xref:cups-useful-tricks.adoc[Useful tricks]
+** xref:cups-terminology.adoc[Terminology]
+** xref:cups-known-issues.adoc[Known issues]
+** xref:cups-filing-a-bug-report.adoc[Filing a bug report]
 
 * FAQ
 ** xref:fedora-and-red-hat-enterprise-linux.adoc[Difference between Fedora and Red Hat Enterprise Linux]

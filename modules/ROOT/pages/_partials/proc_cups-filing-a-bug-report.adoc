@@ -1,0 +1,65 @@
+[id='proc_cups-filing-a-bug-report']
+= Filing a bug report
+
+:experimental:
+include::{partialsdir}/attributes.adoc[]
+
+== Deciding which component
+
+Problems involving printing may relate to several components.
+
+The configuration GUI (See above) is either https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=control-center[GNOME 3 System Settings application] or https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=system-config-printer[system-config-printer]. These packages also provide the printer applet, handle automatic queue creation, and disable/enable queues when USB printers are disconnected and reconnected.
+
+Most GTK+ applications use the GTK+ print dialog. If the problem occurs when using GTK+ applications but not when printing from the command line or from another non-GTK+ application, the problem should probably be reported against https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=gtk2[gtk2]. If the problem occurs with only one GTK+ application, and other GTK+ applications print fine, the bug should be filed against that particular application.
+
+If the problem only happens with PDF files, the bug may well be in https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=poppler[poppler] (the CUPS *pdftops* filter is a wrapper around one of the poppler utility programs).
+
+Report bugs only seen using the *smb* backend against https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=samba[samba].
+
+For bugs only seen when using the *hp* backend, or the hpijs or hpcups drivers, select https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=hplip[hplip] for the component.
+
+For bugs for cups-browsed daemon and its printer discovery, please select https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=cups-filters[cups-filters]
+
+Other possibilities, depending on the problem, include:
+
+* https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=foomatic[foomatic] (the Foomatic CUPS filter and driver)
+* https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=foomatic-db[foomatic-db] (the actual printer database used by Foomatic)
+* https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=ghostscript[ghostscript] (which converts PostScript to other formats)
+* https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=gutenprint[gutenprint] (a driver that supports very many printers)
+
+For anything else, or if you are not sure, choose https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=cups[cups] or use your best guess.
+
+== Other information to include
+
+Be prepared to include some information about your system as well.
+
+=== Before gathering of information
+
+* Please change your OS locale to English. Manual xref:f{MAJOROSVER}@fedora:system-administrators-guide:basic-system-configuration/System_Locale_and_Keyboard_Configuration.adoc[[1\]].
+* Please attach gathered information as archive (example is xref:cups-useful-tricks.adoc#_how_to_compress_files[here], you may need root permissions) to the bugzilla issue.
+* Please do not forget to trigger your issue after debug enabling and restarting cups and before information gathering.
+
+===  Information to gather
+
+* the PPD file for the print queue (from the `/etc/cups/ppd` directory)
+* the document you are attempting to print -- if the document is large, please try to see if the problem also occurs with a smaller document
+* cupsd journal logs when debug level 2 is turned on. See the xref:how-to-debug-printing-problems.adoc#_enable_cups_debug_logging[how-to for turning debug2 on and for getting logs from systemd-journald].
+* if the issue is connected to a print job, attach journal logs for this specific job too. How-to get logs xref:how-to-debug-printing-problems.adoc#_get_a_job_log_for_a_specific_job_id[here], example with JID. You can find out JID value by command:
+
+----
+$ lpstat -W all
+----
+
+Find your job there and JID is a number after '-'.
+
+* If the issue is about f.e. 'printing from evince prints garbage, but printing from libreoffice works', then attach two separate files - first will contain logs when you print from evince, latter logs when you print from libreoffice.
+* [filename]`troubleshoot.txt` from system-config-printer (BEWARE: it doesn't contain journal logs - don't forget to attach them too).
+* xref:how-to-debug-printing-problems.adoc#_what_make_and_model_is_my_printer[make and model] of printer
+* config files - [filename]`/etc/cups/client.conf` (if it contains any changes from default), [filename]`/etc/cups/cupsd.conf`
+* if the issue is with cups-browsed and printer's discovery, attach [filename]`/etc/cups/cups-browsed.conf` and cups-browsed logs gained by xref:how-to-debug-printing-problems.adoc#_cups_browsed_logging[this how-to].
+
+Some example documents can be found in the https://fedoraproject.org/wiki/Category:Printing_Test_Cases[Printing Test Cases category].
+
+==  Further reading
+
+The https://fedoraproject.org/wiki/Printing[main printing page] has more information about how printing works in Fedora.

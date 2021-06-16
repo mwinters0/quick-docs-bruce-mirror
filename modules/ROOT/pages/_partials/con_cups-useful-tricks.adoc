@@ -1,0 +1,199 @@
+[id='con_cups-useful-tricks']
+= Useful tricks
+
+== How to find out whether my printer is capable of driverless printing?
+
+* look for AirPrint among device specification
+* https://www.pwg.org/printers/[Officially certified printers for IPP Everywhere]
+* check xref:_how_to_setup_cups_temporary_queues_with_network_printer[manual] for enabling CUPS temporary queues - if your printer is seen in the end in CUPS commands that way, your printer is capable of driverless printing
+* [USB devices only] check for IPP over USB (xref:_how_to_find_out_if_my_usb_device_supports_ipp_over_usb[manual] here).
+
+== How to find out my multifunction device or standalone scanner is capable of driverless scanning?
+
+* check the device specification and look for eSCL/AirScan/WSD - if any of these are mentioned, the device is capable of driverless scanning
+* most devices which advertise they can do AirPrint are capable of AirScan too
+* [USB devices only] check for IPP over USB (xref:_how_to_find_out_if_my_usb_device_supports_ipp_over_usb[manual] here).
+
+== How to find out if my USB device supports IPP over USB
+
+Check whether your USB device has a following text in [command]`lsusb -v` output:
+
+----
+...
+      bInterfaceClass         7 Printer
+      bInterfaceSubClass      1 Printer
+      bInterfaceProtocol      4 
+      iInterface              0 
+...
+----
+
+If the device has the _bInterfaceClass 7_, _bInterfaceSubClass 1_ and _bInterfaceProtocol 4_ in the sequence, it supports IPP over USB which is critical for USB device driverless printing and scanning.
+
+== How to install a print queue
+
+The answer is you don't have to install at all :) if your device is new enough, is in your local network or is an USB device, has IPP/AirPrint/mDNS enabled and your *avahi-daemon* is running, CUPS is able to create a temporary queue for you right away in the print dialog, print via it and remove it after successful printing. But there are still use cases when permanent installation is needed like sharing a print queue, different print queue defaults or printer being in different subnet, so I will cover a permanent instalation too. 
+
+=== How to setup CUPS temporary queues with network printer
+
+If your printer is capable of AirPrint, IPP and MDNS is enabled in your printer and printer , then to get CUPS temporary queues working you need:
+
+* have *avahi-daemon* running:
+
+----
+$ sudo systemctl start avahi-daemon
+----
+
+* have *cups.socket* enabled and running running:
+
+----
+$ sudo systemctl enable cups.socket
+$ sudo systemctl start cups.socket
+----
+
+* enable IPP and MDNS in your firewall settings
+
+After this the temporary queue will appear in the print dialog and you don't need to install a specific print queue unless you have a reason for it.
+
+You can check if your printer is seen in mDNS messages by (*avahi-tools* must be installed):
+
+----
+$ avahi-browse -avrt
+...
+= enp0s25 IPv4 HP LaserJet M1536dnf MFP (42307C)             _ipp._tcp            local
+   hostname = [NPI42307C.local]
+   address = [192.168.1.10]
+   port = [631]
+   txt = ["UUID=434e4239-4243-4a42-5859-3c4a9242307c" "Scan=T" "Duplex=T" "Color=F" "note=" "adminurl=http://NPI42307C.local." "priority=10" "product=(HP LaserJet M1536dnf MFP)" "ty=HP LaserJet M1536dnf MFP" "URF=CP99,W8,OB10,PQ3-4-5,DM1,IS1-4,MT1-2-3-5,MT1-2-3-5,RS600" "rp=ipp/printer" "pdl=application/postscript,application/vnd.hp-PCL,application/vnd.hp-PCLXL,application/pdf,image/urf" "qtotal=1" "txtvers=1"]
+...
+----
+
+and if CUPS or its backends see the printer by commands:
+
+(lists all existing print queues - permanent or temporary)
+
+----
+$ lpstat -e
+HP_LaserJet_M1536dnf_MFP_42307C_
+----
+
+or
+
+(lists all devices, which CUPS sees in the local network or USB)
+
+----
+$ lpinfo -l -v
+...
+Device: uri = ipp://HP%20LaserJet%20M1536dnf%20MFP%20(42307C)._ipp._tcp.local/
+        class = network
+        info = HP LaserJet M1536dnf MFP (driverless)
+        make-and-model = HP LaserJet M1536dnf MFP
+        device-id = MFG:HP;MDL:LaserJet M1536dnf MFP;CMD:PDF,PS,PCL,AppleRaster,URF;
+        location = 
+...
+----
+
+=== How to setup CUPS temporary queues with USB printer
+
+USB printers have only one additional prerequisite, installing *ipp-usb*, which will transform IPP over USB devices to network printer on localhost:
+
+----
+$ sudo dnf -y install ipp-usb
+----
+
+Then you can follow the steps in xref:_how_to_setup_cups_temporary_queues_with_network_printer[manual] for network printers.
+
+=== How to install a permanent print queue
+
+1) via CUPS web UI
+
+* start cups.service
+
+----
+$ sudo systemctl start cups
+----
+
+* go to 'Administration' tab
+* click on 'Add printer' and follow the dialogs
+
+2) via CLI commands
+
+* you will need a device uri - `<device_uri>`, f.e.:
+
+----
+$ lpinfo -l -v
+...
+Device: uri = ipp://HP%20LaserJet%20M1536dnf%20MFP%20(42307C)._ipp._tcp.local/
+              ================================================================
+----
+
+and a driver name - `<driver>`, f.e.:
+
+----
+$ lpinfo -m
+....
+everywhere IPP Everywhere
+==========
+...
+----
+
+----
+$ lpadmin -p <name> -v <device_uri> -m <driver> -E
+----
+
+where `<device_uri>` and `<driver>` are underscored strings from previous commands and `<name>` is a print queue name, which is chosen by you.
+
+== How to install a scanner
+
+Scanners in Linux don't have to be installed the same way as printers are if they are in the same network or connected via USB - you just need *sane-backends* to be installed and any scanning application will communicate with scanner/multifunction device via the backend which supports the scanner.
+
+However, the older HP scanners and multifunction devices require an additional package - *hplip* - and its binary plugins downloaded via [command]`hp-plugin -i` if they aren't supported by sane-backends already.
+
+=== How to make driverless scanning work
+
+For LAN located and USB devices:
+
+* have *avahi-daemon* enabled and running
+
+----
+$ sudo systemctl enable avahi-daemon
+$ sudo systemctl start avahi-daemon
+----
+
+* enable MDNS in firewall
+* [USB devices only] install *ipp-usb*
+
+For network scanners in a different network:
+
+* set the scanner device uri in [filename]`/etc/sane.d/airscan.conf` - see:
+
+----
+man sane-airscan
+----
+
+== How to setup mDNS with systemd-resolved
+
+systemd-resolved is enabled and running by default since F33 and can be setup to work with Avahi on mDNS support which CUPS needs - Avahi does the advertising, registering and sharing devices, and resolved will handle '.local' address resolution. It will work with following steps:
+
+* put [option]`MulticastDNS=resolve` into [filename]`/etc/systemd/resolved.conf`
+
+----
+$ sudo systemctl restart systemd-resolved
+$ sudo nmcli connection modify <connection_name> connection.mdns yes connection.llmnr yes
+$ sudo systemctl restart NetworkManager
+----
+
+== How to compress files
+
+Example:
+
+----
+$ tar -czvf cups-information.tar.gz /etc/cups cups.logs troubleshoot.txt lpinfo.log
+----
+
+== Restarting cups service
+
+You restart cups service with:
+
+----
+su -c 'systemctl restart cups.service'
+----

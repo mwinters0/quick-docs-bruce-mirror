@@ -1,0 +1,155 @@
+[id='con_cups-known-issues']
+= Known issues
+
+Here are several known issues, which arise with certain circumstances, and there isn't general solution or upstream didn't want to add the solution to its project:
+
+== cups-browsed
+
+=== Cannot print due 'No destination hostname provided by cups-browsed, is it running?'
+
+
+cups-browsed sometimes loses connection to print server (usually with old ones, like cups-1.4.2) when laptop changes network connection (change of WiFi network or after hibernate/suspend). You can make printing working again with cancelling your jobs and restarting cups-browsed by
+
+----
+$ cancel -a
+$ sudo systemctl restart cups-browsed
+----
+
+=== cups-browsed consumes large amount of CPU
+
+Creating local printer queues takes long time for some printers with larger PPD file, so timeout of http connection will time out and it creates infinite loop of creating local printer queues. To solve this issue, please add
+
+----
+HttpLocalTimeout N
+HttpRemoteTimeout N
+----
+
+into [filename]`/etc/cups/cups-browsed.conf`, where `N` is number of seconds after which connection is timed out. Then restart cups-browsed service. This option is currently in Fedora 27 and above.
+
+=== [SINCE FEDORA 27] cups-browsed creates different printer queue names than before
+
+This issue is connected to remote cups queues, which are advertised by older CUPS version (usually below cups-1.5, e.g. RHEL 6). Cups-browsed creates local print queues named by printer's DNS-SD ID by default and naming by remote cups queue is enabled again by adding:
+
+----
+LocalQueueNamingRemoteCUPS RemoteName
+----
+
+into [filename]`/etc/cups/cups-browsed.conf` and restart cups-browsed service.
+
+== cups-filters
+
+=== Printing takes a long time or doesn't print at all
+
+When your printer needs a lot of time to do printing (from your POV) or doesn't print at all (some Xerox printers have such problems with gs renderer, so they are working again only with pdftops renderer), you can try to change the default postscript renderer. The default renderer in Fedora for most printers is gs filter from Ghostscript, but we have pdftops filter from Poppler for Brother, Minolta and Konica Minolta printers - this setup is called hybrid.
+
+Other available renderer setups are gs (from Ghostscript), pdftops and pdftocairo (from Poppler), mupdf (from mupdf) and acroread (from adobe reader, not in Fedora official repositories), then you can set different default renderer for your print queue like this:
+
+----
+# lpadmin -p <printer-name> -o pdftops-renderer-default=gs/pdftops/pdftocairo/mudpf/acroread/hybrid
+----
+
+*BEWARE:* Most 'slow' printing issues are caused by PDF creating applications, which generates bad PDF file - and that bad generated PDF file is mostly the core of problem. To sum it up, slow printing issue can rise again with different PDF file, then it is on user's decision: if he wants to print fast and probably sometimes change the default renderer, or slow printing is not such critical issue.
+
+== CUPS
+
+=== [Fixed in F33 and later] Firefox, Evince (PDF viewer), GVim, Gedit, Gnome Control Center show a 'dummy'/duplicate print queue, which doesn't work
+
+This bug is connected to every application which uses GTK print dialog. GTK dialog decided to take information about available from two sources - mDNS messages from Avahi and CUPS - this dummy/duplicate print queue is a print queue GTK created in its dialog based on Avahi messages, but it doesn't exist in CUPS, because no one created it, and later GTK behaves like it exists in CUPS. So every time an user wants to print, GTK sends a request to CUPS for this queue, but it gets dropped by CUPS because the queue doesn't exist.
+
+The feature which GTK is trying to do here is called CUPS temporary queues - GTK developers is currently working on a immediate fix in this https://bugzilla.redhat.com/show_bug.cgi?id=1784449[bugzilla]. The future plan is to use https://github.com/OpenPrinting/cpdb-backend-cups[cpdb-backend-cups] backend in GTK, but right now we are focusing on the intermediate fix.
+
+===  CUPS doesn't take nicely some kinds of FQDN
+
+CUPS sometimes has problems with some kinds of FQDN - that means when you use FQDN in [option]`BrowsePoll` directive in [filename]`/etc/cups/cups-browsed.conf`, CUPS doesn't recognize it as valid hostname - it is solved by adding:
+
+----
+ServerAlias your.own.fully.qualified.hostname.com
+----
+
+into [filename]`/etc/cups/client.conf` and restarting cups service.
+
+== HPLIP
+
+First I would like to mention that we are not responsible for support HPLIP, which is downloaded and installed from HP website. Please install hplip rpms from official Fedora repositories at most cases.
+
+=== Hp-plugin: file does not match its checksum. File may have been corrupted or altered
+
+This common error is mostly caused by external causes (server outage, network outage), when wget tries to download plugin, but it returns only error message. It is connected with message:
+
+----
+Plugin download failed with error code = N
+----
+
+where `N` is return value of [command]`wget` ([command]`man wget`), which is used for downloading proprietary plugin. Solutions for this issue may vary - you can wait until servers go up again or try to install plugin, which you download manually from http://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/ (select "Select and install an existing local copy of the plug-in file" during [command]`hp-setup` or [command]`hp-plugin`).
+
+=== Unable to load cupsext
+
+This error can occur when hplip is installed from HP website, or its dependencies are mixed python2 and python3 packages or installed by pip. This is solved by removing all hplip packages (hplip, hplip-gui, hplip-libs, hplip-common, libsane-hpiao) and installing them again all from repositories.
+
+=== Missing hplip-gui
+
+GUI tools and GUI parts of HP commands are moved to hplip-gui subpackage, because the main package can work without GUI, so the main package is smaller. The outcome of this decision is HP commands need to be run with `-i` option for interactive mode, or hplip-gui subpackage needs to be installed.
+
+Tools, which need to be run with `-i` option for CLI or need to have hplip-gui installed for GUI:
+
+----
+hp-align
+hp-clean
+hp-colorcal
+hp-diagnose_queues
+hp-fab
+hp-firmware
+hp-info
+hp-plugin
+hp-sendfax
+hp-setup
+hp-testpage
+hp-unload
+----
+
+Tools, which are in hplip-gui:
+
+----
+hp-check
+hp-print
+hp-systray
+hp-toolbox
+hp-devicesettings
+hp-faxsetup
+hp-linefeedcal
+hp-makecopies
+hp-printsettings
+hp-wificonfig
+----
+
+=== HP printer isn't discovered, doesn't print or doesn't print well
+
+Some HP printers don't work well with URIs provided by CUPS (dnssd, usb, ipp) or they need proprietary plugin from HP, which cannot be in Fedora because of licensing issues. For such printers please try to run:
+
+----
+hp-setup -i -g
+----
+
+for interactive mode, or:
+
+----
+hp-setup -g
+----
+
+for graphic mode. This command installs HP printers and HP scanners. If you have issue about HP printer/HP scanner, which isn't discovered, doesn't print or doesn't print well, please try to install it by [command]`hp-setup`, if it helps. If it doesn't help, please file a bugzilla, attach output of hp-setup and mention that you tried [command]`hp-setup`.
+
+=== Device which needs plugin does not work after HPLIP update
+
+Devices which need plugin can stop to work after update to newer HPLIP version - it is due the check for plugin version in the code. The check is necessary to prevent inconsitencies when new features in open sourced HPLIP need new proprietary libraries from plugin. To make your printer work again, just download and install plugin again with:
+
+----
+$ hp-plugin -i
+----
+
+=== Devices which require a binary plugin stopped to work on Fedora Silverblue/CoreOS
+
+Devices which require a HP close source binary plugin need to have plugin installed every time you start/restart your PC by default. HP closed source script installs the plugins into a readonly directories, so the plugins are removed once you start/restart Fedora. The workaround is to try if your device supports driverless printing and scanning, try hplip-plugin package from RPMFusion or keep installing the plugin everytime you want to print.
+
+=== HP USB printer/scanner doesn't work due a conflict on USB port
+
+HPLIP proprietary binary plugins tends to conflict on the USB port where HP device is connected, if the HP device is capable of using IPP over USB and if *ipp-usb* package is installed. The solution is to _remove hplip_ and have the device being maintained by *ipp-usb* and *sane-airscan*, because it provides newer open sourced protocols and you are not limited by problems caused by closed source plugins (needed to be reinstalled every time there is a new HPLIP version, they don't work stable on Silverblue/CoreOS).
