@@ -16,7 +16,7 @@ If you do a native UEFI boot, where you will see a rather more minimal boot menu
 If the computer starts to boot off the hard drive as normal, you'll need to manually configure it to boot off the USB drive. Usually, that should work like this:
 
 . Wait for a safe point to reboot.
-. As the machine starts to reboot, watch carefully for instructions on which key to press. Usually a function key, `Escape`, `Tab` or `Delete` is to be pressed to enter the boot device selection menu, `BIOS setup`, `firmware`, or `UEFI`. Press and hold that key. If you miss the window of opportunity, often only a few seconds, then reboot and try again.
+. As the machine starts to reboot, watch carefully for instructions on which key to press. Usually a function key, `Escape`, `Tab`, `F11`, `F12` or `Delete` is to be pressed to enter the boot device selection menu, `BIOS setup`, `firmware`, or `UEFI`. Press and hold that key. If you miss the window of opportunity, often only a few seconds, then reboot and try again. (If this does not work, consult the manual of your computer)
 . Use the firmware, `BIOS`, interface or the boot device menu to put your USB drive first in the boot sequence. It might be listed as a hard drive rather than a removable drive. Each hardware manufacturer has a slightly different method for doing so.
 +
 IMPORTANT: Your computer could become unbootable or lose functionality if you change any other settings. Though these settings can be reverted, you'll need to remember what you changed in order to do so.
