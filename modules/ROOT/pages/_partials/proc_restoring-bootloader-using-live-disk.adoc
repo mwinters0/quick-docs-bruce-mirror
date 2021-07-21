@@ -64,7 +64,7 @@ If you are using the default Fedora layout, there will be one `/dev/sda1`
 partition that holds the `/boot` directory and one `/dev/sda2` that holds the root file system.
 
 ----
-# mount /dev/sda2/ /mnt
+# mount /dev/sda2 /mnt
 # mount /dev/sda1 /mnt/root/boot
 ----
 
