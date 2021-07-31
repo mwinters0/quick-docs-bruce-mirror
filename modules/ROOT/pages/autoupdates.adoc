@@ -8,7 +8,7 @@ single answer to this question: it is up to the system administrator or
 owner of each machine to decide whether automatic updates are desirable
 or not for that machine. One of the things which makes one a good system
 administrator is the ability to evaluate the facts and other people's
-suggestions, and then decide for onesself what one should do.
+suggestions, and then decide for oneself what one should do.
 
 A general rule that applies in most cases is as follows:
 
@@ -37,32 +37,32 @@ started automatically.
 [[install-and-settings-of-dnf-automatic]]
 === Install and settings of dnf-automatic
 
-On a fresh install of Fedora 22 with default options the dnf-automatic
-RPM is not installed, the first command below installs this RPM.
+On a fresh install of Fedora 22 with default options, the dnf-automatic
+RPM is not installed. The first command below installs this RPM:
 
 [source,bash]
 ----
 sudo dnf install dnf-automatic
 ----
 
-By default, the dnf-automation runs from the configurations in `/etc/dnf/automation.conf` file. These configurations only download, but do not apply any of the packages. In order to change or add any configurations, open the `.conf` file as the root user (or using `sudo`) from a terminal window.
+By default, dnf-automatic runs from the configurations in the `/etc/dnf/automatic.conf` file. These configurations only download, but do not apply any of the packages. In order to change or add any configurations, open the `.conf` file as the root user (or using `sudo`) from a terminal window.
 
 [source,bash]
 ----
 env EDITOR='gedit -w' sudoedit /etc/dnf/automatic.conf
 ----
 
-Detailed description of dnf-automatic settings is provided on
+Detailed description of dnf-automatic settings is provided on the
 https://dnf.readthedocs.org/en/latest/automatic.html[dnf-automatic] page.
 
 [[run-dnf-automatic]]
 === Run dnf-automatic
 
-Once you are finished with configuration, execute:
+Once you are finished with the configuration, execute:
 
 [source,bash]
 ----
-systemctl enable dnf-automatic.timer && systemctl start dnf-automatic.timer
+systemctl enable --now dnf-automatic.timer 
 ----
 
 to enable and start the `systemd` timer.
@@ -110,7 +110,7 @@ problems during or after installation.
 == Why use automatic updates?
 
 The main advantage of automating the updates is that machines are likely
-to get updated more quickly, more often, and more uniformly than if they
+to get updated more quickly, more often, and more uniformly than if the
 updates are done manually. We see too many compromised machines on the
 internet which would have been safe if the latest updates where
 installed in a timely way.
@@ -159,13 +159,13 @@ automatic updates are:
 * You installed a custom kernel, custom kernel modules, third party
 kernel modules, or have a third party application that depends on kernel
 versions (this may not be a problem if you exclude kernel updates, which
-is the default in Fedora `dnf.conf` files). (But see also
+is the default in Fedora `dnf.conf` files). (See also
 https://bugzilla.redhat.com/show_bug.cgi?id=870790[bug #870790] - you
 may need to modify in Fedora 22 or later versions in base section to add
 `exclude=kernel*`.)
 * Your environment requires meticulous change-control procedures.
 * You update from other third party DNF repositories besides Fedora
-(core, extras, legacy ) repositories which may conflict in versioning
+(core, extras, legacy), repositories which may conflict in versioning
 schemes for the same packages.
 
 There are also some other reasons why installing automatic updates
@@ -182,7 +182,7 @@ without testing may be a bad idea. A few such reasons are:
   particularly ones which have cron jobs. Updates to base packages like
   openssl, openldap, sql servers, etc. can have an effect on many other
   seemingly unrelated packages.
-* Bugs. Many packages contain buggy software or installation scripts.
+* Bugs. Many packages contain buggy software on installation scripts.
 The update may create problems during or after installation. Even
 cosmetic bugs, like those found in previous Mozilla updates causing the
 user's icons to be removed or break, can be annoying or problematic.
@@ -202,10 +202,10 @@ things to make sure you are up-to-date.
 
 Check for package updates which have been automatically performed, and
 note if they need further (manual) intervention. You can monitor what
-DNF or updated via its log file (usually `/var/log/dnf.log`).
+DNF has updated via its log file (usually `/var/log/dnf.log`).
 
 You can monitor updates availability automatically by email after
-modifying dnf-automatic configuration file (usually `/etc/dnf/automatic.conf`).
+modifying the dnf-automatic configuration file (usually `/etc/dnf/automatic.conf`).
 
 [source,bash]
 ----
@@ -223,14 +223,14 @@ email_to = root
 email_host = localhost
 ----
 
-You would replace root with a actual email address to which you want to
-report sent, and localhost with a actual address of SMTP server. This
+You would replace root with an actual email address to which you want the
+report sent, and localhost with an actual address of a SMTP server. This
 change will mean that after dnf-automatic runs, it will email you
-information you about available updates, or log about downloaded
+information about available updates, a log about downloaded
 packages, or installed updates according to settings in `automatic.conf`.
 
 [[alternative-methods]]
-==Alternative methods
+== Alternative methods
 
 As an alternative to dnf-automatic,
 https://github.com/rackerlabs/auter[auter] can be used. This operates in
@@ -244,12 +244,12 @@ more complexity to configure.
 sudo dnf install auter
 ----
 
-Edit the configuration. Descriptions of the options are contained in the
+You should then edit the configuration. Descriptions of the options are contained in the
 conf file `/etc/auter/auter.conf`.
 
 Auter is not scheduled by default. Add a schedule for `--prep` (if you
 want to pre-download updates) and `--apply` (install updates). The
-installed cron job which you can see in `/etc/cron.d/auter` contains lots of examples:
+installed cron job which you can see in `/etc/cron.d/auter` contains lots of examples.
 
 To make auter run immediately without waiting for the cron job to run,
 for example for testing or debugging, you can simply run it from the
@@ -274,15 +274,15 @@ auter --disable
 === Notifications
 
 Instead of automatic updates, dnf-automatic can only download new
-updates and can alert your via email of available updates which you
-could then install manually. It can be set by editing of `/etc/dnf/automatic.conf` file.
+updates and can alert you via email of available updates which you
+could then install manually. This can be set by editing of `/etc/dnf/automatic.conf` file.
 
 [[scheduling-updates]]
 === Scheduling updates
 
 Another common problem is having automatic updates run when it isn't
 desired (holidays, weekends, vacations, etc). If there are times that no
-one will be around to fix any problem arising the from the updates, it
+one will be around to fix any problem arising from the updates, it
 may be best to avoid doing updates on those days.
 
 This problem can be fixed by modification of the timer of dnf-automatic
@@ -294,7 +294,7 @@ page.
 === Other methods of protection
 
 Yet another thing to consider if not using automatic updates is to
-provide your machine with some other forms of protection to help defend
+provide your machine with some other forms of protection to help defend it of
 any attacks that might occur before updates are in place. This might
 include an external firewall, a host-based firewall (like iptables,
 ipchains, and/or tcp wrappers), not performing dangerous tasks on the
