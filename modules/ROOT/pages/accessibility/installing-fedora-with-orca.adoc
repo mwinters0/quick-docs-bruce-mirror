@@ -1,0 +1,36 @@
+= Installing Fedora with Orca
+
+Thanks for choosing to install Fedora. The first thing you'll need to
+do is put an installer onto a removable disk, like a DVD or Flash
+Drive. For maximum accessibility, choose Fedora's Mate spin, found at
+https://spins.fedoraproject.org/mate-compiz/download/index.html(The
+Fedora Mate download page). Follow a normal guide on flashing the
+downloaded image to a flash drive or DVD, and prepare to restart the
+computer to begin the installation.
+
+To install Fedora Mate, hereafter referred to as just "Fedora", you'll
+need to start your computer with the installer's drive set as the
+drive the computer starts from. Consult your computer's manual for how
+to do this, but it is usually done by pressing the power button while
+the computer is still turned off, then quickly pressing a key, like
+F2, F8, F10, or F12, rapidly until the "boot manager" appears.
+
+You'll need either sighted assistance, or an app on a smart phone that
+continuously reads text (like Seeing AI on the Apple App Store, or
+Google Lookout from the Google Play store), in order to somewhat know
+what's on the screen of this menu. If you have no other drives, local
+or network, connected to the computer, you may be able to press Down
+arrow or Right arrow several times to get to the last item of the
+menu, which should be your external drive, and press Enter to boot
+from it.
+
+Now, with the continuous text scanner still on, you'll be in a menu
+for starting the installer. Pressing Enter should start it. Leave the
+continuous text scanning on until you hear the current date. Now, you
+can put down the phone; we won't need it anymore for the installation.
+
+Now, you are at the live installation screen, where you can enable
+Orca, the screen reader. To do this, hold down the Alt key, the
+Windows key (which in Linux is called the Super key), and press the S
+key, releasing all keys afterwards. You'll hear "screen reader on", in
+a robotic, British voice. 
