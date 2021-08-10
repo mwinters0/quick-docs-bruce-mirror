@@ -1,23 +1,23 @@
 [id='relationship-between-fedora-and-red-hat-enterprise-linux']
 = Relationship between Fedora and Red Hat Enterprise Linux
 
-Red Hat Enterprise Linux and Fedora Linux both are open source operating systems. They are related projects, with Fedora being "upstream" of Red Hat Enterprise Linux. Whereas Fedora Linux is a community-supported project suitable for many types of users, Red Hat Enterprise Linux is enterprise business-oriented software, supported via commercial subscription options. 
+Red Hat Enterprise Linux and Fedora Linux both are open source operating systems. They are related projects, with Fedora being "upstream" of Red Hat Enterprise Linux. Whereas Fedora Linux is a community-supported project suitable for many users, Red Hat Enterprise Linux is enterprise business-oriented software supported via commercial subscription options.
 
 == Red Hat Enterprise Linux
 
-Red Hat Enterprise Linux is an enterprise Linux operating system. It is oriented toward enterprise and commercial users, is certified for many hardware and cloud platforms, and supported by Red Hat via various subscription options. In comparison to Fedora, Red Hat Enterprise Linux emphasises stability and enterprise-readiness over the latest technolgies or rapid releases. More information about Red Hat offerings can be found at https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux[Red Hat's web site]
+Red Hat Enterprise Linux is an enterprise Linux operating system. It is oriented toward enterprise and commercial users, is certified for many hardware and cloud platforms, and is supported by Red Hat via various subscription options. Compared to Fedora, Red Hat Enterprise Linux emphasizes stability and enterprise-readiness over the latest technologies or rapid releases. More information about Red Hat offerings can be found at https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux[Red Hat's web site].
 
-Individual software developers can access a free-of-charge subscription as part of the https://developers.redhat.com/about[Red Hat Developer Program]. Developers can use Red Hat Enterprise Linux on up to 16 physical or virtual systems for development, quality assurance, demos, and small production uses. See the Frequently Asked Questions for the https://developers.redhat.com/articles/faqs-no-cost-red-hat-enterprise-linux[No-cost Red Hat Enterprise Linux Individual Developer Subscription].
+Individual software developers can access a free-of-charge subscription as part of the https://developers.redhat.com/about[Red Hat Developer Program]. Developers can use Red Hat Enterprise Linux on up to 16 physical or virtual systems for development, quality assurance, demos, or small production uses. See the Frequently Asked Questions for the https://developers.redhat.com/articles/faqs-no-cost-red-hat-enterprise-linux[No-cost Red Hat Enterprise Linux Individual Developer Subscription].
 
 == Fedora
 
-Fedora is an operating system based on the Linux kernel. Fedora is developed by the Fedora Project and sponsored by Red Hat. Fedora is developed and released on its own echedule with releases approximatley every six months. The emphasis is on providing a modern Linux operating system utilising the latest technologies. It is free for all users and supported via the Fedora community.
+Fedora is developed by the Fedora Project and sponsored by Red Hat. It follows its own release schedule, with a new version approximately every six months. Fedora provides a modern Linux operating system utilizing many of the latest technologies. It is free for all users and supported via the Fedora community.
 
-To create Red Hat Enterprise Linux, some version of Fedora is forked and enters and extensive development, testing and certification process to become a new version of Red Hat Enterprise Linux.
+To create Red Hat Enterprise Linux, some version of Fedora is forked and enters an extensive development, testing and certification process to become a new version of Red Hat Enterprise Linux.
 
 == History of Red Hat Enterprise Linux and Fedora
 
-Red Hat first offered an enterprise Linux support subscription for Red Hat Linux 6.1. It was not a separate product but the subscription level was branded as Red Hat 6.2E. Subsequently, Red Hat started creating a separate product with commercial service level agreements and longer lifecyle based on Red Hat Linux, and later on Fedora.
+Red Hat first offered an enterprise Linux support subscription for Red Hat Linux 6.1. It was not a separate product, but the subscription offering was branded as Red Hat 6.2E. Subsequently, Red Hat started creating a separate product with commercial service level agreements and longer lifecyle based on Red Hat Linux, and later on Fedora.
 
 .Red Hat Enterprise Linux and Fedora Lineage
 [options="header"]
