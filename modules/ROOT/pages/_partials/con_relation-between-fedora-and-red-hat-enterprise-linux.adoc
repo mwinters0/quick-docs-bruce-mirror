@@ -1,7 +1,7 @@
 [id='relationship-between-fedora-and-red-hat-enterprise-linux']
-= Relationship between Fedora and Red Hat Enterprise Linux
+= Fedora and Red Hat Enterprise Linux
 
-Red Hat Enterprise Linux and Fedora Linux both are open source operating systems. They are related projects, with Fedora being "upstream" of Red Hat Enterprise Linux. Whereas Fedora Linux is a community-supported project suitable for many users, Red Hat Enterprise Linux is enterprise business-oriented software supported via commercial subscription options.
+Red Hat Enterprise Linux and Fedora both are open source operating systems. They are related projects, with Fedora being "upstream" of Red Hat Enterprise Linux. Whereas Fedora is a community-supported project suitable for different kinds of users, Red Hat Enterprise Linux is enterprise business-oriented software supported via commercial subscription options.
 
 == Red Hat Enterprise Linux
 
