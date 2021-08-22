@@ -111,12 +111,9 @@ file. Add this section to the bottom of the file:
 
 Explanation of the above:
 
-* `valid users`: only users of the group `family` have access rights. The @
-denotes a group name.
-* `force group = +myfamily`: files and directories are created with this
-group, instead of the user group.
-* `create mask = 0660`: files in the share are created with permissions to
-allow all group users to read and write files created by other users.
+* `valid users`: only users of the group `family` have access rights. The @ denotes a group name.
+* `force group = +myfamily`: files and directories are created with this group, instead of the user group.
+* `create mask = 0660`: files in the share are created with permissions to allow all group users to read and write files created by other users.
 * `directory mask = 0770`: as before, but for directories.
 
 Restart Samba for the changes to take effect:
@@ -200,8 +197,7 @@ No locked files
 
 Some things to check if you cannot access the share.
 
-. Be sure that the user exists as a system user as well as a
-Samba user
+. Be sure that the user exists as a system user as well as a Samba user
 +
 Find `maria` in the Samba database:
 +
@@ -237,8 +233,7 @@ drwxrwx---. 2 root myfamily 4096 May 29 14:03 /home/share
 +
 In this case, the user should be in the `myfamily` group.
 
-. Check in the configuration file `/etc/samba/smb.conf` that the
-user and group have access permission.
+. Check in the configuration file `/etc/samba/smb.conf` that the user and group have access permission.
 +
 ....
 [family]
@@ -258,8 +253,7 @@ In this case, the user should be in the `myfamily` group.
 [[trouble_with_writing_in_the_share]]
 === Trouble with writing in the share
 
-. Check in the samba configuration file if the user/group has
-write permissions.
+. Check in the samba configuration file if the user/group has write permissions.
 +
 ....
 [family]

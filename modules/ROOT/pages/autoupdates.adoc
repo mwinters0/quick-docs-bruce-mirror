@@ -8,7 +8,7 @@ single answer to this question: it is up to the system administrator or
 owner of each machine to decide whether automatic updates are desirable
 or not for that machine. One of the things which makes one a good system
 administrator is the ability to evaluate the facts and other people's
-suggestions, and then decide for onesself what one should do.
+suggestions, and then decide for oneself what one should do.
 
 A general rule that applies in most cases is as follows:
 
@@ -21,7 +21,7 @@ Some issues might be resolved through a special setup on your part. For
 example, you could create your own DNF repository on a local server,
 and only put in tested or trusted updates. Then use the automatic
 updates from only your own repository. Such setups, while perhaps more
-difficult to setup and maintain, can remove a large amount of risk
+difficult to set up and maintain, can remove a large amount of risk
 otherwise inherent in automatic updates.
 
 [[how-are-automatic-updates-done]]
@@ -37,8 +37,7 @@ started automatically.
 [[install-and-settings-of-dnf-automatic]]
 === Install and settings of dnf-automatic
 
-On a fresh install of Fedora 22 with default options the dnf-automatic
-RPM is not installed, the first command below installs this RPM.
+On a fresh Fedora 22 installation with default options the dnf-automatic RPM is not installed, the first command below installs this RPM.
 
 [source,bash]
 ----
@@ -111,7 +110,7 @@ problems during or after installation.
 
 The main advantage of automating the updates is that machines are likely
 to get updated more quickly, more often, and more uniformly than if they
-updates are done manually. We see too many compromised machines on the
+update are done manually. We see too many compromised machines on the
 internet which would have been safe if the latest updates where
 installed in a timely way.
 
@@ -137,8 +136,8 @@ updates are:
 * You do not have any irreplaceable data on the machine, or have proper
   backups of such data.
 
-If all of the above apply to your machine(s), then automatic updates may
-be your best option to help secure your machine. If not all of the above
+If all the above apply to your machine(s), then automatic updates may
+be your best option to help secure your machine. If not all the above
 apply, then you will need to weigh the risks and decide for yourself if
 automatic updates are the best way to proceed.
 
@@ -156,17 +155,9 @@ automatic updates are:
   unscheduled downtime.
 * You installed custom software, compiled software from source, or use
   third party software that has strict package version requirements.
-* You installed a custom kernel, custom kernel modules, third party
-kernel modules, or have a third party application that depends on kernel
-versions (this may not be a problem if you exclude kernel updates, which
-is the default in Fedora `dnf.conf` files). (But see also
-https://bugzilla.redhat.com/show_bug.cgi?id=870790[bug #870790] - you
-may need to modify in Fedora 22 or later versions in base section to add
-`exclude=kernel*`.)
+* You installed a custom kernel, custom kernel modules, third party kernel modules, or have a third party application that depends on kernel versions (this may not be a problem if you exclude kernel updates, which is the default in Fedora `dnf.conf` files). (But see also https://bugzilla.redhat.com/show_bug.cgi?id=870790[bug #870790] - you may need to modify in Fedora 22 or later versions in base section to add `exclude=kernel*`.)
 * Your environment requires meticulous change-control procedures.
-* You update from other third party DNF repositories besides Fedora
-(core, extras, legacy ) repositories which may conflict in versioning
-schemes for the same packages.
+* You update from other third party DNF repositories besides Fedora (core, extras, legacy ) repositories which may conflict in versioning schemes for the same packages.
 
 There are also some other reasons why installing automatic updates
 without testing may be a bad idea. A few such reasons are:
@@ -176,22 +167,16 @@ without testing may be a bad idea. A few such reasons are:
   file which is not flagged as a configuration file, then you might lose
   your configuration changes. Or an update may have a different format of
   configuration file, requiring a manual reconfiguration. It is often best
-  to backup your configuration files before doing updates on critical
+  to back up your configuration files before doing updates on critical
   packages such as mail, web, or database server packages.
 * Unwanted side effects. Some packages can create annoying side effects,
   particularly ones which have cron jobs. Updates to base packages like
   openssl, openldap, sql servers, etc. can have an effect on many other
   seemingly unrelated packages.
 * Bugs. Many packages contain buggy software or installation scripts.
-The update may create problems during or after installation. Even
-cosmetic bugs, like those found in previous Mozilla updates causing the
-user's icons to be removed or break, can be annoying or problematic.
-* Automatic updates may not complete the entire process needed to make
-the system secure. For example, DNF can install a kernel update,
-but until the machine is rebooted (which DNF will not do
-automatically) the new changes won't take effect. The same may apply to
-restarting daemons. This can leave the user feeling that he is secure
-when he is not.
+  The update may create problems during or after installation. Even cosmetic bugs, like those found in previous Mozilla updates causing the user's icons to be removed or break, can be annoying or problematic.
+* Automatic updates may not complete the entire process needed to make the system secure. For example, DNF can install a kernel update, but until the machine is rebooted (which DNF will not do automatically) the new changes won't take effect.
+  The same may apply to restarting daemons. This can leave the user feeling that he is secure when he is not.
 
 
 [[best-practices-when-using-automatic-updates]]
@@ -223,8 +208,8 @@ email_to = root
 email_host = localhost
 ----
 
-You would replace root with a actual email address to which you want to
-report sent, and localhost with a actual address of SMTP server. This
+You would replace root with an actual email address to which you want to
+report sent, and localhost with an actual address of SMTP server. This
 change will mean that after dnf-automatic runs, it will email you
 information you about available updates, or log about downloaded
 packages, or installed updates according to settings in `automatic.conf`.
@@ -282,7 +267,7 @@ could then install manually. It can be set by editing of `/etc/dnf/automatic.con
 
 Another common problem is having automatic updates run when it isn't
 desired (holidays, weekends, vacations, etc). If there are times that no
-one will be around to fix any problem arising the from the updates, it
+one will be around to fix any problem arising from the updates, it
 may be best to avoid doing updates on those days.
 
 This problem can be fixed by modification of the timer of dnf-automatic
@@ -298,6 +283,6 @@ provide your machine with some other forms of protection to help defend
 any attacks that might occur before updates are in place. This might
 include an external firewall, a host-based firewall (like iptables,
 ipchains, and/or tcp wrappers), not performing dangerous tasks on the
-computer (like browsing the web, reading e-mail, etc), and monitoring
-the system for instrusions (with system log checkers, IDS systems,
+computer (like browsing the web, reading e-mail, etc.), and monitoring
+the system for intrusions (with system log checkers, IDS systems,
 authentication or login monitoring, etc).

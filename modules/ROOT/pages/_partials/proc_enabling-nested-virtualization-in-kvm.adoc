@@ -45,12 +45,12 @@ sudo modprobe -r kvm_amd
 ----
 . Activate the nesting feature:
 +
-----                    
+----
 sudo modprobe kvm_amd nested=1
 ----    
 . Nested virtualization is enabled until the host is rebooted. To enable it permanently, add the following line to the `/etc/modprobe.d/kvm.conf` file:                        
 +
-----                                
+----
 options kvm_amd nested=1
 ----
 

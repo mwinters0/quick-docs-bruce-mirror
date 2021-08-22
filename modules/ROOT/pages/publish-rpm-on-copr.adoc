@@ -23,7 +23,7 @@ TIP: You can set up similar automation when packaging someone else's program, i.
 The following is needed:
 
 . Our program's source in a publicly available git repository somewhere. This tutorial uses a simple example program - hellocopr - to demonstrate the process.
-The program and all files referenced in this guide can be found in the link:https://pagure.io/copr-tito-quickdoc[project's git repository]. It's a very simple (& pointless) python program with a setuptools installer:
+  The program and all files referenced in this guide can be found in the link:https://pagure.io/copr-tito-quickdoc[project's git repository]. It's a very simple (& pointless) python program with a setuptools installer:
 +
 ```
 user@host ~/copr-tito-quickdoc % ls
