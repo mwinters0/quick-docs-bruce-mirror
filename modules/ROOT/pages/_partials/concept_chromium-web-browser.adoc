@@ -1,20 +1,16 @@
-[id='chromium-web-browser']
+[id='chromium-and-google-chrome']
 = Chromium and Google Chrome web browsers
 
-Only the Chromium browser is available from official Fedora repositories.
-
+Fedora Workstation, in its out of the box configuration, only includes free and open source software. **Mozilla Firefox** is the browser included in Fedora Workstation by default. However, it easy to install either **Google Chrome** or **Chromium**, if preferred.
 
 [id='chromium']
 == Chromium
 
-Chromium is the upstream project for Google Chrome.
-
-NOTE: As of August 2016, Chromium is included in the Fedora Repositories. If you were using the old Chromium https://copr.fedorainfracloud.org/coprs/spot/chromium/[Copr] repository, upgrade your Chromium.
-
-Fedora's Chromium package does not support h264, mp3, or aac because of legal concerns. It is built to support the *widevine* plugin (but does not include it).
-
+Chromium is the upstream project for Google Chrome. Chromium is included in the Fedora Repositories. Fedora's Chromium package only contains free and open source software, so does not include several features of Google Chrome that rely on proprietary software.
 
 [id='google-chrome']
 == Google Chrome
 
-Chromium is upstream for Google Chrome. Fedora does not include Google Chrome because it is a proprietary product and bundles other proprietary software. However, Google does maintain a DNF or YUM repository for Fedora at link:https://www.google.com/chrome/[google.com/chrome]. The given link also includes downloadable RPMs that you can use to install Chrome.
+Google Chrome is a popular web browser developed by Google. Chrome is built on top of the open-source browser project, Chromium. Chrome includes additional features such as support for proprietary media files (such as H.264 or AAC) and playback of rights-protected media (Netflix, etc.) Chrome also includes support for other Google services such as browser sync and location services, which are not supported by Chromium.
+
+Google Chrome is available in Fedora Workstation via a curated third-party repository. Once this repository is enabled, Chrome can be installed via Software or the command line.
