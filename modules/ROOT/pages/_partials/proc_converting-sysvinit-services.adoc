@@ -33,7 +33,7 @@ If you enable the custom _systemd_ service to start at boot (`systemctl enable f
 ----
 [Unit]
 Description=My custom service
-Requires=network.target
+After=network.target
 ----
 
 . Identify the command used to start the service in the SysVinit script and convert this to the _systemd_ equivalent. For example, the script might contain a `start` function in the following format:
