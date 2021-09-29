@@ -6,7 +6,7 @@ Use this guide for information about the specific macros in a `.spec` file.
 NOTE: You can use the macros `%\{name}`, `%\{version}` and `%\{release}` to refer to the Name, Version and Release tags respectively. When you change the tag, the macros automatically update to use the new value.
 
 `Name`::
-Add the base name of the package, which must match the `.spec` file name. Follow the https://fedoraproject.org/wiki/Packaging:Naming[Package Naming Guidelines] and write the file name in lower-case letters.
+Add the base name of the package, which must match the `.spec` file name. Follow the https://docs.fedoraproject.org/en-US/packaging-guidelines/Naming/[Package Naming Guidelines] and write the file name in lower-case letters.
 
 `Version`::
 Add the upstream version number. See https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/[Package Versioning]. If the version contains tags that are non-numeric, you might need to include the non-numeric characters in the `Release` tag. If upstream uses full dates to distinguish versions, consider using version numbers of the form. For example, `yy.mm[dd]` where `2008-05-01` becomes `8.05`.
@@ -38,7 +38,7 @@ The full URL basename is used when looking in the `SOURCES` directory. If possib
 +
 If there is more than one source, name them `Source1`, `Source2`.
 +
-If you add whole new files in addition to the pristine sources, list them as sources after the pristine sources. A copy of each of these sources is included in any source RPM (SRPM) you create, unless you specifically direct otherwise. For more information on special cases, for example, revision control, see https://fedoraproject.org/wiki/Packaging:SourceURL?rd=Packaging/SourceURL[Source URL].
+If you add whole new files in addition to the pristine sources, list them as sources after the pristine sources. A copy of each of these sources is included in any source RPM (SRPM) you create, unless you specifically direct otherwise. For more information on special cases, for example, revision control, see https://docs.fedoraproject.org/en-US/packaging-guidelines/SourceURL/[Source URL].
 
 `Patch0`::
 Enter the name of the first patch to apply to the source code. If you must patch the files after you extract them, edit the files and save their differences as a `.patch` file in your `~/rpmbuild/SOURCES` directory. Patches must make only one logical change each, so it's quite possible to have multiple patch files.

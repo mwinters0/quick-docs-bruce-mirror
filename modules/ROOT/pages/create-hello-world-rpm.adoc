@@ -6,7 +6,7 @@ This is a short hands-on tutorial on writing RPM files, showing how to quickly s
 It assumes some familiarity with using pre-made RPM packages, and with the FOSS building process.
 
 For comprehensive information on how to create RPM files, including more detailed tips, refer to xref:creating-rpm-packages.adoc[How to create an RPM package].
-If you plan to create an RPM package for the Fedora repository, follow the process for link:https://fedoraproject.org/wiki/Join_the_package_collection_maintainers[How to join the Fedora Package Collection Maintainers], including following the various Fedora guidance.
+If you plan to create an RPM package for the Fedora repository, follow the process for link:https://docs.fedoraproject.org/en-US/package-maintainers/Joining_the_Package_Maintainers/[Join the Package Maintainers], including following the various Fedora guidance.
 
 This tutorial demonstrates packaging of the GNU "Hello World" project.
 While the C program printing "Hello World" to standard output is trivial, the GNU version contains most of the usual peripheral components associated with a typical FOSS project, including the configuration/build/install environment, documentation, internationalization, etc.
@@ -253,7 +253,7 @@ $ mock --verbose ../SRPMS/hello-2.10-1.fc25.src.rpm
 
 * link:https://fedoraproject.org/wiki/Using_Mock_to_test_package_builds[Using Mock to test package builds]
 
-* link:https://fedoraproject.org/wiki/Using_the_Koji_build_system[Using the Koji build system]
+* link:https://docs.fedoraproject.org/en-US/package-maintainers/Using_the_Koji_Build_System/[Using the Koji Build System]
 
 == History
 
