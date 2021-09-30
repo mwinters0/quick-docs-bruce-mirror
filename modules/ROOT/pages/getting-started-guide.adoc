@@ -50,7 +50,7 @@ Use the **Terminal** program to perform command line tasks.
 Benefits to using the command line include the ability to give multiple commands on one line, but it requires greater knowledge of Linux commands.
 Documentation published on this site, as well as various tutorials and guides on the internet and elsewhere, often makes use of these terminal commands.
 
-== Fist impressions
+== First impressions
 
 === GNOME
 
