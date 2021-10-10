@@ -71,10 +71,12 @@
 ** xref:upgrading-fedora-online.adoc[Upgrading Fedora using package manager]
 
 * xref:kernel/overview.adoc[Kernel and booting]
+** xref:kernel/booting.adoc[Booting]
 ** xref:kernel/troubleshooting.adoc[Troubleshooting]
 ** xref:kernel/build-custom-kernel.adoc[Building a Custom Kernel]
 ** xref:kernel/howto-kernel-testday.adoc[Guide for Kernel Test Days]
 ** xref:debug-dracut-problems.adoc[How to debug Dracut problems]
+** xref:kernel/installing-koji-kernel.adoc[Installing a kernel from Koji]
 
 * Virtualization
 ** xref:getting-started-with-virtualization.adoc[Getting started with virtualization (libvirt)]

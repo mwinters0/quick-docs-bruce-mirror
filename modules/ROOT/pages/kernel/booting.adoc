@@ -1,0 +1,4 @@
+Booting
+=======
+
+include::{partialsdir}/proc_booting-specific-kernel-default.adoc[]

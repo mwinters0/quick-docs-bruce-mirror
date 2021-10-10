@@ -1,0 +1,16 @@
+[[booting_specific_kernel_default]]
+== Setting an installed kernel to boot by default
+
+To set a specific installed kernel to boot by default, use the following command
+
+----
+sudo grubby --set-default /boot/vmlinuz-n.nn.nn-nnn.fcnn.x86_64
+----
+
+where `vmlinuz-n.nn.nn-nnn.fcnn` is the version of installed kernel as can be found in the `/boot` directory.
+
+[[sect-references]]
+=== References:
+
+* https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/kernel-module-driver-configuration/Working_with_the_GRUB_2_Boot_Loader/[Fedora Rawhide Docs :: Working with the GRUB 2 Boot Loader]
+* https://docs.fedoraproject.org/en-US/Fedora/23/html/System_Administrators_Guide/sec-Configuring_GRUB_2_Using_the_grubby_Tool.html[Using the grubby tool]

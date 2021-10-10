@@ -1,0 +1,45 @@
+= Installing kernel from Koji
+
+:description: A quick guide on installing a kernel from the Koji repository.
+
+Koji is the build system Fedora developers use to build software for inclusion into Fedora. If there is a need to install a kernel different from the one that gets installed by default, these can be obtained from the Koji repository.
+
+== Install the koji package
+
+The koji package makes this process much easier. Let's install the package:
+
+    $ sudo dnf install koji
+
+== Download and install the kernel
+
+Below is a one-line command that creates a new unique temporary directory, downloads kernel RPMs to it and installs them. This assumes we are working with the `x86_64` architecture.
+
+    cd $(mktemp -d) \
+      && koji download-build --arch=x86_64 --arch=noarch kernel-n.nn.nn-nnn.fcnn \
+      && sudo dnf install *
+
+This eliminates the need to clean up after installation and the risk of installing unwanted rpms accidentally.
+
+The following part of the above command downloads the kernel and its dependencies for the given architecture and kernel version.
+
+    koji download-build --arch=[arch] kernel-n.nn.nn-nnn.fcnn
+
+where [arch] indicates the architecture i.e. `x86_64`
+
+== Additional Steps:
+
+The following additional steps are often useful:
+
+* Set the default boot option - so this boots automatically subsequently
+
+See xref:kernel/booting.adoc[quick-doc on setting a specific kernel to boot by default]
+
+* Add a versionlock to ensure this version is not deleted when kernel updates are installed
+
+See xref:dnf.adoc#sect-using-dnf-plugin[quick-doc on using the dnf versionlock plugin]
+
+[[sect-references]]
+== References
+
+. https://fedoramagazine.org/install-kernel-koji/#comment-472889[Fedora Magazine article: How to install a kernel from koji]
+
