@@ -5,7 +5,7 @@ include::{partialsdir}/attributes.adoc[]
 
 This section describes how to add software repositories with the `dnf config-manager` command.
 
-Use the following commands as the `root` user or under the `sudo` utility.
+* To add a new repository, do the following as `*root*`.
 
 . Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory. For details about various options to use in the `.repo` file, see the xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc#sec-Setting_repository_Options[Setting [repository\] Options] section in the System Administrator's Guide
 

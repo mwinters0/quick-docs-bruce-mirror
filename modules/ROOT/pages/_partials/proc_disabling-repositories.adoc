@@ -3,7 +3,7 @@
 
 This section shows how to disable a particular software repository by using the `dnf config-manager` command.
 
-* To disable a particular repository, use the following command as *root*:
+* To disable a particular repository, use the following command as `*root*`:
 +
 [literal,subs="+quotes,attributes"]
 ----
