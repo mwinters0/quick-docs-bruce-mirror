@@ -13,10 +13,10 @@ This section describes how to add software repositories with the `dnf config-man
 +
 [literal,subs="+quotes,attributes"]
 ----
-dnf config-manager --add-repo _repository_
+dnf config-manager --add-repo `*_repository_*`
 ----
 +
-Replace `_repository_` with the path to the created `.repo` file, for example:
+Where *_repository_* is the path to the created `.repo` file, for example:
 +
 ----
 dnf config-manager --add-repo /etc/yum.repos.d/fedora_extras.repo
