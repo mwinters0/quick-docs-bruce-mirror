@@ -21,16 +21,17 @@
 include::{partialsdir}/attributes.adoc[]
 
 The link:https://www.raspberrypi.org[Raspberry Pi] is a credit card-sized ARM based single board computer (SBC).
-The Raspberry Pi Model B versions 2 and 3 are supported for Fedora 25 or newer, without any requirement of third party kernels or scripts to adjust offical images.
+The Raspberry Pi Model B versions of 2, 3 and 4 are supported for Fedora 25 or newer, without any requirement of third party kernels or scripts to adjust offical images.
 This documentation describes how to get started, and includes a Frequently Asked Questions (FAQ) section at the end of the document about what is supported, and what is not.
 
 [id='raspberry-pi-prerequisites']
 .Prerequisites
 
-* Raspberry Pi Model B, version 2 or 3.
-* A power supply (link:https://www.raspberrypi.org/help/faqs/#power[details on raspberrypi.org]).
-** Minimum 2 Amps for Raspberry Pi Model B, version 2.
-** Minimum 2.5 Amps for the Raspberry Pi Model B, version 3.
+* Raspberry Pi Model B 2 and above (link:https://pagure.io/arm-image-installer/blob/main/f/boards.d[supported boards]).
+* A power supply (link:https://www.raspberrypi.org/documentation/computers/raspberry-pi.html#power-supply[details on raspberrypi.org]).
+** 2B: 1.8 Amps
+** 3B and 3B+: 2.5 Amps
+** 4B: 3.0 Amps
 * HDMI-compatible Monitor or TV.
 * A USB keyboard and USB mouse.
 * SD card reader.
