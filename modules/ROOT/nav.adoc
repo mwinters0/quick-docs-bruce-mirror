@@ -93,7 +93,6 @@
 
 
 * xref:creating-rpm-packages.adoc[Creating RPM packages]
-** xref:create-hello-world-rpm.adoc[Creating a GNU Hello World RPM Package]
 ** xref:publish-rpm-on-copr.adoc[Publishing your software on Copr]
 
 * Databases
