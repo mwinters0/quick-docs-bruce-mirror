@@ -107,7 +107,7 @@ PackageKit gui tool ('add/remove software' in your menu)
 
 https://rpm.org[rpm] - RPM package manager.
 
-http://ww1.yum-extender.org/[yumex] - Yum Extender.
+https://github.com/timlau/yumex-dnf[yumex] - Yum Extender.
 
 Category:Software_Management[Category:Software Management]
 '''
