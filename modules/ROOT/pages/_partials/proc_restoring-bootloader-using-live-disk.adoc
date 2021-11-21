@@ -25,7 +25,7 @@ bootable by *GRUB2*.
 . Examine the partition layout and identify the `boot` and the `root` partition.
 
 ----
-# fdisk -l
+sudo fdisk -l
 ----
 
 == For Default Instalation in LVM.
@@ -33,7 +33,7 @@ bootable by *GRUB2*.
 . Create the mount point for the root partition.
 +
 ----
-# mkdir -p /mnt/root
+mkdir -p /mnt/root
 ----
 
 If you are using the default Fedora layout, there will be one `/dev/sda1`
@@ -43,50 +43,114 @@ that holds the root file system.
 . Mount the root partition on the mount point.
 +
 ----
-# mount /dev/mapper/fedora-root /mnt/root
+mount /dev/mapper/fedora-root /mnt/root
 ----
 
 . Mount the boot partition in the `boot` directory of the filesystem that you have mounted in the previous step.
 
 ----
-# mount /dev/sda1 /mnt/root/boot/
+mount /dev/sda1 /mnt/root/boot/
+----
+
+. Mount system processes and devices into the root filesystem in `/mnt/root`.
++
+----
+mount -o bind /dev /mnt/root/dev
+mount -o bind /proc /mnt/root/proc
+mount -o bind /sys /mnt/root/sys
+mount -o bind /run /mnt/root/run
+----
+
+. Change your filesystem into the one mounted under `/mnt/root`.
++
+
+----
+chroot /mnt/root
 ----
 
 == For default Instalation in BTRF
 
 . Create the mount point for the root partition.
-
++
 ----
-# mkdir -p /mnt/
+mkdir -p /mnt/
 ----
 
 If you are using the default Fedora layout, there will be one `/dev/sda1`
 partition that holds the `/boot` directory and one `/dev/sda2` that holds the root file system.
 
 ----
-# mount /dev/sda2 /mnt
-# mount /dev/sda1 /mnt/root/boot
-----
-
-IMPORTANT: Home Partition is mounted automatically under `/mnt/home`
-
-== Continue with the follow Procedure.
-
-. Mount system processes and devices into the root filesystem in 
-`/mnt/root`.
-+
-----
-# mount -o bind /dev /mnt/root/dev
-# mount -o bind /proc /mnt/root/proc
-# mount -o bind /sys /mnt/root/sys
-# mount -o bind /run /mnt/root/run
+mount /dev/sda2 /mnt
+mount /dev/sda1 /mnt/root/boot
 ----
 
 . Change your filesystem into the one mounted under `/mnt/root`.
 +
 ----
-# chroot /mnt/root
+chroot /mnt/root
 ----
+
+IMPORTANT: Home Partition is mounted automatically under `/mnt/home`
+
+== For Default Instalation in LUKS.
+
+. Make sure crypt module in use:
++
+----
+sudo modprobe dm-crypt
+----
+
+. Find out which drive it was with the following command:
++
+----
+sudo fdisk -l
+----
+
+You must mount `/dev/sda3 myvolume`
+
+. Use `cryptsetup`, device is accessible under `/dev/mapper/myvolume``
++
+----
+sudo cryptsetup luksOpen /dev/sde3 myvolume
+----
+
+. Scan for LVM volumes and choose the right volume group name that you are looking for:
++
+----
+sudo vgscan
+----
+
+. If it is eg. Fedora, activate it
++
+----
+sudo vgchange -ay system
+----
+
+. Find out root volume
++
+----
+sudo lvs
+----
+
+. Mount it with the following command:
++
+----
+sudo mount /dev/system/root /mnt/
+----
+
+. To work in the volume use the following commands
++
+----
+sudo mount --bind /dev /mnt/dev 
+sudo mount --bind /dev/pts /mnt/dev/pts
+sudo mount --bind /proc /mnt/proc
+sudo mount --bind /sys /mnt/sys
+sudo chroot /mnt
+----
+
+IMPORTANT: consider mounting `/boot` also.
+
+== Continue with the follow Procedure.
 
 . Regenerate the *GRUB2* configuration file and reinstall the bootloader 
 into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
@@ -94,11 +158,11 @@ into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding o
 . Exit this temporary root filesystem.
 +
 ----
-$ exit
+exit
 ----
 
 . Your bootloader should be now restored. Reboot your computer to boot into your normal system.
 
 ----
-# systemctl reboot
+systemctl reboot
 ----

@@ -1,0 +1,34 @@
+= Cannot open access to console, the root account is locked in emergency mode (dracut emergency shell)
+ 
+== Reason
+
+This is a known problem. It happens Fedora releases 28 and newer, which don’t require password for root account during 
+installation https://fedoraproject.org/wiki/Changes/ReduceInitialSetupRedundancy#Root_Account[Root Account] and use 
+first user added as `administrator/superuser`. In this case root account is locked, and if `/home` is inaccessible – then 
+the system can’t use superuser/administrator account either.
+
+== What to Do?
+
+If you find yourself in this situation and you can’t resolve problem with `/home` mounting from Live disk/USB, 
+and you need access to emergency mode, the solution is simple.
+
+. Boot into Live disk/usb and chroot into your Fedora installations as documented in this https://docs.fedoraproject.org/en-US/quick-docs/bootloading-with-grub2/#restoring-bootloader-using-live-disk[Fedora Quick-docs Article]
+- following steps depends of your File System `LVM/BTRF/LUKS`.
+
+. Unlock root account by supplying password for it:
++
+----
+passwd root
+----
+
+. Exit chroot environment with [Ctrl-d] or
++
+----
+exit
+----
+
+. Reboot your computer with GUI or with
++
+----
+systemctl reboot
+----
