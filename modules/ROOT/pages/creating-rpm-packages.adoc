@@ -3,8 +3,6 @@ ifdef::context[:parent-context: {context}]
 [id='creating-rpm-packages']
 = Creating RPM packages
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 Learn the basics of RPM packaging.
 
 include::{partialsdir}/con_rpm_packaging_overview.adoc[leveloffset=+1]
