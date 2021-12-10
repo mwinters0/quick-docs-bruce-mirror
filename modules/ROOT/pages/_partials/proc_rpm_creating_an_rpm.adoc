@@ -83,7 +83,7 @@ NOTE: In general, the `%files` section is about files you have installed into th
 $ fedpkg --release f{MAJOROSVER} local
 ----
 
-This updates the two RPMs.
+This creates two RPMs; howdy-1-1.f{MAJOROSVER}src.rpm in same directory and <architecture>/howdy-1-1.f{MAJOROSVER}.rpm
 
 .Adding no architecture dependencies
 
@@ -96,7 +96,7 @@ In this example, the package is a shell script, and there is no requirement for 
 BuildArch: noarch
 ----
 +
-. Delete the existing `.rpm` files in this directory and run another local build:
+. Delete the existing `.rpm` files in this and sub directories and run another local build:
 +
 [source,shell,subs="attributes"]
 ----
@@ -108,7 +108,7 @@ $ fedpkg --release f{MAJOROSVER} local
 After you complete the procedure, ensure that you have the following two files:
 
 . One source file that contains the latest source.
-. One binary file with the `.noarch.rpm`.
+. One binary file with the `.noarch.rpm`. inside `noarch` directory
 
 .What to do next
 
