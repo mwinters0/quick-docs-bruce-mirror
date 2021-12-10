@@ -1,5 +1,9 @@
 = Fedora Quick Docs
 
-This is a collection of short HOWTO and FAQ style documentation for Fedora users. Use the menu on the left to find an area of interest, and under that solutions to your specific problem.
+This is a collection of short HOWTO and FAQ-style documentation for Fedora users. **Use the navigation menu menu on the left** to find an area of interest, and under that, solutions to your specific problem.
 
-This documentation is community-made. Your contributions and improvements are welcome!
+This documentation is community-made. Your xref:contribute-to-quick-docs.adoc[contributions and improvements ]are welcome!
+
+If you can't find an answer here, you may also get help on https://ask.fedoraproject.org[Ask Fedora], our questions-and-answers forum.
+
+// Note: link to https://docs.fedoraproject.org/en-US/project/help/ when that document is updated.
