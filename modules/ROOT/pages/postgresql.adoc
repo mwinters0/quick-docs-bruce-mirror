@@ -6,7 +6,7 @@
 The installation and initialization of the postgresql server is a little
 bit different in comparison to other packages and other Linux distros.
 This document aims to summarize basic installation steps relevant to
-recent Fedora Linux Releases. 
+recent Fedora Linux releases. 
 
 ....
 sudo dnf install postgresql-server postgresql-contrib
