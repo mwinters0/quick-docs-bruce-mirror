@@ -80,8 +80,8 @@ psql carl
 ....
 
 
-[[configuration]]
-== Configuration
+[[initial configuration]]
+== Initial Configuration
 
 The postgresql server is using two main configuration files
 
@@ -94,16 +94,8 @@ If you’re getting ident errors from your app you’ll probably need to perform
 sudo gedit /var/lib/pgsql/data/pg_hba.conf
 ....
 
-and edit
-....
-host all all 127.0.0.1/32 ident
-....
+and edit `host all all 127.0.0.1/32 ident` to `host all all 127.0.0.1/32 md5`. This should allow most applications to connect with username/password.
 
-to
-
-....
-host all all 127.0.0.1/32 md5
-....
 
 [[upgrade]]
 == Upgrade
@@ -193,6 +185,14 @@ host:
 ....
 setsebool -P httpd_can_network_connect_db on
 ....
+
+[[configuration]]
+== Configuration
+
+As mentioned above, the postgresql server is using two main configuration files
+
+* /var/lib/pgsql/data/postgresql.conf
+* /var/lib/pgsql/data/pg_hba.conf
 
 
 [[systemd]]
