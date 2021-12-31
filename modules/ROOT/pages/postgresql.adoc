@@ -12,8 +12,7 @@ recent fedora release.
 sudo dnf install postgresql-server postgresql-contrib
 ....
 
-The postgresql server is turned off and disabled by default. You can
-enable its start during the boot using following command:
+The postgresql server is not running and disabled by default. You can start it during boot using following command:
 
 ....
 sudo systemctl enable postgresql
@@ -26,7 +25,7 @@ creates the configuration files postgresql.conf and pg_hba.conf
 sudo postgresql-setup --initdb --unit postgresql
 ....
 
-You can start the postgresql server manually as follows.
+You can now start the postgresql server manually as follows.
 
 ....
 sudo systemctl start postgresql 
@@ -47,33 +46,34 @@ and then run postgres' interactive shell:
 
 ....
 psql
-psql (9.3.2)
-Type "help" for help.
-
-postgres=#
 ....
 
-From there you can run user creation commands:
+From here you can create a postgres user and database. Note: you can also run this from the shell as well with `createuser lenny` and `createdb --owner=lenny carl`.
 
 ....
 postgres=# CREATE USER lenny WITH PASSWORD 'leonard';
 postgres=# CREATE DATABASE carl OWNER lenny;
 ....
 
-You can do this from the system shell as well:
 
-....
-createuser lenny
-createdb --owner=lenny carl
-....
-
-It might be good idea to add password for the `postgres` user:
+It might be good idea to add password for the `postgres` user while you're at it:
 
 ....
 postgres=# \password postgres
 ....
 
-Switch back to your original original user with su `YOUR_USER` and type `psql carl` to enter our example database created above.
+`\q` to get out of postgres and back to shell. Now you can switch back to your main account and start using your database.
+
+....
+su original_user
+....
+
+Now you can access your database:
+
+....
+psql carl
+....
+
 
 [[configuration]]
 == Configuration
@@ -84,7 +84,21 @@ The postgresql server is using two main configuration files
 * /var/lib/pgsql/data/pg_hba.conf
 
 
+If you’re getting ident errors from your app you’ll probably need to perform the accepted solution described at https://serverfault.com/questions/406606/postgres-error-message-fatal-ident-authentication-failed-for-user?newreg=a4fdc3e21349449985cc65b82399c5b4 
+....
+sudo gedit /var/lib/pgsql/data/pg_hba.conf
+....
 
+and edit
+....
+host all all 127.0.0.1/32 ident
+....
+
+to
+
+....
+host all all 127.0.0.1/32 md5
+....
 
 [[upgrade]]
 == Upgrade
