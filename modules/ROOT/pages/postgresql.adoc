@@ -4,9 +4,9 @@
 == Installation
 
 The installation and initialization of the postgresql server is a little
-bit different in comparison to other packages and other linux distros.
+bit different in comparison to other packages and other Linux distros.
 This document aims to summarize basic installation steps relevant to
-recent fedora release. 
+recent Fedora Linux Releases. 
 
 ....
 sudo dnf install postgresql-server postgresql-contrib
@@ -35,17 +35,10 @@ sudo systemctl start postgresql
 [[user-creation-and-database-creation]]
 == User Creation and Database Creation
 
-Now you need to create a user and database for the user.
-First, you have to switch the user to interact with `postgres`:
+Now you need to create a user and database for the user. This needs to be run from a `postgres` user account on your system.
 
 ....
-su - postgres
-....
-
-and then run postgres' interactive shell:
-
-....
-psql
+sudo -u postgres psql
 ....
 
 From here you can create a postgres user and database. Note: you can also run this from the shell as well with `createuser lenny` and `createdb --owner=lenny carl`.
@@ -60,17 +53,6 @@ It might be good idea to add password for the `postgres` user while you're at it
 
 ....
 postgres=# \password postgres
-....
-
-Now get out of postgres and back to shell. 
-....
-\q
-....
-
-And switch back to your main account with ctrl + D or type the command below where original_user is your username.
-
-....
-su your_username
 ....
 
 Now you can access your database and start using it.
