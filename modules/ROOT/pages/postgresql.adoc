@@ -6,15 +6,7 @@
 The installation and initialization of the postgresql server is a little
 bit different in comparison to other packages and other linux distros.
 This document aims to summarize basic installation steps relevant to
-recent fedora release. In the first place, you may consider installing a newer
-version than is packaged for Fedora, see https://yum.postgresql.org/[1].
-However, this is not recommended.
-
-....
-sudo yum install postgresql-server postgresql-contrib
-....
-
-Or with dnf in Fedora 22 and later versions:
+recent fedora release. 
 
 ....
 sudo dnf install postgresql-server postgresql-contrib
@@ -27,55 +19,72 @@ enable its start during the boot using following command:
 sudo systemctl enable postgresql
 ....
 
-You can start the postgresql server only when necessary as follows.
-
-....
-sudo systemctl start postgresql 
-Job for postgresql.service failed. See 'systemctl status postgresql.service' and 'journalctl -xn' for details.
-....
-
-The database needs to be populated with initial data after installation.
-The error log describes the problem and its solution.
-
-....
-journalctl -xn
--- Logs begin at Mon 2013-11-04 14:38:33 CET, end at Thu 2013-11-14 11:45:56 CET. --
-Nov 14 11:45:34 mlich-lenovo.usersys.redhat.com sudo[2054]: jmlich : TTY=pts/2 ; PWD=/home/jmlich ; USER=root ; COMMAND=/bin/systemctl status postgresql
-Nov 14 11:45:37 mlich-lenovo.usersys.redhat.com sudo[2073]: jmlich : TTY=pts/2 ; PWD=/home/jmlich ; USER=root ; COMMAND=/bin/systemctl status postgresql
-Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com sudo[2105]: jmlich : TTY=pts/2 ; PWD=/home/jmlich ; USER=root ; COMMAND=/bin/systemctl start postgresql
-Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com systemd[1]: Starting PostgreSQL database server...
--- Subject: Unit postgresql.service has begun with start-up
--- Defined-By: systemd
-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
---
--- Unit postgresql.service has begun starting up.
-Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: An old version of the database format was found.
-Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: Use "postgresql-setup upgrade" to upgrade to version 9.3.
-Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: See /usr/share/doc/postgresql/README.rpm-dist for more information.
-Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com systemd[1]: postgresql.service: control process exited, code=exited status=1
-Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com systemd[1]: Failed to start PostgreSQL database server.
--- Subject: Unit postgresql.service has failed
--- Defined-By: systemd
--- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
--- Documentation: `http://www.freedesktop.org/wiki/Software/systemd/catalog/be02cf6855d2428ba40df7e9d022f03d
---
--- Unit postgresql.service has failed.
---
--- The result is failed.
-....
-
-The database initialization could be done using following command. It
+The database needs to be populated with initial data after installation. The database initialization could be done using following command. It
 creates the configuration files postgresql.conf and pg_hba.conf
-
-....
-sudo postgresql-setup initdb
-....
-
-Or on Fedora 22 and later:
 
 ....
 sudo postgresql-setup --initdb --unit postgresql
 ....
+
+You can start the postgresql server manually as follows.
+
+....
+sudo systemctl start postgresql 
+....
+
+
+[[user-creation-and-database-creation]]
+== User Creation and Database Creation
+
+Now you need to create a user and database for the user.
+First, you have to switch the user to interact with `postgres`:
+
+....
+su - postgres
+....
+
+and then run postgres' interactive shell:
+
+....
+psql
+psql (9.3.2)
+Type "help" for help.
+
+postgres=#
+....
+
+From there you can run user creation commands:
+
+....
+postgres=# CREATE USER lenny WITH PASSWORD 'leonard';
+postgres=# CREATE DATABASE carl OWNER lenny;
+....
+
+You can do this from the system shell as well:
+
+....
+createuser lenny
+createdb --owner=lenny carl
+....
+
+It might be good idea to add password for the `postgres` user:
+
+....
+postgres=# \password postgres
+....
+
+Switch back to your original original user with su `YOUR_USER` and type `psql carl` to enter our example database created above.
+
+[[configuration]]
+== Configuration
+
+The postgresql server is using two main configuration files
+
+* /var/lib/pgsql/data/postgresql.conf
+* /var/lib/pgsql/data/pg_hba.conf
+
+
+
 
 [[upgrade]]
 == Upgrade
@@ -166,53 +175,6 @@ host:
 setsebool -P httpd_can_network_connect_db on
 ....
 
-[[user-creation-and-database-creation]]
-== User Creation and Database Creation
-
-Eventually, you need to create a user (and database for the user).
-First, you have to switch the user to interact with `postgres`:
-
-....
-su - postgres
-....
-
-and then run postgre's interactive shell:
-
-....
-psql
-psql (9.3.2)
-Type "help" for help.
-
-postgres=#
-....
-
-From there you can run user creation commands:
-
-....
-postgres=# CREATE USER lenny WITH PASSWORD 'leonard';
-postgres=# CREATE DATABASE carl OWNER lenny;
-....
-
-You can do this from the system shell as well:
-
-....
-createuser lenny
-createdb --owner=lenny carl
-....
-
-It might be good idea to add password for the `postgres` user:
-
-....
-postgres=# \password postgres
-....
-
-[[configuration]]
-== Configuration
-
-The postgresql server is using two main configuration files
-
-* /var/lib/pgsql/data/postgresql.conf
-* /var/lib/pgsql/data/pg_hba.conf
 
 [[systemd]]
 === systemd
