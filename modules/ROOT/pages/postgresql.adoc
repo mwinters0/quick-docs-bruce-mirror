@@ -62,13 +62,18 @@ It might be good idea to add password for the `postgres` user while you're at it
 postgres=# \password postgres
 ....
 
-`\q` to get out of postgres and back to shell. Now you can switch back to your main account and start using your database.
+Now get out of postgres and back to shell. 
+....
+\q
+....
+
+And switch back to your main account with ctrl + D or type the command below where original_user is your username.
 
 ....
-su original_user
+su your_username
 ....
 
-Now you can access your database:
+Now you can access your database and start using it.
 
 ....
 psql carl
