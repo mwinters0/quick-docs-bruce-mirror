@@ -12,10 +12,10 @@ recent Fedora Linux releases.
 sudo dnf install postgresql-server postgresql-contrib
 ....
 
-The postgresql server is not running and disabled by default. You can start it during boot using following command:
+The postgresql server is not running and disabled by default. To set it to start at boot, run:
 
 ....
-sudo systemctl enable postgresql
+sudo systemctl enable postgresql
 ....
 
 The database needs to be populated with initial data after installation. The database initialization could be done using following command. It
@@ -25,7 +25,7 @@ creates the configuration files postgresql.conf and pg_hba.conf
 sudo postgresql-setup --initdb --unit postgresql
 ....
 
-You can now start the postgresql server manually as follows.
+To start the postgresql server manually, run
 
 ....
 sudo systemctl start postgresql 
@@ -41,13 +41,12 @@ Now you need to create a user and database for the user. This needs to be run fr
 sudo -u postgres psql
 ....
 
-From here you can create a postgres user and database. Note: you can also run this from the shell as well with `createuser lenny` and `createdb --owner=lenny carl`.
+From here you can create a postgres user and database. Here, we will assume your computer's user account is called `lenny`. Note: you can also run this from the shell as well with `createuser lenny` and `createdb --owner=lenny carl`.
 
 ....
 postgres=# CREATE USER lenny WITH PASSWORD 'leonard';
-postgres=# CREATE DATABASE carl OWNER lenny;
+postgres=# CREATE DATABASE my_project OWNER lenny;
 ....
-
 
 It might be good idea to add password for the `postgres` user while you're at it:
 
@@ -55,10 +54,10 @@ It might be good idea to add password for the `postgres` user while you're at it
 postgres=# \password postgres
 ....
 
-Now you can access your database and start using it.
+Press Ctrl + D or `\q` to leave the psql session running as user `postgres`. Now you can access your new database from your user account (`lenny`) and start using it.
 
 ....
-psql carl
+psql my_project
 ....
 
 
@@ -90,8 +89,7 @@ Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108
 Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: Use "postgresql-setup upgrade" to upgrade to version 9.3.
 ....
 
-With version 9 you can use the upgrade tool. It is packaged as
-`postgresql-upgrade`:
+With version 9 you can use the upgrade tool. It is packaged as `postgresql-upgrade`:
 
 ....
 postgresql-setup upgrade
