@@ -62,6 +62,7 @@ psql my_project
 
 
 [[initial configuration]]
+
 == Initial Configuration
 
 The postgresql server is using two main configuration files
