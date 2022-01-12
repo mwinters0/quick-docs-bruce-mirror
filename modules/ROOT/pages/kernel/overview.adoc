@@ -160,7 +160,7 @@ the overall size of the vmlinux that is loaded to a core set of functionality.
 
 If you find that the Fedora configuration options are not sufficient for your
 needs, you can rebuild the kernel and change options as you see fit. See the
-documentation on <<build-custom-kernel.adoc#,building a custom kernel>>.
+documentation on xref:kernel/build-custom-kernel.adoc[building a custom kernel].
 
 
 [[community]]
