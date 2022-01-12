@@ -3,7 +3,7 @@
 [caption="Entering Anaconda, Montana. A city probably named after this installation program. David Cantrell took this picture in 2011. His grey VW Jetta is parked in the background."]
 image::DSC_3217.JPG[Anaconda,400]
 
-Anaconda is the installation program used by Fedora, Red Hat Enterprise Linux and xref:anaconda/anaconda_distros.adoc[some other distributions].
+Anaconda is the installation program used by Fedora, Red Hat Enterprise Linux and some other distributions.
 
 During installation, a target computer's hardware is identified and configured, and the appropriate file systems for the system's architecture are created.
 Finally, Anaconda allows the user to install the operating system software on the target computer.
