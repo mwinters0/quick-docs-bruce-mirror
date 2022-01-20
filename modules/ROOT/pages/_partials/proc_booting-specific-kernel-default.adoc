@@ -1,0 +1,44 @@
+[[booting_specific_kernel_default]]
+== Setting an installed kernel to boot by default
+
+To set a specific installed kernel to boot by default, first check the kernels installed on the system.
+
+----
+sudo ls /boot | grep vmlinuz
+----
+
+Identify the kernel to be set to boot by default.
+
+Use the following command to set the default kernel to boot:
+
+----
+sudo grubby --set-default /boot/vmlinuz-<version>.<release>.<arch>
+----
+
+Here is a sample output (on an `x84_64` architecture system):
+
+----
+sudo ls /boot | grep vmlinuz
+
+vmlinuz-0-rescue-c722f5f7d614446b99c39b846c2bb76c
+vmlinuz-5.12.18-200.fc33.x86_64
+vmlinuz-5.8.15-301.fc33.x86_64
+----
+
+If `vmlinuz-<version>.<release>.<arch>` is chosen to be set as the default, we issue the following command:
+
+----
+sudo grubby --set-default /boot/vmlinuz-<version>.<release>.<arch>
+----
+
+For the above scenario, the command will look like so
+
+----
+sudo grubby --set-default /boot/vmlinuz-5.12.18-200.fc33.x86_64
+----
+
+
+[[sect-references]]
+=== References:
+
+* https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/kernel-module-driver-configuration/Working_with_the_GRUB_2_Boot_Loader/[Fedora Rawhide Docs :: Working with the GRUB 2 Boot Loader]

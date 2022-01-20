@@ -112,6 +112,7 @@ If you have used this configuration, you can disable it in individual DNF comman
 
 If you use a GUI update application which does not allow you to specify packages to exclude when they run, this method can be used.
 
+[[sect-using-dnf-plugin]]
 === Using the DNF Versionlock plugin
 
 You can also use the DNF `versionlock` plugin to limit the packages that are included in a transaction.
