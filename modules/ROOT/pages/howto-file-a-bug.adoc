@@ -1,12 +1,16 @@
 = How to file a bug
 :imagesdir: ./images
+include::partial$attributes.adoc[]
+:toc:
 
 The purpose of this document is to give step by step instructions on filing bugs in Fedora.
 
-A software bug does not necessarily need to be a software crash. Any undesired behaviour noticed in software should be filed as a bug.
+A software bug does not necessarily need to be a software crash.
+Any undesired behaviour in software can be filed as a bug.
 The package maintainer can then look at the bug report and decide the best course of action.
 
-TIP: *Everyone should file bugs*: All users are encouraged to file any bugs they run into.
+TIP: *Anyone can file bugs*:
+All users are encouraged to file any bugs they run into.
 Bug filing is not limited to only software developers.
 
 == Terminology
@@ -25,6 +29,23 @@ There are a few terms that are commonly used in this document:
 
 
 == Before filing a bug
+
+https://ask.fedoraproject.org[Ask Fedora] —
+the community support forum —
+is a good place to start if you're not sure if you've encountered a bug.
+Sometimes what is perceived as a bug is a misunderstanding or a question.
+The Ask Fedora community can help you figure out if you've encountered a bug —
+and if it's specific to Fedora or is in the upstream package.
+
+=== Step 0: Check the Common Issues page
+
+We maintain a list of common issues.
+Check this site first to see if your issue has been reported —
+and if a solution exists.
+
+* https://fedoraproject.org/wiki/Common_F{MAJOROSVER}_bugs[Fedora Linux {MAJOROSVER}]
+* https://fedoraproject.org/wiki/Common_F{PREVVER}_bugs[Fedora Linux {PREVVER}]
+* https://ask.fedoraproject.org/c/common-issues/141/none[Ask Fedora listing]
 
 === Step 1: Check for the latest version
 
@@ -166,6 +187,7 @@ Any additional information that may be useful to the maintainer should be added 
 === Step 2: Follow up on filed reports
 
 After a bug has been filed, you should keep an eye out for any updates.
+The xref:package-maintainers::bug_status.adoc[bug status workflow] documentation describes the different statuses a bug may have.
 An e-mail notification of any new comments to the report will be sent to everyone involved in the bug report---the reporter, other users, and the maintainer.
 Often, maintainers will comment with queries to gather more information on the issue. Sometimes other users that experience the same issue may also add more information.
 
@@ -174,13 +196,11 @@ TIP: *Ask for instructions*: If the maintainers ask for more information but it 
 TIP: *E-mail notifications*: The notifications are sent from bugzilla@redhat.com.
 You should keep an eye out for e-mails from this address, and add it to your "no-spam" lists.
 
-If no updates are made to the bug in a week or two, you should also feel free to comment asking for any information.
-Sometimes maintainers who receive many bug reports can miss notification e-mails.
-A polite comment will send them a new notification.
 
 === Step 3: Test updates
 
-A well reported bug will usually be fixed, and the maintainer will make an improved version of the software available to Fedora users.
+A well reported bug will often be fixed,
+and the maintainer will make an improved version of the software available to Fedora users.
 Bodhi will add a comment to the report when this happens.
 You can help the maintainer by confirming if the improved version works better in the Bodhi.
 
@@ -193,11 +213,76 @@ Note that this requires a https://admin.fedoraproject.org/accounts/[Fedora accou
 
 Once the improved version of the software has passed the QA process, the bug will automatically be closed. Congratulations!
 
+== Advice for specific bug types
+
+=== Crashes
+
+If you have experienced a program crash, it will almost certainly be necessary to include a stack trace with your bug report.  Crashes are often difficult to reproduce and even more difficult to fix, so the more information you can provide, the better.
+You will probably need to install -debuginfo RPMs so your stack trace will have useful debugging symbols.  See the following pages for more information:
+
+* https://fedoraproject.org/wiki/StackTraces[Stack traces]
+* https://fedoraproject.org/wiki/Java/StackTraces[Java stack traces]
+
+=== Enhancement Requests
+
+TIP: *Most enhancement requests should be filed upstream.*
+If the software is missing a feature you think it should have,
+you generally want to file that in the upstream project's bug tracker.
+Feature requests in Fedora Linux are generally changing defaults, enabling disabled-by-default features, etc.
+
+* When filing an enhancement request in Bugzilla, add the keyword `Future Feature` to the report. The Keyword should be added right after submitting the bug. You will see the Keyword input box then. Make sure you supply enough information and rationale for your enhancement requests to be considered.
+* The Fedora Project has the objective to be a platform built exclusively from free and open-source software. Suggestions to include support for proprietary or other legally encumbered software is not constructive. See the list of https://fedoraproject.org/wiki/Forbidden_items[forbidden items] page for details about this.
+* If you want to make a new feature happen on your own create a wiki page for your feature and get it accepted.
+See more on the xref:program_management::changes_policy.adoc[Changes Process].
+* Requests for new packages to be added to Fedora should not be filed in Bugzilla.
+
+=== Graphical User Interfaces
+
+If you are having trouble with a graphical user interface (GUI),
+it often helps to include a screenshot or a screencast showing the bug in action.
+This helps developers find the exact place in the code which is causing the bug,
+and helps communicate what is going wrong when it is difficult to reproduce
+(for example, machine-specific layout problems).
+
+=== Hardware-Specific Bugs
+
+A strong indication of a hardware-specific bug is that other people with different hardware should be able to reproduce the bug, but can't.
+They also usually involve code that specifically interacts with a peripheral, such a webcam, video card, printer, or sound card (so for instance, it is uncommon for bugs affecting the user interface of a word processor or desktop calculator to be hardware-specific).
+
+If you suspect your bug has something to do with the specific hardware you have, it will be necessary to identify the hardware so targeted action can be taken.
+
+PCI and PCI-E devices found by the kernel can be listed with `lspci`.
+
+USB devices found by the kernel can be listed with `lsusb`.
+
+You may also find mention of specific devices or drivers in your system logs (run `journalctl`).
+
+=== Security-Sensitive
+
+We pay special attention to security-sensitive bugs.
+Read the https://fedoraproject.org/wiki/Security_Bugs#Reporting_a_Security_Vulnerability[Reporting a Security Vulnerability]] page to understand the special process of opening a security bug.
+
+== Information required for bugs in specific components
+
+* https://fedoraproject.org/wiki/How_to_debug_installation_problems[Anaconda (installer)]
+* https://fedoraproject.org/wiki/How_to_debug_Dracut_problems[Dracut]
+* https://fedoraproject.org/wiki/How_to_debug_Firefox_problems[Firefox]
+* https://fedoraproject.org/wiki/Category:Fonts_and_text_QA[Fonts]
+* https://fedoraproject.org/wiki/KernelBugTriage[Kernel]
+** https://fedoraproject.org/wiki/How_to_debug_sound_problems[Sound]
+* https://fedoraproject.org/wiki/How_to_debug_printing_problems[Printing]
+* https://fedoraproject.org/wiki/SELinux/Troubleshooting[SELinux]
+* https://fedoraproject.org/wiki/How_to_debug_Systemd_problems[Systemd]
+* https://fedoraproject.org/wiki/How_to_debug_Virtualization_problems[Virtualization]
+** https://fedoraproject.org/wiki/How_to_use_qemu[QEMU]
+* https://fedoraproject.org/wiki/How_to_debug_Wayland_problems[Wayland]
+* https://fedoraproject.org/wiki/How_to_debug_Xorg_problems[X.org]
+
+
 == More reading
 
 These are some more resources for those looking to report better bugs by providing more information:
 
-* https://fedoraproject.org/wiki/Bugs_and_feature_requests[A general introduction to filing bugs].
 * https://bugzilla.mozilla.org/page.cgi?id=etiquette.html[Bugzilla etiquette: how to be polite in bug related conversations on the bug tracker].
 * https://www.chiark.greenend.org.uk/~sgtatham/bugs.html[A general introduction on how to file good bugs (available in multiple languages)].
 * https://fedoraproject.org/wiki/StackTraces[An introduction to Stacktraces---information software provides about where the fault may lie].
