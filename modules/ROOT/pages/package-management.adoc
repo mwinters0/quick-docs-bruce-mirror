@@ -81,7 +81,7 @@ installs and packaged installs for (at least) the following reasons:
 
 Strongly consider making your own package if you need a different
 version or a version of some package with changes. See:
-link:How_to_create_an_RPM_package[How to create a RPM package]
+link:creating-rpm-packages[Creating RPM packages]
 
 [[preferred-search-order-for-a-software]]
 Preferred search order for a software
