@@ -37,7 +37,10 @@ colors.py  hellocopr.py  __init__.py
 
 . `tito` installed on your system. link:https://github.com/rpm-software-management/tito[Tito] is capable of a lot of advanced automation for package creation, most of which we won't need here. Check out its documentation to learn more.
 
-. A specfile for our program. For more information on how to create one, refer to xref:creating-rpm-packages.adoc[Creating RPM packages] and xref:create-hello-world-rpm.adoc[How to Create a GNU Hello World RPM Package] or adapt this tutorial's link:https://pagure.io/copr-tito-quickdoc/blob/master/f/doc/hellocopr.spec.annotated[annotated example specfile].
+. A specfile for our program.
+For more information on how to create one,
+refer to xref:package-maintainers::Packaging_Tutorial_GNU_Hello.adoc[Packaging Tutorial: GNU Hello]
+or adapt this tutorial's link:https://pagure.io/copr-tito-quickdoc/blob/master/f/doc/hellocopr.spec.annotated[annotated example specfile].
 
 TIP: You can follow along with this tutorial by cloning or forking the repository and checking out the `initial` tag. This will put the repository in the state just before the next step. The repo's commit history matches the steps followed in this tutorial.
 

@@ -95,8 +95,7 @@
 //FIXME * xref:uefi-with-qemu.adoc[Using UEFI with QEMU]
 
 
-* xref:creating-rpm-packages.adoc[Creating RPM packages]
-** xref:publish-rpm-on-copr.adoc[Publishing your software on Copr]
+* xref:publish-rpm-on-copr.adoc[Publishing your software on Copr]
 
 * Databases
 ** xref:postgresql.adoc[PostgreSQL]

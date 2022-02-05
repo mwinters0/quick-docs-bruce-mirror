@@ -81,7 +81,7 @@ installs and packaged installs for (at least) the following reasons:
 
 Strongly consider making your own package if you need a different
 version or a version of some package with changes. See:
-link:creating-rpm-packages[Creating RPM packages]
+xref:package-maintainers::Packaging_Tutorial_GNU_Hello.adoc[Packaging Tutorial: GNU Hello]
 
 [[preferred-search-order-for-a-software]]
 Preferred search order for a software
