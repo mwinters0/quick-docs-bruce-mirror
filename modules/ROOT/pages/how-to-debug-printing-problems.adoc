@@ -4,7 +4,7 @@ ifdef::context[:parent-context: {context}]
 = How to debug printing problems
 :toc:
 
-If you are experiencing a problem with printing, please take a look at the https://fedoraproject.org/wiki/Bugs/Common[common bugs] page before filing a bug. If the problem you are seeing is not listed there or none of the workarounds seem to help, please consider https://fedoraproject.org/wiki/How_to_debug_printing_problems#Filing_a_bug_report[filing a bug report] to help us make Fedora run better on your hardware.
+If you are experiencing a problem with printing, please take a look at the https://fedoraproject.org/wiki/Bugs/Common[common bugs] page before filing a bug. If the problem you are seeing is not listed there or none of the workarounds seem to help, please consider xref:cups-filing-a-bug-report.adoc#_filing_a_bug_report[filing a bug report] to help us make Fedora run better on your hardware.
 
 include::{partialsdir}/proc_cups-identifying-your-problem-area.adoc[leveloffset=+1]
 include::{partialsdir}/con_cups-user-stories.adoc[leveloffset=+1]

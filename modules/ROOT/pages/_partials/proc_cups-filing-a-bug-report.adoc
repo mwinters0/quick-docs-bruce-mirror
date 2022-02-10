@@ -10,7 +10,16 @@ Problems involving printing may relate to several components.
 
 The configuration GUI (See above) is either https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=control-center[GNOME 3 System Settings application] or https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=system-config-printer[system-config-printer]. These packages also provide the printer applet, handle automatic queue creation, and disable/enable queues when USB printers are disconnected and reconnected.
 
-Most GTK+ applications use the GTK+ print dialog. If the problem occurs when using GTK+ applications but not when printing from the command line or from another non-GTK+ application, the problem should probably be reported against https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=gtk2[gtk2]. If the problem occurs with only one GTK+ application, and other GTK+ applications print fine, the bug should be filed against that particular application.
+Most GTK+ applications use the GTK+ print dialog. If the problem occurs when using GTK+ applications but not when printing from the command line or from another non-GTK+ application, the problem should probably be reported against the GTK+ version which the application uses. You can find out the version by the following query (*thunderbird* is used as an example of RPM package):
+
+----
+$ rpm -q thunderbird | grep gtk
+libgtk-3.so.0
+----
+
+From the output you can see *thunderbird* uses GTK+ version 3.
+
+If the problem occurs with only one GTK+ application, and other GTK+ applications print fine, the bug should be filed against that particular application.
 
 If the problem only happens with PDF files, the bug may well be in https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=poppler[poppler] (the CUPS *pdftops* filter is a wrapper around one of the poppler utility programs).
 
@@ -35,7 +44,7 @@ Be prepared to include some information about your system as well.
 
 === Before gathering of information
 
-* Please change your OS locale to English. Manual xref:f{MAJOROSVER}@fedora:system-administrators-guide:basic-system-configuration/System_Locale_and_Keyboard_Configuration.adoc[[1\]].
+* Please change your OS locale to English.
 * Please attach gathered information as archive (example is xref:cups-useful-tricks.adoc#_how_to_compress_files[here], you may need root permissions) to the bugzilla issue.
 * Please do not forget to trigger your issue after debug enabling and restarting cups and before information gathering.
 
@@ -62,4 +71,4 @@ Some example documents can be found in the https://fedoraproject.org/wiki/Catego
 
 ==  Further reading
 
-The https://fedoraproject.org/wiki/Printing[main printing page] has more information about how printing works in Fedora.
+The https://fedoraproject.org/wiki/Printing[main printing page] and the xref:cups-terminology.adoc#_printing[printing terminology page] have more information about how printing works in Fedora.
