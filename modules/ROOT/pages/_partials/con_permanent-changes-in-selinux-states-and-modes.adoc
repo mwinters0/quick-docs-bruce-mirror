@@ -4,7 +4,7 @@
 
 [#{context}-changing-selinux-modes]
 = Permanent changes in SELinux states and modes
-
+:toc:
 As discussed in link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/chap-security-enhanced_linux-introduction[Introduction to SELinux], SELinux can be enabled or disabled. When enabled, SELinux has two modes: enforcing and permissive.
 
 Use the [command]`getenforce` or [command]`sestatus` commands to check in which mode SELinux is running. The [command]`getenforce` command returns `Enforcing`, `Permissive`, or `Disabled`.
@@ -28,5 +28,7 @@ Max kernel policy version:      31
 
 [NOTE]
 ====
-When systems run SELinux in permissive mode, users are able to label files incorrectly. Files created while SELinux is disabled are not labeled at all. This behavior causes problems when changing to enforcing mode because files are labeled incorrectly or are not labeled at all. To prevent incorrectly labeled and unlabeled files from causing problems, file systems are automatically relabeled when changing from the disabled state to permissive or enforcing mode.
+When systems run SELinux in permissive mode, users and processes can label various file-system objects incorrectly. File-system objects created while SELinux is disabled are not labeled at all. This behavior causes problems when changing to enforcing mode because SELinux relies on correct labels of file-system objects. 
+
+To prevent incorrectly labeled and unlabeled files from causing problems, file systems are automatically relabeled when changing from the disabled state to permissive or enforcing mode. In permissive mode, use the [command]`fixfiles -F onboot` command as root to create `/.autorelabel` file containing the `-F` option to ensure that files are relabeled upon next reboot.
 ====
