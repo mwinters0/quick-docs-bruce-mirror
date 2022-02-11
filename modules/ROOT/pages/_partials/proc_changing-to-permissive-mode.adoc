@@ -5,14 +5,22 @@
 [#{context}-changing-to-permissive-mode]
 = Changing to permissive mode
 
-When SELinux is running in permissive mode, SELinux policy is not enforced. The system remains operational and SELinux does not deny any operations but only logs AVC messages, which can be then used for troubleshooting, debugging, and SELinux policy improvements. Each AVC is logged only once in this case.
+Use the following procedure to permanently change SELinux mode to permissive. When SELinux is running in permissive mode, SELinux policy is not enforced. The system remains operational and SELinux does not deny any operations but only logs AVC messages, which can be then used for troubleshooting, debugging, and SELinux policy improvements. Each AVC is logged only once in this case. 
+
+.Prerequisites 
+
+* The `selinux-policy-targeted`, `libselinux-utils`, and `policycoreutils` packages are installed on your system.
+* The `selinux=0` or `enforcing=0` kernel parameters are not used. 
 
 .Procedure
 
-To permanently change mode to permissive:
+. Open the `/etc/selinux/config` file in a text editor of your choice, for example:
 
-. Edit the `/etc/selinux/config` file as follows:
-+
+----
+# vi /etc/selinux/config
+----
+
+. Configure the `SELINUX=permissive` option:
 [subs="quotes"]
 ----
 # This file controls the state of SELinux on the system.
@@ -31,5 +39,5 @@ SELINUXTYPE=targeted
 +
 [subs="quotes"]
 ----
-$ *reboot*
+# *reboot*
 ----
