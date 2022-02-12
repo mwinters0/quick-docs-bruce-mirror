@@ -5,11 +5,18 @@
 [#{context}-disabling-selinux]
 = Disabling SELinux
 
-When SELinux is disabled, SELinux policy is not loaded at all; it is not enforced and AVC messages are not logged. Therefore, all benefits of running SELinux listed in xref:{context}-benefits-of-selinux[Benefits of SELinux] are lost.
-
+Use the following procedure to permanently disable SELinux.
+ 
 [IMPORTANT]
 ====
+When SELinux is disabled, SELinux policy is not loaded at all; it is not enforced and AVC messages are not logged. Therefore, all benefits of running SELinux listed in xref:{context}-benefits-of-selinux[Benefits of SELinux] are lost.
+
 It is recommended to use permissive mode instead of permanently disabling SELinux. See xref:{context}-changing-to-permissive-mode[] for more information about permissive mode.
+====
+
+[Warning]
+====
+Disabling SELinux using the SELINUX=disabled option in the /etc/selinux/config results in a process in which the kernel boots with SELinux enabled and switches to disabled mode later in the boot process. Because memory leaks and race conditions causing kernel panics can occur, prefer disabling SELinux by adding the selinux=0 parameter to the kernel command line as described in Changing SELinux modes at boot time if your scenario really requires to completely disable SELinux.
 ====
 
 .Prerequisites
@@ -24,23 +31,35 @@ grubby-_version_
 
 .Procedure
 
-To permanently disable SELinux:
-
-. Configure your bootloader to add `selinux=0` to the kernel command line:
+. Open the `/etc/selinux/config` file in a text editor of your choice, for example:
 +
 [subs="quotes"]
 ----
-$ *sudo grubby --update-kernel ALL --args selinux=0*
+# vi /etc/selinux/config
 ----
 
-. Restart your system:
+. Configure the SELINUX=disabled option:
 +
 [subs="quotes"]
 ----
-$ *reboot*
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#       enforcing - SELinux security policy is enforced.
+#       permissive - SELinux prints warnings instead of enforcing.
+#       disabled - No SELinux policy is loaded.
+SELINUX=disabled
+# SELINUXTYPE= can take one of these two values:
+#       targeted - Targeted processes are protected,
+#       mls - Multi Level Security protection.
+SELINUXTYPE=targeted
 ----
 
-.Verification step
+. Save the change, and restart your system:
+----
+# reboot
+----
+
+.Verification 
 
 * After reboot, confirm that the [command]`getenforce` command returns `Disabled`:
 +
