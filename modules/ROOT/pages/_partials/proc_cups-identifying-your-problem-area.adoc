@@ -262,10 +262,10 @@ It is CUPS implementation of IPP everywhere standard, available as a special pri
 Because the created PPD file depends on IPP communication with printer, we need info which is gathered from the device. You can use [command]`ipptool` for that:
 
 ----
-$ ipptool -tv <your_printer_device_uri> get-printer-attributes.test &> ipptool_log
+$ ipptool --ippserver ipptool.attr <your_printer_device_uri> get-printer-attributes.test
 ----
 
-Attach the created [filename]`ipptool_log` to the bugzilla ticket if needed.
+Attach the created [filename]`ipptool.attr` to the bugzilla ticket if needed.
 
 ==== cups-filters 'driverless' driver
 
@@ -274,7 +274,7 @@ Cups-filters special driver which is used for generating PPD according IPP Every
 We need get-printer-attributes request output too:
 
 ----
-$ ipptool -tv <your_printer_device_uri> get-printer-attributes.test &> ipptool_log
+$ ipptool --ippserver ipptool.attr <your_printer_device_uri> get-printer-attributes.test
 ----
 
 and debug logs from the driver itself when it generates PPD for your device:
