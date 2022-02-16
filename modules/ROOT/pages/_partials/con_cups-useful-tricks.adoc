@@ -117,13 +117,19 @@ $ sudo systemctl start cups
 
 2) via CLI commands
 
-* you will need a device uri - `<device_uri>`, f.e.:
+* you will need a device uri - `<device_uri>`, which you can get by:
 
 ----
 $ lpinfo -l -v
 ...
 Device: uri = ipp://HP%20LaserJet%20M1536dnf%20MFP%20(42307C)._ipp._tcp.local/
               ================================================================
+----
+
+or by taking printer's IP or hostname and putting it into the usual IPP uri scheme:
+
+----
+ipp://<IP/hostname>:631/ipp/print
 ----
 
 and a driver name - `<driver>`, f.e.:
