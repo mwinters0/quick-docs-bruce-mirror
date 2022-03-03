@@ -1,6 +1,9 @@
 * xref:contribute-to-quick-docs.adoc[Contribute to Quick Docs]
 
-* xref:howto-file-a-bug.adoc[How to file a bug]
+* Bugs
+** xref:howto-file-a-bug.adoc[How to file a bug]
+** xref:bugzilla/query.adoc[Bugzilla queries]
+** xref:bugzilla/find-duplicates.adoc[Finding duplicate bugs]
 
 * xref:getting-started-guide.adoc[Getting started with Fedora]
 
