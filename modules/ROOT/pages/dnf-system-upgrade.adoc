@@ -117,6 +117,21 @@ For more information you can refer to the man pages (`man rpmconf`).
 
 If you use `rpmconf` to upgrade the system configuration files supplied with the upgraded packages then some configuration files may change. After the upgrade you should verify `/etc/ssh/sshd_config`, `/etc/nsswitch.conf`, `/etc/ntp.conf` and others are expected. For example, if OpenSSH is upgraded then `sshd_config` reverts to the default package configuration. The default package configuration *does not* enable public key authentication, and allows password authentication.
 
+[[sect-clean-up-retired-packages]]
+=== Clean-up retired package
+
+Every release Fedora retires a few packages. There are various reasons:
+the package become obsoleted, dead upstream or maintainer stepped down.
+Fedora no longer distribute these packages, but they are still present
+at your systems. You will never receive upgrades. Not even security ones.
+It is highly recommend to remove these packages.
+
+[source,bash]
+----
+sudo dnf install remove-retired-packages
+remove-retired-packages
+----
+
 [[sect-clean-up-old-packages]]
 === Clean-up old packages
 
