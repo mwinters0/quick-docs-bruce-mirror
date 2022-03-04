@@ -5,7 +5,7 @@
 [#{context}-changing-to-enforcing-mode]
 = Changing to enforcing mode
 
-Use the following procedure to switch SELinux to enforcing mode. When SELinux is running in enforcing mode, it enforces the SELinux policy and denies access based on SELinux policy rules. In RHEL, enforcing mode is enabled by default when the system was initially installed with SELinux.
+Use the following procedure to switch SELinux to enforcing mode. When SELinux is running in enforcing mode, it enforces the SELinux policy and denies access based on SELinux policy rules. In Fedora, enforcing mode is enabled by default when the system was initially installed with SELinux.
 
 .Prerequisites
 
