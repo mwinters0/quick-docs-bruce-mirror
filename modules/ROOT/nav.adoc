@@ -4,6 +4,7 @@
 ** xref:howto-file-a-bug.adoc[How to file a bug]
 ** xref:bugzilla/query.adoc[Bugzilla queries]
 ** xref:bugzilla/find-duplicates.adoc[Finding duplicate bugs]
+** xref:bugzilla/correct-component.adoc[Finding the correct component]
 
 * xref:getting-started-guide.adoc[Getting started with Fedora]
 

@@ -22,7 +22,7 @@ The Status field is set by default to find NEW, ASSIGNED, NEEDINFO, and MODIFIED
 
 In the product field, you should always use "Fedora", "Fedora EPEL", or "Fedora Container Images".
 In the component field, select the source package that contains the defect.
-See the xref:bugzilla/correct-component[finding the correct component] for help.
+See the xref:bugzilla/correct-component.adoc[finding the correct component] for help.
 
 Enter a word or short phrase that identifies the problem you saw as uniquely as possible in the Summary field.
 Examples: "view source", "auto proxy", "drag drop", "png image".
