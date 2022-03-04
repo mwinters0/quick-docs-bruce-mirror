@@ -67,6 +67,9 @@ Alternatively, with the [package]`setroubleshoot-server` package installed, ente
 ----
 # grep "SELinux is preventing" /var/log/messages
 ----
+
+Standard users can use the GUI `setroubleshoot` to file bugs directly to Bugzilla. 
+
 If SELinux is active and the Audit daemon (auditd) is not running on your system, then search for certain SELinux messages in the output of the dmesg command:
 ----
 # dmesg | grep -i -e type=1300 -e type=1400
