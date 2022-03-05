@@ -70,3 +70,308 @@ include::modules/proc_troubleshooting_selinux_allowing_access_audit.adoc[levelof
 
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
+
+= Troubleshooting problems related to SELinux
+:toc:
+
+If you plan to enable SELinux on systems where it has been previously disabled or if you run a service in a non-standard configuration, you might need to troubleshoot situations potentially blocked by SELinux. Note that in most cases, SELinux denials are signs of misconfiguration.
+
+=== Identifying SELinux denials
+
+Follow only the necessary steps from this procedure; in most cases, you need to perform just step 1.
+
+*Procedure*
+
+. When your scenario is blocked by SELinux, the [command]`/var/log/audit/audit.log` file is the first place to check for more information about a denial. To query Audit logs, use the `ausearch` tool. Because the SELinux decisions, such as allowing or disallowing access, are cached and this cache is known as the Access Vector Cache (AVC), use the `AVC` and `USER_AVC` values for the message type parameter, for example:
++
+----
+# ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts recent
+----
++
+If there are no matches, check if the Audit daemon is running. If it does not, repeat the denied scenario after you start auditd and check the Audit log again.
+
+. In case auditd is running, but there are no matches in the output of ausearch, check messages provided by the systemd Journal:
++
+----
+# journalctl -t setroubleshoot
+----
+
+. If SELinux is active and the Audit daemon is not running on your system, then search for certain SELinux messages in the output of the dmesg command:
++
+----
+# dmesg | grep -i -e type=1300 -e type=1400
+----
+
+. Even after the previous three checks, it is still possible that you have not found anything. In this case, AVC denials can be silenced because of `dontaudit` rules.
++
+To temporarily disable `dontaudit` rules, allowing all denials to be logged:
++
+----
+# semodule -DB
+----
++
+After re-running your denied scenario and finding denial messages using the previous steps, the following command enables `dontaudit` rules in the policy again:
++
+----
+# semodule -B
+----
+
+. If you apply all four previous steps, and the problem still remains unidentified, consider if SELinux really blocks your scenario:
+* Switch to permissive mode:
++ 
+----
+# setenforce 0
+$ getenforce
+Permissive
+----
+* Repeat your scenario.
+
+If the problem still occurs, something different than SELinux is blocking your scenario.
+
+== Analyzing SELinux denial messages
+
+After identifying that SELinux is blocking your scenario, you might need to analyze the root cause before you choose a fix.
+
+*Prerequisites*
+
+** The `policycoreutils-python-utils` and `setroubleshoot-server` packages are installed on your system.
+
+*Procedure*
+
+. List more details about a logged denial using the `sealert` command, for example:
++
+----
+$ sealert -l "*"
+SELinux is preventing /usr/bin/passwd from write access on the file
+/root/test.
+
+*****  Plugin leaks (86.2 confidence) suggests *****************************
+
+If you want to ignore passwd trying to write access the test file,
+because you believe it should not need this access.
+Then you should report this as a bug.
+You can generate a local policy module to dontaudit this access.
+Do
+# ausearch -x /usr/bin/passwd --raw | audit2allow -D -M my-passwd
+# semodule -X 300 -i my-passwd.pp
+
+*****  Plugin catchall (14.7 confidence) suggests **************************
+
+...
+
+Raw Audit Messages
+type=AVC msg=audit(1553609555.619:127): avc:  denied  { write } for
+pid=4097 comm="passwd" path="/root/test" dev="dm-0" ino=17142697
+scontext=unconfined_u:unconfined_r:passwd_t:s0-s0:c0.c1023
+tcontext=unconfined_u:object_r:admin_home_t:s0 tclass=file permissive=0
+
+..
+
+Hash: passwd,passwd_t,admin_home_t,file,write
+----
+
+. If the output obtained in the previous step does not contain clear suggestions:
+
+* Enable full-path auditing to see full paths to accessed objects and to make additional Linux Audit event fields visible:
++
+----
+# auditctl -w /etc/shadow -p w -k shadow-write
+----
+
+* Clear the `setroubleshoot` cache:
++
+----
+# rm -f /var/lib/setroubleshoot/setroubleshoot.xml
+----
+
+* Reproduce the problem.
+* Repeat step 1.
++
+After you finish the process, disable full-path auditing:
++
+----
+# auditctl -W /etc/shadow -p w -k shadow-write
+----
+
+. If `sealert` returns only `catchall` suggestions or suggests adding a new rule using the `audit2allow` tool, match your problem with examples listed and explained in SELinux denials in the Audit log.
+
+*Additional resources*
+
+* `sealert(8)` man page
+
+== Fixing analyzed SELinux denials
+
+In most cases, suggestions provided by the `sealert` tool give you the right guidance about how to fix problems related to the SELinux policy. See Analyzing SELinux denial messages for information how to use `sealert` to analyze SELinux denials.
+
+Be careful when the tool suggests using the `audit2allow` tool for configuration changes. You should not use `audit2allow` to generate a local policy module as your first option when you see an SELinux denial. Troubleshooting should start with a check if there is a labeling problem. The second most often case is that you have changed a process configuration, and you forgot to tell SELinux about it.
+
+**Labeling problems**
+
+A common cause of labeling problems is when a non-standard directory is used for a service. For example, instead of using `/var/www/html/` for a website, an administrator might want to use `/srv/myweb/`. On Red Hat Enterprise Linux, the `/srv` directory is labeled with the `var_t` type. Files and directories created in /srv inherit this type. Also, newly-created objects in top-level directories, such as `/myserver`, can be labeled with the `default_t` type. SELinux prevents the Apache HTTP Server (`httpd`) from accessing both of these types. To allow access, SELinux must know that the files in `/srv/myweb/` are to be accessible by `httpd`:
+
+----
+# semanage fcontext -a -t httpd_sys_content_t "/srv/myweb(/.*)?"
+----
+
+This `semanage` command adds the context for the `/srv/myweb/` directory and all files and directories under it to the SELinux file-context configuration. The `semanage` utility does not change the context. As root, use the `restorecon` utility to apply the changes:
+
+----
+# restorecon -R -v /srv/myweb
+----
+
+**Incorrect Context**
+The `matchpathcon` utility checks the context of a file path and compares it to the default label for that path. The following example demonstrates the use of `matchpathcon` on a directory that contains incorrectly labeled files:
+
+----
+$ matchpathcon -V /var/www/html/*
+/var/www/html/index.html has context unconfined_u:object_r:user_home_t:s0, should be system_u:object_r:httpd_sys_content_t:s0
+/var/www/html/page1.html has context unconfined_u:object_r:user_home_t:s0, should be system_u:object_r:httpd_sys_content_t:s0
+----
+
+In this example, the `index.html` and `page1.html` files are labeled with the `user_home_t` type. This type is used for files in user home directories. Using the `mv` command to move files from your home directory may result in files being labeled with the `user_home_t` type. This type should not exist outside of home directories. Use the `restorecon` utility to restore such files to their correct type:
+
+----
+# restorecon -v /var/www/html/index.html
+restorecon reset /var/www/html/index.html context unconfined_u:object_r:user_home_t:s0->system_u:object_r:httpd_sys_content_t:s0
+----
+
+To restore the context for all files under a directory, use the `-R` option:
+
+----
+# restorecon -R -v /var/www/html/
+restorecon reset /var/www/html/page1.html context unconfined_u:object_r:samba_share_t:s0->system_u:object_r:httpd_sys_content_t:s0
+restorecon reset /var/www/html/index.html context unconfined_u:object_r:samba_share_t:s0->system_u:object_r:httpd_sys_content_t:s0
+----
+
+**Confined applications configured in non-standard ways**
+
+Services can be run in a variety of ways. To account for that, you need to specify how you run your services. You can achieve this through SELinux booleans that allow parts of SELinux policy to be changed at runtime. This enables changes, such as allowing services access to NFS volumes, without reloading or recompiling SELinux policy. Also, running services on non-default port numbers requires policy configuration to be updated using the `semanage` command.
+
+For example, to allow the Apache HTTP Server to communicate with MariaDB, enable the `httpd_can_network_connect_db` boolean:
+
+----
+# setsebool -P httpd_can_network_connect_db on
+----
+
+Note that the `-P` option makes the setting persistent across reboots of the system.
+
+If access is denied for a particular service, use the `getsebool` and `grep` utilities to see if any booleans are available to allow access. For example, use the `getsebool -a | grep ftp` command to search for FTP related booleans:
+
+----
+$ getsebool -a | grep ftp
+ftpd_anon_write --> off
+ftpd_full_access --> off
+ftpd_use_cifs --> off
+ftpd_use_nfs --> off
+
+ftpd_connect_db --> off
+httpd_enable_ftp_server --> off
+tftp_anon_write --> off
+----
+
+To get a list of booleans and to find out if they are enabled or disabled, use the `getsebool -a` command. To get a list of booleans including their meaning, and to find out if they are enabled or disabled, install the `selinux-policy-devel` package and use the `semanage boolean -l` command as root.
+
+**Port numbers*
+
+Depending on policy configuration, services can only be allowed to run on certain port numbers. Attempting to change the port a service runs on without changing policy may result in the service failing to start. For example, run the `semanage port -l | grep http` command as root to list `http` related ports:
+
+----
+# semanage port -l | grep http
+http_cache_port_t              tcp      3128, 8080, 8118
+http_cache_port_t              udp      3130
+http_port_t                    tcp      80, 443, 488, 8008, 8009, 8443
+pegasus_http_port_t            tcp      5988
+pegasus_https_port_t           tcp      5989
+----
+
+The `http_port_t` port type defines the ports Apache HTTP Server can listen on, which in this case, are TCP ports 80, 443, 488, 8008, 8009, and 8443. If an administrator configures `httpd.conf` so that httpd listens on port 9876 (`Listen 9876`), but policy is not updated to reflect this, the following command fails:
+
+----
+# systemctl start httpd.service
+Job for httpd.service failed. See 'systemctl status httpd.service' and 'journalctl -xn' for details.
+
+# systemctl status httpd.service
+httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled)
+   Active: failed (Result: exit-code) since Thu 2013-08-15 09:57:05 CEST; 59s ago
+  Process: 16874 ExecStop=/usr/sbin/httpd $OPTIONS -k graceful-stop (code=exited, status=0/SUCCESS)
+  Process: 16870 ExecStart=/usr/sbin/httpd $OPTIONS -DFOREGROUND (code=exited, status=1/FAILURE)
+----
+
+An SELinux denial message similar to the following is logged to `/var/log/audit/audit.log`:
+
+----
+type=AVC msg=audit(1225948455.061:294): avc:  denied  { name_bind } for  pid=4997 comm="httpd" src=9876 scontext=unconfined_u:system_r:httpd_t:s0 tcontext=system_u:object_r:port_t:s0 tclass=tcp_socket
+----
+
+To allow `httpd` to listen on a port that is not listed for the `http_port_t` port type, use the `semanage port` command to assign a different label to the port:
+
+----
+# semanage port -a -t http_port_t -p tcp 9876
+----
+
+The `-a `option adds a new record; the `-t` option defines a type; and the -p option defines a protocol. The last argument is the port number to add.
+
+**Corner cases, evolving or broken applications, and compromised systems**
+
+Applications may contain bugs, causing SELinux to deny access. Also, SELinux rules are evolving – SELinux may not have seen an application running in a certain way, possibly causing it to deny access, even though the application is working as expected. For example, if a new version of PostgreSQL is released, it may perform actions the current policy does not account for, causing access to be denied, even though access should be allowed.
+
+For these situations, after access is denied, use the `audit2allow` utility to create a custom policy module to allow access. You can report missing rules in the SELinux policy in Red Hat Bugzilla. For `Red Hat Enterprise Linux 8`, create bugs against the Red Hat Enterprise Linux 8 product, and select the `selinux-policy` component. Include the output of the `audit2allow -w -a` and `audit2allow -a` commands in such bug reports.
+
+If an application asks for major security privileges, it could be a signal that the application is compromised. Use intrusion detection tools to inspect such suspicious behavior.
+
+The Solution Engine on the Red Hat Customer Portal can also provide guidance in the form of an article containing a possible solution for the same or very similar problem you have. Select the relevant product and version and use SELinux-related keywords, such as selinux or avc, together with the name of your blocked service or application, for example: `selinux samba`.
+
+== SELinux denials in the audit log
+
+The Linux Audit system stores log entries in the `/var/log/audit/audit.log` file by default.
+
+To list only SELinux-related records, use the `ausearch` command with the message type parameter set to `AVC` and `AVC_USER` at a minimum, for example:
+
+----
+# ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR
+----
+
+An SELinux denial entry in the Audit log file can look as follows:
+
+----
+type=AVC msg=audit(1395177286.929:1638): avc:  denied  { read } for  pid=6591 comm="httpd" name="webpages" dev="0:37" ino=2112 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:nfs_t:s0 tclass=dir
+----
+
+The most important parts of this entry are:
+
+* `avc: denied` - the action performed by SELinux and recorded in Access Vector Cache (AVC)
+* `{ read }` - the denied action
+* `pid=6591` - the process identifier of the subject that tried to perform the denied action
+* `comm="httpd"` - the name of the command that was used to invoke the analyzed process
+* `httpd_t` - the SELinux type of the process
+* `nfs_t` - the SELinux type of the object affected by the process action
+* `tclass=dir` - the target object class
+
+The previous log entry can be translated to:
+
+__SELinux__ denied the `__httpd__` process with PID 6591 and the `__httpd_t__` type to read from a directory with the `__nfs_t__` type.
+
+The following SELinux denial message occurs when the Apache HTTP Server attempts to access a directory labeled with a type for the Samba suite:
+
+----
+type=AVC msg=audit(1226874073.147:96): avc:  denied  { getattr } for  pid=2465 comm="httpd" path="/var/www/html/file1" dev=dm-0 ino=284133 scontext=unconfined_u:system_r:httpd_t:s0 tcontext=unconfined_u:object_r:samba_share_t:s0 tclass=file
+----
+
+* `{ getattr }` - the `getattr` entry indicates the source process was trying to read the target file’s status information. This occurs before reading files. SELinux denies this action because the process accesses the file and it does not have an appropriate label. Commonly seen permissions include `getattr`, `read`, and `write`.
+* `path="/var/www/html/file1"` - the path to the object (target) the process attempted to access.
+* `scontext="unconfined_u:system_r:httpd_t:s0"` - the SELinux context of the process (source) that attempted the denied action. In this case, it is the SELinux context of the Apache HTTP Server, which is running with the `httpd_t` type.
+* `tcontext="unconfined_u:object_r:samba_share_t:s0"` - the SELinux context of the object (target) the process attempted to access. In this case, it is the SELinux context of `file1`.
+
+This SELinux denial can be translated to:
+
+SELinux denied the `__httpd__` process with PID 2465 to access the `__/var/www/html/file1__` file with the `__samba_share_t__` type, which is not accessible to processes running in the httpd_t domain unless configured otherwise.
+
+**Additional resources**
+
+* `auditd(8)` and `ausearch(8)` man pages
+
+== Additional resources
+
+* Basic SELinux Troubleshooting in CLI
+* What is SELinux trying to tell me? The 4 key causes of SELinux errors
