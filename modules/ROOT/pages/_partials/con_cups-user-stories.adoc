@@ -24,6 +24,7 @@ Please follow the steps in the following sections:
 * xref:how-to-debug-printing-problems.adoc#_how_to_start_to_capture_incident_bound_journal_logging[start to capture journal logs]
 * trigger your issue
 * xref:how-to-debug-printing-problems.adoc#_how_to_get_incident_bound_journal_logging[get the journal logs]
+* attach files with output of [command]`lsusb -v` and from `/var/log/ipp-usb` if the device is connected by USB 
 * attach the files to the bugzilla ticket and xref:how-to-debug-printing-problems.adoc#_turning_off_debug_logging[turn off debug logging]
 * provide printer model name and printer PPD file from `/etc/cups/ppd/`
 
@@ -41,6 +42,7 @@ Please follow the steps in the following sections:
 * attach the file you wanted to print
 * tell what application you printed from
 * mention your xref:how-to-debug-printing-problems.adoc#_which_driver_am_i_using[printer model]
+* attach files with output of [command]`lsusb -v` and from `/var/log/ipp-usb` if the device is connected by USB 
 
 == CUPS generic issue
 
@@ -53,6 +55,7 @@ For generic issues - printer wasn't found, segfault - please follow the steps in
 * attach created files to the ticket and xref:how-to-debug-printing-problems.adoc#_turning_off_debug_logging[turn off debug logging]
 * put the output of xref:how-to-debug-printing-problems.adoc#_what_make_and_model_is_my_printer[lpinfo] into a file and attach it
 * put the output of xref:how-to-debug-printing-problems.adoc#_which_print_queues_are_available_for_me[both lpstat commands] into a file and attach it
+* attach files with output of [command]`lsusb -v` and from `/var/log/ipp-usb` if the device is connected by USB 
 
 == My printer doesn't print correctly - I use 'everywhere' model
 
