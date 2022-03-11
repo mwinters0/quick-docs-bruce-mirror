@@ -1,0 +1,53 @@
+= Using Bugzilla
+
+Fedora uses https://bugzilla.redhat.com[Red Hat Bugzilla] for bug tracking.
+This page
+and the other pages under the "Bugs" header on the left
+offer some tips and guidance.
+
+== Permissions
+
+Any user,
+including "anonymous"
+(i.e. not logged in)
+users can view bugs.
+(Note that some bugs or comments may be marked "private"
+or restricted to specific groups.
+This is rare in Fedora
+and is generally to protect sensitive information
+that might be in an attachment or log snippet.)
+
+Any logged-in user can create a bug report
+or add a comment to an existing bug.
+
+The reporter or assignee of a bug can modify any field in their own bug.
+
+== Automatic changes
+
+Bugzilla will automatically create links to bug reports or comments that follow the pattern
+"bug xxxx" or "comment xxxx".
+
+Bugs marked as xref:bugzilla/find-duplicates.adoc[duplicate] will automatically get a comment referring to the other bug report.
+The other bug report will automatically get a comment indicating that another bug has been marked as a duplicate of it.
+
+https://bodhi.fedoraproject.org[Bodhi] —
+the Fedora updates system —
+will automatically comment
+and change the xref:#_status[status]
+of associated bugs as updates move through the system.
+
+== Status and resolution
+
+Bugzilla uses fields called "Status" and "Resolution" to track the state of a bug report or feature request.
+
+=== Status
+
+The table below summarizes the statuses.
+ 
+include::program_management::partial$bz_status.adoc[]
+
+=== Resolution
+ 
+The table below describes the resolutions that can apply to the _CLOSED_ status.
+ 
+include::program_management::partial$bz_resolution.adoc[]
