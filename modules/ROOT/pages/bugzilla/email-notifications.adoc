@@ -1,0 +1,49 @@
+= Managing Bugzilla email notifications
+
+Bugzilla allows you to set granular email notification preferences.
+
+== Email preferences
+
+To set your email preferences,
+go to the https://bugzilla.redhat.com/userprefs.cgi?tab=email[_Email Preferences_ tab]
+of your user preferences.
+You will see a grid
+that allows you to select to receive notifications
+based on the bug activity (rows)
+and your relationship to the bug (columns).
+
+In addition,
+you can exclude notifications when you are the one making the change
+or when the change is marked as a "minor update".
+
+The _Email preferences_ tab also allows you
+to ignore specific bugs.
+
+== Watch components
+
+If you want to get notifications for all bugs in a specific component,
+go to the https://bugzilla.redhat.com/userprefs.cgi?tab=component_watch[_Watch Components_ tab]
+of your user preferences.
+You can select the components you want to watch.
+
+Watching a component will still follow the email preferences you set.
+
+NOTE: If you are a package maintainer,
+you do not need to add notifications
+for the packages you maintain.
+The release engineering automation will add you automatically.
+
+== Watch specific bugs
+
+If you want to track a specific but,
+you can add yourself to the _CC_ list.
+
+. On the bug you want to watch,
+click the _Add me to CC list_ box.
+. Check the _This is a minor update (do not send email)_ box.
+(This step is optional,
+but is a polite choice
+to reduce email notifications.
+If you take other actions beyond adding yourself to the CC list,
+use your best judgement.)
+. Click the _Save Changes_ button.
