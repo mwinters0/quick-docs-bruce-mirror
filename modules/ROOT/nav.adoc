@@ -6,6 +6,7 @@
 ** xref:bugzilla/find-duplicates.adoc[Finding duplicate bugs]
 ** xref:bugzilla/correct-component.adoc[Finding the correct component]
 ** xref:bugzilla/spam.adoc[Reporting Bugzilla spam]
+** xref:bugzilla/email-notifications.adoc[Managing email notifications]
 
 * xref:getting-started-guide.adoc[Getting started with Fedora]
 
