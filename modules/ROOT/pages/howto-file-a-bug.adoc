@@ -4,6 +4,8 @@ include::partial$attributes.adoc[]
 :toc:
 
 The purpose of this document is to give step by step instructions on filing bugs in Fedora.
+For more information about using Bugzilla,
+see the xref:bugzilla.adoc[Bugs section] of the Quick Docs.
 
 A software bug does not necessarily need to be a software crash.
 Any undesired behaviour in software can be filed as a bug.
