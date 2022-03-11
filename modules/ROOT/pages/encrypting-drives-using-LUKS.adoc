@@ -1,20 +1,245 @@
-ifdef::context[:parent-context: {context}]
-:context: luks
+= Disk Encryption User Guide
+ 
+=== Contents
+. <<What is block device encryption?>>
+. <<Encrypting block devices using dm-crypt/LUKS>>
+.. <<Overview of LUKS>>
+.. <<How will I access the encrypted devices after installation? (System Startup)>>
+.. <<Choosing a Good Passphrase>>
+. <<Creating Encrypted Block Devices in Anaconda>>
+.. <<What Kinds of Block Devices Can Be Encrypted?>>
+.. <<Limitations of Anaconda's Block Device Encryption Support>>
+... <<Filling the Device with Random Data Before Encrypting>>
+... <<Using a Key Comprised of Randomly Generated Data to Access Encrypted Devices>>
+. <<Creating Encrypted Block Devices on the Installed System After Installation>>
+.. <<Create the block devices>>
+.. <<Optional: Fill the device with random data>>
+.. <<Format the device as a dm-crypt/LUKS encrypted device>>
+.. <<Create a mapping to allow access to the device's decrypted contents>>
+.. <<Create filesystems on the mapped device, or continue to build complex storage structures using the mapped device>>
+.. <<Add the mapping information to /etc/crypttab>>
+.. <<Add an entry to /etc/fstab>>
+. <<Common Post-Installation Tasks>>
+.. <<Backup LUKS headers>>
+.. <<Set a randomly generated key as an additional way to access an encrypted block device>>
+... <<Generate a key>>
+... <<Add the key to an available keyslot on the encrypted device>>
+.. <<Add a new passphrase to an existing device>>
+.. <<Remove a passphrase or key from a device>>
+ 
+=== What is block device encryption?
+Block device encryption encrypts/decrypts the data transparently as it is written/read from block devices, the underlying block device sees only encrypted data.
+ 
+To mount encrypted block devices the sysadmin (or user, depending on context) must provide a passphrase to activate the decryption key.
+ 
+Encryption provides additional security beyond existing OS security mechanisms in that it protects the device's contents even if it has been physically removed from the system. Some systems require the encryption key to be the same as for decryption, and other systems require a specific key for encryption and specific second key for enabling decryption.
+ 
+=== Encrypting block devices using dm-crypt/LUKS
+https://gitlab.com/cryptsetup/cryptsetup/[LUKS] (Linux Unified Key Setup) is a specification for block device encryption. It establishes an on-disk format for the data, as well as a passphrase/key management policy.
+ 
+LUKS uses the kernel device mapper subsystem via the `dm-crypt` module. This arrangement provides a low-level mapping that handles encryption and decryption of the device's data. User-level operations, such as creating and accessing encrypted devices, are accomplished through the use of the `cryptsetup` utility.
+ 
+==== Overview of LUKS
+* What LUKS does:
+** LUKS encrypts entire block devices
+*** LUKS is thereby well-suited for protecting the contents of mobile devices such as:
+**** Removable storage media
+**** Laptop disk drives
+** The underlying contents of the encrypted block device are arbitrary.
+*** This makes it useful for encrypting swap devices.
+*** This can also be useful with certain databases that use specially formatted block devices for data storage.
+** LUKS uses the existing device mapper kernel subsystem.
+*** This is the same subsystem used by LVM, so it is well tested.
+** LUKS provides passphrase strengthening.
+*** This protects against dictionary attacks.
+** LUKS devices contain multiple key slots.
+*** This allows users to add backup keys/passphrases.
+* What LUKS does not do:
+** LUKS is not well-suited for applications requiring many (more than eight) users to have distinct access keys to the same device.
+** LUKS is not well-suited for applications requiring file-level encryption.
+ 
+==== How will I access the encrypted devices after installation? (System Startup)
+During system startup you will be presented with a passphrase prompt. After the correct passphrase has been provided the system will continue to boot normally. If you used different passphrases for multiple encrypted devices you may need to enter more than one passphrase during the startup.
+ 
+TIP: Consider using the same passphrase for all encrypted block devices within a given system. This will simplify system startup and you will have fewer passphrases to remember. Just make sure you choose a good passphrase!
+ 
+==== Choosing a Good Passphrase
+While dm-crypt/LUKS supports both keys and passphrases, the anaconda installer only supports the use of passphrases for creating and accessing encrypted block devices during installation.
+ 
+LUKS does provide passphrase strengthening but it is still a good idea to choose a good (meaning "difficult to guess") passphrase. Note the use of the term "passphrase", as opposed to the term "password". This is intentional. Providing a phrase containing multiple words to increase the security of your data is important.
+ 
+=== Creating Encrypted Block Devices in Anaconda
+You can create encrypted devices during system installation. This allows you to easily configure a system with encrypted partitions.
+ 
+To enable block device encryption, check the "Encrypt System" checkbox when selecting automatic partitioning or the "Encrypt" checkbox when creating an individual partition, software RAID array, or logical volume. After you finish partitioning, you will be prompted for an encryption passphrase. This passphrase will be required to access the encrypted devices. If you have pre-existing LUKS devices and provided correct passphrases for them earlier in the install process the passphrase entry dialog will also contain a checkbox. Checking this checkbox indicates that you would like the new passphrase to be added to an available slot in each of the pre-existing encrypted block devices.
+ 
+TIP: Checking the "Encrypt System" checkbox on the "Automatic Partitioning" screen and then choosing "Create custom layout" does not cause any block devices to be encrypted automatically.
 
-[id='encrypting-drives-using-luks']
-= Encrypting drives using LUKS
+TIP: You can use `kickstart` to set a separate passphrase for each new encrypted block device.
+ 
+==== What Kinds of Block Devices Can Be Encrypted?
+Most types of block devices can be encrypted using LUKS. From anaconda you can encrypt partitions, LVM physical volumes, LVM logical volumes, and software RAID arrays.
+ 
+==== Limitations of Anaconda's Block Device Encryption Support
+ 
+===== Filling the Device with Random Data Before Encrypting
+Filling a device with random data prior to encrypting improves the strength of the encryption. However, it can take a very long time to fill the device with random data. It is because of those time requirements that anaconda does not offer this option. This step can be performed manually, using a `kickstart %pre` script. Instructions can be found https://fedoraproject.org/wiki/Disk_Encryption_User_Guide#randomize_device[here].
+ 
+===== Using a Key Comprised of Randomly Generated Data to Access Encrypted Devices
+In addition to passphrases, LUKS devices can be accessed with a key comprised of randomly generated data. Setting up one or more keys to access the encrypted devices can be done on the installed system or through the use of a `kickstart %post` script. Instructions can be found https://fedoraproject.org/wiki/Disk_Encryption_User_Guide#new_key[here].
+ 
+=== Creating Encrypted Block Devices on the Installed System After Installation
+Encrypted block devices can be created and configured after installation.
+ 
+==== Create the block devices
+Create the block devices you want to encrypt by using `parted`, `pvcreate`, `lvcreate` and `mdadm`.
+ 
+==== Optional: Fill the device with random data
+Filling <device> (eg: `/dev/sda3`) with random data before encrypting it greatly increases the strength of the encryption. The downside is that it can take a very long time.
+ 
+WARNING: The commands below will destroy any existing data on the device.
+ 
+* The best way, which provides high quality random data but takes a long time (several minutes per gigabyte on most systems)
+----
+dd if=/dev/urandom of=<device>
+----
+* Fastest way, which provides lower quality random data
+----
+badblocks -c 10240 -s -w -t random -v <device>
+----
+ 
+==== Format the device as a dm-crypt/LUKS encrypted device
+ 
+WARNING: The commands below will destroy any existing data on the device.
+ 
+----
+cryptsetup luksFormat <device>
+----
+ 
+TIP: For more information, read the `cryptsetup(8)` man page.
+ 
+After supplying the passphrase twice the device will be formatted for use. To verify, use the following command:
+ 
+----
+cryptsetup isLuks <device> && echo Success
+----
+ 
+To see a summary of the encryption information for the device, use the following command:
+ 
+----
+cryptsetup luksDump <device>
+----
+ 
+==== Create a mapping to allow access to the device's decrypted contents
+To access the device's decrypted contents, a mapping must be established using the kernel `device-mapper`.
+ 
+It is useful to choose a meaningful name for this mapping. LUKS provides a UUID (Universally Unique Identifier) for each device. This, unlike the device name (eg: `/dev/sda3`), is guaranteed to remain constant as long as the LUKS header remains intact. To find a LUKS device's UUID, run the following command:
+ 
+----
+cryptsetup luksUUID <device>
+----
+ 
+An example of a reliable, informative and unique mapping name would be `luks-<uuid>`, where <uuid> is replaced with the device's LUKS UUID (eg: `luks-50ec957a-5b5a-47ee-85e6-f8085bbc97a8`). This naming convention might seem unwieldy but is it not necessary to type it often.
+ 
+----
+cryptsetup luksOpen <device> <name>
+----
+ 
+There should now be a device node, `/dev/mapper/<name>`, which represents the decrypted device. This block device can be read from and written to like any other unencrypted block device.
+ 
+To see some information about the mapped device, use the following command:
+ 
+----
+dmsetup info <name>
+----
+ 
+TIP: For more information, read the `dmsetup(8)` man page.
+ 
+==== Create filesystems on the mapped device, or continue to build complex storage structures using the mapped device
+Use the mapped device node (`/dev/mapper/<name>`) as any other block device. To create an `ext2` filesystem on the mapped device, use the following command:
+ 
+----
+mke2fs /dev/mapper/<name>
+----
+ 
+To mount this filesystem on `/mnt/test`, use the following command:
+ 
+IMPORTANT: The directory `/mnt/test` must exist before executing this command.
+ 
+----
+mount /dev/mapper/<name> /mnt/test
+----
+ 
+==== Add the mapping information to /etc/crypttab
+ 
+In order for the system to set up a mapping for the device, an entry must be present in the `/etc/crypttab` file. If the file doesn't exist, create it and change the owner and group to root (`root:root`) and change the mode to `0744`. Add a line to the file with the following format:
+ 
+----
+<name>  <device>  none
+----
+ 
+The <device> field should be given in the form "UUID=<luks_uuid>", where <luks_uuid> is the LUKS uuid as given by the command `cryptsetup luksUUID <device>`. This ensures the correct device will be identified and used even if the device node (eg: `/dev/sda5`) changes.
+ 
+TIP: For details on the format of the `/etc/crypttab` file, read the `crypttab(5)` man page.
+ 
+==== Add an entry to `/etc/fstab`
+Add an entry to `/etc/fstab` file. This is only necessary if you want to establish a persistent association between the device and a mountpoint. Use the decrypted device, `/dev/mapper/<name>` in the `/etc/fstab` file.
+ 
+In many cases it is desirable to list devices in `/etc/fstab` by UUID or by a filesystem label. The main purpose of this is to provide a constant identifier in the event that the device name (eg: `/dev/sda4`) changes. LUKS device names in the form of `/dev/mapper/luks-<luks_uuid>` are based only on the device's LUKS UUID, and are therefore guaranteed to remain constant. This fact makes them suitable for use in `/etc/fstab`.
+ 
+TIP: For details on the format of the /etc/fstab file, read the fstab(5) man page.
+ 
+=== Common Post-Installation Tasks
+ 
+==== Backup LUKS headers
+If the sectors containing the LUKS headers are damaged - by user error or HW failure - all data in the encrypted block device is lost. Backing up the headers can help recovering data in such cases.
+ 
+To backup the LUKS headers, use the following command:
+ 
+----
+cryptsetup luksHeaderBackup --header-backup-file <file> <device>
+----
+ 
+To restore the LUKS headers, use the following command:
+ 
+WARNING: The command below can destroy data, if wrong headers are applied or wrong device is selected! Be sure to backup headers from recovering device first.
+ 
+----
+cryptsetup luksHeaderRestore --header-backup-file <file> <device>
+----
+ 
+See also https://gitlab.com/cryptsetup/cryptsetup/wikis/FrequentlyAskedQuestions#6-backup-and-data-recovery
+ 
+==== Set a randomly generated key as an additional way to access an encrypted block device
+ 
+===== Generate a key
+ 
+This will generate a 256-bit key in the file `$HOME/keyfile`.
+ 
+----
+dd if=/dev/urandom of=$HOME/keyfile bs=32 count=1
+chmod 600 $HOME/keyfile
+----
+ 
+===== Add the key to an available keyslot on the encrypted device
+ 
+----
+cryptsetup luksAddKey <device> ~/keyfile
+----
+ 
+===== Add a new passphrase to an existing device
+ 
+----
+cryptsetup luksAddKey <device>
+----
+ 
+After being prompted for any one of the existing passprases for authentication, you will be prompted to enter the new passphrase.
+ 
+==== Remove a passphrase or key from a device
+ 
+----
+cryptsetup luksRemoveKey <device>
+----
+ 
+You will be prompted for the passphrase you wish to remove and then for any one of the remaining passphrases for authentication.
 
-As a system administrator, you can encrypt a block device. This section gives a brief introduction to block encryption, describes Linux Unified Key Setup (LUKS), and lists the steps to create an encrypted block device.
-
-:leveloffset: +1
-
-include::{partialsdir}/con_block-device-encryption.adoc[]
-
-include::{partialsdir}/con_introduction-to-luks.adoc[]
-
-include::{partialsdir}/creating-encrypted-block-devices.adoc[]
-
-:leveloffset: 0
-
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
