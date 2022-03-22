@@ -1,11 +1,11 @@
 [id='proc_adding-new-certificates']
 = Adding New Certificates
 
-To add a certificate in the simple PEM or DER file formats to the list of CAs trusted on the system, copy the certificate file to the `/usr/share/pki/ca-trust-source/anchors/` or `/etc/pki/ca-trust/source/anchors/` directory, for example:
+To add a certificate in the simple PEM or DER file formats to the list of CAs trusted on the system, copy the certificate file to the `/etc/pki/ca-trust/source/anchors/` directory, for example:
 
 [subs="+quotes,macros"]
 ----
-# cp _~/certificate-trust-examples/Cert-trust-test-ca.pem_ _/usr/share/pki/ca-trust-source/anchors/_
+# cp _~/certificate-trust-examples/Cert-trust-test-ca.pem_ _/etc/pki/ca-trust/source/anchors/_
 ----
 
 To update the system-wide trust store configuration, use the [command]`update-ca-trust` command:
