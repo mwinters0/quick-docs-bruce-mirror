@@ -68,6 +68,16 @@ ServerAlias your.own.fully.qualified.hostname.com
 
 into [filename]`/etc/cups/client.conf` and restarting cups service.
 
+=== There are less options available if the device is used as driverless than with a classic driver
+
+The similar situation can happen with *sane-airscan* supported scanners. Some devices declare less options via protocols - f.e. IPP 2.0+, WSD, eSCL - which support driverless solutions than via classic drivers. Usually it is an issue with device's firmware, which can be verify by checking the output of the following command:
+
+----
+$ ipptool -tv <ipp_device_uri> get-printer-attributes.test
+----
+
+The commands does the same IPP request which is done when a temporary queue appears in the print dialog or when you install the queue permanently. The printer options are set from the IPP response for this request, so if the option is missing in the response, CUPS cannot generate such a printer option. The solution is to try to update the device firmware, report the issue to the device manufacturer and at https://bugzilla.redhat.com[bugzilla] with logs.
+
 == HPLIP
 
 First I would like to mention that we are not responsible for support HPLIP, which is downloaded and installed from HP website. Please install hplip rpms from official Fedora repositories at most cases.
@@ -150,6 +160,16 @@ $ hp-plugin -i
 
 Devices which require a HP close source binary plugin need to have plugin installed every time you start/restart your PC by default. HP closed source script installs the plugins into a readonly directories, so the plugins are removed once you start/restart Fedora. The workaround is to try if your device supports driverless printing and scanning, try hplip-plugin package from RPMFusion or keep installing the plugin everytime you want to print.
 
-=== HP USB printer/scanner doesn't work due a conflict on USB port
+== golang-github-openprinting-ipp-usb
 
-HPLIP proprietary binary plugins tends to conflict on the USB port where HP device is connected, if the HP device is capable of using IPP over USB and if *ipp-usb* package is installed. The solution is to _remove hplip_ and have the device being maintained by *ipp-usb* and *sane-airscan*, because it provides newer open sourced protocols and you are not limited by problems caused by closed source plugins (needed to be reinstalled every time there is a new HPLIP version, they don't work stable on Silverblue/CoreOS).
+=== USB printer/scanner doesn't work due a conflict on USB port
+
+*ipp-usb* daemon keeps the USB port of IPP-over-USB device opened for any possible IPP communication in the future, which blocks the port for other drivers (f.e. HPLIP, gutenprint, sane-backends...). For printers the solution is to _uninstall the queue with the driver_ and start using the one from *ipp-usb* (as a xref:cups-terminology.adoc#_temporary_print_queues[CUPS temporary queue] or install a permanent one - the default device uri is `ipp://localhost:60000/ipp/print`). In case of scanners *sane-airscan* automatically picks up the virtual device from *ipp-usb* if the device is capable of using WSD or eSCL protocols.
+
+If *ipp-usb* created device doesn't match your use case (the options you use are missing, the device doesn't work even if it is IPP-over-USB supported), please report the issue together with logs from [filename]`/var/log/ipp-usb/` directory at https://bugzilla.redhat.com[bugzilla]. *ipp-usb* itself supports quirks, which allows you to set the daemon to ignore your device and you can switch back to a classic driver. See [command]`man ipp-usb`.
+
+== sane-airscan
+
+=== There are less options available if the device is discovered by sane-airscan than with a classic driver
+
+The similar situation can happen with `everywhere` or `driverless` printer models. Some devices declare less options via protocols - f.e. IPP 2.0+, WSD, eSCL - which support driverless solutions than via classic drivers. Usually it is an issue with device's firmware, which can be verify in sane-airscan debug logs and network traffic. The solution is to try to update the device firmware, report the issue to the device manufacturer and at https://bugzilla.redhat.com[bugzilla] with logs.
