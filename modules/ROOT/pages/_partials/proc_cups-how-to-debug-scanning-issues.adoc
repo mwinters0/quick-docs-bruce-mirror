@@ -85,3 +85,31 @@ $ kill `pidof journalctl`
 ----
 
 then attach the created file - [filename]`journal_logs` - as an attachment to the bugzilla ticket. Please do only one action per capture - that means if you are asked to attach log files for HP scanner discovery and scanning supported by hplip, you will attach as an attachment four files - [filename]`discovery_output`, [filename]`journal_logs` for discovery output, [filename]`debug_logs` and [filename]`journal_logs` for debug_logs.
+
+== Debugging sane-airscan
+
+If your device supports eSCL or WSD (you can find it out from device specification - look for the mentioned protocols or AirScan), then its scanning functionality is supported by *sane-airscan*. Regarding debugging, on the top of usual logging sane-airscan gathers a communication dump and output image, which is helpful during investigation.
+
+sane-airscan debugging can be enabled in [filename]`/etc/sane.d/airscan.conf` by setting: 
+
+----
+[debug]
+trace = /path/to/dir/where/debugfiles/will/be/saved
+enable = true
+----
+
+Then do trigger your issue (xref:_debugging_scanner_discovery[discovery] or xref:_debugging_scanning_process[scanning]), go to the dir you defined in [filename]`/etc/sane.d/airscan.conf`, take all files from there and attach them to the bug ticket.
+
+== How to divide logs
+
+In case your debug log is too big for bugzilla to attach (because your issue doesn't happen with the lowest settings or logs are big even with the lowest settings), do divide the logs to three files like this:
+
+----
+$ grep dll debug_log > debug_log_dll
+$ grep <connection> debug_log > debug_log_connection
+$ grep <backend> debug_log > debug_log_backend
+----
+
+<backend> is the name of backend which supports your scanner (pixma, genesys, plustek, hpaio, airscan etc.), <connection> is the type of connection you use for the device (tcp, usb).
+
+The division makes the investigation more difficult (the person needs to have three opened files at the same time), so do divide the logs only if log file is too big.
