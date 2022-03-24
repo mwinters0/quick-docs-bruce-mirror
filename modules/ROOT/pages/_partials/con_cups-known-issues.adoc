@@ -78,6 +78,16 @@ $ ipptool -tv <ipp_device_uri> get-printer-attributes.test
 
 The commands does the same IPP request which is done when a temporary queue appears in the print dialog or when you install the queue permanently. The printer options are set from the IPP response for this request, so if the option is missing in the response, CUPS cannot generate such a printer option. The solution is to try to update the device firmware, report the issue to the device manufacturer and at https://bugzilla.redhat.com[bugzilla] with logs.
 
+=== [F33+] Printing via IPPS doesn't work
+
+Fedora 33 came up with a raised bar regarding crypto-policies, so SSL and older TLS protocols are disabled on system level. The change breaks printing via IPPS to devices which don't support newer protocols. You can set back legacy crypto support in crypto-policies via:
+
+----
+$ sudo update-crypto-policies --set DEFAULT:FEDORA32
+----
+
+The policy change transitionally has an impact on devices found by cups-browsed, because the daemon prefers IPPS uris if they are reported as available by printer/server.
+
 == HPLIP
 
 First I would like to mention that we are not responsible for support HPLIP, which is downloaded and installed from HP website. Please install hplip rpms from official Fedora repositories at most cases.
