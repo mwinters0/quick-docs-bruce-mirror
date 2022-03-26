@@ -46,7 +46,7 @@ Many fonts are available from the RPM Fusion repository.
 To enable the repository on your system, follow xref:setup_rpmfusion.adoc[these instructions].
 
 List all available font packages from enabled repositories::
-`sudo dnf search fonts`
+`dnf search fonts`
 
 Install the font package you need::
 `sudo dnf install libreoffice-opensymbol-fonts`
