@@ -69,9 +69,15 @@ in your [filename]`/etc/cups/cupsd.conf` file and restart cup service. Do not fo
 
 ==== Get a job log for a specific job ID
 
-To capture job log you need to know Job ID (JID) of the job - it is a number which together with print queue name specifies the job as request ID - for getting logs specific for the job.
+To capture job log you need to know Job ID (JID) of the job - it is the number after dash in a request ID:
 
-Job ID can be seen in terminal if you send a document to print by [command]`lp` command:
+Request ID looks like this:
+
+----
+<print_queue_name>-<JID>
+----
+
+and can be seen in terminal if you send a document to print by [command]`lp` command:
 
 ----
 $ lp -d <print_queue_name> <file1> ... <fileN>
