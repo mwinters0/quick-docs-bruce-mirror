@@ -33,10 +33,9 @@ Please follow the steps in the following sections:
 Please follow the steps in the following sections:
 
 * xref:how-to-debug-printing-problems.adoc#_enable_cups_debug_logging[enable CUPS debug logging]
-* xref:how-to-debug-printing-problems.adoc#_prepare_cups_for_job_logging[prepare CUPS for job logging]
-* xref:cups-useful-tricks.adoc#_restarting_cups_service[restart CUPS service]
+* xref:how-to-debug-printing-problems.adoc#_how_to_start_to_capture_incident_bound_cupsd_logging[start to capture logs]
 * trigger your issue - print the specific document to the specific print queue you have problem with
-* xref:how-to-debug-printing-problems.adoc#_get_a_job_log_for_a_specific_job_id[get the job log for the job you have just triggered]
+* xref:how-to-debug-printing-problems.adoc#_how_to_get_incident_bound_cupsd_logging[get the logs]
 * attach the created files to the ticket and xref:how-to-debug-printing-problems.adoc#_turning_off_debug_logging[turn off debug logging]
 * attach your printer PPD file from `/etc/cups/ppd/` if available
 * attach the file you wanted to print
