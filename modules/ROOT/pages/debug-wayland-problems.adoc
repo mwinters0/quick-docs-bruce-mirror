@@ -483,10 +483,11 @@ Screen capture is not available with usual apps
 One of the features of Wayland is its security design, which helps to
 guard the user against malicious apps. Apps can no longer see everything
 on the screen and spy on you. But that also means you cannot run a
-common application (like https://src.fedoraproject.org/rpms/shutter[shutter] or https://src.fedoraproject.org/rpms/gtk-recordmydesktop[gtk-recordmydesktop]) and use it to make a screenshot or a
-screencast of your desktop - it will see only its own window, but
-nothing else (or it might crash right away). System (trusted) apps need
-to be used to perform these actions.
+common application (like https://src.fedoraproject.org/rpms/shutter[shutter]
+or https://src.fedoraproject.org/rpms/gtk-recordmydesktop[gtk-recordmydesktop])
+and use it to make a screenshot or a screencast of your desktop - it will
+see only its own window, but nothing else (or it might crash right away).
+System (trusted) apps need to be used to perform these actions.
 
 In GNOME, you can use Screenshot tool (available in overview or as
 `Printscreen` hotkey or as `gnome-screenshot` command) to capture a
