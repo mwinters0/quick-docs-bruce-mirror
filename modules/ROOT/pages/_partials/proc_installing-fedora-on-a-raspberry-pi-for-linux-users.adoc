@@ -17,7 +17,7 @@ This procedure shows Linux users how to add Fedora ARM to a microSD for use with
 
 ._Prerequisites_
 
-* Raspberry Pi Model B, version 2 or 3.
+* A supported Raspberry Pi
 * A microSD Card (16 GB or larger).
 * A computer running Linux.
 * Root user access (via `su` or `sudo`).

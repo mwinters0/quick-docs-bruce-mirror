@@ -20,7 +20,7 @@ This procedure shows Microsoft Windows users how to add Fedora ARM to a microSD 
 
 ._Prerequisites_
 
-* Raspberry Pi Model B, version 2 or 3.
+* A supported Raspberry Pi
 * A microSD Card (16 GB or larger).
 * A computer running Microsoft Windows.
 * SD card reader.
