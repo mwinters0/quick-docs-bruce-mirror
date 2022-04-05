@@ -36,7 +36,7 @@ Create a directory to be the share for jane, and set the correct SELinux
 context:
 ....
 mkdir /home/jane/share
-sudo semanage fcontext --add --type "samba_share_t" ~/share
+sudo semanage fcontext --add --type "samba_share_t" "/home/share(/.*)?"
 sudo restorecon -R ~/share
 ....
 
@@ -90,7 +90,7 @@ Setting up the shared folder:
 sudo mkdir /home/share
 sudo chgrp myfamily /home/share
 sudo chmod 770 /home/share
-sudo semanage fcontext --add --type "samba_share_t" /home/share
+sudo semanage fcontext --add --type "samba_share_t" "/home/share(/.*)?"
 sudo restorecon -R /home/share
 ....
 
@@ -215,7 +215,7 @@ cat /etc/passwd | grep maria
 maria:x:1002:1002::/home/maria:/bin/bash
 ....
 +
-. Check if the shared directory has the correct SELinux context.
+. Check if the shared directory and sub-directories have the correct SELinux context.
 +
 ....
 ls -dZ /home/share
