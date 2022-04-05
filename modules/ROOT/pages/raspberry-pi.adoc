@@ -26,7 +26,8 @@ This documentation describes how to get started, and includes a Frequently Asked
 
 NOTE: The Raspberry Pi 4 is not supported.
 Support for some of the hardware is still missing in the upstream Linux kernel.
-However, Fedora Linux will work on this device for some "headless" (no display attached) use cases.
+However, Fedora Linux will work on this device for some use cases, particularly "headless" (no display attached).
+Un-accelerated graphics are generally functional, but performance will suffer.
 
 [id='raspberry-pi-prerequisites']
 .Prerequisites
