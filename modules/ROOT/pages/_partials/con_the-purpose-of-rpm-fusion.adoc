@@ -25,9 +25,7 @@
 [id="con_the-purpose-of-rpm-fusion_{context}"]
 = The purpose of RPM Fusion
 
-The RPM Fusion project is community-maintained software repository providing additional packages that cannot be distributed in Fedora for legal reasons. Software patents apply to some of the packages in RPM Fusion, and as a consequence, it might not be legal to install these packages in certain countries: for example, in the United States or in Japan.
-
-RPM Fusion also provides packages for Red Hat Enterprise Linux.
+The RPM Fusion project is a community-maintained software repository providing additional packages that are not distributed by Fedora.
 
 
 [discrete]
