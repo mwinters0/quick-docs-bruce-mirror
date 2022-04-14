@@ -78,13 +78,13 @@ If you already have a working *GRUB2* EFI configuration file, you do not need to
 Otherwise, create the configuration file using the `grub2-mkconfig` command. 
 
 ----
-# grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+# grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
 
 .More information
 
-* Under EFI, *GRUB2* looks for its configuration in `/boot/efi/EFI/fedora/grub.cfg`. 
-* For newly installed kernels to work, `grubby` expects `/etc/grub2-efi.cfg` to be a symlink to the real grub.cfg (for example `/boot/efi/EFI/fedora/grub.cfg`).
+* Under EFI, *GRUB2* looks for its configuration in `/boot/efi/EFI/fedora/grub.cfg`, however the postinstall script of `grub2-common` installs a small shim which chains to the standard configuration at `/boot/grub2/grub.cfg` which is generated above. To reset this shim to defaults, delete the existing `/boot/efi/EFI/fedora/grub.cfg` and then `dnf reinstall grub2-common`.
+* For newly installed kernels to work, `grubby` expects `/etc/grub2-efi.cfg` to be a symlink to the real `grub.cfg` (for example `/boot/grub2/grub.cfg`).
 
 
 [[solving-problems-with-uefi-bootloader]]

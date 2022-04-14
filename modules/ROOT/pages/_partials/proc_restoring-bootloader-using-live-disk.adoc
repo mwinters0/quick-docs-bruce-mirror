@@ -47,7 +47,7 @@ mount /dev/mapper/fedora-root /mnt/root
 ----
 
 . Mount the boot partition in the `boot` directory of the filesystem that you have mounted in the previous step.
-
++
 ----
 mount /dev/sda1 /mnt/root/boot/
 ----
@@ -61,9 +61,15 @@ mount -o bind /sys /mnt/root/sys
 mount -o bind /run /mnt/root/run
 ----
 
+. If you use EFI boot, you may also want to bind the efivars and the EFI system partition:
++
+----
+mount -o bind /sys/firmware/efi/efivars /mnt/root/sys/firmware/efi/efivars
+mount <efi system partition> /mnt/root/boot/efi
+----
+
 . Change your filesystem into the one mounted under `/mnt/root`.
 +
-
 ----
 chroot /mnt/root
 ----
