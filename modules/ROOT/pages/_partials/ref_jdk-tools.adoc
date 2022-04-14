@@ -8,7 +8,7 @@ JVM:: Java Virtual Machine; main component of the JRE
 JDK:: Java Development Kit; required only for development, coding
 SDK:: Software Development Kit; see JDK
 JavaWS:: link:https://en.wikipedia.org/wiki/Java_Web_Start[Java Web Start] is a framework to start application from the Internet
-JavaFX:: link:https://en.wikipedia.org/wiki/JavaFX[JavaFX] is a plateform to create and deliver desktop and Rich Internet Apps
+JavaFX:: link:https://en.wikipedia.org/wiki/JavaFX[JavaFX] is a platform to create and deliver desktop and Rich Internet Apps
 OpenJFX:: is the JavaFX Open Source implementation
 OpenJDK:: Open Source project behind the Java Platform link:https://openjdk.java.net/[openjdk.java.net].
 IcedTea:: is a support project for OpenJDK (concern only developers) link:http://icedtea.classpath.org/[icedtea.classpath.org]
