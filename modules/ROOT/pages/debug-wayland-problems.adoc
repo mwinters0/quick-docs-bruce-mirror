@@ -262,9 +262,8 @@ Reporting the issue
 Using up-to-date software
 
 Before reporting the bug, please make sure you use the latest available
-software. You need to run on *Fedora 23 or later*, older Fedora versions
-are not going to get updated with latest Wayland fixes. Make sure there
-are no system updates waiting:
+software.
+Make sure there are no system updates waiting:
 
 `$ sudo dnf update`
 

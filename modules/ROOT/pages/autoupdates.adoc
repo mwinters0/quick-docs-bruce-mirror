@@ -161,7 +161,7 @@ kernel modules, or have a third party application that depends on kernel
 versions (this may not be a problem if you exclude kernel updates, which
 is the default in Fedora `dnf.conf` files). (See also
 https://bugzilla.redhat.com/show_bug.cgi?id=870790[bug #870790] - you
-may need to modify in Fedora 22 or later versions in base section to add
+may need to modify the base section to add
 `exclude=kernel*`.)
 * Your environment requires meticulous change-control procedures.
 * You update from other third party DNF repositories besides Fedora
