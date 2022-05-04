@@ -65,18 +65,12 @@ Only users with administrator privileges can do so:
 
 If you are using the latest version of the software available in Fedora, then it is likely that the bug has either not been reported, or has been reported but a fix has not yet been released.
 So, it is useful to search the list of already reported bugs before filing a new report.
-The https://packages.fedoraproject.org/[Fedora Packages Web application] lists the currently reported bugs for all packages.
+The https://packages.fedoraproject.org/[Fedora Packages Web application] provides a link the open bugs for a package.
 There is also a convenient shortcut that can be used.
 
     https://bugz.fedoraproject.org/<package name>
 
 Here, the `package name` must be the formal name of the package.
-
-
-.The Fedora Packages Web Application lists the bug reports for Gnome software at https://bugz.fedoraproject.org/gnome-software.
-image::20180825-how-to-file-a-bug-gs-bugs.png[]
-
-As can be seen in the image, the https://packages.fedoraproject.org/[Fedora Packages Web application] also gives other information about a package.
 
 TIP: *Finding the name of the package*: If you do not know the formal package name of the software, you can use the https://packages.fedoraproject.org/[Fedora Packages Web Application] to search for it and view the list of bugs there.
 
