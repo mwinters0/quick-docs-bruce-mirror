@@ -92,9 +92,8 @@ following steps to get the packaged version:
 
 1.  Search in Fedora ( 'yum|dnf search foo' or search for 'foo' in the
     PackageKit gui )
-2.  Try one of the available link:Third_party_repositories[ 3rd party]
-    repositories
-3.  link:How_to_create_an_RPM_package[ Build your own package]
+2.  Try one of the available xref:finding-and-installing-linux-applications.adoc#_enabling_third_party_repositories[third-party repositories]
+3.  xref:package-maintainers::Packaging_Tutorial_GNU_Hello.adoc[Build your own package]
 
 [[package-management-tools]]
 Package Management tools
