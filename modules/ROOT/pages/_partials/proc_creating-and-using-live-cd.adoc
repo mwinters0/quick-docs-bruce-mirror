@@ -35,7 +35,8 @@ You can create a customized _kickstart_ file by running `system-config-kickstart
 
 [NOTE]
 ====
-You might have to install the package first with `dnf install system-config-kickstart` in Fedora 22 and beyond or `yum install system-config-kickstart` in earlier versions of Fedora. This tool is mainly intended for generating kickstart files for automated installs, not live images, so the output will probably not be usable without editing, but it may help you to generate particular kickstart directives. Remember to add the line `%include /usr/share/spin-kickstarts/fedora-live-base.ks` at the beginning of your _kickstart_ file to include the base live configuration.
+You might have to install the package first with `dnf install system-config-kickstart`.\
+This tool is mainly intended for generating kickstart files for automated installs, not live images, so the output will probably not be usable without editing, but it may help you to generate particular kickstart directives. Remember to add the line `%include /usr/share/spin-kickstarts/fedora-live-base.ks` at the beginning of your _kickstart_ file to include the base live configuration.
 ====
 
 [id='making-the-image']

@@ -5,8 +5,7 @@
 ====
 
 . Be sure to *back-up your data* before upgrading your Fedora system in the event something breaks and leaves your system unusable.
-. Read the link:++https://fedoraproject.org/wiki/Releases#Current_Supported_Releases++[Release
-  Notes] carefully before attempting an upgrade.
+. Read the xref:fedora:release-notes:index.adoc[Release Notes] carefully before attempting an upgrade.
 
 ====
 
@@ -85,14 +84,8 @@ Upgrading to a Branched release or to Rawhide can be done using xref:dnf-system-
 Fedora strongly discourages running an end-of-life release on any production system, or any system connected to the public internet.
 You should never allow a production Fedora deployment to reach end-of-life in the first place.
 
-With that in mind, if you do have an end-of-life release installed on a system you cannot just discard or re-deploy, you can attempt to upgrade it, though this is not officially tested or supported.
-
-If you have Fedora 21 or later, you can try to upgrade using xref:dnf-system-upgrade.adoc[DNF System Upgrade].
-
-If you have Fedora 20 or earlier, you will have to perform at least part of the upgrade with bare `yum`.
-You can either use that method to upgrade to Fedora 21 or later and then use DNF system upgrade to upgrade from there to a currently-supported release, or just use bare `dnf` or `yum` for the entire upgrade process.
-
-Note that when upgrading from Fedora 20 or earlier, you are both upgrading from an end-of-life release and using a not-officially-recommended upgrade mechanism; such upgrades are very much performed 'at your own risk' and may well require various kinds of manual intervention to run and clean up the upgraded system, if they work at all.
+With that in mind, if you do have an end-of-life release installed on a system you cannot just discard or re-deploy, you upgrade using xref:dnf-system-upgrade.adoc[DNF System Upgrade].
+Note that upgrades are only tested from the two previous releases.
 
 [[sect-upgrading-using-the-fedora-installer-anaconda]]
 === Upgrading using the Fedora installer (anaconda)?

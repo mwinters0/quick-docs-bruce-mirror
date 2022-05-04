@@ -228,7 +228,7 @@ packages, or installed updates according to settings in `automatic.conf`.
 
 As an alternative to dnf-automatic,
 https://github.com/rackerlabs/auter[auter] can be used. This operates in
-a similar way to yum-cron, but provides more flexibility in scheduling,
+a similar way to dnf-automatic, but provides more flexibility in scheduling,
 and some additional options including running custom scripts before or
 after updates, and automatic reboots. This comes at the expense of
 more complexity to configure.

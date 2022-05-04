@@ -11,7 +11,7 @@ packages they contain.
 [[the-fedora-repository]]
 == The fedora repository
 
-The _fedora_ repository exists for all Fedora releases after they have link:https://fedoraproject.org/wiki/Releases/Branched[Branched] from link:https://fedoraproject.org/wiki/Releases/Rawhide[Rawhide]. It is represented for Yum or http://dnf.baseurl.org/[DNF] in the `fedora.repo` file in the repository path. For any Fedora installation, this repository will be enabled by default, and should usually remain so.
+The _fedora_ repository exists for all Fedora releases after they have link:https://fedoraproject.org/wiki/Releases/Branched[Branched] from link:https://fedoraproject.org/wiki/Releases/Rawhide[Rawhide]. It is represented for xref:dnf.adoc[DNF] in the `fedora.repo` file in the repository path. For any Fedora installation, this repository will be enabled by default, and should usually remain so.
 
 [[the-fedora-repository-in-stable-releases]]
 === The _fedora_ repository in stable releases
@@ -30,7 +30,7 @@ The Branched _fedora_ repositories for the various primary https://fedoraproject
 [[the-updates-repository]]
 == The _updates_ repository
 
-The _updates_ repository exists for Branched and stable releases, but is only populated and used for stable releases. It is represented for Yum or http://dnf.baseurl.org/[DNF] in the `fedora-updates.repo` file in the repository path. It exists in Branched releases solely to prevent various tools that expect its existence from breaking. For any Fedora installation, this repository will be enabled by default, and should usually remain so.
+The _updates_ repository exists for Branched and stable releases, but is only populated and used for stable releases. It is represented for xref:dnf.adoc[DNF] in the `fedora-updates.repo` file in the repository path. It exists in Branched releases solely to prevent various tools that expect its existence from breaking. For any Fedora installation, this repository will be enabled by default, and should usually remain so.
 
 For stable releases, _updates_ together with _fedora_ represents the current _stable_ state of the release. Package builds that pass the https://fedoraproject.org/wiki/Updates_Policy[Updates Policy] move from the _updates-testing_ repository to this repository. This difference from Branched is a result of the need to maintain a precise representation of the initial, 'frozen' state of a stable release.
 
@@ -39,21 +39,21 @@ The stable release _updates_ repositories for the various primary architectures 
 [[the-updates-testing-repository]]
 === The _updates-testing_ repository
 
-The _updates-testing_ repository exists for Branched releases after the https://fedoraproject.org/wiki/Updates_Policy#Bodhi_enabling[Bodhi enabling point], and for stable releases. It is represented for Yum or http://dnf.baseurl.org/[DNF] in the `fedora-updates-testing.repo` file in the repository path. For both, it is a 'staging' location where new package builds are tested before being marked as 'stable' (and hence moving to the _fedora_ repository or the _updates_ repository, respectively).
+The _updates-testing_ repository exists for Branched releases after the https://fedoraproject.org/wiki/Updates_Policy#Bodhi_enabling[Bodhi enabling point], and for stable releases. It is represented for xref:dnf.adoc[DNF] in the `fedora-updates-testing.repo` file in the repository path. For both, it is a 'staging' location where new package builds are tested before being marked as 'stable' (and hence moving to the _fedora_ repository or the _updates_ repository, respectively).
 
 These builds are sometimes referred to as _update candidates_, and are reviewed with the https://fedoraproject.org/wiki/Bodhi[Bodhi] update feedback tool, according to the
 https://fedoraproject.org/wiki/QA:Update_feedback_guidelines[update feedback guidelines].
 
 The https://fedoraproject.org/wiki/Updates_Policy[Updates Policy] defines the rules for marking update candidates as _stable_. The https://fedoraproject.org/wiki/QA:Updates_Testing[QA updates-testing page] provides some information for testers on using this repository. The https://docs.fedoraproject.org/en-US/package-maintainers/Package_Update_Guide/[Package Update Guide] provides information for packagers on submitting builds to _updates-testing_ and to _stable_.
 
-The _updates-testing_ repository is enabled by default for Branched releases, but disabled by default for stable releases. The switchover is made around the time of the https://fedoraproject.org/wiki/Milestone_freezes[Final Freeze] for each release. Testers moving from Branched to stable may encounter errors running updates around this time, caused by dependency mismatches between packages already installed from the now-disabled _updates-testing_ repository. Running `dnf distro-sync`(or with yum command) or re-enabling the _updates-testing_ repository will both usually alleviate the issue; it is up to the individual user whether they wish to continue using the _updates-testing_ repository after the stable release or not.
+The _updates-testing_ repository is enabled by default for Branched releases, but disabled by default for stable releases. The switchover is made around the time of the https://fedoraproject.org/wiki/Milestone_freezes[Final Freeze] for each release. Testers moving from Branched to stable may encounter errors running updates around this time, caused by dependency mismatches between packages already installed from the now-disabled _updates-testing_ repository. Running `dnf distro-sync` or re-enabling the _updates-testing_ repository will both usually alleviate the issue; it is up to the individual user whether they wish to continue using the _updates-testing_ repository after the stable release or not.
 
 The _updates-testing_ repositories for both Branched and stable releases can be found in the `/fedora/linux/updates/testing/XX` directory on the mirrors (where XX is the release), and can also be queried from https://fedoraproject.org/wiki/MirrorManager[MirrorManager]. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=updates-testing-f{FedoraVersionNumber}&arch=x86_64 will return mirrors for the x86_64 _updates-testing_ repository for release {FedoraVersionNumber}.
 
 [[the-rawhide-repository]]
 === The _rawhide_ repository
 
-In Rawhide - Fedora's rolling release repository, from which release are Branched before finally going stable - _rawhide_ is the only repository. All package builds are sent there. It is represented for Yum or http://dnf.baseurl.org/[DNF] in the `fedora-rawhide.repo` file in the repository path. For any system running Rawhide, it should be enabled. For any other system, it should not.
+In Rawhide - Fedora's rolling release repository, from which release are Branched before finally going stable - _rawhide_ is the only repository. All package builds are sent there. It is represented for xref:dnf.adoc[DNF] in the `fedora-rawhide.repo` file in the repository path. For any system running Rawhide, it should be enabled. For any other system, it should not.
 
 The _rawhide_ repositories for the various primary https://fedoraproject.org/wiki/Architectures[architectures] can be found in the directory on the mirrors, and can also be queried from https://fedoraproject.org/wiki/MirrorManager[MirrorManager]. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-rawhide&arch=x86_64 will return mirrors for the x86_64 _fedora_ repository for Rawhide.
 
@@ -81,7 +81,7 @@ The Product trees for the GA (Final) release are made available in the `/release
 
 At any given point in the release cycle, the MirrorManager request for a Product repository may redirect to a test compose / release candidate tree, a pre-release milestone tree, or the Final release tree.
 
-These repositories are usually not used or enabled by default on installed systems, as for that purpose they are redundant with one of the three primary repositories described above. However, one could use a Product repository in place of the _fedora_ repository to keep a system limited to the Product package set. They are represented for Yum or http://dnf.baseurl.org/[DNF] in the `fedora-(product).repo` file in the repository path, which may well not be installed on many systems.
+These repositories are usually not used or enabled by default on installed systems, as for that purpose they are redundant with one of the three primary repositories described above. However, one could use a Product repository in place of the _fedora_ repository to keep a system limited to the Product package set. They are represented for xref:dnf.adoc[DNF] in the `fedora-(product).repo` file in the repository path, which may well not be installed on many systems.
 
 [[other-repositories]]
 == Other repositories

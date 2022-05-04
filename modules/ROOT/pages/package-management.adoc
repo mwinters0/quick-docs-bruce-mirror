@@ -12,9 +12,8 @@ Fedora is a distribution that uses a package management system. This
 system is based on https://rpm.org[rpm] , the RPM Package Manager, with
 several higher level tools built on top of it, most notably
 https://www.freedesktop.org/software/PackageKit/[PackageKit] (default
-gui) and Yum (command line tool). As of Fedora 22, yum has
-been replaced by xref:dnf.adoc[DNF]. The Gnome Package Manager is another
-GUI package manager.
+gui) and xref:dnf.adoc[DNF].
+GNOME Software is another GUI package manager.
 
 [[advantages-of-package-management-systems]]
 Advantages of package management systems
@@ -90,7 +89,7 @@ Preferred search order for a software
 If some software is missing in your installation then you should try the
 following steps to get the packaged version:
 
-1.  Search in Fedora ( 'yum|dnf search foo' or search for 'foo' in the
+1.  Search in Fedora ( 'dnf search foo' or search for 'foo' in the
     PackageKit gui )
 2.  Try one of the available xref:finding-and-installing-linux-applications.adoc#_enabling_third_party_repositories[third-party repositories]
 3.  xref:package-maintainers::Packaging_Tutorial_GNU_Hello.adoc[Build your own package]
@@ -99,16 +98,15 @@ following steps to get the packaged version:
 Package Management tools
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-xref:dnf.adoc[dnf] - Dandified Yum
+Here are some tools for managing packages:
 
-https://www.freedesktop.org/software/PackageKit/[PackageKit] -
+* xref:dnf.adoc[dnf] - Dandified Yum
+* https://www.freedesktop.org/software/PackageKit/[PackageKit] -
 PackageKit gui tool ('add/remove software' in your menu)
-
-https://rpm.org[rpm] - RPM package manager.
-
-https://github.com/timlau/yumex-dnf[yumex] - Yum Extender.
-
-Category:Software_Management[Category:Software Management]
+* https://wiki.gnome.org/Apps/Software[GNOME Software] - ­Graphical package manager for GNOME
+* https://apps.kde.org/discover/[KDE Discover] - Graphical pacakge manager for KDE Plasma
+* https://rpm.org[rpm] - RPM package manager.
+* https://github.com/timlau/yumex-dnf[yumex] - Yum Extender.
 '''
 
 See a typo, something missing or out of date, or anything else which can be

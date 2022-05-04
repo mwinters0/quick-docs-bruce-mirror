@@ -180,7 +180,7 @@ sssd-common-1.14.2-1.fc25.x86_64 : Common files for the SSSD
 Repo        : fedora
 ----
 
-*dnf history*:: Displays a report of the past *yum* transactions.
+*dnf history*:: Displays a report of the past transactions.
 +
 [literal,subs="+quotes,attributes"]
 ----

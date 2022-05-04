@@ -72,7 +72,8 @@ TIP: *Find unused config files* + Merge and resolve the changes found by the fol
 Now is a good time to remove packages you don't use - especially
 non-standard packages.
 
-TIP: *Find and review "unused" packages* + You can find packages not required by other packages with the tool `package-cleanup` from the `yum-utils` package: `dnf install yum-utils; package-cleanup --leaves`. These packages could be candidates for removal, but check to see whether you use them directly or if they are used by applications not backed by rpm packages. Remove them with `dnf remove package-name-and-version`.
+TIP: *Find and review "unused" packages* + You can find packages not required by other packages with the tool `package-cleanup` from the `dnf-utils` package: `dnf install dnf-utils; package-cleanup --leaves`.
+These packages could be candidates for removal, but check to see whether you use them directly or if they are used by applications not backed by rpm packages. Remove them with `dnf remove package-name-and-version`.
 Another useful tool for cleaning up unused packages is `rpmreaper`. It's an ncurses application that lets you view rpm dependency graph and mark packages for deletion. Marking one package can make other packages leaf, which you can see immediately, so you don't have to run the tool several times to get rid of a whole sub-tree unused packages. Install with `dnf install rpmreaper`.
 
 TIP: *Find and review "lost" packages* + You can find orphaned packages (i.e. packages not in the repositories anymore) with `package-cleanup --orphans`. This will also show packages which have been partially uninstalled but where the "%postun" script failed.

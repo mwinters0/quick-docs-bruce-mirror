@@ -20,17 +20,15 @@ During the installation the logs are stored in the `/tmp` directory:
 `/tmp/anaconda.log`:: the general installation information, particularly the step changes.
 `/tmp/storage.log`:: storage devices scan and manipulation (hard drives, partitions, LVM, RAID), partitioning
 `/tmp/program.log`:: calls to external programs, their output
-`/tmp/syslog`:: messages from kernel and external programs (Network Manager)
-`/tmp/yum.log`:: yum's internal log
-`/tmp/dnf.log`:: link:https://www.fedoraproject.org/wiki/Dnf[DNF]'s internal log
-`/tmp/dnf.hawkey.log`:: link:https://www.fedoraproject.org/wiki/Dnf[DNF]'s Hawkey internal log
-`/tmp/dnf.rpm.log`:: link:https://www.fedoraproject.org/wiki/Dnf[DNF]'s RPM internal log
+`/tmp/packaging.log`:: xref:dnf.adoc[DNF] package installation messages
+`/tmp/syslog`:: hardware-related system messages
+
 
 Certain log messages are also written to the terminals:
 
 === TTY devices
 
-`/dev/tty3`:: messages from `anaconda.log`, `storage.log` and `yum.log`.
+`/dev/tty3`:: messages from `anaconda.log`, `storage.log` and `packaging.log`.
 `/dev/tty4`:: same as `syslog`
 `/dev/tty5`:: stdout and stderr from external programs +
 
@@ -42,7 +40,7 @@ There are two other log files created on the target filesystem, in the `/root` d
 `/mnt/sysimage/root/install.log`:: log of the package installation process.
 `/mnt/sysimage/root/install.log.syslog`:: messages from installation chroot logged through the system's syslog.
 
-Mostly information about users and groups created during dnf|yum's package installation.
+Mostly information about users and groups created during dnf's package installation.
 
 === Log format
 In files the format of the log messages is as follows:
@@ -188,16 +186,11 @@ To avoid name clashes with other log files there, the anaconda logs are renamed:
 [%header,cols=2*]
 |====
 | Name during installation | Name on the target system
-| `/tmp/anaconda.log` | `/var/log/anaconda.log`
-| `/tmp/syslog` | `/var/log/anaconda.syslog`
-| `/tmp/X.log` | `/var/log/anaconda.xlog`
-| `/tmp/program.log` | `/var/log/anaconda.program.log`
-| `/tmp/storage.log` | `/var/log/anaconda.storage.log`
-| `/tmp/yum.log` | `/var/log/anaconda.yum.log`
-| `/tmp/ifcfg.log` (new in F14) | not copied
+| `/tmp/anaconda.log` | `/var/log/anaconda/anaconda.log`
+| `/tmp/program.log` | `/var/log/anaconda/program.log`
+| `/tmp/storage.log` | `/var/log/anaconda/storage.log`
+| `/tmp/packaging.log` | `/var/log/anaconda/packaging.log`
 |====
-
-Starting with Fedora 15 (or post F14 Rawhide), the logs go to `/var/log/anaconda` directory on the target system, including ifcfg.log inroduced in F14.
 
 == Logging tips
 

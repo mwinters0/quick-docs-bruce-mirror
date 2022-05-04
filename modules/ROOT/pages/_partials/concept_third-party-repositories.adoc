@@ -10,5 +10,4 @@ The following repositories are commonly used by end users and do not conflict wi
 
 == Mixing third party software repositories
 
-Mixing a lot of third party repositories is not recommended since they might conflict with each other causing instability and hard to debug issues. If you are not a technical user, one way is to not enable the third-party repo by default and instead use the *--enablerepo* switch for yum or dnf, or a similar method configurable in the graphical package manager. 
-
+Mixing a lot of third party repositories is not recommended since they might conflict with each other causing instability and hard to debug issues. If you are not a technical user, one way is to not enable the third-party repo by default and instead use the *--enablerepo* switch for dnf, or a similar method configurable in the graphical package manager.
