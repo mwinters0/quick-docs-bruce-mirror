@@ -5,9 +5,15 @@ include::{partialsdir}/3rdparty-message.adoc[]
 
 To install Oracle Java SE:
 
-. Navigate to link:https://www.oracle.com/java/technologies/javase-downloads.html[Oracle Java SE downloads page], and
-  choose the version of Java you wish to use.
+. Navigate to link:https://www.oracle.com/java/technologies/javase-downloads.html[Oracle Java SE downloads page], and choose the version of Java you wish to use.
 
-. Accept the license agreement and download the appropriate tar.gz file for your systems architecture. Do NOT use Oracle rpms as these are NOT compatible with fedora/openjdk packages. Download the tar.gz archive instead, unpack it somewhere and set to path if necessary. 
+. Accept the license agreement and download the appropriate tar.gz file for your systems architecture. 
+
+. Unpack the tar.gz file somewhere.
+For example, to extract it to the _/opt_ directory:
+`sudo tar xf Downloads/jdk-18_linux-x64_bin.tar.gz -C /opt`
+
+. Set the _JAVA_HOME_ environment variable to that directory.
+For example: `export JAVA_HOME=/opt/jdk-18.0.1.1`
 
 Note: Always make sure to download latest version available.
