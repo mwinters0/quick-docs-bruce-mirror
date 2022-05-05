@@ -109,6 +109,6 @@ The *aide --update* command creates the `/var/lib/aide/aide.db.new.gz` database 
 
 For additional information on *AIDE*, see the following documentation:
 
- - link:https://static.open-scap.org/ssg-guides/ssg-sl7-guide-ospp-rhel7-server.html#xccdf_org.ssgproject.content_group_aide[Guide to the Secure Configuration of Red Hat Enterprise Linux 7 (OpenSCAP Security Guide): Verify Integrity with AIDE]
+ - link:https://static.open-scap.org/ssg-guides/ssg-fedora-guide-index.html[Guide to the Secure Configuration of Fedora (OpenSCAP Security Guide)]
 
- - link:http://aide.sourceforge.net/stable/manual.html[The AIDE manual]
+ - link:https://aide.github.io/doc/[The AIDE manual]
