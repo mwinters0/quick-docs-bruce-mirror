@@ -85,6 +85,7 @@
 ** xref:kernel/howto-kernel-testday.adoc[Guide for Kernel Test Days]
 ** xref:debug-dracut-problems.adoc[How to debug Dracut problems]
 ** xref:kernel/installing-koji-kernel.adoc[Installing a kernel from Koji]
+** xref:kernel/testing-patches.adoc[Testing kernel patches]
 
 * Virtualization
 ** xref:getting-started-with-virtualization.adoc[Getting started with virtualization (libvirt)]
