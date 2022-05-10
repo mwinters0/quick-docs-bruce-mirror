@@ -4,6 +4,7 @@
 [IMPORTANT]
 ====
 
+. Make your system *fully up-to-date* before attempting system upgrade to a new Fedora release.
 . Be sure to *back-up your data* before upgrading your Fedora system in the event something breaks and leaves your system unusable.
 . Read the xref:fedora:release-notes:index.adoc[Release Notes] carefully before attempting an upgrade.
 
@@ -20,12 +21,21 @@ This is the recommended upgrade method for the Fedora Workstation.
 ====
 
 
-As of Fedora Workstation 23, when the next stable release is available a graphical notification will appear similar to the update notifications.
-Clicking this, or running the _Software_ application and going to the _Updates_ pane, will display a simple graphical interface for upgrading the system.
-It will download the upgrade files, then prompt for a reboot to install them, similar to a system update.
-When the upgrade is complete, the system will automatically reboot into the new release.
+In _Fedora Workstation_, when the next stable release is available, a graphical notification will appear similar to the update notifications.
+Clicking this, or running the **Software** application and going to the **Updates** pane, will display a simple graphical interface for upgrading the system.
 
-image:upgrade-gnome-software.png[upgrade-gnome-software.png,title="Release Upgrade Gnome Software",width=640]
+**Important:** Before you start upgrading, your system needs to be fully up-to-date, to ensure
+that the system upgrade will be smooth.
+
+image:upgrade-gnome-software.png[upgrade-gnome-software.png,title="Release Upgrade Gnome Software"]
+
+First, please click the _Refresh_ button in top left to make sure that **Software** is aware of the
+latest updates. If there are any unapplied updates shown, please click the _Download_ button next
+to them (and then _Restart & Update_ button, when it appears), to fully update your existing
+system. This is really important, please do not skip this step. Once that is done, you can click
+_Download_ in the _"Fedora Linux <number> Available"_ section to begin upgrading your system to
+the new release.
+
 
 [[sect-upgrading-using-the-dnf-system-upgrade-plugin]]
 == Upgrading using the DNF System Upgrade plugin
