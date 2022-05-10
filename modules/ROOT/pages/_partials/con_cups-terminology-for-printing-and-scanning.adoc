@@ -80,4 +80,4 @@ The classic scanning works via backends, which are binaries for communication wi
 
 The driverless scanning uses sane-escl (not built in Fedora) and sane-airscan backends for communicating with newer devices. Those newer devices usually support eSCL (based on AirScan protocol by Apple) or WSD (Web Services for Devices by Microsoft), which _sane-airscan_ is able to use.
 
-Regarding USB scanning, it has the same requirement as printing. The device must support IPP over USB and 'ipp-usb' package must be installed to get driverless scanning via USB.
+Regarding USB scanning, it has the same requirement as printing. The device must support IPP over USB driverless standard and _ipp-usb_ package must be installed to get driverless scanning via USB - the package is required because it creates a driverless interface over USB interface which _sane-airscan_ uses for driverless communication with device.
