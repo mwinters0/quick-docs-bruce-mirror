@@ -62,7 +62,7 @@ You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki
   Study the output very carefully and examine which packages are going to be removed.
   None of them should be essential for system functionality, but some of them might be important for your productivity.
 
-. When the new GPG key is imported, you are asked to verify the key's fingerprint. Refer to link:https://getfedora.org/security/#Package%20signing%20keys[https://getfedora.org/security] to do so.
+. When the new GPG key is imported, you are asked to verify the key's fingerprint. Refer to link:https://getfedora.org/security[https://getfedora.org/security] to do so.
 
 +
 * In case of unsatisfied dependencies, you can sometimes see more details if you add `--best` option to the command line.
