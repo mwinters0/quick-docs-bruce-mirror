@@ -28,7 +28,7 @@ bootable by *GRUB2*.
 sudo fdisk -l
 ----
 
-== For Default Instalation in LVM.
+== For Default Installation in LVM.
 
 . Create the mount point for the root partition.
 +
@@ -68,7 +68,7 @@ mount -o bind /run /mnt/root/run
 chroot /mnt/root
 ----
 
-== For default Instalation in BTRF
+== For Default Installation in BTRFS
 
 . Create the mount point for the root partition.
 +
@@ -92,7 +92,7 @@ chroot /mnt/root
 
 IMPORTANT: Home Partition is mounted automatically under `/mnt/home`
 
-== For Default Instalation in LUKS.
+== For Default Installation in LUKS.
 
 . Make sure crypt module in use:
 +
