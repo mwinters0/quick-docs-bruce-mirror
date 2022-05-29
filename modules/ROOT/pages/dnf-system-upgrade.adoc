@@ -115,9 +115,6 @@ Please remember to review configuration files in this directory carefully.
 
 For more information you can refer to the man pages (`man rpmconf`).
 
-[[sect-upgraded-package-configurations]]
-== Upgraded package configurations
-
 If you use `rpmconf` to upgrade the system configuration files supplied with the upgraded packages then some configuration files may change. After the upgrade you should verify `/etc/ssh/sshd_config`, `/etc/nsswitch.conf`, `/etc/ntp.conf` and others are expected. For example, if OpenSSH is upgraded then `sshd_config` reverts to the default package configuration. The default package configuration *does not* enable public key authentication, and allows password authentication.
 
 [[sect-clean-up-retired-packages]]
