@@ -26,7 +26,7 @@ Typical daily computer usage, you might say.
 Fedora Workstation is a Linux distribution, an operating system with the Linux kernel at its core plus the software you need to install it, manage it, and the applications that you want to use for daily work.
 
 Fedora is one of many Linux distributions, and includes a lot of software you'll find in many Linux distributions.
-For example, the GNOME desktop environment, and the **Firefox** web browser, **LibreOffice** office suite, and a lot of **GNU utilities** and so much more.
+For example, the GNOME desktop environment, and the [application]*Firefox* web browser, [application]*LibreOffice* office suite, and a lot of **GNU utilities** and so much more.
 
 == Understanding Linux
 
@@ -46,7 +46,7 @@ The user is prompted for the root password when making system-wide changes, such
 
 === The command line/terminal
 
-Use the **Terminal** program to perform command line tasks.
+Use the [application]*Terminal* program to perform command line tasks.
 Benefits to using the command line include the ability to give multiple commands on one line, but it requires greater knowledge of Linux commands.
 Documentation published on this site, as well as various tutorials and guides on the internet and elsewhere, often makes use of these terminal commands.
 
@@ -54,29 +54,29 @@ Documentation published on this site, as well as various tutorials and guides on
 
 === GNOME
 
-**GNOME**, Fedora's default _window manager_, is the underlying graphical user environment.
+[application]*GNOME*, Fedora's default _window manager_, is the underlying graphical user environment.
 It provides a visual front-end using a desktop analogy.
 When you log into Fedora, GNOME is started with a predefined set of icons and menus on the desktop.
 
 === The internet
 
-Mozilla **Firefox** is the default web browsing application. It is accessed through menu:Activities[Firefox].
+Mozilla [application]*Firefox* is the default web browsing application. It is accessed through menu:Activities[Firefox].
 Firefox is also available on other platforms such as Microsoft Windows and Mac OS X.
 
 === E-mail
 
 There is no longer a default email client bundled with Fedora, but you can install one by searching menu:Software[].
 
-You can choose **Evolution**. Use it to access e-mail, organize contacts, manage tasks, and schedule calendars.
+You can choose [application]*Evolution*. Use it to access e-mail, organize contacts, manage tasks, and schedule calendars.
 Evolution is similar in functionality to Microsoft Outlook.
 
-Another choice for an email client is **Thunderbird**, developed by the Mozilla Foundation.
+Another choice for an email client is [application]*Thunderbird*, developed by the Mozilla Foundation.
 It is a popular email client on multiple operating systems.
 It is used for handling email and newsgroups without the calendaring functions that Evolution provides.
 
 === Instant messaging
 
-The **Pidgin** application is popularly used for instant messaging.
+The [application]*Pidgin* application is popularly used for instant messaging.
 The instant messaging protocols that Pidgin supports include MSN, AIM, IRC, and Yahoo.
 You can search Pidgin by menu:Software[].
 
@@ -86,25 +86,25 @@ Fedora provides built-in support for sound cards and playing music CDs.
 Applications to import audio from CDs and manage music files are available.
 Extracting audio from CDs and storing it in compressed format on the hard drive is one way to manage a music collection.
 
-To extract, or _rip_, the music from a CD, use the **Sound Juicer** program.
+To extract, or _rip_, the music from a CD, use the [application]*Sound Juicer* program.
 It is accessed through by searching "Sound Juicer" in menu:Software[].
 By default, Sound Juicer encodes music files to the free and open OGG Vorbis format.
-Once music files are generated, use **Rhythmbox** to manage and play tracks.
+Once music files are generated, use [application]*Rhythmbox* to manage and play tracks.
 In addition to playing audio file formats, Rhythmbox is also used for streaming media from Internet radio stations.
 
 === Productivity tools
 
-The office suite included by default in Fedora is **LibreOffice**, a well-known and mature collection of software.
-LibreOffice, includes a word processor (**Write**), a spreadsheet program (**Calc**), and presentation software (**Impress**).
-A simple image editing package (**Draw**) and a relational database (**Base**) are also available for optional installation.
+The office suite included by default in Fedora is [application]*LibreOffice*, a well-known and mature collection of software.
+LibreOffice, includes a word processor ([application]*Write*), a spreadsheet program ([application]*Calc*), and presentation software ([application]*Impress*).
+A simple image editing package ([application]*Draw*) and a relational database ([application]*Base*) are also available for optional installation.
 
 == Moving further
 
 //* Linux Games - included with Fedora
-* Configuring an internet connection via the battery icon in the top right corner of the screen, then selecting menu:Settings[Network]
+* Configuring an internet connection the battery icon in the top right corner of the screen, then selecting menu:Settings[Network]
 * Configuring graphics cards / video drivers
 
 == Cool things to do with Fedora
 
-* **LinPhone** - demonstrates installing from Extras, and free phone calls. Requires: headset.
-* **GnuCash** - installs from `Core`, home finance software isn't cool, but is important.
+* [application]*Linphone* - demonstrates installing from Extras, and free phone calls. Requires: headset.
+* [application]*GnuCash* - installs from `Core`, home finance software isn't cool, but is important.
