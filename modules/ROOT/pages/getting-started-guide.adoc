@@ -101,7 +101,7 @@ A simple image editing package (**Draw**) and a relational database (**Base**) a
 == Moving further
 
 //* Linux Games - included with Fedora
-* Configuring an internet connection the battery icon in the top right corner of the screen, then selecting menu:Settings[Network]
+* Configuring an internet connection via the battery icon in the top right corner of the screen, then selecting menu:Settings[Network]
 * Configuring graphics cards / video drivers
 
 == Cool things to do with Fedora
