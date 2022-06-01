@@ -60,12 +60,12 @@ When you log into Fedora, GNOME is started with a predefined set of icons and me
 
 === The internet
 
-Mozilla **Firefox** is the default web browsing application. It is accessed through menu:Applications[Internet > Firefox Web Browser].
+Mozilla **Firefox** is the default web browsing application. It is accessed through menu:Activities[Firefox].
 Firefox is also available on other platforms such as Microsoft Windows and Mac OS X.
 
 === E-mail
 
-There is no longer a default email client bundled with Fedora, but you can install one by selecting menu:Applications[Software].
+There is no longer a default email client bundled with Fedora, but you can install one by searching menu:Software[].
 
 You can choose **Evolution**. Use it to access e-mail, organize contacts, manage tasks, and schedule calendars.
 Evolution is similar in functionality to Microsoft Outlook.
@@ -78,7 +78,7 @@ It is used for handling email and newsgroups without the calendaring functions t
 
 The **Pidgin** application is popularly used for instant messaging.
 The instant messaging protocols that Pidgin supports include MSN, AIM, IRC, and Yahoo.
-Pidgin is accessed through menu:Applications[Internet > Internet Messenger].
+You can search Pidgin by menu:Software[].
 
 === Music & audio
 
@@ -87,7 +87,7 @@ Applications to import audio from CDs and manage music files are available.
 Extracting audio from CDs and storing it in compressed format on the hard drive is one way to manage a music collection.
 
 To extract, or _rip_, the music from a CD, use the **Sound Juicer** program.
-It is accessed through menu:Applications[Sound and Video > Audio CD Extractor].
+It is accessed through by searching "Sound Juicer" in menu:Software[].
 By default, Sound Juicer encodes music files to the free and open OGG Vorbis format.
 Once music files are generated, use **Rhythmbox** to manage and play tracks.
 In addition to playing audio file formats, Rhythmbox is also used for streaming media from Internet radio stations.
@@ -101,7 +101,7 @@ A simple image editing package (**Draw**) and a relational database (**Base**) a
 == Moving further
 
 //* Linux Games - included with Fedora
-* Configuring an internet connection via menu:System[Administration > Network]
+* Configuring an internet connection the battery icon in the top right corner of the screen, then selecting menu:Settings[Network]
 * Configuring graphics cards / video drivers
 
 == Cool things to do with Fedora
