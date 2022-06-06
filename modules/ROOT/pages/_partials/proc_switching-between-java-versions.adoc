@@ -1,8 +1,8 @@
 = Switching between Java Versions
 
-You might have installed several versions of Java on your system, you can switch from one
+You might have installed several versions of Java on your system, you can switch from one.
 
-After running this command, you will see a a list of all installed Java versions, select t
+After running this command, you will see a list of all installed Java versions, select:
 
 ----
 sudo alternatives --config java
