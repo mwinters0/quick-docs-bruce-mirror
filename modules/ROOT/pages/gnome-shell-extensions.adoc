@@ -51,8 +51,8 @@ All extensions can be enabled, disabled, and their preferences modified by each 
   It does allow you to reload an extension without logging out and back in and it also creates the default skeleton if you would like to write a new extension.
   Please use `gnome-shell-extension-tool -h` to learn more.
 
-- the https://apps.fedoraproject.org/packages/gnome-tweaks[GNOME tweaks tool].
-  Apart from other customisations, GNOME Tweaks also allows enabling, disabling, and modifying preferences for GNOME shell extensions.
+- the https://packages.fedoraproject.org/pkgs/gnome-extensions-app/gnome-extensions-app/[GNOME Extensions] app.
+  Apart from other customisations, GNOME Extensions also allows enabling, disabling, and modifying preferences for GNOME shell extensions.
 
 
 ifdef::parent-context[:context: {parent-context}]
