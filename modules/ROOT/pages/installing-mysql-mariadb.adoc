@@ -13,7 +13,7 @@ In the Fedora repositories you can find:
 * MariaDB 10.4 (as a module)
 * MySQL 8.0 community edition (as a regular package or as a module)
 
-NOTE: MariaDB and MySQL packages conflict each other. You have to install MariaDB or MySQL.
+NOTE: MariaDB and MySQL packages conflict because they provide similar files. So, you can only install one of them, either MariaDB or MySQL, but not both.
 
 In addition you can also install MySQL commmunity edition (8.0 or 5.7) from the repository maintained by Oracle/MySQL itself.
 
