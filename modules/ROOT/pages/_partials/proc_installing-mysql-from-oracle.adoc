@@ -12,7 +12,9 @@ Once downloaded, please install it using dnf:
 sudo dnf install <path to downloaded rpm>
 ----
 
-Please note that this repository is provided by Oracle so any issues/bugs encountered will need to be reported to them via their communication channels: https://www.mysql.com/about/faq/
+Please note that this repository is provided by Oracle
+so any issues/bugs encountered will need to be reported to them
+via their communication channels: https://www.mysql.com/about/faq/
 
 == Installing MySQL on Fedora
 
