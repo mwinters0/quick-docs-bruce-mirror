@@ -1,15 +1,20 @@
 [id='install-from-oracle-mysql']
-= Install from Oracle MySql
+= Install from Oracle MySQL
 
 include::{partialsdir}/3rdparty-message.adoc[]
 
 == Adding the MySQL repository to Fedora
 
+Please download the release package provided by Oracle from: https://dev.mysql.com/downloads/repo/yum/
+Once downloaded, please install it using dnf:
+
 ----
-sudo dnf install https://repo.mysql.com//mysql80-community-release-fc31-1.noarch.rpm
+sudo dnf install <path to downloaded rpm>
 ----
 
-== Installing MySQL on Fedora 
+Please note that this repository is provided by Oracle so any issues/bugs encountered will need to be reported to them via their communication channels: https://www.mysql.com/about/faq/
+
+== Installing MySQL on Fedora
 
 ----
 sudo dnf install mysql-community-server

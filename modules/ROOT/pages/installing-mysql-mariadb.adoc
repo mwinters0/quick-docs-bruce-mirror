@@ -15,7 +15,7 @@ In the Fedora repositories you can find:
 
 NOTE: MariaDB and MySQL packages conflict each other. You have to install MariaDB or MySQL.
 
-In addition you can install MySQL commmunity edition (8.0 or 5.7) from the repository maintained by MySQL itself: https://dev.mysql.com/downloads/repo/yum/
+In addition you can also install MySQL commmunity edition (8.0 or 5.7) from the repository maintained by Oracle/MySQL itself.
 
 include::{partialsdir}/proc_installing-mysql-from-oracle.adoc[leveloffset=+1]
 include::{partialsdir}/proc_installing-mysql-from-fedora-repo.adoc[leveloffset=+1]
