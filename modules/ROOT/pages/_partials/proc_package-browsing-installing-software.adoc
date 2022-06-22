@@ -11,8 +11,8 @@ To install any packages on your Fedora system, you need to have *root* privilege
 
 . On your GNOME desktop, select the *Activities* menu and then click the image:packages_icon_software.png[Software] icon.
 . Find a software package in one of the following ways:
-** Click your wishing categorie from the suggested categories, for example, *Work*. Then review the suggested packages. For example, you  are able to select a application a kind of *Calendar*, *Database*, *Finance*, *Word Processor*.  
-** Choose one of the software in the window if there is your wishing application in the first window.
+** Click on one of the listed categories, for example, *Work*. Then review the suggested software in the category. For example, in the "Work" category, you are able to select different applications: *Calendar*, *Database*, *Finance*, *Word Processor*.
+** Choose one of the Editor's Picks or other recommended software in the window.
 ** Click the image:packages_icon_search.png[Search] icon, then enter a keyword or the name of the application. Review the suggested packages.
 . Click a package to read its description.
 . To install the package, click the *Install* button. When prompted, provide the root password.
