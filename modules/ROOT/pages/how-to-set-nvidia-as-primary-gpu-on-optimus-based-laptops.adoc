@@ -38,7 +38,7 @@ First, you need to see if you really want to achieve this.
 == Step #1: Update from the existing repositories
 Execute
 ----
-sudo dnf update
+sudo dnf upgrade
 ----
 once to update all your packages first.
 
@@ -54,7 +54,7 @@ Select *RPM Fusion for Fedora 32 - Nonfree - NVIDIA Driver* and *ENABLE* it. It 
 == Step #3: Update from the newly added repositories
 Execute
 ----
-sudo dnf update --refresh
+sudo dnf upgrade --refresh
 ----
 to fetch all available updates from the newly added repository.
 

@@ -59,7 +59,7 @@ These periodically check for updates and notify users.
 You can also use the default package manager `dnf` to check and update your system.
 Only users with administrator privileges can do so:
 
-    $ sudo dnf update --refresh
+    $ sudo dnf upgrade --refresh
 
 === Step 2: Check for already filed bugs
 
