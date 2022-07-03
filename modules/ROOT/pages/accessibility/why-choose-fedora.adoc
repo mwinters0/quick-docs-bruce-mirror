@@ -31,7 +31,7 @@ distributions, including ones specifically *made* for people with disabilities?
 == Software is Current
 
 Most importantly, Fedora has current software. While other
-distributions pride themselves on "stability," Fedora has an
+distributions pride themselves on stability, Fedora has an
 up-to-date set of accessibility tools, like Orca, for screen reading,
 and BRLTTY, for using Braille Displays. Each release of Fedora is
 followed by a steady stream of updates, keeping your system current
@@ -41,11 +41,12 @@ programs on the system and on the web.
 
 == Easy to Install
 
-Fedora's installer is easy to use, accessible, and the live Image
-comes with the Orca screen reader ready to start. Users of Windows or
-MacOS will feel familiar with Orca and the installer, as keyboard
-commands are similar. There is no command line interface to worry
-about, or set of exotic keyboard commands to memorize.
+Fedora's installer is easy to use, accessible (depending on which spin
+you use), and the live Image comes with the Orca screen reader ready
+to start. Users of Windows or MacOS will feel familiar with Orca and
+the installer, as keyboard commands are similar. There is no command
+line interface to worry about, or set of exotic keyboard commands to
+memorize.
 
 == Learn and Improve
 
@@ -92,4 +93,6 @@ package that should be installable on Fedora]
 DuxBerry or BrailleBlaster::
 https://src.fedoraproject.org/rpms/cups-filters[Cups filters has
 drivers for Braille Embossers to be used like regular printers]
-
+Onscreen Keyboard::
+https://www.inference.org.uk/dasher/[Dasher is an onscreen keyboard
+similar to those on other operating systems]
