@@ -29,8 +29,38 @@ for starting the installer. Pressing Enter should start it. Leave the
 continuous text scanning on until you hear the current date. Now, you
 can put down the phone; we won't need it anymore for the installation.
 
-Now, you are at the live installation screen, where you can enable
-Orca, the screen reader. To do this, hold down the Alt key, the
+At this time, you are at the live installation screen, where you can
+enable Orca, the screen reader. To do this, hold down the Alt key, the
 Windows key (which in Linux is called the Super key), and press the S
-key, releasing all keys afterwards. You'll hear "screen reader on", in
-a robotic, British voice. 
+key, releasing all keys afterwards. So, the key to press is *Alt +
+Windows + S*. From now on, though, the Windows key will be called the
+Super key, as that's it's name in Linux. You'll hear "screen reader
+on", in a robotic, British voice.
+
+== Navigating Linux
+
+The Fedora installer uses a graphical interface, similar to the
+interfaces on other operating systems. Navigating it is similar to
+navigating other interfaces, with only a few differences. Use the Tab
+key to move from one control to another. Use Shift + Tab to navigate
+backward.
+
+In text fields, use the Left and Right arrow keys to navigate by character, Control
+with Left and Right arrow to navigate by word, and Up and Down arrow
+to navigate by line. Use Home to go to the beginning of the line, End
+to go to the end of the line, and Control Home and Control End to go
+to the beginning and end of a text field. Use arrow keys to navigate
+lists, and the Space bar or Enter key to activate buttons, check
+boxes, and so on.
+
+All that should be familiar to those who have used other operating
+systems. The differences are slight. In most programs, to move from
+one area of the screen to another, like a large list to the next group
+of controls, press Control + Tab. To move backward the same way, use
+Control + Shift + Tab. This will be useful in the installer. When a
+control cannot be used, you're probably used to hearing "disabled" or
+"dimmed". In Linux, Orca says that they are "grayed," meaning "grayed out."
+
+Now that you know basic navigation, let's move on to installing the
+system.
+
