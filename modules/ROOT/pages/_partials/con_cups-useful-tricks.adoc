@@ -35,7 +35,7 @@ The answer is you don't have to install at all :) if your device is new enough, 
 
 === How to setup CUPS temporary queues with network printer
 
-If your printer is capable of AirPrint, IPP and MDNS is enabled in your printer and printer , then to get CUPS temporary queues working you need:
+If your printer is capable of AirPrint, IPP and MDNS is enabled in your printer and printer is in your local network, then to get CUPS temporary queues working you need:
 
 * have *avahi-daemon* running:
 
@@ -104,7 +104,9 @@ Then you can follow the steps in xref:_how_to_setup_cups_temporary_queues_with_n
 
 === How to install a permanent print queue
 
-1) via CUPS web UI
+Prerequisties for permanent driverless printers: enable IPP in your firewall, enable IPP on your printer if possible.
+
+==== Installation via CUPS web UI ====
 
 * start cups.service
 
@@ -112,21 +114,49 @@ Then you can follow the steps in xref:_how_to_setup_cups_temporary_queues_with_n
 $ sudo systemctl start cups
 ----
 
-* go to 'Administration' tab
-* click on 'Add printer' and follow the dialogs
-
-2) via CLI commands
-
-* you will need a device uri - `<device_uri>`, which you can get by:
+* go to *Administration* tab
+* click on *Add printer*
+* enter your credentials
+* choose the found device or the connection you prefer - for driverless permanent queue choose *Internet Printing Protocol (ipp)*
+* in case you didn't choose a found device, enter the device uri at the next page - for driverless printers they usually are:
 
 ----
-$ lpinfo -l -v
-...
-Device: uri = ipp://HP%20LaserJet%20M1536dnf%20MFP%20(42307C)._ipp._tcp.local/
-              ================================================================
+Network printers:
+ipp://<printer_IP_or_printer_hostname>:631/ipp/print
+
+USB printers via ipp-usb:
+ipp://localhost:60000/ipp/print
+
+Non-driverless printers via printer application:
+ipp://localhost:8000/ipp/print/<printer_name>
+
+Printers pointing to a remote CUPS server:
+ipp://<server_ip_or_server_hostname>:631/printers/<remote_print_queue>
 ----
 
-or by taking printer's IP or hostname and putting it into the usual IPP uri scheme:
+* choose device manufacturer and model (*IPP Everywhere* for driverless printers)
+* set a different default options if needed and finish
+
+*Notes:*
+
+Adding a permanent queue for driverless USB printers or non-driverless printers installed in a printer application is usually unnecessary, because they are shared by mDNS on localhost, so any application using CUPS 2.0+ API functions (cupsGetDests(), cupsGetNamedDest(), cupsCopyDestInfo()) should be able to pick them automatically (for network printer it depends whether the device is in the same subnet as your machine). Installling them permanently should be necessary only if an application doesn't use the recent API or to work around a bug which happens when using them as temporary queues.
+
+If there are more devices via *ipp-usb* or printer applications, they listen on different ports - devices via ipp-usb start on port 60000, separate printer applications start on port 8000.
+
+
+==== Installation via CLI commands ====
+
+* you will need a device uri - `<device_uri>`, which you can find by `lpinfo -v`:
+
+----
+$ lpinfo -v
+direct usb://HP/Officejet%20Pro%208500%20A909a?serial=NNNNNNNNN&interface=1
+       ====================================================================
+network dnssd://Officejet%20Pro%208500%20A909a%20%5B43FD8E%5D._pdl-datastream._tcp.local/
+        =================================================================================
+----
+
+or construct it manually - f.e. for IPP printers:
 
 ----
 ipp://<IP/hostname>:631/ipp/print
