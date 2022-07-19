@@ -90,6 +90,12 @@ image:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops-4.png[]
 This means that the driver installation was successful leading to the detection of two distinct video accelerators - internal and dedicated.
 
 == Step #8: Edit the X11 configuration
+Please ensure that the [application]`xrandr` package is installed before proceeding with this step:
+
+----
+sudo dnf install xrandr
+----
+
 Execute the following command to copy the display render details for the X11.
 
 ----
