@@ -1,13 +1,10 @@
 [[switching-desktop-environments-using-gui]]
-= Switching desktop environments using GUI
+= Switching desktop environments using a graphical user interface (GUI)
 
-.Before you start
+First, install the desired desktop environment as described in link:#installing-desktop-environments[Installing additional desktop environments].
 
-Install the desired desktop environment as described in link:#installing-desktop-environments[Installing additional desktop environments].
-
-.Procedure
-
-To login with a different desktop for a single session:
+You can login to a different desktop for a single session using the login manager.
+For example, for the Gnome Display Manager (GDM) that is used by default on the Fedora Linux Workstation:
 
 . On the login screen, select a user from the list.
 
@@ -17,9 +14,12 @@ To login with a different desktop for a single session:
 
 image::switching-desktop-environments-login.png[Login Screen]
 
-.More information
+== Using switchdesk
 
-. Alternatively, install the [package]`switchdesk` and [package]`switchdesk-gui` packages:
+You also change your desktop environment using the [package]`switchdesk` tool.
+It also allows you to change default desktop environment for individual users, and for all users.
+
+. Install the [package]`switchdesk` and [package]`switchdesk-gui` packages:
 +
 ----
 # dnf install switchdesk switchdesk-gui
