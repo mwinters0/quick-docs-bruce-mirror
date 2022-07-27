@@ -1,62 +1,69 @@
 = Getting Started After Installing with Orca
 
-Now that the system is installed, you'll need to log in with your user account
-password. But, Orca isn't speaking at this point. To turn it on, press Alt +
-Windows + S. The Windows key, from now on, will be called the Super key. This
-keyboard command is the usual command for turning on Orca. Orca will say "screen
-reader on." Now, enter your password, and press Enter.
+Now that the system is installed, you'll need to log in with your user account password.
+But, Orca isn't speaking at this point.
+To turn it on, press Alt + Windows + S.
+The Windows key, from now on, will be called the "Super" key.
+This keyboard command is the usual command for turning on Orca.
+Orca will say "screen reader on." Now, enter your password, and press Enter.
 
-Nothing will happen, but you've been logged in. To start Orca here, you'll need
-to press Alt + F2, type in "orca" all lowercase, and press Enter. You'll hear
-"screen reader on" again. Now, you won't have to turn on Orca again during
-logging in, and we'll set Orca to turn up automatically after log in as well.
+Nothing will happen, but you've been logged in.
+To start Orca here, you'll need to press Alt + F2, type in "orca" all lowercase, and press Enter.
+You'll hear "screen reader on" again.
+Now, you won't have to turn on Orca again during logging in, and we'll set Orca to turn up automatically after log in as well.
 
-Now, Mate has an applications menu, which lists all applications in a menu,
-sorted into categories. To get to it, press Alt + F1. Now, arrow to the left to
-the System menu. Then, arrow down to Preferences, and then right arrow. Now,
-arrow down to Personal, right arrow, then arrow down to Assistive Technologies,
-and press Enter.
+Now, Mate has an applications menu, which lists all applications in a menu, sorted into categories.
+To get to it, press Alt + F1.
+Now, arrow to the left to the System menu.
+Then, arrow down to Preferences, and then right arrow.
+Now, arrow down to Personal, right arrow, then arrow down to Assistive Technologies, and press Enter.
 
-Here, we can set preferred technologies, and turn on and off Assistive
-Technologies support. First, let's turn on Assistive Technologies. Press Tab,
-and check the box. Now, Shift+Tab back to the preferred applications button, and
-press that. In this dialog, tab to the Orca combo box, and one more time to the
-Turn on at Startup check box, and press Space to check it. Now, you can close
-the dialogs.
+Here, we can set preferred technologies, and turn on and off Assistive Technologies support.
+First, let's turn on Assistive Technologies.
+Press Tab, and check the box.
+Now, Shift+Tab back to the preferred applications button, and press that.
+In this dialog, tab to the Orca combo box, and one more time to the Turn on at Startup check box, and press Space to check it.
+Now, you can close the dialogs.
 
-Now, let's turn on a few more accessibility options. The text editor on the Mate
-desktop is Pluma. Open a Run dialog with Alt + F2, type mate-terminal, which has
-a dash between the two words, and press Enter. Now, in the terminal, type
+Now, let's turn on a few more accessibility options.
+The text editor on the Mate desktop is Pluma.
+Open a Run dialog with Alt + F2, type mate-terminal, which has a dash between the two words, and press Enter.
+Now, in the terminal, type
 
+
+[source, bash]
+----
 pluma .bash_profile
+----
 
-and press Enter. You'll be in a text area. Press Control + End to go to the
-bottom of the file, and add the following lines.
+and press Enter.
+You'll be in a text area.
+Press Control + End to go to the bottom of the file, and add the following lines.
 
+
+[source, bash]
+----
 export ACCESSIBILITY_ENABLED=1
 export GTK_MODULES=gail:atk-bridge
 export GNOME_ACCESSIBILITY=1
 export QT_ACCESSIBILITY=1
 export QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1
+----
 
-Now, save the file, and close it. Restart the computer, and Orca should come up
-automatically, and all apps that are accessible will be accessible.
+Now, save the file, and close it.
+Restart the computer, and Orca should come up automatically, and all apps that are accessible will be accessible.
 
 == Configuring Orca
 
-To configure Orca, press Insert + Space. This will bring up a window with
-several tabs. Spend some time configuring Orca, then you can apply the changes
-to see how they work, before you close the window. If you want to learn Orca's
-keyboard commands, press Insert + H for "help." Then, you can press keys to see
-what they do, or press F2 to get a list of global commands, or F3 to get a list
-of application-specific commands.
+To configure Orca, press Insert + Space.
+This will bring up a window with several tabs.
+Spend some time configuring Orca, then you can apply the changes to see how they work, before you close the window.
+If you want to learn Orca's keyboard commands, press Insert + H for "help." Then, you can press keys to see what they do, or press F2 to get a list of global commands, or F3 to get a list of application-specific commands.
 
 == Other options and notes
 
-To set a keyboard command for turning off and on Orca, go to the Keyboard
-Shortcuts preferences under Hardware preferences. You can also set the capslock,
-Windows, Alt, and other keys to act as other keys, like having the Capslock as
-an additional control. If you close a program, like VLC, and accessibility seems
-to freeze, press Insert + H, then F2 to bring up an accessible window. You may
-close the screen reader shortcuts afterwards. If Orca becomes unresponsive,
-restart it by opening the Run dialog, typing "orca -r", and pressing Enter.
+To set a keyboard command for turning off and on Orca, go to the Keyboard Shortcuts preferences under Hardware preferences.
+You can also set the capslock, Windows, Alt, and other keys to act as other keys, like having the Capslock as an additional control.
+If you close a program, like VLC, and accessibility seems to freeze, press Insert + H, then F2 to bring up an accessible window.
+You may close the screen reader shortcuts afterwards.
+If Orca becomes unresponsive, restart it by opening the Run dialog, typing "orca -r", and pressing Enter.
