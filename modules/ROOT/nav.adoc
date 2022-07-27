@@ -16,6 +16,12 @@
 ** xref:anaconda/anaconda.adoc[Anaconda: the Fedora installer]
 *** xref:anaconda/anaconda_logging.adoc[Anaconda Logging]
 
+
+* Accessibility
+** xref:accessibility/why-choose-fedora.adoc[Why choose Fedora Linux?]
+** xref:accessibility/installing-fedora-with-orca.adoc[Installing Fedora using Orca]
+** xref:accessibility/after-installing-with-orca.adoc[Post installation configuration]
+
 * Adding and managing software
 ** xref:package-management.adoc[Package management system]
 ** xref:dnf.adoc[Using the DNF software package manager]
