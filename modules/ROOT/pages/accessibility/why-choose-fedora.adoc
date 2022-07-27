@@ -1,87 +1,54 @@
 = Why Choose Fedora Linux?
 
-As other, proprietary, computer operating systems (OS) decline in
-accessibility, or fail to move forward on lofty promises, people with
-disabilities may begin looking for an alternative, particularly as
-computers that are more than three years old suddenly will not be
-supported by an OS upgrade. Many people with disabilities do not have
-a steady income, or cannot afford to spend the money they *do* have on
-a new computer just to keep their system current, secure, and
-future-proof.
+As other, proprietary, computer operating systems (OS) decline in accessibility, or fail to move forward on lofty promises, people with disabilities may begin looking for an alternative, particularly as computers that are more than three years old suddenly will not be supported by an OS upgrade.
+Many people with disabilities do not have a steady income, or cannot afford to spend the money they *do* have on a new computer just to keep their system current, secure, and future-proof.
 
-Linux is a great option for many people to give computers, old and
-new, a much longer lifespan, with security based on Linux's years of
-real-world usage, and many great packages. Linux comes in many
-different "flavors," called "distributions." These distributions set
-the ground rules for your system, and many exist for many different
-types of people and situations.
+Linux is a great option for many people to give computers, old and new, a much longer lifespan, with security based on Linux's years of real-world usage, and many great packages.
+Linux comes in many different "flavors," called "distributions." These distributions set the ground rules for your system, and many exist for many different types of people and situations.
 
-Linux distributions, however, aren't always friendly to people with
-disabilities, particularly those that are blind or low-vision. From
-live images, for installation of the system, that do not include a
-screen reader, to desktop environments that are hard to use, Linux can
-be a struggle to use, and even more of one to enjoy.
+Linux distributions, however, aren't always friendly to people with disabilities, particularly those that are blind or low-vision.
+From live images, for installation of the system, that do not include a screen reader, to desktop environments that are hard to use, Linux can be a struggle to use, and even more of one to enjoy.
 
-There are currently
-https://en.wikipedia.org/wiki/Linux_distribution[almost 1000] Linux
-distributions in the world. Out of all of those, why should a person
-with disabilities choose Fedora? What sets it apart from all other
-distributions, including ones specifically *made* for people with disabilities?
+There are currently https://en.wikipedia.org/wiki/Linux_distribution[almost 1000] Linux distributions in the world.
+Out of all of those, why should a person with disabilities choose Fedora?
+What sets it apart from all other distributions, including ones specifically *made* for people with disabilities?
 
 == Software is Current
 
-Most importantly, Fedora has current software. While other
-distributions pride themselves on stability, Fedora has an
-up-to-date set of accessibility tools, like Orca, for screen reading,
-and BRLTTY, for using Braille Displays. Each release of Fedora is
-followed by a steady stream of updates, keeping your system current
-and secure. This is especially important for screen reader users, as
-the Orca screen reader must evolve to work with the changes in both
-programs on the system and on the web.
+Most importantly, Fedora has current software.
+While other distributions pride themselves on stability, Fedora has an up-to-date set of accessibility tools, like Orca, for screen reading, and BRLTTY, for using Braille Displays.
+Each release of Fedora is followed by a steady stream of updates, keeping your system current and secure.
+This is especially important for screen reader users, as the Orca screen reader must evolve to work with the changes in both programs on the system and on the web.
 
 == Easy to Install
 
-Fedora's installer is easy to use, accessible (depending on which spin
-you use), and the live Image comes with the Orca screen reader ready
-to start. Users of Windows or MacOS will feel familiar with Orca and
-the installer, as keyboard commands are similar. There is no command
-line interface to worry about, or set of exotic keyboard commands to
-memorize.
+Fedora's installer is easy to use, accessible (depending on which spin you use), and the live Image comes with the Orca screen reader ready to start.
+Users of Windows or MacOS will feel familiar with Orca and the installer, as keyboard commands are similar.
+There is no command line interface to worry about, or set of exotic keyboard commands to memorize.
 
 == Learn and Improve
 
-Fedora, like other Linux distributions, allows you to learn as you use
-the system. At first, you can do anything you need from a graphical
-interface. Then, as you learn and experiment, you may find that some
-processes you do, like daily work activities, are quicker to do in the
-terminal. Then, you may combine those typed lines in the terminal into
-a file for even easier automation. Afterwards, you may begin to learn
-to write code, and eventually, contribute to projects that interest
-you, or even improve your desktop environment or Fedora itself. Fedora
-allows this, whereas other operating systems hold you back from
-learning what makes them tick, and improving them for everyone.
+Fedora, like other Linux distributions, allows you to learn as you use the system.
+At first, you can do anything you need from a graphical interface.
+Then, as you learn and experiment, you may find that some processes you do, like daily work activities, are quicker to do in the terminal.
+Then, you may combine those typed lines in the terminal into a file for even easier automation.
+Afterwards, you may begin to learn to write code, and eventually, contribute to projects that interest you, or even improve your desktop environment or Fedora itself.
+Fedora allows this, whereas other operating systems hold you back from learning what makes them tick, and improving them for everyone.
 
-This is important for people with disabilities because it allows the
-people who need the technology the most to not only use it, but learn
-to control, fix, and improve it. No proprietary system would allow
-that level of user-agency.
+This is important for people with disabilities because it allows the people who need the technology the most to not only use it, but learn to control, fix, and improve it.
+No proprietary system would allow that level of user-agency.
 
 == A Welcoming Community
 
-Fedora has a large and welcoming community. Whether you need help, or
-want to help, the community is there. You can interact with them on
-familiar Email lists or IRC. Distributions focused only on people with
-disabilities often have very small communities, which means that
-sometimes, new members don't get the help they need to stay on Linux,
-since a smaller community means that no one may know the answer or fix
-to a new member's problem.
+Fedora has a large and welcoming community.
+Whether you need help, or want to help, the community is there.
+You can interact with them on familiar Email lists or IRC.
+Distributions focused only on people with disabilities often have very small communities, which means that sometimes, new members don't get the help they need to stay on Linux, since a smaller community means that no one may know the answer or fix to a new member's problem.
 
 == Analogous Technology
 
-Below is a list of commonly used assistive technology on other
-platforms, and its Linux equivalent. The Linux version may do roughly
-the same functions as its counterparts, or do even more for the person
-using it.
+Below is a list of commonly used assistive technology on other platforms, and its Linux equivalent.
+The Linux version may do roughly the same functions as its counterparts, or do even more for the person using it.
 
 JAWS, NVDA, VoiceOver, TalkBack::
 https://help.gnome.org/users/orca/stable/[Orca]
