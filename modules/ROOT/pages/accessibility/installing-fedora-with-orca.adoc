@@ -1,88 +1,71 @@
 = Installing Fedora with Orca
 
-Thanks for choosing to install Fedora. The first thing you'll need to do is put
-an installer onto a removable disk, like a DVD or Flash Drive. For maximum
-accessibility, choose Fedora's Mate spin, found at
-https://spins.fedoraproject.org/mate-compiz/download/index.html(The Fedora Mate
-download page). Follow a normal guide on flashing the downloaded image to a
-flash drive or DVD, and prepare to restart the computer to begin the
-installation.
+Thanks for choosing to install Fedora.
+The first thing you'll need to do is put an installer onto a removable disk, like a DVD or Flash Drive.
+For maximum accessibility, choose Fedora's Mate spin, found at https://spins.fedoraproject.org/mate-compiz/download/index.html(The Fedora Mate download page).
+Follow a normal guide on flashing the downloaded image to a flash drive or DVD, and prepare to restart the computer to begin the installation.
 
-To install Fedora Mate, hereafter referred to as just "Fedora", you'll
-need to start your computer with the installer's drive set as the
-drive the computer starts from. Consult your computer's manual for how
-to do this, but it is usually done by pressing the power button while
-the computer is still turned off, then quickly pressing a key, like
-F2, F8, F10, or F12, rapidly until the "boot manager" appears.
+To install Fedora Mate, hereafter referred to as just "Fedora", you'll need to start your computer with the installer's drive set as the drive the computer starts from.
+Consult your computer's manual for how to do this, but it is usually done by pressing the power button while the computer is still turned off, then quickly pressing a key, like F2, F8, F10, or F12, rapidly until the "boot manager" appears.
 
-You'll need either sighted assistance, or an app on a smart phone that
-continuously reads text (like Seeing AI on the Apple App Store, or
-Google Lookout from the Google Play store), in order to somewhat know
-what's on the screen of this menu. If you have no other drives, local
-or network, connected to the computer, you may be able to press Down
-arrow or Right arrow several times to get to the last item of the
-menu, which should be your external drive, and press Enter to boot
-from it.
+You'll need either sighted assistance, or an app on a smart phone that continuously reads text (like Seeing AI on the Apple App Store, or Google Lookout from the Google Play store), in order to somewhat know what's on the screen of this menu.
+If you have no other drives, local or network, connected to the computer, you may be able to press Down arrow or Right arrow several times to get to the last item of the menu, which should be your external drive, and press Enter to boot from it.
 
-Now, with the continuous text scanner still on, you'll be in a menu
-for starting the installer. Pressing Enter should start it. Leave the
-continuous text scanning on until you hear the current date. Now, you
-can put down the phone; we won't need it anymore for the installation.
+Now, with the continuous text scanner still on, you'll be in a menu for starting the installer.
+Pressing Enter should start it.
+Leave the continuous text scanning on until you hear the current date.
+Now, you can put down the phone; we won't need it anymore for the installation.
 
-At this time, you are at the live installation screen, where you can
-enable Orca, the screen reader. To do this, hold down the Alt key, and press the
-F2 key, and release both keys. Now, type the word orca, all lowercase. You'll hear "screen reader
-on", in a robotic, British voice. If you press an arrow key, you'll find that
-you're on the desktop. This is a live system, so you are encouraged to play
-around with it.
+At this time, you are at the live installation screen, where you can enable Orca, the screen reader.
+To do this, hold down the Alt key, and press the F2 key, and release both keys.
+Now, type the word orca, all lowercase.
+You'll hear "screen reader on", in a robotic, British voice.
+If you press an arrow key, you'll find that you're on the desktop.
+This is a live system, so you are encouraged to play around with it.
 
 == Navigating Linux
 
-The Fedora installer uses a graphical interface, similar to the
-interfaces on other operating systems. Navigating it is similar to
-navigating other interfaces, with only a few differences. Use the Tab
-key to move from one control to another. Use Shift + Tab to navigate
-backward.
+The Fedora installer uses a graphical interface, similar to the interfaces on other operating systems.
+Navigating it is similar to navigating other interfaces, with only a few differences.
+Use the Tab key to move from one control to another.
+Use Shift + Tab to navigate backward.
 
-In text fields, use the Left and Right arrow keys to navigate by character, Control
-with Left and Right arrow to navigate by word, and Up and Down arrow
-to navigate by line. Use Home to go to the beginning of the line, End
-to go to the end of the line, and Control Home and Control End to go
-to the beginning and end of a text field. Use arrow keys to navigate
-lists, and the Space bar or Enter key to activate buttons, check
-boxes, and so on.
+In text fields, use the Left and Right arrow keys to navigate by character, Control with Left and Right arrow to navigate by word, and Up and Down arrow to navigate by line.
+Use Home to go to the beginning of the line, End to go to the end of the line, and Control Home and Control End to go to the beginning and end of a text field.
+Use arrow keys to navigate lists, and the Space bar or Enter key to activate buttons, check boxes, and so on.
 
-All that should be familiar to those who have used other operating systems. The
-differences are slight. In most programs, to move from one area of the screen to
-another, like a large list to the next group of controls, press Control + Tab.
-To move backward the same way, use Control + Shift + Tab. This will be useful in
-the installer. When a control cannot be used, you're probably used to hearing
-"disabled" or "dimmed". In Linux, Orca says that they are "grayed," meaning
-"grayed out."
+All that should be familiar to those who have used other operating systems.
+The differences are slight.
+In most programs, to move from one area of the screen to another, like a large list to the next group of controls, press Control + Tab.
+To move backward the same way, use Control + Shift + Tab.
+This will be useful in the installer.
+When a control cannot be used, you're probably used to hearing "disabled" or "dimmed".
+In Linux, Orca says that they are "grayed," meaning "grayed out."
 
-Now that you know basic navigation, let's move on to installing the
-system.
+Now that you know basic navigation, let's move on to installing the system.
 
 == Installing Fedora
 
-When you're done looking around, find the "install" icon on the desktop, and
-press Enter on it. The installer will open, but it won't have focus. To put
-focus on it, press Alt + Tab. Now, you can choose your language. When you've
-chosen your language, press Tab, and choose your keyboard layout. The item after
-that allows you to test your layout in a text field. Notice that Orca is
-speaking slowly, and also speaking every key you press. This can be changed
-later. Now, find the Next button and press Enter.
+When you're done looking around, find the "install" icon on the desktop, and press Enter on it.
+The installer will open, but it won't have focus.
+To put focus on it, press Alt + Tab.
+Now, you can choose your language.
+When you've chosen your language, press Tab, and choose your keyboard layout.
+The item after that allows you to test your layout in a text field.
+Notice that Orca is speaking slowly, and also speaking every key you press.
+This can be changed later.
+Now, find the Next button and press Enter.
 
-Now, you're in the main area of the installer. There are different areas you can
-go to, to prepare different parts of the installation. First is the destination,
-where Fedora will be installed. Then there are areas like time, user creation,
-and root account. Press Enter on them, one by one, and fill out the information
-in each. The part you may have trouble with is the time and timezone selection.
-The combo boxes in that area are hard to use, but you can fix your timezone
-later if you need to.
+Now, you're in the main area of the installer.
+There are different areas you can go to, to prepare different parts of the installation.
+First is the destination, where Fedora will be installed.
+Then there are areas like time, user creation, and root account.
+Press Enter on them, one by one, and fill out the information in each.
+The part you may have trouble with is the time and timezone selection.
+The combo boxes in that area are hard to use, but you can fix your timezone later if you need to.
 
-When you're ready, press the Begin Installation button. Fedora will begin to
-write the changes to the disk. When it's done, you can restart the computer. Be
-sure to remove the installation media, the DVD or Flash Drive, from the computer
-before restarting it or turning it back on. Now, you're ready to set up your new
-Fedora Linux system.
+When you're ready, press the Begin Installation button.
+Fedora will begin to write the changes to the disk.
+When it's done, you can restart the computer.
+Be sure to remove the installation media, the DVD or Flash Drive, from the computer before restarting it or turning it back on.
+Now, you're ready to set up your new Fedora Linux system.
