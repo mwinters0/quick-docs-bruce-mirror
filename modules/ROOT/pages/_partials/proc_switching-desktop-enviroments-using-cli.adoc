@@ -20,6 +20,9 @@ See the `switchdesk(1)` man page for more information.
 
 == Manually editing the system configuration
 
+// This still seems to work on Fedora 36. See:
+// https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/FAYINUZPKLGH4BLYSZLV6ADNKI4C3ZIG/
+
 You can also change your default desktop environment using the [filename]`/etc/sysconfig/desktop` system configuration file.
 If this file does not exists, please create it.
 This file specifies the desktop for new users and the display manager to run when entering runlevel 5.
