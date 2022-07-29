@@ -1,10 +1,8 @@
 [[installing-desktop-environments]]
 = Installing additional desktop environments
 
-
-.Procedure
-
-List available desktop environments:
+You can list available desktop environments using the default package manager, [code]`dnf`.
+In a terminal use the [code]`dnf grouplist` command to list all available package groups:
 
 ----
 $ dnf grouplist -v
@@ -17,23 +15,34 @@ Available Environment Groups:
    KDE Plasma Workspaces (kde-desktop-environment)
    Xfce Desktop (xfce-desktop-environment)
    LXDE Desktop (lxde-desktop-environment)
-   Hawaii Desktop (hawaii-desktop-environment)
    LXQt Desktop (lxqt-desktop-environment)
    Cinnamon Desktop (cinnamon-desktop-environment)
    MATE Desktop (mate-desktop-environment)
    Sugar Desktop Environment (sugar-desktop-environment)
+   Deepin Desktop (deepin-desktop-environment)
    Development and Creative Workstation (developer-workstation-environment)
    Web Server (web-server-environment)
    Infrastructure Server (infrastructure-server-environment)
    Basic Desktop (basic-desktop-environment)
-Installed Groups:
-   KDE (K Desktop Environment) (kde-desktop)
-[output has been truncated]
+   i3 desktop (i3-desktop-environment)
+Available Groups:
+   3D Printing (3d-printing)
+   Administration Tools (admin-tools)
+   Audio Production (audio)
+...
 ----
 
-Install the selected desktop environment using the `dnf install` command. Ensure to prefix with
-the `@` sign, for example:
+Install the required desktop environment using the `dnf install` command.
+Ensure to prefix with the `@` sign, for example:
+
 
 ----
 # dnf install @kde-desktop-environment
 ----
+
+You can also use the full name using the `groupinstall` command:
+
+----
+# dnf groupinstall "KDE Plasma Workspaces"
+----
+

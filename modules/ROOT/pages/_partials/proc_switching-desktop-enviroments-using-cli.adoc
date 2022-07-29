@@ -1,9 +1,7 @@
 [[switching-desktop-environments-using-cli]]
-= Switching desktop environments using CLI
+= Switching desktop environments using the command line interface (CLI)
 
-.Before you start
-
-Install the desired desktop environment as described in <<proc_installing-additional-desktop-enviroments.adoc#installing-desktop-environments,Installing additional desktop environments>>
+First, install the desired desktop environment as described in link:#installing-desktop-environments[Installing additional desktop environments].
 
 Install the [package]`switchdesk` package:
 
@@ -12,29 +10,35 @@ Install the [package]`switchdesk` package:
 ----
 
 
-.Procedure
-
 Pass the selected desktop environment as the only argument to the [command]`switchdesk` command, for example:
 
 ----
 # switchdesk kde
 ----
 
-.More information
+See the `switchdesk(1)` man page for more information.
 
-See the `switchdesk(1)` man page.
+== Manually editing the system configuration
 
-Alternatively, edit the [filename]`/etc/sysconfig/desktop` file as *root*. This file specifies the desktop for new users and the display manager to run when entering runlevel 5.
+// This still seems to work on Fedora 36. See:
+// https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/FAYINUZPKLGH4BLYSZLV6ADNKI4C3ZIG/
+
+You can also change your default desktop environment using the [filename]`/etc/sysconfig/desktop` system configuration file.
+If this file does not exists, please create it.
+This file specifies the desktop for new users and the display manager to run when entering runlevel 5.
+
+Please create/edit it using your preferred text editor.
+Note that you will need administrator (root) privileges to create or edit this file.
 
 Correct values are:
 
 `DESKTOP="_<value>_"`, where `_<value>_` is one of the following:
 
-1. `GNOME` — Selects the GNOME desktop environment.
-2. `KDE` — Selects the KDE desktop environment.
+1. `GNOME` - Selects the GNOME desktop environment.
+2. `KDE` - Selects the KDE desktop environment.
 
 `DISPLAYMANAGER="_<value>_"`, where `_<value>_` is one of the following:
 
-1. `GNOME` — Selects the GNOME Display Manager.
-2. `KDE` — Selects the KDE Display Manager.
-3. `XDM` — Selects the X Display Manager.
+1. `GNOME` - Selects the GNOME Display Manager.
+2. `KDE` - Selects the KDE Display Manager.
+3. `XDM` - Selects the X Display Manager.

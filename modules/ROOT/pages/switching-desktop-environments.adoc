@@ -5,12 +5,12 @@ ifdef::context[:parent-context: {context}]
 [[switching-desktop-environments]]
 = Switching desktop environments
 
-include::{partialsdir}/unreviewed-message.adoc[]
+Different Fedora Linux variants (Spins/Labs) have different default environments.
+For example, the Fedora workstation uses GNOME as its default desktop environment, while the KDE spin will use KDE.
 
-Fedora's default desktop environment is GNOME 3 in the Workstation spin, but it is very easy to try any of the many other desktop environments that are available without affecting your current desktop environment.
+Irrespective of what installation media you used to install Fedora Linux, you can easily try and switch to any of the many other desktop environments that are available without affecting your current desktop environment.
 
 include::{partialsdir}/proc_installing-additional-desktop-enviroments.adoc[leveloffset=+1]
-
 include::{partialsdir}/proc_switching-desktop-enviroments-using-gui.adoc[leveloffset=+1]
 
 include::{partialsdir}/proc_switching-desktop-enviroments-using-cli.adoc[leveloffset=+1]
