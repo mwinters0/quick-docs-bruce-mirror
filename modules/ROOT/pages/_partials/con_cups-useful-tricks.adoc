@@ -50,7 +50,7 @@ $ sudo systemctl enable cups.socket
 $ sudo systemctl start cups.socket
 ----
 
-* enable IPP and MDNS in your firewall settings
+* enable MDNS in your firewall settings
 
 After this the temporary queue will appear in the print dialog and you don't need to install a specific print queue unless you have a reason for it.
 
