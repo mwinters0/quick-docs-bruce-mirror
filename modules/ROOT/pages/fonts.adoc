@@ -76,6 +76,11 @@ Create a new directory `/usr/local/share/fonts/<font-family-name>/` for the new 
 Copy font files (e.g. `.ttf` files) to the new directory::
 `sudo cp ~/Downloads/robofont.ttf /usr/local/share/fonts/robofont`
 
+Set permissions and update SELinux labels::
+`sudo chown -R root: /usr/local/share/fonts/robofont`
+`sudo chmod 644 /usr/local/share/fonts/robofont/*`
+`sudo restorecon -RF /usr/local/share/fonts/robofont`
+
 Update the font cache::
 `sudo fc-cache -v`
 
