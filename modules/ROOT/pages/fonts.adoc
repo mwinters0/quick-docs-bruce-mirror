@@ -70,11 +70,11 @@ If a font is provided by a distribution package, you should always use a package
 System fonts are installed for all users.
 Anyone with an account on the machine will be able to use these fonts.
 
-Create a new directory `/usr/share/fonts/<font-family-name>/` for the new font family::
-`sudo mkdir /usr/share/fonts/robofont`
+Create a new directory `/usr/local/share/fonts/<font-family-name>/` for the new font family::
+`sudo mkdir -p /usr/local/share/fonts/robofont`
 
 Copy font files (e.g. `.ttf` files) to the new directory::
-`sudo cp ~/Downloads/robofont.ttf /usr/share/fonts/robofont`
+`sudo cp ~/Downloads/robofont.ttf /usr/local/share/fonts/robofont`
 
 Update the font cache::
 `sudo fc-cache -v`
