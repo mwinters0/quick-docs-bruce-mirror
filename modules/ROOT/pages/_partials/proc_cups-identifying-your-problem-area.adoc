@@ -46,8 +46,7 @@ tail -f /var/log/cups/error_log
 Enable full debugging information with:
 
 ----
-$ sudo sed -i 's,LogLevel .*$,LogLevel debug2,' /etc/cups/cupsd.conf
-$ sudo systemctl restart cups
+$ cupsctl LogLevel=debug2
 ----
 
 === CUPS job log
