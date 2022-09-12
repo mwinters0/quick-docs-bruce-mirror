@@ -123,7 +123,7 @@ Before reporting bugs against Wine please make sure your system is fully
 up to date.
 
 ....
-dnf update
+dnf upgrade
 ....
 
 Also check if a newer version is available in updates-testing.

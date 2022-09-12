@@ -75,7 +75,7 @@ Upgrading between Fedora releases without the xref:dnf-system-upgrade.adoc[DNF S
 [[sect-upgrade-from-prerelease-to-final-release]]
 == Upgrading from pre-release (beta) to final public release (stable)
 
-If you are using a pre-release of Fedora, you shouldn't need to do anything to get the final public release, other than updating packages as they become available. You can use `sudo dnf update` or wait for desktop notification. When the pre-release is released as final, the `fedora-repos` packages will be updated and your `updates-testing` repository will be disabled. Once this happens (on the release day), it is highly recommended to run `sudo dnf distro-sync` in order to align package versions with the current release.
+If you are using a pre-release of Fedora, you shouldn't need to do anything to get the final public release, other than updating packages as they become available. You can use `sudo dnf upgrade` or wait for desktop notification. When the pre-release is released as final, the `fedora-repos` packages will be updated and your `updates-testing` repository will be disabled. Once this happens (on the release day), it is highly recommended to run `sudo dnf distro-sync` in order to align package versions with the current release.
 
 [[sect-how-do-i-upgrade-to-rawhide-and-branched]]
 == How do I upgrade to Rawhide and Branched?
