@@ -19,7 +19,7 @@ Stable releases of Fedora receive two types of kernel updates.
 ==== Stable kernel updates
 
 The upstream kernel community support the latest major version with stable
-updates (4.y.z releases). These updates are released approximately once a week,
+updates (5.y.z releases). These updates are released approximately once a week,
 although they can occur more or less frequently. Once the upstream kernel
 community makes a stable release, Fedora builds it and submits it as an update
 to https://bodhi.fedoraproject.org/updates/?packages=kernel[Bodhi]. These
@@ -28,7 +28,7 @@ submitted to the stable updates repository.
 
 ==== Major kernel updates
 
-The Linux kernel releases new major versions (4.y releases)
+The Linux kernel releases new major versions (5.y releases)
 http://phb-crystal-ball.org/[every few months]. When this occurs, Fedora updates
 to the new major version after a couple upstream stable releases. When the
 updates are submitted to Bodhi, more time is allowed for testing than stable
@@ -71,7 +71,7 @@ Stable and Branched kernels always disable the debugging options.
 Rawhide kernels enable the debugging options. However, each release candidate
 kernel is built with debugging options disabled. Release candidate kernels
 can be recognized by their release field, which always has the git revision set
-to 0. For example, ``kernel-4.16.0-0.rc7.git0.1.fc28`` is the 7th release
+to 0. As an example, ``kernel-4.16.0-0.rc7.git0.1.fc28`` is the 7th release
 candidate kernel for Fedora 28.
 
 
