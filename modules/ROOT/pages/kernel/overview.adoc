@@ -29,7 +29,7 @@ submitted to the stable updates repository.
 ==== Major kernel updates
 
 The Linux kernel releases new major versions (5.y releases)
-http://phb-crystal-ball.org/[every few months]. When this occurs, Fedora updates
+every few months. When this occurs, Fedora updates
 to the new major version after a couple upstream stable releases. When the
 updates are submitted to Bodhi, more time is allowed for testing than stable
 updates to ensure there are no serious regressions.
