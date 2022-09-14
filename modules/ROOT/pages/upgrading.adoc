@@ -56,7 +56,7 @@ For instructions on upgrading with the DNF system upgrade plugin, refer to the x
 [NOTE]
 ====
 
-Upgrading between major versions (such as from Fedora 32 to Fedora 33) can be completed using the Software application. Alternatively, Silverblue can be upgraded between major versions using the `ostree` command..
+Upgrading between major versions (such as from Fedora 36 to Fedora 37) can be completed using the Software application. Alternatively, Silverblue can be upgraded between major versions using the `ostree` command..
 
 ====
 For instructions on upgrading Fedora Silverblue Host, refer to the link:++https://docs.fedoraproject.org/en-US/fedora-silverblue/updates-upgrades-rollbacks/#upgrading++[dedicated page].
