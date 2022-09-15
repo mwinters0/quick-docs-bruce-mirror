@@ -178,6 +178,75 @@ $ lpadmin -p <name> -v <device_uri> -m <driver> -E
 
 where `<device_uri>` and `<driver>` are underscored strings from previous commands and `<name>` is a print queue name, which is chosen by you.
 
+== How to install a printer via printer application in SNAP and making it available for CUPS
+
+Currently printer applications are available in SNAPs on Fedora. I'm planning to release them as RPMs, but the code base will be the same, so its testing can happen even with SNAPs.
+
+* install snapd,
+
+First we have to install snapd for testing purposes:
+
+----
+$ sudo dnf -y install snapd
+$ sudo ln -s /var/lib/snapd/snap /snap
+$ snap version
+----
+
+If the installation had been successful, the last command will show snapd's version.
+
+* install and run printer application,
+
+First the SNAP with printer application has to be installed and started by the commands below. All printer applications are available in SNAP Store under the same names as they are at https://github.com/orgs/OpenPrinting/repositories[OpenPrinting repositories]). We will use [filename]`ps-printer-app` printer application in the next steps.
+
+----
+$ sudo snapd install --edge ps-printer-app
+$ sudo snapd run ps-printer-app
+----
+
+* go to http://localhost:8000,
+
+After starting the printer application its web interface becomes available at http://localhost:8000 - if user installs and runs another printer application, it will become available at localhost on the next port (8001). The printer application can contain several printers (as [filename]`cupsd` does).
+
+* click on `Add Printer` on the main page,
+* choose the printer's name,
+* select the found device or choose `Network printer` from `Device` scroll menu and provide hostname or IP of the device,
+* choose to auto-detect driver or select the driver by yourself,
+* click on `Add Printer`,
+* now the printer should be available at least on localhost via mDNS (if [filename]`avahi-daemon` is running and `nss-mdns` is installed)- check it by [filename]`avahi-browse`(`avahi-tools` has to be installed):
+
+----
+$ avahi-browse -avrt
+...
+=     lo IPv4 HP Laserjet M1536                             _ipp._tcp            local
+   hostname = [fedora-2.local]
+   address = [127.0.0.1]
+   port = [8000]
+   txt = ["Scan=F" "PaperMax=legal-A4" "Fax=F" "product=(HP LaserJet M1536dnf MFP Postscript (recommended))" "mopria-certified=1.3" "priority=0" "qtotal=1" "txtvers=1" "Duplex=T" "Color=F" "TLS=1.2" "URF=V1.5,W8,PQ3-4-5,DM1,FN3,IS0-20,MT1-5-6-3,OB10,RS300-600" "UUID=24837a30-5f87-3ac9-6d85-086d486092dd" "pdl=image/pwg-raster,image/urf,application/vnd.printer-specific,application/pdf,application/postscript,image/jpeg,image/png" "note=" "adminurl=http://fedora-2.local:8000/HP_Laserjet_M1536/" "ty=HP LaserJet M1536dnf MFP Postscript (recommended)" "rp=ipp/print/HP_Laserjet_M1536"]
+...
+----
+
+* and by `lpstat -e`:
+
+----
+$ lpstat -e
+...
+HP_Laserjet_M1536
+...
+----
+
+The available printing options for the printer installed via printer application can be checked with [filename]`lpoptions` command:
+
+----
+$ lpoptions -p HP_Laserjet_M1536 -l
+PageSize/Media Size: 184.15x260mm 195.09x269.88mm A4 A5 B5 DoublePostcardRotated Env10 EnvC5 EnvDL EnvMonarch Executive FanFoldGermanLegal ISOB5 Legal *Letter Postcard roc16k Custom.WIDTHxHEIGHT
+InputSlot/Media Source: *Auto Tray1 Auto
+MediaType/Media Type: *Unspecified Stationery Light6074 MidWeight96110 Heavy111130 ExtraHeavy131175 MonochromeLaserTransparency Labels StationeryLetterhead Envelope StationeryPreprinted Prepunched Colored Bond StationeryRecycled Rough Vellum
+cupsPrintQuality/cupsPrintQuality: Draft *Normal High
+ColorModel/Output Mode: *Gray
+Duplex/Duplex: *None DuplexNoTumble DuplexTumble
+OutputBin/OutputBin: *FaceDown
+----
+
 == How to install a scanner
 
 Scanners in Linux don't have to be installed the same way as printers are if they are in the same network or connected via USB - you just need *sane-backends* to be installed and any scanning application will communicate with scanner/multifunction device via the backend which supports the scanner.
