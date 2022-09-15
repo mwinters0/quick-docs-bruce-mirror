@@ -3,9 +3,27 @@
 
 == How to find out whether my printer is capable of driverless printing?
 
-* look for AirPrint among device specification
-* https://www.pwg.org/printers/[Officially certified printers for IPP Everywhere]
-* check xref:_how_to_setup_cups_temporary_queues_with_network_printer[manual] for enabling CUPS temporary queues - if your printer is seen in the end in CUPS commands that way, your printer is capable of driverless printing
+Network printers have the prerequisites - enablement of IPP port on the printer is the minimum, mDNS is required for automatic printer discovery by `libcups`.
+
+* [command]`ipptool` command which sends IPP Get-Printer-Attributes request to the network printer passes:
+
+----
+$ ipptool -tv ipp://printer.example.com:631/ipp/print get-printer-attributes.test
+"/usr/share/cups/ipptool/get-printer-attributes.test":
+    Get-Printer-Attributes:
+        attributes-charset (charset) = utf-8
+        attributes-natural-language (naturalLanguage) = en
+        printer-uri (uri) = ipp://printer.example.com:631/ipp/print
+        requested-attributes (1setOf keyword) = all,media-col-database
+    Get printer attributes using get-printer-attributes                  [PASS]
+...
+----
+
+, where `printer.example.com` is the hostname or IP of your network printer,
+
+* look for AirPrint among device specification,
+* https://www.pwg.org/printers/[Officially certified printers for IPP Everywhere],
+* check xref:_how_to_setup_cups_temporary_queues_with_network_printer[manual] for enabling CUPS temporary queues - if your printer is seen in the end in CUPS commands that way, your printer is capable of driverless printing,
 * [USB devices only] check for IPP over USB (xref:_how_to_find_out_if_my_usb_device_supports_ipp_over_usb[manual] here).
 
 == How to find out my multifunction device or standalone scanner is capable of driverless scanning?
