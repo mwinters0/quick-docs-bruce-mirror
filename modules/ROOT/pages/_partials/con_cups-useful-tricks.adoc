@@ -196,7 +196,7 @@ If the installation had been successful, the last command will show snapd's vers
 
 * install and run printer application,
 
-First the SNAP with printer application has to be installed and started by the commands below. All printer applications are available in SNAP Store under the same names as they are at https://github.com/orgs/OpenPrinting/repositories[OpenPrinting repositories]). We will use [filename]`ps-printer-app` printer application in the next steps.
+First the SNAP with printer application has to be installed and started by the commands below. All printer applications are available in SNAP Store under the same names as they are at https://github.com/orgs/OpenPrinting/repositories[OpenPrinting repositories]. We will use [filename]`ps-printer-app` printer application in the next steps.
 
 ----
 $ sudo snapd install --edge ps-printer-app
