@@ -1,24 +1,139 @@
 = Wine
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
 http://winehq.org/[Wine] is an open source implementation of the Windows
 API on top of X and OpenGL.
 
-Wine emulates the Windows runtime environment by translating Windows system calls
-into POSIX-compliant system calls, recreating the directory structure of Windows systems,
-and providing alternative implementations of Windows system libraries,
-system services through https://wiki.winehq.org/Wineserver[wineserver].
+Wine emulates the Windows runtime environment by translating Windows 
+system calls into POSIX-compliant system calls, recreating the directory
+structure of Windows systems, and providing alternative implementations 
+of Windows system libraries, system services through https://wiki.winehq.org/Wineserver[wineserver].
 
 == Packages
 
 Fedora's Wine packages are split up to allow for smaller installations.
 The `wine` meta package will bring with it the most important components
 of Wine.
+
 Expert users may want to pick specific components from the list
 https://packages.fedoraproject.org/pkgs/wine/[here].
 
 The current versions of the Wine packages can also be seen on the https://packages.fedoraproject.org/pkgs/wine/wine/[Fedora packages application].
+
+[[configuration-files]]
+== Configurations files
+
+The default wine configuration files is stored in your `$HOME` directory:
+
+```
+~/.wine
+```
+
+TIP: but different and multiple prefixes can be used as descibed in the
+section wine prefix.
+
+[[wine-desktop-files]]
+== WINE desktop files
+
+Where Wine stored gnome _.desktop_ files?
+
+There are stored in:
+
+```
+/home/$USER/.local/share/applications/wine
+```
+
+[[gui-configuration-register]]
+== GUI for configure WINE Register (WINECFG)
+
+Winecfg is a GUI configuration tool for Wine, designed to make life
+a little easier than editing the registry.
+
+This *wine-utils* is provide by `wine-common`
+
+What can you do with it?
+
+You can do the following tasks:
+
+* Windows Version, it comes with a default windows version
+* Libraries
+* Graphics
+* Desktop Integration
+* Drivers
+* Audio
+
+WARNING: Some aplication don't allow/accept working with the default
+Windows version which wine offer by default like -> **Kindle Desktop
+Edition**.
+
+[[wine-script]]
+== GUI WINE SCRIPT (WINETRICKS)
+
+Winetricks is a helper script to download and install various
+redistributable runtime libraries needed to run some programs in Wine.
+These may include replacements for components of Wine using closed
+source libraries.
+
+It not installed by default so:
+
+```
+sudo dnf install winetricks
+```
+
+You can install aplication and libraries and work's with register, 
+stored and compiled by wine team, for example **Adobe Digital Edition**.
+
+[[working-with-prefix]]
+== WINE PREFIX
+
+A WINE prefix is a folder that contains all of the WINE configurations
+as well as all of the Windows pieces that WINE uses for compatibility, 
+including libraries and a registry.
+
+Some aplication need's 32 or 64 wine prefix, this can be done in the 
+following way:
+
+- Create a clean wine32/64 prefix:
+
+* Where `xx` is 32 or 64 bits.
+* `.directory` is the directory which you can store the wine environment.
+
+```
+WINEPREFIX="$HOME/.directory" WINEARCH=winxx wine wineboot
+```
+
+- Use the wine prefix created before:
+
+```
+export WINEPREFIX=~/.directory
+```
+
+WARNING: This is just an example used as your needed.
+
+- Install the aplications.
+
+NOTE: as you can see you can have as many directories with diferents
+configuration.
+
+[[install-basic-aplications]]
+== Install some basics/util's aplications
+
+How to install the follow aplications under wine?
+
+1. Adobe Digital Edition 4.5
+
+* use `winetrick` as descibed before and select **install aplication** in 
+the _MENU_ What you do you want to do?
+* in Which package(s) would you like to install? then select 
+`adobe_diged4` 
+* DONE!
+
+2. Kindle Desktop Edition
+
+* download from amazon
+* install it
+* use winecfg to change the default windows version so is 7 to a higher
+version
+* DONE!
 
 [[bugs-and-problems]]
 == Bugs and problems
@@ -67,7 +182,6 @@ bug in the upstream https://bugs.wine-staging.com/[Wine-staging bug
 tracking system].
 
 IMPORTANT: Do not file bugs in the Winehq.org bugzilla unless told to do so.
-
 
 If you really think that your bug is Fedora-related, file a bug against
 the Wine component in https://bugzilla.redhat.com[Fedora's bug tracking
