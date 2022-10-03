@@ -75,4 +75,7 @@ include::{partialsdir}/ref_frequently-asked-questions_-installing-fedora-on-a-ra
 * For assistance or support, see:
 ** link:https://ask.fedoraproject.org/[Ask Fedora]
 ** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
-** irc://irc.freenode.net/#fedora-arm[IRC via the #fedora-arm channel on Freenode]
+** link:https://web.libera.chat/?channels=#fedora-arm[IRC via the #fedora-arm channel on Libera.Chat]
+
+// Restore the context to what it was before this assembly.
+:context: {parent-context}
