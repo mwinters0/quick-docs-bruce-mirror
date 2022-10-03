@@ -34,12 +34,15 @@ section wine prefix.
 [[wine-desktop-files]]
 == Wine desktop files
 
-Where Wine stored gnome _.desktop_ files?
+https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html#variables[_Wine_ respect The XDG Base Directory Specification which is
+based on the following concepts]
 
-There are stored in:
 
 ```
-/home/$USER/.local/share/applications/wine
+$XDG_DATA_HOME defines the base directory relative to which 
+user-specific data files should be stored. If $XDG_DATA_HOME is either 
+not set or empty, a default equal to `$HOME/.local/share` should be used.
+
 ```
 
 [[gui-configuration-register]]
