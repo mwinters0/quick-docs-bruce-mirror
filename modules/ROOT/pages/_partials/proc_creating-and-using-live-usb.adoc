@@ -58,7 +58,7 @@ By combining these features, you can carry your computer with you in your pocket
 
 It is not a good idea to try and write a new Fedora release using the version of `livecd-iso-to-disk` in a much older Fedora release: it is best to only use a release a maximum of two versions older than the release you are trying to write.
 
-Ensure the https://apps.fedoraproject.org/packages/livecd-tools[livecd-tools] package is installed: `dnf install livecd-tools`.
+Ensure the https://packages.fedoraproject.org/pkgs/livecd-tools/livecd-tools/[livecd-tools] package is installed: `dnf install livecd-tools`.
 
 [NOTE]
 ====
