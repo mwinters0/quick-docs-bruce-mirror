@@ -32,7 +32,7 @@ TIP: but different and multiple prefixes can be used as descibed in the
 section wine prefix.
 
 [[wine-desktop-files]]
-== WINE desktop files
+== Wine desktop files
 
 Where Wine stored gnome _.desktop_ files?
 
@@ -43,7 +43,7 @@ There are stored in:
 ```
 
 [[gui-configuration-register]]
-== GUI for configure WINE Register (WINECFG)
+== GUI for configure _wine_ Register (winecfg)
 
 Winecfg is a GUI configuration tool for Wine, designed to make life
 a little easier than editing the registry.
@@ -52,7 +52,7 @@ This *wine-utils* is provide by `wine-common`
 
 What can you do with it?
 
-You can do the following tasks:
+It can do the following tasks:
 
 * Windows Version, it comes with a default windows version
 * Libraries
@@ -62,11 +62,11 @@ You can do the following tasks:
 * Audio
 
 WARNING: Some aplication don't allow/accept working with the default
-Windows version which wine offer by default like -> **Kindle Desktop
-Edition**.
+Windows version which wine offer by default like -> **Amazon Kindle 
+Desktop Edition**.
 
 [[wine-script]]
-== GUI WINE SCRIPT (WINETRICKS)
+== Gui _wine_ script (winetricks)
 
 Winetricks is a helper script to download and install various
 redistributable runtime libraries needed to run some programs in Wine.
@@ -79,11 +79,11 @@ It not installed by default so:
 sudo dnf install winetricks
 ```
 
-You can install aplication and libraries and work's with register, 
+It can install aplication and libraries and work's with register, 
 stored and compiled by wine team, for example **Adobe Digital Edition**.
 
 [[working-with-prefix]]
-== WINE PREFIX
+== Wine prefix
 
 A WINE prefix is a folder that contains all of the WINE configurations
 as well as all of the Windows pieces that WINE uses for compatibility, 
@@ -112,7 +112,7 @@ WARNING: This is just an example used as your needed.
 - Install the aplications.
 
 NOTE: as you can see you can have as many directories with diferents
-configuration.
+configuration (_wine_ prefix).
 
 [[install-basic-aplications]]
 == Install some basics/util's aplications
@@ -129,7 +129,7 @@ the _MENU_ What you do you want to do?
 
 2. Kindle Desktop Edition
 
-* download from amazon
+* download from -> https://www.amazon.com/Amazon-Digital-Services-LLC-Download/dp/B00UB76290[Amazon Kindle]
 * install it
 * use winecfg to change the default windows version so is 7 to a higher
 version
