@@ -13,10 +13,8 @@ of Windows system libraries, system services through https://wiki.winehq.org/Win
 Fedora's Wine packages are split up to allow for smaller installations.
 The `wine` meta package will bring with it the most important components
 of Wine.
-
 Expert users may want to pick specific components from the list
 https://packages.fedoraproject.org/pkgs/wine/[here].
-
 The current versions of the Wine packages can also be seen on the https://packages.fedoraproject.org/pkgs/wine/wine/[Fedora packages application].
 
 [[configuration-files]]
@@ -25,110 +23,95 @@ The current versions of the Wine packages can also be seen on the https://packag
 The default wine configuration files is stored in your `$HOME` directory:
 
 ```
-~/.wine
+$HOME/.wine
 ```
 
-TIP: but different and multiple prefixes can be used as descibed in the
-section wine prefix.
+TIP: Different prefixes can be used as descibed in the
+xref:#working-with-prefix[wine prefix] section lower in this document.
 
 [[wine-desktop-files]]
 == Wine desktop files
 
-https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html#variables[_Wine_ respect The XDG Base Directory Specification which is
-based on the following concepts]
+https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html#variables[Wine respects the XDG Base Directory Specification].
+`$XDG_DATA_HOME` defines the base directory relative to which 
+user-specific data files should be stored. If `$XDG_DATA_HOME` is either 
+not set or empty, it defaults to `$HOME/.local/share`.
 
-
-```
-$XDG_DATA_HOME defines the base directory relative to which 
-user-specific data files should be stored. If $XDG_DATA_HOME is either 
-not set or empty, a default equal to `$HOME/.local/share` should be used.
-
-```
+Wine stores its desktop files in `$XDG_DATA_HOME/applications/wine`.
 
 [[gui-configuration-register]]
-== GUI for configure _wine_ Register (winecfg)
+== GUI for configuring the Wine registry (winecfg)
 
-Winecfg is a GUI configuration tool for Wine, designed to make life
+https://wiki.winehq.org/Winecfg[`winecfg`] is a GUI configuration tool for Wine, designed to make life
 a little easier than editing the registry.
 
-This *wine-utils* is provide by `wine-common`
+This utility is provide by the https://packages.fedoraproject.org/pkgs/wine/wine-common/[`wine-common` package].
+It allows you to:
 
-What can you do with it?
+- set the Windows version
+- change the default libraries (DLLs) Wine loads
+- modify graphics settings
+- modify desktop integration related settings
+- modify drive mappings
+- change sound/audio settings
 
-It can do the following tasks:
-
-* Windows Version, it comes with a default windows version
-* Libraries
-* Graphics
-* Desktop Integration
-* Drivers
-* Audio
-
-WARNING: Some aplication don't allow/accept working with the default
-Windows version which wine offer by default like -> **Amazon Kindle 
-Desktop Edition**.
+WARNING: Some applications do not work with the default
+Windows version which Wine offers. E.g.: Amazon Kindle 
+Desktop Edition.
 
 [[wine-script]]
-== Gui _wine_ script (winetricks)
+== Gui Wine script (winetricks)
 
-Winetricks is a helper script to download and install various
+https://wiki.winehq.org/Winetricks[Winetricks] is a helper script to download and install various
 redistributable runtime libraries needed to run some programs in Wine.
 These may include replacements for components of Wine using closed
 source libraries.
 
-It not installed by default so:
+It is provided by the https://packages.fedoraproject.org/pkgs/winetricks/winetricks/[`winetricks` package]:
 
 ```
 sudo dnf install winetricks
 ```
 
-It can install aplication and libraries and work's with register, 
-stored and compiled by wine team, for example **Adobe Digital Edition**.
+It can download and install applications and libraries
+needed to run some programs in Wine, e.g., Adobe Digital Edition.
 
 [[working-with-prefix]]
 == Wine prefix
 
-A WINE prefix is a folder that contains all of the WINE configurations
-as well as all of the Windows pieces that WINE uses for compatibility, 
+A https://wiki.winehq.org/FAQ#Wineprefixes[Wine prefix] is a folder that contains all of the Wine configurations
+as well as all of the Windows pieces that Wine uses for compatibility, 
 including libraries and a registry.
 
-Some aplication need's 32 or 64 wine prefix, this can be done in the 
+Some applications need a 32 or 64 wine prefix, this can be done in the 
 following way:
 
 - Create a clean wine32/64 prefix:
 
-* Where `xx` is 32 or 64 bits.
-* `.directory` is the directory which you can store the wine environment.
 
 ```
-WINEPREFIX="$HOME/.directory" WINEARCH=winxx wine wineboot
+WINEPREFIX="$HOME/<directory>" WINEARCH=winxx wine wineboot
 ```
 
-- Use the wine prefix created before:
+* Where `xx` is 32 or 64 bits
+* `<directory>` is the directory which you can store the wine environment
+
+To use a wine prefix created before:
 
 ```
-export WINEPREFIX=~/.directory
+export WINEPREFIX=$HOME/<directory>
 ```
 
-WARNING: This is just an example used as your needed.
+[[install-basic-applications]]
+== Install some basics/utils applications
 
-- Install the aplications.
-
-NOTE: as you can see you can have as many directories with diferents
-configuration (_wine_ prefix).
-
-[[install-basic-aplications]]
-== Install some basics/util's aplications
-
-How to install the follow aplications under wine?
+How to install the follow applications under wine?
 
 1. Adobe Digital Edition 4.5
 
-* use `winetrick` as descibed before and select **install aplication** in 
-the _MENU_ What you do you want to do?
-* in Which package(s) would you like to install? then select 
-`adobe_diged4` 
-* DONE!
+* use `winetricks` as descibed before and select **install application** in 
+the menu "What you do you want to do?"
+* in "Which package(s) would you like to install?" select `adobe_diged4` 
 
 2. Kindle Desktop Edition
 
@@ -136,7 +119,6 @@ the _MENU_ What you do you want to do?
 * install it
 * use winecfg to change the default windows version so is 7 to a higher
 version
-* DONE!
 
 [[bugs-and-problems]]
 == Bugs and problems
