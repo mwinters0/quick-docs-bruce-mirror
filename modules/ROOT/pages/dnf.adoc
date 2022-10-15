@@ -14,7 +14,7 @@ DNF is now the default software package management tool in Fedora.
 To search the repositories for a package type:
 
 ----
-# sudo dnf search packagename
+# dnf search packagename
 ----
 
 To install the package:
