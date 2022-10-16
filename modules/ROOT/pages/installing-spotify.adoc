@@ -9,29 +9,8 @@ link:https://www.spotify.com/[Spotify] is a cross-platform proprietary music str
 Spotify is a freemium service, with advertisements which can be removed by purchasing a subscription.
 Although Spotify is not officially supported on Fedora, it can be installed on Fedora in a number of ways:
 
-. Using the third-party https://rpmfusion.org/[RPM Fusion] repositories.
 . Using a Flatpak hosted by https://flathub.org[Flathub].
-
-[install-spotify-using-rpmfusion]
-== Using the RPM Fusion repository
-
-// UNVERIFIED
-
-. xref:setup_rpmfusion.adoc[Enable the RPMFusion repositories].
-. Install the `lpf-spotify-client` package:
-+
-----
-sudo dnf install lpf-spotify-client
-----
-
-. Install Spotify:
-.. Click the "lpf-spotify-client" icon in the application list.
-.. or use the following command in a terminal:
-+
-----
-lpf update
-----
-
+. Using the third-party https://rpmfusion.org/[RPM Fusion] repositories.
 
 [install-spotify-using-flatpak]
 == Installing Spotify using Flatpak
@@ -73,10 +52,30 @@ sudo flatpak install flathub com.spotify.Client
 flatpak run com.spotify.Client
 ----
 
+[install-spotify-using-rpmfusion]
+== Using the RPM Fusion repository
+
+// UNVERIFIED
+
+. xref:setup_rpmfusion.adoc[Enable the RPMFusion repositories].
+. Install the `lpf-spotify-client` package:
++
+----
+sudo dnf install lpf-spotify-client
+----
+
+. Install Spotify:
+.. Click the "lpf-spotify-client" icon in the application list.
+.. or use the following command in a terminal:
++
+----
+lpf update
+----
+
 == References
 
-. https://github.com/rpmfusion/lpf-spotify-client
 . https://flathub.org/apps/details/com.spotify.Client
+. https://github.com/rpmfusion/lpf-spotify-client
 
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
