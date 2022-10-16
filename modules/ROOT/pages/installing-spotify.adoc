@@ -57,6 +57,11 @@ flatpak run com.spotify.Client
 
 // UNVERIFIED
 
+For this method (if you don't have link:https://github.com/leamas/lpf[`lpf`]
+configured in your system) will be required to add `pkg-build` group to your
+user and on the first run you will be prompted about adding this group to your
+user. These prompts disappear after logging out and in again (or rebooting).
+
 . xref:setup_rpmfusion.adoc[Enable the RPMFusion repositories].
 . Install the `lpf-spotify-client` package:
 +
@@ -76,6 +81,7 @@ lpf update
 
 . https://flathub.org/apps/details/com.spotify.Client
 . https://github.com/rpmfusion/lpf-spotify-client
+. https://github.com/leamas/lpf
 
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
