@@ -105,6 +105,7 @@ lpf update
 == References
 
 . https://flathub.org/apps/details/com.spotify.Client
+. https://snapcraft.io/install/spotify/fedora
 . https://github.com/rpmfusion/lpf-spotify-client
 . https://github.com/leamas/lpf
 
