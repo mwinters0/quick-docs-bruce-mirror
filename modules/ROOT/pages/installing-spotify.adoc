@@ -10,6 +10,7 @@ Spotify is a freemium service, with advertisements which can be removed by purch
 Although Spotify is not officially supported on Fedora, it can be installed on Fedora in a number of ways:
 
 . Using a Flatpak hosted by https://flathub.org[Flathub].
+. Using Snap hosted by https://snapcraft.io/spotify[snapcraft].
 . Using the third-party https://rpmfusion.org/[RPM Fusion] repositories.
 
 [install-spotify-using-flatpak]
@@ -51,6 +52,30 @@ sudo flatpak install flathub com.spotify.Client
 ----
 flatpak run com.spotify.Client
 ----
+
+[install-spotify-using-snap]
+== Installing Spotify using Snap
+
+To install Spotify using link:https://snapcraft.io/spotify[Snap]:
+
+. Install Snap using DNF:
++
+----
+sudo dnf install snapd
+----
+
+. Either log out and back in again, or restart your system, to ensure snap’s paths are updated correctly.
+. To enable classic snap support, enter the following to create a symbolic link between `/var/lib/snapd/snap` and `/snap`:
++
+----
+sudo ln -s /var/lib/snapd/snap /snap
+----
+. Install spotify, simply use the following command:
++
+----
+sudo snap install spotify
+----
+. Click on the Spotify icon in the applications list.
 
 [install-spotify-using-rpmfusion]
 == Using the RPM Fusion repository
