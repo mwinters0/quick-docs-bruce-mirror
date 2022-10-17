@@ -82,10 +82,8 @@ snap install spotify
 
 // UNVERIFIED
 
-For this method (if you don't have link:https://github.com/leamas/lpf[`lpf`]
-configured in your system) will be required to add `pkg-build` group to your
-user and on the first run you will be prompted about adding this group to your
-user. These prompts disappear after logging out and in again (or rebooting).
+For this method, please refer to the link:https://github.com/leamas/lpf[`lpf GitHub Page`]
+requirements.
 
 . xref:setup_rpmfusion.adoc[Enable the RPMFusion repositories].
 . Install the `lpf-spotify-client` package:
