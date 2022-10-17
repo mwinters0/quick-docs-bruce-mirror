@@ -108,6 +108,7 @@ lpf update
 . https://snapcraft.io/install/spotify/fedora
 . https://github.com/rpmfusion/lpf-spotify-client
 . https://github.com/leamas/lpf
+. https://www.spotify.com/us/download/linux/
 
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
