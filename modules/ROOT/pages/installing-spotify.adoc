@@ -73,7 +73,7 @@ sudo ln -s /var/lib/snapd/snap /snap
 . Install spotify, simply use the following command:
 +
 ----
-sudo snap install spotify
+snap install spotify
 ----
 . Click on the Spotify icon in the applications list.
 
