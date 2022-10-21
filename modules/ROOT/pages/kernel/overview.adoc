@@ -70,9 +70,8 @@ Stable and Branched kernels always disable the debugging options.
 
 Rawhide kernels enable the debugging options. However, each release candidate
 kernel is built with debugging options disabled. Release candidate kernels
-can be recognized by their release field, which always has the git revision set
-to 0. As an example, ``kernel-4.16.0-0.rc7.git0.1.fc28`` is the 7th release
-candidate kernel for Fedora 28.
+can be recognized by their release field. As an example, ``kernel-5.19.0-0.rc7.20220722git68e77ffbfd06.56.fc37`` 
+is a release candidate kernel for Fedora 37.
 
 
 == Policies
