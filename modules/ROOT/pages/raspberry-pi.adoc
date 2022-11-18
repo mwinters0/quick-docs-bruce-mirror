@@ -24,10 +24,7 @@ The link:https://www.raspberrypi.org[Raspberry Pi] is a credit card-sized ARM ba
 Fedora supports the the Raspberry Pi Model 2B and 3-series of devices including the 3B, 3B+, 3A+, 3CM and 3CM+ in Fedora Linux 29 and later releases.
 This documentation describes how to get started, and includes a Frequently Asked Questions (FAQ) section at the end of the document about what is supported, and what is not.
 
-NOTE: The Raspberry Pi 4 is not supported.
-Support for some of the hardware is still missing in the upstream Linux kernel.
-However, Fedora Linux will work on this device for some use cases, particularly "headless" (no display attached).
-Un-accelerated graphics are generally functional, but performance will suffer.
+link:https://fedoraproject.org/wiki/Changes/RaspberryPi4[The Raspberry Pi 4 is officially supported from Fedora release 37 onwards].
 
 [id='raspberry-pi-prerequisites']
 .Prerequisites
