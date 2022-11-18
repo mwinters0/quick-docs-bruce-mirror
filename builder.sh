@@ -1,13 +1,35 @@
 #!/bin/bash
+# script to watch source directory for changes, and re-run build and preview
+#
+# License: MIT
+# https://fedoraproject.org/wiki/Licensing:MIT#Another_Minimal_variant_(found_in_libatomic_ops)
+#
+# Copyright (c) Fedora community contributors.
+#
+# THIS MATERIAL IS PROVIDED AS IS, WITH ABSOLUTELY NO WARRANTY EXPRESSED OR
+# IMPLIED. ANY USE IS AT YOUR OWN RISK.
+#
+# Permission is hereby granted to use or copy this program for any purpose,
+# provided the above notices are retained on all copies.  Permission to modify
+# the code and to distribute modified code is granted, provided the above
+# notices are retained, and a notice that the code was modified is included
+# with the above copyright notice.
 
-# script to watch source directory for changes, and automatically call build.sh to rebuild as required.
 
+script_name="docsbuilder.sh"
+script_source="https://gitlab.com/fedora/docs/templates/fedora-docs-template/-/raw/main/${script_name}"
+version="1.2.0"
 image="docker.io/antora/antora"
 cmd="--html-url-extension-style=indexify site.yml"
 srcdir="modules"
 buildir="public"
 previewpidfile="preview.pid"
-inotifyignore=".git*"
+
+# 4913: for vim users, vim creates a temporary file to test it can write to
+# directory
+# https://groups.google.com/g/vim_dev/c/sppdpElxY44
+# .git: so we don't get rebuilds each time git metadata changes
+inotifyignore="\.git.*|4913"
 
 watch_and_build () {
     if ! command -v inotifywait > /dev/null
@@ -29,12 +51,12 @@ watch_and_build () {
             # temporary files that are updated regularly and so on, so better
             # to get the list from git. It'll also look at global gitingore
             # settings and so on.
-            inotifyignore="$(git status -s --ignored | grep '^!!' | sed -e 's/^!! //' -e 's:/:\*:' | tr '\n' '|')${inotifyignore}"
+            inotifyignore="$(git status -s --ignored | grep '^!!' | sed -e 's/^!! //' | tr '\n' '|')${inotifyignore}"
         fi
 
         while true
         do
-            echo "Watching current directory (excluding ${inotifyignore}) for changes and re-building as required. Use Ctrl C to stop."
+            echo "Watching current directory (excluding: ${inotifyignore}) for changes and re-building as required. Use Ctrl C to stop."
             inotifywait -q --exclude "($inotifyignore)" -e modify,create,delete,move -r . && echo "Change detected, rebuilding.." && build
         done
     fi
@@ -138,6 +160,47 @@ stop_preview_and_exit ()
     exit 0
 }
 
+
+# https://apple.stackexchange.com/questions/83939/compare-multi-digit-version-numbers-in-bash/123408#123408
+version () { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4);  }';  }
+
+
+check_update () {
+    if ! command -v curl > /dev/null
+    then
+        echo "curl command could not be found. Please install curl."
+        echo "On Fedora, run: sudo dnf install curl"
+        exit 0
+    fi
+    script_version="$(grep "^version=" ${script_name} | cut -d '=' -f2 | tr --delete '"')"
+    tempdir="$(mktemp -d)"
+    echo "$tempdir"
+    pushd "$tempdir" > /dev/null 2>&1
+        curl "$script_source" --silent --output "${script_name}"
+        upstream_version="$(grep "^version=" ${script_name} | cut -d '=' -f2 | tr --delete '"')"
+        echo "${upstream_version}"
+        if [ $(version $upstream_version) -gt $(version $script_version)  ]; then
+            echo "Update available"
+            echo "Script version $upstream_version is available at $script_source"
+            echo "This version is $script_version."
+            echo "Please use the '-U' option to update."
+            echo
+        fi
+    popd > /dev/null 2&>1
+}
+
+install_update () {
+    if ! command -v curl > /dev/null
+    then
+        echo "curl command could not be found. Please install curl."
+        echo "On Fedora, run: sudo dnf install curl"
+        exit 0
+    fi
+    curl "$script_source" --silent --output "${script_name}.new"
+    mv "${script_name}.new" "${script_name}"
+    chmod +x "${script_name}"
+}
+
 usage() {
     echo "$0: Build and preview Fedora antora based documentation"
     echo
@@ -149,6 +212,8 @@ usage() {
     echo "-p: start_preview"
     echo "-k: stop_preview"
     echo "-h: print this usage text and exit"
+    echo "-u: check builder script update"
+    echo "-U: install builder script from upstream"
     echo
     echo "Maintained by the Fedora documentation team."
     echo "Please contact on our channels: https://docs.fedoraproject.org/en-US/fedora-docs/#find-docs"
@@ -165,6 +230,7 @@ then
     exit 1
 fi
 
+
 if [ $# -lt 1 ]
 then
     echo "No options provided, running preview with watch and build."
@@ -178,7 +244,7 @@ then
 fi
 
 # parse options
-while getopts "awbpkh" OPTION
+while getopts "awbpkhuU" OPTION
 do
     case $OPTION in
         a)
@@ -199,7 +265,7 @@ do
             ;;
         p)
             start_preview
-            echo "Please run ./builder.sh -k to stop the preview server"
+            echo "Please run ./${script_name} -k to stop the preview server"
             exit 0
             ;;
         k)
@@ -208,6 +274,14 @@ do
             ;;
         h)
             usage
+            exit 0
+            ;;
+        u)
+            check_update
+            exit 0
+            ;;
+        U)
+            install_update
             exit 0
             ;;
         ?)
