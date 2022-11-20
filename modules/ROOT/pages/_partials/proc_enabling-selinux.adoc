@@ -60,7 +60,7 @@ $ *reboot*
 $ *sudo ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts recent*
 ----
 
-. If there are no denials, switch to enforcing mode. For more information, see link:{context}-changing-to-enforcing-mode[].
+. If there are no denials, switch to enforcing mode. For more information, see xref:{context}-changing-to-enforcing-mode[].
 
 To run custom applications with SELinux in enforcing mode, choose one of the following scenarios:
 
