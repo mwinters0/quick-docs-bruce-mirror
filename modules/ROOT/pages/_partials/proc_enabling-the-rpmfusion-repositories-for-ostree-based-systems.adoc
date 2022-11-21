@@ -1,0 +1,60 @@
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// This module can be included from assemblies using the following include statement:
+// include::modules/proc_enabling-the-rpmfusion-repositories-for-ostree-based-systems.adoc[leveloffset=+1]
+
+// The file name and the ID are based on the module title. For example:
+// * file name: proc_doing-procedure-a.adoc
+// * ID: [id='proc_doing-procedure-a_{context}']
+// * Title: = Doing procedure A
+//
+// The ID is used as an anchor for linking to the module. Avoid changing
+// it after the module has been published to ensure existing links are not
+// broken.
+//
+// The `context` attribute enables module reuse. Every module's ID includes
+// {context}, which ensures that the module has a unique ID even if it is
+// reused multiple times in a guide.
+//
+// Start the title with a verb, such as Creating or Create. See also
+// _Wording of headings_ in _The IBM Style Guide_.
+[id="proc_enabling-the-rpmfusion-repositories-for-ostree-based-systems_{context}"]
+= Enabling the RPM Fusion repositories for ostree-based systems
+
+This procedure describes how to enable the RPM Fusion software repositories for systems based on ostree (i.e. Silverblue, Kinoite, Fedora IoT).
+
+This is a two-stage process where you have to install versioned RPM Fusion repos and then you are able to replace them with unversioned RPM Fusion repos.
+
+[discrete]
+== Prerequisites
+
+* You are using an ostree-based system such as Silverblue, Kinoite, or Fedora IoT.
+* You have internet access.
+
+[discrete]
+== Procedure
+
+. To install the versioned _Free_ and _Nonfree_ RPM Fusion repos:
++
+[subs=+quotes]
+----
+$ sudo rpm-ostree install \
+  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+  https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+$ reboot
+----
+
+. To replace the versioned RPM Fusion repos that were previously installed with the unversioned repos:
++
+[subs=+quotes]
+----
+$ sudo rpm-ostree update \
+  --uninstall rpmfusion-free-release \
+  --uninstall rpmfusion-nonfree-release \
+  --install rpmfusion-free-release \
+  --install rpmfusion-nonfree-release
+$ reboot
+----
+
