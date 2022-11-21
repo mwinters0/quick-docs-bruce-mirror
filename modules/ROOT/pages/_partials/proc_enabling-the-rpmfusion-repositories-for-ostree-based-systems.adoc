@@ -27,6 +27,11 @@ This procedure describes how to enable the RPM Fusion software repositories for 
 
 This is a two-stage process where you have to install versioned RPM Fusion repos and then you are able to replace them with unversioned RPM Fusion repos.
 
+[NOTE]
+====
+For more information about this process and the problem it solves, please refer to the relevant https://discussion.fedoraproject.org/t/simplifying-updates-for-rpm-fusion-packages-and-other-packages-shipping-their-own-rpm-repos/30364[thread on the Fedora Discourse site].
+====
+
 [discrete]
 == Prerequisites
 
