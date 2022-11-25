@@ -1,14 +1,21 @@
 [id='removing-repositories']
 = Removing repositories
 
-This section shows how to remove a `.repo` file from the Yum repository.
+This section shows how to remove a Yum repository (or `.repo` file).
 
-* To remove a `.repo` file, run the following command as `*root*`.
+[NOTE]
+====
+If you know the ID of a repository, but you're not sure what `.repo` it belongs to,
+you can run the following command [red]#`pass:[grep -E "^\[.*\]" /etc/yum.repos.d/*]`#.
+This will print a list of the repository IDs that are associated with each Yum repository.
+====
+
+* To remove a Yum repository, run the following command as `*root*`.
 +
 [literal,subs="+quotes,attributes"]
 ----
-rm /etc/yum.repos.d/*_repository_*.repo
+rm /etc/yum.repos.d/*_file_name_*.repo
 ----
 +
-Where *_repository_* is the unique repository ID.
+Where *_file_name_* is the name of the `.repo` file.
 +
