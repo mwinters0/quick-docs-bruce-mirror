@@ -3,7 +3,7 @@
 
 See the following list of Java-related acronyms for reference:
 
-JRE:: Java Runtime Environment; equired to run Java code and applications
+JRE:: Java Runtime Environment; required to run Java code and applications
 JVM:: Java Virtual Machine; main component of the JRE
 JDK:: Java Development Kit; required only for development, coding
 SDK:: Software Development Kit; see JDK
