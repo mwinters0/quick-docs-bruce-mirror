@@ -118,19 +118,31 @@ For more information you can refer to the man pages (`man rpmconf`).
 If you use `rpmconf` to upgrade the system configuration files supplied with the upgraded packages then some configuration files may change. After the upgrade you should verify `/etc/ssh/sshd_config`, `/etc/nsswitch.conf`, `/etc/ntp.conf` and others are expected. For example, if OpenSSH is upgraded then `sshd_config` reverts to the default package configuration. The default package configuration *does not* enable public key authentication, and allows password authentication.
 
 [[sect-clean-up-retired-packages]]
-=== Clean-up retired package
+=== Clean-up retired packages
 
-Every release Fedora retires a few packages. There are various reasons:
-the package become obsoleted, dead upstream or maintainer stepped down.
-Fedora no longer distribute these packages, but they are still present
-at your systems. You will never receive upgrades. Not even security ones.
-It is highly recommend to remove these packages.
+With every release, Fedora retires a few packages. There are various reasons;
+the packages become obsolete, they have a dead upstream, or the maintainer
+steps down. Fedora no longer distributes these packages; however, they are
+still on your system. These packages will not receive upgrades. It is highly
+recommended to remove them.
+
+If you upgrade across one release (e.g. Fedora 36 to 37), run the following commands:
 
 [source,bash]
 ----
-sudo dnf install remove-retired-packages
-remove-retired-packages
+$ sudo dnf install remove-retired-packages
+$ remove-retired-packages
 ----
+
+If you upgrade across two releases (e.g. Fedora 35 to 37), you must supply the old release version to `remove-retired-packages`:
+
+[source,bash]
+----
+$ sudo dnf install remove-retired-packages
+$ remove-retired-packages 35
+----
+
+NOTE: Upgrades across *more* than two releases are not supported.
 
 [[sect-clean-up-old-packages]]
 === Clean-up old packages
