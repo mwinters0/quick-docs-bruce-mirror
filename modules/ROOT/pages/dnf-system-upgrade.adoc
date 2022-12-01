@@ -117,6 +117,28 @@ For more information you can refer to the man pages (`man rpmconf`).
 
 If you use `rpmconf` to upgrade the system configuration files supplied with the upgraded packages then some configuration files may change. After the upgrade you should verify `/etc/ssh/sshd_config`, `/etc/nsswitch.conf`, `/etc/ntp.conf` and others are expected. For example, if OpenSSH is upgraded then `sshd_config` reverts to the default package configuration. The default package configuration *does not* enable public key authentication, and allows password authentication.
 
+[[sect-update-grub-bootloader-on-bios]]
+=== Update GRUB bootloader on BIOS systems
+
+Systems with the BIOS firmware have the GRUB RPM packages updated. However, the installed or embedded bootloader is never updated automatically. It is a good idea to update it between Fedora release versions.
+
+Find the device node the `/boot/` directory is located on:
+
+[source,bash]
+----
+$ sudo mount | grep "/boot "
+/dev/sda4 on /boot type ext4 (rw,relatime,seclabel)
+----
+
+The device node is `/dev/sda4`. Reinstall the bootloader while specifying the device node without the number:
+
+[source,bash]
+----
+$ sudo grub2-install /dev/sda
+Installing for i386-pc platform.
+Installation finished. No error reported.
+----
+
 [[sect-clean-up-retired-packages]]
 === Clean-up retired packages
 
