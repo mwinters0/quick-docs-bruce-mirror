@@ -119,7 +119,7 @@ to check out that branch with:
 +
 [source,bash]
 ----
-git checkout origin/f28
+git switch f28
 ----
 
 . To avoid conflicts with existing kernels, you can set a custom buildid by
