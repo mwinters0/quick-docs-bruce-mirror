@@ -2,8 +2,13 @@ ifdef::context[:parent-context: {context}]
 :context: setting-key-shortcut
 [id='setting-key-shortcut_{context}']
 = Setting a key shortcut to run an application in GNOME
-
-include::{partialsdir}/unreviewed-message.adoc[]
+Adam Samalik; Anthony McGlone
+:page-authors: {author},{author_2}
+:revnumber: F37
+:revdate: 2022-12-12
+:revremark: update procedure
+:category: how-to
+:tags: gnome, workstation, shortcut
 
 If you frequently use a certain application, you can set a keyboard shortcut to quickly launch that application on GNOME.
 
@@ -11,19 +16,32 @@ This example shows how to set a key shortcut to launch the terminal.
 
 To set a key shortcut to run an application:
 
-. Navigate to menu:Settings[Keyboard] to open the *Keyboard Shortcuts* list.
-. Click `+` at the bottom of the list to create a new shortcut.
+. Open the *Settings* menu and select *Keyboard* from the list.
+. Scroll down to the *Keyboard Shortcuts* section and click *View and Customize Shortcuts*.
+. Click on the *Custom Shortcuts* menu item. Then click *Add Shortcut*.
 . Enter the following details in the *Add Custom Shortcut* window:
 * Add a `Name` for your shortcut, for example, `Terminal`.
 * Enter the command that launches the application. For example, `gnome-terminal`.
-. Click *Set Shortcut* to open the *Set Custom Shortcut* window.
+. Click *Set Shortcut* to open the *Enter the new shortcut* dialog.
 . Type a keyboard shortcut, for example `Ctrl-Alt-T`.
 . Click *Add*.
 
-Your shortcut appears under *Custom Shortcuts* and is ready to use.
+Your shortcut appears under *Custom Shortcuts* and is ready to use. If you need to edit or remove
+a shortcut, follow the steps below.
 
-image:custom_shortcut.png[]
+To edit a shortcut:
 
-To edit or remove your shortcut, click the shortcut to open its details.
+. Open the *Custom Shortcuts* menu.
+. Click on the shortcut that you wish to edit.
+. Modify *Name*, *Command* as needed.
+. To change *Shortcut*, click on the x icon beside the keys.
+. Click *Set Shortcut* and enter the new shortcut keys.
+
+To remove a shortcut:
+
+. Open the *Custom Shortcuts* menu.
+. Click on the shortcut that you wish to remove.
+. Click the *Remove* button.
+
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]
