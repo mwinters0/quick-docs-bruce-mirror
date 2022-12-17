@@ -21,10 +21,12 @@
 include::{partialsdir}/attributes.adoc[]
 
 The link:https://www.raspberrypi.org[Raspberry Pi] is a credit card-sized ARM based single board computer (SBC).
-Fedora supports the the Raspberry Pi Model 2B and 3-series of devices including the 3B, 3B+, 3A+, 3CM and 3CM+ in Fedora Linux 29 and later releases.
-This documentation describes how to get started, and includes a Frequently Asked Questions (FAQ) section at the end of the document about what is supported, and what is not.
 
-link:https://fedoraproject.org/wiki/Changes/RaspberryPi4[The Raspberry Pi 4 is officially supported from Fedora release 37 onwards].
+link:https://fedoraproject.org/wiki/Changes/RaspberryPi4[The Raspberry Pi 4 is officially supported from Fedora release 37 onwards]. This includes hardware accelerated graphics, for which OSS support was previously lacking.
+
+Support for older Raspberry Pi models (2B and 3-series of devices including the 3B, 3B+, 3A+, 3CM and 3CM+) is available since Fedora Linux 29 and later releases. But Fedora decided to cut off support for (32 bit) armv7 / armhfp.
+
+This documentation describes how to get started, and includes a Frequently Asked Questions (FAQ) section at the end of the document about what is supported, and what is not.
 
 [id='raspberry-pi-prerequisites']
 .Prerequisites
@@ -36,8 +38,11 @@ link:https://fedoraproject.org/wiki/Changes/RaspberryPi4[The Raspberry Pi 4 is o
 ** 4B: 3.0 Amps
 * HDMI-compatible Monitor or TV.
 * A USB keyboard and USB mouse.
-* SD card reader.
-* A microSD Card (16 GB or larger).
+* If using an SD card:
+** A microSD card reader.
+** A microSD Card (16 GB or larger).
+* If using a USB flash drive, with USB boot:
+** A USB flash drive, preferrably USB 3.0 or newer (16GB or larger)
 * A computer running Microsoft Windows, macOS, or Linux.
 * A Fedora ARM image from: link:https://arm.fedoraproject.org/[].
 
