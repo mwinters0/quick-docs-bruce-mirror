@@ -10,7 +10,7 @@ $ sudo mkdir /etc/dconf/db/gdm.d
 ----
 +
 ----
-$ vim /etc/dconf/db/gdm.d/01-hide-users
+$ sudo vim /etc/dconf/db/gdm.d/01-hide-users
 ----
 
 . In a text editor of your choice, `vim` in this example, insert the following content to the `/etc/dconf/db/gdm.d/01-hide-users` file:
