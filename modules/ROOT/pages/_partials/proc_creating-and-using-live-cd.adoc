@@ -83,8 +83,10 @@ The following command:
 
 [options="nowrap"]
 ----
+ksflatten -c /usr/share/spin-kickstarts/fedora-live-workstation.ks \
+-o fedora-live-workstation-flat.ks
 livecd-creator --verbose \
---config=/usr/share/spin-kickstarts/fedora-live-workstation.ks \
+--config=fedora-live-workstation-flat.ks \
 --fslabel=Fedora-LiveCD \
 --cache=/var/cache/live
 ----
