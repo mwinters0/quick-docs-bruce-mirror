@@ -1,6 +1,14 @@
 [[how_to_create_a_samba_share]]
 = How to create a Samba share
-:toc:
+Alessio, Peter Lilley, Petr Bokoc 
+:revnumber: F32
+:revdate: 2020-12-01
+:category: Administration
+:tags: Samba share,
+
+// pboy: Made just a quick fix. Used date from merge request #253 and issue #165.
+
+// Still needs review.
 
 Samba allows for Windows and other clients to connect to file share directories on Linux hosts. It implements the server message block (SMB) protocol. This guide covers creating a shared file location on a Fedora machine that can be accessed by other computers on the local network.
 
