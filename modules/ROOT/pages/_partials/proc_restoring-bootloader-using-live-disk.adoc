@@ -23,37 +23,160 @@ bootable by *GRUB2*.
 . Open the terminal.
 
 . Examine the partition layout and identify the `boot` and the `root` partition.
-
++
 ----
 sudo fdisk -l
 ----
 
-== For Default Installation in LVM.
+== BTRFS filesystem
 
-. Create the mount point for the root partition.
+If your `root` partition is encrypted by LUKS, it must be decrypted:
+
+. Make sure the crypt module is in use:
 +
+----
+sudo modprobe dm-crypt
+----
+
+. Decrypt the `root` partition:
++
+----
+sudo cryptsetup luksOpen <root_partition> myvolume
+----
++
+The decrypted device (i.e. `myvolume`) will be accessible under `/dev/mapper/`.
+
+Mount the `root` partition:
+
+* For LUKS:
++
+----
+mount <decrypted_device> /mnt -o subvol=root
+----
+* For non-LUKS:
++
+----
+mount <root_partition> /mnt -o subvol=root
+----
+
+Mount the `boot` partition:
+
+----
+mount <boot_partition> /mnt/boot
+----
+
+Mount system processes and devices into the `root` filesystem:
+
+----
+mount -o bind /dev /mnt/dev
+mount -o bind /proc /mnt/proc
+mount -o bind /sys /mnt/sys
+mount -o bind /run /mnt/run
+----
+
+On UEFI systems, bind the efivars directory and mount the EFI system partition:
+
+----
+mount -o bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
+mount <efi_system_partition> /mnt/boot/efi
+----
+
+Change your filesystem to the one mounted under `/mnt/`:
+
+----
+chroot /mnt/
+----
+
+Re-install GRUB:
+
+* On UEFI systems, several packages are required:
++
+----
+dnf reinstall shim-* grub2-efi-* grub2-common
+
+----
+* On BIOS systems, specify the disk where GRUB should be installed:
++
+----
+grub2-install <disk>
+----
+
+Re-generate the GRUB configuration file:
+
+----
+grub2-mkconfig -o /boot/grub2/grub.cfg
+----
+
+Sync and exit the chroot:
+
+----
+sync && exit
+----
+
+Reboot the system. 
+
+== LVM filesystem
+
+If your `root` partition is encrypted by LUKS, it must be decrypted:
+
+. Make sure the crypt module is in use:
++
+----
+sudo modprobe dm-crypt
+----
+
+. Decrypt the `root` partition:
++
+----
+sudo cryptsetup luksOpen <root_partition> myvolume
+----
+
+. Scan the LVM volumes for the volume group corresponding to the `root` partition:
++
+----
+sudo vgscan
+----
+
+. Activate the volume group:
++
+----
+sudo vgchange -ay <volume_group>
+----
+
+. Find the root volume:
++
+----
+sudo lvs
+----
++
+The root volume will be accessible under `/dev/`.
+
+Create a `root` directory under `/mnt`:
 ----
 mkdir -p /mnt/root
 ----
 
-If you are using the default Fedora layout, there will be one `/dev/sda1`
-partition that holds the `/boot` directory and one `/dev/mapper/fedora-root`
-that holds the root file system.
+Mount the logical volume of the `root` partition:
 
-. Mount the root partition on the mount point.
+* For LUKS, substitute the root volume from above:
 +
 ----
-mount /dev/mapper/fedora-root /mnt/root
+mount <root_volume> /mnt/root
 ----
-
-. Mount the boot partition in the `boot` directory of the filesystem that you have mounted in the previous step.
+* For non-LUKS, use `lsblk` to find the `lvm` that corresponds to the `root` partition (the `lvm` should be under `/dev/mapper/`):
 +
 ----
-mount /dev/sda1 /mnt/root/boot/
+mount <lvm> /mnt/root
 ----
 
-. Mount system processes and devices into the root filesystem in `/mnt/root`.
-+
+Mount the `boot` partition:
+
+----
+mount <boot_partition> /mnt/root/boot
+----
+
+Mount system processes and devices into the `root` filesystem:
+
 ----
 mount -o bind /dev /mnt/root/dev
 mount -o bind /proc /mnt/root/proc
@@ -61,114 +184,38 @@ mount -o bind /sys /mnt/root/sys
 mount -o bind /run /mnt/root/run
 ----
 
-. If you use EFI boot, you may also want to bind the efivars and the EFI system partition:
-+
+On UEFI systems, bind the efivars directory and mount the EFI system partition:
+
 ----
 mount -o bind /sys/firmware/efi/efivars /mnt/root/sys/firmware/efi/efivars
-mount <efi system partition> /mnt/root/boot/efi
+mount <efi_system_partition> /mnt/root/boot/efi
 ----
 
-. Change your filesystem into the one mounted under `/mnt/root`.
+Change your filesystem to the one mounted under `/mnt/root`:
+
+----
+chroot /mnt/root/
+----
+
+Re-install GRUB and re-generate the GRUB configuration file:
+
+* On UEFI systems, several packages are required:
 +
 ----
-chroot /mnt/root
+dnf reinstall shim-* grub2-efi-* grub2-common
+grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 ----
-
-== For Default Installation in BTRFS
-
-. Create the mount point for the root partition.
+* On BIOS systems, specify the disk where GRUB should be installed:
 +
 ----
-mkdir -p /mnt/
+grub2-install <disk>
+grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
 
-If you are using the default Fedora layout, there will be one `/dev/sda1`
-partition that holds the `/boot` directory and one `/dev/sda2` that holds the root file system.
+Sync and exit the chroot:
 
 ----
-mount /dev/sda2 /mnt
-mount /dev/sda1 /mnt/root/boot
+sync && exit
 ----
 
-. Change your filesystem into the one mounted under `/mnt/root`.
-+
-----
-chroot /mnt/root
-----
-
-IMPORTANT: Home Partition is mounted automatically under `/mnt/home`
-
-== For Default Installation in LUKS.
-
-. Make sure crypt module in use:
-+
-----
-sudo modprobe dm-crypt
-----
-
-. Find out which drive it was with the following command:
-+
-----
-sudo fdisk -l
-----
-
-You must mount `/dev/sda3 myvolume`
-
-. Use `cryptsetup`, device is accessible under `/dev/mapper/myvolume``
-+
-----
-sudo cryptsetup luksOpen /dev/sde3 myvolume
-----
-
-. Scan for LVM volumes and choose the right volume group name that you are looking for:
-+
-----
-sudo vgscan
-----
-
-. If it is eg. Fedora, activate it
-+
-----
-sudo vgchange -ay system
-----
-
-. Find out root volume
-+
-----
-sudo lvs
-----
-
-. Mount it with the following command:
-+
-----
-sudo mount /dev/system/root /mnt/
-----
-
-. To work in the volume use the following commands
-+
-----
-sudo mount --bind /dev /mnt/dev 
-sudo mount --bind /dev/pts /mnt/dev/pts
-sudo mount --bind /proc /mnt/proc
-sudo mount --bind /sys /mnt/sys
-sudo chroot /mnt
-----
-
-IMPORTANT: consider mounting `/boot` also.
-
-== Continue with the follow Procedure.
-
-. Regenerate the *GRUB2* configuration file and reinstall the bootloader 
-into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
-
-. Exit this temporary root filesystem.
-+
-----
-exit
-----
-
-. Your bootloader should be now restored. Reboot your computer to boot into your normal system.
-
-----
-systemctl reboot
-----
+Reboot the system.
