@@ -82,7 +82,7 @@ and edit `host all all 127.0.0.1/32 ident` to `host all all 127.0.0.1/32 md5`. T
 == Upgrade
 
 As you can see from the error message in my example, it is not a fresh
-installation, but an ugprade.
+installation, but an upgrade.
 
 ....
 Nov 14 11:45:56 mlich-lenovo.usersys.redhat.com postgresql-check-db-dir[2108]: An old version of the database format was found.
