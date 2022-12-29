@@ -1,0 +1,307 @@
+= Installing software from source
+Ramin Dehghan <ramind123@yahoo.co.uk>
+:revnumber: F30
+:revdate: 2019-05-50
+:category: Installation
+:tags: From Source
+
+// v2.0, 2019, 5, 30
+// :imagesdir: ./images
+
+[CAUTION]
+====
+This page has not yet been reviewed for technical accuracy for about 3 Years. This means any information on this page may be outdated or inaccurate. Reviews for technical accuracy are greatly appreciated. If you want to help, either edit it or open a ticket using the appropriate button on the right side below the banner.	
+====
+
+The purpose of this document is to give step by step instructions on installing software from source on Fedora.
+
+A particular software can be installed in many diiferent ways, however it is either limited to or should be installed by the recommended method found in your software's `README` file, `INSTALL` file, or documentation.
+
+For quick step-by-step insructions see the <<Summary>>.
+
+Often for a given program or package, there are many ways to install it. Make sure to read documentations to determine the easiest way possible to do so. I.e. often you can find a package repository which can be added to your package manager I.e.  _dnf_ and _yum_  and then installed using the package manager.
+
+These days it truly is rare to stumble upon a software which _requires_ to be installed from source. However it used to be the default method of installation. Some reasons to install from source in the modern day of package management include:
+
+. There is no other way.
+
+. Software limitaions, such as dependency issues.
+
+. Software is in test or beta stage.
+
+== Terminology
+
+Some important terms that we will use include:
+
+* *Source*: Refers to the source code of the program being installed.
+
+* *Build*: Involves invoking a build system which runs scripts to compile the source code.
+
+* *Dependency*: Other software required by a particular program or package to function correctly.
+
+* *Make tool*: The _make tool_ is a standard POSIX tool available on link:https://wikipedia.org/wiki/List_of_operating_systems#Unix_or_Unix-like[UNIX based systems] which reads the `makefile` and runs appropriate bash scripts to _build_ the software.
+
+* *`MAKEFILE` file*: This file is read by the _make tool_.
+
+* *Build system*: Refers to the particular collection of build tools a software is shipped with. A notable example which we will be examining in this document includes the link:https://wikipedia.org/wiki/GNU_Build_System#GNU_Automake[GNU Build System].
+
+* *`CONFIGURE` file*: This file is responsible to ensure compatability with your machine. It checks for any dependency and generates an appropriate `makefile`.
+
+* *Package*: Here we use _package_ to identify a set of utilities and software which combine to form one uniform program installed through a _package manager_. Most programs and software you use are indeed a package, but we shall use _software_ and _program_ interchangebly in the contex of this document. Note that outside our contex a package and program are *not* the same.
+
+* *Build tool*:  We shall refer to various build systems which run automated scripts to compile, build, and install or deploy software as _Build tools_. Some notable names include:
+
+** link:https://cmake.org/[*CMake*]: An open-source, cross-platform family of tools designed to build, test and package software.
+
+** link:https://www.gnu.org/software/make/[*GNU Make*]: A tool which controls the generation of executables and other non-source files of a program from the program's source files.
+
+== Before installing
+
+=== Step 1: Install a build tool
+
+This step can be avoided if you have a build tool and compiler installed.
+
+Naturally you need the tools to build and compile the source code. We will be mentioning the most common form of build systems which is the link:https://wikipedia.org/wiki/GNU_Build_System#GNU_Automake[GNU Build System].
+
+First things first:
+
+* Install the most common modern tools:
+
+[source, bash]
+    $ sudo dnf groupinstall "Development Tools"
+
+* Install the most common legacy tools:
+
+[source, bash]
+    $ sudo dnf groupinstall "C Development Tools"
+
+NOTE: _C Development Tools_ is not necessarily legacy and many *required* tools for modern development can be found in it. Also, often prgorams require some specific _devel_ utilities which are mostly available through the standard package manager, `dnf`.
+
+=== Step 2: Install dependencies
+
+Many programs often require other programs to work, for such programs they _depend_ on others to provide them with the neccesary tools.
+
+A good example of this is with link:https://wikipedia.org/wiki/Graphical_user_interface[_GUI_] software. Many GUI programs depend on a graphic framework to provide them with their functionality such as link:https://www.opengl.org/[OpenGL].
+
+Usually information about dependencies can be found in a package's `README` or documentation. However if you cannot obtain such a list of dependencies, there is a very common method to identify the needed dependencies discussed <<dependencies, here>>
+
+=== Step 3: Check for updates
+
+It is often the case where newer software have compatability issues with older software, such as when link:https://docs.python.org/3/[python3] dependant software get installed on a machine running link:https://docs.python.org/2/[python2]. Therefore it is recommended to check for updates on your machine before installing new software either through a GUI utility depending on your link:https://spins.fedoraproject.org/[spin] or a bash script using the `dnf` command:
+
+TIP: If you have a similar issue such as the `python` compatability issue mentioned above, you might have to separately install link:https://docs.python.org/3/[python3] since by definition python 2 and 3 are considered two separate packages.
+
+[source, bash]
+    $ sudo dnf update --refresh
+
+IMPORTANT: When installing graphics drivers such as link:https://www.nvidia.com/object/unix.html[Nvidia LLD], link:https://www.nvidia.com/object/unix.html[Nvidia GRD], or link:https://www.amd.com/en/support/kb/release-notes/rn-prorad-lin-18-20[AMD Radeon for Linux] *ALWAYS* check for updates, the linux kernel is a priority and installing a graphics driver on an old kernel is highly deprecated.
+
+== What is installing from source
+
+Installing from source is when a program is built locally and then installed. Often when downloading and installing software, they are precompiled for you, however as the name suggests installing from source is quite the opposite.
+
+== Different methods of installing software
+
+The most common ways software is distributed:
+
+* Distribution specific packages such as _RPMs_.
+* Graphical software management utilities such as GNOME's link:https://wiki.gnome.org/Apps/Software[software] and KDE's software center.
+* Distributed source code
+* Installer based `.run` files, such as some Nvidia drivers.
+
+See <<dnf.adoc#Using the DNF software package manager, here>> for more details about dnf and Fedora's pakage managment system.
+
+== The Basics
+
+We will see the basic structure of a distributed program intended to be installed as source, for our examples we will be using [[bookmark-pidgin]]link:https://pidgin.im/[pidgin] as an example.
+
+NOTE: Pidgin is recommended to be installed by fedora's package management system such as `dnf`. It is used here for demonstration purposes only.
+
+=== How does it look like?
+
+Since most software are composed of many modules, and furtheremore it contains it's assests such as the image used for it's icon, it is placed in a link:https://wikipedia.org/wiki/Tar_(computing)[tarball] archive. A _tarball_ is no different than any other archiving system, it store related files and folders in a compressed state.
+
+What you download, is usually a tarball, we can see this clearly with our _pidgin_ download! Here is what it looks like on our machine:
+
+[source, bash]
+----
+    $ ls
+    $ pidgin-2.13.0.tar.bz2
+----
+
+[[bookmark-tarball]]
+Let's go ahead and extract it:
+
+====
+Sometimes as with <<bookmark-pidgin, our example>> the distributor may have shipped the software with a slightly different archiving system such as a tar.bz2 or tar.
+Here are some alternatives and their methods of extraction:
+
+[cols="2", options="header"]
+|===
+|File Format
+|Command
+
+|_.tar.bz2_
+|tar xjf file.tar.bz2
+
+|_.tar_
+|tar xf file.tar
+
+|_.tar.gz_
+|tar -zxvf file.tar.gz
+
+|===
+
+====
+
+Where _file_ is the name of your file, in our example it results to:
+
+[source, bash]
+    $ tar -xjf pidgin-2.13.0.tar.bz2
+
+After doing so, a new directory is created with the extracted items.
+
+[source, bash]
+----
+    $ ls
+    $ pidgin-2.13.0.tar.bz2 pidgin-2.13.0
+----
+
+Let's now move to our extracted directory and continue.
+
+=== Dpendencies, Dependencies, Dependencies
+[[dependencies]]
+You might have ignored or passed by when we stated <<Step 2: Install dependencies, here>> that there is a common method of identifying your dependencies, however such method is highly recommended to resolve dependencies. The `./configure` is an executable which checks for any dependencies that are neccessary, and sets up the machine for compiling and installing the program. As mentioned before it also generates the `makefile`. If `./configure` notices any unresolved dependencies it tells you!
+
+After running `./configure` this is what we got:
+
+[source, bash]
+    $ configure: error: The intltool scripts were not found. Please install intltool.
+
+We would now have to install _intltool_ and run _configure_ again.
+
+TIP: link:https://www.freedesktop.org/wiki/Software/intltool/[intltool] is a common package to be required by many software. Having it installed is recommended.
+
+== Step 4: Configuring
+
+We have probably mentioned enough information about configuring your program <<dependencies, found mostly here>>. We shall now examine it in depth. The _configure_ file ensures for compatability with your system, and your compiler! An important task of _configure_ is to detect your compiler, and use a `makefile` template usually called "`Makefile.in`" and produce a customized makefile depending on your machine, compiler, and other factors. The newly generated Makefile is used for compiling the software.
+
+NOTE: If you have any preference on the tools you want the _Build System_ to use, use can pass them as a paramerter to `./configure`. I.e. if you want to use a particular compiler to compile the source code
+
+To configure your build environment - as mentioned before - run:
+
+[source, bash]
+    $ ./configure
+
+=== Customizing configure
+
+If you have any preferences, or you are installing on a particular system and want to build specific for that architecture the GNU standards state that _configure_ should be customizable. Therefore it is neccesary that we dive even deeper into the mechanics of the _configure_ system. The following are quoted from the link:https://www.gnu.org/prep/standards/html_node/Configuration.html[GNU website].
+
+.Mechanics of configure
+. Each GNU distribution should come with a shell script named configure. This script is given arguments which describe the kind of machine and system you want to compile the program for. The configure script must record the configuration options so that they affect compilation.
+. Another thing that configure can do is to edit the Makefile. If you do this, the distribution should not contain a file named Makefile. Instead, it should include a file Makefile.in which contains the input used for editing. Once again, this is so that people won’t be able to build the program without configuring it first.
+. The configure script should write a file named config.status which describes which configuration options were specified when the program was last configured. This file should be a shell script which, if run, will recreate the same configuration.
+. In addition, the ‘configure’ script should take options corresponding to most of the standard directory variables link:https://www.gnu.org/prep/standards/html_node/Directory-Variables.html#Directory-Variables[(see Directory Variables)]. Here is the list:
+
+[source, bash]
+----
+--prefix --exec-prefix --bindir --sbindir --libexecdir --sysconfdir
+--sharedstatedir --localstatedir --runstatedir
+--libdir --includedir --oldincludedir
+--datarootdir --datadir --infodir --localedir --mandir --docdir
+--htmldir --dvidir --pdfdir --psdir
+----
+
+For our purpose the last item is worth mentioning. The _configure_ script should take arguments which allow it to be customized to user settings. Full costomization can be achieved by setting _environment variables_, below we give an example of a common variable that can be set.
+
+[source, bash]
+----
+    $ CC=gcc ./configure
+----
+
+This command invokes _configure_ with the environment variable `CC` set to _gcc_ meaning that we want to use the link:https://gcc.gnu.org/[GNU Compiler Collection] to compile our build.
+
+However it is recommended to pass such customizations as arguments rather than setting the variable:
+
+[source, bash]
+----
+    $ ./configure CC=gcc
+----
+
+These arguments may be of use to some users, but for the majority it is safe to ignore them, for more detailed information see link:https://www.gnu.org/prep/standards/html_node/Configuration.html[here].
+
+== Step 5: Compiling
+
+The source code which you have obtained and extracted is nothing familiar to your computer! Often programs need to be _compiled_ into machine code or binary code, naught's and one's, after a softwares compilation, it is *usually* automatically linked into an executable. To compile our source code:
+
+[source, bash]
+    $ make
+
+`make` as simple it looks, acomplishes a lot of tasks. It invokes your compiler to process the source code and dependencies into an executable.
+
+.Compiling and linking diagram     -COMPILER, ASSEMBLER, LINKER AND LOADER: A BRIEF STORY (https://www.tenouk.com/ModuleW.html)
+[#img-compiling-and-instaling]
+[caption="Figure 1: ",link=https://www.tenouk.com/ModuleW_files/ccompilerlinker003.png]
+image::compile_and_link.png[compiling and linking, 675, 450]
+
+At this stage all the source code which was extracted, are compiled into multiple object files, then linked into a single executable file.
+
+== Step 6: Installing
+
+Doing an `ls` would indicate that many files have been added to our directory! These are the program itself, at this stage it is possible to run the program using the `./` prefix for the program. Now we need to install it so that it doesn't get changed or deleted, and most importantly to make it visible in the global terminal scope. In our example this is not valid:
+
+[source, bash]
+----
+    $ pidgin
+    $ bash: pidgin: command not found
+----
+
+Linux scans certain folders for an executable called the command you invoke it with, _pidgin_ in our example. The preferred directory for installing software is `/usr` and `etc` is used for configuration files, more detailed can be found <<finding-and-installing-linux-applications.adoc#_file_placement, here>>. Also when installing some applications at system wide scope, the `/opt` directory _can_ be used. In our case, no such executable called _pidgin_ was found in any of the mentioned directories and bash returned and error.
+
+To install a software, or simply put, to move the compiled executable into it's proper directory run the following command:
+
+[source, bash]
+    $ make install
+
+Again, `make install` is a simple comman to run, but neatly organizes the program into the appropriate directory. _make install_ is in fact a part of the _makefile_ and install simply invokes the install part of the more comprehensive make file. In theory a make file can be written to compile, install, and clean up it's temporaries all with one command but the standard approach is more modular and gives more control to the user.
+
+NOTE: the _./_ prefix simply tells bash that you want to search for the executable in your _current working directory_ instead of the default locations. Also note that in some cases you might need to run the _make install_ command as root, _sudo make install_.
+
+We can now easily run _pidgin_ from the terminal:
+
+[source, bash]
+    $ pidgin
+
+== Summary
+
+In short to install from source:
+
+. Check your documentation for details.
+. Extract the downloaded archive with `tar`, `ar`, or your preferred method.
+. change your _curent working directory_ to your newly extracted folder using `cd`.
+. Invoke the configure script to check for dependencies and generate a _makefile_ using `./configure`. Any options you want to set should be passed as arguments to _configure_, more discussed <<Step 4: Configuring, here>>.
+.. If _configure_ returns with an error, resolve the respective dependency and go back to step 4.
+. Invoke the _makefile_ to build the application using `make`.
+. Invoke another section of the _makefile_ to install the built software into the default location using `make install`. It may be required to be run with administrative privileges.
+
+CAUTION: Different <<Terminology, build systems>> use different commands, in this document we describe the widely used _GNU Build System_ as an example.
+
+And you have successfully installed the software, keep in mind however compiling source code, may take time dependeing on the application you are installing.
+
+== Q & A
+
+Common issues when installing from source:
+
+[qanda]
+No _configure_ file was provided with my program::
+    This used to be more common back when installing from source was the default method and a software was in early release or the program wasn't targetted at a large audience, however in such case you need to refer to your documentation and find how your build environment should be set up, and how you should compile the source.
+Running `make` keeps failing::
+    Although there is no definite solutions to this question, a common problem arises due to compatability issues. In simple terms, a program may not be compatible with your machine, compiler, or other systems. In which case there is nothing to do but let the developers or maintainers know.
+The build system returns a missing shared library error::
+    Shared libraries are a form of direct dependency which is required for a program to run. Often installing in an unsuall location may not give proper access to shared libraries on your machine to the program. In which case you have to specify the location of the shared libraries explicitly. See link:[here] for more information. Also, a particular shared library may be missing in which case you need to determine what it is and install it.
+
+== See Also
+
+For further information regarding software installation see:
+
+- <<dnf.adoc#Using the DNF software package manager, DNF>>

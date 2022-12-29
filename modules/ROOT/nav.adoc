@@ -38,6 +38,7 @@
 ** xref:assembly_installing-plugins-for-playing-movies-and-music.adoc[Installing plugins for playing movies and music]
 ** xref:openh264.adoc[OpenH264]
 ** xref:installing-chromium-or-google-chrome-browsers.adoc[Installing Chromium or Google Chrome browsers]
+** xref:installing-from-source.adoc[Installing Software from Source]
 ** xref:installing-spotify.adoc[Installing Spotify on Fedora]
 ** xref:installing-skype.adoc[Installing Skype on Fedora]
 
