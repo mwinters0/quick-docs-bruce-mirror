@@ -56,13 +56,21 @@ This printing is similar to driverless printing in matter of setting up a filter
 
 The downsides of this approach is to rely on 3rd party drivers, you need to always install a permanent queue for it and it will go away in the future.
 
-=== Printing raw data
+=== Raw queue
 
-No filters are started during this printing, the data are sent as they are to the target. This approach is usually used for printing to label printers, or, in the past, for printing to remote CUPS queue. The same as classic drivers, this solution is deprecated and it will be removed in the future.
+No filters are started by CUPS if you print to such a queue, the data are sent as they are to the target, no options are applied by CUPS - all regardless of incoming document format. It is required the application you use for printing sends a printer-ready data (in the correct format, with all chosen options applied) or the destination is set to the desired settings (f.e. printer/print server is set to do two-sided-long-edge duplex with grayscale settings, so every document printed will have this settings and user won't  be able to change it in an application).
+
+This approach is usually set for printing to older label printers via a specific application, or, in the past, for printing to remote CUPS queue. Because CUPS has no way how to provide common user experience (finding out printer properties, converting various document formats into a document format the printer accepts, setting printing options) for such queues, their usage is deprecated and it will be removed in the future (in CUPS 3.X).
+
+=== Raw printing
+
+Raw printing happens if CUPS receives a file in document format which printer accepts directly and CUPS recognizes the format based on rules from its MIME database. CUPS daemon doesn't start any filters for such a job (it might encapsulate options into IPP packet, if the connection with the printer is over IPP) with exception for PDFs, where the _pdftopdf_ filter is started to apply generic settings like scaling, rotation etc. Raw printing itself happens on print queues with classic driver and driverless print queues. This functionality stays with CUPS 3.X.
+
+The difference between raw printing and raw queue is the raw printing is a situation which happens if CUPS daemon gets a file in format which printer accepts, so the daemon does not spawn additional filters for such job (with PDF being an exception), and spawns filters for document formats, which are not acceptable by the printer directly, whereas the raw queue is a queue, which CUPS daemon does not spawn any filters in any circumstances, and behaves like a Unix pipeline.
 
 === Printer applications
 
-The binaries which provide support for older devices which aren't capable of complying to driverless standards. The core idea is they will be capable of accepting the old driver and then advertise itself as a device capable of driverless printing. Then the new CUPS will be able to see them and user will be able to print via them as if they were temporary queues. The currently available printer applications in Fedora are _ippeveprinter_ (a part of CUPS - see cups-printerapp package) and _lprint_ (provides support for devices which requires raw printing - mostly label printers). I'm planning to package https://www.msweet.org/pappl/[PAPPL], the library for creating printer applications, and https://github.com/OpenPrinting/ps-printer-app[ps-printer-app], a printer application for printers which support Postscript.
+The binaries which provide support for older devices which aren't capable of complying to driverless standards. The core idea is they will be capable of accepting the old driver and then advertise itself as a device capable of driverless printing. Then the new CUPS will be able to see them and user will be able to print via them as if they were temporary queues. The currently available printer applications in Fedora are _ippeveprinter_ (a part of CUPS - see cups-printerapp package) and _lprint_ (provides support for devices which requires raw printing - mostly label printers). Other printer applications like https://github.com/OpenPrinting/ps-printer-app[ps-printer-app], https://github.com/OpenPrinting/ghostscript-printer-app[ghostscript-printer-app], https://github.com/OpenPrinting/hplip-printer-app[hplip-printer-app] and https://github.com/OpenPrinting/gutenprint-printer-app[gutenprint-printer-app] are currently available as SNAPs until cups-filters 2.0 is released and packaged. Printer applications are, except for _ippeveprinter_, written using _PAPPL_ library, so such printer application provides CLI interface and Web Interface for users to interact with.
 
 === Driverless printing (USB)
 
