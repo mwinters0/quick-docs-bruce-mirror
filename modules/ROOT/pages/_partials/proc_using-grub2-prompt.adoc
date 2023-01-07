@@ -4,13 +4,6 @@
 If improperly configured, *GRUB2* may fail to load and subsequently drop
 to a boot prompt. To boot into the system, proceed as follows:
 
-. Load the XFS and LVM modules
-+
-----
-insmod xfs
-insmod lvm
-----
-
 . List the drives which *GRUB2* sees:
 +
 ----
@@ -37,28 +30,91 @@ ls (hd0,1)/
 +
 The outcome of the previous command will list the files on `/dev/sda1`. The partition that contains the `/boot` directory is the correct one. There you will search for the full names of the `vmlinuz` and `initramfs` files.
 
-. Set the root partition.
+. Pre-boot procedure for BTRFS filesystems.
++
+* On BIOS systems:
++
+Set *GRUB2* root to your boot partition. If your boot partition is `(hd0,msdos1)`, the command will be:
 +
 ----
-grub> set root=(hd0,3)
+set root=(hd0,msdos1)
+----
+Next, select the desired kernel. Set the root partition (e.g. `/dev/sda2`):
++
+----
+linux /vmlinuz-5.14.10-300.fc35.x86_64 root=/dev/sda2 ro rootflags=subvol=root
 ----
 +
-This command tells the bootloader, that the root partition is the third partition on the first drive. This would correspond to the `/dev/sda3` device.
 
-. Set the desired kernel.
+* On UEFI systems:
++
+Set *GRUB2* root to your EFI system partition. If your EFI partition is `(hd0,gpt1)`, the command will be:
 +
 ----
-grub> linux (hd0,1)/vmlinuz-3.0.0-1.fc16.i686 root=/dev/sda3 rhgb quiet selinux=0 
-# NOTE : add other kernel args if you need them
-# NOTE : change the numbers to match your system
+set root=(hd0,gpt1)
 ----
+Next, select the desired kernel. Find the path to `vmlinuz` and set the root partition (e.g. `/dev/sda3`):
++
+----
+linux (hd0,gpt2)/vmlinuz-5.14.10-300.fc35.x86_64 root=/dev/sda3 ro rootflags=subvol=root
+----
++
+Select the RAM filesystem that will be loaded:
++
+----
+initrd (hd0,gpt2)/initramfs-5.14.10-300.fc35.x86_64.img
+----
++
 
-. Set the desired `initrd`.
+. Pre-boot procedure for LVM filesystems.
++
+Load the `xfs` and `lvm` modules if they are not already loaded (check this with `lsmod`):
 +
 ----
-grub> initrd (hd0,1)/initramfs-3.0.0-1.fc16.i686.img
-# NOTE : change the numbers to match your system
+insmod xfs
+insmod lvm
 ----
++
+
+* On BIOS systems:
++
+Set *GRUB2* root to your boot partition. If your boot partition is `(hd0,msdos1)`, the command will be:
++
+----
+set root=(hd0,msdos1)
+----
+Next, select the desired kernel. Set `root` to the `lvm` corresponding to the root directory:
++
+----
+linux /vmlinuz-3.0.0-1.fc16.i686 root=/dev/mapper/fedora_localhost--live-root
+----
++
+Select the RAM filesystem that will be loaded:
++
+----
+initrd /initramfs-3.0.0-1.fc16.i686.img
+----
++
+
+* On UEFI systems:
++
+Set *GRUB2* root to your EFI system partition. If your EFI partition is `(hd0,gpt1)`, the command will be:
++
+----
+set root=(hd0,gpt1)
+----
+Next, select the desired kernel. Find the path to `vmlinuz` and set `root` to the `lvm` corresponding to the root directory:
++
+----
+linux (hd0,gpt2)/vmlinuz-3.0.0-1.fc16.i686 root=/dev/mapper/fedora_localhost--live-root
+----
++
+Select the RAM filesystem that will be loaded:
++
+----
+initrd (hd0,gpt2)/initramfs-3.0.0-1.fc16.i686.img
+----
++
 
 . Boot with the selected settings.
 +
