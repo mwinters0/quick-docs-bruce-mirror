@@ -174,11 +174,55 @@ Devices which require a HP close source binary plugin need to have plugin instal
 
 === USB printer/scanner doesn't work due a conflict on USB port
 
-*ipp-usb* daemon keeps the USB port of IPP-over-USB device opened for any possible IPP communication in the future, which blocks the port for other drivers (f.e. HPLIP, gutenprint, sane-backends...). For printers the solution is to _uninstall the queue with the driver_ and start using the one from *ipp-usb* (as a xref:cups-terminology.adoc#_temporary_print_queues[CUPS temporary queue] or install a permanent one - the default device uri is `ipp://localhost:60000/ipp/print`).
+*ipp-usb* daemon keeps the USB port of IPP-over-USB device opened for any possible IPP communication in the future, which blocks the port for other drivers (f.e. HPLIP, gutenprint, sane-backends...).
+
+For printers the solution is to _uninstall the queue with the driver_ by:
+
+----
+$ lpadmin -x <queue_name>
+----
+
+and start using the one from *ipp-usb* (as a xref:cups-terminology.adoc#_temporary_print_queues[CUPS temporary queue] or install a permanent one - the default device uri is `ipp://localhost:60000/ipp/print`).
 
 In case of scanners *sane-airscan* automatically picks up the virtual device from *ipp-usb* if the device is capable of using WSD or eSCL protocols. However, if the scanner had been supported by classic scanner driver such as hplip or sane-backends and is now claimed by *ipp-usb* because it supports *IPP-over-USB* driverless standard, the old scanner is still shown, but it won't work for scanning due USB conflict. It happens because classic backends just list any device which they can find on USB interfaces and matches the description the backend supports, but backends don't check whether they actually can communicate with the device until they try to open the USB port for scanning process itself. This becomes a problem for scanning applications, which automatically choose the previous scanner as a default choice for scanning (such as _Simple Scan_) - users have to pick a driverless scanner from the list of available scanners before they scan.
 
-If *ipp-usb* created device doesn't match your use case (the options you use are missing, the device doesn't work even if it is IPP-over-USB supported), please report the issue together with logs from [filename]`/var/log/ipp-usb/` directory at https://bugzilla.redhat.com[bugzilla]. *ipp-usb* itself supports quirks, which allows you to set the daemon to ignore your device and you can switch back to a classic driver. See [command]`man ipp-usb`.
+The scanner device discovered by classic SANE backends can be disabled from showing it among available scanners by commenting out its entry in backend's configuration file located in [filename]`/etc/sane.d` or the whole backend name in [filename]`/etc/sane.d/dll.conf`/[filename]`/etc/sane.d/dll.d`, f.e. Canon MF440 Series is reported by `pixma` and `airscan` backends, but only `airscan` works because it is a backend based on network protocol and USB interface is claimed by `ipp-usb`, so we will disable the `pixma` backend by commenting its line in [filename]`/etc/sane.d/dll.conf`:
+
+----
+$ cat /etc/sane.d/dll.conf
+...
+pint
+#pixma
+plustek
+...
+----
+
+If *ipp-usb* created device doesn't match your use case (the options you use are missing, the device doesn't work even if it is IPP-over-USB supported), please report the issue together with logs from [filename]`/var/log/ipp-usb/` directory at https://bugzilla.redhat.com[bugzilla]. *ipp-usb* itself supports quirks, which allows you to set the daemon to ignore your device and you can switch back to a classic driver. The steps are following:
+
+- get the device model name f.e. Canon MF440 Series:
+
+----
+$ sudo ipp-usb check
+Configuration files: OK
+IPP over USB devices:
+ Num  Device              Vndr:Prod  Model
+   1. Bus 001 Device 005  04a9:2823  "Canon MF440 Series"
+----
+
+- create a quirk file in [filename]`/etc/ipp-usb/quirks` directory in the format below:
+
+----
+$ cat /etc/ipp-usb/quirks/canon.conf
+[Canon MF440 Series]
+  blacklist = true
+----
+
+- restart the `ipp-usb` service:
+
+----
+$ sudo systemctl restart ipp-usb
+----
+
 
 == sane-airscan
 
