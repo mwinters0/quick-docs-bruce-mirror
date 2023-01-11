@@ -43,7 +43,7 @@ sudo mysql_secure_installation
 
 Then, answer the security questions as you prefer. or just say **yes** to all of them.
 
-== Using MYSQL
+== Using MySQL
 
 ----
 sudo mysql -u root -p

@@ -2,7 +2,7 @@
 
 For database management, it is more user-friendly to use graphical tools:
 
-- MySQL/Mariadb:
+- MySQL/MariaDB:
 
 ** phpMyAdmin.noarch : A web interface for MySQL and MariaDB
 

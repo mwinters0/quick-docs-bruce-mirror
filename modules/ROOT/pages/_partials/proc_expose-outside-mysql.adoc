@@ -1,4 +1,4 @@
-= How To Allow Remote Access MYSQL/MariaDB/MYSQL Community
+= How To Allow Remote Access MySQL/MariaDB/MYSQL Community
 
 == Add New Rule to Firewalld
 
@@ -24,8 +24,8 @@ systemctl restart firewalld.service
 
 Configuration files:
 
-* MySql           -> `/etc/my.cnf/` 
-* MySql Community -> `/etc/my.cnf.d/community-mysql-server.cnf`
+* MySQL           -> `/etc/my.cnf/` 
+* MySQL Community -> `/etc/my.cnf.d/community-mysql-server.cnf`
 * MariaDB         -> `/etc/my.conf`
 
 NOTE: you can ensure that with the following command `rpm -qc [package]`.

@@ -1,13 +1,13 @@
 [id='install-from-fedora-main-repo']
 = Install from Fedora Main Repo
 
-The community provide a MySql package in the main repo.
+The community provide a MySQL package in the main repo.
 
 ----
 sudo dnf install {community-mysql-server|mariadb-server}
 ----
 
-== Configuring MySql/MariaDB
+== Configuring MySQL/MariaDB
 
 Enable the service at boot and start:
 
@@ -36,7 +36,7 @@ At this point you can verify that the available RPM provides the 10.4 verison of
 dnf list mariadb-server
 ----
 
-To install mariadb server:
+To install MariaDB server:
 
 ----
 sudo dnf module install mariadb/server

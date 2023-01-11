@@ -18,7 +18,7 @@ At this point you can verify that the available RPM provides the 10.4 verison of
 $ dnf list mariadb-server
 ----
 
-To install mariadb server:
+To install MariaDB server:
 
 ----
 $ sudo dnf module install mariadb/server

@@ -13,7 +13,7 @@ podman pull {mysql/mysql-server|mariadb/server}
 podman logs {mysql|mariadb}
 ----
 
-== Starting a MYSQL Server Instance
+== Starting a MySQL Server Instance
 
 The command's below contain the random password generated for the root user;
 
@@ -47,7 +47,7 @@ you must reset the server root password by issuing this statement:
 mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';                            
 ----
 
-== Connecting to Mariadb Server from within the Container
+== Connecting to MariaDB Server from within the Container
 
 ----
 podman exec -it mariadb bash
