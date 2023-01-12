@@ -50,11 +50,6 @@ sudo dnf module install mariadb:10.4/client
 ----
 
 * MariaDB default root password is empty.
-* find Default Password, For security reasons, MySQL generates a temporary root key. Please
-
-----
-sudo grep 'temporary password' /var/log/mysqld.log 
-----
 
 == Configuring SQL before the first use
 
