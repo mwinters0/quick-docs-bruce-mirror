@@ -1,10 +1,8 @@
-:experimental:
-ifdef::context[:parent-context: {context}]
-:context: fonts
 
-[[fonts]]
 = Adding new fonts in Fedora
-:toc:
+The Fedora Docs Team; Peter Boy 
+:revnumber: F36,F37
+:revdate: 2023-01-12
 
 Fedora pre-installs several basic fonts by default.
 This page explains how to add new fonts to a Fedora installation.
@@ -46,10 +44,12 @@ Many fonts are available from the RPM Fusion repository.
 To enable the repository on your system, follow xref:setup_rpmfusion.adoc[these instructions].
 
 List all available font packages from enabled repositories::
-`dnf search fonts`
+[source,]
+[…]$ dnf search fonts
 
 Install the font package you need::
-`sudo dnf install libreoffice-opensymbol-fonts`
+[source,]
+[…]$ sudo dnf install libreoffice-opensymbol-fonts
 
 
 [[unpackaged]]
@@ -57,7 +57,7 @@ Install the font package you need::
 
 In many cases, you may want to use a specific font that is not available in Fedora or is not made available under https://freedomdefined.org/Definition[Free Culture] licenses.
 
-[WARNING]
+[IMPORTANT]
 ====
 Unpackaged fonts are not managed by a package manager.
 You will not automatically receive updates or optimizations.
@@ -70,19 +70,24 @@ If a font is provided by a distribution package, you should always use a package
 System fonts are installed for all users.
 Anyone with an account on the machine will be able to use these fonts.
 
-Create a new directory `/usr/local/share/fonts/<font-family-name>/` for the new font family::
-`sudo mkdir -p /usr/local/share/fonts/robofont`
-
-Copy font files (e.g. `.ttf` files) to the new directory::
-`sudo cp ~/Downloads/robofont.ttf /usr/local/share/fonts/robofont`
+Create a new directory in the system fonts directory (`/usr/local/share/fonts/`) to accommodate the new font family, and copy the downloaded fonts (e.g. robofont.ttf files)::
+[source,]
+----
+[…]$ sudo mkdir -p /usr/local/share/fonts/robofont
+[…]$ sudo cp ~/Downloads/robofont.ttf /usr/local/share/fonts/robofont/
+----
 
 Set permissions and update SELinux labels::
-`sudo chown -R root: /usr/local/share/fonts/robofont`
-`sudo chmod 644 /usr/local/share/fonts/robofont/*`
-`sudo restorecon -RF /usr/local/share/fonts/robofont`
+[source,]
+----
+[…]$ sudo chown -R root: /usr/local/share/fonts/robofont
+[…]$ sudo chmod 644 /usr/local/share/fonts/robofont/*
+[…]$ sudo restorecon -vFr /usr/local/share/fonts/robofont
+----
 
 Update the font cache::
-`sudo fc-cache -v`
+[source,]
+[…]$ sudo fc-cache -v
 
 [[user-fonts]]
 === User fonts
@@ -134,13 +139,13 @@ If you prefer a command line interface, you can install user fonts manually.
 Follow these steps in a terminal window to install a font locally:
 
 Create a new directory `~/.local/share/fonts/<font-family-name>/` for the new font family::
-`mkdir -p ~/.local/share/fonts/robofont`
+[source,]
+[…]$ mkdir -p ~/.local/share/fonts/robofont
 
 Copy font files (e.g. `.ttf` files) to the new directory::
-`cp ~/Downloads/robofont.ttf ~/.local/share/fonts/robofont`
+[source,]
+[…]$ cp ~/Downloads/robofont.ttf ~/.local/share/fonts/robofont
 
 Update the font cache::
-`fc-cache -v`
-
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+[source,]
+[…]$ fc-cache -v 
