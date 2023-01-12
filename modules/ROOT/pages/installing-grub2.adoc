@@ -4,9 +4,15 @@ ifdef::context[:parent-context: {context}]
 
 
 = Bootloading with *GRUB2*
-[[bootloading-with-grub2]]
 
-include::{partialsdir}/unreviewed-message.adoc[]
+
+// include::{partialsdir}/unreviewed-message.adoc[]
+[IMPORTANT]
+====
+**Editor's Note** 
+
+This page is currently in the process of revision. If you find any weaknesses in the content, please let us know. Use the right button below the blue header banner.
+====
 
 *GRUB2* is the latest version of *GNU GRUB*, the _GRand Unified Bootloader_.
 A bootloader is the first software program that runs when a computer
