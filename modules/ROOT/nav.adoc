@@ -1,4 +1,4 @@
-* xref:contribute-to-quick-docs.adoc[Contribute to Quick Docs]
+* xref:contribute-to-quick-docs.adoc[Contribute to Quick Docs]AutoUp
 
 * xref:bugzilla/index.adoc[Bugs]
 ** xref:howto-file-a-bug.adoc[How to file a bug]
@@ -72,6 +72,8 @@
 ** xref:samba.adoc[How to create a Samba share]
 ** xref:join-active-directory-freeipa.adoc[How to join an Active Directory or FreeIPA domain]
 ** xref:using-yubikeys.adoc[Using Yubikeys with Fedora]
+** xref:debug-systemd-problems.adoc[How to debug systemd problems]
+
 
 ** NVIDIA
 *** xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]
@@ -102,7 +104,6 @@
 ** xref:creating-windows-virtual-machines-using-virtio-drivers.adoc[Creating Windows virtual machines using virtIO drivers]
 ** xref:how-to-use-vmware.adoc[How to use VMware products]
 
-//FIXME * xref:debug-systemd-problems.adoc[How to debug systemd problems]
 //FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems] - note: maintained on wiki, does not fit quick-docs IMHO
 //FIXME * xref:fedora-life-cycle.adoc[Fedora Release Life Cycle] - note: maintained on wiki, does not fit quick-docs IMHO
 //FIXME * xref:enable-touchpad-click.adoc[How to enable touchpad click]

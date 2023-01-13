@@ -1,145 +1,113 @@
 = How to debug systemd problems
+Caleb McKee; Petr Bokoc; Peter Boy
+:revnumber: F32
+:revdate: 2020-04-10
+:category: Troubleshooting
+:tags: systemd
 
-'''
+If you are experiencing a problem with system boot-up due to xref:understanding-and-administering-systemd.adoc[systemd], please see the link:Bugs/Common[commonbugs] document before filing a bug. Some easy configuration tweaks that fix a wide range of issues may be listed there. If the problem you are seeing is not listed there or none of the workarounds seem to help, please consider filing a bug to help us make Fedora run better on your hardware.
 
-[IMPORTANT]
-======
+[TIP]
+====
+Have a look at the upstream project's  link:http://freedesktop.org/wiki/Software/systemd/Debugging[helpful documentation] on the topic. 
+====
 
-This page was automatically converted from https://fedoraproject.org/wiki/How_to_debug_systemd_problems
 
-It is probably
-
-* Badly formatted
-* Missing graphics and tables that do not convert well from mediawiki
-* Out-of-date
-* In need of other love
-
-Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
-
-Once you've fixed this page, remove this notice, and update
-[filename]`modules/ROOT/nav.adoc`.
-
-Once the document is live, go to the original wiki page and replace its text
-with the following macro:
-
-....
-{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
-....
-
-======
-
-'''
-
-include::{partialsdir}/unreviewed-message.adoc[]
-
-*Foreword*
-
-If you are experiencing a problem with system boot up due to systemd,
-please see the link:Bugs/Common[common bugs] document before filing a
-bug. Some easy configuration tweaks that fix a wide range of issues may
-be listed there. If the problem you are seeing is not listed there or
-none of the workarounds seem to help, please consider filing a bug to
-help us make Fedora run better on your hardware.
-
-[[debugging-systemd-problems]]
-Debugging systemd problems
---------------------------
 
 [[various-useful-systemd-related-commands]]
-Various useful systemd related commands
----------------------------------------
+== Various useful systemd related commands
 
-* Run `systemctl list-jobs`
+* List all jobs that are "running" or "waiting". This command can be used to identify causes of a slow boot. The boot process waits for "running" jobs to complete. Jobs listed as "waiting" will only be executed after "running" jobs have completed.
++
+[source,bash]
+----
+[…]# systemctl list-jobs
+----
 
-To identify slow boot and look for the jobs that are "running" those
-jobs are the ones where boot waits for completion on and the ones that
-listed as "waiting" will be executed only after those which are
-"running" are completed.
+* List all available services and their current status
++
+[source,bash]
+----
+[…]# systemctl list-units -t service --all
+----
 
-* Run `systemctl list-units -t service --all`
 
-To list all available services and their current status
+* Show all active services
++
+[source,bash]
+----
+[…]# systemctl list-units -t service
+----
 
-* Run `systemctl list-units -t service`
 
-To show all active services
+* Examine the current runtime status of a service. (In this example the ssh service)
++
+[source,bash]
+----
+[…]# systemctl status sshd.service
+----
 
-* Run `systemctl status sshd.service`
 
-To examine the current runtime status of a service. (In the above
-example the ssh service)
+* Show all available targets.
++
+[source,bash]
+----
+[…]# systemctl list-units -t target --all
+----
 
-* Run `systemctl list-units -t target --all`
 
-To show all available targets.
+* Show all active targets.
++
+[source,bash]
+----
+[…]# systemctl list-units -t target
+----
 
-* Run `systemctl list-units -t target`
 
-To show all active targets.
-
-* Run `systemctl show -p "Wants" multi-user.target`
-
-To see which services a target pulls in. ( In the above example the
+* Display which services a target pulls in. ( In this example the
 multi-user.target )
++
+[source,bash]
+----
+[…]# systemctl show -p "Wants" multi-user.target
+----
 
-* Run
-  `/usr/lib/systemd/systemd --test --system --unit=multi-user.target`
 
-To examine what gets started when when booted into a specific target. (
-In the above example the multi-user.target )
+* Examine what gets started when booted into a specific target. (in this example the multi-user.target)
++
+[source,bash]
+----
+[…]# /usr/lib/systemd/systemd --test --system --unit=multi-user.target
+----
+
 
 [[systemd-boot-parameters]]
-systemd boot parameters
------------------------
+== Various useful systemd boot parameters
 
 The following boot parameters are also available to further assist with
 debugging boot issues.
 
-systemd.unit= : Overrides the unit to activate on boot. This may be used
-to temporarily boot into a different boot unit, for example
-rescue.target or emergency.target. ( Defaults to default.target. )::
+systemd.unit=:: Overrides the unit to activate on boot. This may be used to temporarily boot into a different boot unit, for example `rescue.target` or `emergency.target`. Defaults to `default.target`.
 
-systemd.dump_core= : Takes a boolean argument. If true systemd dumps
-core when it crashes. Otherwise no core dump is created. ( Defaults to
-true )::
+systemd.dump_core=:: Takes a boolean argument. If true, systemd dumps the core when it crashes. Otherwise no core dump is created. Defaults to true.
 
-systemd.crash_shell= : Takes a boolean argument. If true systemd spawns
-a shell when it crashes. Otherwise no core dump is created. Defaults to
-false, for security reasons, as the shell is not protected by any
-password authentication.::
+systemd.crash_shell=:: Takes a boolean argument. If true, systemd spawns a shell when it crashes. Otherwise no core dump is created. Defaults to false, for security reasons, as the shell is not protected by any password authentication.
 
-systemd.crash_chvt= :Takes an integer argument. If positive systemd
-activates the specified virtual terminal when it crashes. ( Defaults to
--1 )::
+systemd.crash_chvt=:: Takes an integer argument. If positive, systemd activates the specified virtual terminal when it crashes. Defaults to -1.
 
-systemd.confirm_spawn= : Takes a boolean argument. If true asks for
-confirmation when spawning processes. ( Defaults to false )::
+systemd.confirm_spawn=:: Takes a boolean argument. If true, asks for confirmation when spawning processes. Defaults to false.
 
-systemd.show_status= : Takes a boolean argument. If true shows terse
-service status updates on the console during bootup. ( Defaults to true
-)::
+systemd.show_status=:: Takes a boolean argument. If true, shows terse service status updates on the console during bootup. Defaults to true.
 
-systemd.sysv_console= : Takes a boolean argument. If true output of SysV
-init scripts will be directed to the console. ( Defaults to true, unless
-quiet is passed as kernel command line option in which case it defaults
-to false. )::
+systemd.sysv_console=::  Takes a boolean argument. If true, output of SysV init scripts will be directed to the console. Defaults to true, unless quiet is passed as kernel command line option in which case it defaults to false.
 
-systemd.log_target= : Set log target. Argument must be one of console,
-syslog, kmsg, syslog-or-kmsg, null.::
+systemd.log_target=:: Sets the log target. Argument must be console, syslog, kmsg, yslog-or-kmsg, or null.
 
-systemd.log_level= : Set log level. As argument this accepts a numerical
-log level or the well-known syslog symbolic names (lowercase): emerg,
-alert, crit, err, warning, notice, info, debug.::
+systemd.log_level=::  Sets the log level. This command accepts a numerical log level or the well-known syslog symbolic names (lowercase): emerg, alert, crit, err, warning, notice, info, debug as an argument.
 
-systemd.log_color= : Highlight important log messages. Argument is a
-boolean value. If the argument is omitted it defaults to true.::
+systemd.log_color=:: Highlights important log messages. Argument is a boolean value. If the argument is omitted, it defaults to true.
 
-systemd.log_location= : Include code location in log messages. This is
-mostly relevant for debugging purposes. Argument is a boolean value. If
-the argument is omitted it defaults to true.::
+systemd.log_location=:: Includes code location in log messages. This is mostly relevant for debugging purposes. Argument is a boolean value. If the argument is omitted it defaults to true.
 
-Category:Debugging[D] Category:How_to[Category:How to]
-'''
 
-See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
+See a typo, something missing or out of date, or anything else which can be improved? Edit this document or provide a comment using the buttons above on the right side below gthe blue header banner. 
