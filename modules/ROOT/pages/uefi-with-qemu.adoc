@@ -1,128 +1,83 @@
 = Using UEFI with QEMU
+Cole Robinson; Caleb McKee; Petr Bokoc
+:revnumber: F32
+:revdate: 2020-04-10
+:category: Virtualization
+:tags: QA
 
-'''
-
-[IMPORTANT]
-======
-
-This page was automatically converted from https://fedoraproject.org/wiki/Using_UEFI_with_QEMU
-
-It is probably
-
-* Badly formatted
-* Missing graphics and tables that do not convert well from mediawiki
-* Out-of-date
-* In need of other love
-
-
-Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
-
-Once you've fixed this page, remove this notice, and update
-[filename]`modules/ROOT/nav.adoc`.
-
-Once the document is live, go to the original wiki page and replace its text
-with the following macro:
-
-....
-{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
-....
-
-======
-
-'''
-
-include::{partialsdir}/unreviewed-message.adoc[]
 
 [[firmware-installation]]
-Firmware installation
----------------------
+== Firmware installation
 
-UEFI for x86 QEMU/KVM VMs is called OVMF (Open Virtual Machine
-Firmware). It comes from EDK2 (EFI Development Kit), which is the UEFI
-reference implementation.
+UEFI for x86 QEMU/KVM VMs is called OVMF (Open Virtual Machine Firmware). It comes from EDK2 (EFI Development Kit), which is the UEFI reference implementation.
 
 [[installing-uefi-for-qemu-from-fedora-repos]]
-Installing 'UEFI for QEMU' from Fedora repos
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== Installing 'UEFI for QEMU' from Fedora repos
 
-Since June 2016, OVMF is available in Fedora repositories. All you need
-to have installed is `edk2-ovmf` RPM. Furthermore, it should be now a
-dependency of the package, so you probably have it installed already.
-This includes firmware for secureboot (`OVMF_CODE.secboot.fd`)
+Since June 2016, OVMF is available in Fedora repositories. All you need to have installed is `edk2-ovmf` RPM. Furthermore, it should be now a dependency of the package, so you probably have it installed already. This includes firmware for secureboot (`OVMF_CODE.secboot.fd`)
 
 [[installing-uefi-for-qemu-nightly-builds]]
-Installing 'UEFI for QEMU' nightly builds
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== Installing 'UEFI for QEMU' nightly builds
 
-Gerd Hoffmann, Red Hatter and QEMU developer, has a dnf repo on his
-personal site that provides nightly builds of a whole bunch of QEMU/KVM
-firmware, including EDK2/OVMF.
+Gerd Hoffmann, Red Hatter and QEMU developer, has a dnf repo on his personal site that provides nightly builds of a whole bunch of QEMU/KVM firmware, including EDK2/OVMF.
 
 Here's how to pull down the nightly builds for x86:
 
-` sudo dnf install dnf-plugins-core` +
-` sudo dnf config-manager --add-repo `http://www.kraxel.org/repos/firmware.repo[`http://www.kraxel.org/repos/firmware.repo`] +
-` sudo dnf install edk2.git-ovmf-x64`
+[source,bash]
+----
+[…]# sudo dnf install dnf-plugins-core
+[…]# sudo dnf config-manager --add-repo http://www.kraxel.org/repos/firmware.repo
+[…]# sudo dnf install edk2.git-ovmf-x64
+----
 
 Note, these are nightly builds, and may occasionally be broken.
 
 [[optionally-configure-libvirtd-to-advertise-uefi-support]]
-Optionally Configure libvirtd to advertise UEFI support
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== Optionally Configure libvirtd to advertise UEFI support
 
-Libvirt needs to know about UEFI->NVRAM config file mapping, so it can
-advertise it to tools like virt-manager/virt-install. On Fedora 22 and
-later, libvirt packages are configured to look for the nightly build
-paths, so this will work out of the box.
+Libvirt needs to know about UEFI->NVRAM config file mapping, so it can advertise it to tools like virt-manager/virt-install. On Fedora 22 and later, libvirt packages are configured to look for the nightly build paths, so this will work out of the box.
 
-However, if you want to use custom binaries, you will need to edit the
-nvram variable in /etc/libvirt/qemu.conf and restart libvirtd.
+However, if you want to use custom binaries, you will need to edit the `nvram` variable in `/etc/libvirt/qemu.conf` and restart libvirtd.
 
 [[creating-a-vm]]
-Creating a VM
--------------
+== Creating a VM
 
 [[virt-manager]]
-virt-manager
-~~~~~~~~~~~~
+=== virt-manager
 
 Create a new VM in virt-manager. When you get to the final page of the
 'New VM' wizard, do the following:
 
-* Click 'Customize before install', then select 'Finish'
-* On the 'Overview' screen, Change the 'Firmware' field to select the
-  'UEFI x86_64' option.
-* Click 'Begin Installation'
+* Click "Customize before install", then select "Finish"
+* On the "Overview" screen, change the "Firmware" field to select the "UEFI x86_64" option.
+* Click "Begin Installation"
 * The boot screen you'll see should use `linuxefi` commands to boot the
   installer, and you should be able to run `efibootmgr` inside that
   system, to verify that you're running an UEFI OS.
 
 [[virt-install]]
-virt-install
-~~~~~~~~~~~~
+=== virt-install
 
 Add `--boot uefi` to your `virt-install` command. Example:
 
-` sudo virt-install --name f20-uefi \` +
-`   --ram 2048 --disk size=20 \` +
-`   --boot uefi \` +
-`   --location `https://dl.fedoraproject.org/pub/fedora/linux/releases/22/Workstation/x86_64/os/[`https://dl.fedoraproject.org/pub/fedora/linux/releases/22/Workstation/x86_64/os/`]
+[source,bash]
+----
+sudo virt-install --name f20-uefi \
++   --ram 2048 --disk size=20 \
++   --boot uefi \
++   --location https://dl.fedoraproject.org/pub/fedora/linux/releases/22/Workstation/x86_64/os/
++ 
+----
 
 [[testing-secureboot-in-a-vm]]
-Testing Secureboot in a VM
---------------------------
+== Testing Secureboot in a VM
 
-These steps describe how to test Fedora Secureboot support inside a KVM
-VM. The audience here is QA folks that want to test secureboot, and any
-other curious parties. This requires configuring the VM to use UEFI, so
-it builds upon the previous UEFI steps.
+These steps describe how to test Fedora Secureboot support inside a KVM VM. The audience here is QA folks that want to test secureboot, and any other curious parties. This requires configuring the VM to use UEFI, so it builds upon the previous UEFI steps.
 
 [[run-enrolldefaultkeys.efi]]
-Run EnrollDefaultKeys.efi
-~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Run EnrollDefaultKeys.efi
 
-(Formerly this article recommended the independent utility
-"LockDown_ms.efi".)
+(Formerly this article recommended the independent utility "LockDown_ms.efi".)
 
 Since OVMF doesn't ship with any SecureBoot keys installed, we need to
 install some to mimic what an MS certified UEFI machine will ship with.
@@ -139,8 +94,7 @@ CD-ROM image and it should boot into the UEFI shell. At the prompt
   is now enabled for every subsequent boot.
 
 [[testing-fedora-cddvd-secure-boot-in-a-vm]]
-Testing Fedora CD/DVD Secure Boot in a VM
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Testing Fedora CD/DVD Secure Boot in a VM
 
 Once you have a secureboot configured VM as described above, it's easy
 to use this to test ISO media secureboot support.
@@ -152,23 +106,17 @@ to use this to test ISO media secureboot support.
   checking dmesg
 
 [[notes]]
-Notes
------
+== Notes
 
 [[using-uefi-with-aarch64-vms]]
-Using UEFI with AArch64 VMs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Using UEFI with AArch64 VMs
 
-link:Architectures/ARM/AArch64[Fedora's AArch64 releases] will only run
-on UEFI, so require UEFI inside the VM. However the steps are slightly
-different. See this page for complete documentation:
+Fedora's AArch64 releases will only run on UEFI, so require UEFI inside the VM. However the steps are slightly different. See this page for complete documentation:
 https://fedoraproject.org/wiki/Architectures/AArch64/Install_with_QEMU
 
 [[extra-links]]
-Extra links
------------
+== Extra links
 
-* QA:Testcase_Virtualization_UEFI[QA:Testcase Virtualization UEFI]
 * http://www.linux-kvm.org/page/OVMF[KVM wiki OVMF page]
 * https://wiki.ubuntu.com/SecurityTeam/SecureBoot[Ubuntu secureboot
   page]
@@ -176,9 +124,3 @@ Extra links
   secureboot page]
 * http://www.labbott.name/blog/2016/09/15/secure-ish-boot-with-qemu/[Using
   SecureBoot with QEMU]
-
-Category:Virtualization Category:QA
-'''
-
-See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
