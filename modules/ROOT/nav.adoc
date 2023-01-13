@@ -107,7 +107,6 @@
 //FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems] - note: maintained on wiki, does not fit quick-docs IMHO
 //FIXME * xref:fedora-life-cycle.adoc[Fedora Release Life Cycle] - note: maintained on wiki, does not fit quick-docs IMHO
 
-//FIXME * xref:mirroring.adoc[Mirroring]
 //FIXME * xref:uefi-with-qemu.adoc[Using UEFI with QEMU]
 
 
