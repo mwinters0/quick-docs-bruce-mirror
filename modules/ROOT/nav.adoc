@@ -73,7 +73,7 @@
 ** xref:join-active-directory-freeipa.adoc[How to join an Active Directory or FreeIPA domain]
 ** xref:using-yubikeys.adoc[Using Yubikeys with Fedora]
 ** xref:debug-systemd-problems.adoc[How to debug systemd problems]
-
+** xref:enable-touchpad-click.adoc[How to enable touchpad click]
 
 ** NVIDIA
 *** xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]
@@ -106,7 +106,7 @@
 
 //FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems] - note: maintained on wiki, does not fit quick-docs IMHO
 //FIXME * xref:fedora-life-cycle.adoc[Fedora Release Life Cycle] - note: maintained on wiki, does not fit quick-docs IMHO
-//FIXME * xref:enable-touchpad-click.adoc[How to enable touchpad click]
+
 //FIXME * xref:mirroring.adoc[Mirroring]
 //FIXME * xref:uefi-with-qemu.adoc[Using UEFI with QEMU]
 
