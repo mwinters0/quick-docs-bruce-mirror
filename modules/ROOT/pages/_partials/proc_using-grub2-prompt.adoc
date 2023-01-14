@@ -2,12 +2,14 @@
 [[using-the-grub-2-boot-prompt]]
 
 If improperly configured, *GRUB2* may fail to load and subsequently drop
-to a boot prompt. To boot into the system, proceed as follows:
+to a boot prompt. To boot into the system, follow the steps below.
+
+.Procedure
 
 . List the drives which *GRUB2* sees:
 +
 ----
-grub2> ls
+grub> ls
 ----
 
 . Examine the output to understand the partition table of the `/dev/sda` device. The following example shows a DOS partition table with three partitions:
@@ -25,85 +27,94 @@ A GPT partition table of the `/dev/sda` device with four partitions could look l
 . Probe each partition of the drive and locate your `vmlinuz` and `initramfs` files.
 +
 ----
-ls (hd0,1)/ 
+grub> ls (hd0,1)/
 ----
 +
 The outcome of the previous command will list the files on `/dev/sda1`. The partition that contains the `/boot` directory is the correct one. There you will search for the full names of the `vmlinuz` and `initramfs` files.
 
-. Pre-boot procedure for BTRFS filesystems.
+. Follow the <<btrfs-boot-setup, Pre-boot setup for BTRFS>> (Fedora 33 or newer) or the <<lvm-boot-setup, Pre-boot setup for LVM>> (older than Fedora 33) to recover your system.
+
+. After the pre-boot setup, boot the system.
 +
+----
+grub> boot
+----
+
+. To restore the bootloader's functionality, regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
+
+[[btrfs-boot-setup]]
+== Pre-boot setup for BTRFS filesystems.
+
 * On BIOS systems:
 +
-Set *GRUB2* root to your boot partition. If your boot partition is `(hd0,msdos1)`, the command will be:
+Set *GRUB2* root to your `/boot` partition. If your `/boot` partition is `(hd0,msdos1)`, the command will be:
 +
 ----
-set root=(hd0,msdos1)
+grub> set root=(hd0,msdos1)
 ----
-Next, select the desired kernel. Set the root partition (e.g. `/dev/sda2`):
+Next, select the desired kernel. Set the `/root` partition (e.g. `/dev/sda2`):
 +
 ----
-linux /vmlinuz-5.14.10-300.fc35.x86_64 root=/dev/sda2 ro rootflags=subvol=root
+grub> linux /vmlinuz-5.14.10-300.fc35.x86_64 root=/dev/sda2 ro rootflags=subvol=root
 ----
 +
 
 * On UEFI systems:
 +
-Set *GRUB2* root to your EFI system partition. If your EFI partition is `(hd0,gpt1)`, the command will be:
+Set *GRUB2* root to your EFI system partition. If your EFI system partition is `(hd0,gpt1)`, the command will be:
 +
 ----
-set root=(hd0,gpt1)
+grub> set root=(hd0,gpt1)
 ----
-Next, select the desired kernel. Find the path to `vmlinuz` and set the root partition (e.g. `/dev/sda3`):
+Next, select the desired kernel. Find the path to `vmlinuz` and set the `/root` partition (e.g. `/dev/sda3`):
 +
 ----
-linux (hd0,gpt2)/vmlinuz-5.14.10-300.fc35.x86_64 root=/dev/sda3 ro rootflags=subvol=root
+grub> linux (hd0,gpt2)/vmlinuz-5.14.10-300.fc35.x86_64 root=/dev/sda3 ro rootflags=subvol=root
 ----
 +
 Select the RAM filesystem that will be loaded:
 +
 ----
-initrd (hd0,gpt2)/initramfs-5.14.10-300.fc35.x86_64.img
+grub> initrd (hd0,gpt2)/initramfs-5.14.10-300.fc35.x86_64.img
 ----
-+
 
-. Pre-boot procedure for LVM filesystems.
-+
+[[lvm-boot-setup]]
+== Pre-boot setup for LVM filesystems.
+
 Load the `xfs` and `lvm` modules if they are not already loaded (check this with `lsmod`):
-+
 ----
-insmod xfs
-insmod lvm
+grub> insmod xfs
+grub> insmod lvm
 ----
-+
 
 * On BIOS systems:
 +
-Set *GRUB2* root to your boot partition. If your boot partition is `(hd0,msdos1)`, the command will be:
+Set *GRUB2* root to your `/boot` partition. If your `/boot` partition is `(hd0,msdos1)`, the command will be:
 +
 ----
-set root=(hd0,msdos1)
+grub> set root=(hd0,msdos1)
 ----
-Next, select the desired kernel. Set `root` to the `lvm` corresponding to the root directory:
+Next, select the desired kernel. Set `root` to the logical volume that corresponds to the `/root` directory:
 +
 ----
-linux /vmlinuz-3.0.0-1.fc16.i686 root=/dev/mapper/fedora_localhost--live-root
+grub> linux /vmlinuz-3.0.0-1.fc16.i686 root=/dev/mapper/fedora_localhost--live-root
 ----
 +
 Select the RAM filesystem that will be loaded:
 +
 ----
-initrd /initramfs-3.0.0-1.fc16.i686.img
+grub> initrd /initramfs-3.0.0-1.fc16.i686.img
 ----
 +
 
 * On UEFI systems:
 +
-Set *GRUB2* root to your EFI system partition. If your EFI partition is `(hd0,gpt1)`, the command will be:
+Set *GRUB2* root to your EFI system partition. If your EFI system partition is `(hd0,gpt1)`, the command will be:
 +
 ----
 set root=(hd0,gpt1)
 ----
-Next, select the desired kernel. Find the path to `vmlinuz` and set `root` to the `lvm` corresponding to the root directory:
+Next, select the desired kernel. Find the path to `vmlinuz` and set `root` to the logical volume that corresponds to the `/root` directory:
 +
 ----
 linux (hd0,gpt2)/vmlinuz-3.0.0-1.fc16.i686 root=/dev/mapper/fedora_localhost--live-root
@@ -114,12 +125,3 @@ Select the RAM filesystem that will be loaded:
 ----
 initrd (hd0,gpt2)/initramfs-3.0.0-1.fc16.i686.img
 ----
-+
-
-. Boot with the selected settings.
-+
-----
-grub> boot
-----
-
-. To restore the bootloader's functionality, regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].

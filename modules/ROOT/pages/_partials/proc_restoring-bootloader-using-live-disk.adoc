@@ -22,69 +22,72 @@ bootable by *GRUB2*.
 
 . Open the terminal.
 
-. Examine the partition layout and identify the `boot` and the `root` partition.
+. Examine the partition layout and identify the `/boot` and the `/root` partition.
 +
 ----
-sudo fdisk -l
+# fdisk -l
 ----
 
-== BTRFS filesystem
+. Follow the <<btrfs-steps, BTRFS steps>> (Fedora 33 or newer) or <<lvm-steps, LVM steps>> (older than Fedora 33) to recover your system.
 
-If your `root` partition is encrypted by LUKS, it must be decrypted:
+[[btrfs-steps]]
+== BTRFS steps
+
+If your `/root` partition is encrypted by LUKS, it must be decrypted:
 
 . Make sure the crypt module is in use:
 +
 ----
-sudo modprobe dm-crypt
+# modprobe dm-crypt
 ----
 
-. Decrypt the `root` partition:
+. Decrypt the `/root` partition (e.g. `/dev/sda3`):
 +
 ----
-sudo cryptsetup luksOpen <root_partition> myvolume
+# cryptsetup luksOpen /dev/sda3 myvolume
 ----
 +
 The decrypted device (i.e. `myvolume`) will be accessible under `/dev/mapper/`.
 
-Mount the `root` partition:
+Mount the `/root` partition:
 
 * For LUKS:
 +
 ----
-mount <decrypted_device> /mnt -o subvol=root
+# mount /dev/mapper/myvolume /mnt -o subvol=root
 ----
 * For non-LUKS:
 +
 ----
-mount <root_partition> /mnt -o subvol=root
+# mount /dev/sda3 /mnt -o subvol=root
 ----
 
-Mount the `boot` partition:
+Mount the `/boot` partition (e.g. `/dev/sda2)`:
 
 ----
-mount <boot_partition> /mnt/boot
+# mount /dev/sda2 /mnt/boot
 ----
 
-Mount system processes and devices into the `root` filesystem:
+Mount system processes and devices into the `/root` filesystem:
 
 ----
-mount -o bind /dev /mnt/dev
-mount -o bind /proc /mnt/proc
-mount -o bind /sys /mnt/sys
-mount -o bind /run /mnt/run
+# mount -o bind /dev /mnt/dev
+# mount -o bind /proc /mnt/proc
+# mount -o bind /sys /mnt/sys
+# mount -o bind /run /mnt/run
 ----
 
-On UEFI systems, bind the efivars directory and mount the EFI system partition:
+On UEFI systems, bind the `efivars` directory and mount the EFI system partition (e.g. `/dev/sda1`):
 
 ----
-mount -o bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
-mount <efi_system_partition> /mnt/boot/efi
+# mount -o bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
+# mount /dev/sda1 /mnt/boot/efi
 ----
 
 Change your filesystem to the one mounted under `/mnt/`:
 
 ----
-chroot /mnt/
+# chroot /mnt/
 ----
 
 Re-install GRUB:
@@ -92,109 +95,103 @@ Re-install GRUB:
 * On UEFI systems, several packages are required:
 +
 ----
-dnf reinstall shim-* grub2-efi-* grub2-common
+/]# dnf reinstall shim-* grub2-efi-* grub2-common
 
 ----
-* On BIOS systems, specify the disk where GRUB should be installed:
+* On BIOS systems, specify the disk (e.g. `/dev/sda`) where GRUB should be installed:
 +
 ----
-grub2-install <disk>
+/]# grub2-install /dev/sda
 ----
 
 Re-generate the GRUB configuration file:
 
 ----
-grub2-mkconfig -o /boot/grub2/grub.cfg
+/]# grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
 
 Sync and exit the chroot:
 
 ----
-sync && exit
+/]# sync && exit
 ----
 
 Reboot the system. 
 
-== LVM filesystem
+[[lvm-steps]]
+== LVM steps
 
-If your `root` partition is encrypted by LUKS, it must be decrypted:
+If your `/root` partition is encrypted by LUKS, it must be decrypted:
 
 . Make sure the crypt module is in use:
 +
 ----
-sudo modprobe dm-crypt
+# modprobe dm-crypt
 ----
 
-. Decrypt the `root` partition:
+. Decrypt the `/root` partition (e.g. `/dev/sda3`):
 +
 ----
-sudo cryptsetup luksOpen <root_partition> myvolume
+# cryptsetup luksOpen /dev/sda3 myvolume
 ----
 
-. Scan the LVM volumes for the volume group corresponding to the `root` partition:
+. Scan the LVM volumes for the volume group corresponding to the `/root` partition:
 +
 ----
-sudo vgscan
+# vgscan
 ----
 
-. Activate the volume group:
+. Activate the volume group (e.g. `fedora_localhost-live`):
 +
 ----
-sudo vgchange -ay <volume_group>
+# vgchange -ay fedora_localhost-live
 ----
 
-. Find the root volume:
+. Find the logical volume corresponding to `/root`:
 +
 ----
-sudo lvs
+# lvs
 ----
 +
-The root volume will be accessible under `/dev/`.
+The logical volume will be accessible under `/dev/mapper/`.
 
 Create a `root` directory under `/mnt`:
 ----
-mkdir -p /mnt/root
+# mkdir -p /mnt/root
 ----
 
-Mount the logical volume of the `root` partition:
-
-* For LUKS, substitute the root volume from above:
-+
-----
-mount <root_volume> /mnt/root
-----
-* For non-LUKS, use `lsblk` to find the `lvm` that corresponds to the `root` partition (the `lvm` should be under `/dev/mapper/`):
-+
-----
-mount <lvm> /mnt/root
-----
-
-Mount the `boot` partition:
+Mount the logical volume (e.g. `/dev/mapper/fedora_localhost--live-root`) corresponding to the `/root` partition:
 
 ----
-mount <boot_partition> /mnt/root/boot
+# mount /dev/mapper/fedora_localhost--live-root /mnt/root
 ----
 
-Mount system processes and devices into the `root` filesystem:
+Mount the `/boot` partition (e.g. `/dev/sda2`):
 
 ----
-mount -o bind /dev /mnt/root/dev
-mount -o bind /proc /mnt/root/proc
-mount -o bind /sys /mnt/root/sys
-mount -o bind /run /mnt/root/run
+# mount /dev/sda2 /mnt/root/boot
 ----
 
-On UEFI systems, bind the efivars directory and mount the EFI system partition:
+Mount system processes and devices into the `/root` filesystem:
 
 ----
-mount -o bind /sys/firmware/efi/efivars /mnt/root/sys/firmware/efi/efivars
-mount <efi_system_partition> /mnt/root/boot/efi
+# mount -o bind /dev /mnt/root/dev
+# mount -o bind /proc /mnt/root/proc
+# mount -o bind /sys /mnt/root/sys
+# mount -o bind /run /mnt/root/run
+----
+
+On UEFI systems, bind the `efivars` directory and mount the EFI system partition (e.g. `/dev/sda1`):
+
+----
+# mount -o bind /sys/firmware/efi/efivars /mnt/root/sys/firmware/efi/efivars
+# mount /dev/sda1 /mnt/root/boot/efi
 ----
 
 Change your filesystem to the one mounted under `/mnt/root`:
 
 ----
-chroot /mnt/root/
+# chroot /mnt/root/
 ----
 
 Re-install GRUB and re-generate the GRUB configuration file:
@@ -202,20 +199,20 @@ Re-install GRUB and re-generate the GRUB configuration file:
 * On UEFI systems, several packages are required:
 +
 ----
-dnf reinstall shim-* grub2-efi-* grub2-common
-grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+/]# dnf reinstall shim-* grub2-efi-* grub2-common
+/]# grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 ----
-* On BIOS systems, specify the disk where GRUB should be installed:
+* On BIOS systems, specify the disk (e.g. `/dev/sda`) where GRUB should be installed:
 +
 ----
-grub2-install <disk>
-grub2-mkconfig -o /boot/grub2/grub.cfg
+/]# grub2-install /dev/sda
+/]# grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
 
 Sync and exit the chroot:
 
 ----
-sync && exit
+/]# sync && exit
 ----
 
 Reboot the system.
