@@ -1,9 +1,10 @@
-[[ch-build-custom-kernel]]
 = Building a Custom Kernel
+John Soros; Alessio; Brandon Nielsen
+:revnumber: unspecified
+:revdate: 2021-01-01
+:category: Kernel
+// :tags: systemd
 
-include::{partialsdir}/unreviewed-message.adoc[]
-
-:toc:
 
 This document provides instructions for advanced users who want to rebuild the
 kernel from some source.
