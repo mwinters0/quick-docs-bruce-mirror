@@ -330,19 +330,16 @@ below (just replace 'dave' with whatever tag you chose):
 
 [source,bash]
 ----
-rm -f /boot/config-2.6.*dave* /boot/initrd-2.6.*dave* /boot/vmlinuz-*dave* /boot/System.map-*dave*
-rm -rf /lib/modules/2.6*dave*
+rm -f /boot/config-*dave* /boot/initramfs-*dave* /boot/vmlinuz-*dave* /boot/System.map-*dave*
+rm -rf /lib/modules/*dave*
 ----
 
-Finally, you will need to remove the kernel as an option to your bootloader.
-This will change from architecture to architecture. For x86, (as root), edit
-`/boot/grub2/grub.cfg` or `/boot/efi/EFI/fedora/grub.cfg` if you have EFI enabled
-and delete the four lines relating to your kernel (They should be easy to spot,
-they'll be the ones with your tag). They'll look something like:
+Finally, you will need to remove the kernel as an option in your bootloader.
+Assuming your system is running grub2, this can be done by removing the
+bootloader specification entries and rebuilding the grub config:
 
+[source,bash]
 ----
-title Fedora Core (2.6.22-rc3-dave)
-root (hd0,0)
-kernel /vmlinuz-2.6.22-rc3-dave ro root=/dev/md0
-initrd /initrd-2.6.22-rc3-dave.img
+rm -f /boot/loader/entries/*dave*
+grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
