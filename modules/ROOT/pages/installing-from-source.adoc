@@ -6,7 +6,7 @@ However, there might be times where you will need to install an application from
 
 This can be because of the fact that:
 
-* No pre-compiled binary or application package are available.  
+* No pre-compiled binary or application package is available.  
 * You have specific dependency requirements that are not available in the pre-compiled package.  
 * The available pre-compiled application is out of date and you need a specific version.  
 
@@ -74,7 +74,7 @@ When you extract the archive it will leave you with a directory with the same or
 The extracted folder for the application will have a README or some other file that gives instructions on how to install, configure, and manage the application. The README file will have detailed directions on things such as:
 
 * Choosing an alternate directory for installation.  
-* Setting configuration options during build.  
+* Setting configuration options for the build.  
 * What compile time options to use for different configurations.  
 
 NOTE: If no instructions exist on how to configure or build the application, you will need to reach out to the application developers for help. You might also find instructions online from someone else who had a similar issue.
