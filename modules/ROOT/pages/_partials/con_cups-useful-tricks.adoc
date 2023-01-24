@@ -132,6 +132,7 @@ Prerequisties for permanent driverless printers: enable IPP in your firewall, en
 $ sudo systemctl start cups
 ----
 
+* go to *http://localhost:631* in your browser
 * go to *Administration* tab
 * click on *Add printer*
 * enter your credentials
