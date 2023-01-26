@@ -2,7 +2,7 @@
 = Installing additional desktop environments
 
 You can list available desktop environments using the default package manager, [code]`dnf`.
-In a terminal use the [code]`dnf group list` command to list all available package groups:
+In a terminal use the [code]`dnf group list` command to list all available desktop environments:
 
 ----
 $ dnf group list --available *desktop
