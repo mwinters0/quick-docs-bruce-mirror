@@ -36,5 +36,5 @@ grub> configfile /grub2/grub.cfg
 
 .More information
 
-* The *hd0,msdos1* line shows the pertinent `/boot` partition, which holds the `grub.cfg` file. The setting may be different on your system. See also xref:using-grub2-prompt[Using the GRUB2 boot prompt] for more information.
+* The *hd0,msdos1* line shows the pertinent `/boot` partition, which holds the `grub.cfg` file. The setting may be different on your system. See also xref:_using_the_grub2_boot_prompt[Using the GRUB2 boot prompt] for more information.
 
