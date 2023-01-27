@@ -2,31 +2,39 @@
 = Booting the system using a configuration file on a different partition.
 
 If you end up in *GRUB2* boot prompt, it is also possible to boot using a _configfile_ that's located on another
-partition, as is often the case with multi-boot systems containing Ubuntu and Fedora. To boot the system using a configuration files on a different partition:
+partition, as is often the case with multi-boot systems containing Ubuntu and Fedora. Follow the below procedure
+if you need to boot from a configuration file on a different partition.
 
 .Procedure
 
-. Load necessary modules to read the partitions.
+. Load the necessary modules to read your system's partitions (you will also need to load `part_msdos` or `part_gpt`, depending on your partition table).
++
+* For BTRFS filesystems:
 +
 ----
-insmod part_msdos
-insmod xfs
-insmod lvm
+grub> insmod btrfs
+----
++
+* For LVM filesystems:
++
+----
+grub> insmod xfs
+grub> insmod lvm
 ----
 
-. Set the root partition.
+. Set *GRUB2* root to your `/boot` partition. On UEFI systems, you should set *GRUB2* root to the EFI system partition.
 +
 ----
-set root='hd0,msdos1'
+grub> set root=(hd0,msdos1)
 ----
 
 . Set the path to the configuration file.
 +
 ----
-configfile /grub2/grub.cfg
+grub> configfile /grub2/grub.cfg
 ----
 
 .More information
 
-* The *hd0,msdos1* line shows the pertinent _boot_ partition, which holds the `grub.cfg` file. The setting may be different on your system. See also xref:using-grub2-prompt[Using the GRUB2 boot prompt] for more information.
+* The *hd0,msdos1* line shows the pertinent `/boot` partition, which holds the `grub.cfg` file. The setting may be different on your system. See also xref:_using_the_grub2_boot_prompt[Using the GRUB2 boot prompt] for more information.
 
