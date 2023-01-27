@@ -3,7 +3,7 @@
 
 Normally, *GRUB2* is preset to boot multiple operating systems during the Fedora installation process. If you can, it is advisable to install non-Linux operating systems first. Then, during the installation process, all those operating systems and their locations will be discovered and properly set.
 
-Adding other records into the *GRUB2* menu only means to run `grub2-mkconfig` command to regenerate the configuration files. During this process, all operating systems known to the system will be added into the configuration. By reinstalling *GRUB2* into the MBR, this configuration will be used for further boots.
+Adding other records into the *GRUB2* menu only means to run `grub2-mkconfig` command to regenerate the configuration files. During this process, all operating systems known to the system will be added into the configuration. By reinstalling *GRUB2*, this configuration will be used for further boots.
 
 .Before you start
 
@@ -18,7 +18,13 @@ Adding other records into the *GRUB2* menu only means to run `grub2-mkconfig` co
 # grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
 
-. Install *GRUB2* into the MBR of your primary hard disk.
+. Install *GRUB2*.
+* On UEFI systems:
++
+----
+# dnf reinstall shim-* grub2-efi-* grub2-common
+----
+* On BIOS systems, specify the disk where the bootloader should be installed:
 +
 ----
 # grub2-install /dev/sda
