@@ -19,12 +19,12 @@ Adding other records into the *GRUB2* menu only means to run `grub2-mkconfig` co
 ----
 
 . Install *GRUB2*.
-* On UEFI systems:
+* On UEFI systems.
 +
 ----
 # dnf reinstall shim-* grub2-efi-* grub2-common
 ----
-* On BIOS systems, specify the disk where the bootloader should be installed:
+* On BIOS systems, specify the disk where the bootloader should be installed.
 +
 ----
 # grub2-install /dev/sda

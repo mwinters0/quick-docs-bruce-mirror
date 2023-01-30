@@ -33,15 +33,15 @@ bootable by *GRUB2*.
 [[btrfs-steps]]
 == BTRFS steps
 
-If your `/root` partition is encrypted by LUKS, it must be decrypted:
+. If your `/root` partition is encrypted by LUKS, it must be decrypted.
 
-. Make sure the crypt module is in use:
+.. Make sure the crypt module is in use.
 +
 ----
 # modprobe dm-crypt
 ----
 
-. Decrypt the `/root` partition (e.g. `/dev/sda3`):
+.. Decrypt the `/root` partition (e.g. `/dev/sda3`).
 +
 ----
 # cryptsetup luksOpen /dev/sda3 myvolume
@@ -49,105 +49,107 @@ If your `/root` partition is encrypted by LUKS, it must be decrypted:
 +
 The decrypted device (i.e. `myvolume`) will be accessible under `/dev/mapper/`.
 
-Mount the `/root` partition:
+. Mount the `/root` partition.
 
-* For LUKS:
+* For LUKS.
 +
 ----
 # mount /dev/mapper/myvolume /mnt -o subvol=root
 ----
-* For non-LUKS:
+* For non-LUKS.
 +
 ----
 # mount /dev/sda3 /mnt -o subvol=root
 ----
++
 
-Mount the `/boot` partition (e.g. `/dev/sda2)`:
-
+. Mount the `/boot` partition (e.g. `/dev/sda2)`.
++
 ----
 # mount /dev/sda2 /mnt/boot
 ----
++
 
-Mount system processes and devices into the `/root` filesystem:
-
+. Mount system processes and devices into the `/root` filesystem.
++
 ----
 # mount -o bind /dev /mnt/dev
 # mount -o bind /proc /mnt/proc
 # mount -o bind /sys /mnt/sys
 # mount -o bind /run /mnt/run
 ----
-
-On UEFI systems, bind the `efivars` directory and mount the EFI system partition (e.g. `/dev/sda1`):
-
++
+. On UEFI systems, bind the `efivars` directory and mount the EFI system partition (e.g. `/dev/sda1`).
++
 ----
 # mount -o bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
 # mount /dev/sda1 /mnt/boot/efi
 ----
-
-Change your filesystem to the one mounted under `/mnt/`:
-
++
+. Change your filesystem to the one mounted under `/mnt/`.
++
 ----
 # chroot /mnt/
 ----
++
+. Re-install *GRUB2*.
 
-Re-install GRUB:
-
-* On UEFI systems, several packages are required:
+* On UEFI systems, several packages are required.
 +
 ----
 /]# dnf reinstall shim-* grub2-efi-* grub2-common
 
 ----
-* On BIOS systems, specify the disk (e.g. `/dev/sda`) where GRUB should be installed:
+* On BIOS systems, specify the disk (e.g. `/dev/sda`) where *GRUB2* should be installed.
 +
 ----
 /]# grub2-install /dev/sda
 ----
-
-Re-generate the GRUB configuration file:
-
++
+. Re-generate the *GRUB2* configuration file.
++
 ----
 /]# grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
-
-Sync and exit the chroot:
-
++
+. Sync and exit the chroot.
++
 ----
 /]# sync && exit
 ----
-
-Reboot the system. 
++
+. Reboot the system.
 
 [[lvm-steps]]
 == LVM steps
 
-If your `/root` partition is encrypted by LUKS, it must be decrypted:
+. If your `/root` partition is encrypted by LUKS, it must be decrypted.
 
-. Make sure the crypt module is in use:
+.. Make sure the crypt module is in use.
 +
 ----
 # modprobe dm-crypt
 ----
 
-. Decrypt the `/root` partition (e.g. `/dev/sda3`):
+.. Decrypt the `/root` partition (e.g. `/dev/sda3`).
 +
 ----
 # cryptsetup luksOpen /dev/sda3 myvolume
 ----
 
-. Scan the LVM volumes for the volume group corresponding to the `/root` partition:
+.. Scan the LVM volumes for the volume group corresponding to the `/root` partition.
 +
 ----
 # vgscan
 ----
 
-. Activate the volume group (e.g. `fedora_localhost-live`):
+.. Activate the volume group (e.g. `fedora_localhost-live`).
 +
 ----
 # vgchange -ay fedora_localhost-live
 ----
 
-. Find the logical volume corresponding to `/root`:
+.. Find the logical volume corresponding to `/root`.
 +
 ----
 # lvs
@@ -155,64 +157,65 @@ If your `/root` partition is encrypted by LUKS, it must be decrypted:
 +
 The logical volume will be accessible under `/dev/mapper/`.
 
-Create a `root` directory under `/mnt`:
+. Create a `root` directory under `/mnt`.
++
 ----
 # mkdir -p /mnt/root
 ----
-
-Mount the logical volume (e.g. `/dev/mapper/fedora_localhost--live-root`) corresponding to the `/root` partition:
-
++
+. Mount the logical volume (e.g. `/dev/mapper/fedora_localhost--live-root`) corresponding to the `/root` partition.
++
 ----
 # mount /dev/mapper/fedora_localhost--live-root /mnt/root
 ----
-
-Mount the `/boot` partition (e.g. `/dev/sda2`):
-
++
+. Mount the `/boot` partition (e.g. `/dev/sda2`).
++
 ----
 # mount /dev/sda2 /mnt/root/boot
 ----
-
-Mount system processes and devices into the `/root` filesystem:
-
++
+. Mount system processes and devices into the `/root` filesystem.
++
 ----
 # mount -o bind /dev /mnt/root/dev
 # mount -o bind /proc /mnt/root/proc
 # mount -o bind /sys /mnt/root/sys
 # mount -o bind /run /mnt/root/run
 ----
-
-On UEFI systems, bind the `efivars` directory and mount the EFI system partition (e.g. `/dev/sda1`):
-
++
+. On UEFI systems, bind the `efivars` directory and mount the EFI system partition (e.g. `/dev/sda1`).
++
 ----
 # mount -o bind /sys/firmware/efi/efivars /mnt/root/sys/firmware/efi/efivars
 # mount /dev/sda1 /mnt/root/boot/efi
 ----
-
-Change your filesystem to the one mounted under `/mnt/root`:
-
++
+. Change your filesystem to the one mounted under `/mnt/root`.
++
 ----
 # chroot /mnt/root/
 ----
++
+. Re-install *GRUB2* and re-generate the *GRUB2* configuration file.
 
-Re-install GRUB and re-generate the GRUB configuration file:
-
-* On UEFI systems, several packages are required:
+* On UEFI systems, several packages are required.
 +
 ----
 /]# dnf reinstall shim-* grub2-efi-* grub2-common
 /]# grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 ----
-* On BIOS systems, specify the disk (e.g. `/dev/sda`) where GRUB should be installed:
+* On BIOS systems, specify the disk (e.g. `/dev/sda`) where *GRUB2* should be installed.
 +
 ----
 /]# grub2-install /dev/sda
 /]# grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
-
-Sync and exit the chroot:
-
++
+. Sync and exit the chroot.
++
 ----
 /]# sync && exit
 ----
-
-Reboot the system.
++
+. Reboot the system.

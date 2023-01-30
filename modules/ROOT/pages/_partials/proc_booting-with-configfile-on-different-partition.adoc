@@ -9,13 +9,13 @@ if you need to boot from a configuration file on a different partition.
 
 . Load the necessary modules to read your system's partitions (you will also need to load `part_msdos` or `part_gpt`, depending on your partition table).
 +
-* For BTRFS filesystems:
+* For BTRFS filesystems.
 +
 ----
 grub> insmod btrfs
 ----
 +
-* For LVM filesystems:
+* For LVM filesystems.
 +
 ----
 grub> insmod xfs
