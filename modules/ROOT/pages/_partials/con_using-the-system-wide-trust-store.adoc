@@ -9,8 +9,8 @@ Certificate files are treated depending on the subdirectory they are installed t
 ** `/usr/share/pki/ca-trust-source/anchors/` or
 ** `/etc/pki/ca-trust/source/anchors/`
 * for distrusted certificates
-** `/usr/share/pki/ca-trust-source/blacklist/` or
-** `/etc/pki/ca-trust/source/blacklist/`
+** `/usr/share/pki/ca-trust-source/blocklist/` or
+** `/etc/pki/ca-trust/source/blocklist/`
 * for certificates in the extended BEGIN TRUSTED file format
 ** `/usr/share/pki/ca-trust-source/` or
 ** `/etc/pki/ca-trust/source/`
