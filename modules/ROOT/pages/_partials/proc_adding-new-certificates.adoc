@@ -1,18 +1,25 @@
 [id='proc_adding-new-certificates']
 = Adding New Certificates
 
-To add a certificate in the simple PEM or DER file formats to the list of CAs trusted on the system, copy the certificate file to the `/etc/pki/ca-trust/source/anchors/` directory, for example:
+Often, system administrators want to install a certificate into the trust store. This can be done with the [command]`trust anchor` sub-command of the [command]`trust` command, as described in xref:managing-trusted-system-certificates[Managing Trusted System Certificates].
+
+Alternatively, you can simply copy the certificate file in the PEM or DER file format to the `/etc/pki/ca-trust/source/anchors/` directory, followed by running the [command]`update-ca-trust` command, for example:
 
 [subs="+quotes,macros"]
 ----
 # cp _~/certificate-trust-examples/Cert-trust-test-ca.pem_ _/etc/pki/ca-trust/source/anchors/_
 ----
 
-To update the system-wide trust store configuration, use the [command]`update-ca-trust` command:
-
 ----
 # update-ca-trust
 ----
+
+The [command]`update-ca-trust` command ensures that the certificate bundles in application-specific formats, such as Java keystore, are regenerated.
+
+[NOTE]
+====
+The certificates installed in the above steps cannot be removed with the [command]`trust anchor --remove`.
+====
 
 [NOTE]
 ====
