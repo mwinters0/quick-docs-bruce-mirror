@@ -16,6 +16,12 @@ APT is the package manager/dependency solver for the Debian ecosystem, i.e. it m
 
 | Of course, actual package names may vary. For example, `libc6-dev` on Debian maps to `glibc-devel` in the Fedora universe.
 
+| `apt install --only-upgrade package`
+ 
+| `dnf update package`
+ 
+| Updates only already installed package and its dependencies. The `apt install` works for both install and upgrade single package if already installed.
+
 | `apt update`
 
 `apt-get update`
