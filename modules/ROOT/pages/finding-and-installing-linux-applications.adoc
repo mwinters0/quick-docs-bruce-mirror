@@ -127,4 +127,6 @@ GNOME Software: https://wiki.gnome.org/Apps/Software
 
 KDE Discover: https://userbase.kde.org/Discover
 
-To explore and install command-line apps, language libraries, packages, and development toolchain, refer to the DNF Command Reference: https://dnf.readthedocs.io/en/latest/command_ref.html
+To explore and install command-line apps, refer to the DNF Command Reference: https://dnf.readthedocs.io/en/latest/command_ref.html
+
+To explore and install language libraries, packages, and development toolchain, refer to the Fedora Developer Portal: https://developer.fedoraproject.org/tech.html
