@@ -6,7 +6,6 @@ In a terminal use the [code]`dnf group list` command to list all available deskt
 
 ----
 $ dnf group list --available *desktop
-...
 ----
 
 Install the required desktop environment using the `dnf install` command.
@@ -17,7 +16,7 @@ Ensure to prefix with the `@` sign, for example:
 # dnf install @kde-desktop-environment
 ----
 
-You can also use the full name using the `groupinstall` command:
+You can also use the full name using the `groupinstall` command to install the complete package set:
 
 ----
 # dnf groupinstall "KDE Plasma Workspaces"
