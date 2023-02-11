@@ -1,14 +1,12 @@
-ifdef::context[:parent-context: {context}]
-:context: switching-desktop-environments
-:imagesdir: ./images
-
-[[switching-desktop-environments]]
 = Switching desktop environments
+Fedora Documentation Team
+:revnumber: F36 and newer
+:revdate: 2023-02-10
+:category: Managing Software
+:tags: Tutorial Workstation
 
-Different Fedora Linux variants (Spins/Labs) have different default environments.
-For example, the Fedora workstation uses GNOME as its default desktop environment, while the KDE spin will use KDE.
-
-Irrespective of what installation media you used to install Fedora Linux, you can easily try and switch to any of the many other desktop environments that are available without affecting your current desktop environment.
+[abstract]
+Different Fedora Linux variants (Spins/Labs) have different default environments. For example, the Fedora workstation uses GNOME as its default desktop environment, while the KDE spin will use KDE. Irrespective of what installation media you used to install Fedora Linux, you can easily try and switch to any of the many other desktop environments that are available without affecting your current desktop environment.
 
 include::{partialsdir}/proc_installing-additional-desktop-enviroments.adoc[leveloffset=+1]
 include::{partialsdir}/proc_switching-desktop-enviroments-using-gui.adoc[leveloffset=+1]
