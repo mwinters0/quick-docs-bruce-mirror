@@ -21,7 +21,7 @@ Step through the numbered list and the number annotated on the image of GNOME So
 
 All the featured apps will be shown on banner in the middle.
 
-image::GNOME1_featured.png[GNOME Software]
+image::./assets/images/GUI-Installers/GNOME1_featured.png[]
 
 Browse apps as categorized below and click a category that is of your interest.
 
