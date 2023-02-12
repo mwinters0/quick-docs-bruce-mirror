@@ -178,15 +178,19 @@ YubiKey manager also has a gui:
 
 === Writing a new static password to the second slot of the key 
 
-Newer Yubikeys (Yubikey 2+) have the ability to store two separate configurations. The first is generally used for OTPs, the second for a strong, static password. If the button is pressed shortly, something up to 1.5 seconds, the first configuration is triggered. If the button is pressed
-longer, in the range of 2.5 to 5 seconds, the second configuration is triggered.
+Newer YubiKeys (YubiKey 2+) have the ability to store two separate configurations. The first is generally used for OTPs, the second for a strong, static password. If the button is pressed shortly, something up to 1.5 seconds, the first configuration is triggered. If the button is pressed longer, in the range of 2.5 to 5 seconds, the second configuration is triggered.
 
-For this first example we are going to write a new static key to the second configuration of a Yubikey 2.
+Write a static key using ykman otp static.
 
 [source, bash]
-[…]$ sudo ykpersonalize -oappend-cr -a123456deadcafebeef65432112345678 -2 -o-man-update
+[…]$ ykman otp static 2 cbdefghijklnrtuv
 
-This writes a static key to the Yubikey based on the 32-byte AES key I gave with the -a option. The -2 option tells it to write to the second configuration. The other two options are a matter of personal taste. The append-cr option sends a carriage return as the last character of the key. That way I do not have to press <ENTER> myself. The -man-update option disables easy updating of the static key in the Yubikey. Enabling this will allow for altering the static password without the use of ykpersonalize.
+A more elaborate example: write a new static key to the second configuration slot using a specific AES key.
+
+[source, bash]
+[…]$ ykpersonalize -oappend-cr -a123456deadcafebeef65432112345678 -2 -o-man-update
+
+This writes a static key to the YubiKey based on the 32-byte AES key specified with the -a option. The -2 option sets the second slot as target. The other two options are a matter of personal taste. The append-cr option sends a carriage return as the last character of the key. That way I do not have to press <ENTER> myself. The -man-update option disables easy updating of the static key in the YubiKey. Enabling this will allow for altering the static password without the use of ykpersonalize.
 
 === Writing a new AES key to the first slot of the key
 
