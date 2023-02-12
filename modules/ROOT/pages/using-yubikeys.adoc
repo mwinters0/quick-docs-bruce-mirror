@@ -1,7 +1,7 @@
-= Using Yubikeys with Fedora
+= Using YubiKeys with Fedora
 The Fedora docs team
 :revnumber: unknown
-:revdate: 2022-06-16
+:revdate: 2023-02-12
 :category: Using
 // :tags: From Source
 
@@ -17,9 +17,9 @@ A YubiKey is a small USB and NFC based device, a so called https://developers.yu
 
 For more information about YubiKey features, see their https://yubico.com/products/[product page].
 
-== How do I get a yubikey?
+== How do I get a YubiKey?
 
-You can purchase a yubikey from http://store.yubico.com/[Yubico's website].
+You can purchase a YubiKey from http://store.yubico.com/[Yubico's website].
 
 == Consider a backup YubiKey
 
@@ -176,7 +176,7 @@ YubiKey manager also has a gui:
 [source, bash]
 […]$ sudo dnf install yubikey-manager-gui
 
-=== Writing a new static password to the second slot of the key 
+=== Writing a new static password to the second slot of the key
 
 Newer YubiKeys (YubiKey 2+) have the ability to store two separate configurations. The first is generally used for OTPs, the second for a strong, static password. If the button is pressed shortly, something up to 1.5 seconds, the first configuration is triggered. If the button is pressed longer, in the range of 2.5 to 5 seconds, the second configuration is triggered.
 
@@ -197,9 +197,9 @@ This writes a static key to the YubiKey based on the 32-byte AES key specified w
 If we want to write a new configuration to the first slot of the key, we need to specify some more options. If you want to be able to upload you key to Yubico, in order to authenticate against their servers, remember what the values are that you use below. You will need them later on.
 
 [source, bash]
-[…]$ sudo ykpersonalize -1 -ofixed=vvhhhrhkhgidic -ouid=deadbeefcafe -a123456deadcfaebeef65432112345678 -oappend-cr
+[…]$ ykpersonalize -1 -ofixed=vvhhhrhkhgidic -ouid=deadbeefcafe -a123456deadcfaebeef65432112345678 -oappend-cr
 
-The -1 option tells ykpersonalize to use the first configuration. The fixed option specifies the public ID of the Yubikey. This is referred to as the 'prefix' later on, when we go uploading it. The value you use here has to start with 'ff' in hex or 'vv' in modhex (xref:#_what_is_modhex[see below]). Yubico enforces this when you try to upload your key to their servers. The value for the fixed option can be up to 16 characters in length.
+The -1 option tells ykpersonalize to use the first configuration. The fixed option specifies the public ID of the YubiKey. This is referred to as the 'prefix' later on, when we go uploading it. The value you use here has to start with 'ff' in hex or 'vv' in modhex (xref:#_what_is_modhex[see below]). Yubico enforces this when you try to upload your key to their servers. The value for the fixed option can be up to 16 characters in length.
 
 As part of the OTP, you can specify an internal identifier for your key. This is what the uid option does. The value is in plain hex, not modhex and ''exactly'' 12 character long.
 
@@ -226,8 +226,7 @@ After pressing 'y', I am able to generate OTPs with my new key!
 
 ==== What is modhex? 
 
-When plugged in, the operating system treats the Yubikey as a USB keyboard. USB keyboards send scancodes to the operating system, which the operating system then interprets as keystrokes. The Yubikey has to make sure no ambiguity arises: there are many different kinds of keyboard layouts and the scancodes have to be interpreted as the same character on machines using every random keyboard layout out there. To fix this, the people of Yubico have created 'modhex',
-which is a modified representation of hexadecimal characters that uses only 'safe' characters. 'Safe' characters are basically characters which have the same scancode on all keyboard layouts.
+When plugged in, the operating system treats the YubiKey as a USB keyboard. USB keyboards send scancodes to the operating system, which the operating system then interprets as keystrokes. The YubiKey has to make sure no ambiguity arises: there are many different kinds of keyboard layouts and the scancodes have to be interpreted as the same character on machines using every random keyboard layout out there. To fix this, the people of Yubico have created 'modhex', which is a modified representation of hexadecimal characters that uses only 'safe' characters. 'Safe' characters are basically characters which have the same scancode on all keyboard layouts.
 
 === Uploading the generated AES key to Yubico 
 
