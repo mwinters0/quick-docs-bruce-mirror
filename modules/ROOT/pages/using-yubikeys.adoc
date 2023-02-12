@@ -327,7 +327,23 @@ Generate the public key and store it's identity in the FIDO2 module to make the 
 [NOTE]
 So called resident keys require that the private key is protected by a PIN.
 
+== Using the YubiKey to authenticate to websites
 
-== Using the Yubikey to authenticate to websites 
+As of 2019, there is work in place to attempt to standardize using a YubiKey on the web. The new standard is called WebAuthn, and you can learn more about it here: https://www.yubico.com/solutions/webauthn/. For now, the easiest way to see which platforms support the YubiKey is by browsing https://www.yubico.com/works-with-yubikey/catalog/[yubico's catalog].
 
-As of 2019, there is work in place to attempt to standardize using a yubikey on the web. The new standard is called WebAuthn, and you can learn more about it here: https://www.yubico.com/solutions/webauthn/. For now, the easiest way to see which platforms support the yubikey is by browsing https://www.yubico.com/works-with-yubikey/catalog/[yubico's catalog].
+As an alternative to Yubico OTP or WebAuthn, which both don't require storage of credentials on the YubiKey by default, you may also use plain old TOTP like employed in most websites today. There are desktop and at least android apps to work with this conveniently. You may store up to 32 TOTP credentials on a YubiKey 5.
+
+Install the desktop application from the official repositories:
+
+[source, bash]
+[…]$ sudo dnf install -y yubioath-desktop
+
+Add an TOTP account with ykman like this:
+
+[source, bash]
+[…]$ ykman oath accounts add google <TOTP secret>
+
+Retrieve a TOTP code like this:
+
+[source, bash]
+[…]$ ykman oath accounts code google
