@@ -21,11 +21,11 @@ For more information about YubiKey features, see their https://yubico.com/produc
 
 You can purchase a yubikey from http://store.yubico.com/[Yubico's website].
 
-== Using a Yubikey to authenticate to a machine running Fedora
+== Consider a backup YubiKey
 
-There are two main ways to configure the yubikey PAM module to authenticate users, via the YubiCloud, or using challenge-response. The YubiCloud is the standard method, and involves leveraging Yubico's cloud to validate your yubikey. While this guide will cover the YubiCloud method, it is worth looking into challenge-response if you do not trust the YubiCloud, or will not always have an internet connection.
+As soon as you start working with security tokens you have to account for the potential to lock yourself out of accounts tied to these tokens. As hardware security tokens are unique and designed to be extremely hard to copy you can't just make a backup of it like you can with software vaults like Keepass or AndOTP. Because of this all registrations you do with your primary key you should immediately do with a second backup key that you store in a secure location like a safe or at least always leave at home.
 
-This part of this document assumes you have a machine running Fedora and you have root access over SSH or through the console. TODO: Add a little something about gdm / kdm based logins below.
+In practice this means to register both hardware tokens with your linux and web accounts, generate private keys twice and configure both public keys at e.g. github.
 
 First, we need to install the required software. Since Fedora 18 you can install the pam_yubico package by running[source,]
 
