@@ -295,6 +295,38 @@ Configure your device to remember this password so you don't have to re-enter it
 [source, bash]
 […]$ ykman oath access remember
 
+== Using the YubiKey to authenticate against OpenSSH servers
+
+The PIV module can store OpenSSH private keys. The FIDO module can store the corresponding public key. Using only PIV requires export of the public key component onto every new host. In addition with the FIDO module this step is not necessary, if the OpenSSH agent has smart card support.
+
+Create an ED25519 private key inside the PIV module, requiring pin entry upon use and always require a touch of the YubiKey button:
+
+[source, bash]
+[…]$ ykman piv keys generate --algorithm ED25519 --pin-policy ONCE --touch-policy ALWAYS 9a public.pem
+Enter PIN: ********
+
+The slot 9a on the key is dedicated to authentication. There are https://docs.yubico.com/yesdk/users-manual/application-piv/slots.html[more slots] for features like encryption or signing.
+
+Create a certificate in this same slot for the PIV/PKCS#11 library:
+
+[source, bash]
+[…]$ ykman piv certificates generate --subject "CN=OpenSSH" --hash-algorithm SHA384 9a pubkey.pem
+Enter PIN: ********
+Touch your YubiKey…
+
+Generate a public key on every host you intend to use the private key, so an OpenSSH agent may discover it:
+
+[source, bash]
+[…]$ ssh-keygen -t ed25519-sk
+
+Generate the public key and store it's identity in the FIDO2 module to make the private-public key-pair portable:
+
+[source, bash]
+[…]$ ssh-keygen -t ed25519-sk -O resident -O application=ssh:fedora -O verify-required
+
+[NOTE]
+So called resident keys require that the private key is protected by a PIN.
+
 
 == Using the Yubikey to authenticate to websites 
 
