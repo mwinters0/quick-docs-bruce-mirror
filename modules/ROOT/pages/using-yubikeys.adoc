@@ -231,7 +231,70 @@ which is a modified representation of hexadecimal characters that uses only 'saf
 
 === Uploading the generated AES key to Yubico 
 
-If you want to customize your Yubikey's AES key but still want to use it to authenticate through Yubico's servers, you can upload the key through https://upgrade.yubico.com/getapikey/. You will need to enter your email address and Yubikey's OTP.
+If you want to customize your YubiKey's AES key but still want to use it to authenticate through Yubico's servers, you can upload the key through https://upgrade.yubico.com/getapikey/. You will need to enter your email address and YubiKey's OTP.
+
+=== Update the PINs of the PIV module
+
+The https://www.yubico.com/authentication-standards/smart-card/[Personal Identitiy Verification (PIV)] module stores private keys and corresponding certificate files for purposes such as encryption, authentication and signatures. If your YubiKey supports this you want to change the PIN and PUK as well as the Management Key.
+
+Set the PIN.
+
+[source, bash]
+[…]$ ykman piv access change-pin
+Enter the current PIN: 123456
+Enter the new PIN: ********
+Repeat for confirmation: ********
+New PIN set.
+
+Set the PUK.
+
+[source, bash]
+[…]$ ykman piv access change-puk
+Enter the current PUK: 12345678
+Enter the new PUK: ********
+Repeat for confirmation: ********
+New PUK set.
+
+Update the Management Key.
+
+[source, bash]
+[…]$ ykman piv access change-management-key --generate --protect
+Enter the current management key [blank to use default key]:
+Enter PIN: ********
+
+You can now safely use the PIV module to generate private keys and store certificates.
+
+=== Change the PIN of the FIDO2 module
+
+https://www.yubico.com/authentication-standards/fido2/[FIDO2] is an open authentication standard and encompasses sub-standards and protocols to either provide two-factor or even passwordless authentication methods.
+
+One interesting use case of the FIDO module to note is storing OpenSSH public-key identities, which modern OpenSSH agents can pick up right away and use. This makes ssh keys quite portable.
+
+If your key supports FIDO change it's pin with ykman fido access like this:
+
+[source, bash]
+[…]$ ykman piv access change-pin
+Enter the current PIN: 123456
+Enter the new PIN: ********
+Repeat for confirmation: ********
+New PIN set.
+
+=== Configure a password for OATH
+
+The OATH feature provides TOTP and HOTP authentication protocols. It can be protected with a passphrase to access and generate OTP codes. This is different from the Yubico OTP feature, which uses a single stored secret on the YubiKey for challenge-response.
+
+Change the OATH password with:
+
+[source, bash]
+[…]$ ykman oath access change
+Enter the new password:
+Repeat for confirmation:
+
+Configure your device to remember this password so you don't have to re-enter it anymore.
+
+[source, bash]
+[…]$ ykman oath access remember
+
 
 == Using the Yubikey to authenticate to websites 
 
