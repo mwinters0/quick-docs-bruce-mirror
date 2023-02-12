@@ -27,121 +27,154 @@ As soon as you start working with security tokens you have to account for the po
 
 In practice this means to register both hardware tokens with your linux and web accounts, generate private keys twice and configure both public keys at e.g. github.
 
-First, we need to install the required software. Since Fedora 18 you can install the pam_yubico package by running[source,]
+== Storage limitations
+
+For some features private keys and other secrets are stored on the YubiKey. Each feature has it's own storage space and hence https://support.yubico.com/hc/en-us/articles/360013790319-How-many-accounts-can-I-register-my-YubiKey-with-[maximum number of credential slots]:
+
+- OTP - Unlimited, as only one secret per key is required
+- FIDO U2F - Unlimited, as only one secret per key is required
+- FIDO2 - 25 credentials
+- OATH - 32 credentials
+- PIV - 24 x509 certificates and their respective private keys
+- OpenPGP - 3 keys; one for encryption, signing and authentication each
+
+== Using a YubiKey to authenticate to a machine running Fedora
+
+Local system authentication uses https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam[Pluggable Authentication Modules (PAM)]. There are two ways to configure the YubiKey PAM module to authenticate users. Either via the YubiCloud or using challenge-response. The YubiCloud is the standard method but depends on Yubico's cloud to validate your OTPs and hence requires constant internet access.
+
+The setup is as follows: install the PAM module, register a YubiKey with your user account, create base configuration for either of the two authentication options and then choose the PAM configuration you want to use the YubiKey.
+
+Install the PAM yubico module from the official repositories:
 
 [source, bash]
 […]$ sudo dnf install pam_yubico
 
+Register a currently connected YubiKey with your user account with
 
-Next, we need to configure PAM (Pluggable Authentication Modules, the main Linux authentication mechanism) to accept a Yubikey as a means of authentication. For our example setup, we will first accept a Yubikey OTP as 'sufficient'. This means that a Yubikey alone is enough to authenticate a
-user. 
-
-Open /etc/pam.d/login with your editor of choice. This guide will use nano.
 [source, bash]
-[…]$ sudo nano /etc/pam.d/login
+[…]$ ykpamcfg -2 -v
 
-Find the line that reads "auth substack system-auth". Above that, insert the following:
+Or for any other system user using sudo with
+
+[source, bash]
+[…]$ sudo -u someuser ykpamcfg -2 -v
+
+Create two base configuration files in /etc/pam.d. yubikey-required and yubikey-sufficient.
+
+For YubiCloud use the following:
+
+[source]
+#%PAM-1.0
+auth       required     pam_yubico.so id=[Your API Client ID] key=[Your API Client Key]
+
+[source]
+#%PAM-1.0
+auth       sufficient     pam_yubico.so id=[Your API Client ID] key=[Your API Client Key]
+
+[CAUTION]
 ====
-auth sufficient pam_yubico.so debug id=1 authfile=/etc/yubikeys 
+Note that the key is optional but without it there is no TLS verification which makes this susceptible to MitM attacks by default. Obtain a key at https://upgrade.yubico.com/getapikey[Yubico].
 ====
-
-Do not worry about id and authfile right now, we will configure them later. Mind that the ''debug'' part is purely so we can see some output, and can be removed after the yubikey is setup.
-
-Now we have a PAM configuration that will accept Yubikey as a means of user authentication. Next we will tell it which user is authenticated by which yubikey using the "authfile" option. 
-
-The ''authfile'' option makes it easy to centrally map yubikeys to users. More information about "authfile" can be found at the following link under https://developers.yubico.com/yubico-pam/["Authorization Mapping Files"].
-
-Open /etc/yubikeys in an editor.
-[source, bash]
-[…]$ sudo nano /etc/yubikeys
-
-
-You will now need to add mappings in the format of <uid>:<yubikey_token_id>. The easiest way to find the token ID is to remove the trailing 32 characters of an OTP (the characters spit out when a yubikey is tapped). Here is what an authfile might look like:
-----
-root:cccccccccccc
-harry:cclcclcclccl
-----
-
-This file designates that the "root" user will be paired with the yubikey with the "cccccccccccc", and the "harry" user will be authenticated with the "cclcclcclccl" yubikey. You may add multiple yubikeys to a user by separating the token IDs with a colon. For example, here we will allow the "root" yubikey to also authenticate "harry":
-----
-root:cccccccccccc
-harry:cclcclcclccl:cccccccccccc
-----
-
-When you have finished editing the file, make sure that its permissions are set to the least permissive value.
-[source, bash]
-[…]$ sudo chmod 0400 /etc/yubikeys
-
-
-Alternatively, you can allow your users to make their own mappings. Just remove the ''authfile'' option to pam_yubico.so. Tell your users to create a .yubico directory in their home directory and make a mapping file in it called authorized_yubikeys. This and the authfile option are mutually exclusive.
-
-So, let's try it out. Let's start with a console login, because then we can see
-the nice debug output when we log in.
 
 [NOTE]
 ====
 If you have SELinux on the enforcing mode (the default mode), you should flip on the allow_ypbind boolean first, because pam_yubico needs to be able to connect to Yubico's online authentication. servers.
+
 [source, bash]
 […]$ sudo setsebool -P allow_ypbind=1
 
 Also, in order to allow sshd to access /root/.yubico/authorized_yubikeys, you should change its context:
+
 [source, bash]
 […]$ chcon -R system_u:object_r:ssh_home_t:s0 /root/.yubico
 ====
 
+For challenge-response use the following:
 
-With this done, you should be all ready to go! The next time you open a console (local, not ssh session) and attempt to login you should be prompted `Yubikey for '<user>':`. Tap your yubikey to input an OTP and, hopefully, you will be logged in successfully. 
+[source]
+#%PAM-1.0
+auth       required     pam_yubico.so mode=challenge-response
 
-Once you have verified things are working, feel free to remove the "debug" parameter from `/etc/pam.d/login` so that you won't get the debug logging in your console.
+[source]
+#%PAM-1.0
+auth       sufficient     pam_yubico.so mode=challenge-response
 
-== Additional Configuration 
-There are a number of common things people might want to configure their yubikey to do. In this section we will cover those.
+[NOTE]
+====
+You may add the debug option at the end of these lines right after the mode option to get troubleshooting information in journald.
+====
 
-=== Requiring both yubikey and password
+Next configure PAM to accept a YubiKey as a means of authentication. There are many options in /etc/pam.d to modify and add a YubiKey, but the most common use-cases are:
 
-In the previous section we configured the yubikey to be a replacement for users' passwords. However, there are times in which you may want both a yubikey and a password to be required. To accomplish this, we change the `pam_yubico.so` lines in `/etc/pam.d/*` to read 'required' instead of 'sufficient', like below:
-----
-auth required pam_yubico.so id=1 authfile=/etc/yubikeys
-----
+- /etc/pam.d/login
+- /etc/pam.d/gdm
+- /etc/pam.d/sudo
+- /etc/pam.d/sshd
 
-Now you'll be queried for both Yubikey OTP and your normal password at login!
+In a PAM configuration file if using yubikey-sufficient add an include line before or if using yubikey-required add it after a line that reads "auth substack system-auth" or "auth include system-auth". An include of yubikey-sufficient looks like this:
 
-=== Using a yubikey for more than login 
+[source]
+auth include yubikey-sufficient
 
-We have configured the yubikey to be used in regular logins, but many users would like to use their yubikeys for tasks such as ssh and root elevation. In order to accomplish this, we must copy the pam_yubico.so line we've written into the other PAM modules we wish to integrate with.
+The following example sets a YubiKey OTP as 'sufficient' factor for terminal login. This means that a YubiKey alone is enough to authenticate a user when logging in on a terminal.
 
-As a reminder, here is our line we've been using:
-----
-auth sufficient pam_yubico.so id=1 authfile=/etc/yubikeys
-----
+Open /etc/pam.d/login with your editor of choice. Find the line that reads "auth substack system-auth". Above that, insert the following:
 
-To allow using a yubikey to authenticate with sudo, add our line to the file `/etc/pam.d/sudo`.
+[source]
+auth include yubikey-sufficient
 
-To allow using a yubikey to authenticate with sshd, add our line to the file `/etc/pam.d/sshd`.
+The result looks similar to this:
 
-== Customizing a Yubikey with Fedora  
+[source]
+#%PAM-1.0
+auth       substack     system-auth
+auth       include      postlogin
+account    required     pam_nologin.so
+account    include      system-auth
+password   include      system-auth
+# pam_selinux.so close should be the first session rule
+session    required     pam_selinux.so close
+session    required     pam_loginuid.so
+# pam_selinux.so open should only be followed by sessions to be executed in the user context
+session    required     pam_selinux.so open
+session    required     pam_namespace.so
+session    optional     pam_keyinit.so force revoke
+session    include      system-auth
+session    include      postlogin
+-session   optional     pam_ck_connector.so
 
-A Yubikey generates OTPs by encrypting an internally generated string (containing a counter, among others) with an AES key. The AES key is stored on the device, together with an identifier and a counter. The complete picture of what is on the key is painted in detail in the https://www.yubico.com/wp-content/uploads/2015/03/YubiKeyManual_v3.4.pdf[Yubikey manual].
+Next time you open a console (local, not ssh session) and attempt to login you should be prompted `YubiKey for '<user>':`. Tap your YubiKey to input an OTP and you will be logged without entering a password.
 
-Before we start, we need to install the appropriate software to customize Yubikeys.  In the following guide we will use the older and more powerful commandline tool 'ykpersonalize':
+[CAUTION]
+====
+When using the yubikey-required option make sure to test this thoroughly in another session without closing your current one to mitigate locking yourself out of the system.
+====
+
+To add a YubiKey to more than terminal login, like local sshd servers, sudo or GDM login, add the respective auth include to one of the other configuration files in /etc/pam.d.
+
+== Customizing a YubiKey with Fedora
+
+A YubiKey comes pre-configured for Yubico OTP, but apart from that it uses default PINs for every other feature which you'll most likely want to change before use. There is software for customizing the YubiKey in the official repositories.
+
+There are essentially two tools to use together with their respective GUI variants. 'yubikey-manager' and 'ykpersonalize'. The former is newer but supports less options than the latter. For all available options install both.
+
 [source, bash]
-[…]$ su -c "yum install ykpers"
+[…]$ sudo dnf install ykpers
 
 There is a gui for this command:
+
 [source, bash]
-[…]$ su -c "yum install yubikey-personalization-gui"
+[…]$ sudo dnf install yubikey-personalization-gui
 
 There is a more recent, simpler tool, ykman:
+
 [source, bash]
-[…]$ su -c "yum install yubikey-manager"
+[…]$ sudo dnf install yubikey-manager
 
-Yubikey manager also has a gui:
+YubiKey manager also has a gui:
+
 [source, bash]
-[…]$ su -c "yum install yubikey-manager-qt"
-
-Yubikey-manager has all the necessary commands to manage your yubikey, and the gui is easy to use and self explanatory.
-
-The following instructions are for the older tool, ykpersonalize.
+[…]$ sudo dnf install yubikey-manager-gui
 
 === Writing a new static password to the second slot of the key 
 
