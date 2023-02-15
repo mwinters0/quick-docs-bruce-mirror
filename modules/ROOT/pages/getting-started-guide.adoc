@@ -37,12 +37,12 @@ This section explains concepts about Linux and how it works, which help make it 
 
 By default Linux creates the `root` user account.
 The `root` account is the highest level account on the system and is used for administration.
-During the installation of Fedora, the user is asked to create a password for the root account.
-This password should be remembered for future use.
 
-The `root` account gives the user full permission to modify files, and start and stop critical programs (called processes) on the system.
+Root access gives the user full permission to modify files, and start and stop critical programs (called processes) on the system.
 This is a security feature in Linux that limits normal user privileges only to those required for normal tasks.
 The user is prompted for the root password when making system-wide changes, such as installing new software or starting/stopping fundamental programs required by the operating system.
+
+On Fedora Workstation, the root account is disabled by default. The default user will be added to the 'wheel' group, which will allow it to access root using the 'sudo' command.
 
 === The command line/terminal
 
