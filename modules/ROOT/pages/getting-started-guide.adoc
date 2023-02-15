@@ -65,7 +65,7 @@ Firefox is also available on other platforms such as Microsoft Windows and Mac O
 
 === E-mail
 
-There is no longer a default email client bundled with Fedora, but you can install one by searching menu:Software[].
+There is no longer a default email client bundled with Fedora, but you can install one by searching in menu:Software[].
 
 You can choose [application]*Evolution*. Use it to access e-mail, organize contacts, manage tasks, and schedule calendars.
 Evolution is similar in functionality to Microsoft Outlook.
@@ -78,7 +78,7 @@ It is used for handling email and newsgroups without the calendaring functions t
 
 The [application]*Pidgin* application is popularly used for instant messaging.
 The instant messaging protocols that Pidgin supports include MSN, AIM, IRC, and Yahoo.
-You can search Pidgin by menu:Software[].
+You can install Pidgin using menu:Software[].
 
 === Music & audio
 
@@ -87,7 +87,7 @@ Applications to import audio from CDs and manage music files are available.
 Extracting audio from CDs and storing it in compressed format on the hard drive is one way to manage a music collection.
 
 To extract, or _rip_, the music from a CD, use the [application]*Sound Juicer* program.
-It is accessed through by searching "Sound Juicer" in menu:Software[].
+You can install it by by searching for "Sound Juicer" in menu:Software[].
 By default, Sound Juicer encodes music files to the free and open OGG Vorbis format.
 Once music files are generated, use [application]*Rhythmbox* to manage and play tracks.
 In addition to playing audio file formats, Rhythmbox is also used for streaming media from Internet radio stations.
