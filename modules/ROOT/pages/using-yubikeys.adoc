@@ -82,11 +82,6 @@ If you have SELinux on the enforcing mode (the default mode), you should flip on
 
 [source, bash]
 […]$ sudo setsebool -P allow_ypbind=1
-
-Also, in order to allow sshd to access /root/.yubico/authorized_yubikeys, you should change its context:
-
-[source, bash]
-[…]$ chcon -R system_u:object_r:ssh_home_t:s0 /root/.yubico
 ====
 
 For challenge-response use the following:
