@@ -183,7 +183,7 @@ Write a static key using ykman otp static.
 A more elaborate example: write a new static key to the second configuration slot using a specific AES key.
 
 [source, bash]
-[…]$ ykpersonalize -oappend-cr -a123456deadcafebeef65432112345678 -2 -o-man-update
+[…]$ ykpersonalize -2 -o append-cr -a 123456deadcafebeef65432112345678 -o -man-update
 
 This writes a static key to the YubiKey based on the 32-byte AES key specified with the -a option. The -2 option sets the second slot as target. The other two options are a matter of personal taste. The append-cr option sends a carriage return as the last character of the key. That way I do not have to press <ENTER> myself. The -man-update option disables easy updating of the static key in the YubiKey. Enabling this will allow for altering the static password without the use of ykpersonalize.
 
@@ -192,7 +192,7 @@ This writes a static key to the YubiKey based on the 32-byte AES key specified w
 If we want to write a new configuration to the first slot of the key, we need to specify some more options. If you want to be able to upload you key to Yubico, in order to authenticate against their servers, remember what the values are that you use below. You will need them later on.
 
 [source, bash]
-[…]$ ykpersonalize -1 -ofixed=vvhhhrhkhgidic -ouid=deadbeefcafe -a123456deadcfaebeef65432112345678 -oappend-cr
+[…]$ ykpersonalize -1 -o fixed=vvhhhrhkhgidic -o uid=deadbeefcafe -a 123456deadcfaebeef65432112345678 -o append-cr
 
 The -1 option tells ykpersonalize to use the first configuration. The fixed option specifies the public ID of the YubiKey. This is referred to as the 'prefix' later on, when we go uploading it. The value you use here has to start with 'ff' in hex or 'vv' in modhex (xref:#_what_is_modhex[see below]). Yubico enforces this when you try to upload your key to their servers. The value for the fixed option can be up to 16 characters in length.
 
