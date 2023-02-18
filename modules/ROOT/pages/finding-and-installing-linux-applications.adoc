@@ -1,15 +1,55 @@
-ifdef::context[:parent-context: {context}]
-:context: finding-and-installing-linux-applications
-:imagesdir: images
-
-[[finding-and-installing-linux-applications]]
 = Finding and installing Linux applications
+Hanku Lee, Peter Boy; Fedora Documentation Team
+:revnumber: F36 and newer
+:revdate: 2023-02-18
+:category: Managing Software
+:tags: Tutorial Workstation
+
+[abstract]
+If you are looking for software to run on Fedora Linux, you will discover Fedora-packaged software, EPEL (Extra Packages for Enterprise Linux) and Flatpak apps. Here is an overview of software repositories and installation.
+
+[NOTE]
+====
+**Work in Progress**! Please comment and provide your ideas using the ticket system (rightmost icon below the blue header) or contribute a text using the edit button (second-right below the blue header). Or use the the https://discussion.fedoraproject.org/t/quick-docs-contributors-guide/46584[corresponding discussion thread].
+====
+
+== Sources of software packages
+
+=== Fedora Repository
+
+The Fedora repository is available for all Fedora releases and backed by the following characteristics.
+
+Free and Open Source software packaged in Fedora Linux meets license approval criteria. (Link to: https://docs.fedoraproject.org/en-US/legal/license-approval/)
+
+Fedora Quality Assurance continually improves the quality of Fedora releases and updates.
+
+https://docs.fedoraproject.org/en-US/qa-docs/
+
+=== What comes with default?
+
+Fedora-packaged software: registry.fedoraproject.org
+
+Updates repo
+
+Modularity
+
+==== Optional repos
+
+=== Fedora Flatpaks
+
+=== EPEL
+
+=== Test repo
+
+=== Flathub
+
+== Installation Procedures
 
 The Fedora Linux ships with a graphical software manager to browse, test, install apps and update the installation. This article caters for users who prefer the use of graphical interface to command line interface. The process diverges depending on desktop environment.
 
-== GNOME
+=== GNOME
 
-In GNOME desktop, Software helps you explore, install and update applications and system extensions.
+In GNOME desktop environment, GNOME Software helps you explore, install and update applications and system extensions.
 
 === How to use Software
 
@@ -21,7 +61,7 @@ Step through the numbered list and the number annotated on the image of GNOME So
 
 All the featured apps will be shown on banner in the middle.
 
-image::./assets/images/GUI-Installers/GNOME1_featured.png[]
+image::GNOME1_featured.png[]
 
 Browse apps as categorized below and click a category that is of your interest.
 
@@ -38,7 +78,7 @@ Once you click an app icon, Software presents screenshot of apps and overview.
 
 Scroll down to examine version history, reviews and license details.
 
-image::GNOME_SW3_metadata.png[SoftwareMetadata]
+image::GNOME_SW3_metadata.png[]
 
 If an app has optional add-ons to install together with the app, they will be displayed as *Add-ons* before the software metadata section.
 
@@ -48,7 +88,7 @@ If you have checked the software metadata, scroll up to find and click the blue 
 
 Source (repository) is labelled as Fedora Linux (RPM) or Fedora Flatpak under the blue 'Install' or 'Open' button.
 
-image::GNOME_SW2_Install.png[Installation]
+image::GNOME_SW2_Install.png[]
 
 ==== 5. Updates
 
@@ -63,9 +103,9 @@ If you prefer automatic notification when there are updates available, enable au
 
 To enable or disable repositories, go to the hamburger menu on the top right corner and select Software Repositories. From there, you can toggle Fedora Flatpaks to explore more apps.
 
-image::GNOME_SW6_repo.png[ManageRepository]
+image::GNOME_SW6_repo.png[]
 
-== KDE
+=== KDE
 
 In KDE Plasma desktop, Discover helps you explore, install and update applications and system extensions.
 
@@ -79,13 +119,13 @@ Step through the numbered list and the number annotated on the image of KDE Plas
 
 To launch Kickoff, in the default configuration, press the Super key (next to left Alt key). Hover your mouse over installed apps as caterogized on the left pane. All the available apps will be shown on the right pane.
 
-image::KDE1_KickoffCategory.png[LaunchKickoff]
+image::KDE1_KickoffCategory.png[]
 
 If you look for an application that has not been installed yet, Kickoff will suggest a set of applications that match your search.
 
 Get <application name>. Click the app to navigate to Discover, enabling you to installation.
 
-image::KDE1_KickoffGetApp.png[LaunchDiscover]
+image::KDE1_KickoffGetApp.png[]
 
 ==== 2. Explore applications by categories
 
@@ -93,7 +133,7 @@ To launch Discover directly, press the Super key (next to left Alt key), type di
 
 Hover your mouse over available apps as caterogized on the left pane. Click a category that is of your interest. All the featured apps will be shown on the right pane.
 
-image::KDE2_Discover_category.png[ViewByCategory]
+image::KDE2_Discover_category.png[]
 
 ==== 3. Search applications by name
 
@@ -103,7 +143,7 @@ If you know the name of apps to install, type in the name of apps in the search 
 
 Once you click an app icon, Discover presents screenshot of apps and overview, software metadata such as software version, reviews and license details.
 
-image::KDE2_Discover_metadata.png[CheckMetadata]
+image::KDE2_Discover_metadata.png[]
 
 ==== 5. Installation
 
@@ -113,7 +153,7 @@ If you have checked the software metadata, click the *Install* button on top rig
 
 Update notification will appear on status bar when updates become available. Click the notification to open Discover. Press “Update All” button on the top right corner. System updates require restart.
 
-image::KDE6_Updates.png[InstallUpdates]
+image::KDE6_Updates.png[]
 
 ==== 7. Manage repositories
 
