@@ -122,6 +122,7 @@ The result looks similar to this:
 
 [source]
 #%PAM-1.0
+auth       include      yubikey-sufficient
 auth       substack     system-auth
 auth       include      postlogin
 account    required     pam_nologin.so
