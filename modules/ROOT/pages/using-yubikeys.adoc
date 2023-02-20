@@ -49,15 +49,7 @@ Install the PAM yubico module from the official repositories:
 [source, bash]
 […]$ sudo dnf install pam_yubico
 
-Register a currently connected YubiKey with your user account with
-
-[source, bash]
-[…]$ ykpamcfg -2 -v
-
-Or for any other system user using sudo with
-
-[source, bash]
-[…]$ sudo -u someuser ykpamcfg -2 -v
+=== Base configuration files
 
 Create two base configuration files in /etc/pam.d. yubikey-required and yubikey-sufficient.
 
@@ -98,6 +90,31 @@ auth       sufficient     pam_yubico.so mode=challenge-response
 ====
 You may add the debug option at the end of these lines right after the mode option to get troubleshooting information in journald.
 ====
+
+=== Register YubiKey(s) with your local account(s)
+
+If you use the online YubiCloud method you need the ID of your YubiKey. For this just enter the key and retrieve an OTP code with a short press on the button and extract the first 12 characters - this is your key ID.
+
+[source]
+cccccbcgebif | bclbtjihhbfbduejkuhgvhkehnicrfdj
+
+Create a configuration file ~/.yubico/authorized_keys with your user account followed by key IDs separated by semicolons.
+
+[source]
+fedora-user:cccccbcgebif[:<another-key-id>]
+
+Alternatively, activate challenge-response in slot 2 and register with your user account.
+
+[source, bash]
+[…]$ ykman otp chalresp --generate --touch 2
+[…]$ ykpamcfg -2
+
+Or for any other system user using sudo.
+
+[source, bash]
+[…]$ sudo -u someuser ykpamcfg -2
+
+=== Configure desired PAM modules
 
 Next configure PAM to accept a YubiKey as a means of authentication. There are many options in /etc/pam.d to modify and add a YubiKey, but the most common use-cases are:
 
