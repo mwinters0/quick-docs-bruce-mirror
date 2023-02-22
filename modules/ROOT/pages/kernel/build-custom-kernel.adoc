@@ -161,18 +161,6 @@ If there are configuration options that need to be adjusted for your build, you
 can add changes in the kernel-local file. These changes will get picked up when
 you build.
 
-== Building a kernel from the exploded git trees
-
-Fedora keeps a git tree containing Fedora patches applied on top of the vanilla sources.
-
-[source,bash]
-----
-git clone git://git.kernel.org/pub/scm/linux/kernel/git/jwboyer/fedora.git
-git checkout -b my_branch kernel-4.7.4-200.fc24
-----
-
-You can now build the kernel following regular kernel instructions. This tree
-is useful for generating patches that can be applied to the kernel.spec.
 
 == Building a vanilla upstream kernel
 
