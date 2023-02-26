@@ -91,6 +91,8 @@ auth       sufficient     pam_yubico.so mode=challenge-response
 You may add the debug option at the end of these lines right after the mode option to get troubleshooting information in journald.
 ====
 
+If you want to use both methods for different use-cases just create the respective configuration files and use them as includes as described in the next section accordingly.
+
 === Register YubiKey(s) with your local account(s)
 
 If you use the online YubiCloud method you need the ID of your YubiKey. For this just enter the key and retrieve an OTP code with a short press on the button and extract the first 12 characters - this is your key ID.
