@@ -1,7 +1,7 @@
 = Using YubiKeys with Fedora
 The Fedora docs team
 :revnumber: unknown
-:revdate: 2023-02-12
+:revdate: 2023-02-26
 :category: Using
 // :tags: From Source
 
@@ -66,6 +66,11 @@ auth       sufficient     pam_yubico.so id=[Your API Client ID] key=[Your API Cl
 [CAUTION]
 ====
 Note that the key is optional but without it there is no TLS verification which makes this susceptible to MitM attacks by default. Obtain a key at https://upgrade.yubico.com/getapikey[Yubico].
+====
+
+[CAUTION]
+====
+Note that the online auth method won't work if the device is offline and can't reach the YubiCloud.
 ====
 
 [NOTE]
