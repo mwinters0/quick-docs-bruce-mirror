@@ -105,7 +105,7 @@ If you use the online YubiCloud method you need the ID of your YubiKey. For this
 [source]
 cccccbcgebif | bclbtjihhbfbduejkuhgvhkehnicrfdj
 
-Create a configuration file ~/.yubico/authorized_keys with your user account followed by key IDs separated by semicolons.
+Create a configuration file ~/.yubico/authorized_keys with your user account followed by key IDs separated by colons.
 
 [source]
 fedora-user:cccccbcgebif[:<another-key-id>]
