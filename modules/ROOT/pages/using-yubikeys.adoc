@@ -194,7 +194,7 @@ There is a more recent, simpler tool, ykman:
 YubiKey manager also has a gui:
 
 [source, bash]
-[…]$ sudo dnf install yubikey-manager-gui
+[…]$ sudo dnf install yubikey-manager-qt
 
 === Writing a new static password to the second slot of the key
 
