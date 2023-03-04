@@ -1,7 +1,7 @@
 = Finding and installing Linux applications
 Hanku Lee, Peter Boy; Fedora Documentation Team
 :revnumber: F36 and newer
-:revdate: 2023-02-18
+:revdate: 2023-03-03
 :category: Managing Software
 :tags: Tutorial Workstation
 
@@ -61,7 +61,7 @@ Step through the numbered list and the number annotated on the image of GNOME So
 
 All the featured apps will be shown on banner in the middle.
 
-image::GNOME1_featured.png[]
+image::finding-installing-linux-apps/gnome1-featured.png
 
 Browse apps as categorized below and click a category that is of your interest.
 
