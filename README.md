@@ -8,12 +8,15 @@ Pull Requests](https://docs.pagure.org/pagure/usage/pull_requests.html).
 
 
 General appearance issues and publishing issues should be reported against
-the [publishing software](https://pagure.io/fedora-docs/docs-fp-o).
+the [Fedora Docs Website](https://gitlab.com/fedora/docs/docs-website/docs-fp-o).
 
 ## Reviewers needed!
 
-As discussed in [issue #107](https://pagure.io/fedora-docs/quick-docs/issue/107),
-a lot of pages in this repository are in need of a technical review. Pages which need
+Whether it is broken link, outdated screenshots of graphical user interface, technical and grammatical error in Quick Docs, every little contribution helps Fedora Linux users.
+
+### Technical review
+
+Some pages in this repository are in need of a technical review. Pages which need
 one are marked by a disclaimer on the top of the file, right below the top level heading.
 Any reviews are greatly appreciated. If you want to help, pick one of the pages, check it
 for accuracy, and then:
@@ -21,9 +24,17 @@ for accuracy, and then:
 * If you find that all information on the page is correct, either open a pull request which states that you found no problems and which removes the disclaimer from the top (the `include::`) statement at the top, or open an issue against this repository stating which page you reviewed and found no errors in so we can remove it
 * If you find errors, then either open a pull request fixing them and removing the disclaimer from the top, or open an issue and describe the errors you found, and how to fix them if you know a fix
 
+### New content creation and curation
+
+Please refer to the guide from the links below.
+
+* [Style guide](https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/style-guide/)
+* [Categories and tags](https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/contrib-quickdocs/)
+* [Rule sets](https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/contributions-quick-repo/)
+
 ## How to edit these documents
 
-All of this is written in AsciiDoc. It's a simple mostly-plain-text
+Documentation in Quick Docs is written in AsciiDoc. It's a simple mostly-plain-text
 markup language. You may want to look at:
 
 
@@ -36,7 +47,7 @@ markup language. You may want to look at:
 
 This repo includes a script to build, watch and preview the contents of this repository.
 
-**NOTE**: Please note that if you reference pages from other repositories, such links will be broken in this local preview as it only builds this repository. If you want to rebuild the whole Fedora Docs site, please see [the Fedora Docs build repository](https://pagure.io/fedora-docs/docs-fp-o/) for instructions.
+**NOTE**: Please note that if you reference pages from other repositories, such links will be broken in this local preview as it only builds this repository. If you want to rebuild the whole Fedora Docs site, please see [the Fedora Docs build repository](https://gitlab.com/fedora/docs/docs-website/docs-fp-o) for instructions.
 
 The script uses podman. Please make sure you have podman installed on your system (you can also use Docker, but on Fedora podman is recommended).
 
