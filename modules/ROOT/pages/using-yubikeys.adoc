@@ -6,11 +6,6 @@ The Fedora docs team
 // :tags: From Source
 
 
-[CAUTION]
-====
-This page has not been thoroughly reviewed for technical accuracy for quite some time. This means any information on this page may be outdated or inaccurate. Reviews for technical accuracy are greatly appreciated. If you want to help, either edit it or open a ticket using the appropriate button on the right side below the banner.	
-==== 
-
 == What is a YubiKey? 
 
 A YubiKey is a small USB and NFC based device, a so called https://developers.yubico.com/Developer_Program/Guides/YubiKey_Hardware.html[hardware security token], with modules for many security related use-cases. It generates one time passwords (OTPs), stores private keys and in general implements different authentication protocols. They are created and sold via a company called http://yubico.com/[Yubico].
