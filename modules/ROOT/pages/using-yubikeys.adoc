@@ -214,6 +214,11 @@ This writes a static key to the YubiKey based on the 32-byte AES key specified w
 
 === Writing a new AES key to the first slot of the key
 
+[CAUTION]
+====
+Slot 1 is special as it contains a factory credential already uploaded to YubiCloud. Deleting and recreating a Yubico OTP secret and uploading it to YubiCloud yourself will put a special mark on it which has consequences: service providers might not trust such a key and Yubico might delete those secrets at anytime for practically any reason.
+====
+
 If we want to write a new configuration to the first slot of the key, we need to specify some more options. If you want to be able to upload you key to Yubico, in order to authenticate against their servers, remember what the values are that you use below. You will need them later on.
 
 [source, bash]
