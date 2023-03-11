@@ -253,7 +253,7 @@ After pressing 'y', I am able to generate OTPs with my new key!
 
 When plugged in, the operating system treats the YubiKey as a USB keyboard. USB keyboards send scancodes to the operating system, which the operating system then interprets as keystrokes. The YubiKey has to make sure no ambiguity arises: there are many different kinds of keyboard layouts and the scancodes have to be interpreted as the same character on machines using every random keyboard layout out there. To fix this, the people of Yubico have created 'modhex', which is a modified representation of hexadecimal characters that uses only 'safe' characters. 'Safe' characters are basically characters which have the same scancode on all keyboard layouts.
 
-=== Uploading the generated AES key to Yubico 
+==== Uploading the generated AES key to Yubico 
 
 If you want to customize your YubiKey's AES key but still want to use it to authenticate through Yubico's servers, you can upload the key through https://upgrade.yubico.com/getapikey/. You will need to enter your email address and YubiKey's OTP.
 
