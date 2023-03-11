@@ -316,7 +316,24 @@ Configure your device to remember this password so you don't have to re-enter it
 
 == Using the YubiKey to authenticate against OpenSSH servers
 
-The PIV module can store OpenSSH private keys. The FIDO module can store the corresponding public key. Using only PIV requires export of the public key component onto every new host. In addition with the FIDO module this step is not necessary, if the OpenSSH agent has smart card support.
+Using FIDO2 and OpenSSH 8.2+ you can generate OpenSSH keys that are only usable if the YubiKey is connected. It's possible to protect the key usage by either presence or presence + pin-entry. 
+
+Generate a public key on every host you intend to use the private key, so an OpenSSH agent may discover it:
+
+[source, bash]
+[…]$ ssh-keygen -t ed25519-sk
+
+Generate the public key and store its identity in the FIDO2 module to make the private-public key-pair portable:
+
+[source, bash]
+[…]$ ssh-keygen -t ed25519-sk -O resident -O application=ssh:fedora -O verify-required
+
+[NOTE]
+So called resident keys require that the private key is protected by a PIN.
+
+=== Alternative for keys without FIDO2 support
+
+If the key does not support FIDO2 you have to use an alternative method via the PIV module and PKCS#11. 
 
 Create an ED25519 private key inside the PIV module, requiring pin entry upon use and always require a touch of the YubiKey button:
 
@@ -333,18 +350,20 @@ Create a certificate in this same slot for the PIV/PKCS#11 library:
 Enter PIN: ********
 Touch your YubiKey…
 
-Generate a public key on every host you intend to use the private key, so an OpenSSH agent may discover it:
+Now generate a public key from the X.509 certificate stored on the YubiKey. Other features like resident keys work the same as with the FIDO2 approach, but you have to add the additional option as shown below.
 
 [source, bash]
-[…]$ ssh-keygen -t ed25519-sk
+[…]$ ssh-keygen -D /usr/lib/libykcs11.so -e
 
-Generate the public key and store its identity in the FIDO2 module to make the private-public key-pair portable:
+Login to systems with this public key:
 
 [source, bash]
-[…]$ ssh-keygen -t ed25519-sk -O resident -O application=ssh:fedora -O verify-required
+[…]$ ssh -I /usr/lib/libykcs11.so user@remote.example.org
 
-[NOTE]
-So called resident keys require that the private key is protected by a PIN.
+The ssh-agent may also load keys from the YubiKey with:
+
+[source, bash]
+[…]$ ssh -s /usr/lib/libykcs11.so
 
 == Using the YubiKey to authenticate to websites
 
