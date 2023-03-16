@@ -1,7 +1,91 @@
 [id='con_cups-useful-tricks']
 = Useful tricks
 
-== How to find out whether my printer is capable of driverless printing?
+== How to install a print queue
+
+The fact whether you have to install a printer or not depends on several things:
+
+* what is the device you want to install - a printer from remote CUPS server (called remote print queue) or a printer,
+* where is the device you want to install - connected by USB to your PC, in your local network, in a different network or installed on a remote server,
+* how old is the device you want to install:
+** standalone printers - most SOHO (Small Office, Home Office) and office printers made after 2010 have at least one way of supporting driverless printing, older devices depend on drivers - classic or printer applications,
+** remote print queues on a server - any OS with CUPS 2.2.8 and newer or OS where IPP Everywhere support was backported (f.e. RHEL 8) are capable of supporting IPP Everywhere, otherwise a combination of driver and raw queue is needed in client-server communication,
+* what is the purpose of the device where you install the printer - endpoint device, which is used by user as a desktop, or a server, which shares the installed printers further,
+* what are your personal preferences - using or not using IPP protocol, using or not using mDNS for autoinstallation if possible from network layout.
+
+So there are several user stories based on those dependencies, which are described further down.
+
+=== Common user stories
+
+==== I have a printer made after 2015, I'm at home and want to print from my PC
+
+* the most common setup on desktop
+* the printer is new enough to support driverless standards via USB and network, so driverless support doesn't depend on your connection
+* the PC is an endpoint device, I don't want to share the printer
+* I don't mind using mDNS and IPP, mDNS is enabled in my firewall, IPP and mDNS (or similar settings) are enabled on the printer, and mDNS resolution works (checked by pinging .local hostname)
+
+CUPS temporary queues for xref:_how_to_setup_cups_temporary_queues_with_usb_printer[USB] or xref:_how_to_setup_cups_temporary_queues_with_network_printer[network] are ideal for this use case.
+
+==== I have an older printer, I'm at home and want to print from my PC
+
+* the printer doesn't have a driverless support - check via xref:_how_to_find_out_whether_my_printer_is_capable_of_driverless_printing?[ipptool] for network printers (if the printer has IPP support and you enable the port) and via xref:_how_to_find_out_if_my_usb_device_supports_ipp_over_usb[lsusb] for USB printers,
+* my PC is an endpoint device
+
+Currently there are two options - install the printer in xref:_how_to_install_a_printer_via_printer_application_in_snap_and_making_it_available_for_cups[printer application] and CUPS will automatically see it, or install it with classic driver xref:_how_to_install_a_permanent_print_queue[permanently]. Installation with classic driver is deprecated and will be removed in CUPS 3.0.
+
+==== I'm in a company which has a print server where office printers are installed, I want to print to the print server - no mDNS, but with driverless
+
+* the print server supports IPP Everywhere and is in a different network or doesn't register on mDNS, or I don't want to use mDNS
+* remote print queue has the URI ipp://<server_hostname>:631/printers/<queue_name>, where <server_hostname> is the hostname of print server and <queue_name> is a name of a print queue I want to connect to
+* xref:_how_to_find_out_whether_my_printer_is_capable_of_driverless_printing?[ipptool] command passes if the URI is used
+
+Such printers has to be installed xref:_how_to_install_a_permanent_print_queue[permanently] with IPP Everywhere driver.
+
+==== I'm in a company which has a printer server where office printers are installed, I want to print to the print server - with working mDNS in local network
+
+Such remote printers are discovered automatically via mDNS and used as xref:_how_to_setup_cups_temporary_queues_with_network_printer[CUPS temporary queues] on network - they are seen on mDNS and automatically picked up by dialogs.
+
+==== I want to print, but I don't want to or can't use mDNS, regardless whether my printer supports driverless printing
+
+Every printer which can't be discovered by mDNS has to be installed xref:_how_to_install_a_permanent_print_queue[permanently] in CUPS or, in CUPS 3.0, by printer profile. 
+
+. Driverless printers:
+* all of them supported by *IPP Everywhere* model under Manufacturer entry in CUPS Web UI and as *everywhere* in CLI
+* types based on origin:
+** Network:
+*** URI: ipp://<hostname_or_ip>:631/ipp/print , where <hostname_or_ip> is hostname or IP address of the printer
+** IPP-over-USB printers via ipp-usb:
+*** URI: ipp://localhost:60000/ipp/print
+** Printers installed via printer application:
+*** URI: ipp://localhost:8000/ipp/print/<printer_name> , where <printer_name> is the printer name chosen in printer application
+
+. Remote print queues on a print server:
+* URI: ipp://<server_ip_or_server_hostname>:631/printers/<remote_print_queue> , where <server_ip_or_server_hostname> is server's IP address or hostname and <remote_print_queue> is a name of the print queue installed on the server
+* it depends on CUPS on the server whether a local printer which points to a printer on the server can be installed as IPP Everywhere model - usually CUPS 2.2.8 and newer support driverless and some distributions such as CentOS 8 backported the functionality as well
+* otherwise it depends on printer's driver on the old server - the key is to prevent applying the options multiple times (so one of the connections has to be raw and loses some of the functionality)
+
+. Legacy or specialized printers
+* (deprecated, to be removed in CUPS 3.0) can be discovered by CUPS and installed with classic drivers
+* can be installed in printer application and then installed in CUPS as a permanent queue (see driverless printers - printers installed via printer application above)
+
+==== Driverless options don't do the trick for me on my driverless printer, I want to use features from the driver
+
+The current recommended action is to install the printer via xref:_how_to_install_a_printer_via_printer_application_in_snap_and_making_it_available_for_cups[printer application], which contains the classic driver, because installation the printer permanently in CUPS with classic driver is deprecated and it will be removed in CUPS 3.0. Then mDNS can be used to catch it by CUPS or the printer from printer application has to be installed permanently in CUPS as a IPP Everywhere printer.
+
+In case of IPP-over-USB printers, a reject rule has to be added as described in xref:cups-known-issues.adoc#_usb_printerscanner_doesnt_work_due_a_conflict_on_usb_port[known issues].
+
+==== I install the printer on a server, which will share the printer further
+
+Printers on the server have to be installed xref:_how_to_install_a_permanent_print_queue[permanently] to be shared. IPP Everywhere model (directly to the printer or via printer application) is the ideal, but a classic driver with standardized PPD options on a server capable of using driverless is fine as well - clients can use IPP Everywhere model when pointing to the server and options are translated properly. Otherwise there is a possibility that some options aren't applied or applied twice. Don't forget about enabling IPP in firewall, setting ACLs to the server via [filename]`/etc/cups/cupsd.conf` and attaching the daemon to port 631 instead of localhost.
+
+==== I'm in a company with old print server incapable of driverless, I want to print
+
+The important thing is to prevent applying options multiple times in this scenario. There are several ways how to do it:
+
+* ask your IT support for the driver (print queue on the server has to be raw)
+* use *ServerName* directive in [filename]`/etc/cups/client.conf` or *CUPS_SERVER* environment variable to connect to the server directly - you won't be able to do admin tasks, but capable of printing.
+
+=== How to find out whether my printer is capable of driverless printing?
 
 Network printers have the prerequisites - enablement of IPP port on the printer is the minimum, mDNS is required for automatic printer discovery by `libcups`.
 
@@ -26,13 +110,7 @@ $ ipptool -tv ipp://printer.example.com:631/ipp/print get-printer-attributes.tes
 * check xref:_how_to_setup_cups_temporary_queues_with_network_printer[manual] for enabling CUPS temporary queues - if your printer is seen in the end in CUPS commands that way, your printer is capable of driverless printing,
 * [USB devices only] check for IPP over USB (xref:_how_to_find_out_if_my_usb_device_supports_ipp_over_usb[manual] here).
 
-== How to find out my multifunction device or standalone scanner is capable of driverless scanning?
-
-* check the device specification and look for eSCL/AirScan/WSD - if any of these are mentioned, the device is capable of driverless scanning
-* most devices which advertise they can do AirPrint are capable of AirScan too
-* [USB devices only] check for IPP over USB (xref:_how_to_find_out_if_my_usb_device_supports_ipp_over_usb[manual] here).
-
-== How to find out if my USB device supports IPP over USB
+=== How to find out if my USB device supports IPP over USB
 
 Check whether your USB device has a following text in [command]`lsusb -v` output:
 
@@ -47,28 +125,19 @@ Check whether your USB device has a following text in [command]`lsusb -v` output
 
 If the device has the _bInterfaceClass 7_, _bInterfaceSubClass 1_ and _bInterfaceProtocol 4_ in the sequence, it supports IPP over USB which is critical for USB device driverless printing and scanning.
 
-== How to install a print queue
+=== How to setup CUPS temporary queues
 
-The answer is you don't have to install at all :) if your device is new enough, is in your local network or is an USB device, has IPP/AirPrint/mDNS enabled and your *avahi-daemon* is running, CUPS is able to create a temporary queue for you right away in the print dialog, print via it and remove it after successful printing. But there are still use cases when permanent installation is needed like sharing a print queue, different print queue defaults or printer being in different subnet, so I will cover a permanent instalation too. 
+To setup the temporary queues correctly, there are several prerequisities:
 
-=== How to setup CUPS temporary queues with network printer
+* printer/remote print queue has a driverless support and has it enabled,
+* your PC has avahi-daemon service or avahi-daemon socket running,
+* your PC has cups socket or service running,
+* mDNS hostnames are resolvable - test by pinging a .local hostname
 
-If your printer is capable of AirPrint, IPP and MDNS is enabled in your printer and printer is in your local network, then to get CUPS temporary queues working you need:
+==== How to setup CUPS temporary queues with network printer
 
-* have *avahi-daemon* running:
-
-----
-$ sudo systemctl start avahi-daemon
-----
-
-* have *cups.socket* enabled and running running:
-
-----
-$ sudo systemctl enable cups.socket
-$ sudo systemctl start cups.socket
-----
-
-* enable MDNS in your firewall settings
+* additional requirement:
+** enable MDNS in your firewall settings
 
 After this the temporary queue will appear in the print dialog and you don't need to install a specific print queue unless you have a reason for it.
 
@@ -110,9 +179,10 @@ Device: uri = ipp://HP%20LaserJet%20M1536dnf%20MFP%20(42307C)._ipp._tcp.local/
 ...
 ----
 
-=== How to setup CUPS temporary queues with USB printer
+==== How to setup CUPS temporary queues with USB printer
 
-USB printers have only one additional prerequisite, installing *ipp-usb*, which will transform IPP over USB devices to network printer on localhost:
+* additional requirements:
+** install *ipp-usb*,  which will transform IPP over USB devices to network printer on localhost:
 
 ----
 $ sudo dnf -y install ipp-usb
@@ -271,6 +341,12 @@ OutputBin/OutputBin: *FaceDown
 Scanners in Linux don't have to be installed the same way as printers are if they are in the same network or connected via USB - you just need *sane-backends* to be installed and any scanning application will communicate with scanner/multifunction device via the backend which supports the scanner.
 
 However, the older HP scanners and multifunction devices require an additional package - *hplip* - and its binary plugins downloaded via [command]`hp-plugin -i` if they aren't supported by sane-backends already.
+
+=== How to find out my multifunction device or standalone scanner is capable of driverless scanning?
+
+* check the device specification and look for eSCL/AirScan/WSD - if any of these are mentioned, the device is capable of driverless scanning
+* most devices which advertise they can do AirPrint are capable of AirScan too
+* [USB devices only] check for IPP over USB (xref:_how_to_find_out_if_my_usb_device_supports_ipp_over_usb[manual] here).
 
 === How to make driverless scanning work
 
