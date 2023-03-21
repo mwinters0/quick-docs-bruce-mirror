@@ -35,16 +35,33 @@ For some features private keys and other secrets are stored on the YubiKey. Each
 
 == Using a YubiKey to authenticate to a machine running Fedora
 
-Local system authentication uses https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam[Pluggable Authentication Modules (PAM)]. There are two ways to configure the YubiKey PAM module to authenticate users. Either via the YubiCloud or using challenge-response. The YubiCloud is the standard method but depends on Yubico's cloud to validate your OTPs and hence requires constant internet access.
+Local system authentication uses https://www.redhat.com/sysadmin/pluggable-authentication-modules-pam[Pluggable Authentication Modules (PAM)]. You have two options here: pam_yubico and pam_u2f. The former is required for YubiKeys without FIDO2/U2F. If your key supports the FIDO2 standard depends on firmware and hardware model.
 
-The setup is as follows: install the PAM module, register a YubiKey with your user account, create base configuration for either of the two authentication options and then choose the PAM configuration you want to use the YubiKey.
+The setup is as follows: install the PAM module, register a YubiKey with your user account, create base configuration for either of the two authentication options and then choose the PAM configuration you want to use the YubiKey with.
+
+=== Dependencies
+
+The packages required for both PAM modules are available in the official repositories.
+
+==== For pam_yubico
 
 Install the PAM yubico module from the official repositories:
 
 [source, bash]
 […]$ sudo dnf install pam_yubico
 
+==== For pam_u2f
+
+Install the PAM u2f module and the CLI tool from the official repositories:
+
+[source, bash]
+[…]$ sudo dnf install pam-u2f pamu2fcfg
+
 === Base configuration files
+
+==== For pam_yubico
+
+There are two ways to configure the YubiKey PAM module to authenticate users. Either via the YubiCloud or using challenge-response. The YubiCloud is the standard method but depends on Yubico's cloud to validate your OTPs and hence requires constant internet access.
 
 Create two base configuration files in /etc/pam.d. yubikey-required and yubikey-sufficient.
 
@@ -93,7 +110,26 @@ You may add the debug option at the end of these lines right after the mode opti
 
 If you want to use both methods for different use-cases just create the respective configuration files and use them as includes as described in the next section accordingly.
 
+==== For pam_u2f
+
+Create two base configuration files in /etc/pam.d. u2f-required and u2f-sufficient.
+
+[source]
+#%PAM-1.0
+auth       required     pam_u2f.so
+
+[source]
+#%PAM-1.0
+auth       sufficient     pam_u2f.so
+
+[NOTE]
+====
+You may add the debug option at the end of these lines right after the mode option to get troubleshooting information in journald.
+====
+
 === Register YubiKey(s) with your local account(s)
+
+==== For pam_yubico
 
 If you use the online YubiCloud method you need the ID of your YubiKey. For this just enter the key and retrieve an OTP code with a short press on the button and extract the first 12 characters - this is your key ID.
 
@@ -116,6 +152,19 @@ Or for any other system user using sudo.
 [source, bash]
 […]$ sudo -u someuser ykpamcfg -2
 
+==== For pam_u2f
+
+Use the tool pamu2fcfg to retrieve a configuration line that goes into ~/.config/Yubico/u2f_keys. This configuration line consists of a username and a part tied to a key separated by colon.
+
+[source]
+fedora-user:owBYtPIH2yzjlSQaRrVcxB...Pg==,es256,+presence
+
+If the key is PIN protected you'll be asked to enter the PIN for this operation.
+
+[source, bash]
+[…]$ mkdir -p ~/.config/Yubico
+[…]$ pamu2fcfg >> ~/.config/Yubico/u2f_keys
+
 === Configure desired PAM modules
 
 Next configure PAM to accept a YubiKey as a means of authentication. There are many options in /etc/pam.d to modify and add a YubiKey, but the most common use-cases are:
@@ -125,7 +174,7 @@ Next configure PAM to accept a YubiKey as a means of authentication. There are m
 - /etc/pam.d/sudo
 - /etc/pam.d/sshd
 
-In a PAM configuration file if using yubikey-sufficient add an include line before or if using yubikey-required add it after a line that reads "auth substack system-auth" or "auth include system-auth". An include of yubikey-sufficient looks like this:
+In a PAM configuration file if using {yubikey,u2f}-sufficient add an include line before or if using {yubikey,u2f}-required add it after a line that reads "auth substack system-auth" or "auth include system-auth". An include of yubikey-sufficient looks like this:
 
 [source]
 auth include yubikey-sufficient
