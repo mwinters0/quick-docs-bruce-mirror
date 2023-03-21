@@ -209,6 +209,11 @@ This writes a static key to the YubiKey based on the 32-byte AES key specified w
 
 === Writing a new AES key to the first slot of the key
 
+[CAUTION]
+====
+Slot 1 is special as it contains a factory credential already uploaded to YubiCloud. Deleting and recreating a Yubico OTP secret and uploading it to YubiCloud yourself will put a special mark on it which has consequences: service providers might not trust such a key and Yubico might delete those secrets at anytime for practically any reason.
+====
+
 If we want to write a new configuration to the first slot of the key, we need to specify some more options. If you want to be able to upload you key to Yubico, in order to authenticate against their servers, remember what the values are that you use below. You will need them later on.
 
 [source, bash]
@@ -243,7 +248,7 @@ After pressing 'y', I am able to generate OTPs with my new key!
 
 When plugged in, the operating system treats the YubiKey as a USB keyboard. USB keyboards send scancodes to the operating system, which the operating system then interprets as keystrokes. The YubiKey has to make sure no ambiguity arises: there are many different kinds of keyboard layouts and the scancodes have to be interpreted as the same character on machines using every random keyboard layout out there. To fix this, the people of Yubico have created 'modhex', which is a modified representation of hexadecimal characters that uses only 'safe' characters. 'Safe' characters are basically characters which have the same scancode on all keyboard layouts.
 
-=== Uploading the generated AES key to Yubico 
+==== Uploading the generated AES key to Yubico 
 
 If you want to customize your YubiKey's AES key but still want to use it to authenticate through Yubico's servers, you can upload the key through https://upgrade.yubico.com/getapikey/. You will need to enter your email address and YubiKey's OTP.
 
