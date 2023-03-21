@@ -1,9 +1,16 @@
 = Getting started with Fedora
+Petr Bokoc ; Ooyama Yosiyuki; Liam Coogan
 :experimental:
-:toc:
+:revnumber: F32 onwards
+:revdate: 2023-03-21
 
-The Fedora Project is a community of people working together to build a free and open source software platform and to collaborate on and share user-focused solutions built on that platform.
-Or, in plain English, we make an operating system and we make it easy for you do useful stuff with it.
+:category: Introduction and Overview
+:tags: Workstation
+
+[abstract]
+------
+The Fedora Project is a community of people working together to build a free and open source software platform and to collaborate on and share user-focused solutions built on that platform. Or, in plain English, we make an operating system, and we make it easy for you to do useful stuff with it.
+------
 
 Actually, we produce several operating systems, or editions anyway.
 The one that you're most likely interested in, and the one that we'll be focusing on, is **Fedora Workstation**.
@@ -35,14 +42,11 @@ This section explains concepts about Linux and how it works, which help make it 
 
 === Root
 
-By default Linux creates the `root` user account.
-The `root` account is the highest level account on the system and is used for administration.
+By default Linux creates the `root` user account. It is the highest level account on the system and is used for administration. It gives the user full permission to modify files, and start and stop critical programs (called processes) on the system. It is a security feature in Linux that limits normal user privileges only to those required for normal tasks.
 
-Root access gives the user full permission to modify files, and start and stop critical programs (called processes) on the system.
-This is a security feature in Linux that limits normal user privileges only to those required for normal tasks.
-The user is prompted for the root password when making system-wide changes, such as installing new software or starting/stopping fundamental programs required by the operating system.
+For security reasons, the root account is disabled by default on Fedora Workstation. Instead, the default user will be added to the group 'wheel'. Members of this group are able to acquire root permissions using the 'sudo' command. Whenever this user wants to make a system-wide change, such as stopping a fundamental program like the web server (hhtpd), the corresponding command is preceded by a sudo, e.g. `sudo systemd stop httpd`. The sudo then asks for the password of the user, not of root.
 
-On Fedora Workstation, the root account is disabled by default. The default user will be added to the 'wheel' group, which will allow it to access root using the 'sudo' command.
+Always when making system-wide changes, such as installing new software or starting/stopping fundamental programs required by the operating system. The user is prompted for the root password 
 
 === The command line/terminal
 
