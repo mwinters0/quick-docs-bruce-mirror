@@ -1,15 +1,108 @@
-ifdef::context[:parent-context: {context}]
-:context: using-nested-virtiualization-in-kvm
-[id='using-nested-virtiualization-in-kvm']
 = How to enable nested virtualization in KVM
 
 Learn how to run a virtual machine within a virtual machine.
 
-include::{partialsdir}/proc_enabling-nested-virtualization-in-kvm.adoc[leveloffset=+1]
+// ===========================================
+// include::{partialsdir}/proc_enabling-nested-virtualization-in-kvm.adoc[leveloffset=+1]
+// ===========================================
 
-include::{partialsdir}/proc_configuring-nested-virtualization-in-virt-manager.adoc[leveloffset=+1]
+== Enabling nested virtualization in KVM
 
-include::{partialsdir}/proc_testing-nested-virtualization.adoc[leveloffset=+1]
+Nested virtualization allows you to run a virtual machine (VM) inside another VM while still using hardware acceleration from the host.
+
+=== Checking if nested virtualization is supported
+
+For Intel processors, check the `/sys/module/kvm_intel/parameters/nested` file. For AMD processors, check the `/sys/module/kvm_amd/parameters/nested` file. If you see `1` or `Y`, nested virtualization is supported; if you see `0` or `N`, nested virtualization is not supported.
+
+For example:
+
+----
+cat /sys/module/kvm_intel/parameters/nested
+Y
+----
+
+
+=== Enabling nested virtualization
+
+To enable nested virtualization for Intel processors:
+
+. Shut down all running VMs and unload the `kvm_probe` module:
++
+----                                
+sudo modprobe -r kvm_intel
+----
+. Activate the nesting feature:
++
+----
+sudo modprobe kvm_intel nested=1
+----
++
+. Nested virtualization is enabled until the host is rebooted. To enable it permanently, add the following line to the `/etc/modprobe.d/kvm.conf` file:
++
+----
+options kvm_intel nested=1
+----
+
+To enable nested virtualization for AMD processors:
+
+. Shut down all running VMs and unload the `kvm_amd` module:
++
+----                                
+sudo modprobe -r kvm_amd
+----
+. Activate the nesting feature:
++
+----
+sudo modprobe kvm_amd nested=1
+----    
+. Nested virtualization is enabled until the host is rebooted. To enable it permanently, add the following line to the `/etc/modprobe.d/kvm.conf` file:                        
++
+----
+options kvm_amd nested=1
+----
+
+
+// ===========================================
+// include::{partialsdir}/proc_configuring-nested-virtualization-in-virt-manager.adoc[leveloffset=+1]
+// ===========================================
+// [[proc_configuring-nested-virtualization-in-virt-manager]]
+== Configuring nested virtualization in virt-manager
+
+Configure your VM to use nested virtualization:
+
+. Open virt-manager, double-click the VM in which you wish to enable nested virtualization, and click the *Show virtual hardware details* icon. 
+
+. Click *CPUs* in the side menu. In the *Configuration* section, there are two options - either type `host-passthrough` in the *Model:* field, or select the *Copy host CPU configuration* check box (that fills the `host-model` value in the *Model* field).
++
+NOTE: Using host-passthrough is not recommended for general usage. It should only be used for nested virtualization purposes.
++
+. Click *Apply*.
+
+
+// ===========================================
+// include::{partialsdir}/proc_testing-nested-virtualization.adoc[leveloffset=+1]
+// ===========================================
+// [[proc_testing-nested-virtualization]]
+== Testing nested virtualization
+
+. Start the virtual machine.
+. On the virtual machine, run:
++
+----
+sudo dnf group install virtualization
+----
++
+. Verify that the virtual machine has virtualization correctly set up:
++
+----
+sudo virt-host-validate
+  QEMU: Checking for hardware virtualization                                 : PASS
+  QEMU: Checking if device /dev/kvm exists                                   : PASS
+  QEMU: Checking if device /dev/kvm is accessible                            : PASS
+  QEMU: Checking if device /dev/vhost-net exists                             : PASS
+  QEMU: Checking if device /dev/net/tun exists                               : PASS
+  ...
+----
 
 
 == Additional resources
@@ -18,5 +111,4 @@ include::{partialsdir}/proc_testing-nested-virtualization.adoc[leveloffset=+1]
 * https://kashyapc.wordpress.com/2012/01/14/nested-virtualization-with-kvm-intel/
 * https://kashyapc.wordpress.com/2012/01/18/nested-virtualization-with-kvm-and-amd/
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+
