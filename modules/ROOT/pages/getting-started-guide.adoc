@@ -8,9 +8,9 @@ Petr Bokoc ; Ooyama Yosiyuki; Liam Coogan
 :tags: Workstation
 
 [abstract]
-------
+//------
 The Fedora Project is a community of people working together to build a free and open source software platform and to collaborate on and share user-focused solutions built on that platform. Or, in plain English, we make an operating system, and we make it easy for you to do useful stuff with it.
-------
+//------
 
 Actually, we produce several operating systems, or editions anyway.
 The one that you're most likely interested in, and the one that we'll be focusing on, is **Fedora Workstation**.
