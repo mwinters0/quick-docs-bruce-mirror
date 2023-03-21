@@ -1,9 +1,9 @@
 = Using YubiKeys with Fedora
-The Fedora docs team
-:revnumber: unknown
-:revdate: 2023-02-26
+The Fedora Documentation Team; Alexander Wellbrock
+:revnumber: F37
+:revdate: 2023-03-11
 :category: Using
-// :tags: From Source
+:tags: How-to Security
 
 
 == What is a YubiKey? 
