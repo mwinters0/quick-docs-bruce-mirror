@@ -1,16 +1,25 @@
 = How to enable nested virtualization in KVM
+Fedora Documentation Team
+:revnumber: F36 onwards
+:revdate: 2023-02-21
 
-Learn how to run a virtual machine within a virtual machine.
+// Optional  free form useful additional information as comment
+
+:category: Administration
+:tags: How-to Workstation Virtualization
+
+[abstract]
+------
+Nested virtualization allows you to run a virtual machine (VM) inside another VM while still using hardware acceleration from the host.
+------
+
 
 // ===========================================
 // include::{partialsdir}/proc_enabling-nested-virtualization-in-kvm.adoc[leveloffset=+1]
 // ===========================================
 
-== Enabling nested virtualization in KVM
 
-Nested virtualization allows you to run a virtual machine (VM) inside another VM while still using hardware acceleration from the host.
-
-=== Checking if nested virtualization is supported
+== Checking if nested virtualization is supported
 
 For Intel processors, check the `/sys/module/kvm_intel/parameters/nested` file. For AMD processors, check the `/sys/module/kvm_amd/parameters/nested` file. If you see `1` or `Y`, nested virtualization is supported; if you see `0` or `N`, nested virtualization is not supported.
 
@@ -22,7 +31,7 @@ Y
 ----
 
 
-=== Enabling nested virtualization
+== Enabling nested virtualization
 
 To enable nested virtualization for Intel processors:
 
