@@ -3,7 +3,7 @@ The Fedora Documentation Team; Alexander Wellbrock
 :revnumber: F37
 :revdate: 2023-03-11
 :category: Using
-:tags: How-to Security
+:tags: How-to, Security
 
 
 == What is a YubiKey? 
