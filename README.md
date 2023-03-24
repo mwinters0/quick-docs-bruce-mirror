@@ -28,9 +28,9 @@ for accuracy, and then:
 
 Please refer to the guide from the links below.
 
-* [Style guide](https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/style-guide/)
-* [Categories and tags](https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/contrib-quickdocs/)
-* [Rule sets](https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/contributions-quick-repo/)
+* xref:test-module:fedora-docs:contributing-docs/style-guide.adoc[Style guide]
+* xref:test-module:fedora-docs:contributing-docs/contrib-quickdocs.adoc[Categories and tags]
+* xref:test-module:fedora-docs:contributing-docs/contributions-quick-repo.adoc[Rule sets]
 
 ## How to edit these documents
 
