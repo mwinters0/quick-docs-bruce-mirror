@@ -58,7 +58,7 @@ Most people will want to upgrade to the latest stable release, which is `{MAJORO
 You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki/Releases/Branched[Branched] release, or `rawhide` to upgrade to link:https://fedoraproject.org/wiki/Releases/Rawhide[Rawhide]. Note that neither of these two are stable releases. For details about the upgrade process and common issues related to those two releases, please look at appropriate sections on aforelinked pages.
 
 . If some of your packages have unsatisfied dependencies, the upgrade will refuse to continue until you run it again with an extra `--allowerasing` option.
-  This often happens with packages installed from third-party repositories for which an updated repositories hasn't been yet published.
+  This often happens with packages installed from third-party repositories for which an updated repository hasn't been yet published.
   Study the output very carefully and examine which packages are going to be removed.
   None of them should be essential for system functionality, but some of them might be important for your productivity.
 
@@ -109,7 +109,7 @@ sudo rpmconf -a
 
 [NOTE]
 ====
-Some third party software drop edited configuration files in `/etc/yum.repos.d/` and reverting these files to their original versions may disable updates for the software.
+Some third-party packages drop edited configuration files in `/etc/yum.repos.d/` and reverting these files to their original versions may disable updates for the software.
 Please remember to review configuration files in this directory carefully.
 ====
 
@@ -223,7 +223,7 @@ However, that doesn't mean that the package is not useful or that you don't use 
 ====
 
 [[sect-clean-up-old-kernels]]
-=== Clean-Up Old Kernels
+=== Clean-up Old Kernels
 
 After you boot into the latest kernel and test the system you can remove previous kernels. Old kernels remain even after `dnf autoremove` to avoid unintentional removals.
 
@@ -336,7 +336,7 @@ The boot process will likely take a long time, as it checks and fixes SELinux pe
 . Search link:++https://bugzilla.redhat.com/buglist.cgi?product=Fedora&component=dnf-plugin-system-upgrade&resolution=---++[Bugzilla for an existing bug report].
 
 If you do not see a report that matches your symptoms, you can file a new report from the search page.
-Please follow the bug reporting instructions mentioned in the link:++https://github.com/rpm-software-management/dnf-plugin-system-upgrade/blob/master/README.md++[README from the github repo] or in `man dnf.plugin.system-upgrade`.
+Please follow the bug reporting instructions mentioned in the link:++https://github.com/rpm-software-management/dnf-plugin-system-upgrade/blob/master/README.md++[README from the GitHub repo] or in `man dnf.plugin.system-upgrade`.
 
 If you encounter any issues after the upgrade with a specific package, file a bug against the package with which you are having issues.
 
@@ -350,7 +350,7 @@ You can disable this function if needed, but is not recommended as you will be o
 [[sect-will-packages-in-third-party-repositories-be-upgraded]]
 === Will packages in third-party repositories be upgraded?
 
-Yes, if they are configured like regular DNF repositories and the version numbers are not hard-coded in the repository file (usually found in `/etc/yum.repos.d/`.)
+Yes, if they are configured like regular DNF repositories and the version numbers are not hard-coded in the repository file (usually found in `/etc/yum.repos.d/`).
 Commonly used third-party repositories like RPM Fusion should work.
 However, if attempting to upgrade prior to, or soon after, an official Fedora release, they may not have updated their repository paths, and DNF may be unable to find their packages.
 Usually, this should not prevent the upgrade from running successfully.
@@ -369,7 +369,7 @@ Again this is unsupported and is *at your own risk*.
 [[sect-how-many-releases-can-i-upgrade-across-at-once]]
 === Can I do a single upgrade across many releases (i.e. 30->34)?
 
-Upgrades to the very next release (e.g. `{PREVVER}` to `{MAJOROSVER}`) as well as upgrades skipping one release (e.g. `{PREVPREVVER}` to `{MAJOROSVER}`) are both supported. However, it is highly recommended to perform the upgrade before your release gets End of Life (EOL). That happens roughly a month after N+2 release has been released (when you're currently on release N). The link:https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle[Fedora Release Life Cycle] is specifically designed to provide this approximate one month "grace period" to allow users the choice to upgrade their systems on a yearly basis, i.e. once every two releases. You can study link:https://fedoraproject.org/wiki/Releases[Releases] to see the current release status and schedule. Around a month after the new release comes out, the last-but-one release becomes End of Life (EOL). The upgrade is likely to work successfully after the release goes EOL, but the time period after the new release may be uncertain.
+Upgrades to the very next release (e.g. `{PREVVER}` to `{MAJOROSVER}`) as well as upgrades skipping one release (e.g. `{PREVPREVVER}` to `{MAJOROSVER}`) are both supported. However, it is highly recommended to perform the upgrade before your release reaches End of Life (EOL). That happens roughly a month after N+2 release has been released (when you're currently on release N). The link:https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle[Fedora Release Life Cycle] is specifically designed to provide this approximate one month "grace period" to allow users the choice to upgrade their systems on a yearly basis, i.e. once every two releases. You can study link:https://fedoraproject.org/wiki/Releases[Releases] to see the current release status and schedule. Around a month after the new release comes out, the last-but-one release becomes End of Life (EOL). The upgrade is likely to work successfully after the release goes EOL, but the time period after the new release may be uncertain.
 
 Upgrades across more than two releases are *not supported*, and issues encountered with such upgrades may not be considered significant bugs.
 
