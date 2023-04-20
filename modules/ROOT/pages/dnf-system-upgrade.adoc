@@ -148,7 +148,7 @@ steps down. Fedora no longer distributes these packages; however, they are
 still on your system. These packages will not receive upgrades. It is highly
 recommended to remove them.
 
-If you upgrade across one release (e.g. Fedora 36 to 37), run the following commands:
+If you upgrade across one release (e.g. Fedora {PREVVER} to {MAJOROSVER}), run the following commands:
 
 [source,bash]
 ----
@@ -156,12 +156,12 @@ $ sudo dnf install remove-retired-packages
 $ remove-retired-packages
 ----
 
-If you upgrade across two releases (e.g. Fedora 35 to 37), you must supply the old release version to `remove-retired-packages`:
+If you upgrade across two releases (e.g. Fedora {PREVPREVVER} to {MAJOROSVER}), you must supply the old release version to `remove-retired-packages`:
 
 [source,bash]
 ----
 $ sudo dnf install remove-retired-packages
-$ remove-retired-packages 35
+$ remove-retired-packages {PREVPREVVER}
 ----
 
 NOTE: Upgrades across *more* than two releases are not supported.
