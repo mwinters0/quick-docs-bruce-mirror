@@ -158,7 +158,7 @@ $ remove-retired-packages
 
 If you upgrade across two releases (e.g. Fedora {PREVPREVVER} to {MAJOROSVER}), you must supply the old release version to `remove-retired-packages`:
 
-[source,bash]
+[source,bash,subs="attributes"]
 ----
 $ sudo dnf install remove-retired-packages
 $ remove-retired-packages {PREVPREVVER}
