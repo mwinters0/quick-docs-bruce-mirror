@@ -1,12 +1,8 @@
 = Contribute to Quick Docs
 
-The goal:
-move away from exposing users to the wild territory of wikis 
-(where helpful guides are mixed with draft documentation, user pages, rough notes, and so on)
-to a nice, topic-oriented format
-with a pull-request-based workflow.
-We appeciate your help!
-
+[abstract]
+The goal is to move away from wikis, where helpful guides are mixed with draft documentation, internal notes, to a nice, topic-oriented how-to guides and code-packed tutorials
+with a pull-request-based workflow. We appreciate your help!
 
 == Steps
 
