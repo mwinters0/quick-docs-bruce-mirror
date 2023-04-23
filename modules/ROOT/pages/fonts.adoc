@@ -1,4 +1,3 @@
-
 = Adding new fonts in Fedora
 The Fedora Docs Team; Peter Boy 
 :revnumber: F36,F37
@@ -96,7 +95,7 @@ User fonts are installed for an individual user.
 Only the user who installs the fonts on the machine will be able to use these fonts.
 This is also convenient if you do not have superuser (i.e. `root`) access on the machine.
 
-There are two ways to install user fonts.
+There are three ways to install user fonts.
 
 [[user-fonts--gnome-font-viewer]]
 ==== GNOME Font Viewer
@@ -126,6 +125,19 @@ When you click on the btn:[Install] button, it does not inform whether the insta
 
 . Copy font files to a font directory in the user's home directory `.local/share/fonts`.
 . Update the font cache.
+
+[[user-fonts--KDE]]
+==== KDE Font Management
+
+. Go to Settings and enter font in Quick Settings.
+. On Font Management window, press the Install from...button, and select the downloaded fonts from within the dialog.
+. On pop-up window, select one from font groups.
+
+----
+Do you wish to install the font(s) for personal use (only available to you), or system-wide (available to all users)?
+----
+
+. Installation is complete.
 
 [[user-fonts--command-line]]
 ==== Command line
