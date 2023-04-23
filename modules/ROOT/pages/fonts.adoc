@@ -1,7 +1,7 @@
 = Adding new fonts in Fedora
 The Fedora Docs Team; Peter Boy 
 :revnumber: F36,F37
-:revdate: 2023-01-12
+:revdate: 2023-04-24
 
 Fedora pre-installs several basic fonts by default.
 This page explains how to add new fonts to a Fedora installation.
@@ -131,13 +131,11 @@ When you click on the btn:[Install] button, it does not inform whether the insta
 
 . Go to Settings and enter font in Quick Settings.
 . On Font Management window, press the Install from...button, and select the downloaded fonts from within the dialog.
-. On pop-up window, select one from font groups.
+. On pop-up window (see UI text below), select a font group that will control where the fonts will be installed.
 
 ----
 Do you wish to install the font(s) for personal use (only available to you), or system-wide (available to all users)?
 ----
-
-. Installation is complete.
 
 [[user-fonts--command-line]]
 ==== Command line
