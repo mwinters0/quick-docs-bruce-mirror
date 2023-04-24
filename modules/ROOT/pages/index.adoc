@@ -1,6 +1,6 @@
 = Fedora Quick Docs
 
-This is a collection of short HOW-TO and FAQ-style documentation for Fedora users. **Use the navigation menu menu on the left** to find an area of interest, and under that, solutions to your specific problem.
+This is a collection of short HOW-TO and FAQ-style documentation for Fedora users. **Use the navigation menu on the left** to find an area of interest, and under that, solutions to your specific problem.
 
 This documentation is community-made. Your xref:contribute-to-quick-docs.adoc[contributions and improvements ]are welcome!
 
