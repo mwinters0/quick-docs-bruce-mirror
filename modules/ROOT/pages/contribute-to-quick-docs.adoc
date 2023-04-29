@@ -25,7 +25,7 @@ here are some places to look for ideas:
 
 * The old https://fedoraproject.org/wiki/Category:How_to[How To category]
 on the Fedora wiki. Many of those documents are ripe for conversion. (Many are also very out of date!)
-* https://ask.fedoraproject.org/c/english/97/l/latest?order=votes[Top-Voted] or https://ask.fedoraproject.org/c/english/97/l/top?order=views&period=yearly[highly-viewed] questions on Ask Fedora.
+* https://discussion.fedoraproject.org/c/ask/common-issues/82/none?solved=yes[Common Issues] questions on Ask Fedora.
 * Frequent
 https://unix.stackexchange.com/questions/tagged/fedora?sort=frequent&pageSize=50[Fedora
 questions on Stack Exchange].
