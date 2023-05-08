@@ -24,11 +24,11 @@ This procedure shows Fedora users how to add Fedora ARM to a microSD for use wit
 * A microSD Card (16 GB or larger).
 * A computer running Fedora 28 or newer.
 * SD card reader.
-* A Fedora ARM image from: link:https://arm.fedoraproject.org/[].
+* A Fedora ARM image from: link:https://fedoraproject.org/server/download/[].
 
 ._Procedure_
 
-. Download a Fedora ARM image from the  link:https://arm.fedoraproject.org/[Fedora ARM website].
+. Download a Fedora ARM image from the  link:https://fedoraproject.org/server/download/[Get Fedora].
 +
 . Install the `arm-image-installer`:
 +
