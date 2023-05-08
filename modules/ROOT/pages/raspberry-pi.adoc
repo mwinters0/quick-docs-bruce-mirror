@@ -44,7 +44,7 @@ This documentation describes how to get started, and includes a Frequently Asked
 * If using a USB flash drive, with USB boot:
 ** A USB flash drive, preferrably USB 3.0 or newer (16GB or larger)
 * A computer running Microsoft Windows, macOS, or Linux.
-* A Fedora ARM® aarch64 Workstation or server image from: link:https://fedoraproject.org/[].
+* A Fedora ARM aarch64 Workstation or server image from: link:https://fedoraproject.org/[].
 
 The procedure for installing Fedora ARM on a microSD in preparation for using Fedora on a Raspberry Pi depends on your computers' operating system (Microsoft Windows, macOS, or Linux).
 
