@@ -1,7 +1,7 @@
 = How to enable touchpad click
 Ankur Sinha; Caleb McKee; Petr Bokoc
-:revnumber: F32
-:revdate: 2020-04-10
+:revnumber: F38
+:revdate: 2023-05-08
 :category: Administration
 :tags: Touchpad 
 
@@ -34,7 +34,7 @@ The "_mouse and touchpad_" utility can be used to enable tapping and set scrolli
 1. Enter KDE System Settings
 2. Choose Hardware > Input Devices > Touchpad (If the "Touchpad" setting is not there, install kcm_touchpad first, then restart System Settings. It is installed by default.)
 3. Select the Tapping tab
-4. Check the "Enable tapping" checkbox
+4. Check the "Tap to click" checkbox
 5. Set some tapping actions under "Buttons" below, the default is to do
       nothing
 
@@ -43,9 +43,9 @@ Alternatively, the systemwide method described under link:https://fedoraproject.
 // link:#Other_window_managers[Other window managers] can also be used.
 
 [[xfce]]
-=== XFCE
+=== Xfce
 
-1.  Enter XFCE Settings
+1.  Enter Xfce Settings
 2.  Select the Mouse and Touchpad settings
 3.  If necessary, select your Touchpad device
 4.  In the General section, enable "Tap touchpad to click"
