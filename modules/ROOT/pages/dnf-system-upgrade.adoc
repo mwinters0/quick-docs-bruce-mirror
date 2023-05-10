@@ -122,6 +122,20 @@ If you use `rpmconf` to upgrade the system configuration files supplied with the
 
 Systems with the BIOS firmware have the GRUB RPM packages updated. However, the installed or embedded bootloader is never updated automatically. It is a good idea to update it between Fedora release versions.
 
+[WARNING]
+====
+This only applies to BIOS-based systems, *not UEFI-based*. To discover what firmware your machine uses, run the following command:
+
+[source,bash]
+----
+$ [ -d /sys/firmware/efi ] && echo UEFI || echo BIOS
+----
+
+The output returns only UEFI or BIOS, depending on the firmware your machine runs.
+
+For more information, see link:++https://fedoraproject.org/wiki/GRUB_2#Reinstalling_GRUB++[Reinstalling_GRUB].
+====
+
 Find the device node the `/boot/` directory is located on:
 
 [source,bash]
