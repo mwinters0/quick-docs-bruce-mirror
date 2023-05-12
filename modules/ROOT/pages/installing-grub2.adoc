@@ -26,6 +26,8 @@ Since Fedora 16, *GRUB2* has been the default bootloader on x86 BIOS
 systems. For upgrades of BIOS systems, the default is also to install
 *GRUB2*, but you can opt to skip bootloader configuration entirely.
 
+include::{partialsdir}/proc_discovering-the-firmware-type.adoc[leveloffset=+1]
+
 include::{partialsdir}/proc_installing-grub2-on-bios-system.adoc[leveloffset=+1]
 
 include::{partialsdir}/proc_installing-grub2-on-efi-system.adoc[leveloffset=+1]

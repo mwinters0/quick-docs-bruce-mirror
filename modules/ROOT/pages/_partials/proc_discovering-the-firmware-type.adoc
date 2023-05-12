@@ -1,0 +1,11 @@
+[[discovering-the-firmware-type]]
+= Discovering the firmware type
+
+To discover what firmware your machine uses, run the following command:
+
+[source,bash]
+----
+$ [ -d /sys/firmware/efi ] && echo UEFI || echo BIOS
+----
+
+The output returns only UEFI or BIOS, depending on the firmware your machine runs.
