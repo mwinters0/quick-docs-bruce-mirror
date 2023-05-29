@@ -1,7 +1,7 @@
 [id='using-the-command-line-to-view-log-files]
 = Using the command line to view log files
 
-The `journalctl` command can be to view messages in the system journal on the command line.
+The `journalctl` command can be used to view messages in the system journal on the command line.
 For plain text log files, generic tools may be used:
 
 * `cat`, `more`, `less`, `tail`, or `head`.
