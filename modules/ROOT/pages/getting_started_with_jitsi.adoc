@@ -1,0 +1,21 @@
+ifdef::context[:parent-context: {context}]
+:context: getting_started_with_jitsi
+
+[[getting_started_with_jitsi]]
+= Getting started with Jitsi
+
+Jitsi video conferencing stack enables users to create virtual meetings, conferences, and collaboration sessions among other notable use-cases. Jitsi video conferencing stack provides:
+
+* Jitsi Meet: a feature-packed client application used by conference participants 
+
+* Jitsi Videobridge: a server-side component of the Jitsi stack. Acts as a central hub for video conferences, where participants can join by accessing a uniquely generated conference URL from the server. Jitsi Videobridge conducts negotiation of audio and video streams between conference participants and also provides the necessary infrastructure for seamless experience.
+
+
+include::{partialsdir}/installing_jitsi.adoc[leveloffset=0]
+
+include::{partialsdir}/.adoc[leveloffset=0]
+
+For more information see link:https://jitsi.org/[jitsi]
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
