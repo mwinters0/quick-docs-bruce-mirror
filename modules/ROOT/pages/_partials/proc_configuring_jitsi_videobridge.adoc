@@ -1,0 +1,30 @@
+// Module included in the following assemblies:
+//
+// configuring_jitsi.adoc
+[id='configuring_jitsi_videobridge']
+
+== Configuring Jitsi Videobridge
+
+.Prerequsites
+
+* Open the port `10000/udp` if you use Network Address Translation (NAT):
+
+. Install the `jitsi-videobridge-firewalld` package to obtain service definition for `jitsi-videobridge.service`
+. Use the service definition to configure `firewalld` to open `10000/udp` for Jitsi Videobridge.
+
+
+.Procedure
+
+. Replace the `\___jitsiFQDN___` and `\___jvbUserSecret___` placeholders in the `/etc/jitsi-videobridge/jvb.conf` file.
+
+. Enable and start `jitsi-videobridge.service`:
++
+----
+$ sudo systemctl enable --now jitsi-videobridge.service
+----
+
+
+
+.Additional resources
+
+* `/etc/sysconfig/jitsi-videobridge`

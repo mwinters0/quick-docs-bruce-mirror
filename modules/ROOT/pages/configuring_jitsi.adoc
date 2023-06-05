@@ -1,0 +1,26 @@
+ifdef::context[:parent-context: {context}]
+:context: getting_started_with_jitsi
+
+[id='configuring_jitsi']
+
+== Configuring Jitsi
+
+After installation, you need to perform a few additional configuration steps. The steps consist of replacing various placeholder variables with your values to ensure that Jitsi is correctly configured to work in your specific deployment. The placeholders are identified by underscores for example `\___variableName___`.
+
+In all files, replace `\___jitsiFQDN___` with the fully-qualified domain name of your instance and `\____<component>Secret__` with a strong random password. You need three secrets:
+
+* `\___focusSecret___`
+* `\___focusUserSecret___`
+* `\___jvbUserSecret___`
+
+You do not need to memorize the secrets. They are only used by different Jitsi components to communicate to each other.
+
+
+include::{partialsdir}/configuring_jitsi_prosody.adoc[leveloffset=0]
+include::{partialsdir}/configuring_jitsi_meet.adoc[leveloffset=0]
+include::{partialsdir}/configuring_jitsi_webserver.adoc[leveloffset=0]
+include::{partialsdir}/configuring_jicofo.adoc[leveloffset=0]
+include::{partialsdir}/configuring_jitsi_videobridge.adoc[leveloffset=0]
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
