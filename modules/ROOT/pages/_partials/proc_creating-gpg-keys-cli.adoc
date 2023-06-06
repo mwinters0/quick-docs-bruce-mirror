@@ -98,9 +98,33 @@ To display the fingerprint at any time, use this command, substituting your emai
 gpg --fingerprint johndoe@example.com
 ----
 
-Your _GPG key ID_ consists of 8 hex digits identifying the public key.
-In the example above, the GPG key ID is `36BF353A`.
-In most cases, if you are asked for the key ID, you should prepend "0x" to the key ID, as in `0x36BF353A`.
+Your key fingerprint is actually a 160 bit SHA-1 hash of the key, represented as a 40 character string of hexadecimal digits.
+Though shorter than the public key itself, it's still a bit unwieldy, so people tend to use a shorter _GPG key ID_ to refer to a key when, for example, looking up a key in a keyserver.
+The GPG key ID is a small number of hex digits drawn from the characters representing the lower-order bits of the fingerprint.
+The "short" GPG key ID consists of the final 8 characters of the hexadecimal fingerprint, that is, the last 32 bits of the fingerprint.
+Short keys are unsafe and no longer recommended because it's possible to create collisions so that an attacker's forged key has the same short ID as your key.
+Thus if you give someone the short GPG key ID of your key, they may retrieve the attacker's key from a keyserver instead.
+
+For this reason, it's preferred to use the "long" GPG key ID, which consists of the final 16 characters of your key's hexadecimal fingerprint.
+This represents the 64 lower-order bits of your fingerprint, which is sufficient to be collision-resistant.
+The `gpg` program makes it easy for you to find your key's long GPG key ID:
+
+----
+gpg --list-keys --fingerprint --key-id-format 0xlong johndoe@example.com
+----
+
+The `0xlong` format prepends "0x" to the key ID to make it clear that this is a series of hexadecimal digits; it is considered good practice to do this.
+The output from the above command looks like this:
+
+---
+pub   rsa3072/0x26FBCC7836BF353A 2021-02-09 [SC] [expires: 2022-02-09]
+      Key fingerprint = 3782 CBB6 0147 010B 3305  23DD 26FB CC78 36BF 353A
+uid                      John Doe (Fedora Docs) <johndoe@example.com>
+sub   rsa3072/0xF834D62672E88A6F 2021-02-09 [E] [expires: 2022-02-09]
+---
+
+The first line (beginning with "pub") tells you what kind the key is (that is, 3072 bit RSA) and what the long key ID is (that is, `0x26FBCC7836BF353A`).
+You can see that this corresponds to the last 16 characters of the Key fingerprint in the output.
 
 Now see <<backup-gpg-keys-cli>>.
 Make sure to back up your revocation keys for all active keys as this allows to revoke keys in the event of lost passphrase of key compromise.
