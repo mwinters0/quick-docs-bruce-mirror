@@ -1,6 +1,3 @@
-ifdef::context[:parent-context: {context}]
-:context: getting_started_with_jitsi
-
 [[getting_started_with_jitsi]]
 = Getting started with Jitsi
 
@@ -17,11 +14,8 @@ Jitsi video conferencing stack enables users to create virtual meetings, confere
 * Jicofo (`jicofo`): a server-side component for conference management, participant control and media routing.  
 
 
-include::{partialsdir}/installing_jitsi.adoc[leveloffset=0]
+include::installing_jitsi.adoc[leveloffset=0]
 
-include::{partialsdir}/configuring_jitsi.adoc[leveloffset=0]
+include::configuring_jitsi.adoc[leveloffset=0]
 
 For more information see link:https://jitsi.org/[jitsi]
-
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]

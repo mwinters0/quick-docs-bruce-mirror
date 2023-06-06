@@ -74,8 +74,11 @@
 ** xref:using-yubikeys.adoc[Using Yubikeys with Fedora]
 ** xref:debug-systemd-problems.adoc[How to debug systemd problems]
 ** xref:enable-touchpad-click.adoc[How to enable touchpad click]
-** xref:getting_started_with_jitsi.adoc[Getting started with Jitsi]
 
+** Jitsi
+*** xref:getting_started_with_jitsi.adoc[Getting started with Jitsi]
+*** xref:installing_jitsi.adoc[Installing Jitsi]
+*** xref:configuring_jitsi.adoc[Configuring Jitsi]
 
 ** NVIDIA
 *** xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]
