@@ -116,12 +116,12 @@ gpg --list-keys --fingerprint --key-id-format 0xlong johndoe@example.com
 The `0xlong` format prepends "0x" to the key ID to make it clear that this is a series of hexadecimal digits; it is considered good practice to do this.
 The output from the above command looks like this:
 
----
+----
 pub   rsa3072/0x26FBCC7836BF353A 2021-02-09 [SC] [expires: 2022-02-09]
       Key fingerprint = 3782 CBB6 0147 010B 3305  23DD 26FB CC78 36BF 353A
 uid                      John Doe (Fedora Docs) <johndoe@example.com>
 sub   rsa3072/0xF834D62672E88A6F 2021-02-09 [E] [expires: 2022-02-09]
----
+----
 
 The first line (beginning with "pub") tells you what kind the key is (that is, 3072 bit RSA) and what the long key ID is (that is, `0x26FBCC7836BF353A`).
 You can see that this corresponds to the last 16 characters of the Key fingerprint in the output.
