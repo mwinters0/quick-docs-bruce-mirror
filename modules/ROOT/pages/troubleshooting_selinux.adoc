@@ -300,7 +300,7 @@ SELinux denied the `__httpd__` process with PID 2465 to access the `__/var/www/h
 
 == Additional resources
 
-* Basic SELinux Troubleshooting in CLI
-* What is SELinux trying to tell me? The 4 key causes of SELinux errors
-* link:https://docs-old.fedoraproject.org/en-US/Fedora/25/html/SELinux_Users_and_Administrators_Guide/chap-Security-Enhanced_Linux-Troubleshooting.html[Troubleshooting] in the SELinux User's and Administrator's Guide
+* link:https://access.redhat.com/articles/2191331[Basic SELinux Troubleshooting in CLI]
+* link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/index[RHEL 7, SELinux User's and Administrator's Guide]
 * link:https://fedorapeople.org/~dwalsh/SELinux/Presentations/selinux_four_things.pdf[Four Key Causes of SELinux Errors]
+* link:https://wiki.centos.org/HowTos/SELinux[CentOS Wiki How Tos: SELinux]
