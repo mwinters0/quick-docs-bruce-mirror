@@ -47,7 +47,7 @@ and if a solution exists.
 
 * https://fedoraproject.org/wiki/Common_F{MAJOROSVER}_bugs[Fedora Linux {MAJOROSVER}]
 * https://fedoraproject.org/wiki/Common_F{PREVVER}_bugs[Fedora Linux {PREVVER}]
-* https://ask.fedoraproject.org/c/common-issues/141/none[Ask Fedora listing]
+* https://discussion.fedoraproject.org/c/ask/common-issues/82/all[Ask Fedora listing]
 
 === Step 1: Check for the latest version
 
