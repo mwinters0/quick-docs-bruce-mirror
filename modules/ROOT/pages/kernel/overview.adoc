@@ -9,7 +9,7 @@ include::{partialsdir}/unreviewed-message.adoc[]
 
 The https://src.fedoraproject.org/rpms/kernel[Fedora Linux kernel] closely
 follows the upstream https://www.kernel.org/[kernel releases]. To see the
-current versions in Fedora, https://apps.fedoraproject.org/packages/kernel[check
+current versions in Fedora, https://packages.fedoraproject.org/pkgs/kernel/kernel/[check
 out the packages application].
 
 === Stable Releases
