@@ -49,7 +49,7 @@ $ sudo dnf install -y flatpak
 . Install Skype using Flatpak:
 +
 ----
-$ sudo flatpak install -y --from https://flathub.org/repo/appstream/com.skype.Client.flatpakref
+$ flatpak install -y --from https://flathub.org/repo/appstream/com.skype.Client.flatpakref
 ----
 
 . To run Skype:
