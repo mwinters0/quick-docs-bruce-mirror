@@ -42,7 +42,7 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 .. Using the command line:
 +
 ----
-sudo flatpak install flathub com.spotify.Client
+flatpak install flathub com.spotify.Client
 ----
 
 . Run Spotify:
