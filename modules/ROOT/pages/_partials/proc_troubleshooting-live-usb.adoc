@@ -57,4 +57,4 @@ $ qemu -hda /dev/sdX -m 1024 -vga std
 
 == Mounting a Live USB filesystem
 
-You can use the https://github.com/livecd-tools/livecd-tools/blob/master/tools/liveimage-mount[liveimage-mount] script in the https://apps.fedoraproject.org/packages/livecd-tools[livecd-tools] package to mount an attached Live USB device or other LiveOS image, such as an ISO or Live CD. This is convenient when you want to copy in or out some file from the LiveOS filesystem on a Live USB, or just examine the files in a Live ISO or Live CD.
+You can use the https://github.com/livecd-tools/livecd-tools/blob/master/tools/liveimage-mount[liveimage-mount] script in the https://packages.fedoraproject.org/pkgs/livecd-tools/livecd-tools/[livecd-tools] package to mount an attached Live USB device or other LiveOS image, such as an ISO or Live CD. This is convenient when you want to copy in or out some file from the LiveOS filesystem on a Live USB, or just examine the files in a Live ISO or Live CD.

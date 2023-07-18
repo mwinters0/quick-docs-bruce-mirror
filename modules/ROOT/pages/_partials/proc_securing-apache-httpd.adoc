@@ -3,9 +3,9 @@
 
 To enable TLS/SSL support, download and install one of the following packages:
 
-* https://apps.fedoraproject.org/packages/mod_ssl[mod_ssl], based on https://www.openssl.org[OpenSSL]
-* https://apps.fedoraproject.org/packages/mod_gnutls[mod_gnutls], based on https://www.gnutls.org/[GnuTLS]
-* https://apps.fedoraproject.org/packages/mod_nss[mod_nss], based on https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS[NSS]
+* https://packages.fedoraproject.org/pkgs/httpd/mod_ssl/[mod_ssl], based on https://www.openssl.org[OpenSSL]
+* https://packages.fedoraproject.org/pkgs/mod_gnutls/mod_gnutls/[mod_gnutls], based on https://www.gnutls.org/[GnuTLS]
+* https://packages.fedoraproject.org/pkgs/mod_nss/mod_nss/[mod_nss], based on https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS[NSS]
 
 
 [id='using-mod-ssl']
@@ -15,7 +15,7 @@ To enable TLS/SSL support, download and install one of the following packages:
 [id='installing-mod-ssl']
 === Installing mod_ssl
 
-The https://apps.fedoraproject.org/packages/mod_ssl[mod_ssl] package will be automatically enabled post installation. Install the https://apps.fedoraproject.org/packages/mod_ssl[mod_ssl] package using the following command:
+The https://packages.fedoraproject.org/pkgs/httpd/mod_ssl/[mod_ssl] package will be automatically enabled post installation. Install the https://packages.fedoraproject.org/pkgs/httpd/mod_ssl/[mod_ssl] package using the following command:
 
 ----
 sudo dnf install mod_ssl -y

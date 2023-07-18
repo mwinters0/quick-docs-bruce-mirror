@@ -24,7 +24,7 @@ NOTE: In the event of crashes with GNOME shell, the first recommended step to di
 == Installing and removing system-wide GNOME Shell extensions
 
 These are generally provided in the Fedora repositories and can be installed, removed, and updated using the default package management tools like `dnf`.
-You can find a list https://apps.fedoraproject.org/packages/s/gnome-shell-extension[here by searching the packages application] for `gnome-shell-extension`.
+You can find a list https://packages.fedoraproject.org/search?query=gnome-shell-extension[here by searching the packages application] for `gnome-shell-extension`.
 
 == Installing and removing local GNOME Shell extensions
 
