@@ -1,5 +1,4 @@
-[id='what-is-VMware']
-== What is *VMware*?
+= What is *VMware*?
 
 VMware provides cloud computing and virtualization software and services, their most important products are:
 

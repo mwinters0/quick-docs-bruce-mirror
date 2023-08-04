@@ -1,6 +1,3 @@
-ifdef::context[:parent-context: {context}]
-:context: installing-spotify
-
 = Installing Spotify on Fedora
 
 include::{partialsdir}/3rdparty-message.adoc[]
@@ -108,5 +105,3 @@ lpf update
 . https://github.com/leamas/lpf
 . https://www.spotify.com/us/download/linux/
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]

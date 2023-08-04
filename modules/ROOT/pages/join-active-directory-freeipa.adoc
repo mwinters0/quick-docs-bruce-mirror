@@ -1,4 +1,3 @@
-[[joining_an_active_directory_or_freeipa_domain]]
 = Joining an Active Directory or FreeIPA domain
 
 Fedora can join Active Directory and FreeIPA domains using the `realm` command.

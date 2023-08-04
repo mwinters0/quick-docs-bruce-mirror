@@ -1,16 +1,4 @@
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// Base the file name and the ID on the module title. For example:
-// * file name: doing-procedure-a.adoc
-// * ID: [id='doing-procedure-a']
-// * Title: = Doing procedure A
-
-// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
-[id='installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer_{context}']
-// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
-= Installing Fedora on a Raspberry Pi using the Fedora ARM installer
+== Installing Fedora on a Raspberry Pi using the Fedora ARM installer
 // Start the title of a procedure module with a verb, such as Creating or Create. See also _Wording of headings_ in _The IBM Style Guide_.
 
 :experimental:

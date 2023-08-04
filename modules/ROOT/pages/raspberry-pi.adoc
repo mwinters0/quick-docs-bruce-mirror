@@ -1,24 +1,4 @@
-// This assembly is included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// Save the context of the assembly that is including this one.
-// This is necessary for including assemblies in assemblies.
-// See also the complementary step on the last line of this file.
-// Base the file name and the ID on the assembly title. For example:
-// * file name: my-assembly-a.adoc
-// * ID: [id='my-assembly-a']
-// * Title: = My assembly A
-
-// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
-[id='fedora-on-raspberry-pi']
-// If the assembly is reused in other assemblies in a guide, include {context} in the ID: [id='a-collection-of-modules-{context}'].
 = Fedora on Raspberry Pi
-:experimental:
-//If the assembly covers a task, start the title with a verb in the gerund form, such as Creating or Configuring.
-:context: rpi
-// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
-include::{partialsdir}/attributes.adoc[]
 
 The link:https://www.raspberrypi.org[Raspberry Pi] is a credit card-sized ARM based single board computer (SBC).
 
@@ -28,7 +8,6 @@ Support for older Raspberry Pi models (2B and 3-series of devices including the 
 
 This documentation describes how to get started, and includes a Frequently Asked Questions (FAQ) section at the end of the document about what is supported, and what is not.
 
-[id='raspberry-pi-prerequisites']
 .Prerequisites
 
 * A supported Raspberry Pi (link:https://pagure.io/arm-image-installer/blob/main/f/boards.d[supported boards]).
@@ -59,15 +38,546 @@ The procedure for installing Fedora ARM on a microSD in preparation for using Fe
 
 include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer.adoc[leveloffset=+1]
 
-include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-for-linux-users.adoc[leveloffset=+1]
+== Installing Fedora on a Raspberry Pi using the Fedora ARM installer
+// Start the title of a procedure module with a verb, such as Creating or Create. See also _Wording of headings_ in _The IBM Style Guide_.
 
-include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-for-microsoft-windows-users.adoc[leveloffset=+1]
+:experimental:
+include::{partialsdir}/attributes.adoc[]
 
-include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-for-macos-users.adoc[leveloffset=+1]
+This procedure shows Fedora users how to add Fedora ARM to a microSD for use with a Raspberry Pi using the Fedora ARM installer.
+
+._Prerequisites_
+
+* A supported Rasbperry Pi
+* A microSD Card (16 GB or larger).
+* A computer running Fedora 28 or newer.
+* SD card reader.
+* A Fedora ARM aarch64 Workstation or server image from:  link:https://fedoraproject.org/[]
+
+._Procedure_
+
+. Download a Fedora ARM image from the link:https://fedoraproject.org/[Fedora website]
++
+. Install the `arm-image-installer`:
++
+[source,shell,subs="attributes"]
+----
+$ dnf install -y arm-image-installer
+----
++
+. As the root user, write the Fedora ARM image to the microSD card:
++
+[source,shell,subs="quotes,attributes"]
+----
+# arm-image-installer --image=__&#60;/path/to/fedora_image&#62;__ --target=__&#60;RPi_Version&#62;__ --media=/dev/__&#60;sd_card_device&#62;__ --resizefs
+----
++
+Where:
++
+* The `__&#60;/path/to/fedora_image&#62;__` has the format `Fedora-__&#60;spin&#62;__-armhfp-__&#60;fedora_version&#62;__-sda.raw.xz`.
+** For example: `/home/user/Downloads/Fedora-Server-armhfp-{MAJOROSVER}-1.1-sda.raw.xz`.
+* `__&#60;RPi_Version&#62;__` is:
+** `rpi2` for a Raspberry Pi 2.
+** `rpi3` for a Raspberry Pi 3.
+* `/dev/__&#60;sd_card_device&#62;__` is the microSD card 'device' on your system, such as `/dev/sdX` or `/dev/mmcblkX`. The `lsblk` command may help you identify your micro-SD card.
++
+[NOTE]
+====
+* To see usage options for the `arm-image-installer`, run:
++
+[source,shell,subs="attributes"]
+----
+$ arm-image-installer --help
+----
+
+* For list of supported boards please check SUPPORTED-BOARDS file.
++
+[source,shell,subs="attributes"]
+----
+$ cat /usr/share/doc/arm-image-installer/SUPPORTED-BOARDS
+----
+====
+
+Your microSD card is ready to be used with your Raspberry Pi.
+
+ifeval::["{context}" == "rpi"]
+._Next Steps_
+
+For information on starting and configuring Fedora on Raspberry Pi, see: xref:booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}[].
+endif::[]
+
+._Additional Resources_
+
+* For information on using the Fedora ARM Installer, see: link:https://fedoraproject.org/wiki/Architectures/ARM/Installation[Fedora Wiki: Installing Fedora on your ARM device].
+* For assistance or support, see:
+** link:https://ask.fedoraproject.org/[Ask Fedora]
+** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
+** link:https://web.libera.chat/?channels=#fedora-arm[IRC via the #fedora-arm channel on Libera.Chat]
+
+
+
+== Installing Fedora on a Raspberry Pi for Linux users
+
+This procedure shows Linux users how to add Fedora ARM to a microSD for use with a Raspberry Pi.
+
+._Prerequisites_
+
+* A supported Raspberry Pi
+* A microSD Card (16 GB or larger).
+* A computer running Linux.
+* Root user access (via `su` or `sudo`).
+* SD card reader.
+* A Fedora ARM aarch64 Workstation or server image from:  link:https://fedoraproject.org/[].
+
+._Procedure_
+
+. Download a Fedora ARM image from the link:https://fedoraproject.org/[Fedora website].
++
+. Run the following command to extract the `.raw` image and write the image to your microSD card:
++
+[NOTE]
+The location of your microSD card will be /dev/sdX or /dev/mmcblkX depending on your computer hardware.
++
+[subs="quotes"]
+----
+$ xzcat *Fedora-IMAGE-NAME.raw.xz* | sudo dd status=progress bs=4M of=*/dev/XXX*
+----
++
+. To resize the main partition, run `parted` and select the device.
++
+----
+(parted) select /dev/sdX
+----
++
+. Inspect the amount of unallocated space at the end and resize the root partition.
++
+----
+(parted) print free
+(parted) resizepart <partition_number> <target_size>
+----
++
+. Resize the LVM physical volume so it takes up all the available space. For this to work you must deactivate any logical volumes within.
++
+----
+# pvresize /dev/sdaX
+----
++
+. Then extend the logical volume that corresponds to the root directory (`/dev/fedora_fedora/root` in this example).
++
+----
+# lvextend -l +100%FREE /dev/fedora_fedora/root
+----
++
+. Finally, resize the XFS filesystem in the logical volume (`/dev/mapper/fedora_fedora-root` in this example).
++
+----
+# xfs_growfs -d /dev/mapper/fedora_fedora-root
+----
++
+. Alternatively, you can use gparted to resize the Root Partition on the microSD:
++
+----
+$ gparted /dev/XXX
+----
++
+For information on using gparted resize a partition, see: https://gparted.org/display-doc.php?name=help-manual#gparted-resize-partition[GNOME Partition Editor: GParted Manual - Resizing a Partition].
++
+[NOTE]
+The root partition is shrunk to the smallest size possible to ensure a small download.
+You currently need to resize it manually.
+Ideally we would like this to happen automatically (great community project idea!).
+
+Your microSD card is ready to be used with your Raspberry Pi.
+
+ifeval::["{context}" == "rpi"]
+.Next Steps
+
+For information on starting and configuring Fedora on Raspberry Pi, see: xref:booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}[].
+endif::[]
+
+.Additional Resources
+
+* For information on using `gparted`, see: link:https://gparted.org/display-doc.php?name=help-manual[GNOME Partition Editor: GParted Manual].
+* For assistance or support, see:
+** link:https://ask.fedoraproject.org/[Ask Fedora]
+** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
+** link:https://web.libera.chat/?channels=#fedora-arm[IRC via the #fedora-arm channel on Libera.Chat]
+
+
+
+
+//include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-for-microsoft-windows-users.adoc[leveloffset=+1]
+
+== Installing Fedora on a Raspberry Pi for Microsoft Windows users
+
+:experimental:
+include::{partialsdir}/attributes.adoc[]
+
+This procedure shows Microsoft Windows users how to add Fedora ARM to a microSD for use with a Raspberry Pi.
+
+._Prerequisites_
+
+* A supported Raspberry Pi
+* A microSD Card (16 GB or larger).
+* A computer running Microsoft Windows.
+* SD card reader.
+* A Fedora ARM image from: link:https://arm.fedoraproject.org/[].
+* File-decompression software (such as link:https://www.7-zip.org/[7zip]).
+
+._Procedure_
+
+. Download a Fedora ARM image from the  link:https://arm.fedoraproject.org/[Fedora ARM website].
++
+. Extract the `.raw` file from the Fedora ARM image using file-decompression software (such as link:https://www.7-zip.org/[7zip]).
++
+For example:
++
+[source,shell,subs="attributes"]
+----
+> "C:\Program Files\7-Zip\7z.exe" x -y "C:\Users\admin\Downloads\Fedora-Server-armhfp-{MAJOROSVER}-1.1-sda.raw.xz"
+----
+
+. Follow the instructions provided by the Raspberry Pi foundation for writing an image to a microSD card from Microsoft Windows: link:https://www.raspberrypi.org/documentation/installation/installing-images/windows.md[Raspberry Pi Foundation: Installing operating system images using Windows].
++
+[NOTE]
+====
+The `.img` and `.raw` extensions are used interchangeably for RAW file. Where the instructions indicate an input file with the `.img` extension, use the Fedora ARM image '.raw'.
+====
+
+Your microSD card is ready to be used with your Raspberry Pi.
+
+ifeval::["{context}" == "rpi"]
+._Next Steps_
+
+For information on starting and configuring Fedora on Raspberry Pi, see: xref:booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}[].
+endif::[]
+
+._Additional Resources_
+
+* For assistance or support, see:
+** link:https://ask.fedoraproject.org/[Ask Fedora]
+** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
+** link:https://web.libera.chat/?channels=#fedora-arm[IRC via the #fedora-arm channel on Libera.Chat]
+
+
+
+// include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-for-macos-users.adoc[leveloffset=+1]
+== Installing Fedora on a Raspberry Pi for macOS users
+
+include::{partialsdir}/attributes.adoc[]
+
+This procedure shows macOS users how to add Fedora ARM to a microSD for use with a Raspberry Pi.
+
+._Prerequisites_
+
+* A supported Raspberry Pi
+* A microSD Card (16 GB or larger).
+* A computer running macOS.
+* SD card reader.
+* A Fedora ARM image from: link:https://arm.fedoraproject.org/[].
+* File-decompression software (such as link:https://theunarchiver.com/[The Unarchiver desktop application] or link:https://theunarchiver.com/command-line[The Unarchiver command-line tools]).
+
+._Procedure_
+
+. Download a Fedora ARM image from the  link:https://arm.fedoraproject.org/[Fedora ARM website].
++
+. Extract the `.raw` file from the Fedora ARM image using file-decompression software (such as link:https://theunarchiver.com/[The Unarchiver])
++
+For example:
++
+[source,shell,subs="attributes"]
+----
+$ unar Fedora-Server-armhfp-{MAJOROSVER}-1.1-sda.raw.xz
+----
+
+. Follow the instructions provided by the Raspberry Pi foundation for writing an image to a microSD card from macOS: link:https://www.raspberrypi.org/documentation/installation/installing-images/mac.md[Raspberry Pi Foundation: Installing operating system images on Mac OS].
++
+[NOTE]
+====
+The `.img` and `.raw` extensions are used interchangeably for RAW file. Where the instructions indicate an input file with the `.img` extension, use the Fedora ARM image '.raw'.
+====
+
+Your microSD card is ready to be used with your Raspberry Pi.
+
+ifeval::["{context}" == "rpi"]
+._Next Steps_
+
+For information on starting and configuring Fedora on Raspberry Pi, see: xref:booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}[].
+endif::[]
+
+._Additional Resources_
+
+* For assistance or support, see:
+** link:https://ask.fedoraproject.org/[Ask Fedora]
+** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
+** link:https://web.libera.chat/?channels=#fedora-arm[IRC via the #fedora-arm channel on Libera.Chat]
+
+
+
+
 
 include::{partialsdir}/proc_booting-fedora-on-a-raspberry-pi-for-the-first-time.adoc[leveloffset=+1]
 
+== Booting Fedora on a Raspberry Pi for the first time
+
+//include::{partialsdir}/attributes.adoc[]
+
+Follow these steps to boot Fedora ARM on your Raspberry Pi. If your MicroSD card does not have enough room, you need to resize the main partition after the initial setup. See <<resizing-the-main-partition-of-the-microsd-card-after-setup_{context}>>.
+
+._Prerequisites_
+
+* Raspberry Pi Model B, version 2 or 3.
+* A power supply (link:https://www.raspberrypi.org/help/faqs/#power[details here]).
+** Minimum 2 Amps for Raspberry Pi Model B, version 2.
+** Minimum 2.5 Amps for the Raspberry Pi Model B, version 3.
+* HDMI-compatible Monitor or TV.
+* A USB keyboard and USB mouse.
+
+
+._Procedure_
+
+. Insert the SD card into the Raspberry Pi.
+. Connect a keyboard, mouse, network cable, and monitor.
+. Plug the Raspberry Pi into the power source. The "Initial setup wizard" should appear after Fedora loads.
+. Follow the wizard to set your language, timezone and to create users.
+
+The system displays a login prompt or getting started guide (depending on your Desktop/SPIN).
+
+[id='resizing-the-main-partition-of-the-microsd-card-after-setup_{context}']
+._Resizing the main partition of the microSD card after setup (if required)_
+
+Follow these steps to resize the partitions for Fedora ARM on Raspberry Pi:
+
+. Enlarge the 4th partition (this example uses mmcblk0).
++
+----
+$ growpart /dev/mmcblk0p4
+----
++
+. Resize root partition for the server image (which uses xfs).
++
+----
+$ xfs_growfs -d /
+----
+
+._Additional Resources_
+
+* For information on configuring Fedora, including installing programs and updates, see: xref:f{MAJOROSVER}@fedora:system-administrators-guide:index.adoc[Fedora Docs: System Administrator’s Guide]
+* For assistance or support, see:
+** link:https://ask.fedoraproject.org/[Ask Fedora]
+** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
+** irc://irc.freenode.net/#fedora-arm[IRC via the #fedora-arm channel on Freenode]
+
+
+
 include::{partialsdir}/ref_frequently-asked-questions_-installing-fedora-on-a-raspberry-pi.adoc[leveloffset=+1]
+
+// Module included in the following assemblies:
+//
+// <List assemblies here, each on a new line>
+
+// Base the file name and the ID on the module title. For example:
+// * file name: my-reference-a.adoc
+// * ID: [id='my-reference-a']
+// * Title: = My reference A
+
+// The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
+[id='reference-material_{context}']
+// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+[[sect-frequently-asked-questions]]
+== Fedora on Raspberry Pi: Frequently Asked Questions
+//In the title of a reference module, include nouns that are used in the body text. For example, "Keyboard shortcuts for ___" or "Command options for ___." This helps readers and search engines find the information quickly.
+
+Frequently asked questions regarding what is supported.
+
+=== Why do I get a rainbow display when I try and power on my Raspberry Pi?
+
+Common causes of the rainbow display include:
+
+* Insufficient power supply. See the xref:raspberry-pi-prerequisites[Prerequisites] section at the beginning of this document.
+
+* There's no operating system installed. Check that an operating system was installed and the microSD card was properly inserted into the Raspberry Pi.
+  For instructions about Fedora ARM on Raspberry Pi:
+** For Fedora users, see: <<installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer_{context}>>.
+** For users of other Linux distributions, see: <<installing-fedora-on-a-raspberry-pi-for-linux-users_{context}>>.
+** For Microsoft Windows users, see: <<installing-fedora-on-a-raspberry-pi-for-microsoft-windows-users_{context}>>.
+** For macOS users, see: <<installing-fedora-on-a-raspberry-pi-for-macos-users_{context}>>.
+
+* If you try to use Fedora on a Raspberry Pi 1, Raspberry Pi Zero, or a Raspberry Pi model A, you will receive the rainbow display. This occurs because your Raspberry Pi is not supported (ARMv6 SoCs architectures are not supported).
+
+=== What desktop environments are supported?
+
+All desktops as shipped in Fedora should work and both 2D and 3D graphics work out of the box.
+There is an open source fully accelerated driver for the Video Core IV GPU.
+
+=== Will there be more enhancements to the hardware support?
+
+Yes.
+New enhancements will be delivered by the standard Fedora updates mechanism.
+New, significant features will be announced by the link:https://fedoramagazine.org/[Fedora Magazine] or the link:http://fedoraplanet.org/[Fedora Planet].
+
+=== What about support for the Raspberry Pi Models A/A+, B/B+ (generation 1), Zero/ZeroW and Compute Module?
+
+These Raspberry Pi models are not supported.
+
+Fedora is not supported on ARMv6 processors.
+There's been a number of attempts to support these over the years.
+The current best effort is Pignus based on Fedora 23.
+More information can be found at link:https://pignus.computer[the Pignus site].
+
+NOTE: Fedora DOES support the Compute Module 3 based on the same SoC as the Raspberry Pi 3, but *as the previous generation Compute Modules are based on ARMv6 architecture, they are [#.underline]#not supported#*.
+
+=== What USB devices are supported on the Raspberry Pi?
+
+Most USB-2 compatible devices that are supported in Fedora on other devices.
+There are some limitations to the USB bus of the Raspberry Pi hardware as link:https://www.raspberrypi.org/documentation/hardware/raspberrypi/usb/README.md[documented here].
+
+=== Is the onboard Wi-Fi supported on the Raspberry Pi 3?
+
+Wifi on the Raspberry Pi 3-series devices works out of the box with Fedora 29.
+
+*Using Wi-Fi on CLI*
+
+To use Wi-Fi on minimal and server images you can configure the device using command line:
+
+* To list available networks:
++
+----
+$ nmcli device wifi list
+----
+
+* To connect to a network:
++
+[subs="quotes"]
+----
+nmcli device wifi connect __$SSID__ --ask
+----
++
+Where: `_$SSID_` is the network identifier (or name).
+
+=== Is the onboard Bluetooth supported on the Raspberry Pi 3?
+
+Bluetooth works and is stable. The device sometimes has a generic bluetooth address but should work without any configuration.
+
+=== Does sound work?
+
+HDMI audio output is included with Fedora, however, the analog port is not yet supported.
+Audio output using a USB audio interface should work.
+
+=== Does the add-on camera work?
+
+Not at this time.
+There is still ongoing work to support this upstream and to add the appropriated media acceleration support.
+
+=== Does accelerated media decode work?
+
+No.
+The upstream kernel does not support the kernel subsystems required for accelerated media decoding.
+
+=== Does HDMI-CEC work?
+
+Yes.
+Yes. It's supported using the new upstream CEC support. There's a `/dev/cec0` character device, it can be accessed using any application that supports the IR remote using the `rc-cec` keymap in the `v4l-utils` package, there's also a `cec-ctl` utility for use on the command line.
+
+=== Is the Raspberry Pi Touch Display supported?
+
+Work on the official Raspberry Pi Touch Display is ongoing upstream and initial support is provided in the 4.10 kernel, see: link:https://github.com/anholt/linux/issues/8[GitHub: raspberrypi/linux issues - 7" LCD touchscreen not supported].
+Fedora will review any missing pieces for support soon.
+The touchscreen driver isn't yet released upstream.
+Support for other displays is not currently planned.
+
+=== Is the composite TV out supported?
+
+The composite TV out is not currently supported in a stable Fedora release but the core support is in the 4.10 kernel.
+There is some missing enabling patches which will be added to the Fedora kernel soon.
+
+=== Are the expansion HATs supported?
+
+The the expansion HATs are not currently supported.
+
+The long answer is a lot more complex. Most of the hardware interfaces that are exposed by the 40 pin HAT connector are supported with drivers shipped with Fedora.
+
+Drivers for the hardware contained on a lot of the common HATs are also enabled and supported in Fedora. The core means of supporting the HAT add-on boards require the use of device tree overlays. The kernel and the u-boot 2016.09 boot-loader supports the loading over overlays manually. Currently there is no upstream consensus on the means of autoloading these overlays by means of an "overlay manager" (also known as Cape Manager and by numerous other names) by reading the EEPROM ID and loading the appropriate overlay automatically.
+
+There's also no consensus on the extensions to the dtc (Device Tree Compiler) to build the binary blob overlays, and no consensus of the exact format of the overlay file. There is now a group of people working to resolve this issue which enable Fedora to better support HATs (Raspberry Pi), Capes (BeagleBone), DIPs (C.H.I.P) and Mezzanine (96boards) before long.
+
+The first focus HAT to support will be the official Raspberry Pi Sense HAT. This will be documented using the manual process to build and load the overlay to provide access to the onboard devices as a means of demonstrating how this process works for those wishing to use this manual method in the interim. The link to this documentation will be added here once that is complete.
+
+=== The use of config.txt
+
+The `config.txt` is only used for basic configuration at the moment. Because of the use of the opensource vc4 GPU driver, most of the video configuration is done by Linux.
+
+The configuration of HATs using `config.txt` is unsupported but is being actively developed.
+
+=== Are Device Tree Overlays supported?
+
+There's basic support for overlays in u-boot and the Linux kernel but an overlay manager is not supported upstream.
+
+=== Is GPIO supported?
+
+GPIO is supported with the use of libgpiod and associated bindings and utilities.
+
+RPI.GPIO is not currently supported.
+
+=== Is SPI supported?
+
+Yes, basic SPI is supported.
+
+=== Is I2C supported?
+
+Yes, basic I2C is supported.
+
+=== Is there Raspberry Pi 3 aarch64 support?
+
+Yes! You can download the aarch64 disk images for the Raspberry Pi 3 link:https://archive.fedoraproject.org/pub/fedora-secondary/releases/[here.]
+
+=== How do I use a serial console?
+
+The serial console is disabled by default on the Raspberry Pi 2 and 3 because it requires the device to run at significantly slower speeds.
+
+To wire up the USB to TTL adapter follow link:https://learn.adafruit.com/adafruits-raspberry-pi-lesson-5-using-a-console-cable/connect-the-lead[this guide from Adafruit].
+You'll need a 3.3 volt USB to TTL Serial Cable like link:https://www.adafruit.com/product/954[this one from Adafruit].
+
+To enable the serial console follow the specific steps for the Raspberry Pi 2 or 3 as they both differ slightly:
+
+*Raspberry Pi 2:*
+
+. Insert the microSD card into a PC
+. On the VFAT partition edit the `config.txt` file and uncomment the `enable_uart` line:
++
+----
+$ enable_uart=1
+----
++
+. On the boot partition edit the `extlinux/extlinux.conf` file adding `console=tty0 console=ttyAMA0,115200` to the end of the append line so it looks similar to:
++
+----
+$ append ro root=UUID="LARGE UUID STRING OF TEXT" console=tty0 console=ttyAMA0,115200
+----
++
+. Safely unmount the microSD card
+. Insert microSD into Raspberry Pi, connect serial console, power on
+
+*Raspberry Pi 3:*
+
+. Insert the microSD card into a PC
+. On the VFAT partition edit the `config.txt` file and uncomment the `enable_uart` line:
++
+----
+$ enable_uart=1
+----
++
+. On the boot partition edit the `extlinux/extlinux.conf` file adding: `console=tty0 console=ttyS0,115200` to the end of the append line so it looks similar to:
++
+----
+$ append ro root=UUID="LARGE UUID STRING OF TEXT" console=tty0 console=ttyS0,115200
+----
++
+. Safely unmount the microSD card
+. Insert microSD into Raspberry Pi, connect serial console, power on
+
+
+
 
 == Additional Resources
 

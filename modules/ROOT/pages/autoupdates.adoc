@@ -1,5 +1,5 @@
 = Automatic Updates
-:toc:
+
 
 You must decide whether to use automatic xref:dnf.adoc[DNF]
 updates on each of your machines. There are a number of arguments both

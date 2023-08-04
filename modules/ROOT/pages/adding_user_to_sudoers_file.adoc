@@ -1,8 +1,4 @@
-ifdef::context[:parent-context: {context}]
-:context: viewing-logs
-
 = Adding a user to sudoers
-[id=adding_user_to_sudoers_{context}]
 
 One of the most common operations that administrators want to accomplish when managing `sudo` permissions is to grant a new user general `sudo` access. This is helpful if you want to give an account full administrative access to the system.
 
@@ -25,5 +21,3 @@ $ sudo visudo
 
 You will need to logout and back in for changes to take effect.
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
