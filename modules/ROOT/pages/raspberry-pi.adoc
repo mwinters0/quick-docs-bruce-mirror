@@ -36,7 +36,7 @@ The procedure for installing Fedora ARM on a microSD in preparation for using Fe
 
 // [leveloffset=+1] ensures that when a module starts with a level-1 heading (= Heading), the heading will be interpreted as a level-2 heading (== Heading) in the assembly.
 
-include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer.adoc[leveloffset=+1]
+// include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer.adoc[leveloffset=+1]
 
 == Installing Fedora on a Raspberry Pi using the Fedora ARM installer
 // Start the title of a procedure module with a verb, such as Creating or Create. See also _Wording of headings_ in _The IBM Style Guide_.

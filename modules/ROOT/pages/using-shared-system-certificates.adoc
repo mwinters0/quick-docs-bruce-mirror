@@ -1,18 +1,141 @@
-ifdef::context[:parent-context: {context}]
-:context: using-shared-system-certificates
-[[using-shared-system-certificates]]
 = Using Shared System Certificates
 
 The Shared System Certificates storage enables NSS, GnuTLS, OpenSSL, and Java to share a default source for retrieving system certificate anchors and black list information. By default, the trust store contains the Mozilla CA list, including positive and negative trust. The system allows updating of the core Mozilla CA list or choosing another certificate list.
 
-include::{partialsdir}/con_using-the-system-wide-trust-store.adoc[leveloffset=+1]
 
-include::{partialsdir}/proc_adding-new-certificates.adoc[leveloffset=+1]
+== Using the System-wide Trust Store
 
-include::{partialsdir}/proc_managing-trusted-system-certificates.adoc[leveloffset=+1]
+In Fedora, the consolidated system-wide trust store is located in the `/etc/pki/ca-trust/` and `/usr/share/pki/ca-trust-source/` directories. The trust settings in `/usr/share/pki/ca-trust-source/` are processed with lower priority than settings in `/etc/pki/ca-trust/`.
+
+Certificate files are treated depending on the subdirectory they are installed to the following directories:
+
+* for trust anchors
+** `/usr/share/pki/ca-trust-source/anchors/` or
+** `/etc/pki/ca-trust/source/anchors/`
+* for distrusted certificates
+** `/usr/share/pki/ca-trust-source/blocklist/` or
+** `/etc/pki/ca-trust/source/blocklist/`
+* for certificates in the extended BEGIN TRUSTED file format
+** `/usr/share/pki/ca-trust-source/` or
+** `/etc/pki/ca-trust/source/`
+
+NOTE: In a hierarchical cryptographic system, a trust anchor is an authoritative entity which is assumed to be trustworthy. For example, in X.509 architecture, a root certificate is a trust anchor from which a chain of trust is derived. The trust anchor must be put in the possession of the trusting party beforehand to make path validation possible.
 
 
-[[shared-system-certificates-additional-resources]]
+
+== Adding New Certificates
+
+Often, system administrators want to install a certificate into the trust store. This can be done with the [command]`trust anchor` sub-command of the [command]`trust` command, as described in xref:managing-trusted-system-certificates[Managing Trusted System Certificates].
+
+Alternatively, you can simply copy the certificate file in the PEM or DER file format to the `/etc/pki/ca-trust/source/anchors/` directory, followed by running the [command]`update-ca-trust` command, for example:
+
+[subs="+quotes,macros"]
+----
+# cp _~/certificate-trust-examples/Cert-trust-test-ca.pem_ _/etc/pki/ca-trust/source/anchors/_
+----
+
+----
+# update-ca-trust
+----
+
+The [command]`update-ca-trust` command ensures that the certificate bundles in application-specific formats, such as Java keystore, are regenerated.
+
+[NOTE]
+====
+The certificates installed in the above steps cannot be removed with the [command]`trust anchor --remove`.
+====
+
+[NOTE]
+====
+While the Firefox browser is able to use an added certificate without executing [command]`update-ca-trust`, it is recommended to run [command]`update-ca-trust` after a CA change. Also note that browsers, such as Firefox, Epiphany, or Chromium, cache files, and you might need to clear the browser's cache or restart your browser to load the current system certificates configuration.
+====
+
+
+
+== Managing Trusted System Certificates
+
+To list, extract, add, remove, or change trust anchors, use the [command]`trust` command. To see the built-in help for this command, enter it without any arguments or with the [option]`--help` directive:
+
+[subs="quotes, macros"]
+----
+$ [command]`trust`
+usage: trust command &lt;args&gt;...
+
+Common trust commands are:
+  list             List trust or certificates
+  extract          Extract certificates and trust
+  extract-compat   Extract trust compatibility bundles
+  anchor           Add, remove, change trust anchors
+  dump             Dump trust objects in internal format
+
+See 'trust &lt;command&gt; --help' for more information
+----
+
+To list all system trust anchors and certificates, use the [command]`trust list` command:
+
+[subs="quotes, macros"]
+----
+$ [command]`trust list`
+pkcs11:id=%d2%87%b4%e3%df%37%27%93%55%f6%56%ea%81%e5%36%cc%8c%1e%3f%bd;type=cert
+    type: certificate
+    label: ACCVRAIZ1
+    trust: anchor
+    category: authority
+
+pkcs11:id=%a6%b3%e1%2b%2b%49%b6%d7%73%a1%aa%94%f5%01%e7%73%65%4c%ac%50;type=cert
+    type: certificate
+    label: ACEDICOM Root
+    trust: anchor
+    category: authority
+...
+[output has been truncated]
+----
+
+
+
+To store a trust anchor into the system-wide trust store, use the [command]`trust anchor` sub-command and specify a _path.to_ a certificate, for example:
+
+[subs="macros"]
+----
+# trust anchor pass:quotes[_path.to/certificate.crt_]
+----
+
+To remove a certificate, use either a _path.to_ a certificate or an ID of a certificate:
+
+[subs="macros"]
+----
+# trust anchor --remove pass:quotes[_path.to/certificate.crt_]
+# trust anchor --remove pass:quotes[_"pkcs11:id=%AA%BB%CC%DD%EE;type=cert"_]
+----
+
+.More information
+
+All sub-commands of the [command]`trust` commands offer a detailed built-in help, for example:
+
+----
+$ trust list --help
+usage: trust list --filter=<what>
+
+  --filter=<what>     filter of what to export
+                        ca-anchors        certificate anchors
+                        blacklist         blacklisted certificates
+                        trust-policy      anchors and blacklist (default)
+                        certificates      all certificates
+                        pkcs11:object=xx  a PKCS#11 URI
+  --purpose=<usage>   limit to certificates usable for the purpose
+                        server-auth       for authenticating servers
+                        client-auth       for authenticating clients
+                        email             for email protection
+                        code-signing      for authenticating signed code
+                        1.2.3.4.5...      an arbitrary object id
+  -v, --verbose       show verbose debug output
+  -q, --quiet         suppress command output
+----
+
+
+
+
+
 == Additional Resources
 
 For more information, see the following man pages:
@@ -20,5 +143,4 @@ For more information, see the following man pages:
 * `update-ca-trust(8)`
 * `trust(1)`
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+

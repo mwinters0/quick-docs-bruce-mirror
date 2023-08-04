@@ -1,18 +1,88 @@
-:experimental:
-ifdef::context[:parent-context: {context}]
-:context: adding-or-removing-software-respositories-in-fedora
-
-[id='adding-or-removing-software-repositories-in-fedora']
 = Adding or removing software repositories in Fedora
 
 This section describes how to add, enable, or disable a software repository with the DNF application.
 
-include::{partialsdir}/proc_adding-repositories.adoc[leveloffset=+1]
+== Adding repositories
 
-include::{partialsdir}/proc_enabling-repositories.adoc[leveloffset=+1]
+This section describes how to add software repositories with the `dnf config-manager` command.
 
-include::{partialsdir}/proc_disabling-repositories.adoc[leveloffset=+1]
+* To add a new repository, do the following as `*root*`.
 
-include::{partialsdir}/proc_removing-repositories.adoc[leveloffset=+1]
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+. Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory. For details about various options to use in the `.repo` file, see the xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc#sec-Setting_repository_Options[Setting [repository\] Options] section in the System Administrator's Guide
+
+. Add the newly created repository.
++
+[literal,subs="+quotes,attributes"]
+----
+dnf config-manager --add-repo `*_repository_*`
+----
++
+Where *_repository_* is the path to the created `.repo` file, for example:
++
+----
+dnf config-manager --add-repo /etc/yum.repos.d/fedora_extras.repo
+----
+
+
+
+
+== Enabling repositories
+
+This section shows how to enable a particular software repository by using the `dnf config-manager` command.
+
+* To enable a particular repository, run the following command as `*root*`.
++
+[literal,subs="+quotes,attributes"]
+----
+dnf config-manager --set-enabled *_repository_*
+----
++
+Where *_repository_* is the unique repository ID, for example:
++
+----
+dnf config-manager --set-enabled fedora-extras
+----
+
+
+
+== Disabling repositories
+
+This section shows how to disable a particular software repository by using the `dnf config-manager` command.
+
+* To disable a particular repository, run the following command as `*root*`.
++
+[literal,subs="+quotes,attributes"]
+----
+dnf config-manager --set-disabled *_repository_*
+----
++
+Where *_repository_* is the unique repository ID, for example:
++
+----
+dnf config-manager --set-disabled fedora-extras
+----
+
+
+
+== Removing repositories
+
+This section shows how to remove a Yum repository (or `.repo` file).
+
+[NOTE]
+====
+If you know the ID of a repository, but you're not sure what `.repo` it belongs to,
+you can run the following command [red]#`pass:[grep -E "^\[.*\]" /etc/yum.repos.d/*]`#.
+This will print a list of the repository IDs that are associated with each Yum repository.
+====
+
+* To remove a Yum repository, run the following command as `*root*`.
++
+[literal,subs="+quotes,attributes"]
+----
+rm /etc/yum.repos.d/*_file_name_*.repo
+----
++
+Where *_file_name_* is the name of the `.repo` file.
+
+
+

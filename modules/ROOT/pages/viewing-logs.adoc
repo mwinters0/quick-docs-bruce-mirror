@@ -1,12 +1,132 @@
-ifdef::context[:parent-context: {context}]
-:context: viewing-logs
 = Viewing logs in Fedora
 
-include::{partialsdir}/con_viewing-logs.adoc[leveloffset=+1]
 
-include::{partialsdir}/proc_log-files-command-line.adoc[leveloffset=+1]
+Log files contain messages about the system, including the kernel, services, and applications running on it.
+These contain information that helps troubleshoot issues, or simply monitor system functions.
+Fedora uses the https://freedesktop.org/wiki/Software/systemd/[systemd] system and service manager.
+With systemd, messages for most services are now stored in the systemd journal which is a binary file that must be accessed usinng the `journalctl` command.
 
-include::{partialsdir}/proc_log-files-GUI.adoc[leveloffset=+1]
+System tools that do not use systemd for their logs continue to place them as plain text files in the `/var/log/` directory.
+In Fedora, there are two ways of accessing system logs:
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+* The command line
+* A GUI applications
+
+
+== Using the command line to view log files
+
+The `journalctl` command can be used to view messages in the system journal on the command line.
+For plain text log files, generic tools may be used:
+
+* `cat`, `more`, `less`, `tail`, or `head`.
+* the `grep` command to search for specific information.
+* any text editor of your choosing (nano/pico/vim/emacs)
+
+Please note that you may require `sudo` access to view these files.
+
+=== Using journalctl to view system information
+
+* To view all collected journal entries, simply use:
+----
+$ journalctl
+----
+
+* To view a logs related to a specific file, you can provide the `journalctl` command with a filepath.
+  The example shown below shows all logs of the kernel device node `/dev/sda`:
+----
+$ journalctl /dev/sda
+----
+
+* To view log for the current boot use the `-b` option :
+----
+$ journalctl -b
+----
+
+* To view kernel logs for the current boot, you can add the `-k` option:
+----
+$ journalctl -k -b -1
+----
+
+
+=== Using journalctl to view log information for a specific service
+
+* To filter logs to only see ones matching the "foo" systemd service:
+----
+$ journalctl -b _SYSTEMD_UNIT=foo
+----
+
+* Matches can be combined.
+  For example, to view logs for systemd-units that match `foo`, and the PID `number`:
+----
+$ journalctl -b _SYSTEMD_UNIT=foo _PID=number
+----
+
+* If the separator "+" is used, two expressions may be combined in a logical OR.
+  For example, to view all messages from the `foo` service process with the `PID` plus all messages from the `foo1` service (from any of its processes):
+----
+$ journalctl -b _SYSTEMD_UNIT=foo _PID=number + _SYSTEMD_UNIT=foo1
+----
+
+* If two matches refer to the same field, all entries matching either expression are shown.
+  For example, this command will show logs matching a systemd-unit `foo` or a systemd-unit `foo1`:
+----
+$ journalctl -b _SYSTEMD_UNIT=foo _SYSTEMD_UNIT=foo1
+----
+
+
+NOTE: The files for service modification are stored in a directory within `*/etc/systemd/system*`, to know more about systemd, please refer to <<understanding-and-administering-systemd.adoc#Understanding Systemd Services>>
+
+
+=== Using journalctl to view older logs
+
+* To view older logs use the `--list-boots` option :
+
+This will show a tabular list of boot numbers, their IDs, and the timestamps of the first and last message pertaining to the boot:
+
+----
+$ journalctl --list-boots
+-8 42cdeac65d494e938b9cb92f315b08a4 Mon 2018-11-12 10:36:42 CET—Mon 2018-11-12 20:08:24 CET
+-7 c110d2b8705345b786fe310de628bfc7 Tue 2018-11-13 10:29:27 CET—Tue 2018-11-13 10:04:00 CET
+----
+
+with this ID you can use `journalctl` as usual :
+
+----
+$ journalctl --boot=ID _SYSTEMD_UNIT=foo
+----
+
+* To know more about `journalctl`, read the man page:
+----
+$ man journalctl
+----
+
+
+
+== Using Gnome Logs to view log files
+
+The `GNOME Logs` application provides a convenient GUI tool to view the systemd journal.
+`GNOME Logs` is not currently installed by default on Fedora systems.
+
+* You can install `Gnome Logs` using the default software installation application on your system.
+  On a Fedora Workstation install running the GNOME desktop:
+
+** Press the `Super` key
+** Type `Software`
+** In the `Search` field type `Logs` and choose the `GNOME Logs` item from the list of results
+** Install the application
+
+* You can also install `GNOME Logs` using the command line with `dnf`:
+
+----
+$ sudo dnf install gnome-logs
+----
+
+In `GNOME Logs`, you can filter for time periods, search within logs, and display categories.
+
+* To select a log file type, from the side bar of GNOME Logs, select the type to view.
+* To select a time period, from the menu bar, click `Log`, and select a time period.
+* To search within logs, select a log file from the results pane.
+. Click the search icon.
+. Enter one or more search criterion in the search field.
+
+
