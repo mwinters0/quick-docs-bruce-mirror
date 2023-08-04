@@ -1,4 +1,9 @@
 = GNOME Shell extensions
+Ankur Sinha; Fedora Documentation Team
+:revnumber: F38
+:revdate: 2023-08-04
+:category: Managing software
+:tags: How-to Workstation Gnome
 
 From the https://extensions.gnome.org/about/[website]: 
 
