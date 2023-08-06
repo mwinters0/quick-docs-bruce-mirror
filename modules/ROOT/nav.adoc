@@ -67,7 +67,7 @@
 ** xref:managing-keyboard-shortcuts-for-running-app-in-gnome.adoc[Managing keyboard shortcuts for running an application in GNOME]
 ** xref:creating-a-disk-partition-in-linux.adoc[Creating disk partitions]
 ** xref:reset-root-password.adoc[Resetting a root password]
-** xref:using-aide.adoc[Checking file integrity with AIDE]
+** xref:aide-checking-file-integrity.adoc[Checking file integrity with AIDE]
 ** xref:getting-started-with-apache-http-server.adoc[Getting started with Apache HTTP Server]
 ** xref:samba.adoc[How to create a Samba share]
 ** xref:join-active-directory-freeipa.adoc[How to join an Active Directory or FreeIPA domain]

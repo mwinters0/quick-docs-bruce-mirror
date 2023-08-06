@@ -3,10 +3,11 @@ Mirek Jahoda; Ankur Sinha ; The Fedora Docs Team
 :revnumber: F38
 :revdate: 2023-08-06
 
-// Optional  free form useful additional information as comment
-
 :category: Administration
-:tags: How-to TAG_02 TAG_03 ... TAG_n
+:tags: How-to 
+
+
+// Optional  free form useful additional information as comment
 
 
 One of the most common operations that administrators want to accomplish when managing `sudo` permissions is to grant a new user general `sudo` access. This is helpful if you want to give an account full administrative access to the system.

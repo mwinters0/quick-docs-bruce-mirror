@@ -3,10 +3,10 @@ Michal Ambroz;  Christopher Engelhard ; The Fedora Docs team
 :revnumber: F37
 :revdate: 2023-02-03
 
-// Optional  free form useful additional information as comment
-
 :category: Administration
 :tags: How-to 
+
+// Optional  free form useful additional information as comment
 
 
 APT is the package manager/dependency solver for the Debian ecosystem, i.e. it manages `.deb` packages installed by the DPKG program. Fedora software is based on `.rpm` packages, and thus uses DNF, the package manager/dependency solver for the RPM program, instead. This document gives a brief overview of the most common APT commands one might find in tutorials and their DNF equivalents.

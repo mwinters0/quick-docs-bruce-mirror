@@ -2,12 +2,11 @@
 Héctor Louzao; The Fedora Documentation Team
 :revnumber: F38
 :revdate: 2023-08-09
-
 :page-aliases: using-aide.adoc
-// Optional  free form useful additional information as comment
-
 :category: Administration
 :tags: How-to  Monitoring 
+
+// Optional  free form useful additional information as comment
 
 [abstract]
 Advanced Intrusion Detection Environment (AIDE) is a utility that creates a database of files on the system, and then uses that database to ensure file integrity and detect system intrusions.

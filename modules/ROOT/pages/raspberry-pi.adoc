@@ -2,11 +2,10 @@
 Flo H;  jtagcat; The Fedora Docs Team
 :revnumber: F38
 :revdate: 2023-08-05
-
-// Optional  free form useful additional information as comment
-
 :category: Installation
 :tags: How-to ARM-SBC Raspberry-Pi 
+
+// Optional  free form useful additional information as comment
 
 
 [abstract]
