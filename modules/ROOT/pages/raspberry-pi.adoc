@@ -1,12 +1,22 @@
 = Fedora on Raspberry Pi
+Flo H;  jtagcat; The Fedora Docs Team
+:revnumber: F38
+:revdate: 2023-08-05
 
-The link:https://www.raspberrypi.org[Raspberry Pi] is a credit card-sized ARM based single board computer (SBC).
+// Optional  free form useful additional information as comment
 
-link:https://fedoraproject.org/wiki/Changes/RaspberryPi4[The Raspberry Pi 4 is officially supported from Fedora release 37 onwards]. This includes hardware accelerated graphics, for which OSS support was previously lacking.
+:category: Installation
+:tags: How-to ARM-SBC Raspberry-Pi 
+
+
+[abstract]
+The link:https://www.raspberrypi.org[Raspberry Pi] is a credit card-sized ARM based single board computer (SBC). This documentation describes how to get started
+
+The Raspberry Pi 4 is link:https://fedoraproject.org/wiki/Changes/RaspberryPi4[ officially supported] from Fedora release 37 onwards. This includes hardware accelerated graphics, for which OSS support was previously lacking.
 
 Support for older Raspberry Pi models (2B and 3-series of devices including the 3B, 3B+, 3A+, 3CM and 3CM+) is available since Fedora Linux 29 and later releases. But Fedora decided to cut off support for (32 bit) armv7 / armhfp.
 
-This documentation describes how to get started, and includes a Frequently Asked Questions (FAQ) section at the end of the document about what is supported, and what is not.
+At the end of the document you find a Frequently Asked Questions (FAQ) section about what is supported, and what is not.
 
 .Prerequisites
 
@@ -27,22 +37,14 @@ This documentation describes how to get started, and includes a Frequently Asked
 
 The procedure for installing Fedora ARM on a microSD in preparation for using Fedora on a Raspberry Pi depends on your computers' operating system (Microsoft Windows, macOS, or Linux).
 
-* For Fedora users, see: <<installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer_{context}>>.
-* For users of other Linux distributions, see: <<installing-fedora-on-a-raspberry-pi-for-linux-users_{context}>>.
-* For Microsoft Windows users, see: <<installing-fedora-on-a-raspberry-pi-for-microsoft-windows-users_{context}>>.
-* For macOS users, see: <<installing-fedora-on-a-raspberry-pi-for-macos-users_{context}>>.
+* For Fedora users, see:  xref:raspberry-pi.adoc#_installing_fedora_on_a_raspberry_pi_using_the_fedora_arm_installer[Installing Fedora on a Raspberry Pi using the Fedora ARM installer].
+* For users of other Linux distributions, see:  
+xref:raspberry-pi.adoc#_installing_fedora_on_a_raspberry_pi_for_linux_users[Installing Fedora on a Raspberry Pi for Linux users].
+* For Microsoft Windows users, see:  xref:raspberry-pi.adoc#_installing_fedora_on_a_raspberry_pi_for_microsoft_windows_users[Installing Fedora on a Raspberry Pi for Microsoft Windows users].
+* For macOS users, see: xref:raspberry-pi.adoc#_installing_fedora_on_a_raspberry_pi_for_macos_users[Installing Fedora on a Raspberry Pi for macOS users].
 
-// The following include statements pull in the module files that comprise the assembly. Include any combination of concept, procedure, or reference modules required to cover the user story. You can also include other assemblies.
-
-// [leveloffset=+1] ensures that when a module starts with a level-1 heading (= Heading), the heading will be interpreted as a level-2 heading (== Heading) in the assembly.
-
-// include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer.adoc[leveloffset=+1]
 
 == Installing Fedora on a Raspberry Pi using the Fedora ARM installer
-// Start the title of a procedure module with a verb, such as Creating or Create. See also _Wording of headings_ in _The IBM Style Guide_.
-
-:experimental:
-include::{partialsdir}/attributes.adoc[]
 
 This procedure shows Fedora users how to add Fedora ARM to a microSD for use with a Raspberry Pi using the Fedora ARM installer.
 
@@ -75,7 +77,7 @@ $ dnf install -y arm-image-installer
 Where:
 +
 * The `__&#60;/path/to/fedora_image&#62;__` has the format `Fedora-__&#60;spin&#62;__-armhfp-__&#60;fedora_version&#62;__-sda.raw.xz`.
-** For example: `/home/user/Downloads/Fedora-Server-armhfp-{MAJOROSVER}-1.1-sda.raw.xz`.
+** For example: `/home/user/Downloads/Fedora-Server-armhfp-35-1.1-sda.raw.xz`.
 * `__&#60;RPi_Version&#62;__` is:
 ** `rpi2` for a Raspberry Pi 2.
 ** `rpi3` for a Raspberry Pi 3.
@@ -100,11 +102,9 @@ $ cat /usr/share/doc/arm-image-installer/SUPPORTED-BOARDS
 
 Your microSD card is ready to be used with your Raspberry Pi.
 
-ifeval::["{context}" == "rpi"]
 ._Next Steps_
 
-For information on starting and configuring Fedora on Raspberry Pi, see: xref:booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}[].
-endif::[]
+For information on starting and configuring Fedora on Raspberry Pi, see: xref:raspberry-pi.adoc#_booting_fedora_on_a_raspberry_pi_for_the_first_time[Booting Fedora on a Raspberry Pi for the first time].
 
 ._Additional Resources_
 
@@ -113,7 +113,6 @@ endif::[]
 ** link:https://ask.fedoraproject.org/[Ask Fedora]
 ** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
 ** link:https://web.libera.chat/?channels=#fedora-arm[IRC via the #fedora-arm channel on Libera.Chat]
-
 
 
 == Installing Fedora on a Raspberry Pi for Linux users
@@ -189,11 +188,9 @@ Ideally we would like this to happen automatically (great community project idea
 
 Your microSD card is ready to be used with your Raspberry Pi.
 
-ifeval::["{context}" == "rpi"]
-.Next Steps
+.Next steps
 
-For information on starting and configuring Fedora on Raspberry Pi, see: xref:booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}[].
-endif::[]
+For information on starting and configuring Fedora on Raspberry Pi, see: xref:raspberry-pi.adoc#_booting_fedora_on_a_raspberry_pi_for_the_first_time[Booting Fedora on a Raspberry Pi for the first time].
 
 .Additional Resources
 
@@ -205,13 +202,7 @@ endif::[]
 
 
 
-
-//include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-for-microsoft-windows-users.adoc[leveloffset=+1]
-
 == Installing Fedora on a Raspberry Pi for Microsoft Windows users
-
-:experimental:
-include::{partialsdir}/attributes.adoc[]
 
 This procedure shows Microsoft Windows users how to add Fedora ARM to a microSD for use with a Raspberry Pi.
 
@@ -234,7 +225,7 @@ For example:
 +
 [source,shell,subs="attributes"]
 ----
-> "C:\Program Files\7-Zip\7z.exe" x -y "C:\Users\admin\Downloads\Fedora-Server-armhfp-{MAJOROSVER}-1.1-sda.raw.xz"
+> "C:\Program Files\7-Zip\7z.exe" x -y "C:\Users\admin\Downloads\Fedora-Server-armhfp-35-1.1-sda.raw.xz"
 ----
 
 . Follow the instructions provided by the Raspberry Pi foundation for writing an image to a microSD card from Microsoft Windows: link:https://www.raspberrypi.org/documentation/installation/installing-images/windows.md[Raspberry Pi Foundation: Installing operating system images using Windows].
@@ -246,11 +237,9 @@ The `.img` and `.raw` extensions are used interchangeably for RAW file. Where th
 
 Your microSD card is ready to be used with your Raspberry Pi.
 
-ifeval::["{context}" == "rpi"]
 ._Next Steps_
 
-For information on starting and configuring Fedora on Raspberry Pi, see: xref:booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}[].
-endif::[]
+For information on starting and configuring Fedora on Raspberry Pi, see: xref:raspberry-pi.adoc#_booting_fedora_on_a_raspberry_pi_for_the_first_time[Booting Fedora on a Raspberry Pi for the first time].
 
 ._Additional Resources_
 
@@ -260,11 +249,7 @@ endif::[]
 ** link:https://web.libera.chat/?channels=#fedora-arm[IRC via the #fedora-arm channel on Libera.Chat]
 
 
-
-// include::{partialsdir}/proc_installing-fedora-on-a-raspberry-pi-for-macos-users.adoc[leveloffset=+1]
 == Installing Fedora on a Raspberry Pi for macOS users
-
-include::{partialsdir}/attributes.adoc[]
 
 This procedure shows macOS users how to add Fedora ARM to a microSD for use with a Raspberry Pi.
 
@@ -287,7 +272,7 @@ For example:
 +
 [source,shell,subs="attributes"]
 ----
-$ unar Fedora-Server-armhfp-{MAJOROSVER}-1.1-sda.raw.xz
+$ unrar Fedora-Server-38-1.6.aarch64.raw.xz
 ----
 
 . Follow the instructions provided by the Raspberry Pi foundation for writing an image to a microSD card from macOS: link:https://www.raspberrypi.org/documentation/installation/installing-images/mac.md[Raspberry Pi Foundation: Installing operating system images on Mac OS].
@@ -299,11 +284,9 @@ The `.img` and `.raw` extensions are used interchangeably for RAW file. Where th
 
 Your microSD card is ready to be used with your Raspberry Pi.
 
-ifeval::["{context}" == "rpi"]
 ._Next Steps_
 
-For information on starting and configuring Fedora on Raspberry Pi, see: xref:booting-fedora-on-a-raspberry-pi-for-the-first-time_{context}[].
-endif::[]
+For information on starting and configuring Fedora on Raspberry Pi, see: xref:raspberry-pi.adoc#_booting_fedora_on_a_raspberry_pi_for_the_first_time[Booting Fedora on a Raspberry Pi for the first time]..
 
 ._Additional Resources_
 
@@ -313,16 +296,9 @@ endif::[]
 ** link:https://web.libera.chat/?channels=#fedora-arm[IRC via the #fedora-arm channel on Libera.Chat]
 
 
-
-
-
-include::{partialsdir}/proc_booting-fedora-on-a-raspberry-pi-for-the-first-time.adoc[leveloffset=+1]
-
 == Booting Fedora on a Raspberry Pi for the first time
 
-//include::{partialsdir}/attributes.adoc[]
-
-Follow these steps to boot Fedora ARM on your Raspberry Pi. If your MicroSD card does not have enough room, you need to resize the main partition after the initial setup. See <<resizing-the-main-partition-of-the-microsd-card-after-setup_{context}>>.
+Follow these steps to boot Fedora ARM on your Raspberry Pi. If your MicroSD card does not have enough room, you need to resize the main partition after the initial setup. See <<resizing-the-main-partition-of-the-microsd-card-after-setup>>.
 
 ._Prerequisites_
 
@@ -343,7 +319,7 @@ Follow these steps to boot Fedora ARM on your Raspberry Pi. If your MicroSD card
 
 The system displays a login prompt or getting started guide (depending on your Desktop/SPIN).
 
-[id='resizing-the-main-partition-of-the-microsd-card-after-setup_{context}']
+[id='resizing-the-main-partition-of-the-microsd-card-after-setup']
 ._Resizing the main partition of the microSD card after setup (if required)_
 
 Follow these steps to resize the partitions for Fedora ARM on Raspberry Pi:
@@ -362,28 +338,15 @@ $ xfs_growfs -d /
 
 ._Additional Resources_
 
-* For information on configuring Fedora, including installing programs and updates, see: xref:f{MAJOROSVER}@fedora:system-administrators-guide:index.adoc[Fedora Docs: System Administrator’s Guide]
 * For assistance or support, see:
 ** link:https://ask.fedoraproject.org/[Ask Fedora]
 ** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
 ** irc://irc.freenode.net/#fedora-arm[IRC via the #fedora-arm channel on Freenode]
 
 
-
-include::{partialsdir}/ref_frequently-asked-questions_-installing-fedora-on-a-raspberry-pi.adoc[leveloffset=+1]
-
-// Module included in the following assemblies:
-//
-// <List assemblies here, each on a new line>
-
-// Base the file name and the ID on the module title. For example:
-// * file name: my-reference-a.adoc
-// * ID: [id='my-reference-a']
-// * Title: = My reference A
-
 // The ID is used as an anchor for linking to the module. Avoid changing it after the module has been published to ensure existing links are not broken.
-[id='reference-material_{context}']
-// The `context` attribute enables module reuse. Every module's ID includes {context}, which ensures that the module has a unique ID even if it is reused multiple times in a guide.
+[id='reference-material']
+
 [[sect-frequently-asked-questions]]
 == Fedora on Raspberry Pi: Frequently Asked Questions
 //In the title of a reference module, include nouns that are used in the body text. For example, "Keyboard shortcuts for ___" or "Command options for ___." This helps readers and search engines find the information quickly.
@@ -398,10 +361,10 @@ Common causes of the rainbow display include:
 
 * There's no operating system installed. Check that an operating system was installed and the microSD card was properly inserted into the Raspberry Pi.
   For instructions about Fedora ARM on Raspberry Pi:
-** For Fedora users, see: <<installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer_{context}>>.
-** For users of other Linux distributions, see: <<installing-fedora-on-a-raspberry-pi-for-linux-users_{context}>>.
-** For Microsoft Windows users, see: <<installing-fedora-on-a-raspberry-pi-for-microsoft-windows-users_{context}>>.
-** For macOS users, see: <<installing-fedora-on-a-raspberry-pi-for-macos-users_{context}>>.
+** For Fedora users, see: <<installing-fedora-on-a-raspberry-pi-using-the-fedora-arm-installer>>.
+** For users of other Linux distributions, see: <<installing-fedora-on-a-raspberry-pi-for-linux-users>>.
+** For Microsoft Windows users, see: <<installing-fedora-on-a-raspberry-pi-for-microsoft-windows-users>>.
+** For macOS users, see: <<installing-fedora-on-a-raspberry-pi-for-macos-users>>.
 
 * If you try to use Fedora on a Raspberry Pi 1, Raspberry Pi Zero, or a Raspberry Pi model A, you will receive the rainbow display. This occurs because your Raspberry Pi is not supported (ARMv6 SoCs architectures are not supported).
 
@@ -583,11 +546,8 @@ $ append ro root=UUID="LARGE UUID STRING OF TEXT" console=tty0 console=ttyS0,115
 
 * The most up-to-date information can be found on the link:https://fedoraproject.org/wiki/Architectures/ARM/Raspberry_Pi?rd=Raspberry_Pi[Raspberry Pi page] of the Fedora Wiki.
 * For Raspberry Pi hardware specifications and project ideas, see: link:https://www.raspberrypi.org/[The Raspberry Pi Foundation Website].
-* For information on configuring Fedora, including installing programs and updates, see: xref:f{MAJOROSVER}@fedora:system-administrators-guide:index.adoc[Fedora Docs: System Administrator’s Guide]
 * For assistance or support, see:
 ** link:https://ask.fedoraproject.org/[Ask Fedora]
 ** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
 ** link:https://web.libera.chat/?channels=#fedora-arm[IRC via the #fedora-arm channel on Libera.Chat]
 
-// Restore the context to what it was before this assembly.
-:context: {parent-context}

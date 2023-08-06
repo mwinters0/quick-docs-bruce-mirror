@@ -1,15 +1,21 @@
-[id='sec-Using-AIDE']
 = Checking Integrity With *AIDE*
-:experimental:
-include::{partialsdir}/attributes.adoc[]
+Héctor Louzao; The Fedora Documentation Team
+:revnumber: F38
+:revdate: 2023-08-09
 
+:page-aliases: using-aide.adoc
+// Optional  free form useful additional information as comment
+
+:category: Administration
+:tags: How-to  Monitoring 
+
+[abstract]
 Advanced Intrusion Detection Environment (AIDE) is a utility that creates a database of files on the system, and then uses that database to ensure file integrity and detect system intrusions.
 
 == Installing *AIDE*
 
 . To install the _aide_ package:
 +
-
 [source,shell,subs="attributes"]
 ----
 $ sudo dnf install aide
@@ -17,7 +23,6 @@ $ sudo dnf install aide
 
 . To generate an initial database:
 +
-
 [source,shell,subs="attributes"]
 ----
 $ sudo aide --init
@@ -58,7 +63,9 @@ $ sudo mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
 . To change the location of the *AIDE* database, edit the `/etc/aide.conf` file and modify the `DBDIR` value. For additional security, store the database, configuration, and the `/usr/sbin/aide` binary file in a secure location such as a read-only media.
 +
 
-IMPORTANT: To avoid SELinux denials after the AIDE database location change, update your SELinux policy accordingly. See the link:https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/SELinux_Users_and_Administrators_Guide/[SELinux User's and Administrator's Guide] for more information.
+IMPORTANT: To avoid SELinux denials after the AIDE database location change, update your SELinux policy accordingly. See the xref:changing-selinux-states-and-modes.adoc[Changing SELinux states and modes] guide for more information.
+
+//link:https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/SELinux_Users_and_Administrators_Guide/[SELinux User's and Administrator's Guide] for more information.
 
 == Performing Integrity Checks
 
@@ -85,7 +92,7 @@ f++++++++++++++++: /etc/cups/subscriptions.conf.O
 [output truncated]
 ----
 
-At a minimum, *AIDE* should be configured to run a weekly scan. At most, *AIDE* should be run daily. For example, to schedule a daily execution of AIDE at _04:05_ a.m. using the *cron* command, see the xref:f{MAJOROSVER}@fedora:system-administrators-guide:monitoring-and-automation/Automating_System_Tasks.adoc[Automating System Tasks] chapter in the System Administrator's Guide.
+At a minimum, *AIDE* should be configured to run a weekly scan. At most, *AIDE* should be run daily. For example, to schedule a daily execution of AIDE at _04:05_ a.m. use the *cron* command.
 
 Add the following line to the `/etc/crontab` file:
 

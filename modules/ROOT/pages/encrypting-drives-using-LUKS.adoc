@@ -1,5 +1,16 @@
 = Disk Encryption User Guide
- 
+Mat McCabe ; Mauricio Tavares; The Fedora Docs team
+:revnumber: F37
+:revdate: 2023-01-05
+
+// Optional  free form useful additional information as comment
+
+:category: Administration
+:tags: How-to Encryption LUKS 
+
+[abstract]
+
+
 === Contents
 . <<What is block device encryption?>>
 . <<Encrypting block devices using dm-crypt/LUKS>>
