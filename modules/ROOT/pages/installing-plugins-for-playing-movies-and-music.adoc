@@ -1,10 +1,10 @@
 = Installing plugins for playing movies and music
-Weverton do Couto Timoteo; JetStream ; The Fedora Docs team
-:revnumber: F37
-:revdate: 2022-10-05
+Ankur Sinha ; Héctor Louzao ; The Fedora Docs team
+:revnumber: unknown
+:revdate: 2020-10-05
 :category: Administration
-:tags: How-to Plugins Multi-Media
-
+:tags: How-to Plugins Multimedia 
+:page-aliases: assembly_installing-plugins-for-playing-movies-and-music.adoc
 
 As a Fedora user and system administrator, you can use these steps to install additional multimedia plugins that enable you to play various video and audio types.
 
@@ -36,3 +36,7 @@ sudo dnf group upgrade --with-optional Multimedia
 ** MPV, available from the `mpv` package in RPM Fusion Free
 
 
+// The following line is necessary to allow assemblies be included in other
+// assemblies. It restores the `context` variable to its previous state.
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
