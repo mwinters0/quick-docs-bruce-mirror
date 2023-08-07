@@ -1,12 +1,11 @@
 = Using the DNF software package manager
 Weverton do Couto Timoteo; JetStream ; The Fedora Docs team
-:revnumber: Fxy
+:revnumber: F37
 :revdate: 2022-10-05
-
-// Optional  free form useful additional information as comment
-
 :category: Administration
 :tags: How-to DNF 
+
+// Optional  free form useful additional information as comment
 
 [abstract]
 DNF is a software package manager that installs, updates, and removes packages on Fedora and is the successor to YUM (Yellow-Dog Updater Modified).

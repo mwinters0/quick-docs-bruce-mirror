@@ -2,11 +2,12 @@
 Michael Wu; Anthony McGlone; The Fedora Docs team
 :revnumber: F38
 :revdate: 2023-05-04
-
-// Optional  free form useful additional information as comment
-
 :category: Administration
 :tags: How-to Upgrade 
+
+include::ROOT:partial$attributes.adoc[]
+
+// Optional  free form useful additional information as comment
 
 link:++https://github.com/rpm-software-management/dnf-plugins-extras++[`dnf-plugin-system-upgrade`] is a plugin for the xref:dnf.adoc[DNF] package manager and is used to upgrade your system to the current release of Fedora.
 For Fedora Silverblue and Fedora CoreOS, which use rpm-ostree, you may refer to link:++https://coreos.github.io/rpm-ostree/administrator-handbook/++[rpm-ostree documentation] for details.
