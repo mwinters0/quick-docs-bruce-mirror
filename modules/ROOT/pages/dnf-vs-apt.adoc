@@ -1,10 +1,9 @@
-= APT command equivalents on Fedora with DNF
+= DNF and its APT command equivalents on Fedora
 Michal Ambroz;  Christopher Engelhard ; The Fedora Docs team
 :revnumber: F37
 :revdate: 2023-02-03
-
 :category: Administration
-:tags: How-to 
+:tags: How-to DNF 
 
 // Optional  free form useful additional information as comment
 

@@ -42,6 +42,12 @@ xref:raspberry-pi.adoc#_installing_fedora_on_a_raspberry_pi_for_linux_users[Inst
 * For Microsoft Windows users, see:  xref:raspberry-pi.adoc#_installing_fedora_on_a_raspberry_pi_for_microsoft_windows_users[Installing Fedora on a Raspberry Pi for Microsoft Windows users].
 * For macOS users, see: xref:raspberry-pi.adoc#_installing_fedora_on_a_raspberry_pi_for_macos_users[Installing Fedora on a Raspberry Pi for macOS users].
 
+[NOTE]
+====
+For installation on **Fedora Server Edition** see xref:fedora-server::installation/on-sbc.adoc[ARM Single Board Computer (SBC) Installation] and xref:fedora-server::server-on-sbc.adoc[Special: Single Board Computers].
+
+For **IoT Edition** see xref:iot::reference-platforms.adoc[Reference Platforms]
+====
 
 == Installing Fedora on a Raspberry Pi using the Fedora ARM installer
 
@@ -75,8 +81,8 @@ $ dnf install -y arm-image-installer
 +
 Where:
 +
-* The `__&#60;/path/to/fedora_image&#62;__` has the format `Fedora-__&#60;spin&#62;__-armhfp-__&#60;fedora_version&#62;__-sda.raw.xz`.
-** For example: `/home/user/Downloads/Fedora-Server-armhfp-35-1.1-sda.raw.xz`.
+* The `__&#60;/path/to/fedora_image&#62;__` has the format `Fedora-__&#60;spin&#62;__&#60;fedora_version__&#62;__.aarch64.raw.xz`.
+** For example: `/home/user/Downloads/Fedora-Server-38-1.6.raw.xz`.
 * `__&#60;RPi_Version&#62;__` is:
 ** `rpi2` for a Raspberry Pi 2.
 ** `rpi3` for a Raspberry Pi 3.
@@ -138,7 +144,7 @@ The location of your microSD card will be /dev/sdX or /dev/mmcblkX depending on 
 +
 [subs="quotes"]
 ----
-$ xzcat *Fedora-IMAGE-NAME.raw.xz* | sudo dd status=progress bs=4M of=*/dev/XXX*
+$ xzcat *Fedora-IMAGE-NAME.aarch64.raw.xz* | sudo dd status=progress bs=4M of=*/dev/XXX*
 ----
 +
 . To resize the main partition, run `parted` and select the device.
@@ -224,7 +230,7 @@ For example:
 +
 [source,shell,subs="attributes"]
 ----
-> "C:\Program Files\7-Zip\7z.exe" x -y "C:\Users\admin\Downloads\Fedora-Server-armhfp-35-1.1-sda.raw.xz"
+> "C:\Program Files\7-Zip\7z.exe" x -y "C:\Users\admin\Downloads\Fedora-Server-38-1.6.aarch64.raw.xz"
 ----
 
 . Follow the instructions provided by the Raspberry Pi foundation for writing an image to a microSD card from Microsoft Windows: link:https://www.raspberrypi.org/documentation/installation/installing-images/windows.md[Raspberry Pi Foundation: Installing operating system images using Windows].
