@@ -1,4 +1,10 @@
 = Installing plugins for playing movies and music
+Weverton do Couto Timoteo; JetStream ; The Fedora Docs team
+:revnumber: F37
+:revdate: 2022-10-05
+:category: Administration
+:tags: How-to Plugins Multi-Media
+
 
 As a Fedora user and system administrator, you can use these steps to install additional multimedia plugins that enable you to play various video and audio types.
 

@@ -35,7 +35,7 @@
 ** xref:autoupdates.adoc[AutoUpdates]
 ** xref:dnf-vs-apt.adoc[APT command equivalents on Fedora with DNF]
 ** xref:installing-java.adoc[Installing Java]
-//** xref:assembly_installing-plugins-for-playing-movies-and-music.adoc[Installing plugins for playing movies and music]
+** xref:assembly_installing-plugins-for-playing-movies-and-music.adoc[Installing plugins for playing movies and music]
 ** xref:openh264.adoc[OpenH264]
 ** xref:installing-chromium-or-google-chrome-browsers.adoc[Installing Chromium or Google Chrome browsers]
 ** xref:installing-from-source.adoc[Installing Software from Source]
@@ -102,7 +102,7 @@
 ** xref:qemu.adoc[Using virtualization emulation in QEMU]
 ** xref:using-nested-virtualization-in-kvm.adoc[Using nested virtualization in KVM]
 ** xref:creating-windows-virtual-machines-using-virtio-drivers.adoc[Creating Windows virtual machines using virtIO drivers]
-** xref:how-to-use-vmware.adoc[How to use VMware products]
+** xref:vmware-what-is-it.adoc[VMware – what is it and how use it?]
 ** xref:uefi-with-qemu.adoc[Using UEFI with QEMU]
 
 //FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems] - note: maintained on wiki, does not fit quick-docs IMHO
