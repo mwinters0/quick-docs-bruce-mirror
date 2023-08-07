@@ -44,7 +44,7 @@ xref:raspberry-pi.adoc#_installing_fedora_on_a_raspberry_pi_for_linux_users[Inst
 
 [NOTE]
 ====
-For installation on **Fedora Server Edition** see xref:fedora-server::installation/on-sbc.adoc[ARM Single Board Computer (SBC) Installation] and xref:fedora-server::server-on-sbc.adoc[Special: Single Board Computers].
+For installation on **Fedora Server Edition** see xref:fedora-server::installation/on-sbc.adoc[ARM Single Board Computer (SBC) Installation] and xref:fedora-server::server-on-sbc/index.adoc[Special: Single Board Computers].
 
 For **IoT Edition** see xref:iot::reference-platforms.adoc[Reference Platforms]
 ====
