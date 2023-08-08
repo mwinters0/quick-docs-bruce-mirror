@@ -43,6 +43,11 @@ The setup is as follows: install the PAM module, register a YubiKey with your us
 
 The packages required for both PAM modules are available in the official repositories.
 
+[NOTE]
+===
+Note that one difference of both PAM modules is, with pam_yubico you don't need to touch your yubikey, its enought if the key is inserted in your device. With pam_u2f you have to touch your key every time authentication is required.
+===
+
 ==== For pam_yubico
 
 Install the PAM yubico module from the official repositories:
@@ -63,7 +68,7 @@ Install the PAM u2f module and the CLI tool from the official repositories:
 
 There are two ways to configure the YubiKey PAM module to authenticate users. Either via the YubiCloud or using challenge-response. The YubiCloud is the standard method but depends on Yubico's cloud to validate your OTPs and hence requires constant internet access.
 
-Create two base configuration files in /etc/pam.d. yubikey-required and yubikey-sufficient.
+Create two base configuration files in /etc/pam.d/yubikey-required and yubikey-sufficient.
 
 For YubiCloud use the following:
 
@@ -112,7 +117,7 @@ If you want to use both methods for different use-cases just create the respecti
 
 ==== For pam_u2f
 
-Create two base configuration files in /etc/pam.d. u2f-required and u2f-sufficient.
+Create two base configuration files in /etc/pam.d/u2f-required and u2f-sufficient.
 
 [source]
 #%PAM-1.0
@@ -142,10 +147,15 @@ Create a configuration file ~/.yubico/authorized_keys with your user account fol
 fedora-user:cccccbcgebif[:<another-key-id>]
 
 Alternatively, activate challenge-response in slot 2 and register with your user account.
+The first command (ykman) can be skipped if you already have a challenge-response credential stored in slot 2 on your YubiKey. (Verify with 'ykman otp info') 
+Repeat both or only the last step if you have a backup key (strongly recommended).
 
 [source, bash]
 […]$ ykman otp chalresp --generate --touch 2
 […]$ ykpamcfg -2
+
+[source]
+Stored initial challenge and expected response in '/home/<username>/.yubico/challenge-1...5'.
 
 Or for any other system user using sudo.
 
@@ -163,7 +173,13 @@ If the key is PIN protected you'll be asked to enter the PIN for this operation.
 
 [source, bash]
 […]$ mkdir -p ~/.config/Yubico
-[…]$ pamu2fcfg >> ~/.config/Yubico/u2f_keys
+[…]$ pamu2fcfg > ~/.config/Yubico/u2f_keys
+
+If you have a backup key add it with the --nouser option and append it to the existing key (line). (All output should end up in the same line.)
+
+[source, bash]
+[…]$ pamu2fcfg -n >> ~/.config/Yubico/u2f_keys
+
 
 === Configure desired PAM modules
 
