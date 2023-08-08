@@ -1,10 +1,84 @@
-ifdef::context[:parent-context: {context}]
-:context: fedora-and-red-hat-enterprise-linux
-[id='fedora-and-red-hat-enterprise-linux']
 = Fedora and Red Hat Enterprise Linux
+yohaan vakil;  hankuoffroad ;  mikerkelly87
+:revnumber: F38
+:revdate: 2023-05-15
+:category: Community
+:tags: Red Hat; 
+
+// Optional  free form useful additional information as comment
+
 
 What is the difference between Fedora and Red Hat Enterprise Linux?
 
-include::{partialsdir}/con_relation-between-fedora-and-red-hat-enterprise-linux.adoc[leveloffset=+1]
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+== Relationship between Fedora and RHEL
+
+Red Hat Enterprise Linux (RHEL) and Fedora both are open source operating systems. They are related projects, with Fedora being "upstream" of Red Hat Enterprise Linux. Whereas Fedora is a community-supported project suitable for different kinds of users, Red Hat Enterprise Linux is enterprise business-oriented software supported via commercial subscription options.
+
+=== Red Hat Enterprise Linux
+
+Red Hat Enterprise Linux is an enterprise Linux operating system. It is oriented toward enterprise and commercial users, is certified for many hardware and cloud platforms, and is supported by Red Hat via various subscription options. Compared to Fedora, Red Hat Enterprise Linux emphasizes stability and enterprise-readiness over the latest technologies or rapid releases. More information about Red Hat offerings can be found at https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux[Red Hat's web site].
+
+Individual software developers can access a free-of-charge subscription as part of the https://developers.redhat.com/about[Red Hat Developer Program]. Developers can use Red Hat Enterprise Linux on up to 16 physical or virtual systems for development, quality assurance, demos, or small production uses. See the Frequently Asked Questions for the https://developers.redhat.com/articles/faqs-no-cost-red-hat-enterprise-linux[No-cost Red Hat Enterprise Linux Individual Developer Subscription].
+
+=== Fedora
+
+Fedora is developed by the Fedora Project and sponsored by Red Hat. It follows its own release schedule, with a new version approximately every six months. Fedora provides a modern Linux operating system utilizing many of the latest technologies. It is free for all users and supported via the Fedora community.
+
+To create Red Hat Enterprise Linux, some version of Fedora is forked and enters an extensive development, testing and certification process to become a new version of Red Hat Enterprise Linux.
+
+== History of Red Hat Enterprise Linux and Fedora
+
+Red Hat first offered an enterprise Linux support subscription for Red Hat Linux 6.1. It was not a separate product, but the subscription offering was branded as Red Hat 6.2E. Subsequently, Red Hat started creating a separate product with commercial service level agreements and longer lifecyle based on Red Hat Linux, and later on Fedora.
+
+.Red Hat Enterprise Linux and Fedora Lineage
+[options="header"]
+|===
+|Release |Codename |Release Date |Based on
+|Red Hat Linux 6.2E |Zoot |2000-03-27 |Red Hat Linux 6.2
+
+|Red Hat Enterprise Linux 2.1 |Pensacola (AS)/ Panama (ES) |2002-03-26
+(AS) |Red Hat Linux 7.2
+
+|Red Hat Enterprise Linux 3 |Taroon |2003-10-22 |Red Hat Linux 9
+
+|Red Hat Enterprise Linux 4 |Nahant |2005-02-15 |Fedora Core 3
+
+|Red Hat Enterprise Linux 5 |Tikanga |2007-03-14 |Fedora Core 6
+
+|Red Hat Enterprise Linux 6 |Santiago |2010-11-10 |Mix of Fedora 12
+Fedora 13 and several modifications
+
+|Red Hat Enterprise Linux 7 |Maipo |2014-06-10 |Primarily Fedora 19 with
+several changes from 20 and later
+
+|Red Hat Enterprise Linux 8|Ootpa |2019-05-07 |Fedora 28
+
+|Red Hat Enterprise Linux 9|Plow |2022-05-17 |Fedora 34
+|===
+
+== Difference between Red Hat Enterprise Linux and Fedora
+
+.Difference between Red Hat Enterprise Linux and Fedora
+[cols="1,3,3",options="header"]
+|===
+|
+|Red Hat Enterprise Linux
+|Fedora
+
+|support
+|Red Hat Enterprise Linux is a commercially supported product by Red Hat and provides service level agreements that is important for enterprise customers. This support involves product assistance as well as prioritization of bug fixes, feature requests, certified hardware and software.
+|Fedora is supported by a wide community of developers and users but it is not commercially supported by Red Hat. Red Hat does http://fedoraproject.org/sponsors[sponsor] the Fedora Project.
+
+|releases
+|A new version of Red Hat Enterprise Linux comes out every few years and is supported for up to 10 years.
+|New Fedora releases are available about every six months and every release gets updates for about 13 months.
+
+|available software
+|Software in Red Hat Enterprise Linux is a subset of that available in Fedora. These are the packages enterprise customers need and are supported by Red Hat.
+|Fedora offers a wide range of software, with many thousands of packages available in the repository.
+
+|update policy
+|Red Hat Enterprise Linux updates are more conservative and generally focus on security and bug fixes.
+|Fedora's Updates Policy is more liberal compared to Red Hat Enterprise Linux.
+|===
+

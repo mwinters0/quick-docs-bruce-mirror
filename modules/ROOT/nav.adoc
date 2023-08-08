@@ -123,4 +123,4 @@
 ** xref:cups-filing-a-bug-report.adoc[Filing a bug report]
 
 * FAQ
-** xref:fedora-and-red-hat-enterprise-linux.adoc[Difference between Fedora and Red Hat Enterprise Linux]
+** xref:fedora-and-red-hat-enterprise-linux.adoc[Fedora and Red Hat Enterprise Linux]
