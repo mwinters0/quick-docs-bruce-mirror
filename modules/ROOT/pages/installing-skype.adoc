@@ -1,6 +1,14 @@
 = Installing Skype on Fedora
+alciregi; Man2Dev ; The Fedora Docs Team
+:revnumber: F38
+:revdate: 2023-07-06
+:category: Applications
+:tags: How-to 
 
-include::{partialsdir}/3rdparty-message.adoc[]
+
+// include::{partialsdir}/3rdparty-message.adoc[]
+include::partial$3rdparty-message.adoc[]
+
 
 link:https://www.skype.com/[Skype] is a cross-platform proprietary chat (text and video) application.
 

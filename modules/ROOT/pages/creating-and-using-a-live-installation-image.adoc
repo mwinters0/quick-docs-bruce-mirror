@@ -1,10 +1,14 @@
 = Creating and using a live installation image
+Chase Lau ; The Fedora Docs Team
+:revnumber: unknown
+:revdate: 2019-10-05
+:category: Installation
+:tags: How-to Workstation  
+//:page-aliases: 
 
-// include::{partialsdir}/proc_downloading-fedora.adoc[leveloffset=+1]
+include::partial$attributes.adoc[]
 
-//[id='downloading-fedora']
 == Downloading Fedora
-//include::{partialsdir}/attributes.adoc[]
 
 You can download Fedora from https://getfedora.org/.
 

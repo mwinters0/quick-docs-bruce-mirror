@@ -112,7 +112,7 @@
 * Databases
 ** xref:postgresql.adoc[PostgreSQL]
 ** xref:installing-mysql-mariadb.adoc[Installing, Configuring and Troubleshooting MySQL/MariaDB]
-** xref:manage-sql-server.adoc[How to Manage your SQL Server from GUI]
+** xref:manage-database-servers-from-gui.adoc[How to Manage Various Database Servers from GUI]
 
 * Printing and scanning
 ** xref:how-to-debug-printing-problems.adoc[Troubleshooting printing issues]

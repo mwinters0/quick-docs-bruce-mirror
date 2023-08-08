@@ -1,14 +1,15 @@
 = Installing Spotify on Fedora
-The Fedora Documentation Team
+Ankur Sinha; Weverton do Couto Timoteo; Mohammadreza Hendiani
 :revnumber: F38
-:revdate: 2023-08-04
-
-// Optional  free form useful additional information as comment
-
+:revdate: 2023-07-04
 :category: Installation
 :tags: How-to Flatpak DNF RPMFusion Spotify
 
-include::{partialsdir}/3rdparty-message.adoc[]
+// Optional  free form useful additional information as comment
+
+//include::{partialsdir}/3rdparty-message.adoc[]
+include::partial$3rdparty-message.adoc[]
+
 
 link:https://www.spotify.com/[Spotify] is a cross-platform proprietary music streaming service.
 Spotify is a freemium service, with advertisements which can be removed by purchasing a subscription.

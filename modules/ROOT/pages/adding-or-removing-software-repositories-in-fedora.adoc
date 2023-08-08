@@ -1,5 +1,14 @@
 = Adding or removing software repositories in Fedora
+Anthony McGlone
+:revnumber: F37
+:revdate: 2023-01-05
+:category: Administration
+:tags: How-to DNF Application Software-Installation  
+//:page-aliases: 
 
+include::partial$attributes.adoc[]
+
+[abstract]
 This section describes how to add, enable, or disable a software repository with the DNF application.
 
 == Adding repositories

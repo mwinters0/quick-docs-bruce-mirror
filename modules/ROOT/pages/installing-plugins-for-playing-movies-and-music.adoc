@@ -10,12 +10,12 @@ As a Fedora user and system administrator, you can use these steps to install ad
 
 WARNING: If you live in a country where software patents apply, such as in the United States or in Japan, you need to obtain multimedia codecs from a source that legally distributes patented software in your country. For example, see the Fluendo Codec Pack: link:https://fluendo.com/en/products/enterprise/fluendo-codec-pack/[].
 
-[discrete]
+
 == Prerequisites
 
 * xref:setup_rpmfusion.adoc[Enable the RPMFusion repositories].
 
-[discrete]
+
 == Procedure
 
 * Use the `dnf` utility to install packages that provide multimedia libraries:
@@ -28,7 +28,6 @@ sudo dnf install lame\* --exclude=lame-devel
 sudo dnf group upgrade --with-optional Multimedia
 ----
 
-[id='related-information-{context}']
 == Related information
 
 * There are also media players that include all relevant codecs by themselves. Consider using one of the following for offline video viewing:
@@ -36,7 +35,4 @@ sudo dnf group upgrade --with-optional Multimedia
 ** MPV, available from the `mpv` package in RPM Fusion Free
 
 
-// The following line is necessary to allow assemblies be included in other
-// assemblies. It restores the `context` variable to its previous state.
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+

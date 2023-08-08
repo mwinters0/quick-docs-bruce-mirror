@@ -1,21 +1,111 @@
-ifdef::context[:parent-context: {context}]
-:context: performing-administration-tasks-using-sudo
-[id='performing-administration-tasks-using-sudo']
 = Performing administration tasks using sudo
+Harsh Jain; Peter Boy 
+:revnumber: unknown
+:revdate: 2023-08-08
+:category: Administration
+:tags: How-to root-privilegies  
+//:page-aliases: 
 
+//include::partial$attributes.adoc[]
+
+
+[abstract]
 How to perform tasks requiring *root* privileges without logging in as *root*.
 
-include::{partialsdir}/con_what-is-sudo.adoc[leveloffset=+1]
+== What is sudo?
+
+The [command]`sudo` command allows users to gain administrative or root access. When trusted users precede an administrative command with [command]`sudo`, they are prompted for their own password. Then, when they have been authenticated and assuming that the command is permitted, the administrative command is executed as if they were the root user.
+
+Only users listed in the [filename]`/etc/sudoers` configuration file are allowed to use the [command]`sudo` command. The command is executed in the user's shell, not a root shell.
+
+The syntax for the sudo command is as follows:
+
+[subs=quotes]
+----
+sudo _COMMAND_
+----
+
+Replace `_COMMAND_` with the command to run as the root user.
+
+
 
 
 [id='how-to-use-sudo']
 == How to use sudo
 
-include::{partialsdir}/con_using-sudo-assign-admin-privileges.adoc[leveloffset=+2]
+=== Using sudo to assign administrator privileges
 
-include::{partialsdir}/proc_using-same-password-for-root-as-user.adoc[leveloffset=+2]
+Add users to the [directory]`/etc/sudoers` configuration file to allow them to use the [command]`sudo` command. For these users, the [command]`sudo` command is run in the user’s shell instead of in a root shell. As a result, the root shell can be disabled for increased security.
 
-include::{partialsdir}/con_logging-sudo-commands.adoc[leveloffset=+2]
+The administrator can also allow different users access to specific commands using the sudo configuration. Administrators must use the [command]`visudo` command to edit the [directory]`/etc/sudoers` configuration file. 
+
+To assign full administrative privileges to a user, type [command]`visudo` and add the following line to the user privilege section after replacing `_USERNAME_` with the target user name:
+
+[subs=quotes]
+----
+_USERNAME_ ALL=(ALL) ALL
+----
+
+This line allows the specified user to use [command]`sudo` from any host and execute any command.
+
+To allow a user access to specific commands, use the following example after replacing `_USERS_` with a target system group:
+
+[subs=quotes]
+----
+_%USERS_ localhost=/usr/sbin/shutdown -h now
+----
+
+This command allows all members of the `_USERS_` system group to issue the [command]`/sbin/shutdown -h` as long as the command is issued from the console.
+
+The man page for [command]`sudoers` has a detailed listing of options for this file.
+
+
+=== Using the same password for root as the user account
+
+If you use a single user desktop, you might find it convenient to configure [command]`sudo`, so you can use the same password to access *root* as you use for your regular account. To do this, select to be added to the Administration group during installation. To do it at later stage, or to add a different user, use the following procedure:
+
+. Become the *root* user:
++
+----
+$ su -
+----
++
+. Enter the password for the root account when prompted.
+
+. To use your regular password for the root access, run:
++
+[subs=quotes]
+----
+# usermod _USERNAME_ -a -G groupname
+----
++
+Replace `_USERNAME_` with your account name
+
+. Log off and back on in order to have access to the group. 
+
+NOTE: When [command]`sudo` prompts you for a password, it expects your user password, not the `root` password.
+
+
+=== Logging sudo commands
+
+Each successful authentication using the [command]`sudo` command is logged to the [filename]`/var/log/messages` file. For each authentication, the [filename]`/var/log/secure` file lists the user name and the command that was executed.
+
+For additional logging, use the `pam_tty_audit` module to enable TTY auditing for specific users. TTY auditing prints the file name of the terminal connected to the standard I/O. To enable TTY auditing, add the following line to your [filename]`/etc/pam.d/system-auth` file:
+
+[subs=quotes]
+----
+session required pam_tty_audit.so disable=pattern enable=_PATTERN_
+----
+
+Replace `_PATTERN_` with a comma-separated list of users (and globs, if needed).
+
+For example, the following command enables TTY auditing for the root user and disables it for all other users:
+
+----
+session required pam_tty_audit.so disable=* enable=root
+----
+
+Using the `pam_tty_audit` PAM module for auditing only records TTY input. As a result, when the audited user logs in, `pam_tty_audit` records the user’s exact keystrokes and saves them in [filename]`/var/log/audit/audit.log`. For more information, see the *pam_tty_audit(8)* manual page.
 
 
 [[warning-and-caveats]]
@@ -25,12 +115,55 @@ You must use the user account you created following the installation process, at
 
 There are several potential risks to keep in mind when using the [command]`sudo` command. You can avoid them by editing the [filename]`/etc/sudoers` configuration file using [command]`visudo` command.
 
-include::{partialsdir}/con_sudo-timeout.adoc[leveloffset=+2]
 
-include::{partialsdir}/con_using-sudo-access-docker.adoc[leveloffset=+2]
+=== sudo timeout
 
-include::{partialsdir}/proc_run-docker-using-sudo.adoc[leveloffset=+2]
+By default, [command]`sudo` stores the password for a five minute timeout period. Any subsequent uses of the command during this period will not prompt you for a password. This could be exploited by an attacker if you leave your workstation unattended and unlocked while still being logged in. You can change this behavior by adding the following line to the `/etc/sudoers` configuration file:
 
-include::{partialsdir}/con_using-sudo-without-password.adoc[leveloffset=+2]
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+[subs=quotes]
+------------
+Defaults    timestamp_timeout=_VALUE_
+------------
+
+Here, `_VALUE_` is the desired timeout length in minutes. Setting the value to 0 causes [command]`sudo` to require a password every time. 
+
+If an account is compromised, an attacker can use [command]`sudo` to open a new shell with administrative privileges. 
+
+Opening a new shell as a root user in this way allows an attacker administrative access for a theoretically unlimited period of time and bypasses the timeout period specified in the `/etc/sudoers` file. Using this method, the attacker *does not* need to provide a password for [command]`sudo` again until the session ends.
+
+
+=== Using sudo to access Docker
+
+Docker has the ability to change the group ownership of the Docker socket to allow users added to the Docker group to be able to run Docker containers without having to execute the [command]`sudo` or [command]`su` command to become root.
+
+Enabling access to the Docker daemon from non-root users is a problem from a security perspective. It is a security issue for Fedora, because if a user can talk to the Docker socket they can execute a command which gives them full root access to the host system. Docker has no auditing or logging built in, while [command]`sudo` does.
+
+It is recommended that sudo rules are implemented to permit access to the Docker daemon. This allows [command]`sudo` to provide logging and audit functionality.
+
+
+=== Run Docker using sudo
+
+. Set up [command]`sudo` as shown in xref:performing-administration-tasks-using-sudo.adoc#_using_sudo_assign_admin_privileges[Using sudo to assign administrator privileges].
+. Create an alias for running the docker command by adding the following line to your `~/.bashrc` file:
++
+----
+alias docker="sudo /usr/bin/docker"
+----
++
+When the user executes the docker command as non-root, sudo will be used to manage access and provide logging.
+
+
+=== Using sudo without a password
+
+You can enable `root` access without a password specified, allowing any process on your system to become `root`. Add the following line to your `/etc/sudoers` file:
+
+[subs=quotes]
+------------
+_user_        ALL=(ALL)       NOPASSWD: /usr/bin/docker
+------------
+
+This will allow `_user_` to access docker without a password. 
+
+IMPORTANT: For security reasons, it is recommended that you always use [command]`sudo` with a password. 
+
+

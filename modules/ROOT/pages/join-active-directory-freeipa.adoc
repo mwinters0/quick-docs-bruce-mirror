@@ -1,4 +1,12 @@
 = Joining an Active Directory or FreeIPA domain
+Oliver Gutierrez
+:revnumber: F38
+:revdate: 2021-07-04
+:category: Administration
+:tags: How-to Network-Management Active-Directory FreeIPA
+
+// Optional  free form useful additional information as comment
+
 
 Fedora can join Active Directory and FreeIPA domains using the `realm` command.
 
@@ -12,26 +20,26 @@ If you want your Fedora machine to be part of an Active directory or FreeIPA dom
 
 . Configure the DNS to use the Active Directory or FreeIPA domain DNS servers (if your network uses DHCP to set this DNS to the correct server, skip this step)
     You can do this editing the network settings using the GNOME configuration panel or you can edit directly the file `/etc/systemd/resolved.conf` and add your DNS manually.
-
++
 ....
     [Resolve]
     DNS=192.168.122.143 172.17.0.2 1.0.0.1
 ....
 
 . After saving the file, restart `systemd-resolved` service.
-
++
 ....
     $ sudo systemctl restart systemd-resolved
 ....
 
 . Change the machine name to the machine name you want + the domain name.
-
++
 ....
     $ sudo hostnamectl set-hostname my_machine.example.domain
 ....
 
 . Use the `realm` command to join the machine to the domain.
-
++
 ....
     $ sudo realm join example.domain -v
 ....

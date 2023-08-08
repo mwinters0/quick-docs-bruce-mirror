@@ -1,11 +1,20 @@
 = How to file a bug
-:imagesdir: ./images
-include::partial$attributes.adoc[]
-:toc:
+Ankur Sinha; Joe Walker
+:revnumber: all
+:revdate: 2023-05-15
+:category: Bugs
+:tags: How-to Bug-Report 
+//:imagesdir: ./images
 
+include::partial$attributes.adoc[]
+
+
+[abstract]
 The purpose of this document is to give step by step instructions on filing bugs in Fedora.
 For more information about using Bugzilla,
-see the xref:bugzilla.adoc[Bugs section] of the Quick Docs.
+see the xref:bugzilla/index.adoc[Bugs section] of the Quick Docs.
+
+
 
 A software bug does not necessarily need to be a software crash.
 Any undesired behaviour in software can be filed as a bug.

@@ -1,12 +1,17 @@
 = OpenH264
+Caleb McKee
+:revnumber: unknown
+:revdate: 2021-06-04
+:category: Applications
+:tags: How-to Multimedia 
 
-
-This page contains information on the Cisco
+[abstract]
+This page contains information on the Cisco 
 https://www.openh264.org/[OpenH264] codec.
 
-[[background]]
-Background
-----------
+
+== Background
+
 
 Cisco provides an OpenH264 codec (as a source and a binary), which is
 their of implementation H.264 codec, and they cover all licensing fees
@@ -22,9 +27,7 @@ Upstream Firefox versions download and install the OpenH264 plugin by
 default automatically. Due to it's binary nature, Fedora disables this
 automatic download.
 
-[[installation-from-fedora-cisco-openh264-repository]]
-Installation from fedora-cisco-openh264 repository
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== Installation from fedora-cisco-openh264 repository
 
 A `fedora-cisco-openh264` repository is distributed since Fedora 24 by
 default (if you have at least `fedora-repos-24-0.5` package or newer).
@@ -51,9 +54,7 @@ You can do a simple test whether your H.264 works in RTC on
 https://mozilla.github.io/webrtc-landing/pc_test.html[this page] (check
 _Require H.264 video_).
 
-[[manual-install-of-binary]]
-Manual install of binary
-~~~~~~~~~~~~~~~~~~~~~~~~
+== Manual install of binary
 
 * View and agree to the https://www.openh264.org/BINARY_LICENSE.txt
 * Download the appropriate binary for your system here:
@@ -68,12 +69,9 @@ cd ~/.mozilla/firefox/<yourprofile>/gmp-gmpopenh264/1.1/ +
 unzip ~/openh264-linux64-v1.1-Firefox33.zip
 ....
 
-[[firefox-config-changes]]
-Firefox config changes
-^^^^^^^^^^^^^^^^^^^^^^
+== Firefox config changes
 
-Type about:config into the Firefox address/URL field and accept the
-warning.
+Type about:config into the Firefox address/URL field and accept the warning.
 
 * From the Search field type in 264 and a handful of options will
   appear. Give the following Preference Names a value of true by

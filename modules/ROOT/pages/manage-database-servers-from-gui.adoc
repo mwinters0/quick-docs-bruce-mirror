@@ -1,4 +1,12 @@
-== How to Manage SQL SERVER from GUI
+= How to Manage Various Database Server from GUI
+Héctor Louzao; Rafael Fontenelle
+:revnumber: F38
+:revdate: 2023-01-04
+:category: Databases
+:tags: How-to Database-Administration
+
+// Optional  free form useful additional information as comment
+
 
 For database management, it is more user-friendly to use graphical tools:
 
@@ -52,8 +60,8 @@ sudo dnf install phpPgAdmin
 
 for Fedora >= 33
 
-[[installation]]
-=== Installation
+
+== Installation
 
 The installation of the postgresql GUI web-server is a little bit different
 in comparison to older Fedora because the package is out of the repo.
