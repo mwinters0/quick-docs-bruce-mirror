@@ -1,0 +1,164 @@
+== Configuring Jitsi
+
+After installation, you need to perform a few additional configuration steps. The steps consist of replacing various placeholder variables with your values to ensure that Jitsi is correctly configured to work in your specific deployment. The placeholders are identified by underscores for example `\___variableName___`.
+
+In all files, replace `\___jitsiFQDN___` with the fully-qualified domain name of your instance and `\____<component>Secret__` with a strong random password. You need three secrets:
+
+* `\___focusSecret___`
+* `\___focusUserSecret___`
+* `\___jvbUserSecret___`
+
+You do not need to memorize the secrets. They are only used by different Jitsi components to communicate to each other.
+
+
+=== Configuring Jitsi Prosody
+
+You can find Prosody configuration for Jitsi in the `/etc/prosody/conf.d/jitsi-meet.cfg.lua` file.
+
+
+.Procedure
+
+. Generate the SSL/TLS certificate for the Jitsi domain:
++
+----
+$ prosodyctl cert generate __jitsiFQDN__
+----
++
+You need to replace `\___jitsiFQDN___` with the actual domain name of your Jitsi installation. The generated certificate secures the Jitsi Meet web interface and enables encrypted communication.
+
+
+. Generate the SSL/TLS certificate for the auth subdomain:
++
+----
+$ prosodyctl cert generate auth.__jitsiFQDN__
+----
++
+The `auth` subdomain is typically used for authentication purposes in Jitsi Meet. Replace `\___jitsiFQDN___` with your Jitsi domain name to generate the certificate for the auth subdomain.
+
+
+. Add the Jitsi domain certificate as a trusted anchor to ensure that it is recognized as a valid certificate by the system:
++
+----
+$ trust anchor /var/lib/prosody/__jitsiFQDN__
+----
++
+The certificate file is typically located at `/var/lib/prosody/\___jitsiFQDN___`. Therefore you need to replace `\___jitsiFQDN___` with the actual domain name to specify the correct file path.
+
+
+. Add the auth subdomain certificate as a trusted anchor:
++
+----
+$ trust anchor /var/lib/prosody/auth.__jitsiFQDN__
+----
++
+The certificate file is expected to be located at `/var/lib/prosody/auth.\___jitsiFQDN___`. Replace `\___jitsiFQDN___` with your Jitsi domain name to provide the accurate file path.
+
+
+. Register a user with the username `focus` in the Prosody XMPP server:
++
+----
+$ prosodyctl register focus auth.__jitsiFQDN__ __focusUserSecret__
+----
++
+The `focus` user is a special user for Jitsi Meet conference management and coordination. It is responsible for example for creating and controlling conferences. The `auth.\___jitsiFQDN___` portion specifies the domain where the user is registered.
++ 
+Replace `\___jitsiFQDN___` with your Jitsi domain name. The `\___focusUserSecret___` is the password or secret associated with the `focus` user. Replace `\___focusUserSecret___` with a strong and secure password.
+
+
+. Register a user with the username `jvb` in the Prosody XMPP server:
++
+----
+$ prosodyctl register jvb auth.__jitsiFQDN__ __jvbUserSecret__
+----
++
+The `jvb` user is used by Jitsi Videobridge component to handle video streams in Jitsi Meet. The `auth.\___jitsiFQDN___` portion specifies the domain where the user is registered.
++
+Replace `\___jitsiFQDN___` with your Jitsi domain name. The `\___jvbUserSecret___` is the password or secret associated with the `jvb` user. Replace `\___jvbUserSecret___` with a strong and secure password.
+
+
+. Enable and start the prosody service:
++
+----
+$ sudo systemctl enable --now prosody
+----
+
+
+=== Configuring Jitsi Meet
+
+.Procedure
+
+. Locate the `/etc/jitsi-meet/config.js` configuration file.
+
+. Replace the placeholder variables in `config.js`.
+
+
+=== Configuring Jitsi webserver
+
+.Prerequisites
+
+* Configure an HTTPS server for `\___jitsiFQDN___`.
+
+.Procedure
+
+* For Apache:
+** Replace the placeholders in the `/etc/httpd/conf.d/jitsi-meet.conf` file.
+
+** Restart the `httpd` service:
++
+----
+$ sudo systemctl restart httpd
+----
+
+
+* For Nginx:
+** Replace the placeholders in the `/etc/nginx/conf.d/jitsi-meet.conf` file.
+
+** Restart the `nginx` service:
++
+----
+$ sudo systemctl restart nginx
+----
+
+
+
+=== Configuring Jicofo
+
+.Procedure
+
+
+. Replace the  `\___jitsiFQDN___` and `\___focusSecret___` placeholder variables in `/etc/jicofo/config` and `/etc/jicofo/sip-communicator.properties` files.
+
+. Enable and start `jicofo.service`:
++
+----
+$ sudo systemctl enable --now jicofo.service
+----
+
+
+=== Configuring Jitsi Videobridge
+
+.Prerequsites
+
+* Open the port `10000/udp` if you use Network Address Translation (NAT):
+
+. Install the `jitsi-videobridge-firewalld` package to obtain service definition for `jitsi-videobridge.service`
+. Use the service definition to configure `firewalld` to open `10000/udp` for Jitsi Videobridge.
+
+
+.Procedure
+
+. Replace the `\___jitsiFQDN___` and `\___jvbUserSecret___` placeholders in the `/etc/jitsi-videobridge/jvb.conf` file.
+
+. Enable and start `jitsi-videobridge.service`:
++
+----
+$ sudo systemctl enable --now jitsi-videobridge.service
+----
+
+
+
+.Additional resources
+
+* `/etc/sysconfig/jitsi-videobridge`
+
+
