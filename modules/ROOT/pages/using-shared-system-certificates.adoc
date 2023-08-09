@@ -1,4 +1,11 @@
 = Using Shared System Certificates
+ NITISH SHARMA ; Mirek Jahoda ; Petr Bokoc   
+:revnumber: F31 and newer
+:revdate: 2020
+:category: Administration
+:tags: How-to Security Certificates
+//:imagesdir: ./images
+
 
 The Shared System Certificates storage enables NSS, GnuTLS, OpenSSL, and Java to share a default source for retrieving system certificate anchors and black list information. By default, the trust store contains the Mozilla CA list, including positive and negative trust. The system allows updating of the core Mozilla CA list or choosing another certificate list.
 

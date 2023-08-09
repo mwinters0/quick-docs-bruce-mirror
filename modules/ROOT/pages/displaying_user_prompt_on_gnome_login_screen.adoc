@@ -1,5 +1,10 @@
-= Displaying a user prompt on the GNOME login screen
-
+= Displaying a User Prompt on the GNOME Login Screen
+Harsh Jain 
+:revnumber: all
+:revdate: 2020
+:category: Customization
+:tags: How-to Workstation Gnome
+//:imagesdir: ./images
 
 To show a user prompt instead of a list of users on the GNOME login screen, open a terminal and perform the following steps:
 

@@ -1,4 +1,10 @@
 = Automatic Updates
+Ben Cotton; Petr Bokoc;  Jean-Baptiste Holcroft 
+:revnumber: all
+:revdate: 2022
+:category: Administration
+:tags: How-to DNF Updates
+//:imagesdir: ./images
 
 
 You must decide whether to use automatic xref:dnf.adoc[DNF]

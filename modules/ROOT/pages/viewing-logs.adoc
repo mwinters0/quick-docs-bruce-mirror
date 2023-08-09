@@ -1,5 +1,10 @@
 = Viewing logs in Fedora
-
+JJ Asghar; hector louzao ; Mirek Jahoda  
+:revnumber: F31 and newer
+:revdate: 2020
+:category: Administration
+:tags: How-to Logging
+//:imagesdir: ./images
 
 Log files contain messages about the system, including the kernel, services, and applications running on it.
 These contain information that helps troubleshoot issues, or simply monitor system functions.

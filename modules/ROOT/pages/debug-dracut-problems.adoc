@@ -1,4 +1,12 @@
 = How to debug Dracut problems
+Caleb McKee; Héctor Louzao; Frank Sträter
+:revnumber: all
+:revdate: 2021-02-02
+:category: Bugs
+:tags: How-to Bug-Report kernel dracut
+//:imagesdir: ./images
+
+// include::partial$attributes.adoc[]
 
 *Foreword*
 

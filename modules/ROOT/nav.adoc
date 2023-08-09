@@ -125,7 +125,7 @@
 ** xref:cups-useful-tricks.adoc[Useful tricks]
 ** xref:cups-terminology.adoc[Terminology]
 ** xref:cups-known-issues.adoc[Known issues]
-** xref:cups-filing-a-bug-report.adoc[Filing a bug report]
+** xref:cups-filing-a-bug-report.adoc[Filing a CUPS Bug Report]
 
 * FAQ
 ** xref:fedora-and-red-hat-enterprise-linux.adoc[Fedora and Red Hat Enterprise Linux]

@@ -1,5 +1,15 @@
 = PostgreSQL
+Jiyoung Joung; niko d; Héctor H. Louzao P 
+:revnumber: F37 and newer
+:revdate: 2022-12-19
+:category: Databases
+:tags: How-to PostgreSQL
+//:imagesdir: ./images
 
+[NOTE]
+====
+Users of Fedora Server Edition find additional information in xref::fedora-server/services/setup-postgresql.adoc[Setting up PostgreSQL Database Server]
+====
 [[installation]]
 == Installation
 
