@@ -77,13 +77,13 @@ build () {
         # Check whether podman is available, else faill back to docker
         # which requires root.
 
-        if [ -f /usr/bin/podman ]; then
+        if [ -n "$(command -v podman)" ]; then
             echo ""
             echo "This build script is using Podman to run the build in an isolated environment."
             echo ""
             podman run --rm -it -v $(pwd):/antora:z $image $cmd --stacktrace
 
-        elif [ -f /usr/bin/docker ]; then
+        elif [ -n "$(command -v docker)" ]; then
             echo ""
             echo "This build script is using Docker to run the build in an isolated environment."
             echo ""

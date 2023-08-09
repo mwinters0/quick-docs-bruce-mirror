@@ -2,7 +2,7 @@
 Ankursinha; Brunovernay; Hhlp 
 :revnumber: unknown
 :revdate: 2021-02-14
-:category: Multimedie
+:category: Multimedia
 :tags: How-to Screen-casting  
 //:page-aliases: 
 

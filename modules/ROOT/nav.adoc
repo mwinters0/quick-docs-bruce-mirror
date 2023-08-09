@@ -74,7 +74,7 @@
 ** xref:using-yubikeys.adoc[Using Yubikeys with Fedora]
 ** xref:debug-systemd-problems.adoc[How to debug systemd problems]
 ** xref:enable-touchpad-click.adoc[How to enable touchpad click]
-** xref:screencast-apps-comparison.adoc[ScreenCast – Compasison of Applications and how to use them]
+** xref:screencast-apps-comparison.adoc[ScreenCast – Comparison of Applications and How to Use them]
 ** Jitsi
 *** xref:getting_started_with_jitsi.adoc[Getting started with Jitsi]
 *** xref:installing_jitsi.adoc[Installing Jitsi]
