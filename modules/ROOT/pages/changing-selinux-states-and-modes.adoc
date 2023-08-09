@@ -1,23 +1,355 @@
-:experimental:
-ifdef::context[:parent-context: {context}]
-:context: changing-selinux-states-and-modes
+= Changing SELinux States and Modes
+ The Fedora Docs Team   
+:revnumber: F31 and newer
+:revdate: 2019-03-20
+:category: Administration
+:tags: How-to Security SELinux
+//:imagesdir: ./images
+
 
 // NOTE (TODO): several links (URLs) in the included modules could be replaced with URLs when the appropriate docs become available on fp.org
 
-[id='changing-selinux-states-and-modes-{context}']
-= Changing SELinux states and modes
-:context: selinux
+//include::{partialsdir}/unreviewed-message.adoc[]
 
-:md: en-US/modules
+//include::{partialsdir}/con_permanent-changes-in-selinux-states-and-modes.adoc[leveloffset=+1]
+// Module included in the following assemblies:
+//
+// changing-selinux-states-and-modes.adoc
 
-include::{partialsdir}/unreviewed-message.adoc[]
+== Permanent changes in SELinux states and modes
 
-include::{partialsdir}/con_permanent-changes-in-selinux-states-and-modes.adoc[leveloffset=+1]
-include::{partialsdir}/proc_enabling-selinux.adoc[leveloffset=+1]
-include::{partialsdir}/proc_changing-to-permissive-mode.adoc[leveloffset=+2]
-include::{partialsdir}/proc_changing-to-enforcing-mode.adoc[leveloffset=+2]
-include::{partialsdir}/proc_disabling-selinux.adoc[leveloffset=+1]
-include::{partialsdir}/ref_changing-selinux-modes-at-boot-time.adoc[leveloffset=+1]
+As discussed in link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/chap-security-enhanced_linux-introduction[Introduction to SELinux], SELinux can be enabled or disabled. When enabled, SELinux has two modes: enforcing and permissive.
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+Use the [command]`getenforce` or [command]`sestatus` commands to check in which mode SELinux is running. The [command]`getenforce` command returns `Enforcing`, `Permissive`, or `Disabled`.
+
+The [command]`sestatus` command returns the SELinux status and the SELinux policy being used:
+
+[source,bash]
+----
+[~]$ sestatus
+SELinux status:                 enabled
+SELinuxfs mount:                /sys/fs/selinux
+SELinux root directory:         /etc/selinux
+Loaded policy name:             targeted
+Current mode:                   enforcing
+Mode from config file:          enforcing
+Policy MLS status:              enabled
+Policy deny_unknown status:     allowed
+Memory protection checking:     actual (secure)
+Max kernel policy version:      31
+----
+
+[NOTE]
+====
+When systems run SELinux in permissive mode, users and processes can label various file-system objects incorrectly. File-system objects created while SELinux is disabled are not labeled at all. This behavior causes problems when changing to enforcing mode because SELinux relies on correct labels of file-system objects. 
+
+To prevent incorrectly labeled and unlabeled files from causing problems, file systems are automatically relabeled when changing from the disabled state to permissive or enforcing mode. In permissive mode, use the [command]`fixfiles -F onboot` command as root to create `/.autorelabel` file containing the `-F` option to ensure that files are relabeled upon next reboot.
+====
+
+
+//include::{partialsdir}/proc_enabling-selinux.adoc[leveloffset=+1]
+// Module included in the following assemblies:
+//
+// changing-selinux-states-and-modes.adoc
+
+== Enabling SELinux
+
+When enabled, SELinux can run in one of two modes: enforcing or permissive. The following sections show how to permanently change into these modes.
+
+While enabling SELinux on systems that previously had it disabled, to avoid problems, such as systems unable to boot or process failures, follow this procedure.
+
+.Prerequisites
+
+* The [package]`selinux-policy-targeted`, [package]`selinux-policy`, [package]`libselinux-utils`, and [package]`grubby` packages are installed. To check that a particular package is installed:
++
+[subs="quotes"]
+----
+$ *rpm -q _package_name_*
+----
+
+.Procedure
+
+. If your system has SELinux disabled at the kernel level (this is the recommended way, see xref:changing-selinux-states-and-modes.adoc#_disabling_selinux[[]), change this first. Check if you have the `selinux=0` option in your kernel command line:
++
+[subs="quotes"]
+----
+$ *cat /proc/cmdline*
+BOOT_IMAGE=... ... selinux=0
+----
+
+.. Remove the `selinux=0` option from the bootloader configuration using [command]`grubby`:
++
+[subs="quotes"]
+----
+$ *sudo grubby --update-kernel ALL --remove-args selinux*
+----
+
+.. The change applies after you restart the system in one of the following steps.
+
+. Ensure the file system is relabeled on the next boot:
++
+[subs="quotes"]
+----
+$ *sudo fixfiles onboot*
+----
+
+. Enable SELinux in permissive mode. For more information, see xref:changing-selinux-states-and-modes.adoc#_changing_to_permissive_mode[].
+
+. Restart your system:
++
+[subs="quotes"]
+----
+$ *reboot*
+----
+
+. Check for SELinux denial messages.
++
+[subs="quotes"]
+----
+$ *sudo ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts recent*
+----
+
+. If there are no denials, switch to enforcing mode. For more information, see xref:changing-selinux-states-and-modes.adoc#_changing_to_enforcing_mode[].
+
+To run custom applications with SELinux in enforcing mode, choose one of the following scenarios:
+
+* Run your application in the `unconfined_service_t` domain.
+// See <<Targeted_Policy-Unconfined_Processes>> for more information.
+
+* Write a new policy for your application. See the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/writing-a-custom-selinux-policy_using-selinux[Writing a custom SELinux policy] chapter in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/index[RHEL 8 Using SELinux] document for more information.
+
+
+
+//include::{partialsdir}/proc_changing-to-permissive-mode.adoc[leveloffset=+2]
+// Module included in the following assemblies:
+//
+// assembly_changing-selinux-states-and-modes.adoc
+
+=== Changing to permissive mode
+
+Use the following procedure to permanently change SELinux mode to permissive. When SELinux is running in permissive mode, SELinux policy is not enforced. The system remains operational and SELinux does not deny any operations but only logs AVC messages, which can be then used for troubleshooting, debugging, and SELinux policy improvements. Each AVC is logged only once in this case. 
+
+.Prerequisites 
+
+* The `selinux-policy-targeted`, `libselinux-utils`, and `policycoreutils` packages are installed on your system.
+* The `selinux=0` or `enforcing=0` kernel parameters are not used. 
+
+.Procedure
+
+. Open the `/etc/selinux/config` file in a text editor of your choice, for example:
+
+----
+# vi /etc/selinux/config
+----
+
+. Configure the `SELINUX=permissive` option:
+[subs="quotes"]
+----
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#       enforcing - SELinux security policy is enforced.
+#       permissive - SELinux prints warnings instead of enforcing.
+#       disabled - No SELinux policy is loaded.
+SELINUX=*permissive*
+# SELINUXTYPE= can take one of these two values:
+#       targeted - Targeted processes are protected,
+#       mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+----
+
+. Restart the system:
++
+[subs="quotes"]
+----
+# *reboot*
+----
+
+
+
+/include::{partialsdir}/proc_changing-to-enforcing-mode.adoc[leveloffset=+2]
+// Module included in the following assemblies:
+//
+// changing-selinux-states-and-modes.adoc
+
+=== Changing to enforcing mode
+
+Use the following procedure to switch SELinux to enforcing mode. When SELinux is running in enforcing mode, it enforces the SELinux policy and denies access based on SELinux policy rules. In Fedora, enforcing mode is enabled by default when the system was initially installed with SELinux.
+
+.Prerequisites
+
+* The `selinux-policy-targeted`, `libselinux-utils`, and `policycoreutils` packages are installed on your system. 
+
+* The `selinux=0` or `enforcing=0` kernel parameters are not used.
+
+.Procedure
+
+. Open the `/etc/selinux/config` file in a text editor of your choice, for example:
++
+----
+# vi /etc/selinux/config
+----
+
+. Configure the `SELINUX=enforcing` option:
++
+[subs="quotes"]
+----
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#       enforcing - SELinux security policy is enforced.
+#       permissive - SELinux prints warnings instead of enforcing.
+#       disabled - No SELinux policy is loaded.
+SELINUX=*enforcing*
+# SELINUXTYPE= can take one of these two values:
+#       targeted - Targeted processes are protected,
+#       mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+----
+
+. Save the change, and restart the system:
++
+[subs="quotes"]
+----
+# reboot
+----
++
+On the next boot, SELinux relabels all the files and directories within the system and adds SELinux context for files and directories that were created when SELinux was disabled.
+
+.Verification
+
+. After the system restarts, confirm that the `getenforce` command returns `Enforcing`:
++
+----
+$ getenforce
+Enforcing
+----
+
+[NOTE]
+====
+After changing to enforcing mode, SELinux may deny some actions because of incorrect or missing SELinux policy rules. To view what actions SELinux denies, enter the following command as root:
+[subs="quotes"]
+----
+# ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts today
+----
+Alternatively, with the [package]`setroubleshoot-server` package installed, enter:
+[subs="quotes"]
+----
+# grep "SELinux is preventing" /var/log/messages
+----
+
+Standard users can use the GUI `setroubleshoot` to file bugs directly to Bugzilla. 
+
+If SELinux is active and the Audit daemon (auditd) is not running on your system, then search for certain SELinux messages in the output of the dmesg command:
+----
+# dmesg | grep -i -e type=1300 -e type=1400
+----
+
+If SELinux denies some actions, see the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/troubleshooting-problems-related-to-selinux_using-selinux[Troubleshooting problems related to SELinux] chapter in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/index[RHEL 8 Using SELinux] document for information about troubleshooting.
+====
+
+
+//include::{partialsdir}/proc_disabling-selinux.adoc[leveloffset=+1]
+// Module included in the following assemblies:
+//
+// changing-selinux-states-and-modes.adoc
+
+== Disabling SELinux
+
+Use the following procedure to permanently disable SELinux.
+ 
+[IMPORTANT]
+====
+When SELinux is disabled, SELinux policy is not loaded at all; it is not enforced and AVC messages are not logged. Therefore, all benefits of running SELinux listed in xref:changing-selinux-states-and-modes.adoc#_benefits_of_selinux[Benefits of SELinux] are lost.
+
+It is recommended to use permissive mode instead of permanently disabling SELinux. See xref:changing-selinux-states-and-modes.adoc#_changing_to_permissive_mode[] for more information about permissive mode.
+====
+
+[WARNING]
+====
+Disabling SELinux using the SELINUX=disabled option in the /etc/selinux/config results in a process in which the kernel boots with SELinux enabled and switches to disabled mode later in the boot process. Because memory leaks and race conditions causing kernel panics can occur, prefer disabling SELinux by adding the selinux=0 parameter to the kernel command line as described in Changing SELinux modes at boot time if your scenario really requires to completely disable SELinux.
+====
+
+.Prerequisites
+
+* The [package]`grubby` package is installed:
++
+[subs="quotes"]
+----
+$ *rpm -q grubby*
+grubby-_version_
+----
+
+.Procedure
+
+. Open the `/etc/selinux/config` file in a text editor of your choice, for example:
++
+[subs="quotes"]
+----
+# vi /etc/selinux/config
+----
+
+. Configure the SELINUX=disabled option:
++
+[subs="quotes"]
+----
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#       enforcing - SELinux security policy is enforced.
+#       permissive - SELinux prints warnings instead of enforcing.
+#       disabled - No SELinux policy is loaded.
+SELINUX=disabled
+# SELINUXTYPE= can take one of these two values:
+#       targeted - Targeted processes are protected,
+#       mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+----
+
+. Save the change, and restart your system:
+----
+# reboot
+----
+
+.Verification 
+
+* After reboot, confirm that the [command]`getenforce` command returns `Disabled`:
++
+[subs="quotes"]
+----
+$ *getenforce*
+Disabled
+----
+
+
+//include::{partialsdir}/ref_changing-selinux-modes-at-boot-time.adoc[leveloffset=+1]
+// Module included in the following assemblies:
+//
+// assembly_changing-selinux-states-and-modes.adoc
+== Changing SELinux Modes at Boot Time
+
+On boot, you can set several kernel parameters to change the way SELinux runs:
+
+enforcing=0::  Setting this parameter causes the system to start in permissive mode, which is useful when troubleshooting issues. Using permissive mode might be the only option to detect a problem if your file system is too corrupted. Moreover, in permissive mode, the system continues to create the labels correctly. The AVC messages that are created in this mode can be different than in enforcing mode.
++
+In permissive mode, only the first denial from a series of the same denials is reported. However, in enforcing mode, you might get a denial related to reading a directory, and an application stops. In permissive mode, you get the same AVC message, but the application continues reading files in the directory and you get an AVC for each denial in addition.
+
+selinux=0::  This parameter causes the kernel to not load any part of the SELinux infrastructure. The init scripts notice that the system booted with the [option]`selinux=0` parameter and touch the `/.autorelabel` file. This causes the system to automatically relabel the next time you boot with SELinux enabled.
++
+[IMPORTANT]
+====
+Using the [option]`selinux=0` parameter is not recommended. To debug your system, prefer using permissive mode.
+====
+
+autorelabel=1::  This parameter forces the system to relabel similarly to the following commands:
++
+----
+# touch /.autorelabel
+# reboot
+----
++
+If a file system contains a large amount of mislabeled objects, start the system in permissive mode to make the autorelabel process successful.
+
+For additional SELinux-related kernel boot parameters, such as [option]`checkreqprot`, see the `kernel-parameters.txt` file. This file is available in the source package of your Linux kernel (.src.rpm). To download the source package containing the currently used kernel:
+----
+[~]# dnf download --source kernel
+----
+
+
