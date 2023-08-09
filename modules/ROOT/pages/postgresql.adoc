@@ -8,7 +8,7 @@ Jiyoung Joung; niko d; Héctor H. Louzao P
 
 [NOTE]
 ====
-Users of Fedora Server Edition find additional information in xref::fedora-server/services/setup-postgresql.adoc[Setting up PostgreSQL Database Server]
+Users of Fedora Server Edition find additional information in xref:fedora-server::services/setup-postgresql.adoc[Setting up PostgreSQL Database Server]
 ====
 [[installation]]
 == Installation
@@ -122,8 +122,7 @@ The upgrade itself will backup your existing data and migrate your
 database. Don't forget to migrate your configuration (with meld, for
 example: `meld /var/lib/pgsql/data{,-old}/postgresql.conf`).
 
-You may need to switch postgresql to trust mode before updating. This
-should be fixed already.
+You may need to switch postgresql to trust mode before updating. This should be fixed already.
 
 You can also upgrade by dumping your database and loading it again. For
 more information, see the link:#link-upgrade[official documentation].
