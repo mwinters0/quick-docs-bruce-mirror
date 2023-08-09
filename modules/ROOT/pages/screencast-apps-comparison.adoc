@@ -1,0 +1,139 @@
+= ScreenCast – Comparison of Applications and how to use them
+Ankursinha; Brunovernay; Hhlp 
+:revnumber: unknown
+:revdate: 2021-02-14
+:category: Multimedie
+:tags: How-to Screen-casting  
+//:page-aliases: 
+
+
+== Using Gnome's embedded screencast tool
+
+Gnome3 has already a screen recording functionality. Pressing Alt+Ctrl+Shift+R recording will start. There should be a red icon on the message tray in the right-bottom corner of your screen. If the message tray is hidden, Super+M will activate it. Pressing the red icon will stop the recording. The video is saved in the Video directory on your home directory on link:https://en.wikipedia.org/wiki/Webm[webm] format.
+
+=== Increase the duration of screencast videos
+
+At just 30 seconds long the default length of screencast using this method isn’t ideal, particularly if you plan on making a lengthy video or need to demo a particular workflow or feature. It is possible to increase the duration of screencasts manually, by modifying the following gsettings string using the Terminal application:
+[source,]
+----
+gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 60
+----
+Replace the ’60’ value with the length you want in seconds, e.g., 300 for 5 minutes, 600 for 10 minutes, and so on. If you set the value to ‘0’ there will be no time limit.
+
+Remember: you can stop recording at any time regardless of the duration you set. Just press the keyboard shortcut you use to start recording to stop recording.
+
+== Byzanz
+
+Byzanz is a desktop recorder striving for ease of use. It can record to GIF images, Ogg Theora video - optionally with sound – and other formats. It is available in Fedora. To install execute
+[source,]
+----
+% sudo dnf install byzanz
+----
+
+It is similar to former Istanbul, but can also produce:
+
+* animated GIF files (video only)
+* Ogg Theora files (with or without audio)
+* FLV Flash screen files (lossless, can be postprocessed)
+* Byzanz format for conversion later to multiple formats
+
+== Simple Screen Recorder
+
+SimpleScreenRecorder is a Linux program that I've created to record programs and games.
+
+Features
+
+* Graphical user interface (Qt-based).
+* Faster than VLC and ffmpeg/avconv.
+* Records the entire screen or part of it, or records OpenGL applications directly (similar to Fraps on Windows).
+* Synchronizes audio and video properly (a common issue with VLC and ffmpeg/avconv).
+* Reduces the video frame rate if your computer is too slow (rather than using up all your RAM like VLC does).
+* Fully multithreaded: small delays in any of the components will never block the other components, resulting is smoother video and better performance on computers with multiple processors.
+* Pause and resume recording at any time (either by clicking a button or by pressing a hotkey).
+* Shows statistics during recording (file size, bit rate, total recording time, actual frame rate, ...).
+* Can show a preview during recording, so you don't waste time recording something only to figure out afterwards that some setting was wrong.
+* Uses libav/ffmpeg libraries for encoding, so it supports many different codecs and file formats (adding more is trivial).
+* Can also do live streaming (experimental).
+* Sensible default settings: no need to change anything if you don't want to.
+* Tooltips for almost everything: no need to read the documentation to find out what something does.
+
+SimpleScreenRecorder is available in the RPM Fusion reposity. RPM Fusion can be activated with this command:
+[source,]
+----
+rpm -Uvh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm
+----
+
+After that, SimpleScreenRecorder can be installed with this command:
+[source,]
+----
+sudo dnf install simplescreenrecorder
+----
+
+== Advanced Topics: Adding Audio
+
+* You must have audacity (or other audio recorder) installed
+* Record your audio track, taking care to synchronize it with events in your recording (I believe this may be easier to record the audio track first, then go back and play the audio while recording video)
+* Export your audio to a wave or ogg-vorbis file, I use /tmp/stream.wav
+* Grab the script xref:attachment$screencast/fedora-av-splice.sh[fedora-av-splice.sh]. This script uses the gstreamer framework to add the audio and re-encode the theora video file
+* Run fedora-av-splice.sh /tmp/stream.wav /path/to/theora.ogg /path/to/result.ogg
+* Get a cup of coffee while things encode, this will be cpu intensive.
+* You should be able to play the resulting file in mplayer, vlc, totem, or xine
+
+
+== Advanced Topics: Alternative Audio Tracks
+
+Goal: Create alternative audio tracks for pre-existing screencast named desktop-recording.ogg
+
+Additional Software Needed: libannodex in Fedora
+
+* Create a 10 second timestamp test pattern video with gstreamer
++
+[source,]
+----
+gst-launch-0.8 videotestsrc num-buffers=250 ! video/x-raw-yuv,framerate=25.0 ! timeoverlay ! theoraenc ! oggmux ! filesink location=test.ogg
+----
+// This file could not be found on the WIKI
+//+
+//Or use the provided https://fedoraproject.org/w/index.php?title=Special:Upload&wpDestFile=ScreenCasting_test.ogg[File:ScreenCasting test.ogg] 
+
+* chain the two videos together to produce a video with 10 second lead-in
+[source,]
+----
+cat test.ogg desktop-recording.ogg > edit-video.ogg
+----
+* begin playing video with totem edit-video.ogg
+* begin recording new audio track at the end of the 10 second lead in.
+* make small edits as needed at the beginning and end of the audio to have audio file make time length of the original video
+* use shell script xref:attachment$screencast/fedora-av-splice.sh[fedora-av-splice.sh] as above to replace the original audio track
+
+// This one worked
+//* use https://fedoraproject.org/wiki/File:ScreenCasting_fedora-av-splice.sh[File:ScreenCasting fedora-av-splice.sh] as above to replace the original audio track
+
+== Advanced Topics: Adding a video timestamp
+
+For further editing needs, one can overlay the time over the original video. This may help in the production of additional audio tracks. 
+
+// Here is a small script to produce a video with video timestamp visible: File:ScreenCasting_fedora-video-timestamp.sh
+// Not working
+// https://fedoraproject.org/w/index.php?title=Special:Upload&wpDestFile=ScreenCasting_fedora-video-timestamp.sh
+
+// Not working:
+// https://fedoraproject.org/wiki/File:ScreenCasting_fedora-video-timestamp.sh
+
+== References
+
+* https://extensions.gnome.org/extension/690/easyscreencast/
+* https://lwn.net/Articles/478370/
+* http://commons.wikimedia.org/wiki/Help:Converting_video
+* http://screencast-o-matic.com/
+* http://www.theora.org/theorafaq.html#41
+// * Byzanz - http://www.advogato.org/person/company/diary.html?start=18
+* http://www.debugmode.com/wink/
+* http://www.misterhowto.com/index.php?category=Computers&subcategory=Video&article=make_a_screencast_with_linux
+* http://www.misterhowto.com/index.php?category=Computers&subcategory=Video&article=avi_to_dv_with_ffmpeg
+* http://www.misterhowto.com/index.php?category=Computers&subcategory=Video&article=change_or_remove_audio_track_with_mencoder
+* http://blogcritics.org/archives/2007/02/05/194332.php
+* https://github.com/foss-project/green-recorder
+* https://www.maartenbaert.be/simplescreenrecorder/
+
+
