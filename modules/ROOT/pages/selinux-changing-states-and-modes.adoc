@@ -1,24 +1,19 @@
 = Changing SELinux States and Modes
- The Fedora Docs Team   
+ The Fedora Docs Team; Peter Boy (pboy)
 :revnumber: F36 and newer
 :revdate: 2023-08-09
-:category: Administration
+:category: SELinux
 :tags: How-to Security SELinux
+:page-aliases: changing-selinux-states-and-modes.adoc
 //:imagesdir: ./images
 
 
-// NOTE (TODO): several links (URLs) in the included modules could be replaced with URLs when the appropriate docs become available on fp.org
+// NOTE (TODO): several links (URLs) could be replaced with URLs when the appropriate docs become available on fp.org
 
-//include::{partialsdir}/unreviewed-message.adoc[]
-
-//include::{partialsdir}/con_permanent-changes-in-selinux-states-and-modes.adoc[leveloffset=+1]
-// Module included in the following assemblies:
-//
-// changing-selinux-states-and-modes.adoc
 
 == Permanent changes in SELinux states and modes
 
-As discussed in link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/chap-security-enhanced_linux-introduction[Introduction to SELinux], SELinux can be enabled or disabled. When enabled, SELinux has two modes: enforcing and permissive.
+As discussed in xref:selinux-getting-started.adoc#_SELinux_states_and_modes[Getting started with SELinux] SELinux can be enabled or disabled. When enabled, SELinux has two modes: enforcing and permissive.
 
 Use the [command]`getenforce` or [command]`sestatus` commands to check in which mode SELinux is running. The [command]`getenforce` command returns `Enforcing`, `Permissive`, or `Disabled`.
 
@@ -46,11 +41,6 @@ When systems run SELinux in permissive mode, users and processes can label vario
 To prevent incorrectly labeled and unlabeled files from causing problems, file systems are automatically relabeled when changing from the disabled state to permissive or enforcing mode. In permissive mode, use the [command]`fixfiles -F onboot` command as root to create `/.autorelabel` file containing the `-F` option to ensure that files are relabeled upon next reboot.
 ====
 
-
-//include::{partialsdir}/proc_enabling-selinux.adoc[leveloffset=+1]
-// Module included in the following assemblies:
-//
-// changing-selinux-states-and-modes.adoc
 
 == Enabling SELinux
 
@@ -119,12 +109,6 @@ To run custom applications with SELinux in enforcing mode, choose one of the fol
 * Write a new policy for your application. See the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/writing-a-custom-selinux-policy_using-selinux[Writing a custom SELinux policy] chapter in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/index[RHEL 8 Using SELinux] document for more information.
 
 
-
-//include::{partialsdir}/proc_changing-to-permissive-mode.adoc[leveloffset=+2]
-// Module included in the following assemblies:
-//
-// assembly_changing-selinux-states-and-modes.adoc
-
 === Changing to permissive mode
 
 Use the following procedure to permanently change SELinux mode to permissive. When SELinux is running in permissive mode, SELinux policy is not enforced. The system remains operational and SELinux does not deny any operations but only logs AVC messages, which can be then used for troubleshooting, debugging, and SELinux policy improvements. Each AVC is logged only once in this case. 
@@ -164,12 +148,6 @@ SELINUXTYPE=targeted
 # *reboot*
 ----
 
-
-
-/include::{partialsdir}/proc_changing-to-enforcing-mode.adoc[leveloffset=+2]
-// Module included in the following assemblies:
-//
-// changing-selinux-states-and-modes.adoc
 
 === Changing to enforcing mode
 
@@ -247,11 +225,6 @@ If SELinux denies some actions, see the link:https://access.redhat.com/documenta
 ====
 
 
-//include::{partialsdir}/proc_disabling-selinux.adoc[leveloffset=+1]
-// Module included in the following assemblies:
-//
-// changing-selinux-states-and-modes.adoc
-
 == Disabling SELinux
 
 Use the following procedure to permanently disable SELinux.
@@ -319,10 +292,6 @@ Disabled
 ----
 
 
-//include::{partialsdir}/ref_changing-selinux-modes-at-boot-time.adoc[leveloffset=+1]
-// Module included in the following assemblies:
-//
-// assembly_changing-selinux-states-and-modes.adoc
 == Changing SELinux Modes at Boot Time
 
 On boot, you can set several kernel parameters to change the way SELinux runs:
@@ -351,5 +320,3 @@ For additional SELinux-related kernel boot parameters, such as [option]`checkreq
 ----
 [~]# dnf download --source kernel
 ----
-
-

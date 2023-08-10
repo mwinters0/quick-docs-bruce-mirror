@@ -84,9 +84,9 @@
 *** xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]
 *** xref:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops.adoc[How to Set NVIDIA as Primary GPU on Optimus-based Laptops]
 
-* xref:getting-started-with-selinux.adoc[SELinux]
-** xref:changing-selinux-states-and-modes.adoc[Changing SELinux states and modes]
-** xref:troubleshooting_selinux.adoc[Troubleshooting SELinux]
+* xref:selinux-getting-started.adoc[SELinux]
+** xref:selinux-changing-states-and-modes.adoc[Changing SELinux states and modes]
+** xref:selinux-troubleshooting.adoc[Troubleshooting SELinux]
 
 * xref:upgrading.adoc[Upgrading to a new release]
 ** xref:dnf-system-upgrade.adoc[Upgrading Fedora using the DNF system upgrade]

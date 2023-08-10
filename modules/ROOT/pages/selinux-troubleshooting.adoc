@@ -1,5 +1,11 @@
-= Troubleshooting problems related to SELinux
-:toc:
+= Troubleshooting Problems Related to SELinux
+Mat McCabe; Joe Walker; Peter Boy (pboy) 
+:revnumber: F36 and newer
+:revdate: 2023-06-18
+:category: SELinux
+:tags: How-to Security SELinux
+:page-aliases: troubleshooting_selinux.adoc
+//:imagesdir: ./images
 
 If you plan to enable SELinux on systems where it has been previously disabled or if you run a service in a non-standard configuration, you might need to troubleshoot situations potentially blocked by SELinux. Note that in most cases, SELinux denials are signs of misconfiguration.
 
@@ -301,6 +307,7 @@ SELinux denied the `__httpd__` process with PID 2465 to access the `__/var/www/h
 == Additional resources
 
 * link:https://access.redhat.com/articles/2191331[Basic SELinux Troubleshooting in CLI]
+* RHEL 9: link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/using_selinux/index[Using SELinux]
 * link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/index[RHEL 7, SELinux User's and Administrator's Guide]
 * link:https://fedorapeople.org/~dwalsh/SELinux/Presentations/selinux_four_things.pdf[Four Key Causes of SELinux Errors]
 * link:https://wiki.centos.org/HowTos/SELinux[CentOS Wiki How Tos: SELinux]
