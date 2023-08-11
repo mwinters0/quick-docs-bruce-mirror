@@ -59,7 +59,7 @@ $ sudo dnf install podman inotify-tools
 To build, watch and preview the site, run:
 
 ```
-$ ./builder.sh
+$ ./docsbuilder.sh
 ```
 
 The result will be available at http://localhost:8080
