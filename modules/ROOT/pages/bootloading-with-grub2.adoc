@@ -1,9 +1,14 @@
-ifdef::context[:parent-context: {context}]
-:context: bootloading-with-grub2
-[id='bootloading-with-grub2']
 = Bootloading with GRUB2
+Michael Wu; The Fedora Documentation Team
+:revnumber: unknown
+:revdate: 2012-05-11
+:category: Administration
+:tags: How-to  Booting 
+//:page-aliases: 
 
-include::{partialsdir}/unreviewed-message.adoc[]
+// Optional  free form useful additional information as comment
+
+//include::{partialsdir}/unreviewed-message.adoc[]
 
 *GRUB2* is the latest version of *GNU GRUB*, the _GRand Unified Bootloader_. A bootloader is the first software program that runs when a computer starts. It is responsible for loading and transferring control to the operating system kernel. In Fedora, the kernel is Linux. The kernel then initializes the rest of the operating system.
 
@@ -11,34 +16,780 @@ include::{partialsdir}/unreviewed-message.adoc[]
 
 Since Fedora 16, *GRUB2* has been the default bootloader on x86 BIOS systems. For upgrades of BIOS systems, the default is also to install *GRUB2*, but you can opt to skip bootloader configuration entirely.
 
-include::{partialsdir}/proc_discovering-the-firmware-type.adoc[leveloffset=+1]
 
-include::{partialsdir}/proc_installing-grub2-on-bios-system.adoc[leveloffset=+1]
+== Discovering the firmware type
 
-include::{partialsdir}/proc_installing-grub2-on-efi-system.adoc[leveloffset=+1]
+To discover what firmware your machine uses, run the following command:
 
-include::{partialsdir}/proc_adding-other-operating-systems-grub2.adoc[leveloffset=+1]
+[source,bash]
+----
+$ [ -d /sys/firmware/efi ] && echo UEFI || echo BIOS
+----
 
-include::{partialsdir}/proc_setting-default-entry-for-grub2.adoc[leveloffset=+1]
+The output returns only UEFI or BIOS, depending on the firmware your machine runs.
 
-include::{partialsdir}/proc_restoring-bootloader-using-live-disk.adoc[leveloffset=+1]
 
-include::{partialsdir}/proc_using-grub2-prompt.adoc[leveloffset=+1]
+== Installing GRUB2 on a BIOS system
 
-include::{partialsdir}/proc_booting-with-configfile-on-different-partition.adoc[leveloffset=+1]
+Normally, *GRUB2* will be installed and set up by the installer, *Anaconda*, during the installation process. You will probably never have to deal with manual installation of *GRUB2*. However, in certain situations , you will want to install *GRUB2* manually, especially if you need to repair the existing *GRUB2* installation or you want to change its configuration.
 
-include::{partialsdir}/proc_setting-password-for-interactive-edit-mode.adoc[leveloffset=+1]
+This procedure shows the steps to install *GRUB2* on your _Master Boot Record_ (MBR) of your primary hard disk.
 
-include::{partialsdir}/proc_solving-absent-floppy.adoc[leveloffset=+1]
+.Before you start
 
-include::{partialsdir}/proc_using-old-graphics-modes.adoc[leveloffset=+1]
+* Make sure you have the the *GRUB2* packages and the _os-prober_ package installed in your system.
++   
+----
+$ dnf list installed | grep grub
+----
 
-include::{partialsdir}/proc_enabling-serial-console-grub.adoc[leveloffset=+1]
+* To automatically collect information about your disks and operating systems installed on them, the `os-prober` package needs to be installed on your system.
+
+.Procedure
+
+. List block devices available on the system.
++
+----
+$ lsblk
+----  
+
+. Identify the primary hard disk. Usually, it is the `sda` device.
+
+. Install *GRUB2* in the MBR of the primary hard disk.
++
+----
+# grub2-install /dev/sda
+----
+
+. Create a configuration file for *GRUB2*.
++
+----
+# grub2-mkconfig -o /boot/grub2/grub.cfg
+----
+
+. Reboot your computer to boot with the newly installed bootloader.
+
+.More information
+
+* The `grub2-mkconfig` command creates a new configuration based on the currently running system. It collects information from the `/boot` partition (or directory), from the `/etc/default/grub` file, and the customizable scripts in `/etc/grub.d/`. 
+
+* The configuration format is changing with time, and a new configuration file can become slightly incompatible with the older versions of the bootloader. Always run `grub2-install` before you create the configuration file with `grub2-mkconfig`.
+
+* In Fedora, it is generally safe to edit `/boot/grub2/grub.cfg` manually. *Grubby* in Fedora patches the configuration when a kernel update is performed and will try to not make any other changes than what is necessary. Manual changes can be overwritten with `grub2-mkconfig` when the system gets upgraded with *Anaconda*. Customizations placed in `/etc/grub.d/40_custom` or `/boot/grub2/custom.cfg` files will survive running the `grub2-mkconfig` command.
+
+
+== Installing GRUB2 on a UEFI system
+
+Normally, *GRUB2* will be installed and set up by the installer, *Anaconda*, during the installation process. You will probably never have to deal with manual installation of *GRUB2*. However, in certain situations , you will want to install *GRUB2* manually, especially if you need to repair the existing *GRUB2* installation or you want to change its configuration.
+
+This procedure shows the steps to install *GRUB2* on a UEFI system on Fedora 18 or newer. The procedure consists of four parts.
+
+[[create-an-esp]]
+=== Creating an EFI System Partition
+
+The UEFI firmware requires to boot from an _EFI System Partition_ on
+a disk with a GPT label. To create such a partition: 
+
+. List available block devices to find a place to create your ESP.
++
+----
+$ lsblk
+----
+
+. Create at least a 128 MiB disk partition using a GPT label on the primary hard disk.
++
+----
+# gdisk /dev/sda
+----
++
+For the sake of this procedure, we assume that the created partition is recognized as `/dev/sda1`.
+
+. Format the partition with the _FAT32_ file system.
++
+----
+# mkfs.vfat /dev/sda1
+----
+
+. Create the `/boot/efi` directory as a mount point for the new partition.
++
+----
+# mkdir /boot/efi
+----
+
+. Mount the partition to the `/boot/efi` mount point. 
++
+----
+# mount /dev/sda1 /boot/efi
+----
+
+. Proceed to the next part.
+
+
+[[install-the-bootloader-files]]
+=== Install the bootloader files
+
+In order to use *GRUB2* with on the UEFI systems, you need to install or re-install appropriate packages:
+
+
+. Re-install the necessary packages.
++
+----
+# dnf reinstall grub2-efi grub2-efi-modules shim
+----
+
+. If the above command ends with an error, install the packages.
++
+----
+# dnf install grub2-efi grub2-efi-modules shim
+----
+
+.More information
+
+* This installs the signed *shim* and the *GRUB2* binary.
+
+
+[[create-a-grub-2-configuration]]
+=== Create a GRUB2 configuration
+
+
+If you already have a working *GRUB2* EFI configuration file, you do not need to do anything else. 
+
+Otherwise, create the configuration file using the `grub2-mkconfig` command. 
+
+----
+# grub2-mkconfig -o /boot/grub2/grub.cfg
+----
+
+.More information
+
+* Under EFI, *GRUB2* looks for its configuration in `/boot/efi/EFI/fedora/grub.cfg`, however the postinstall script of `grub2-common` installs a small shim which chains to the standard configuration at `/boot/grub2/grub.cfg` which is generated above. To reset this shim to defaults, delete the existing `/boot/efi/EFI/fedora/grub.cfg` and then `dnf reinstall grub2-common`.
+* For newly installed kernels to work, `grubby` expects `/etc/grub2-efi.cfg` to be a symlink to the real `grub.cfg` (for example `/boot/grub2/grub.cfg`).
+
+
+[[solving-problems-with-uefi-bootloader]]
+=== Solving problems with UEFI bootloader
+
+When you power on your system, your firmware will look for EFI variables that tell it how to boot. On running systems, which have booted into the EFI mode and their EFI runtime services are working correctly, you can configure your boot menu with `efibootmgr`. 
+
+If not, `shim` can help you bootstrap. The EFI program `/boot/efi/EFI/BOOT/fallback.efi` will look for files called `BOOT.CSV` in your ESP and will add boot entries corresponding to them. The `shim` command provides its own `BOOT.CSV` file that will add an entry for `grub2-efi`. 
+
+During the boot process, you can use the *EFI Shell* to invoke the `fallback.efi` profile to boot the system: 
+
+. Enter the boot partition.
++
+----
+> fs0:
+----
+
+. Navigate into the `EFI\BOOT` directory.
++
+----
+> cd EFI\BOOT
+----
+
+. Invoke the `fallback.efi` profile.
++
+----
+> fallback.efi
+----
+
+.More information
+
+* If you have no boot entries at all, then just booting off your disk in UEFI mode should automatically invoke `/boot/efi/EFI/BOOT/BOOTX64.EFI`, which will, in turn, invoke `fallback.efi`.
+
+* If you already have incorrect boot entries, you'll either need to delete them or to modify `BOOT.CSV` to create new entries with different names.
+
+
+== Adding other operating systems to the GRUB2 menu
+
+Normally, *GRUB2* is preset to boot multiple operating systems during the Fedora installation process. If you can, it is advisable to install non-Linux operating systems first. Then, during the installation process, all those operating systems and their locations will be discovered and properly set.
+
+Adding other records into the *GRUB2* menu only means to run `grub2-mkconfig` command to regenerate the configuration files. During this process, all operating systems known to the system will be added into the configuration. By reinstalling *GRUB2*, this configuration will be used for further boots.
+
+.Before you start
+
+* Make sure that the operating systems are on disks, connected to the system.
+* You have the `os-prober` package installed.
+
+.Procedure
+
+. Recreate the *GRUB2* configuration file.
++
+----
+# grub2-mkconfig -o /boot/grub2/grub.cfg
+----
+
+. Install *GRUB2*.
+* On UEFI systems.
++
+----
+# dnf reinstall shim-* grub2-efi-* grub2-common
+----
+* On BIOS systems, specify the disk where the bootloader should be installed.
++
+----
+# grub2-install /dev/sda
+----
+
+.More information
+
+* The `grub2-mkconfig` command will add entries for all operating systems it can find.  
+* When problems appear, see the link:https://www.gnu.org/software/grub/manual/grub/grub.html#Multi_002dboot-manual-config[GRUB manual] to solve issues with booting secondary operating systems.
+
+
+== Setting default entry for GRUB2
+
+Since `grub2-mkconfig` (and *os-prober*) cannot estimate which operating system, of those it finds, is to be marked as default, we usually are unable to predict the order of the entries in `/boot/grub2/grub.cfg`. To change the default layout, we need to set the default based on the `name` or `title`.
+
+.Before you start
+
+. Open `/etc/default/grub` and make sure these lines exist in the file.
++
+----
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=false
+----
+
+. If you needed to change the content of the `/etc/default/grub`, apply the changes to `grub.cfg`.
++
+----
+# grub2-mkconfig -o /boot/grub2/grub.cfg
+----
+
+.Procedure
+
+. List all possible menu entries.
++
+----
+# grep -P "^menuentry" /boot/grub2/grub.cfg | cut -d "'" -f2
+----
+
+. Select one of the displayed options and use it as an argument to set the default menu entry.
++
+----
+# grub2-set-default <menuentry>
+----
+
+. Verify the default menu entry
++
+----
+# grub2-editenv list
+----
+
+. Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in link:#adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
+
+.More information
+
+If you understand the risks involved, you can manually modify the `/boot/grub2/grub.cfg` file. In that case, set the number of the default operating system using the `set default` variable.
+
+For example:
+----
+set default="5"
+----
+
+[NOTE]
+====
+If you edit the configuration file manually, the settings will be overwritten each time the `grub2-mkconfig` command runs.
+====
+
+
+== Restoring the bootloader using the Live disk.
+
+Sometimes, especially after a secondary operating systems has been installed, 
+the master boot record gets damaged which then prevents the original Linux system
+from booting.
+
+If this happens, it is necessary to reinstall *GRUB2* to recreate the original 
+settings. The process not only discovers all installed operating systems, but 
+usually adds them to the *GRUB2* configuration files, so they will all become 
+bootable by *GRUB2*.
+
+.Before you start
+
+* Get the Fedora Live ISO from link:https://download.fedoraproject.org/pub/fedora/linux/releases/[getfedora.org].
+
+* Prepare a bootable device using the downloaded ISO, either a CD or a USB.
+
+.Procedure
+
+. Boot the Fedora live system from the bootable device you have created.
+
+. Open the terminal.
+
+. Examine the partition layout and identify the `/boot` and the `/root` partition.
++
+----
+# fdisk -l
+----
+
+. Follow the <<btrfs-steps, BTRFS steps>> (Fedora 33 or newer) or <<lvm-steps, LVM steps>> (older than Fedora 33) to recover your system.
+
+
+=== BTRFS steps
+
+. If your `/root` partition is encrypted by LUKS, it must be decrypted.
+
+.. Make sure the crypt module is in use.
++
+----
+# modprobe dm-crypt
+----
+
+.. Decrypt the `/root` partition (e.g. `/dev/sda3`).
++
+----
+# cryptsetup luksOpen /dev/sda3 myvolume
+----
++
+The decrypted device (i.e. `myvolume`) will be accessible under `/dev/mapper/`.
+
+. Mount the `/root` partition.
+
+* For LUKS.
++
+----
+# mount /dev/mapper/myvolume /mnt -o subvol=root
+----
+* For non-LUKS.
++
+----
+# mount /dev/sda3 /mnt -o subvol=root
+----
++
+
+. Mount the `/boot` partition (e.g. `/dev/sda2)`.
++
+----
+# mount /dev/sda2 /mnt/boot
+----
++
+
+. Mount system processes and devices into the `/root` filesystem.
++
+----
+# mount -o bind /dev /mnt/dev
+# mount -o bind /proc /mnt/proc
+# mount -o bind /sys /mnt/sys
+# mount -o bind /run /mnt/run
+----
++
+. On UEFI systems, bind the `efivars` directory and mount the EFI system partition (e.g. `/dev/sda1`).
++
+----
+# mount -o bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
+# mount /dev/sda1 /mnt/boot/efi
+----
++
+. Change your filesystem to the one mounted under `/mnt/`.
++
+----
+# chroot /mnt/
+----
++
+. Re-install *GRUB2*.
+
+* On UEFI systems, several packages are required.
++
+----
+/]# dnf reinstall shim-* grub2-efi-* grub2-common
+
+----
+* On BIOS systems, specify the disk (e.g. `/dev/sda`) where *GRUB2* should be installed.
++
+----
+/]# grub2-install /dev/sda
+----
++
+. Re-generate the *GRUB2* configuration file.
++
+----
+/]# grub2-mkconfig -o /boot/grub2/grub.cfg
+----
++
+. Sync and exit the chroot.
++
+----
+/]# sync && exit
+----
++
+. Reboot the system.
+
+=== LVM steps
+
+. If your `/root` partition is encrypted by LUKS, it must be decrypted.
+
+.. Make sure the crypt module is in use.
++
+----
+# modprobe dm-crypt
+----
+
+.. Decrypt the `/root` partition (e.g. `/dev/sda3`).
++
+----
+# cryptsetup luksOpen /dev/sda3 myvolume
+----
+
+.. Scan the LVM volumes for the volume group corresponding to the `/root` partition.
++
+----
+# vgscan
+----
+
+.. Activate the volume group (e.g. `fedora_localhost-live`).
++
+----
+# vgchange -ay fedora_localhost-live
+----
+
+.. Find the logical volume corresponding to `/root`.
++
+----
+# lvs
+----
++
+The logical volume will be accessible under `/dev/mapper/`.
+
+. Create a `root` directory under `/mnt`.
++
+----
+# mkdir -p /mnt/root
+----
++
+. Mount the logical volume (e.g. `/dev/mapper/fedora_localhost--live-root`) corresponding to the `/root` partition.
++
+----
+# mount /dev/mapper/fedora_localhost--live-root /mnt/root
+----
++
+. Mount the `/boot` partition (e.g. `/dev/sda2`).
++
+----
+# mount /dev/sda2 /mnt/root/boot
+----
++
+. Mount system processes and devices into the `/root` filesystem.
++
+----
+# mount -o bind /dev /mnt/root/dev
+# mount -o bind /proc /mnt/root/proc
+# mount -o bind /sys /mnt/root/sys
+# mount -o bind /run /mnt/root/run
+----
++
+. On UEFI systems, bind the `efivars` directory and mount the EFI system partition (e.g. `/dev/sda1`).
++
+----
+# mount -o bind /sys/firmware/efi/efivars /mnt/root/sys/firmware/efi/efivars
+# mount /dev/sda1 /mnt/root/boot/efi
+----
++
+. Change your filesystem to the one mounted under `/mnt/root`.
++
+----
+# chroot /mnt/root/
+----
++
+. Re-install *GRUB2* and re-generate the *GRUB2* configuration file.
+
+* On UEFI systems, several packages are required.
++
+----
+[/]# dnf reinstall shim-* grub2-efi-* grub2-common
+[/]# grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+----
+* On BIOS systems, specify the disk (e.g. `/dev/sda`) where *GRUB2* should be installed.
++
+----
+[/]# grub2-install /dev/sda
+[/]# grub2-mkconfig -o /boot/grub2/grub.cfg
+----
++
+. Sync and exit the chroot.
++
+----
+[/]# sync && exit
+----
++
+. Reboot the system.
+
+
+
+== Using the GRUB2 boot prompt
+
+If improperly configured, *GRUB2* may fail to load and subsequently drop
+to a boot prompt. To boot into the system, follow the steps below.
+
+.Procedure
+
+. Load the necessary modules to read your system's partitions (you will also need to load `part_msdos` or `part_gpt`, depending on your partition table).
++
+* For BTRFS filesystems (Fedora 33 or newer).
++
+----
+grub> insmod btrfs
+----
++
+* For LVM filesystems (older than Fedora 33).
++
+----
+grub> insmod xfs
+grub> insmod lvm
+----
+
+. List the drives which *GRUB2* sees.
++
+----
+grub> ls
+----
+
+. Examine the output to understand the partition table of the `/dev/sda` device. The following example shows a DOS partition table with three partitions.
++
+----
+(hd0) (hd0,msdos3) (hd0,msdos2) (hd0,msdos1)
+----
++
+A GPT partition table of the `/dev/sda` device with four partitions could look like this.
++
+----
+(hd0) (hd0,gpt4) (hd0,gpt3)  (hd0,gpt2) (hd0,gpt1)
+----
+
+. Probe each partition of the drive and locate your `vmlinuz` and `initramfs` files.
++
+----
+grub> ls (hd0,1)/
+----
++
+The outcome of the previous command will list the files on `/dev/sda1`. The partition that contains the `/boot` directory is the correct one. There you will search for the full names of the `vmlinuz` and `initramfs` files.
+
+. Follow the <<btrfs-boot-setup, Pre-boot setup for BTRFS>> or the <<lvm-boot-setup, Pre-boot setup for LVM>> to recover your system.
+
+. After the pre-boot setup, boot the system.
++
+----
+grub> boot
+----
+
+. To restore the bootloader's functionality, regenerate the *GRUB2* configuration file and reinstall the bootloader, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
+
+=== Pre-boot setup for BTRFS filesystems.
+
+* On BIOS systems.
+
+. Set *GRUB2* root to your `/boot` partition. If your `/boot` partition is `(hd0,msdos1)`, the command will be.
++
+----
+grub> set root=(hd0,msdos1)
+----
++
+
+. Next, select the desired kernel. Set the `/root` partition (e.g. `/dev/sda2`).
++
+----
+grub> linux /vmlinuz-5.14.10-300.fc35.x86_64 root=/dev/sda2 ro rootflags=subvol=root
+----
++
+
+* On UEFI systems.
+
+. Set *GRUB2* root to your EFI system partition. If your EFI system partition is `(hd0,gpt1)`, use this command.
++
+----
+grub> set root=(hd0,gpt1)
+----
++
+
+. Next, select the desired kernel. Find the path to `vmlinuz` and set the `/root` partition (e.g. `/dev/sda3`).
++
+----
+grub> linux (hd0,gpt2)/vmlinuz-5.14.10-300.fc35.x86_64 root=/dev/sda3 ro rootflags=subvol=root
+----
++
+
+. Select the RAM filesystem that will be loaded.
++
+----
+grub> initrd (hd0,gpt2)/initramfs-5.14.10-300.fc35.x86_64.img
+----
+
+=== Pre-boot setup for LVM filesystems.
+
+* On BIOS systems.
+
+. Set *GRUB2* root to your `/boot` partition. If your `/boot` partition is `(hd0,msdos1)`, use this command.
++
+----
+grub> set root=(hd0,msdos1)
+----
++
+
+. Next, select the desired kernel. Set `root` to the logical volume that corresponds to the `/root` directory.
++
+----
+grub> linux /vmlinuz-3.0.0-1.fc16.i686 root=/dev/mapper/fedora_localhost--live-root
+----
++
+
+. Select the RAM filesystem that will be loaded.
++
+----
+grub> initrd /initramfs-3.0.0-1.fc16.i686.img
+----
++
+
+* On UEFI systems.
+
+. Set *GRUB2* root to your EFI system partition. If your EFI system partition is `(hd0,gpt1)`, use this command.
++
+----
+set root=(hd0,gpt1)
+----
++
+
+. Next, select the desired kernel. Find the path to `vmlinuz` and set `root` to the logical volume that corresponds to the `/root` directory.
++
+----
+linux (hd0,gpt2)/vmlinuz-3.0.0-1.fc16.i686 root=/dev/mapper/fedora_localhost--live-root
+----
++
+
+. Select the RAM filesystem that will be loaded.
++
+----
+initrd (hd0,gpt2)/initramfs-3.0.0-1.fc16.i686.img
+----
+
+
+
+== Booting the system using a configuration file on a different partition.
+
+If you end up in *GRUB2* boot prompt, it is also possible to boot using a _configfile_ that's located on another
+partition, as is often the case with multi-boot systems containing Ubuntu and Fedora. Follow the below procedure
+if you need to boot from a configuration file on a different partition.
+
+.Procedure
+
+. Load the necessary modules to read your system's partitions (you will also need to load `part_msdos` or `part_gpt`, depending on your partition table).
++
+* For BTRFS filesystems.
++
+----
+grub> insmod btrfs
+----
++
+* For LVM filesystems.
++
+----
+grub> insmod xfs
+grub> insmod lvm
+----
+
+. Set *GRUB2* root to your `/boot` partition. On UEFI systems, you should set *GRUB2* root to the EFI system partition.
++
+----
+grub> set root=(hd0,msdos1)
+----
+
+. Set the path to the configuration file.
++
+----
+grub> configfile /grub2/grub.cfg
+----
+
+.More information
+
+* The *hd0,msdos1* line shows the pertinent `/boot` partition, which holds the `grub.cfg` file. The setting may be different on your system. See also xref:_using_the_grub2_boot_prompt[Using the GRUB2 boot prompt] for more information.
+
+
+
+== Setting a password for interactive edit mode
+
+If you wish to protect the *GRUB2* interactive edit mode with a password, but allow ordinary users to boot the computer, you have to create a definition file where you set up this functionality: 
+
+.Procedure
+
+. Create the `/etc/grub.d/01_users` file and write the following lines into the file.
++
+----
+set superusers="root"
+export superusers
+password root <password>
+----
+
+. Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
+
+
+.More information
+
+You can encrypt the password by using *pbkdf2*. Use `grub2-mkpasswd-pbkdf2` to encrypt the password, then replace the password line with:
+
+----
+password_pbkdf2 root grub.pbkdf2.sha512.10000.1B4BD9B60DE889A4C50AA9458C4044CBE129C9607B6231783F7E4E7191D8254C0732F4255178E2677BBE27D03186E44815EEFBAD82737D81C87F5D24313DDDE7.E9AEB53A46A16F30735E2558100D8340049A719474AEEE7E3F44C9C5201E2CA82221DCF2A12C39112A701292BF4AA071EB13E5EC8C8C84CC4B1A83304EA10F74
+----
+
+More details can be found at https://help.ubuntu.com/community/Grub2/Passwords[Ubuntu Help: GRUB2 Passwords].
+
+[NOTE]
+====
+Starting from Fedora 21, the `--md5pass` kickstart option must be used when using the `grub2-mkpasswd-pbkdf2` command.
+====
+
+
+
+== Dealing with the "Absent Floppy Disk" Error
+
+It has been reported by some users that *GRUB2* may fail to install on a partition's boot sector if the computer's floppy controller is activated in BIOS without an actual floppy disk drive being present. Such situations resulted in an _Absent Floppy Disk_ error. 
+
+To workaround this issue, go into the rescue mode and follow the procedure in link:#installing-grub-2-on-a-bios-system[Installing GRUB2 on a BIOS system] *GRUB2*, but use the `--no-floppy` option with the `grub2-install` command.
+
+----
+# grub2-install <target device> --no-floppy
+----
+
+
+
+== Using old graphics modes in bootloader
+
+The terminal device is chosen with GRUB_TERMINAL. For more information, see the link:https://www.gnu.org/software/grub/manual/grub/grub.html#Simple-configuration[Grub manual].
+
+Valid terminal output names depend on the platform, but may include `console` (PC BIOS and EFI consoles), `serial` (serial terminal), `gfxterm` (graphics-mode output), `ofconsole` (Open Firmware console), or `vga_text` (VGA text output, mainly useful with Coreboot).
+
+The default is to use the platform's native terminal output.
+
+In Fedora, `gfxterm` is the default options. To get the legacy graphics modes:
+
+.Procedure
+
+. Edit the `/etc/default/grub` file.
+
+. Set the `GRUB_TERMINAL` variable to one of the above mentioned options.
+
+. Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in link:#adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
+
+
+
+== Enabling Serial Console in GRUB2
+
+To enable Serial console in grub: 
+
+.Procedure
+
+. Edit the `/etc/default/grub` file.
+
+. Adjust `baudrate`, `parity`, `bits`, and `flow` controls to fit your environment and cables, see the example.
++
+----
+GRUB_CMDLINE_LINUX='console=tty0 console=ttyS0,115200n8'
+GRUB_TERMINAL=serial
+GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"
+----
+
+. Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
+
 
 
 [discrete]
 == Additional resources
 
 * https://www.gnu.org/software/grub/manual/grub.html
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
