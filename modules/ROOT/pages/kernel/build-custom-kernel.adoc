@@ -3,20 +3,17 @@ John Soros; Alessio; Brandon Nielsen
 :revnumber: unspecified
 :revdate: 2021-01-01
 :category: Kernel
-// :tags: systemd
+:tags: How-to  Kernel  
 
 
-This document provides instructions for advanced users who want to rebuild the
-kernel from some source.
-
+[abstract]
+This document provides instructions for advanced users who want to rebuild the kernel from some source.
 [NOTE]
-
 ====
-
 When building or running a custom kernel, one should *not* expect support from
 the Fedora kernel team.
-
 ====
+
 
 Some common reasons to build a custom kernel are:
 
@@ -305,11 +302,8 @@ installed from an RPM, you can clean up the files that the above procedure
 installed.
 
 [WARNING]
-
 ====
-
 When running the following commands, be sure to get the kernel version correct!
-
 ====
 
 Because you changed `EXTRAVERSION` in the `Makefile` to add a 'tag', all the

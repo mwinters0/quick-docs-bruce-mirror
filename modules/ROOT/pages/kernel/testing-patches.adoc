@@ -1,10 +1,15 @@
-Testing Patches
-===============
-Author Name <wchilders@nearce.com>
-2021-08-11
-:description: A quick guide for testing if a patch resolves your issue.
-:toc:
-:compact-mode!:
+= Testing Patches
+wchilders@nearce.com
+:revnumber: F38
+:revdate: 2021-08-11
+:category: Kernel
+:tags: How-to  Kernel 
+// :page-aliases: 
+
+
+[abstract]
+A quick guide for testing if a patch resolves your issue.
+
 
 Occassionally, when attempting to resolve a kernel issue (particularly one
 that's specific to your hardware) you may be asked to apply a patch to

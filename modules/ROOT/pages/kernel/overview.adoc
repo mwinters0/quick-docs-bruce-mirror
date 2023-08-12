@@ -1,8 +1,12 @@
 = Fedora Linux Kernel Overview
+Taisei Washington; Lucas Fehlau Arbulu
+:revnumber: F38
+:revdate: 2023-06-21
+:category: Kernel
+:tags: Tutorial  Kernel 
+// :page-aliases: 
 
-include::{partialsdir}/unreviewed-message.adoc[]
 
-:toc:
 
 [[section-update-schedule]]
 == Update Schedule
@@ -187,6 +191,8 @@ Hyperkitty].
 
 Users interested in the Fedora kernel hang out in the ``#fedora-kernel`` channel
 on https://freenode.net[freenode].
+
+
 
 '''
 
