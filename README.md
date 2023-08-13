@@ -30,7 +30,6 @@ Please refer to the guide from the links below.
 
 * [Style guide](https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/style-guide/)
 * [Categories and tags](https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/contrib-quickdocs/)
-* [Rule sets](https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/contributions-quick-repo/)
 
 ## How to edit these documents
 
