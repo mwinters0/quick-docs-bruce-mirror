@@ -40,7 +40,7 @@ If you prefer working in a C.L.I., you can also install fonts with [application]
 
 Add or enable third-party repositories with font packages::
 Many fonts are available from the RPM Fusion repository.
-To enable the repository on your system, follow xref:setup_rpmfusion.adoc[these instructions].
+To enable the repository on your system, follow xref:rpmfusion-setup.adoc[these instructions].
 
 List all available font packages from enabled repositories::
 [source,]

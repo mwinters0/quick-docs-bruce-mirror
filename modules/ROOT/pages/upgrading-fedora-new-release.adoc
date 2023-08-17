@@ -1,10 +1,10 @@
-= Upgrading to a new release of Fedora
+= Upgrading Fedora to a New Release
  Jun Aruga; Kamil Páral; Ben Cotton
 :revnumber: F37, F38
 :revdate: 2022-09-14
 :category: Administration
 :tags: How-to  Upgrade 
-//:page-aliases: 
+:page-aliases: upgrading.adoc 
 
 
 

@@ -1,7 +1,7 @@
 = Installing Zoom on Fedora
- N.B.; The Fedora Documentation Team
+ Akshata Khedekar
 :revnumber: unknown 
-:revdate: 2022
+:revdate: 2021
 :category: Administration
 :tags: How-to Video  
 //:page-aliases: 

@@ -28,7 +28,7 @@
 ** xref:repositories.adoc[Fedora Repositories]
 ** xref:finding-and-installing-linux-applications.adoc[Finding and installing Linux applications]
 ** xref:adding-or-removing-software-repositories-in-fedora.adoc[Adding or removing software repositories in Fedora]
-** xref:setup_rpmfusion.adoc[Enabling the RPM Fusion repositories]
+** xref:rpmfusion-setup.adoc[Enabling the RPM Fusion repositories]
 ** xref:fonts.adoc[Adding new fonts]
 ** xref:packagekit-not-found.adoc[PackageKit Items Not Found]
 ** xref:securing-the-system-by-keeping-it-up-to-date.adoc[Securing the system by keeping it up-to-date]

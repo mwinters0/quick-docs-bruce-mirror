@@ -1,10 +1,15 @@
-ifdef::context[:parent-context: {context}]
-:context: securing-the-system-by-keeping-it-up-to-date
 :experimental:
 include::{partialsdir}/attributes.adoc[]
 
-[id='securing-the-system-by-keeping-it-up-to-date']
 = Securing the system by keeping it up-to-date
+Connor Lim; Petr Bokoc; Mirek Jahoda 
+:revnumber: unspecified
+:revdate: 2021-01-29
+:category: Administration
+:tags: How-to  Security Update 
+//:page-aliases:  
+
+
 
 This section explains:
 
@@ -12,13 +17,127 @@ This section explains:
 * How to apply updates manually by using the xref:securing-the-system-by-keeping-it-up-to-date.adoc#manual-updating-using-gui[GUI] or xref:securing-the-system-by-keeping-it-up-to-date.adoc#manual-updating-using-cli[CLI]
 * xref:securing-the-system-by-keeping-it-up-to-date.adoc#setting-automatic-updates[How to enable automatic updates]
 
-include::{partialsdir}/con_why-it-is-important-keeping-your-system-up-to-date.adoc[leveloffset=+1]
 
-include::{partialsdir}/proc_manual-updating-using-gui.adoc[leveloffset=+1]
 
-include::{partialsdir}/proc_manual-updating-using-cli.adoc[leveloffset=+1]
+== Why it is important to keep your system up-to-date
 
-include::{partialsdir}/proc_setting-automatic-updates.adoc[leveloffset=+1]
+// Bara: This section is based on https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/chap-keeping_your_system_up-to-date
+
+This section briefly explains the importance of updating your system on a regular basis.
+
+All software contains bugs. Often, these bugs can result in a vulnerability that can expose your system to malicious users. Packages that have not been updated are a common cause of computer intrusions. Implement a plan for installing security patches in a timely manner to quickly eliminate discovered vulnerabilities, so they cannot be exploited.
+
+
+
+== Manual updating using GUI
+
+This section describes how to manually download and install new updates by using GUI.
+
+[discrete]
+=== Procedure
+
+. Hover the cursor over the upper-left corner of the screen and type "Software" and select the Software application to open it.
+
+. Click the btn:[Updates] button to view the available updates.
+
+. Click the btn:[Download] button to download new updates.
+
+. After the updates are downloaded click the btn:[Restart & Update] button. Your system will restart to perform the upgrade.
+
+image::software-updates.png[Updating by using the Software application]
+
+
+
+== Manual updating using CLI
+
+This section describes how to manually download and install new updates by using the DNF
+package manager.
+
+
+[discrete]
+=== Procedure
+
+* Upgrade the system:
++
+----
+sudo dnf upgrade
+----
++
+Confirm to download the available packages.
+
+
+[discrete]
+=== Additional Resources
+
+* The `dnf(8)` manual page
+
+
+
+== Setting automatic updates
+
+This section describes how to use the DNF Automatic application to automatically:
+
+* Download and install any new updates
+* Only download the updates
+* Get notified about the updates
+
+[discrete]
+=== Procedure
+
+. Install the [package]_dnf-automatic_ package:
++
+----
+sudo dnf install dnf-automatic
+----
+
+. Edit the [filename]`/etc/dnf/automatic.conf` configuration file as needed. See the https://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation for details. 
+
+. Enable and start the `systemd` timer:
++
+[literal,subs="+quotes,attributes"]
+----
+sudo systemctl enable --now _timer_
+----
++
+Replace `_timer_` with one of following ones depending on what action you want to do:
++
+--
+* `dnf-automatic-install.timer` to download and install packages
+* `dnf-automatic-download.timer` to only download packages
+* `dnf-automatic-notifyonly.timer` to only get a notification using configured emitters in the [filename]`/etc/dnf/automatic.conf` file.
+--
++
+For example:
++
+----
+sudo systemctl enable --now dnf-automatic-install.timer
+Created symlink /etc/systemd/system/timers.target.wants/dnf-automatic-install.timer → /usr/lib/systemd/system/dnf-automatic-install.timer.
+----
+
+. Ensure that the timer has been successfully enabled and started:
++
+[literal,subs="+quotes,attributes"]
+----
+sudo systemctl status _timer_
+----
++
+Replace `_timer_` with the timer from the previous step, for example:
++
+----
+sudo systemctl status dnf-automatic-install.timer
+● dnf-automatic-install.timer - dnf-automatic-install timer
+     Loaded: loaded (/usr/lib/systemd/system/dnf-automatic-install.timer; enabled; vendor preset: disabled)
+     Active: active (waiting) since Fri 2021-01-29 14:50:22 +08; 1s ago
+    Trigger: Sat 2021-01-30 06:05:57 +08; 15h left
+   Triggers: ● dnf-automatic-install.service
+
+Jan 29 14:50:22 localhost.localdomain systemd[1]: Started dnf-automatic-install timer.
+----
+
+[discrete]
+=== Additional Resources
+
+* The https://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation
 
 
 [discrete]
@@ -26,5 +145,3 @@ include::{partialsdir}/proc_setting-automatic-updates.adoc[leveloffset=+1]
 
 * The xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc[DNF] chapter in the Fedora System Administrator's Guide
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]

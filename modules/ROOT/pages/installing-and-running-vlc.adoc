@@ -12,7 +12,7 @@ include::{partialsdir}/3rdparty-message.adoc[]
 
 == Prerequisites
 
-* VLC is provided by the RPMFusion repositories.  xref:setup_rpmfusion.adoc[Use these instructions to enable them].
+* VLC is provided by the RPMFusion repositories.  xref:rpmfusion-setup.adoc[Use these instructions to enable them].
 
 :leveloffset: +1
 

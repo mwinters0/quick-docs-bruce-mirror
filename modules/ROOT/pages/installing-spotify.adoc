@@ -91,7 +91,7 @@ snap install spotify
 For this method, please refer to the link:https://github.com/leamas/lpf[`lpf GitHub Page`]
 requirements.
 
-. xref:setup_rpmfusion.adoc[Enable the RPMFusion repositories].
+. xref:rpmfusion-setup.adoc[Enable the RPMFusion repositories].
 . Install the `lpf-spotify-client` package:
 +
 ----

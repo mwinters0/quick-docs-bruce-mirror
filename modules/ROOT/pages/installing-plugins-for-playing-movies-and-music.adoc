@@ -13,7 +13,7 @@ WARNING: If you live in a country where software patents apply, such as in the U
 
 == Prerequisites
 
-* xref:setup_rpmfusion.adoc[Enable the RPMFusion repositories].
+* xref:rpmfusion-setup.adoc[Enable the RPMFusion repositories].
 
 
 == Procedure
