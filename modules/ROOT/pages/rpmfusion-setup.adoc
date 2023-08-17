@@ -1,0 +1,181 @@
+= Enabling the RPM Fusion repositories
+Micah Abbott
+:revnumber: F36 and newer
+:revdate: 2022-11-21
+:category: Managing Software
+:tags: How-to Repositories
+:page-aliases: setup-rpmfusion.adoc
+
+ifdef::context[:parent-context: {context}]
+:context: enabling-the-rpmfusion-repositories
+
+
+include::{partialsdir}/3rdparty-message.adoc[]
+
+
+== Third party repositories
+
+There are a number of third-party software repositories for Fedora. They have more liberal licensing policies and provide software packages that Fedora excludes for various reasons. These software repositories are not officially affiliated or endorsed by the Fedora Project. Use them at your own discretion. For complete list, see https://rpmfusion.org/FedoraThirdPartyRepos[FedoraThirdPartyRepos]
+The following repositories are commonly used by end users and do not conflict with each other:
+
+* https://rpmfusion.org
+
+* rpm.livna.org (Obsoleted! Replaced by RPM Fusion free tainted)
+
+=== Mixing third party software repositories
+
+Mixing a lot of third party repositories is not recommended since they might conflict with each other causing instability and hard to debug issues. If you are not a technical user, one way is to not enable the third-party repo by default and instead use the *--enablerepo* switch for dnf, or a similar method configurable in the graphical package manager.
+
+
+== The purpose of RPM Fusion
+
+The RPM Fusion project is a community-maintained software repository providing additional packages that are not distributed by Fedora.
+
+
+[discrete]
+=== Additional resources
+
+* RPM Fusion home page: link:https://rpmfusion.org/[]
+* For more information on what packages are allowed to be distributed with Fedora, see the following wiki page: link:https://fedoraproject.org/wiki/Forbidden_items[]
+* You can buy multimedia codecs from Fluendo. This is a legal solution for users from countries where software patents apply. For more information, see: link:https://fluendo.com/en/products/enterprise/fluendo-codec-pack/[].
+
+
+
+// Start the title with a verb, such as Creating or Create. See also 
+// _Wording of headings_ in _The IBM Style Guide_.
+== Enabling the RPM Fusion repositories using command-line utilities
+
+This procedure describes how to enable the RPM Fusion software repositories without using any graphical applications.
+
+[discrete]
+=== Prerequisites
+
+* You have internet access.
+
+[discrete]
+=== Procedure
+
+. To enable the _Free_ repository, use:
++
+[subs=+quotes]
+----
+$ sudo dnf install \
+  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+----
+
+. Optionally, enable the _Nonfree_ repository:
++
+[subs=+quotes]
+----
+$ sudo dnf install \
+  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+----
+
+. The first time you attempt to install packages from these repositories, the `dnf` utility prompts you to confirm the signature of the repositories. Confirm it.
+
+
+
+== Enabling the RPM Fusion repositories using graphical applications
+
+This procedure describes how to enable the RPM Fusion software repositories without using any command-line utilities.
+
+[discrete]
+=== Prerequisites
+
+* You have internet access.
+* You are using the Gnome desktop environment.
+
+[discrete]
+=== Procedure
+
+. In your web browser, open the following page: link:https://rpmfusion.org/Configuration[].
+
+. To enable the _Free_ repository, click the *RPM Fusion free for Fedora _version_* link on the page, where _version_ is the Fedora release you are using. This prompts you to save or open the repo file.
+
+. Open the file using the *Software Install* application.
+
+. The *Software* application opens. Click the blue *Install* button.
+
+. Optionally, enable the _Nonfree_ repository: click the *RPM Fusion nonfree for Fedora _version_* link on the page, where _version_ is the Fedora release you are using.
+
+. Save and install the file with the *Software* application again.
+
+
+
+== Enabling Appstream data from the RPM Fusion repositories
+
+This procedure describes how to install the Appstream data provided by the RPM Fusion software repositories.
+
+[discrete]
+=== Prerequisites
+
+* You have internet access.
+* You are using the Gnome desktop environment.
+* You have the RPMFusion repositories installed
+
+[discrete]
+=== Procedure
+
+[subs=+quotes]
+----
+$ sudo dnf group update core
+----
+
+
+
+
+== Enabling the RPM Fusion repositories for ostree-based systems
+
+This procedure describes how to enable the RPM Fusion software repositories for systems based on ostree (i.e. Silverblue, Kinoite, Fedora IoT).
+
+This is a two-stage process where you have to install versioned RPM Fusion repos and then you are able to replace them with unversioned RPM Fusion repos.
+
+[NOTE]
+====
+For more information about this process and the problem it solves, please refer to the relevant https://discussion.fedoraproject.org/t/simplifying-updates-for-rpm-fusion-packages-and-other-packages-shipping-their-own-rpm-repos/30364[thread on the Fedora Discourse site].
+====
+
+[discrete]
+=== Prerequisites
+
+* You are using an ostree-based system such as Silverblue, Kinoite, or Fedora IoT.
+* You have internet access.
+
+[discrete]
+=== Procedure
+
+. To install the versioned _Free_ and _Nonfree_ RPM Fusion repos:
++
+[subs=+quotes]
+----
+$ sudo rpm-ostree install \
+  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+  https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+$ reboot
+----
+
+. To replace the versioned RPM Fusion repos that were previously installed with the unversioned repos:
++
+[subs=+quotes]
+----
+$ sudo rpm-ostree update \
+  --uninstall rpmfusion-free-release \
+  --uninstall rpmfusion-nonfree-release \
+  --install rpmfusion-free-release \
+  --install rpmfusion-nonfree-release
+$ reboot
+----
+
+
+
+
+
+
+
+== References
+
+* https://rpmfusion.org/Configuration
+* https://rpmfusion.org/Howto/OSTree
+
+ifdef::parent-context[:context: {parent-context}]
+ifndef::parent-context[:!context:]
