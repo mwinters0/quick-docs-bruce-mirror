@@ -1,5 +1,12 @@
 = Installing Zoom on Fedora
- 
+ N.B.; The Fedora Documentation Team
+:revnumber: unknown 
+:revdate: 2022
+:category: Administration
+:tags: How-to Video  
+//:page-aliases: 
+
+
 == Description
 https://www.zoom.us[Zoom Video Communications]. Inc. is an American communications technology company headquartered in San Jose, California.
 It provides videotelephony and online chat services through a cloud-based peer-to-peer software platform and is used for teleconferencing, telecommuting, distance education, and social relations.

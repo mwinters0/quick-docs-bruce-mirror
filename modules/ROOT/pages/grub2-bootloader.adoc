@@ -1,14 +1,11 @@
-= Bootloading with GRUB2
+= The GRUB2 Bootloader – Installation and Configuration 
 Michael Wu; The Fedora Documentation Team
 :revnumber: unknown
 :revdate: 2012-05-11
 :category: Administration
 :tags: How-to  Booting 
-//:page-aliases: 
+:page-aliases: installing-grub2.adoc
 
-// Optional  free form useful additional information as comment
-
-//include::{partialsdir}/unreviewed-message.adoc[]
 
 *GRUB2* is the latest version of *GNU GRUB*, the _GRand Unified Bootloader_. A bootloader is the first software program that runs when a computer starts. It is responsible for loading and transferring control to the operating system kernel. In Fedora, the kernel is Linux. The kernel then initializes the rest of the operating system.
 

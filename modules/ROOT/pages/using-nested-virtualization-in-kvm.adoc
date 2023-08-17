@@ -2,11 +2,11 @@
 Fedora Documentation Team
 :revnumber: F36 onwards
 :revdate: 2023-02-21
+:category: Administration
+:tags: How-to Workstation Virtualization
 
 // Optional  free form useful additional information as comment
 
-:category: Administration
-:tags: How-to Workstation Virtualization
 
 [abstract]
 //------

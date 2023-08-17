@@ -1,84 +1,57 @@
 = Upgrading Fedora using package manager
+ Ben Cotton; Kamil Páral;  Caleb McKee 
+:revnumber: F37, F38
+:revdate: 2022-05-04
+:category: Administration
+:tags: How-to  Upgrade 
+//:page-aliases: 
 
-This page contains information explaining how to upgrade Fedora online
-using `dnf` (without the xref:dnf-system-upgrade.adoc[DNF system upgrade plugin]).
+[abstract]
+This page contains information explaining how to upgrade Fedora online using `dnf` (without the xref:dnf-system-upgrade.adoc[DNF system upgrade plugin]).
+
 
 [WARNING]
 ====
-
 This is not a supported upgrade method. Read xref:upgrading.adoc[Upgrading to a new release of Fedora] to see a list of supported and tested upgrade methods. The steps included in the guide are *at your own risk*.
-
 ====
 
-[[upgrading-fedora-using-dnf-directly]]
 == Upgrading Fedora using dnf directly
 
-[[participate]]
 == Participate
 
-If you are upgrading using link:https://fedoraproject.org/wiki/DNF[DNF] and it shows any general dependency
-issues, please file them in http://bugzilla.redhat.com[Bugzilla]. But
-please read this page, all references pages and search the mailing list
-archives before filing bugs. And of course, please help keep this page
-updated.
+If you are upgrading using link:https://fedoraproject.org/wiki/DNF[DNF] and it shows any general dependency issues, please file them in http://bugzilla.redhat.com[Bugzilla]. But please read this page, all references pages and search the mailing list archives before filing bugs. And of course, please help keep this page updated.
 
 If you want to help make live upgrades work smoothly, join the
 link:SIGs/LiveUpgrade[Live Upgrade Special Interest Group].
 
-[[upgrading-across-multiple-releases]]
 == Upgrading across multiple releases
 
-If you need to upgrade across several releases, it is generally
-recommended to go one release at a time: for example, rather than going
-directly from Fedora 31 to Fedora 33, first go to Fedora 32 and then to Fedora 33. This tends to
-reduce the number of package dependency issues you may encounter. If you
-are upgrading from an link:End_of_life[End of life] release, please also
-see link:#eol[the end-of-life section].
+If you need to upgrade across several releases, it is generally recommended to go one release at a time: for example, rather than going directly from Fedora 31 to Fedora 33, first go to Fedora 32 and then to Fedora 33. This tends to reduce the number of package dependency issues you may encounter. If you are upgrading from an link:End_of_life[End of life] release, please also see link:#eol[the end-of-life section].
 
-[[instructions-to-upgrade-using-dnf]]
 == Instructions to upgrade using dnf
 
-[[backup-your-system]]
 === 1. Backup your system
 
-Backup any personal data to an external hard drive or to another
-machine. If there is some unrecoverable error that requires a fresh
-install, you don't want to lose any data.
+Backup any personal data to an external hard drive or to another machine. If there is some unrecoverable error that requires a fresh install, you don't want to lose any data.
 
-[[read-about-common-problems]]
 === 2. Read about common problems
 
-Further down in this page there is a list of common problems specific to
-dnf upgrades for specific versions. Some of them require attention
-before the upgrade.
+Further down in this page there is a list of common problems specific to dnf upgrades for specific versions. Some of them require attention before the upgrade.
 
-General advice on upgrading Fedora can be found on the link:https://docs.fedoraproject.org/en-US/quick-docs/upgrading/[Upgrading] page.
-You should also read the
-http://docs.fedoraproject.org/install-guide/[Installation Guide] and
-http://docs.fedoraproject.org/release-notes/[Release Notes] for the
-version you plan to upgrade to - they contain important information
-regarding upgrading issues. Finally, check the list of
-link:Common_bugs[Common bugs].
+General advice on upgrading Fedora can be found on the link:https://docs.fedoraproject.org/en-US/quick-docs/upgrading/[Upgrading] page. You should also read the http://docs.fedoraproject.org/install-guide/[Installation Guide] and http://docs.fedoraproject.org/release-notes/[Release Notes] for the version you plan to upgrade to - they contain important information regarding upgrading issues. Finally, check the list of link:Common_bugs[Common bugs].
 
-[[clean-stuff]]
 === 3. Clean Stuff
 
-Review and remove all .rpmsave and .rpmnew files before and after
-upgrading. (And if you have selinux enabled then remember to check
-security context if you move config files around.)
+Review and remove all .rpmsave and .rpmnew files before and after upgrading. (And if you have selinux enabled then remember to check security context if you move config files around.)
 
 TIP: *Find unused config files* + Merge and resolve the changes found by the following script: `dnf install rpmconf; rpmconf -a`. Now find and remove old config which nobody owns: `rpmconf -c`.
 
-Now is a good time to remove packages you don't use - especially
-non-standard packages.
+Now is a good time to remove packages you don't use - especially non-standard packages.
 
-TIP: *Find and review "unused" packages* + You can find packages not required by other packages with the tool `package-cleanup` from the `dnf-utils` package: `dnf install dnf-utils; package-cleanup --leaves`.
-These packages could be candidates for removal, but check to see whether you use them directly or if they are used by applications not backed by rpm packages. Remove them with `dnf remove package-name-and-version`.
-Another useful tool for cleaning up unused packages is `rpmreaper`. It's an ncurses application that lets you view rpm dependency graph and mark packages for deletion. Marking one package can make other packages leaf, which you can see immediately, so you don't have to run the tool several times to get rid of a whole sub-tree unused packages. Install with `dnf install rpmreaper`.
+TIP: *Find and review "unused" packages* + You can find packages not required by other packages with the tool `package-cleanup` from the `dnf-utils` package: `dnf install dnf-utils; package-cleanup --leaves`. These packages could be candidates for removal, but check to see whether you use them directly or if they are used by applications not backed by rpm packages. Remove them with `dnf remove package-name-and-version`. Another useful tool for cleaning up unused packages is `rpmreaper`. It's an ncurses application that lets you view rpm dependency graph and mark packages for deletion. Marking one package can make other packages leaf, which you can see immediately, so you don't have to run the tool several times to get rid of a whole sub-tree unused packages. Install with `dnf install rpmreaper`.
 
 TIP: *Find and review "lost" packages* + You can find orphaned packages (i.e. packages not in the repositories anymore) with `package-cleanup --orphans`. This will also show packages which have been partially uninstalled but where the "%postun" script failed.
 
-[[do-the-upgrade]]
 === 4. Do the upgrade
 
 If you have 3rd party repositories configured, you may need to adjust
@@ -175,7 +148,6 @@ in `/var/cache/dnf`.
 # dnf clean all
 ....
 
-[[upgrade-all-packages]]
 ==== Upgrade all packages
 
 CAUTION: *Never upgrade on battery power* + Never run the upgrade operation on battery power! Always connect to the mains, if using a laptop. However, if your system does have a battery, it's a good idea to ensure it's charged and connected in case of a power outage during the upgrade.
@@ -195,7 +167,6 @@ If it seems like you must remove a package with many dependencies, especially on
 
 If you are at all unsure in any way, ask for help on a mailing list, forum or IRC before removing packages.
 
-[[make-sure-fedora-is-upgraded]]
 === 5. Make sure Fedora is upgraded
 
 Distro-sync will usually take care of upgrades for the third party
@@ -229,7 +200,6 @@ For example
     "Office/Productivity" "System Tools"
 ....
 
-[[preparing-for-reboot]]
 === 6. Preparing for reboot
 
 Before booting you should usually install the bootloader from your new
@@ -251,7 +221,6 @@ cp --backup=numbered -a /boot/grub2/grub.cfg{,.bak} # create backup copy
 /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg # update config file
 ....
 
-[[cleanup-your-system]]
 === 7. Cleanup your system
 
 Again, cleanup your system as described in section 2. Also you might
@@ -262,26 +231,18 @@ files from older Fedora releases in the following directories:
 * /var/cache/mock
 * /var/lib/mock
 
-[[release-specific-notes]]
 == Release specific notes
 
-Note: the release-specific notes for link:End_of_life[End of life]
-releases are on the
-link:Upgrading_from_EOL_Fedora_using_package_manager[EOL packager
-manager upgrade page].
+Note: the release-specific notes for link:End_of_life[End of life] releases are on the
+link:Upgrading_from_EOL_Fedora_using_package_manager[EOL packager manager upgrade page].
 
-[[from-pre-release]]
 === From pre-release
 
-If you are upgrading to a final release from an Alpha, Beta, or release
-candidate, please see link:Upgrading_from_pre-release_to_final[Upgrading
-from pre-release to final].
+If you are upgrading to a final release from an Alpha, Beta, or release candidate, please see link:Upgrading_from_pre-release_to_final[Upgrading from pre-release to final].
 
-[[to-rawhide]]
 === To Rawhide
 
-See the link:Releases/Rawhide[Rawhide] release page for more information
-on Rawhide.
+See the link:Releases/Rawhide[Rawhide] release page for more information on Rawhide.
 
 ....
 # dnf upgrade
@@ -295,7 +256,6 @@ on Rawhide.
 # touch /.autorelabel
 ....
 
-[[fedora-31]]
 === Fedora 31
 Before running
 
@@ -311,12 +271,10 @@ dnf module reset libgit2 exa bat
 
 See link:https://bugzilla.redhat.com/show_bug.cgi?id=1747408[Bug 1747408].
 
-[[fedora-30]]
 === Fedora 30
 
 No special instructions. Follow the above instructions.
 
-[[fedora-29]]
 === Fedora 29
 
 No special instructions. Follow the above instructions.
@@ -324,18 +282,10 @@ No special instructions. Follow the above instructions.
 [[upgrading-from-legacy-end-of-life-eol-fedora-releases]]
 === Upgrading from legacy end of life (EOL) Fedora releases
 
-Note that Fedora strongly recommends against ever running an end-of-life
-release on any production system, or any system connected to the public
-internet, in any circumstances. You should never allow a production
-Fedora deployment to reach end-of-life in the first place.
+Note that Fedora strongly recommends against ever running an end-of-life release on any production system, or any system connected to the public internet, in any circumstances. You should never allow a production Fedora deployment to reach end-of-life in the first place.
 
-With that in mind, if you do have an end-of-life release installed on a
-system you cannot just discard or re-deploy, you can attempt to upgrade
-it, though this is a less-tested and less-supported operation.
+With that in mind, if you do have an end-of-life release installed on a system you cannot just discard or re-deploy, you can attempt to upgrade it, though this is a less-tested and less-supported operation.
 
-For detailed instructions on upgrades from EOL releases, please read
-link:Upgrading_from_EOL_Fedora_using_package_manager[Upgrading from EOL
-Fedora using package manager].
+For detailed instructions on upgrades from EOL releases, please read link:Upgrading_from_EOL_Fedora_using_package_manager[Upgrading from EOL Fedora using package manager].
 
-See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
+See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.

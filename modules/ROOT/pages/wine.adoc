@@ -1,19 +1,20 @@
-= Wine
+= Wine – Running Windows applications in the Fedora GUI
+ Héctor H. Louzao Pozueco;  Ankur Sinha; Akshata Khedekar
+:revnumber: unknown
+:revdate: 2022-10-03
+:category: Virtualisation
+:tags: How-to  Windows Wine 
+//:page-aliases: 
 
-http://winehq.org/[Wine] is an open source implementation of the Windows
-API on top of X and OpenGL.
+[abstract]
+http://winehq.org/[Wine] is an open source implementation of the Windows API on top of X and OpenGL.
 
-Wine emulates the Windows runtime environment by translating Windows 
-system calls into POSIX-compliant system calls, recreating the directory
-structure of Windows systems, and providing alternative implementations 
-of Windows system libraries, system services through https://wiki.winehq.org/Wineserver[wineserver].
+Wine emulates the Windows runtime environment by translating Windows  system calls into POSIX-compliant system calls, recreating the directory structure of Windows systems, and providing alternative implementations of Windows system libraries, system services through https://wiki.winehq.org/Wineserver[wineserver].
 
 == Packages
 
-Fedora's Wine packages are split up to allow for smaller installations.
-The `wine` meta package will bring with it the most important components
-of Wine.
-Expert users may want to pick specific components from the list
+Fedora's Wine packages are split up to allow for smaller installations. The `wine` meta package will bring with it the most important components
+of Wine. Expert users may want to pick specific components from the list
 https://packages.fedoraproject.org/pkgs/wine/[here].
 The current versions of the Wine packages can also be seen on the https://packages.fedoraproject.org/pkgs/wine/wine/[Fedora packages application].
 

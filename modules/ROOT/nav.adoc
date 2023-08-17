@@ -6,7 +6,7 @@
 ** xref:bugzilla/find-duplicates.adoc[Finding duplicate bugs]
 ** xref:bugzilla/correct-component.adoc[Finding the correct component]
 ** xref:bugzilla/spam.adoc[Reporting Bugzilla spam]
-** xref:bugzilla/email-notifications.adoc[Managing email notifications]
+** xref:bugzilla/email-notifiRunningcations.adoc[Managing email notifications]
 
 * xref:getting-started-guide.adoc[Getting started with Fedora]
 
@@ -41,6 +41,7 @@
 ** xref:installing-from-source.adoc[Installing Software from Source]
 ** xref:installing-spotify.adoc[Installing Spotify on Fedora]
 ** xref:installing-skype.adoc[Installing Skype on Fedora]
+** xref:zoom.adoc[Installing Zoom on Fedora]
 
 * Usage and customisation
 ** xref:changing-hostname.adoc[Changing Hostname]
@@ -50,7 +51,7 @@
 ** xref:gnome-shell-extensions.adoc[Using GNOME Shell extensions]
 ** xref:wine.adoc[Running Windows applications with Wine]
 ** xref:create-gpg-keys.adoc[Creating GPG Keys]
-** xref:bootloading-with-grub2.adoc[Bootloading with GRUB2]
+** xref:grub2-bootloader.adoc[The GRUB2 Bootloader]
 ** xref:root-account-locked.adoc[Root Account Locked]
 ** xref:proc_setting-key-shortcut.adoc[Setting a key shortcut to run an application in GNOME]
 ** xref:disabling-automatic-screenlock.adoc[Disabling the GNOME automatic screen locking]

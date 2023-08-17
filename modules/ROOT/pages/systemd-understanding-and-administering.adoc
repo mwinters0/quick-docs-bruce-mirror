@@ -1,0 +1,607 @@
+= Understanding and administering systemd
+Christopher Engelhard; Kamil Páral;  Caleb McKee 
+:revnumber: unknown
+:revdate: 2020-08-05
+:category: Administration
+:tags: How-to  Upgrade 
+:source-highlighter: prettify
+:page-aliases: understanding-and-administering-systemd.adoc
+
+
+
+[abstract]
+Learn the basic principles of the _systemd_ init system: how to configure it and use it to administer the system.
+
+
+== Understanding systemd
+
+_Systemd_ is a system and service manager for Linux, compatible with SysV and LSB init scripts. _Systemd_ provides:
+
+* Aggressive parallelization capabilities
+* Uses socket and D-Bus activation for starting services
+* Offers on-demand starting of daemons, keeps track of processes using Linux cgroups
+* Supports snapshotting and restoring of the system state
+* Maintains mount and automount points
+* Implements an elaborate transactional dependency-based service control logic.
+
+The `systemctl` command is the primary tool to manage _systemd_. It combines the functionality of SysVinit's `service` and `chkconfig` commands into a single tool you can use to enable and disable services permanently or only for the current session.
+
+_Systemd_ manages so-called *_units_*, which are representations of system resources and services. This following list shows the unit types that _systemd_ can manage:
+
+service::
+  A service on the system, including instructions for starting, restarting, and stopping the service.
+
+socket::
+  A network socket associated with a service.
+
+device::
+  A device specifically managed with _systemd_.
+
+mount::
+  A mountpoint managed with _systemd_.
+
+automount::
+  A mountpoint automatically mounted on boot.
+  
+swap::
+  Swap space on the system.
+
+target::
+  A synchronization point for other units. Usually used to start enabled services on boot.
+
+path::
+  A path for path-based activation. For example, you can start services based on the state of a certain path, such as whether it exists or not.
+
+timer::
+  A timer to schedule activation of another unit.
+
+snapshot::
+  A snapshot of the current _systemd_ state. Usually used to rollback after making temporary changes to _systemd_.
+
+slice::
+  Restriction of resources through Linux Control Group nodes (cgroups).
+
+scope::
+  Information from _systemd_ bus interfaces. Usually used to manage external system processes.
+
+
+
+== Starting, stopping, and querying systemd services
+
+You can perform various management tasks to control _systemd_ services using the `systemctl` command. The following is a set of example commands to demonstrate how to use `systemctl` to manage _systemd_ services.
+
+[discrete]
+== Prerequisites
+
+You are logged in as a user with administrator-level permissions.
+
+[discrete]
+== Procedure
+
+The following commands control the `foo` service:
+
+* Activate a service immediately:
++
+----
+# systemctl start foo 
+----
+
+* Deactivate a service immediately:
++
+----
+# systemctl stop foo 
+----
+
+* Restart a service:
++
+----
+# systemctl restart foo 
+----
+
+* Show the status of a service including, whether it is running or not:
++
+----
+# systemctl status foo 
+----
+
+* Enable a service to be started on boot:
++
+----
+# systemctl enable foo 
+----
+
+* Disable a service to not start during boot:
++
+----
+# systemctl disable foo 
+----
+
+* Prevent a service from starting dynamically or even manually unless unmasked:
++
+----
+# systemctl mask foo 
+----
+
+* Check if a service is enabled or not:
++
+----
+# systemctl is-enabled foo
+----
+
+[discrete]
+=== Related Information
+
+* Run `man systemctl` for more details.
+
+
+== Modifying existing systemd services
+
+This example shows how to modify an existing service. Service modification are stored within `/etc/systemd/system`, in a single file or in a subdirectory named after the service. For example, this procedure modifies the `httpd` service.
+
+[discrete]
+=== Prerequisites
+
+* You are logged in as a user with administrator-level permissions.
+
+* You have a configured `httpd` server running through _systemd_.
+
+[discrete]
+=== Procedure
+
+. _Systemd_ services can be modified using the `systemctl edit` command.
++
+----
+# systemctl edit httpd.service
+----
++
+This creates an override file `/etc/systemd/system/httpd.service.d/override.conf` and opens it in your text editor. Anything you put into this file will be *added* to the existing service file.
+
+. Add your custom configuration. For example:
++
+----
+[Service]
+Restart=always
+RestartSec=30
+----
++
+To replace an option that can be set multiple times, it must cleared first, otherwise the override file will add the option a second time.
++
+----
+[Service]
+ExecStart=
+ExecStart=<new command>
+----
+
+. Save the file. _Systemd_ automatically loads the new service configuration.
+
+. Restart the `httpd` service:
++
+----
+# systemctl restart httpd
+----
+
+To completely replace (instead of just add to/modify) an existing service file, use `systemctl edit --full`, e.g.  `systemctl edit --full httpd.service`. This will create `/etc/systemctl/system/httpd.service`, which will be used instead of the existing service file.
+
+[discrete]
+=== Related Information
+
+* See link:#common-service-parameters[Common service parameters] for more information about the parameters used in this procedure.
+
+
+
+== Creating new systemd services
+
+This example shows how to create a unit file for a custom service. Custom unit files are located in `/etc/systemd/system/` and have a `.service` extension. For example, a custom `foo` service uses `/etc/systemd/system/foo.service` unit file.
+
+[discrete]
+=== Prerequisites
+
+* You are logged in as a user with administrator-level permissions.
+
+[discrete]
+=== Procedure
+
+This procedure creates a basic configuration file to control the `foo` service.
+
+. Create and edit the new configuration file:
++
+----
+# nano /etc/systemd/system/foo.service
+----
+
+. The next few steps describe each section its parameters to add to the file:
+
+.. The `[Unit]` section provides basic information about the service. The `foo` service uses the following parameters:
++
+`Description`::
+  A string describing the unit. _Systemd_ displays this description next to the unit name in the user interface. 
+`After`::
+  Defines a relationship with a second unit. If you activate the unit, _systemd_ activates it only after the second one. For example, the `foo` service might require network connectivity, which means the `foo` services specifies `network.target` as an `After=` condition. 
++
+The resulting `[Unit]` section looks like this:
++
+----
+[Unit]
+Description=My custom service
+After=network.target
+----
+
+.. The `[Service]` section provides instructions on how to control the service. The `foo` service uses the following parameters:
++
+`Type`::
+  Defines the type of _systemd_ service. In this example, the `foo` service is a `simple` service, which starts the service without any special consideration.
+`ExecStart`::
+  The command to run to start the service. This includes the full path to the command and arguments to modify the service.
++
+The resulting `[Service]` section looks like this:
++
+----
+[Service]
+Type=simple
+ExecStart=/usr/bin/sleep infinity
+----
+
+.. The `[Install]` section provides instructions on how _systemd_ installs the service. The `foo` service uses the following parameters:
++
+`WantedBy`::
+  Defines which service triggers the custom service if enabled with `systemctl enable`. This is mostly used for starting the custom service on boot. In this example, `foo.service` uses `multi-user.target`, which starts `foo.service` when _systemd_ loads `multi-user.target` on boot.
+
+. The full `foo.service` file contains the following contents:
++
+----
+[Unit]
+Description=My custom service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/sleep infinity
+
+[Install]
+WantedBy=multi-user.target
+----
++
+Save the file.
+
+. To make _systemd_ aware of the new service, reload its service files
++
+----
+# systemctl daemon-reload
+----
+
+
+. Start the custom `foo` service:
++
+----
+# systemctl start foo
+----
+
+. Check the status of the service to ensure the service is running:
++
+----
+$ systemctl status foo
+● foo.service - My custom service
+   Loaded: loaded (/etc/systemd/system/foo.service; static; vendor preset: disabled)
+   Active: active (running) since Thu 2017-12-14 14:09:12 AEST; 6s ago
+ Main PID: 31837 (sleep)
+    Tasks: 1 (limit: 4915)
+   CGroup: /system.slice/foo.service
+           └─31837 /usr/bin/sleep infinity
+
+Dec 14 14:09:12 dansmachine systemd[1]: Started My custom service.
+----
+
+[discrete]
+=== Related Information
+
+* See link:#common-service-parameters[Common service parameters] for more information about the parameters used in this procedure.
+
+
+
+== Converting SysVinit services to systemd
+
+Older versions of Fedora use SysVinit scripts to manage services. This section provides some guidelines on how to convert a SysVinit script to a _systemd_ equivalent.
+
+[discrete]
+=== Prerequisites
+
+* You are logged in as a user with administrator-level permissions.
+
+* You have a custom SysVinit script to convert to a _systemd_ configuration.
+
+[discrete]
+=== Procedure
+
+. Identify the runlevels in your SysVinit script. This is usually defined with `chkconfig` directive in the commented section at the beginning of the script. For example, the following indicates the service is using runlevels 3, 4, and 5:
++
+----
+# chkconfig: 235 20 80
+----
++
+systemd uses targets instead of runlevels. Use the table in <<#converting-sysvinit-services>> to map the runlevels to targets. In this example, runlevels 2, 3, and 5 are all multi-user runlevels, so the _systemd_ service can use the following:
++
+----
+[Install]
+WantedBy=multi-user.target
+----
++
+If you enable the custom _systemd_ service to start at boot (`systemctl enable foo.service`), _systemd_ loads the service when loading the `multi-user.target` at boot time.
+
+. Identify the dependent services and targets. For example, if the custom service requires network connectivity, specify the `network.target` as a dependency:
++
+----
+[Unit]
+Description=My custom service
+After=network.target
+----
+
+. Identify the command used to start the service in the SysVinit script and convert this to the _systemd_ equivalent. For example, the script might contain a `start` function in the following format:
++
+[source,bash]
+----
+start() {
+  echo "Starting My Custom Service..."
+  /usr/bin/myservice -D
+}
+----
++
+In this example, the `/usr/bin/myservice` command is the custom service command set to daemonize with the `-D` option. Set the `ExecStart` parameter to use this command:
++
+----
+[Service]
+ExecStart=/usr/bin/myservice -D
+----
+
+. Check the SysVinit script to see if the service uses a special command to restart the service. For example, the script might contain a `reboot` function that reloads the service:
++
+[source,bash]
+----
+reboot() {
+  echo "Reloading My Custom Service..."
+  /usr/bin/myservice reload
+}
+----
++
+In this example, the `/usr/bin/myservice` command is the custom service command and reloads the service using the `reload` subcommand. Set the `ExecReload` parameter to use this command:
++
+----
+[Service]
+ExecReload=/usr/bin/myservice reload
+----
++
+Alternatively, you can omit `ExecReload` and use the default behavior, which kills the service and starts it again.
+
+. Check the SysVinit script to see if the service uses a special command to stop the service. For example, the script might contain a `stop` function that reloads the service:
++
+[source,bash]
+----
+reboot() {
+  echo "Stopping My Custom Service..."
+  /usr/bin/myservice shutdown
+}
+----
++
+In this example, the `/usr/bin/myservice` command is the custom service command and stop the service gracefully using the `shutdown` subcommand. Set the `ExecStop` parameter to use this command:
++
+----
+[Service]
+ExecStop=/usr/bin/myservice shutdown
+----
++
+Alternatively, you can omit `ExecStop` and use the default behavior, which kills the service.
+
+. Review the SysVinit script and identify any additional parameters or functions. Use _systemd_ parameters to replicate any identified SysVinit functions that might be relevant to your service.
+
+[discrete]
+=== Related Information
+
+* See link:#common-service-parameters[Common service parameters] for more information about the parameters used in this procedure.
+
+
+
+== Common service parameters
+
+=== Unit Parameters
+
+This section contains parameters you can use in the `[Unit]` section of a service. These parameters are common to other _systemd_ units.
+
+This list is a summarized version. For a full list of these parameters and their descriptions, run `man systemd.unit`.
+
+Description::
+  A free-form string describing the service. 
+
+Documentation::
+  A space-separated list of URIs referencing documentation for this service or its configuration. Accepted are only URIs of the following types: `http://`, `https://`, `file:`, `info:`, `man:`. 
+
+Requires::
+  Configures requirement dependencies on other services. If this service gets activated, the units listed here are activated too. If one of the dependent services fails to activate, _systemd_ does not start this service. This option may be specified more than once or you can specify multiple space-separated units.
+
+Wants::
+  Similar to `Requires`, except failed units do not have any effect on the service.
+
+BindsTo::
+  Similar to `Requires`, except stopping the dependent units also stops the service.
+
+PartOf::
+  Similar to `Requires`, except the stopping and restarting dependent units also stop and restart the service.
+
+Conflicts::
+  A space-separated list of unit names that, if running, cause the service not to run.
+
+Before, After::
+  A space-separated list of unit names that configures the ordering of dependencies between services.
+
+OnFailure::
+  A space-separated list of unit names that are activated when this service enters a failed state.
+
+=== Install Parameters
+
+This section contains parameters you can use in the `[Install]` section of a service. These parameters are common to other _systemd_ units.
+
+This list is a summarized version. For a full list of these parameters and their descriptions, run `man systemd.unit`.
+
+Alias::
+    A space-separated list of additional names this service shall be installed under. The names listed here must have the same suffix (i.e. type) as the service filename.
+
+RequiredBy, WantedBy::
+    Defines the service as dependent of another service. This usually define the target to trigger an enabled service to run. These options are analogous to the `Requires` and `Wants` in the `[Units]` section.
+
+Also::
+    Additional units to install or uninstall when this service is installed or uninstalled.
+
+=== Service Parameters
+
+This section contains parameters you can use in the `[Service]` section of a service unit. These parameters are specific only to _systemd_ service units.
+
+This list is a summarized version. For a full list of these parameters and their descriptions, run `man systemd.unit`.
+
+Type::
+  Configures the process start-up type for this service service:
++
+* `simple` - The service starts as the main process. This is the default.
+* `forking` - The service calls forked processes and run as part of the main daemon.
+* `oneshot` - Similar to `simple`, except the process must exit before _systemd_ starts follow-up services.
+* `dbus` - Similar to `simple`, except the daemon acquires a name of the D-Bus bus.
+* `notify` - Similar to `simple`, except the daemon sends a notification message using `sd_notify` or an equivalent call after starting up.
+* `idle` - Similar to `simple`, except the execution of the service is delayed until all active jobs are dispatched.
+
+RemainAfterExit::
+  A boolean value that specifies whether the service shall be considered active even if all its processes exited. Defaults to no.
+
+GuessMainPID::
+  A boolean value that specifies whether _systemd_ should guess the main PID of a service if it cannot be determined reliably. This option is ignored unless `Type=forking` is set and `PIDFile` is not set. Defaults to yes.
+
+PIDFile::
+  An absolute filename pointing to the PID file of this daemon. Use of this option is recommended for services where `Type=forking`. _Systemd_ reads the PID of the main process of the daemon after start-up of the service. _Systemd_ does not write to the file configured here, although it removes the file after the service has shut down. 
+
+BusName::
+  A D-Bus bus name to reach this service. This option is mandatory for services where `Type=dbus`.
+
+ExecStart::
+  The commands and arguments executed when the service starts.
+
+ExecStartPre, ExecStartPost::
+  Additional commands that are executed before or after the command in `ExecStart`.
+
+ExecReload::
+  The commands and arguments to execute when the service reloads.
+
+ExecStop::
+  The commands and arguments to execute when the service stops. 
+
+ExecStopPost::
+  Additional commands to execute after the service stops.
+
+RestartSec::
+  The time in seconds to sleep before restarting a service.
+
+TimeoutStartSec::
+  The time in seconds to wait for the service to start.
+
+TimeoutStopSec::
+  The time in seconds to wait for the service to stop.
+
+TimeoutSec::
+  A shorthand for configuring both `TimeoutStartSec` and `TimeoutStopSec` simultaneously. 
+
+RuntimeMaxSec::
+  A maximum time in seconds for the service to run. Pass `infinity` (the default) to configure no runtime limit.
+
+Restart::
+  Configures whether to restart the service when the service's process exits, is killed, or reaches a timeout:
++
+* `no` - The service will not be restarted. This is the default.
+* `on-success` - Restart only when the service process exits cleanly (exit code 0).
+* `on-failure` - Restart only when the service process does not exit cleanly (node-zero exit code).
+* `on-abnormal` - Restart if the process terminates with a signal or when a timeout occurs.
+* `on-abort` - Restart if the process exits due to an uncaught signal not specified as a clean exit status.
+* `always` - Always restart.
+
+
+
+== Mapping runlevels to targets
+
+_Systemd_ targets serve a similar purpose to SysVinit runlevels but act a little differently. Each target has a name instead of a number and each serves a specific purpose. _Systemd_ implements some targets by inheriting all of the services of another target and adding additional services to it. Some _systemd_ targets mimic the common sysvinit runlevels, which means you can switch targets with the familiar `telinit RUNLEVEL` command. The runlevels assigned a specific purpose on vanilla Fedora installs (0, 1, 3, 5, and 6) have a 1:1 mapping with a specific _systemd_ target.
+
+However, this is not the case for user-defined runlevels 2 and 4. To make use of those runlevels, create a new named _systemd_ target such as `/etc/systemd/system/$YOURTARGET` that takes one of the existing runlevels as a base, make a directory `/etc/systemd/system/$YOURTARGET.wants`, and then symlink the additional services to enable into that directory.
+
+The following is a mapping of SysVinit runlevels to _systemd_ targets.
+
+[cols="2,5,5",options="header"]
+.Runlevel to target mapping
+|===
+|Sysvinit Runlevel |systemd Target |Notes
+
+|0 |runlevel0.target, poweroff.target |Halt the system.
+
+|1, s, single |runlevel1.target, rescue.target |Single user mode.
+
+|2, 4 |runlevel2.target, runlevel4.target, multi-user.target
+|User-defined/Site-specific runlevels. By default, identical to 3.
+
+|3 |runlevel3.target, multi-user.target |Multi-user, non-graphical.
+Users can usually login via multiple consoles or via the network.
+
+|5 |runlevel5.target, graphical.target |Multi-user, graphical. Usually
+has all the services of runlevel 3 plus a graphical login.
+
+|6 |runlevel6.target, reboot.target |Reboot
+
+|emergency |emergency.target |Emergency shell
+|===
+
+
+
+== Mapping service commands
+
+The following table demonstrates the _systemd_ equivalent of SysVinit commands.
+
+NOTE: All recent versions of `systemctl` assume the `.service` suffix if left off the service name. For example, `systemctl start frobozz.service` is the same as `systemctl start frobozz`.
+
+[cols=",,",options="header",]
+|===
+|Sysvinit Command |systemd Command |Notes
+|`service frobozz start`|`systemctl start frobozz`|Used to start a service (not reboot persistent)
+
+|`service frobozz stop`|`systemctl stop frobozz`|Used to stop a service (not reboot persistent)
+
+|`service frobozz restart`|`systemctl restart frobozz`|Used to stop and then start a service
+
+|`service frobozz reload`|`systemctl reload frobozz`|When supported, reloads the config file without interrupting pending operations.
+
+|`service frobozz condrestart`|`systemctl condrestart frobozz`|Restarts if the service is already running.
+
+|`service frobozz status`|`systemctl status frobozz`|Tells whether a service is currently running.
+
+|`ls /etc/rc.d/init.d/`|`systemctl` or `systemctl list-unit-files --type=service` or +
+`ls /lib/systemd/system/\*.service /etc/systemd/system/*.service`|Used to list the services that can be started or stopped +
+Used to list all the services and other units
+
+|`chkconfig frobozz on`|`systemctl enable frobozz`|Turn the service on, for start at next boot, or other trigger.
+
+|`chkconfig frobozz off`|`systemctl disable frobozz`|Turn the service off for the next reboot, or any other trigger.
+
+|`chkconfig frobozz`|`systemctl is-enabled frobozz`|Used to check whether a service is configured to start or not in the current environment.
+
+|`chkconfig --list`|`systemctl list-unit-files --type=service` or `ls /etc/systemd/system/*.wants/`|Print a table of services that lists which runlevels each is configured on or off
+
+|`chkconfig --list \| grep 5:on`|`systemctl list-dependencies graphical.target`|Print a table of services that will be started when booting into graphical mode
+
+|`chkconfig frobozz --list`|`ls /etc/systemd/system/*.wants/frobozz.service`|Used to list what levels this service is configured on or off
+
+|`chkconfig frobozz --add`|`systemctl daemon-reload`|Used when you create a new service file or modify any configuration
+|===
+
+NOTE: All `/sbin/service` and `/sbin/chkconfig` commands listed in the table continue to work on _systemd_-based systems and are translated to native equivalents as necessary. The only exception is `chkconfig --list`.
+
+
+
+== Additional resources
+
+* http://www.freedesktop.org/wiki/Software/systemd[Project homepage]
+* http://0pointer.de/blog/[Lennart Poettering's blog] with lots of information about _systemd_. Lennart is the primary _systemd_ developer
+* http://www.freedesktop.org/wiki/Software/systemd/FrequentlyAskedQuestions[freedesktop.org's _systemd_ FAQ]
+* http://www.freedesktop.org/wiki/Software/systemd/TipsAndTricks[freedesktop.org's _systemd_ Tips & Tricks]
+* http://fosdem.org/2011/interview/lennart-poettering.html[Interview with the developer]
+
+
