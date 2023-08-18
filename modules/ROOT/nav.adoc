@@ -25,7 +25,7 @@
 * Adding and managing software
 ** xref:package-management.adoc[Package management system]
 ** xref:dnf.adoc[Using the DNF software package manager]
-** xref:repositories.adoc[Fedora Repositories]
+** xref:fedora-repositories.adoc[Fedora Repositories]
 ** xref:finding-and-installing-linux-applications.adoc[Finding and installing Linux applications]
 ** xref:adding-or-removing-software-repositories-in-fedora.adoc[Adding or removing software repositories in Fedora]
 ** xref:rpmfusion-setup.adoc[Enabling the RPM Fusion repositories]
