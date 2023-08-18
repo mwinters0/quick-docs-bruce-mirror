@@ -1,4 +1,3 @@
-[[how_to_create_a_samba_share]]
 = How to create a Samba share
 Alessio, Peter Lilley, Petr Bokoc 
 :revnumber: F32
