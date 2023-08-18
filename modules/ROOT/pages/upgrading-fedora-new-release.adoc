@@ -50,7 +50,7 @@ This is the recommended upgrade method for all other Fedora installations.
 This method is used to a upgrade Fedora installation using the command-line.
 It is also used to troubleshoot issues with packages preventing the graphical method from upgrading.
 
-For instructions on upgrading with the DNF system upgrade plugin, refer to the xref:dnf-system-upgrade.adoc[DNF System Upgrade] page.
+For instructions on upgrading with the DNF system upgrade plugin, refer to the xref:upgrading-fedora-offline.adoc[DNF System Upgrade Plugin] page.
 
 == Upgrading between major versions in Fedora Silverblue
 
@@ -68,7 +68,7 @@ For instructions on upgrading Fedora Silverblue Host, refer to the link:++https:
 This is not a supported upgrade method.
 ====
 
-Upgrading between Fedora releases without the xref:dnf-system-upgrade.adoc[DNF System Upgrade plugin] or <<sect-upgrading-to-the-next-fedora-workstation-release,GNOME Software>> are not tested by the Fedora QA team, and are therefore not supported by the community. You can follow xref:upgrading-fedora-online.adoc[Upgrading Fedora using package manager], but you're doing that *at your own risk*.
+Upgrading between Fedora releases without the xref:upgrading-fedora-offline.adoc[DNF System Upgrade plugin] or xref:#_upgrading_to_the_next_fedora_workstation_release.adoc[GNOME Software] are not tested by the Fedora QA team, and are therefore not supported by the community. You can follow xref:upgrading-fedora-online.adoc[Upgrading Fedora using package manager], but you're doing that *at your own risk*.
 
 == Upgrading from pre-release (beta) to final public release (stable)
 
@@ -82,15 +82,14 @@ They are *NOT SUITABLE* for regular day-to-day use unless you are a fairly exper
 You should read through those pages carefully before deciding to run Branched or Rawhide.
 See the link:++https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle++[Fedora Life Cycle] for more information on how the whole Fedora cycle works from Rawhide, to Branched, to the milestone releases (Beta), to the 'Final' release.
 
-Upgrading to a Branched release or to Rawhide can be done using xref:dnf-system-upgrade.adoc[DNF System Upgrade].
+Upgrading to a Branched release or to Rawhide can be done using xref:upgrading-fedora-offline.adoc[DNF System Upgrade].
 
 == Can I upgrade from an End Of Life (EOL) release?
 
 Fedora strongly discourages running an end-of-life release on any production system, or any system connected to the public internet.
 You should never allow a production Fedora deployment to reach end-of-life in the first place.
 
-With that in mind, if you do have an end-of-life release installed on a system you cannot just discard or re-deploy, you upgrade using xref:dnf-system-upgrade.adoc[DNF System Upgrade].
-Note that upgrades are only tested from the two previous releases.
+With that in mind, if you do have an end-of-life release installed on a system you cannot just discard or re-deploy, you upgrade using xref:upgrading-fedora-offline.adoc[DNF System Upgrade]. Note that upgrades are only tested from the two previous releases.
 
 === Upgrading using the Fedora installer (anaconda)?
 
