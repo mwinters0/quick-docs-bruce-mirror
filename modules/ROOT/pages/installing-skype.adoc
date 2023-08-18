@@ -6,7 +6,6 @@ alciregi; Man2Dev ; The Fedora Docs Team
 :tags: How-to 
 
 
-// include::{partialsdir}/3rdparty-message.adoc[]
 include::partial$3rdparty-message.adoc[]
 
 

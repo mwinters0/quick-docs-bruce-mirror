@@ -13,9 +13,9 @@ Connor Lim; Petr Bokoc; Mirek Jahoda
 
 This section explains:
 
-* xref:securing-the-system-by-keeping-it-up-to-date.adoc#why-it-is-important-to-keep-your-system-up-to-date[Why it is important to update your system regularly]
-* How to apply updates manually by using the xref:securing-the-system-by-keeping-it-up-to-date.adoc#manual-updating-using-gui[GUI] or xref:securing-the-system-by-keeping-it-up-to-date.adoc#manual-updating-using-cli[CLI]
-* xref:securing-the-system-by-keeping-it-up-to-date.adoc#setting-automatic-updates[How to enable automatic updates]
+* xref:securing-the-system-by-keeping-it-up-to-date.adoc#_why_it_is_important_to_keep_your_system_up_to_date[Why it is important to update your system regularly]
+* How to apply updates manually by using the xref:securing-the-system-by-keeping-it-up-to-date.adoc#_manual_updating_using_gui[GUI] or xref:securing-the-system-by-keeping-it-up-to-date.adoc#_manual_updating_using_cli[CLI]
+* How to xref:securing-the-system-by-keeping-it-up-to-date.adoc#_setting_automatic_updates[enable automatic updates]
 
 
 

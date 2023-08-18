@@ -68,7 +68,7 @@ For instructions on upgrading Fedora Silverblue Host, refer to the link:++https:
 This is not a supported upgrade method.
 ====
 
-Upgrading between Fedora releases without the xref:upgrading-fedora-offline.adoc[DNF System Upgrade plugin] or xref:#_upgrading_to_the_next_fedora_workstation_release.adoc[GNOME Software] are not tested by the Fedora QA team, and are therefore not supported by the community. You can follow xref:upgrading-fedora-online.adoc[Upgrading Fedora using package manager], but you're doing that *at your own risk*.
+Upgrading between Fedora releases without the xref:upgrading-fedora-offline.adoc[DNF System Upgrade plugin] or xref:#_upgrading_to_the_next_fedora_workstation_release[GNOME Software] are not tested by the Fedora QA team, and are therefore not supported by the community. You can follow xref:upgrading-fedora-online.adoc[Upgrading Fedora using package manager], but you're doing that *at your own risk*.
 
 == Upgrading from pre-release (beta) to final public release (stable)
 

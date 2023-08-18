@@ -6,6 +6,7 @@
 :tags: How-to Video  
 //:page-aliases: 
 
+include::partial$3rdparty-message.adoc[]
 
 == Description
 https://www.zoom.us[Zoom Video Communications]. Inc. is an American communications technology company headquartered in San Jose, California.
