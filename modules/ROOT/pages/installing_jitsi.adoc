@@ -1,6 +1,18 @@
 [id='installing_jitsi']
 
 == Installing Jitsi
+N.N.
+:revnumber: unspecified
+:revdate: 2020
+:category: Software Installation
+:tags: How-to   Jitsi
+// :page-aliases:
+// :experimental:
+
+[WARNING]
+====
+This guide is completely outdated. It doesn't work anymore this way at all.
+====
 
 The installation instructions are similar to the official Debian/Ubuntu instructions. Notable differences are:
 

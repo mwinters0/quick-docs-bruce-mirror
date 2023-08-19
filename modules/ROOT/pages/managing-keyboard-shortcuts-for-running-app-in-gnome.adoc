@@ -1,20 +1,11 @@
-ifdef::context[:parent-context: {context}]
-:context: managing-keyboard-shortcuts-for-running-app-in-gnome
-:experimental:
-
-[id='managing-keyboard-shortcuts-for-running-app-in-gnome']
 = Managing keyboard shortcuts for running an application in GNOME
-
-:md: en-US/modules
-
-:leveloffset: +1
-
-include::{partialsdir}/proc_adding-shortcut-custom-app-gnome.adoc[]
-include::{partialsdir}/proc_disabling-shortcut-custom-app-gnome.adoc[]
-include::{partialsdir}/proc_enabling-shortcut-custom-app-gnome.adoc[]
-include::{partialsdir}/proc_removing-shortcut-custom-app-gnome.adoc[]
-
-:leveloffset: 0
+Rekha K Raj 
+:revnumber: unspecified
+:revdate: 2020-03-16
+:category: Administration
+:tags: How-to   Gnome
+// :page-aliases:
+// :experimental:
 
 ////
 info sources:
@@ -27,5 +18,173 @@ https://askubuntu.com/questions/26056/where-are-gnome-keyboard-shortcuts-stored
 
 tested on F28 live CD in VM
 ////
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+
+== Adding keyboard shortcuts for custom applications in GNOME
+
+This section describes how to add a keyboard shortcut for starting a custom application in GNOME.
+
+[discrete]
+=== Procedure
+
+. Open *Settings* and choose the *Devices* entry from the list:
++
+image::shortcuts-settings-devices.png[]
++
+NOTE: Earlier Fedora versions might not need this step.
+
+. Choose the *Keyboard Shortcuts* entry from the list and scroll down to the bottom of the list of keyboard shortcuts:
++
+image::shortcuts-keyboard-scroll.png[]
+
+. Click the *+* button at the bottom of the list.
++
+A window for entering the details appears:
++
+image::shortcuts-add-empty.png[]
+
+. Fill in details for the application.
++
+image::shortcuts-add-filled.png[]
++
+Replace _My Application_ with the name of the application and _myapp --special options_ with the command to run this application, including any options.
+
+. Click the *Set shortcut...* button.
++
+A window for entering the keyboard shortcut appears:
++
+image::shortcuts-add-enter.png[]
+
+. Press the key combination that should become the shortcut for starting the application.
++
+As soon as you release the key combination, the window for entering the shortcut closes. The window for application name and command now displays the entered shortcut:
++
+image::shortcuts-add-shortcut.png[]
+
+. Click the *Add* button.
++
+Your application shortcut now appears in the list under _Custom Shortcuts_:
++
+image::shortcuts-added.png[]
+
+// optional - close settings?
+
+////
+info sources:
+
+http://ask.fedoraproject.org/en/question/9623/how-can-i-set-a-key-shortcut-to-launch-terminal-under-gnome/
+https://help.gnome.org/users/gnome-help/stable/keyboard-shortcuts-set.html.en
+////
+
+
+
+== Disabling keyboard shortcuts for custom applications in GNOME
+
+This section describes how to disable a keyboard shortcut for starting a custom application in GNOME.
+
+[discrete]
+=== Procedure
+
+. Open *Settings* and choose the *Devices* entry from the list:
++
+image::shortcuts-settings-devices.png[]
++
+NOTE: Earlier Fedora versions might not need this step.
+
+. Choose the *Keyboard Shortcuts* entry from the list and scroll down to the bottom of the list of keyboard shortcuts:
++
+image::shortcuts-keyboard-scroll.png[]
+
+. Scroll down in the list of shortcuts and applications until you locate the application that you want to disable:
++
+image::shortcuts-added.png[]
+
+. Click on the entry.
++
+A window for editing the shortcut appears:
++
+image::shortcuts-edit.png[]
+
+. Click the small *x* button to the right of the displayed shortcut.
++
+The keyboard shortcut is removed from this shortcut and the shortcut list now displays _Disabled_ instead of the key combination:
++
+image::shortcuts-disabled.png[]
+
+. Close the shortcut editing window.
+
+
+
+
+include::{partialsdir}/proc_enabling-shortcut-custom-app-gnome.adoc[]
+[id='enabling-shortcut-custom-app-gnome']
+== Enabling keyboard shortcuts for custom applications in GNOME
+
+This section describes how to enable a keyboard shortcut for starting a custom application in GNOME.
+
+. Open *Settings* and choose the *Devices* entry from the list:
++
+image::shortcuts-settings-devices.png[]
++
+NOTE: Earlier Fedora versions might not need this step.
+
+. Choose the *Keyboard* entry from the list and scroll down to the bottom of the list of keyboard shortcuts:
++
+image::shortcuts-keyboard-scroll.png[]
+
+. Scroll down in the list of shortcuts and applications until you locate the application that you want to enable:
++
+image::shortcuts-list-disabled.png[]
+
+. Click on the entry.
++
+A window for editing the shortcut appears:
++
+image::shortcuts-disabled.png[]
+
+. Click the *Set shortcut...* button.
++
+A window for entering the keyboard shortcut appears:
++
+image::shortcuts-enabling-entering.png[]
+
+. Press the key combination that should become the shortcut for starting the application.
++
+As soon as you release the key combination, the window for entering the shortcut closes. The window for application name and command now displays the entered shortctut:
++
+image::shortcuts-enabling-entered.png[]
+
+. Close the shortcut editing window.
+
+
+
+== Removing keyboard shortcuts for custom applications in GNOME
+
+This section describes how to remove a keyboard shortcut for starting a custom application in GNOME.
+
+[discrete]
+=== Procedure
+
+. Open *Settings* and choose the *Devices* entry from the list:
++
+image::shortcuts-settings-devices.png[]
++
+NOTE: Earlier Fedora versions might not need this step.
+
+. Choose the *Keyboard* entry from the list and scroll down to the bottom of the list of keyboard shortcuts:
++
+image::shortcuts-keyboard-scroll.png[]
+
+. Scroll down in the list of shortcuts and applications until you locate the application that you want to remove:
++
+image::shortcuts-added.png[]
+
+. Click on the entry.
++
+A window for editing the shortcut appears:
++
+image::shortcuts-edit.png[]
+
+. Click the red *Remove* button.
++
+The shortcut is removed.
+

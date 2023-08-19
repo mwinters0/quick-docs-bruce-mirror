@@ -1,4 +1,11 @@
 = Package management system
+Caleb McKee ; Otto Urpelainen; Ben Cotton 
+:revnumber: unspecified
+:revdate: 2022-05-04
+:category: Administration
+:tags: How-to   
+// :page-aliases:
+
 
 [[package-management-system]]
 Package Management System
@@ -104,10 +111,9 @@ Here are some tools for managing packages:
 * https://www.freedesktop.org/software/PackageKit/[PackageKit] -
 PackageKit gui tool ('add/remove software' in your menu)
 * https://wiki.gnome.org/Apps/Software[GNOME Software] - ­Graphical package manager for GNOME
-* https://apps.kde.org/discover/[KDE Discover] - Graphical pacakge manager for KDE Plasma
+* https://apps.kde.org/discover/[KDE Discover] - Graphical package manager for KDE Plasma
 * https://rpm.org[rpm] - RPM package manager.
-* https://github.com/timlau/yumex-dnf[yumex] - Yum Extender.
-'''
+* https://github.com/timlau/yumex-dnf[yumex] - Yum Extender
 
 See a typo, something missing or out of date, or anything else which can be
 improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
