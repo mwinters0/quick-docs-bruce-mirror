@@ -1,7 +1,16 @@
 = How to use QEMU
+Richard Gregory
+:revnumber: unspecified
+:revdate: 2020-11-05
+:category: Virtualisation
+:tags: How-to  Qemu 
+// :page-aliases:
 
+
+
+[abstract]
 QEMU is a very flexible virtualization technology however it is quite slow and it is recommended that you understand and evaluate alternative solutions before picking this one.
-Refer to https://fedoraproject.org/wiki/Getting_started_with_virtualization[Getting started with virtualization]
+Refer to xref:getting-started-with-virtualization.adoc[Getting started with virtualization]
 
 [[qemu]]
 == QEMU
@@ -18,15 +27,15 @@ QEMU has two operating modes:
 [[download]]
 == Download
 
-QEMU is available on Fedora repository. It can be installed by using https://fedoraproject.org/wiki/dnf[DNF]:
+QEMU is available on Fedora repository. It can be installed by using xref:dnf.adoc[DNF]:
 
 ....
 $ su -c "dnf install qemu"
 ....
 
 
-[[qemu-commands-since-f]]
-== QEMU commands since F?+
+[[qemu-commands]]
+== QEMU commands
 
 To discover the qemu commands that are installed perform the following:
 

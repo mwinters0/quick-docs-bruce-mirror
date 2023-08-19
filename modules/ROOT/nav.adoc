@@ -53,7 +53,7 @@
 ** xref:create-gpg-keys.adoc[Creating GPG Keys]
 ** xref:grub2-bootloader.adoc[The GRUB2 Bootloader]
 ** xref:root-account-locked.adoc[Root Account Locked]
-** xref:proc_setting-key-shortcut.adoc[Setting a key shortcut to run an application in GNOME]
+** xref:gnome-setting-key-shortcut.adoc[Setting a key shortcut to run an application in GNOME]
 ** xref:disabling-automatic-screenlock.adoc[Disabling the GNOME automatic screen locking]
 ** xref:viewing-logs.adoc[Viewing logs in Fedora]
 ** xref:encrypting-drives-using-LUKS.adoc[Encrypting drives using LUKS]
