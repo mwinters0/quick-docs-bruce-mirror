@@ -1,11 +1,11 @@
-= ScreenCast – Comparison of Applications and how to use them
+= Screen Recorder – Comparison of Applications and How to Use Them
 Ankursinha; Brunovernay; Hhlp 
 :revnumber: unknown
 :revdate: 2021-02-14
 :category: Multimedia
-:tags: How-to Screen-casting  
+:tags: How-to Screen-recorder  
 :experimental:
-//:page-aliases: 
+:page-aliases: screencast-apps-comparison.adoc
 
 
 == Using Gnome's native screencast tool
@@ -77,6 +77,16 @@ After that, SimpleScreenRecorder can be installed with this command:
 ----
 sudo dnf install simplescreenrecorder
 ----
+
+
+== OBS Studio
+
+Open Broadcaster Software is available for Linux, Mac and Windows. It can perform recording as well as screencast. The recording functions seem similar to that of the simplescreenrecorder.
+
+
+== Recording Web apps or Web pages
+
+This is a special case, and tools designed for this task can achieve a better result. Chrome has plugins to do the job. 
 
 == Advanced Topics: Adding Audio
 
