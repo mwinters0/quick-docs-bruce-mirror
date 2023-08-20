@@ -75,11 +75,8 @@
 ** xref:using-yubikeys.adoc[Using Yubikeys with Fedora]
 ** xref:debug-systemd-problems.adoc[How to debug systemd problems]
 ** xref:enable-touchpad-click.adoc[How to enable touchpad click]
-** xref:screencast-apps-comparison.adoc[ScreenCast – Comparison of Applications and How to Use them]
-** Jitsi
-*** xref:getting_started_with_jitsi.adoc[Getting started with Jitsi]
-*** xref:installing_jitsi.adoc[Installing Jitsi]
-*** xref:configuring_jitsi.adoc[Configuring Jitsi]
+** xref:screenrecorder-apps-comparison.adoc[Screen Recorder – Comparison of Applications in Fedora and How to Use them]
+** xref:jitsi-getting-started.adoc[Jitsi – Getting Started]
 
 ** NVIDIA
 *** xref:bumblebee.adoc[NVIDIA Optimus Bumblebee]

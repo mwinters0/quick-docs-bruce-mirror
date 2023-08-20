@@ -1,3 +1,83 @@
+= Jitsi – Getting Started 
+quiet
+:revnumber: unspecified
+:revdate: 2020
+:category: Software Installation
+:tags: How-to   Jitsi
+// :page-aliases:
+// :experimental:
+
+
+[WARNING]
+====
+This guide is badly outdated. It doesn't work anymore this way at all.
+====
+
+
+Jitsi video conferencing stack enables users to create virtual meetings, conferences, and collaboration sessions among other notable use-cases. Jitsi video conferencing stack provides:
+
+* Jitsi Meet (`jitsi-meet`): a web-based client application used by conference participants 
+
+* Jitsi Videobridge (`jitsi-videobridge`): a server-side component of the Jitsi stack. Acts as a central hub for video conferences, where participants can join by accessing a uniquely generated conference URL from the server. Jitsi Videobridge conducts negotiation of audio and video streams between conference participants and also provides the necessary infrastructure for seamless experience.
+
+* Webserver configurations (`jitsi-meet-nginx`) and (`jitsi-meet-apache`): components that help serve the Jitsi Meet web client to handle incoming HTTPS requests.
+
+* Configuration for Prosody (`jitsi-meet-prosody`): a server-side component providing user authentication and management, conference room management. Ensures secure communication within Jitsi video conferencing stack.
+
+* Jicofo (`jicofo`): a server-side component for conference management, participant control and media routing.  
+
+
+== Installing Jitsi
+
+
+The installation instructions are similar to the official Debian/Ubuntu instructions. Notable differences are:
+
+* Slightly different file locations
+* The `Jicofo` and `Jitsi Videobridge` components log to `syslog` instead of to their own logfiles.
+* The `Jicofo` component runs from a service, not from an `init` script.
+
+.Prerequisites
+
+* Small server, which is accessible from the Internet
+* Domain name and an SSL certificate for that domain
+
+
+.Procedure
+
+. Enable the `jitsi` repository:
++
+----
+$ sudo dnf copr enable lcts/jitsi
+----
+
+
+. Install the `jitsi` meta package to be able to configure a Jitsi server:
++
+----
+$ sudo dnf install jitsi
+----
++
+Alternatively, you can install other packages from the `jitsi` repository:
++
+* `jitsi-meet` - the Jitsi Meet web app
+* `jitsi-meet-nginx` - Jitsi configuration for NGinx
+* `jitsi-meet-apache` -Jitsi configuration for Apache
+* `jitsi-meet-prosody` - Jitsi configuration for Prosody
+* `jitsi-videobridge` - the Jitsi Videobridge component
+* `jicofo` - the Jitsi Conference Focus component
+
+
+.Additional resources
+
+* After installation, you need to configure all packages before you use them. For more information, see the `/usr/share/doc/<package>/README-fedora.md` file.
+
+* You can report issues with packages at link:https://pagure.io/jitsi-rpm/issues[jitsi-rpm queue].
++
+[IMPORTANT]
+====
+If you encounter problems with software, contact the respective upstream developers.
+====
+
 == Configuring Jitsi
 
 After installation, you need to perform a few additional configuration steps. The steps consist of replacing various placeholder variables with your values to ensure that Jitsi is correctly configured to work in your specific deployment. The placeholders are identified by underscores for example `\___variableName___`.
@@ -162,3 +242,4 @@ $ sudo systemctl enable --now jitsi-videobridge.service
 * `/etc/sysconfig/jitsi-videobridge`
 
 
+For more information see link:https://jitsi.org/[jitsi]
