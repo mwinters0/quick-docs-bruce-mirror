@@ -1,15 +1,49 @@
-ifdef::context[:parent-context: {context}]
-:context: gnome-boxes
-[id='installing-virtual-operating-systems-with-gnome-boxes-{context}']
 = Installing virtual operating systems with GNOME Boxes
+Ankursinha; Brunovernay; Hhlp 
+:revnumber: unknown
+:revdate: 2021-02-14
+:category: Multimedia
+:tags: How-to Screen-recorder  
+:experimental:
+//:page-aliases: 
 
-:md: en-US/modules
-:imagesdir: ../images
 
+[abstract]
 GNOME Boxes is an application in GNOME Desktop Environment, which enables you to virtually access various operating systems.
 
-:leveloffset: +1
-include::{partialsdir}/proc_install-predefined-systems.adoc[]
-:leveloffset: -1
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+== Installing a virtual operating system from the list of predefined systems
+
+To install a virtual operating system:
+
+. Run *GNOME Boxes* using the *Super* key and type `Boxes`. In GNOME Boxes, click the *+* button and then *Create a Virtual Machine*.
++
+image::Boxes_new_machine.png[New machine]
+
+. Download an operating system.
++
+image::Download_os.png[Download your system]
+
++
+Choose one of the predefined systems from the list.
++
+image::Select_virtual_machine.png[Select machine]
+Alternatively, download an ISO image from the relevant website and select the file as shown in the screen below:
++
+image::Select_from_file.png[Select from file]
++
+. Review your installation.
++
+image::Installation_review.png[Installation review]
++
+To modify resources of the installed virtual operating system, such as RAM or disk size, click the *Customize* button.
++
+image::Customize_resources.png[Customize resources]
++
+. To start the installation of the virtual operating system, click the *Create* button.
++
+The actual installation process may differ based on the selected operating system.
++
+Installed systems are available to run in the main menu of *GNOME Boxes*.
++
+image::Select_from_boxes_menu.png[Select operating system]
+

@@ -1,9 +1,16 @@
-ifdef::context[:parent-context: {context}]
-:context: assembly_installing-mysql-mariadb
 = Installing MySQL/MariaDB
+Alessio ; Héctor Louzao ; Ankur Sinha
+:revnumber: F37
+:revdate: 2022-06-10
+:category: Databases
+:tags: How-to MySQL MariaDB
+//:page-aliases: 
 
+
+[abstract]
 MySQL is a popular RDBMS (Relational Database Management System). MariaDB was born as a fork of MySQL.
 Nowadays the two products are a little bit different. Migrating data from one system to the other could not be a trivial task.
+
 
 MariaDB is fully GPLv2 licensed while MySQL has two licensing options, GPLv2 (for the Community edition) and Enterprise.
 
@@ -17,12 +24,447 @@ NOTE: MariaDB and MySQL packages conflict because they provide similar files. So
 
 In addition you can also install MySQL commmunity edition (8.0 or 5.7) from the repository maintained by Oracle/MySQL itself.
 
-include::{partialsdir}/proc_installing-mysql-from-oracle.adoc[leveloffset=+1]
-include::{partialsdir}/proc_installing-mysql-from-fedora-repo.adoc[leveloffset=+1]
-include::{partialsdir}/proc_installing-mysql-from-container.adoc[leveloffset=+1]
-include::{partialsdir}/proc_using-mysql-mariadb.adoc[leveloffset=+1]
-include::{partialsdir}/proc_expose-outside-mysql.adoc[leveloffset=+1]
-include::{partialsdir}/proc_troubleshooting-mysql.adoc[leveloffset=+1]
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+
+//include::{partialsdir}/proc_installing-mysql-from-oracle.adoc[leveloffset=+1]
+//[id='install-from-oracle-mysql']
+== Install from Oracle MySQL
+
+include::{partialsdir}/3rdparty-message.adoc[]
+
+=== Adding the MySQL repository to Fedora
+
+Please download the release package provided by Oracle from: https://dev.mysql.com/downloads/repo/yum/
+Once downloaded, please install it using dnf:
+
+----
+sudo dnf install <path to downloaded rpm>
+----
+
+Please note that this repository is provided by Oracle
+so any issues/bugs encountered will need to be reported to them
+via their communication channels: https://www.mysql.com/about/faq/
+
+=== Installing MySQL on Fedora
+
+----
+sudo dnf install mysql-community-server
+----
+
+=== Start MySQL Service and Enable at Loggin:
+
+----
+sudo systemctl start mysqld
+sudo systemctl enable mysqld
+----
+
+find Default Password,  For security reasons, MySQL generates a temporary root key. Please note that MySQL has even stricter security policies than MariaDB.
+
+----
+sudo grep 'temporary password' /var/log/mysqld.log
+----
+
+=== Configuring MySQL before the first use
+
+----
+sudo mysql_secure_installation
+----
+
+Then, answer the security questions as you prefer. or just say **yes** to all of them.
+
+=== Using MySQL
+
+----
+sudo mysql -u root -p
+----
+
+=== Removing MySQL
+
+I suggest to remove in the following way, the most appropriate and safe way without removing many dependencies is:
+
+----
+sudo rpm -e --nodeps mysql-community-libs mysql-community-common mysql-community-server
+----
+
+
+
+//include::{partialsdir}/proc_installing-mysql-from-fedora-repo.adoc[leveloffset=+1]
+//[id='install-from-fedora-main-repo']
+== Install from Fedora Main Repo
+
+The community provide a MySQL package in the main repo.
+
+----
+sudo dnf install {community-mysql-server|mariadb-server}
+----
+
+=== Configuring MySQL/MariaDB
+
+Enable the service at boot and start:
+
+----
+sudo systemctl enable {mysqld|mariadb}
+sudo systemctl start  {mysqld|mariadb}
+----
+
+=== Installing MariaDB server from the Fedora Modular repository
+
+To list the available versions (_streams_ in modularity terminology) of MariaDB:
+
+----
+dnf module list mariadb
+----
+
+To enable the version of MariaDB you want to use and make the stream RPMs available in the package set:
+
+----
+sudo dnf module enable mariadb:10.4
+----
+
+At this point you can verify that the available RPM provides the 10.4 verison of MariaDB server:
+
+----
+dnf list mariadb-server
+----
+
+To install MariaDB server:
+
+----
+sudo dnf module install mariadb/server
+----
+
+With modules, you could also install a specific profile: like client, devel or galera (the multi-master replica).
+For instance, if you don't want to install the server stuff, but only the client packages:
+
+----
+sudo dnf module install mariadb:10.4/client
+----
+
+* MariaDB default root password is empty.
+
+=== Configuring SQL before the first use
+
+----
+sudo mysql_secure_installation
+----
+
+Some questions will be asked: answer to them as you prefer; answering _yes_ to all of them is perfectly fine.
+
+=== Using SQL
+
+----
+sudo mysql -u root -p                                                                     
+----
+
+=== Removing SQL
+
+I suggest to remove in the following way:
+
+----
+sudo dnf remove {community-mysql-server|mariadb-server}
+----
+
+
+
+
+//include::{partialsdir}/proc_installing-mysql-from-container.adoc[leveloffset=+1]
+//[id='install-from-container']
+== Install from Podman
+
+=== Downloading a SQL Server Docker Image
+
+----
+podman pull {mysql/mysql-server|mariadb/server}
+----
+
+=== See Logs
+
+----
+podman logs {mysql|mariadb}
+----
+
+=== Starting a MySQL Server Instance
+
+The command's below contain the random password generated for the root user;
+
+----
+podman logs mysql 2>&1 | grep GENERATED                                                   
+----
+
+----
+podman  -d -e MYSQL_ROOT_PASSWORD=mypassword mysql/mysql-Server
+----
+
+=== Starting a MariaDB Server Instance 
+
+----
+podman run -d --name=mariadb -ed MYSQL_ROOT_PASSWORD=mypassword -d mariadb/server
+----
+
+WARNING: Password blank default for MariaDB
+
+NOTE: The -d option used for _BOTH_ in the podman run command above makes the container run in the background. Use this command to monitor the output from the container:
+
+=== Connecting to MySQL Server from within the Container
+
+----
+podman exec -it mysql mysql -uroot -p
+----
+
+you must reset the server root password by issuing this statement:                        
+ 
+----
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';                            
+----
+
+=== Connecting to MariaDB Server from within the Container
+
+----
+podman exec -it mariadb bash
+----
+
+=== Reseting SQL_ROOT_PASSWORD
+
+you must reset the server root password by issuing this statement:                        
+
+----
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';                            
+----
+
+=== Stopping and Deleting a SQL Container
+
+----
+podman {start|stop|restart} {mysql|mariadb}
+----
+
+=== Deleting a SQL Container
+
+----
+podman rm {mysql|mariadb}
+----
+
+WARNING: you can do the same with _docker_ just change _podman_ with _docker_.
+
+
+
+//include::{partialsdir}/proc_using-mysql-mariadb.adoc[leveloffset=+1]
+== Using the RDBMS
+
+Connect to the MySQL/MariaDB shell using the `mysql` command.
+
+For both of them, the command is `mysql`. The syntax an the options are generally the same.
+
+----
+$ mysql -u root -p
+----
+
+Once gained access to the shell you can get the running version of the software:
+
+----
+mysql> SELECT version();
+----
+
+You can create a database:
+
+----
+mysql> create schema test;
+----
+
+Create a user:
+
+----
+mysql> GRANT ALL PRIVILEGES ON test.* TO 'my_user'@'localhost' IDENTIFIED BY 'PaSsWoRd';
+----
+
+List the available databases:
+
+----
+mysql> show schemas;
+----
+
+=== Files location
+
+The database disk storage is located in `/var/lib/mysql`.
+
+
+== How To Allow Remote Access MySQL/MariaDB/MYSQL Community
+
+=== Add New Rule to Firewalld
+
+Open SQL port (3306) on FireWalld:
+
+----
+sudo firewall-cmd --permanent --zone=public --add-service=mysql
+----
+
+### OR ###
+
+----
+sudo firewall-cmd --permanent --zone=public --add-port=3306/tcp
+----
+
+=== Restart firewalld.service
+
+----
+systemctl restart firewalld.service
+----
+
+=== Editing Conf. Files:
+
+Configuration files:
+
+* MySQL           -> `/etc/my.cnf/` 
+* MySQL Community -> `/etc/my.cnf.d/community-mysql-server.cnf`
+* MariaDB         -> `/etc/my.conf`
+
+NOTE: you can ensure that with the following command `rpm -qc [package]`.
+
+Navigate to the line that begins with the bind-address directive. It will look like this:
+you could set this directive to a wildcard IP address, either *, ::, or 0.0.0.0:
+
+----
+bind-address            = 0.0.0.0
+----
+
+After changing this line, save and close the file and then restart the MySQL service:
+
+----
+sudo systemctl restart {mysqld|mariadb}
+----
+
+=== Creating a USER
+
+----
+CREATE USER 'your_username'@'host_ip_addr' IDENTIFIED BY 'your_password';
+----
+
+NOTE: Replace your_username and your_password depending on what you want the username and password to be. Here, host_ip_addr is the hostname or IP address of the computer from where you want to connect to the MySQL/MariaDB server. You can also use % as host_ip_addr if you want to connect from any computer. It can also be something like 192.168.2.% if you want to connect from computers from the IP range 192.168.2.1 – 192.168.2.254.
+
+=== Allow Access
+
+----
+GRANT ALL PRIVILEGES ON *.* TO 'your_username'@'%';
+  IDENTIFIED BY 'my-new-password' WITH GRANT OPTION;
+----
+
+#### OR ####
+
+It is common for people to want to create a "root" user that can connect from anywhere, so as an example, we'll do just that, but to improve on it we'll create 
+a root user that can connect from anywhere on the local area network (LAN)
+
+----
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.100.%' 
+  IDENTIFIED BY 'my-new-password' WITH GRANT OPTION;
+----
+
+----
+FLUSH PRIVILEGES;
+----
+
+=== Connecting
+
+----
+mysql -u [USER] -h [IP] -p
+----
+
+
+
+//include::{partialsdir}/proc_troubleshooting-mysql.adoc[leveloffset=+1]
+//[id='how-to-troubleshoot-issues-in-sql'] 
+== How To Troubleshoot Issues in SQL
+
+Version:
+
+----
+dnf list installed | grep -i -e maria -e mysql -e galera
+----
+
+Check parameters in configuration file:
+
+* MySQL:
+
+----
+mysqld --print-defaults
+----
+
+* MariaDB/MySQL Comunnity:
+
+----
+/usr/libexec/mysqld --print-defaults
+----
+
+WARNING: Compatiblity between different version are not allowed Just install one of them.
+
+=== How to Access SQL Error Logs                                                           
+
+Oftentimes, the root cause of slowdowns, crashes, or other unexpected behavior in SQL can 
+In many cases, the error logs are most easily read with the less program, a command line u
+
+if SQL isn’t behaving as expected, you can obtain more information about the source of the
+
+* **systemctl status mysqld.service** doesn't start well, This information doesn’t explain
+  well what is happening?, after this command you should type `journalctl -xe -u mariadb -u mysqld`.
+* Look at Log files, can be located in `/var/log/mysql/mysqld.log` for MySQL, and `/var/log/mariabd` for MariaDB.
+
+=== How To Troubleshoot Socket Errors in SQL
+
+SQL manages connections to the database server through the use of a socket file, a special kind of file that facilitates communications between different processes. The MySQL server’s socket file is named mysqld.sock and on Ubuntu systems it’s usually stored in the /var/run/mysqld/ directory. This file is created by the MySQL service automatically.
+
+Sometimes, changes to your system or your SQL configuration can result in SQL being unable to read the socket file, preventing you from gaining access to your databases. The most common socket error looks like this:
+
+----
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+----
+
+There are a few reasons why this error may occur, and a few potential ways to resolve it.
+One common cause of this error is that the SQL service is stopped or did not start to begin with, meaning that it was unable to create the socket file in the first place. To find out if this is the reason you’re seeing this error, try starting the service with _systemctl_:
+
+----
+sudo systemctl start {mysqld|mariadb}
+----
+
+Then try accessing the MySQL prompt again. If you still receive the socket error, double check the location where your MySQL installation is looking for the socket file. This information can be found in the `mysqld.cnf` file:
+
+look for the socket parameter in the [mysqld] section of this file. It will look like this:
+
+----
+[mysqld]
+user            = mysql
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+port            = 3306
+----
+
+Close this file, then ensure that the mysqld.sock file exists by running an ls command on the directory where SQL expects to find it:
+
+----
+ls -a /var/run/mysqld/
+----
+
+If the socket file exists, you will see it in this command’s output:
+
+----
+mysqld.pid  mysqld.sock  mysqld.sock.lock
+----
+
+if the file does not exist, the reason may be that MySQL is trying to create it, but does not have adequate permissions to do so. You can ensure that the correct permissions are in place by changing the directory’s ownership to the mysql user and group:
+
+----
+sudo chown mysql:mysql /var/run/mysqld/
+----
+
+Then ensure that the mysql user has the appropriate permissions over the directory. Setting these to 775 will work in most cases:
+
+----
+sudo chmod -R 755 /var/run/mysqld/
+----
+
+Finally, restart the MySQL service so it can attempt to create the socket file again:
+
+----
+sudo systemctl restart {mysqld|mariadb}
+----
+
+Then try accessing the MySQL prompt once again. If you still encounter the socket error, there’s likely a deeper issue with your MySQL instance, in which case you should review the error log to see if it can provide any clues.
+
+

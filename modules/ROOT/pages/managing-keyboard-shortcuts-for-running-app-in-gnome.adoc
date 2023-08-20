@@ -77,6 +77,7 @@ https://help.gnome.org/users/gnome-help/stable/keyboard-shortcuts-set.html.en
 
 
 
+
 == Disabling keyboard shortcuts for custom applications in GNOME
 
 This section describes how to disable a keyboard shortcut for starting a custom application in GNOME.
@@ -114,9 +115,6 @@ image::shortcuts-disabled.png[]
 
 
 
-
-include::{partialsdir}/proc_enabling-shortcut-custom-app-gnome.adoc[]
-[id='enabling-shortcut-custom-app-gnome']
 == Enabling keyboard shortcuts for custom applications in GNOME
 
 This section describes how to enable a keyboard shortcut for starting a custom application in GNOME.
