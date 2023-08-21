@@ -119,7 +119,7 @@
 
 * Printing and scanning
 ** xref:how-to-debug-printing-problems.adoc[Troubleshooting printing issues]
-** xref:how-to-debug-scanning-problems.adoc[Troubleshooting scanning issues]
+** xref:how-to-debug-scanning-problems.adoc[How to debut scanning issues]
 ** xref:cups-useful-tricks.adoc[Useful tricks]
 ** xref:cups-terminology.adoc[Terminology]
 ** xref:cups-known-issues.adoc[Known issues]

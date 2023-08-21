@@ -1,4 +1,10 @@
 = Installing software from source on Fedora 
+ramin; Alan Bowman  
+:revnumber: F37
+:revdate: 2023-01-23
+:category: Software installation
+:tags: How-to 
+//:page-aliases: 
 
 Most of the software you will install on your Fedora system will either come from a desktop application manager tool such as the https://wiki.gnome.org/Apps/Software[GNOME Software tool] or from a command line package manager such as https://docs.fedoraproject.org/en-US/quick-docs/dnf/[dnf]. These tools make it easy to install, update, and if needed remove applications on your system. 
 
@@ -99,8 +105,9 @@ Your application is now installed. The README file or the application website wi
 
 NOTE: If you get any errors during the configure and build process, carefully read the error messages and follow the instructions on how to resolve them. There can be dependency issues for some applications, meaning that to install application C, you need to have applications A and B installed. Resolving dependency issues can be challenging and you might need to look for help online to help solve the problem.
 
-== See also [[see_also]]
+[discrete]
+== See also
 
-* https://www.gnu.org/software/make/[GNU Make (build and compile tool)documentation]  
+* https://www.gnu.org/software/make/[GNU Make (build and compile tool) documentation]  
 * https://www.gnu.org/software/tar/[GNU Tar documentation]  
 * https://www.gnu.org/software/gzip/[GNU Gzip documentation]  

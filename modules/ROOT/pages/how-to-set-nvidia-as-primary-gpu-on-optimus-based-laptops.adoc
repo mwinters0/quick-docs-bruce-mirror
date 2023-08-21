@@ -1,6 +1,14 @@
 = How to Set Nvidia as Primary GPU on Optimus-based Laptops
+Akashdeep Dhar ; Jun Aruga ; Ankur Sinha; 
+:revnumber: F37
+:revdate: 2022-09-12
+:category: Administration
+:tags: How-to Nvidia 
+//:imagesdir: ./images
+
 
 include::{partialsdir}/3rdparty-message.adoc[]
+
 
 == Introduction
 The objective is to enable NVIDIA GPU of an Optimus-based laptop *all the time* and use it for every single activity.

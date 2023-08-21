@@ -1,10 +1,122 @@
-ifdef::context[:parent-context: {context}]
-:context: how-to-debug-scanning-problems
-[id='how-to-debug-scanning-problems']
-= How to debug scanning problems
-:toc:
+= How to debug scanning issues
+Brandon Nielsen ; 
+:revnumber: unspecified
+:revdate: 2021-06-16
+:category: Troubleshooting
+:tags: How-to scanners 
 
-include::{partialsdir}/proc_cups-how-to-debug-scanning-issues.adoc[leveloffset=+1]
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+
+SANE library, communication libraries and backends can turn on and off debug logging via `SANE_DEBUG_*` environment variables.
+
+The common environment variables:
+
+* `SANE_DEBUG_DLL` - enables debugging SANE library
+* `SANE_DEBUG_SANEI_USB` - enables debugging communication library for USB - add the environment variable if your device is connected via USB cable
+* `SANE_DEBUG_SANEI_TCP` - enables debugging communication library for wireless/ethernet - add the environment variable if your device is connected by Wifi or Ethernet
+
+Environment variables for enabling debugging a specific backends have a structure - `SANE_DEBUG_<backend_name>`, so the environment variable for f.e. *HPAIO* backend is `SANE_DEBUG_HPAIO*`.
+
+You can find which SANE backend supports your device http://www.sane-project.org/sane-mfgs.html[here]. If your device is HP and it isn't supported by *airscan* backend or any other SANE backend, it can be supported by *hpaio* backend from *hplip* package, see the list of supported devices https://developers.hp.com/hp-linux-imaging-and-printing/supported_devices/index[here].
+
+== Debugging scanner discovery
+
+If you don't see your scanner in scanning application, then debugging of discovery process is in order. I prefer using [command]`scanimage` in the examples, but the similar steps can be applied for every scanning application like [command]`xsane`, [command]`scanadf`, [command]`simple-scan` etc.
+
+You will need to use environment variables when you start a scanning application ([command]`scanimage` in this case). The environment variables used with [command]`scanimage` command depends on how your scanner is connected and which backend suppose to support it. So for getting debug logs for HP LaserJet device, *connected via Ethernet/Wifi and supported by HPAIO backend*, use command:
+
+----
+$ SANE_DEBUG_DLL=255 SANE_DEBUG_HPAIO=255 SANE_DEBUG_SANEI_TCP=255 scanimage -L &> discovery_output
+----
+
+or, f.e. if you have CanoScan 8600F, connected by USB and supported by genesys backend, use command:
+
+----
+$ SANE_DEBUG_DLL=255 SANE_DEBUG_GENESYS=255 SANE_DEBUG_SANEI_USB=255 scanimage -L &> discovery_output
+----
+
+Please attach the created [filename]`discovery_output` file as an attachment to the bugzilla ticket.
+
+== Debugging scanning process
+
+If the scanner is found, but an issue happens during scanning itself, we need to debug scanning process itself - which means debugging communication between backend and scanner when you start scanning a document.
+
+The debugging scanning itself looks similar as discovery - setup the environment variables before running the command/scanning application and catch logs into a file. The possible command can be (f.e. if you have *network scanner supported by HPAIO backend*):
+
+----
+$ SANE_DEBUG_DLL=255 SANE_DEBUG_HPAIO=255 SANE_DEBUG_SANEI_TCP=255 xsane &> debug_log
+----
+
+or (once you find out device uri from [command]`scanimage -L` - see the xref:_getting_a_scanner_device_uri[next section]):
+
+----
+$ SANE_DEBUG_DLL=255 SANE_DEBUG_HPAIO=255 SANE_DEBUG_SANEI_TCP=255 scanimage -d <device_uri> > out.pnm 2> debug_log
+----
+
+, where you substitute `<device_uri>` for the actual device uri, f.e. 'hpaio:/net/laserjet_m1536dnf_mfp?ip=192.168.1.112'.
+
+Please attach the created file - [filename]`debug_log` - as an attachment to the bugzilla ticket.
+
+== Getting a scanner device uri
+
+This point is basically a manual how to get a scanner uri for debugging scanning itself via [command]`scanimage`. You don't need to provide a scanner uri in GUI applications like [command]`xsane` or [command]`simple-scan`, because the application will do it for you or you can choose the scanner by a mouse click.
+
+The [command]`scanimage -L` command returns an output where device uri of the device is shown, f.e.:
+
+----
+$ scanimage -L
+device `v4l:/dev/video0' is a Noname Integrated Camera: Integrated C virtual device
+device `hpaio:/net/laserjet_m1536dnf_mfp?ip=192.168.1.112&queue=false' is a Hewlett-Packard laserjet_m1536dnf_mfp all-in-one
+----
+
+F.e.the string 'hpaio:/net/laserjet_m1536dnf_mfp?ip=192.168.1.112&queue=false' is a device uri for for Hewlett-Packard laserjet_m1536dnf_mfp all-in-one scanner.
+
+== Debugging HP scanner if it is supported by HPLIP
+
+The hplip package doesn't have unified logging, so some logs come out of HPAIO backend to standard output and HP internal utilities logs come to journal. So we need to capture both to get the understanding of situation.
+
+It can be done this way:
+
+* start capturing journal logs at background:
+
+----
+$ journalctl -f > journal_logs &
+----
+
+* trigger an action (xref:_debugging_scanner_discovery[discovery] or xref:_debugging_scanning_process[scanning])
+* kill the journalctl process, f.e. this way (if there is only one journactl process)
+
+----
+$ kill `pidof journalctl`
+----
+
+then attach the created file - [filename]`journal_logs` - as an attachment to the bugzilla ticket. Please do only one action per capture - that means if you are asked to attach log files for HP scanner discovery and scanning supported by hplip, you will attach as an attachment four files - [filename]`discovery_output`, [filename]`journal_logs` for discovery output, [filename]`debug_logs` and [filename]`journal_logs` for debug_logs.
+
+== Debugging sane-airscan
+
+If your device supports eSCL or WSD (you can find it out from device specification - look for the mentioned protocols or AirScan), then its scanning functionality is supported by *sane-airscan*. Regarding debugging, on the top of usual logging sane-airscan gathers a communication dump and output image, which is helpful during investigation.
+
+sane-airscan debugging can be enabled in [filename]`/etc/sane.d/airscan.conf` by setting: 
+
+----
+[debug]
+trace = /path/to/dir/where/debugfiles/will/be/saved
+enable = true
+----
+
+Then do trigger your issue (xref:_debugging_scanner_discovery[discovery] or xref:_debugging_scanning_process[scanning]), go to the dir you defined in [filename]`/etc/sane.d/airscan.conf`, take all files from there and attach them to the bug ticket.
+
+== How to divide logs
+
+In case your debug log is too big for bugzilla to attach (because your issue doesn't happen with the lowest settings or logs are big even with the lowest settings), do divide the logs to three files like this:
+
+----
+$ grep dll debug_log > debug_log_dll
+$ grep <connection> debug_log > debug_log_connection
+$ grep <backend> debug_log > debug_log_backend
+----
+
+<backend> is the name of backend which supports your scanner (pixma, genesys, plustek, hpaio, airscan etc.), <connection> is the type of connection you use for the device (tcp, usb).
+
+The division makes the investigation more difficult (the person needs to have three opened files at the same time), so do divide the logs only if log file is too big.
+
