@@ -118,8 +118,8 @@
 ** xref:manage-database-servers-from-gui.adoc[How to Manage Various Database Servers from GUI]
 
 * Printing and scanning
-** xref:how-to-debug-printing-problems.adoc[Troubleshooting printing issues]
-** xref:how-to-debug-scanning-problems.adoc[How to debut scanning issues]
+** xref:how-to-debug-printing-problems.adoc[How to debug printing issues]
+** xref:how-to-debug-scanning-problems.adoc[How to debug scanning issues]
 ** xref:cups-useful-tricks.adoc[Useful tricks]
 ** xref:cups-terminology.adoc[Terminology]
 ** xref:cups-known-issues.adoc[Known issues]
