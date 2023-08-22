@@ -1,0 +1,374 @@
+= Virtualization – Getting Started 
+ Jan Kuparinen
+:revnumber: F34 onwards
+:revdate: 2020-11-28
+:revremark: Needs Review! 
+:category: Virtualization
+:tags: How-to
+:page-aliases: getting-started-with-virtualization.adoc
+:experimental:
+include::{partialsdir}/attributes.adoc[]
+
+Fedora uses the libvirt family of tools as its virtualization solution.
+
+== Enabling hardware virtualization support
+
+This section covers setting up `libvirt` on your system. After setting up `libvirt`, you can create virtualized guest operating systems, also known as virtual machines.
+
+
+=== System requirements
+
+To run virtualization on Fedora, you need:
+
+* At least 600MB of hard disk storage per guest. A minimal command-line Fedora system requires 600MB of storage. Standard Fedora desktop guests require at least 3GB of space.
+
+* At least 256MB of RAM per guest, plus 256MB for the base operating system. At least 756MB is recommended for each guest of a modern operating system. A good way to estimate this is to think about how much memory is required for the operating system normally, and allocate that amount to the virtualized guest.
+
+KVM requires a CPU with virtualization extensions, found on most consumer CPUs. These extensions are called Intel VT or AMD-V. To check whether you have CPU support, run the following command:
+
+----
+$ egrep '^flags.*(vmx|svm)' /proc/cpuinfo
+----
+
+If this command results in nothing printed, your system does not support the relevant virtualization extensions. You can still use QEMU/KVM, but the emulator will fall back to software virtualization, which is much slower.
+
+
+
+== Installing virtualization software
+
+When installing Fedora, you can install the virtualization packages by
+selecting *Virtualization* in the *Base Group* in the installer. 
+
+//See xref:f{MAJOROSVER}@fedora:install-guide:install/Installing_Using_Anaconda.adoc[Installing Using Anaconda].
+
+For existing Fedora installations, you can install the virtualization tools via the command line using the Virtualization Package Group. To view the packages, run:
+
+[source,shell,subs="attributes"]
+----
+$ dnf groupinfo virtualization
+
+Group: Virtualization
+ Description: These packages provide a graphical virtualization environment.
+ Mandatory Packages:
+   virt-install
+ Default Packages:
+   libvirt-daemon-config-network
+   libvirt-daemon-kvm
+   qemu-kvm
+   virt-manager
+   virt-viewer
+ Optional Packages:
+   libguestfs-tools
+   python3-libguestfs
+   virt-top
+----
+
+. Run the following command to install the mandatory and default packages in the virtualization group:
++
+[source,shell,subs="attributes"]
+----
+# sudo dnf install @virtualization
+----
++
+Alternatively, to install the mandatory, default, and optional packages, run:
++
+[source,shell,subs="attributes"]
+----
+# sudo dnf group install --with-optional virtualization
+----
++
+. After the packages install, start the `libvirtd` service:
++
+[source,shell,subs="attributes"]
+----
+# sudo systemctl start libvirtd
+----
++
+To start the service on boot, run:
++
+[source,shell,subs="attributes"]
+----
+# sudo systemctl enable libvirtd
+----
++
+. To verify that the KVM kernel modules are properly loaded:
++
+[source,shell,subs="attributes"]
+----
+$ lsmod | grep kvm
+kvm_amd               114688  0
+kvm                   831488  1 kvm_amd
+----
++
+If this command lists `kvm_intel` or `kvm_amd`, KVM is properly configured.
+
+=== Networking Support
+
+By default, libvirt will create a private network for your guests on the host machine. This private network will use a 192.168.x.x subnet and not be reachable directly from the network the host machine is on. However, virtual guests can use the host machine as a gateway and can connect out via it. If you need to provide services on your guests that are reachable via other machines on your host network you can use iptables DNAT rules to forward in specific ports, or you can set up a bridged environment.
+
+See the https://wiki.libvirt.org/page/Networking[libvirt networking setup page] for more information on how to setup a bridged network.
+
+
+
+== Creating virtual machines
+
+The installation of Fedora guests using Anaconda is supported. The installation can be started on the command-line using the `virt-install` program or in the user interface program `virt-manager`.
+
+=== Creating a guest with virt-install
+
+`virt-install` is a command-line based tool for creating virtualized guests. Execute `virt-install --help` for command line help, or you can find the manual page at `man 1 virt-install`.
+
+To use the virt-install command, you should first download an ISO of the Fedora version you wish to install.  You can find the latest Fedora images at https://getfedora.org.  This ISO is only needed during Fedora installation, and can be deleted to free up storage space afterwards if desired. 
+
+//More information about Fedora installation can be found in the xref:f{MAJOROSVER}@fedora:install-guide:index.adoc[Installation Guide]. 
+
+In this example we'll use Fedora Workstation.
+
+==== Planning VM Resources
+Adjust the ram, vcpus, and disk size parameters according to the resources you have available.
+
+* Storage: An easy way to check your disk size from a bash shell is using the `df(1)`` utility from the shell:
++
+[source,shell,subs="attributes"]
+----
+# df -h
+----
+* Memory: You can check your available memory from the shell using free(1):
++
+[source,shell,subs="attributes"]
+----
+# free -m
+----
+* VCPU: You can check your processor information using `lscpu(1)`:
++
+[source,shell,subs="attributes"]
+----
+# lscpu
+----
+
+When allocating resources to your VM, keep in mind the minimum system requirements for the version of Fedora you are installing as well as your use case requirements. For Fedora {MAJOROSVER}, you can find this in the xref:f{MAJOROSVER}@fedora:release-notes:welcome/Hardware_Overview.adoc[Release Notes].
+
+===== Create Storage for the VM
+
+The libvirt default storage pool is located at ``/var/lib/libvirt/images` - which is the parent file path we use in this example.  For individuals who are lacking enough storage in that path, you can simply mount a new disk or partition to that directory path (from the BASH shell, type `man 1 mount`) or select a new path. In the example `virt-install` command below, the disk did not exist prior to running virt-install.  When the specified disk is not pre-existing, you must specify the size so virt-install can create a disk for you.  If your disk already exists, you can safely remove the `,size=20` parameter from the disk argument.
+
+You have several disk storage options for your VM.  While it's outside the scope of this article to discuss these in detail, the following are a few common options.  These examples use 20G as the upper limit for disk size, but you can adjust this size to fit your needs.
+
+[NOTE]
+====
+Again, you do not need to manually allocate storage using the example options shown below if you specify the size parameter in the virt-install example shown below.
+====
+
+====== Raw File (Non-Sparse)
+
+To create a fully allocated (non-sparse) raw file:
+
+[source,shell,subs="attributes"]
+----
+# sudo dd if=/dev/zero of=/var/lib/libvirt/images/guest.img bs=1M count=20480
+----
+
+you can also use fallocate(1):
+
+[source,shell,subs="attributes"]
+----
+# sudo fallocate -l 20480M /var/lib/libvirt/images/guest.img
+----
+
+====== Raw File (Sparse)
+
+To create a dynamically allocated (sparse) raw file:
+
+[source,shell,subs="attributes"]
+----
+# sudo rm -f /var/lib/libvirt/images/guest.img
+# sudo truncate --size=20480M /var/lib/libvirt/images/guest.img
+----
+
+
+====== QCOW2
+To create a new qcow2-formatted disk separately, you can use qemu-img (the example below specifies a disk size of 20G):
+
+[source,shell,subs="attributes"]
+----
+# sudo qemu-img create -f qcow2 /var/lib/libvirt/images/guest.qcow2 20480
+----
+
+More information about libvirt storage options can be found at https://libvirt.org/storage.html.
+
+Finally, run the virt-install command using the following format (adjusting parameters as needed):
+
+[source,shell,subs="attributes"]
+----
+# sudo virt-install --name Fedora{MAJOROSVER} \
+--description 'Fedora {MAJOROSVER} Workstation' \
+--ram 4096 \
+--vcpus 2 \
+--disk path=/var/lib/libvirt/images/Fedora-Workstation-{MAJOROSVER}/Fedora-Workstation-{MAJOROSVER}-20180518.0.x86_64.qcow2,size=20 \
+--os-type linux \
+--os-variant fedora{MAJOROSVER} \
+--network bridge=virbr0 \
+--graphics vnc,listen=127.0.0.1,port=5901 \
+--cdrom /var/lib/libvirt/images/Fedora-Workstation-{MAJOROSVER}/Fedora-Workstation-Live-x86-64-{MAJOROSVER}-1.1.iso \
+--noautoconsole
+----
+
+[NOTE]
+====
+Note:  For the graphics parameter, we're setting the vnc listener to localhost because it's more secure to tunnel your VNC connection through SSH so that you don't expose VNC to everyone with access to the network.
+====
+
+`virt-install` can use kickstart files, for example, `virt-install -x ks=kickstart-file-name.ks`.
+
+If graphics were enabled, a VNC window will open and present the graphical installer. If graphics were not enabled, a text installer will appear. Proceed with the Fedora installation.
+
+=== Creating a guest with virt-manager
+
+. Start Virtual Machine Manager by navigating to menu:Applications[System Tools], or by running the following command:
++
+[source,shell,subs="attributes"]
+----
+# sudo virt-manager
+----
++
+. Open a connection to a hypervisor by navigating to menu:File[Add connection].
+. Choose *qemu* for KVM, or *Xen* for Xen.
+. Choose *local* or select a method to connect to a remote hypervisor.
+. After a connection is opened, click the new icon next to the hypervisor, or right-click on the active hypervisor and select *New*.
+. Configure the virtual machine following the steps in the *New VM* wizard.
+. Click *Finish* at the end of the wizard to provision the guest operating system. After a few moments a VNC window will appear. Proceed with the Fedora installation.
+
+
+
+== Managing virtual machines
+
+When the installation of the guest operating system is complete, it can be managed using the `virt-manager` program or via command line using `virsh`.
+
+=== Managing guests with virt-manager
+
+. Start the Virtual Machine Manager by navigating to menu:[Applications]System Tools, or run:
++
+----
+# virt-manager
+----
++
+If you are not root, you will be prompted to enter the root password. 
+. Choose the host you wish to manage and click *Connect* in the *Open Connection* dialog window.
+. The list of virtual machines is displayed in the main window. Guests that are running will display a ">" icon. Guests that are not running will be greyed out.
+. To manage a particular guest, double click on it, or right click and select *Open*.
+. A new window for the guest will open that will allow you to use its console, see information about its virtual hardware and start, stop, and pause it.
+
+For further information about `virt-manager`, see https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/virtualization_deployment_and_administration_guide/sect-creating_guests_with_virt_manager[RedHat virt-manager guide].
+
+Bugs in the `virt-manager` tool should be reported in https://bugzilla.redhat.com[Bugzilla] against the `virt-manager`
+component.
+
+=== Managing guests with virsh
+
+The `virsh` command-line utility allows you to manage virtual machines on the command line. The `virsh` utility is built around the libvirt management API:
+
+* `virsh` has a stable set of commands whose syntax and semantics are preserved across updates to the underlying virtualization platform.
+* `virsh` can be used as an unprivileged user for read-only operations (e.g. listing domains, listing domain statistics).
+* `virsh` can manage domains running under Xen, QEMU/KVM, ESX, or other back-ends with no perceptible difference to the user.
+
+To start a virtual machine:
+
+----
+# virsh create <name of virtual machine>
+----
+
+To list the virtual machines currently running:
+
+----
+# virsh list
+----
+
+To list all virtual machines, running or not:
+
+----
+# virsh list --all
+----
+
+To gracefully power off a guest:
+
+----
+# virsh shutdown <virtual machine (name | id | uuid)>
+----
+
+To non gracefully power off a guest:
+
+----
+# virsh destroy <virtual machine (name | id | uuid)>
+----
+
+To save a snapshot of the machine to a file:
+
+----
+# virsh save <virtual machine (name | id | uuid)> <filename>
+----
+
+To restore a previously saved snapshot:
+
+----
+# virsh restore <filename>
+----
+
+To export the configuration file of a virtual machine:
+
+----
+# virsh dumpxml <virtual machine (name | id | uuid)
+----
+
+For a complete list of commands available for use with `virsh`:
+
+----
+# virsh help
+----
+
+Or consult the manual page: `man virsh`.
+
+Bugs in the `virsh` tool should be reported in https://bugzilla.redhat.com[Bugzilla] against the *libvirt* component.
+
+
+=== Remote management
+
+The following remote management options are available:
+
+* If using non-root users via SSH, see the setup instructions in https://wiki.libvirt.org/page/SSHSetup
+* If using root for access via SSH, then create SSH keys for root, and use `ssh-agent` and `ssh-add` before launching `virt-manager`.
+* To use TLS, set up a local certificate authority and issue x509 certs to all servers and clients. For information on configuring this option, see https://wiki.libvirt.org/page/TLSSetup.
+
+
+
+== Other virtualization options
+
+=== QEMU/KVM without libvirt
+
+QEMU/KVM can be invoked directly without libvirt, however you cannot to use tools such as `virt-manager`, `virt-install`, or `virsh`. Plain QEMU (without KVM) can also virtualize other processor architectures like ARM or PowerPC.
+
+=== Xen
+
+Fedora can run as a Xen guest operating system and also be used as a Xen host (with the latter being true from Fedora 16; for using an earlier version of Fedora as a Xen host, check out the experimental repo available at https://myoung.fedorapeople.org/dom0). For a guide on how to install and setup a Fedora Xen host, see https://wiki.xen.org/wiki/Fedora_Host_Installation[Fedora Host Installation] page on the Xen Project wiki.
+
+=== OpenStack
+
+OpenStack consists of a number of services for running infrastructure as a service (IaaS) clouds. They are the Object Store (Swift), Compute (Nova), and Image (Glance) services.
+
+=== OpenNebula
+
+OpenNebula is an open source toolkit for data center virtualization.
+
+=== oVirt
+
+The https://www.ovirt.org/[oVirt project] is an open virtualization
+project providing a end-to-end, server virtualization
+management system with advanced capabilities for hosts and guests,
+including high availability, live migration, storage management, system
+scheduler, and more.
+
+== Troubleshooting and known issues
+
+First take a look at the well-known  link:https://discussion.fedoraproject.org/tags/c/ask/common-issues/82/none/f38[common issues]. Replace the version number by the version you are actually using.  
+
+For troubleshooting tips, see xref:virtualization-howto-debug-issues.adoc[Virtualization – How to Debug Issues]
+
