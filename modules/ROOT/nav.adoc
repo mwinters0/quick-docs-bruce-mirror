@@ -6,7 +6,7 @@
 ** xref:bugzilla/find-duplicates.adoc[Finding duplicate bugs]
 ** xref:bugzilla/correct-component.adoc[Finding the correct component]
 ** xref:bugzilla/spam.adoc[Reporting Bugzilla spam]
-** xref:bugzilla/email-notifiRunningcations.adoc[Managing email notifications]
+** xref:bugzilla/email-notifications.adoc[Managing email notifications]
 
 * xref:getting-started-guide.adoc[Getting started with Fedora]
 
@@ -99,14 +99,15 @@
 ** xref:kernel/installing-koji-kernel.adoc[Installing a kernel from Koji]
 ** xref:kernel/testing-patches.adoc[Testing kernel patches]
 
-* Virtualization
-** xref:getting-started-with-virtualization.adoc[Getting started with virtualization (libvirt)]
+* xref:virtualization-an-overview.adoc[Virtualization – an Overview]
+** xref:virtualization-getting-started.adoc[Virtualization – Getting Started (libvirt)]
 ** xref:installing-virtual-systems-with-gnome-boxes.adoc[Installing virtual operating systems with GNOME Boxes]
 ** xref:qemu.adoc[Using virtualization emulation in QEMU]
 ** xref:using-nested-virtualization-in-kvm.adoc[Using nested virtualization in KVM]
 ** xref:creating-windows-virtual-machines-using-virtio-drivers.adoc[Creating Windows virtual machines using virtIO drivers]
 ** xref:vmware-what-is-it.adoc[VMware – what is it and how use it?]
 ** xref:uefi-with-qemu.adoc[Using UEFI with QEMU]
+** xref:virtualization-howto-debug-issues.adoc[Virtualization – how to debug issues]
 
 //FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems] - note: maintained on wiki, does not fit quick-docs IMHO
 
