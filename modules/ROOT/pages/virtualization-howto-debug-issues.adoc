@@ -1,0 +1,432 @@
+= Virtualization – How to Debug Issues
+ Markmc ; Crobinso ; Voxadam 
+:revnumber: unspecified
+:revdate: 2018-05-20
+:revremark: Needs a review! 
+:category: Virtualization
+:tags: How-to Troubleshooting
+//:page-aliases: 
+// :experimental:
+
+//include::{partialsdir}/attributes.adoc[]
+[NOTE]
+====
+.*Work in progress!*
+Don't use it for now.
+====
+// Migrated from 
+// https://fedoraproject.org/wiki/How_to_debug_Virtualization_problems
+
+== Effective bug reporting
+
+Reporting bugs effectively is an important skill for any Fedora user or developer.
+
+Narrowing down the possible causes of the bug and providing the right information in the bug report allows a bug to be resolved quickly. Filing a bug report with little useful information can mean that your bug lays unresolved, possibly until it is closed automatically when the distribution version reaches "end of life".
+
+See xref:howto-file-a-bug.adoc[how to file a bug report] for generic information on filing bugs. This page contains information specific to virtualization bugs.
+
+// Note: if you're filing a virtualization related bug against a package which isn't on [[Virtualization#Relevant_Packages|this list]], then please cc the [mailto:fedora-virt-maint@redhat.com fedora-virt-maint@redhat.com] alias in bugzilla to ensure virt developers see the bug.
+
+== Version Information 
+
+Once you've ensured you have the latest updates installed 
+//for the [[Virtualization#Relevant_Packages|relevant packages]]
+, gather details of the version numbers of those packages e.g.
+[source,]
+----
+[…]$ rpm -q qemu-kvm qemu-common python-virtinst virt-viewer virt-manager
+----
+
+To find out what kernel version you are currently running, and what machine architecture you're using:
+
+[source,]
+----
+[…]$ uname -a
+----
+
+Of course, you should also make sure to file the bug using the appropriate version of Fedora. Rawhide users should file bugs using the "rawhide" version.
+
+== Hardware Information 
+
+Fedora's virtualization capabilities rely heavily on hardware capabilities, so when filing bugs please include copious information on your hardware platform including:
+
+[source,]
+----
+[…]$ cat /proc/cpuinfo
+[…]$ lspci -vvv
+[…]$ virt-host-validate
+----
+
+You can also check what virtualization capabilities are available on your machine by running:
+
+[source,]
+----
+[…]$ virsh capabilities
+----
+
+== Guest Configuration 
+
+When filing a bug related to problems seen in the guest, include full details on the guest configuration including CPU architecture, RAM size, devices etc. This is most easily done by including the output of `virsh dumpxml MyGuest` or, in the case of qemu, the full qemu command line.
+
+== Virt Manager 
+
+Virt Manager stores a logfile in `~/.cache/virt-manager/virt-manager.log`.
+
+Examine the log file and include any pieces that look like they might be useful in the bug report. If in doubt, attach the whole file to the bug.
+
+You can also run virt-manager from the command line using `virt-manager --no-fork` and check whether any relevant messages were printed there.
+
+== virt-install 
+
+virt-install stores a log file in ' ~/.cache/virtinst/virt-install.log`.
+
+Run `virt-install` using the `--debug` option to get detailed debug spew.
+
+In order to gain access to a serial console during the install, you can use `-x "console=ttyS0"`. Using a serial console combined with a VNC install can be very useful for debugging e.g. `--nographics -x "console=ttyS0 vnc"`
+
+== libvirt 
+
+Any program using libvirt can be debugged using the `LIBVIRT_DEBUG=1` environment variable e.g.
+[source,]
+----
+[…]$ LIBVIRT_DEBUG=1 virt-manager --no-fork
+[…]$ LIBVIRT_DEBUG=1 virsh list --all
+----
+
+If your issue looks like it might be related to `libvirtd` try looking in `/var/log/messages` for any error messages.
+
+You can also use  link:http://libvirt.org/logging.html[/etc/libvirt/libvirtd.conf logging configuration] to e.g. log debug spew to a file:
+
+[source,]
+----
+log_level = 1
+log_outputs = 0:file:/tmp/libvirtd.log
+----
+
+Alternatively, you could try running `libvirtd` from the command line with debugging options enabled:
+
+[source,]
+----
+[…]# systemctl stop libvirtd 
+[…]# LIBVIRT_DEBUG=1 libvirtd --verbose
+----
+
+== libguestfs 
+
+If link:https://libguestfs.org/[libguestfs], link:https://libguestfs.org/guestfish.1.html[guestfish], link:https://libguestfs.org/virt-df.1.html[virt-df] etc. are causing problems, run:
+
+[source,]
+----
+[…]# libguestfs-test-tool
+----
+
+If everything is working, near the end of the output you will see 
+
+`===== TEST FINISHED OK =====`.  
+
+If things are not working, post the __complete, unedited__ output of that command into a bug report.
+
+== Networking 
+
+If you are having trouble with guests connected to a libvirt link:https://libvirt.org/formatnetwork.html[virtual network], link:https://wiki.libvirt.org/page/Networking[shared physical interface] or bridge, try these commands:
+
+[source,]
+----
+[…]# virsh net-list --all
+[…]# brctl show
+[…]# sysctl net.bridge.bridge-nf-call-iptables
+[…]# iptables -L -v -n
+[…]# ps -ef | grep dnsmasq
+[…]# ifconfig -a
+[…]# cat /proc/sys/net/ipv4/ip_forward
+[…]# service libvirtd reload
+----
+
+If you find that `/proc/sys/net/ipv4/ip_forward` is not being set to `1` at boot time, try looking at the ordering of the libvirtd and NetworkManager services:
+
+[source,]
+----
+[…]# find /etc/rc.d -regex '.*rc[35].d/S.*\(libvirtd\|NetworkManager\)'
+[…]# rm -f /etc/chkconfig.d/libvirtd /etc/chkconfig.d/NetworkManager
+[…]# chkconfig libvirtd resetpriorities
+[…]# chkconfig NetworkManager resetpriorities
+[…]# find /etc/rc.d -regex '.*rc[35].d/S.*\(libvirtd\|NetworkManager\)'
+----
+
+
+//  CONTINUE MIGRATION HERE
+
+== kvm 
+
+See also the [http://www.linux-kvm.org/page/Bugs KVM wiki page on reporting bugs].
+
+The output of any <code>qemu-kvm</code> command run by <code>libvirtd</code> is stored in <code>/var/log/libvirt/qemu/GuestName.log</code>.
+
+[[Testing_KVM_with_kvm_autotest|kvm-autotest]] is an excellent way of testing basic KVM functionality.
+
+== Xen ==
+
+Some useful information on how to debug Xen issues can be found in the [http://wiki.xen.org/wiki/Debugging_Xen Debugging Xen] Wiki page. If you think you found an actual bug, you may want to follow the steps outlined either on the [http://wiki.xen.org/wiki/Reporting_Bugs_against_Xen Reporting Bugs against Xen] Wiki page, or on [http://blog.xen.org/index.php/2013/06/04/reporting-a-bug-against-the-xen-hypervisor/ this] blog post.
+
+The bugs that have been reported and are currently being tracked by the Xen developers are collected in the [http://bugs.xenproject.org/xen/ Xen Hypervisor Bug Tracker], so you may want to have a look there, to see if the bug you found is already being taken care of.
+
+Some more useful information:
+
+* log files are available at <code>/var/log/xen/</code>, for both HVM and PV guests (look for your guest name and domain ID)
+* if your guest is crashing, we suggest you do the following:
+** Set "on_crash=preserve" in your domain config file
+** Copy the guest kernel's System.map to the host
+** Once the guest has crashed, run <code>/usr/lib/xen/bin/xenctx -s System.map &lt;domid&gt;</code>
+
+== General Tips ==
+
+=== System Log Files ===
+
+Always look in <code>dmesg</code>, <code>/var/log/messages</code> etc. for any useful information.
+
+=== strace ===
+
+<code>strace</code> can often shed light on a bug - e.g. if you run <code>virt-manager</code>, or <code>libvirtd</code> or <code>qemu-kvm</code> under strace you can see what files they accessed, what commands they executed, what system calls they invoked etc.:
+
+<pre>
+$> strace -ttt -f libvirtd
+</pre>
+
+If the program in question is already running, you can attach to it using <code>strace -p</code>.
+
+=== gdb ===
+
+<code>gdb</code> can often be useful to trace the execution of a program. However, in order to get useable information, you will need to install "debuginfo" packages. See the [[StackTraces]] page for more information.
+
+=== SELinux ===
+
+If you see "AVC denied" or "setroubleshoot" messages in <code>/var/log/messages</code>, your bug might be caused by an SELinux policy issue. Try temporarily putting SELinux into "permissive" mode with:
+
+<pre>
+$> setenforce 0
+</pre>
+
+If this makes your bug go away that doesn't mean your bug is fixed, it just narrows down the cause! You should include the AVC details from <code>ausearch -m AVC -ts recent</code> in the bug report, or if the message includes a <code>sealert -l</code> command then include the details printed by the command.
+
+One common cause of SELinux problems is mis-labelled files. Try:
+
+<pre>
+$> restorecon /path/to/file/in/selinux/message
+</pre>
+
+If you are installing using an ISO on an NFS mount, you need to ensure that it is mounted using the <code>virt_content_t</code> label:
+
+<pre>
+$> mount -o context="system_u:object_r:virt_content_t:s0" ...
+</pre>
+
+If you are using libvirt storage pools, like nfs, or USB pass-through, you might want to check, or toggle one of the following SELinux booleans: virt_use_comm, virt_use_fusefs, virt_use_nfs, virt_use_samba, virt_use_usb.
+
+<pre>
+$> getsebool virt_use_nfs
+virt_use_nfs --> off
+$> setsebool -P virt_use_nfs on
+</pre>
+
+== Troubleshooting =
+
+=== Permission issues ==
+
+Prior to Fedora 11/libvirt 0.6.1, all virtual machines run through libvirt were run as root, giving full administrator capabilities. While this simplified VM management, it was not very security conscious: a compromised virtual machine could possibly have administrator privileges on the host machine.
+
+In Fedora 11/libvirt-0.6.1, security started to improve with the addition of [[Features/SVirt_Mandatory_Access_Control|svirt]]. In a nutshell, libvirt attempts to automatically apply selinux labels to every file a VM needs to use, like disk images. If a VM tries to open a file that libvirt didn't label, permission will be denied.
+
+Fedora 12 saw things improve even more. As of libvirt-0.6.5, VMs were now launched with reduced process capabilities. This prevented the VM from doing things like altering host network configuration (something it shouldn't typically need to do). And as of libvirt-0.7.0, the VM emulator process was no longer run as 'root' by default, instead being run as an unprivleged 'qemu' user.
+
+While all these changes are great for security, they broke previously working setups which depended on the relaxed VM permissions. Most issues have work arounds that come at the expense of security. Over time, many of these issues should be made to 'just work', but we aren't there yet.
+
+=== Changing the QEMU/KVM process user ===
+
+{{admon/warning|Changing the QEMU/KVM process user has security implications.}}
+
+To change the user that libvirt will run the QEMU/KVM process as, edit /etc/libvirt/qemu.conf and uncomment and change the user= and group= fields. For example, if wanting to run KVM as the user 'foobar', you would set the fields to <pre>...
+user='foobar'
+group='foobar'
+...</pre> Then restart libvirtd with <pre>service libvirtd restart</pre>
+
+=== Changing SVirt/Selinux configuration ===
+
+{{admon/warning|Changing the SVirt/SELinux settings may have security implications.}}
+
+SVirt can be disabled for the libvirt QEMU driver by editting /etc/libvirt/qemu.conf, uncommenting and setting <pre>security_driver='none'</pre> Then restart libvirtd with <pre>service libvirtd restart</pre>
+
+=== Changing QEMU/KVM process capabilities ===
+
+{{admon/warning|Changing the this setting has security implications.}}
+
+Libvirt by default launches QEMU/KVM guests with reduced process capabilities. To disable this feature, edit /etc/libvirt/qemu.conf, uncomment and set <pre>clear_emulator_capabilities=0</pre> Then restart libvirtd with <pre>service libvirtd restart</pre>
+
+== KVM performance issues ==
+
+Often times, VM slowness is caused because the VM is using plain QEMU and not KVM.
+
+=== Ensuring system is KVM capable ===
+
+Verify that the KVM kernel modules are properly loaded:
+
+<pre>
+$ lsmod | grep kvm
+kvm
+kvm_intel
+</pre>
+
+If that command did not list kvm_intel or kvm_amd, KVM is not properly configured. See [http://www.linux-kvm.org/page/FAQ#How_can_I_tell_if_I_have_Intel_VT_or_AMD-V.3F| this KVM wiki page] to ensure your hardware supports virtualization extensions. If it doesn't, you cannot use KVM acceleration, only plain QEMU is an option.
+
+If your hardware does support virtualization extensions, try to reload the kernel modules with:
+
+<pre>
+su -c 'bash /etc/sysconfig/modules/kvm.modules'
+</pre>
+
+Retry the above lsmod command and see if you get the desired output. If not, or if the kvm.modules command produces an error, check the output of:
+
+<pre>
+dmesg | grep -i kvm
+</pre>
+
+If you see 'KVM: disabled by BIOS', please see the [http://www.linux-kvm.org/page/FAQ#.22KVM:_disabled_by_BIOS.22_error| relevant KVM wiki page]
+Any other error message is probably a bug, and should be reported.
+
+If all that works out fine, you want to make your that your VMs are actually using KVM
+
+=== Is My Guest Using KVM? ===
+
+Often people are unsure whether their qemu guest is actually using hardware virtualization via KVM.
+
+Firstly, check that libvirt thinks KVM is available:
+
+<pre>
+ $> virsh capabilities  | grep kvm
+     <domain type='kvm'>
+       <emulator>/usr/bin/qemu-kvm</emulator>
+</pre>
+
+If that does not return anything, try this command to further identify what might need fixing to enable KVM support:
+
+<pre>
+ $> virt-host-validate
+</pre>
+
+Next, check that the guest is configured to use KVM:
+
+<pre>
+  $> virsh dumpxml ${guest} | grep kvm
+  <domain type='kvm' id='18'>
+      <emulator>/usr/bin/qemu-kvm</emulator>
+</pre>
+
+If that does not return anything, you want to make <domain type='kvm'> and <emulator>/usr/bin/qemu-kvm</emulator>, using the command:
+
+<pre>
+virsh edit ${guest}
+</pre>
+
+Next, look in <code>/var/log/libvirt/qemu/${guest}.log</code> to check that <code>/usr/bin/qemu-kvm</code> is the emulator that was executed by libvirt and that there are no error messages about <code>/dev/kvm</code>.
+
+If you want to get really funky, you can check whether <code>qemu-kvm</code> has <code>/dev/kvm</code> open:
+
+<pre>
+  $> for iii in /proc/$(ps h -o tid -C qemu-kvm)/fd/*; do readlink $iii; done | grep kvm
+  anon_inode:kvm-vcpu
+  /dev/kvm
+  anon_inode:kvm-vm
+</pre>
+
+== Serial console access for troubleshooting and management ==
+
+Serial console access is useful for debugging kernel crashes and remote management can be very helpful. 
+
+Fully-virtualized guest OS will automatically have a serial console configured, but the guest kernel will not be configured to use this out of the box. To enable the guest console in a Linux fully-virt guest, edit the /etc/grub.conf in the guest and add 'console=tty0 console=ttyS0'. This ensures that all kernel messages get sent to the serial console, and the regular graphical console. The serial console can then be access in same way as paravirt guests:
+
+<pre>
+su -c "virsh console &lt;domain name&gt;"
+</pre>
+
+Alternatively, the graphical <code>virt-manager</code> program can display the serial console. Simply display the 'console' or 'details' window for the guest & select 'View -> Serial console' from the menu bar. <code>virt-manager</code> may need to be run as root to have sufficient privileges to access the serial console.
+
+== Graphical console access ==
+
+In order to get a graphical console on your guest you can either use 'virt-manager' and select the console icon for the guest, or you can use the 'virt-viewer' tool to just directly connect to the console: 
+
+<pre>
+virt-viewer guestname 
+</pre>
+
+== Accessing data on guest disk images ==
+
+{{Admon/caution | If the guest image might be live, you must only use read-only access, otherwise you risk corrupting the disk image.<br><br>It is always safe to use <code>guestfish --ro</code>}}
+
+The [http://libguestfs.org/guestfish.1.html guestfish] program lets you manipulate guest disk images without needing to run the guest:
+
+<pre>
+su -c 'yum install guestfish'
+guestfish -d NameOfGuest -i --ro
+&gt;&lt;fs&gt; ll /
+&gt;&lt;fs&gt; cat /boot/grub/grub.conf
+</pre>
+
+See <code>man guestfish</code> and [http://libguestfs.org/ the libguestfs website] for information and examples.   guestfish can also be scripted.
+
+[http://libguestfs.org/virt-rescue.1.html virt-rescue] is an alternative libguestfs tool which you can use to make ad hoc changes.  [http://libguestfs.org/virt-edit.1.html virt-edit] can be used to edit single files in guests, eg:
+
+<pre>
+virt-edit NameOfGuest /boot/grub/grub.conf
+</pre>
+
+== Known issues 
+
+[discrete]
+=== Audio output 
+
+Audio has always been difficult to get working with libvirt, but the recent security changes have actually provided the mechanisms to make it work. The primary problem is that the VM is not sending sound output to your user's pulseaudio session. There may be a pulseaudio option to work around this issue, but I've managed to make it work with:
+
+* [[SELinux/FAQ#How_do_I_enable_or_disable_SELinux_.3F|Set selinux to permissive]].
+* Configure libvirt to [[#Changing_the_QEMU.2FKVM_process_user|run guests as your regular user]]
+* Set <pre>vnc_allow_host_audio = 1</pre> in /etc/libvirt/qemu.conf, and restart libvirtd with <pre>service libvirtd restart</pre>
+
+This will eventually be solved out of the box by having the VNC graphical client receive audio from the VM and play it as the current user. Some code exists to handle this for virt-viewer/virt-manager, but it isn't 100% complete yet. For more info, see [https://bugzilla.redhat.com/show_bug.cgi?id=595880 gtk-vnc bug 595880], [https://bugzilla.redhat.com/show_bug.cgi?id=536692 libvirt SDL audio bug 536692], [https://bugzilla.redhat.com/show_bug.cgi?id=508317 libvirt VNC audio bug 508317]
+
+[discrete]
+=== SDL Graphics 
+
+QEMU needs access to your $XAUTHORITY file in order to use SDL graphics.
+
+* Configure SDL graphics for your VM. Easiest way to do this:
+
+<pre>$> echo <graphics type='sdl display='$DISPLAY' xauth='$XAUTHORITY'/>
+<graphics type='sdl display=':0.0' xauth='/home/cole/.Xauthority'/>
+(copy that string)
+$> su -c 'virsh edit $vmname'
+(stick that string somewhere in the <devices> block, remove any other <graphics> devices)
+</pre>
+
+* [[SELinux/FAQ#How_do_I_enable_or_disable_SELinux_.3F|Set selinux to permissive]]. For more info, see [https://bugzilla.redhat.com/show_bug.cgi?id=609279 bug 609276]
+
+* Give VM user access to your $XAUTHORITY file. The default VM user in Fedora 12+ is 'qemu', so you can provide read access with <pre>setfacl -m u:qemu:r $XAUTHORITY</pre> If you get an 'operation not supported' error, you can optionally provide less discerning read access with <pre>chmod +r $XAUTHORITY</pre> Beware, this probably has security implications. If that does not work, you can optionally change the VM user to either root (behavior of older Fedora versions), or [[#Changing_the_QEMU.2FKVM_process_user|to your own regular user]]
+
+[discrete]
+=== Errors using <interface type='ethernet'/> 
+
+Libvirt's default behavior of dropping QEMU/KVM process capabilities prevents <interface type='ethernet'/> from working correctly. You can try:
+
+* Have libvirt [[#Changing_QEMU.2FKVM_process_capabilities|not drop QEMU/KVM process capabilities]]
+
+If that isn't sufficient, you may want to try the following:
+
+* [[SELinux/FAQ#How_do_I_enable_or_disable_SELinux_.3F|Set selinux to permissive]]
+* Have libvirt [[#Changing_the_QEMU.2FKVM_process_user|run QEMU/KVM as root]]
+
+[discrete]
+=== PCI device assignment 
+
+Libvirt's default behavior of dropping QEMU/KVM process capabilities prevents PCI device assignment from working correctly. See [https://bugzilla.redhat.com/show_bug.cgi?id=573850 bug 573850] for more info. I only managed to get this working with the following steps:
+
+* Have libvirt [[#Changing_QEMU.2FKVM_process_capabilities|not drop QEMU/KVM process capabilities]]
+* [[SELinux/FAQ#How_do_I_enable_or_disable_SELinux_.3F|Set selinux to permissive]]
+* Have libvirt [[#Changing_the_QEMU.2FKVM_process_user|run QEMU/KVM as root]]
+
