@@ -1,0 +1,155 @@
+= Virtualization – an Overview
+Markmc ; Denisarnaud ; Lhirlimann
+:revnumber: F34 onwards
+:revdate: 2019-10-29
+:revremark: Needs Reviewing! 
+:category: Virtualization
+:tags: How-to Overview Introduction
+
+//:page-aliases: 
+// :experimental:
+//include::{partialsdir}/attributes.adoc[]
+
+// migrated from
+// https://fedoraproject.org/wiki/Virtualization 
+
+[abstract]
+This page covers the efforts to integrate various virtualization technologies into Fedora.
+
+
+== Introduction 
+
+Virtualization allows one to run many guest virtual machines on top of a host operating system such as Fedora. What this means is that using one computer, you can mimic several individual computers and even run different operating systems in each of these virtual machines. There are many different virtualization technologies, including both free and open source software and proprietary offerings. A link:https://web.archive.org/web/20080327111126/http://www-128.ibm.com/developerworks/linux/library/l-linuxvirt/?ca=dgr-lnxw01Virtual-Linux[good article on IBM DeveloperWorks (M Tim Jones, Dec 2006, archived)] Web site illustrates the four main different virtualization families, namely 
+
+* hardware emulation 
+* hardware-assisted full virtualization 
+* para-virtualization (PV)  
+* operating system-level virtualization (containers/zones)
+
+== Hardware Emulation 
+
+image::virtualization/virtualization-hardware-emulation.png[]
+
+//[[File:Virtualization_Hardware_Emulation.png|200px|thumb|Hardware Emulation Virtualization]]
+
+Hardware emulation uses a VM to simulate the required hardware. A few implementations:
+
+* link:https://bochs.sourceforge.io[Bochs]
+* link:https://wiki.qemu.org[QEMU]
+
+== Hardware-assisted full virtualization 
+
+//[[File:Virtualization_Full.png|200px|thumb|Full Virtualization]]
+
+image::virtualization/virtualization-hardware-assisted-full.png[]
+
+
+Full virtualization uses a hypervisor (a.k.a. VMM, standing for Virtual Machine Monitor) to share the underlying hardware. A few implementations:
+
+* link:https://www.linux-kvm.org[ KVM] / link:https://wiki.qemu.org[QEMU] is a full virtualization solution for Linux on x86 hardware containing virtualization extensions (Intel VT or AMD-V). Using KVM, one can run multiple virtual machines running unmodified Linux or Windows images.
+
+//KVM is part of [http://et.redhat.com RedHat Emerging Technologies (ET)].
+
+* link:https://xenproject.org[Xen] is a virtual-machine monitor providing services that allow multiple computer operating systems to execute on the same computer hardware concurrently. Xen has been the solution of choice for RedHat EL distributions since 2005. The kernel-2.6.18 dropped support for Xen, but the necessary modules/modifications have been added to the upstream kernel again, from 2.6.37 for DomU (guests) and from 3.0 for Dom0 (base domain, part of the host). Therefore, Xen Dom0 host support, that was dropped after Fedora 8, it has now been re-introduced, from Fedora 16.
+
+* link:https://www.virtualbox.org[VirtualBox] is a full virtualization solution for x86 and AMD64/Intel64 hardware. Sun Microsystems started that project, which is now fully supported by Oracle. There is a dual licencing scheme, among which GPLv2. Allegedly VirtualBox is one of the fastest full virtualization solutions.
+
+== Para-Virtualization (PV) 
+
+[[File:Virtualization_Para.png|200px|thumb|Para-Virtualization]]
+
+image::virtualization/virtualization-para.png[]
+
+Paravirtualization shares the process with the guest operating system. A few implementations:
+
+* link:https://www.linux-kvm.org[KVM] (see above).
+* link:https://xen.org[Xen] (see above).
+
+//Doesn't exist anymore
+//* link:https://kraxel.fedorapeople.org/xenner[xenner] is a utility allowing paravirtualized Xen guests to be run using KVM.
+
+== Operating system-level virtualization 
+
+//[[File:Virtualization_Containers.png|200px|thumb|Containers-based Virtualization]]
+
+image::virtualization/virtualization-system-level.png[ ]
+
+Operating system-level virtualization partitions a host into insulated guests, which are therefore as kinds of chroot, but with much stronger resource isolation.
+
+Originally, this family of virtualization was referred to as _zones_ and evolved into highly sophisticated  _containers_ today. 
+
+A few implementations:
+
+* link:https://fedoraproject.org/wiki/Docker[Docker] isolate a single process in its own environment
+
+// obviously gon?
+// * link:https://fedoraproject.org/wiki/Sandboxing[sandboxing]
+
+* link:https://wiki.openvz.org[OpenVZ] and the Debian-based ProxMox for the off-the-shelf server
+
+* link:https://linuxcontainers.org/lxc[LXC] (Linux Containers), an operating system–level virtualization method for running multiple isolated Linux systems (containers) on a single control host
+
+// Wiki page about it on fedora: https://fedoraproject.org/wiki/LXC
+// to migrate to docs? 
+
+* link:https://en.wikipedia.org/wiki/Linux-VServer/[Linux-VServer], which does not seem to be no longer active (the last news is dated back in 2009)
+
+
+== Fedora Support 
+
+At time of writing, Fedora includes full support for link:https://www.linux-kvm.org/[KVM]/link:https://wiki.qemu.org/[QEMU], link:https://xen.org/[Xen] and link:https://linuxcontainers.org[LXC].
+
+A number of third parties (e.g., link:https://rpmfusion.org[RPMFusion]) provide add-on packages for other virtualization technologies: link:https://openvz.org/[OpenVZ], link:http://linux-vserver.org/[Linux-VServer], link:https://www.virtualbox.org[VirtualBox].
+
+Anticipating this diversification of technology, since the days of Fedora Core 5, all core management applications have been built on top of the link:https://libvirt.org[libvirt] toolkit, which offers a technology independent API for managing virtual systems.
+
+=== Clouds 
+As Cloud-based infrastructures rely, by nature, on virtualization technologies, both subjects are therefore heavily inter-related. The link:https://fedoraproject.org/cloud/[_Fedora Cloud Edition_] is dedicated to the subject, worth to follow as well.
+
+=== History 
+Fedora Core 5 was the first release to include Xen as a core integrated technology. The new Linux native virtualiation, KVM, was introduced to Fedora 7. For a more detailed account of virtualization progress in Fedora, consult the link:https://fedoraproject.org/wiki/Virtualization/History[Virtualization History] page.
+
+
+=== News 
+There is semi-regular coverage of Virtualization news in various Fedora communication media, specifically in link:https://fedoramagazine.org[Fedora Magazine], link:https://communityblog.fedoraproject.org/[Fedora Community Blog], and link:https://discussion.fedoraproject.org/tag/libvirt[Fedora Discussion, #libvirt] 
+
+//Fedora Weekly News, and more detailed status updates posted to the  fedora-virt Mailing List. For ease of reference, there is an [[Virtualization/News |archive of virtualization news]]
+
+
+== Getting started 
+
+The Quick Docs article xref:getting-started-with-virtualization.adoc[Virtualization – Getting Started] provides an excellent overview to using the virtualization capabilities in Fedora.
+
+Specifically for _Fedora Server Edition_ there is xref:fedora-server::virtualisation/index.adoc[extensive and step-by-step guidance] available. 
+
+Various link:https://fedoramagazine.org/?s=virtualization[magazine articles on virtualization] have introductory material as well.
+
+// to be redirected
+// https://fedoraproject.org/wiki/Magazine_articles_on_virtualization
+
+== Bugs 
+
+See xref:virtualization-howto-debug-issues.adoc[Virtualization – How to Debug Issues] for some tips on reporting virtualization bugs to link:https://bugzilla.redhat.com[bugzilla].
+
+// If you wish to help triaging and fixing virtualization bugs, [[virtualization bugs]] is a good starting point. On the page [[Virtualization Preview Repository]], you shall find informations if you can be a ''potential virtualization tester''.
+
+
+== Mailing list and IRC 
+
+//To get in touch with Fedora virtualization users and developers try [irc://irc.oftc.net/#virt #virt on irc.oftc.net]. 
+There isn't any designated virt mailing list, so try the standard Fedora lists like link:https://lists.fedoraproject.org/mailman/listinfo/users[users] or link:https://lists.fedoraproject.org/mailman/listinfo/devel[devel] lists.
+
+// completely outdated
+// == Relevant Packages ==
+//We have a page containing [[Virtualization packages|a catalogue of all the virtualization related packages]] in Fedora.
+
+
+== oVirt 
+
+link:https://ovirt.org/[oVirt] is a Fedora based project which provides small host images and a web-based virtual machine management console. See link:https://ovirt.org/[their website] to learn more and get involved.
+
+
+// Completely outdated
+//== Other virtualization information ==
+//You can find more virtualization information at the ategory "Virtualization" on this wiki.
+
