@@ -1,11 +1,11 @@
 = Getting started with Fedora
 Petr Bokoc ; Ooyama Yosiyuki; Liam Coogan
-:experimental:
 :revnumber: F32 onwards
 :revdate: 2023-03-21
-
 :category: Introduction and Overview
-:tags: Workstation
+:tags: Tutorial Workstation
+:experimental:
+
 
 [abstract]
 //------
