@@ -32,6 +32,7 @@
 ** xref:fonts.adoc[Adding new fonts]
 ** xref:packagekit-not-found.adoc[PackageKit Items Not Found]
 ** xref:securing-the-system-by-keeping-it-up-to-date.adoc[Securing the system by keeping it up-to-date]
+** xref:switching-desktop-environments.adoc[Switching desktop environments]
 ** xref:autoupdates.adoc[AutoUpdates]
 ** xref:dnf-vs-apt.adoc[APT command equivalents on Fedora with DNF]
 ** xref:installing-java.adoc[Installing Java]
@@ -45,9 +46,10 @@
 
 * Usage and customisation
 ** xref:changing-hostname.adoc[Changing Hostname]
-** xref:switching-desktop-environments.adoc[Switching desktop environments]
 ** xref:configuring-x-window-system-using-the-xorg-conf-file.adoc[Configuring X Window System using the xorg.conf file]
 ** xref:configuring-xorg-as-default-gnome-session.adoc[Configuring Xorg as the default GNOME session]
+** xref:firewalld.adoc[Control of System Accessibility by firewalld]
+
 ** xref:gnome-shell-extensions.adoc[Using GNOME Shell extensions]
 ** xref:wine.adoc[Running Windows applications with Wine]
 ** xref:create-gpg-keys.adoc[Creating GPG Keys]
@@ -64,7 +66,6 @@
 ** xref:performing-administration-tasks-using-sudo.adoc[Performing administration tasks using sudo]
 ** xref:understanding-and-administering-systemd.adoc[Understanding and administering systemd]
 ** xref:displaying_user_prompt_on_gnome_login_screen.adoc[Displaying a user prompt on the GNOME login screen]
-** xref:firewalld.adoc[Controlling network traffic with firewalld]
 ** xref:managing-keyboard-shortcuts-for-running-app-in-gnome.adoc[Managing keyboard shortcuts for running an application in GNOME]
 ** xref:creating-a-disk-partition-in-linux.adoc[Creating disk partitions]
 ** xref:reset-root-password.adoc[Resetting a root password]
