@@ -3,7 +3,7 @@ Héctor Louzao; The Fedora Docs team
 :revnumber: unknown
 :revdate: 2020-08-05
 :category: Virtualization
-:tags: How-to VMware 
+:tags: How-to, VMware 
 :page-aliases: how-to-use-vmware.adoc
 
 

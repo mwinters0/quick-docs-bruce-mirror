@@ -4,7 +4,7 @@
 :revdate: 2018-05-20
 :revremark: Needs a review! 
 :category: Virtualization
-:tags: How-to Troubleshooting
+:tags: How-to, Troubleshooting
 //:page-aliases: 
 // :experimental:
 

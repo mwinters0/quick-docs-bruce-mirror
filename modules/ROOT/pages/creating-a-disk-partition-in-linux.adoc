@@ -1,12 +1,141 @@
-:experimental:
-ifdef::context[:parent-context: {context}]
-:context: using-parted
-[id='disk-partition-in-linux-{context}']
-= Creating a disk partition in Linux
+= Creating a Disk Partition in Linux
+ Connor Lim ; 
+:revnumber: unspecified
+:revdate: 2021-01-28
+:category: Administration
+:tags: How-to, Storage, Disk partition  
+//:page-aliases: 
 
-include::{partialsdir}/con_disk-partition-linux.adoc[leveloffset=+1]
-include::{partialsdir}/proc_creating-a-disk-partition-in-linux.adoc[leveloffset=+1]
-include::{partialsdir}/ref_help-mkpart.adoc[leveloffset=+1]
+
+
+Creating and deleting partitions in Linux is a regular practice because storage devices (such as hard drives and USB drives) must be structured in some way before they can be used. In most cases, large storage devices are divided into separate sections called partitions. Partitioning also allows you to divide your hard drive into isolated sections, where each section behaves as its own hard drive. Partitioning is particularly useful if you run multiple operating systems.
+
+
+
+== Creating a Disk Partition in Linux
+
+This procedure describes how to partition a storage disk in Linux using the `parted` command.
+
+=== Procedure
+
+. List the partitions using the `parted -l` command to identify the storage device you want to partition. Typically, the first hard disk (`/dev/sda` or `/dev/vda`) will contain the operating system, so look for another disk to find the one you want. For example:
++
+----
+sudo parted -l
+Model: ATA RevuAhn_850X1TU5 (scsi)
+Disk /dev/vdc: 512GB
+Sector size (logical/physical): 512B/512B
+Partition Table: msdos
+Disk Flags:
+
+Number  Start   End    Size   Type     File system  Flags
+ 1      1049kB  525MB  524MB  primary  ext4         boot
+ 2      525MB   512GB  512GB  primary               lvm
+----
++
+. Open the storage device. Use the `parted` command to begin working with the selected storage device. For example:
++
+----
+sudo parted /dev/vdc
+GNU Parted 3.3
+Using /dev/vdc
+Welcome to GNU Parted! Type 'help' to view a list of commands.
+(parted)
+----
++
+[IMPORTANT]
+====
+Be sure to indicate the specific device you want to partition. If you just enter `parted` without a device name, it will randomly select a storage device to modify.
+====
++
+. Set the partition table type to `gpt`, then enter `Yes` to accept it.
++
+----
+(parted) mklabel gpt
+Warning: the existing disk label on /dev/vdc will be destroyed
+and all data on this disk will be lost. Do you want to continue?
+Yes/No? Yes
+----
++
+[NOTE]
+====
+The `mklabel` and `mktable` commands are both used for making a partition table on a storage device. At the time of writing, the supported partition tables are: `aix`, `amiga`, `bsd`, `dvh`, `gpt`, `mac`, `ms-dos`, `pc98`, `sun`, `atari`, and `loop`. Use `help mklabel` to get a list of supported partition tables. Remember `mklabel` will not make a partition, rather it will make a partition table.
+====
+. Review the partition table of the storage device.
++
+----
+(parted) print
+Model: Virtio Block Device (virtblk)
+Disk /dev/vdc: 1396MB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+Number Start End Size File system Name Flags
+----
++
+. Create a new partition using the following command. For example, 1396 MB on partition 0:
++
+----
+(parted) mkpart primary 0 1396MB
+
+Warning: The resulting partition is not properly aligned for best performance
+Ignore/Cancel? I
+
+(parted) print
+Model: Virtio Block Device (virtblk)
+Disk /dev/vdc: 1396MB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+Number  Start   End     Size    File system  Name     Flags
+ 1      17.4kB  1396MB  1396MB               primary
+----
++
+[NOTE]
+====
+Providing a partition name under GPT is a must; in the above example, primary is the name, not the partition type. In a GPT partition table, the partition type is used as partition name. 
+====
++
+. Quit using the `quit` command. Changes are automatically saved when you quit `parted`.
++
+----
+(parted) quit
+Information: You may need to update /etc/fstab. 
+----
+
+
+
+=== Help command for creating a new partition
+
+To get help on how to make a new partition, type: `help mkpart`.
+
+----
+(parted) help mkpart
+  mkpart PART-TYPE [FS-TYPE] START END     make a partition
+
+        PART-TYPE is one of: primary, logical, extended
+        FS-TYPE is one of: udf, btrfs, nilfs2, ext4, ext3, ext2, fat32, fat16, hfsx, hfs+, hfs, jfs, swsusp,
+        linux-swap(v1), linux-swap(v0), ntfs, reiserfs, hp-ufs, sun-ufs, xfs, apfs2, apfs1, asfs, amufs5,
+        amufs4, amufs3, amufs2, amufs1, amufs0, amufs, affs7, affs6, affs5, affs4, affs3, affs2, affs1,
+        affs0, linux-swap, linux-swap(new), linux-swap(old)
+        START and END are disk locations, such as 4GB or 10%.  Negative values count from the end of the
+        disk.  For example, -1s specifies exactly the last sector.
+       
+        'mkpart' makes a partition without creating a new file system on the partition.  FS-TYPE may be
+        specified to set an appropriate partition ID.
+----
+
+[NOTE]
+====
+* Setting filesystem type (`FS-TYPE`) will not create an ext4 filesystem on /dev/vdc1. You still have to create the ext4 filesystem with `mkfs.ext4`.
+* A DOS partition table's partition types are primary, logical, and extended. 
+* Providing a partition name under GPT is a must. In a GPT partition table, the partition type is used as the partition name.
+====
+
+
+
+
+
 
 ifdef::parent-context[:context: {parent-context}]
 ifndef::parent-context[:!context:]

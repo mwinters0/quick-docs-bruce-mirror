@@ -4,7 +4,7 @@ Markmc ; Denisarnaud ; Lhirlimann
 :revdate: 2019-10-29
 :revremark: Needs Reviewing! 
 :category: Virtualization
-:tags: How-to Overview Introduction
+:tags: How-to, Overview, Introduction
 
 //:page-aliases: 
 // :experimental:

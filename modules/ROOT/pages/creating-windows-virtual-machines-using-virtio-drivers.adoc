@@ -1,7 +1,11 @@
-ifdef::context[:parent-context: {context}]
-:context: creating-windows-virtual-machines-using-virtio-drivers
-[id='creating-windows-virtual-machines-using-virtio-drivers']
 = Creating Windows virtual machines using virtIO drivers
+Cole Robinson
+:revnumber: unspecified 
+:revdate: 2021-01-25
+:category: Virtualization
+:tags: How-to, Windows, VirtIO, Drivers  
+//:page-aliases: 
+
 
 Fedora infrastructure hosts virtIO drivers and additional software agents for Windows virtual machines running on kernel-based virtual machines (KVM). https://www.linux-kvm.org/page/Virtio[virtIO] is a virtualization standard for network and disk device drivers.
 
@@ -9,5 +13,3 @@ Fedora cannot ship Windows virtIO drivers because they cannot be built automatic
 
 For details on downloading the drivers, please see: https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]

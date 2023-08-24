@@ -2,8 +2,8 @@
  Héctor H. Louzao Pozueco;  Ankur Sinha; Akshata Khedekar
 :revnumber: unknown
 :revdate: 2022-10-03
-:category: Virtualisation
-:tags: How-to  Windows Wine 
+:category: Virtualization
+:tags: How-to,  Windows, Wine 
 //:page-aliases: 
 
 [abstract]

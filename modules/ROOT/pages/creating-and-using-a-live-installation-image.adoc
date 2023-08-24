@@ -3,7 +3,7 @@ Chase Lau ; The Fedora Docs Team
 :revnumber: unknown
 :revdate: 2019-10-05
 :category: Installation
-:tags: How-to Workstation  
+:tags: How-to, Workstation  
 //:page-aliases: 
 
 include::partial$attributes.adoc[]
