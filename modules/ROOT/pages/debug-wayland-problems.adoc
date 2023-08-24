@@ -1,4 +1,10 @@
 = How to debug Wayland problems
+N.N. 
+:revnumber: unspecified
+:revdate: 2020
+:category: Troubleshooting
+:tags: How-to, Workstation, Wayland
+//:imagesdir: ./images
 
 //FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems] - note: maintained on wiki, does not fit quick-docs IMHO
 

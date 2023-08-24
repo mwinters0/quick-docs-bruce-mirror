@@ -1,9 +1,10 @@
-= How to debug scanning issues
+= CUPS – How to Debug Scanning Issues
 Brandon Nielsen ; 
 :revnumber: unspecified
 :revdate: 2021-06-16
-:category: Troubleshooting
-:tags: How-to scanners 
+:category: Scanner
+:tags: How-to, Scanner, Cups, Troubleshooting  
+:page-aliases: how-to-debug-scanning-problems.adoc
 
 
 
