@@ -3,8 +3,8 @@ Brandon Nielsen;  Jibec
 :revnumber: unknown
 :revdate: 2021-02-22
 :category: Kernel
-:tags: How-to  Kernel Troubleshooting 
-// :page-aliases: 
+:tags: How-to,  Kernel, Troubleshooting 
+:page-aliases: kernel/troubleshooting.adoc 
 
 
 The kernel, like any software, has bugs. It's a large, complex project and can be difficult to troubleshoot problems. This document covers some basic troubleshooting techniques to help narrow down the root cause of an issue.

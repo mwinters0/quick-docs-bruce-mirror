@@ -1,10 +1,10 @@
 = Booting
  JetStream
-:revnumber: unknown
+:revnumber: unspecified
 :revdate: 2021-10-11
 :category: Kernel
-:tags: How-to  Kernel 
-// :page-aliases: 
+:tags: How-to,  Kernel 
+:page-aliases: kernel/booting.adoc 
 
 
 

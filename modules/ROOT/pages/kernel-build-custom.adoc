@@ -3,8 +3,8 @@ John Soros; Alessio; Brandon Nielsen
 :revnumber: unspecified
 :revdate: 2021-01-01
 :category: Kernel
-:tags: How-to  Kernel  
-
+:tags: How-to,  Kernel, Custom kernel  
+:page-aliases: kernel/build-custom-kernel.adoc 
 
 [abstract]
 This document provides instructions for advanced users who want to rebuild the kernel from some source.

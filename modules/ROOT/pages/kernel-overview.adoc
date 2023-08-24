@@ -3,8 +3,8 @@ Taisei Washington; Lucas Fehlau Arbulu
 :revnumber: F38
 :revdate: 2023-06-21
 :category: Kernel
-:tags: Tutorial  Kernel 
-// :page-aliases: 
+:tags: Tutorial,  Kernel 
+:page-aliases: kernel/overview.adoc 
 
 
 

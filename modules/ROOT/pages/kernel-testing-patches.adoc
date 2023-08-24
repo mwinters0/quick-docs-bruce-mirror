@@ -3,8 +3,8 @@ wchilders@nearce.com
 :revnumber: F38
 :revdate: 2021-08-11
 :category: Kernel
-:tags: How-to  Kernel 
-// :page-aliases: 
+:tags: How-to,  Kernel, Testing 
+:page-aliases: kernel/testing-patches.adoc  
 
 
 [abstract]

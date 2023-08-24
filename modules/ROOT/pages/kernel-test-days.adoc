@@ -2,7 +2,8 @@
 Fabrizio <giardia@fedoraproject.org>;
 :revdate: 2019-04-08
 :category: Kernel
-:tags: How-to Kernel Test-Days
+:tags: How-to, Kernel, Test-Days
+:page-aliases: kernel/howto-kernel-testday.adoc 
 
 [abstract]
 A quick guide for Kernel Test Days.
