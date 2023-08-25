@@ -1,28 +1,246 @@
-ifdef::context[:parent-context: {context}]
-:context: creating-gpg-keys
-= Creating GPG Keys
+= GPG Keys Management
+Connor Lim ;  
+:revnumber: F35 onwards
+:revdate: 2021-02-09
+:category: Security
+:tags: How-to, Keys, GPG
 :experimental:
+//:page-aliases: create-gpg-keys.adoc 
 
-This document explains in detail how to obtain a GPG key using common Fedora utilities.
-It also provides information on managing your key as a Fedora contributor.
+[abstract]
+This document explains in detail how to obtain a GPG key using common Fedora utilities. It also provides information on managing your key as a Fedora contributor.
 
-[[creating-gpg-keys]]
+
 == Creating GPG Keys
 
-include::{partialsdir}/proc_creating-gpg-keys-gnome.adoc[leveloffset=+2]
+=== Creating GPG keys using the GNOME desktop
 
-include::{partialsdir}/proc_creating-gpg-keys-kde.adoc[leveloffset=+2]
+Install the Seahorse utility, which makes GPG key management easier.
 
-include::{partialsdir}/proc_creating-gpg-keys-cli.adoc[leveloffset=+2]
+. Select menu:Activities[Software].
+
+. Click the _Search_ button and enter the name 'Seahorse'.
+
+. Click the Seahorse package and click btn:[Install] to add the software.
+  You can also install Seahorse using the command line with the command `sudo dnf install seahorse`.
+
+To create a key:
+
+. Select menu:Activities[Passwords and Encryption Keys], which starts the application Seahorse.
+
+. At the top left hand corner, click the menu:Plus Button[GPG Key].
+
+. Type your full name, email address, and an optional comment describing who you are (e.g.: John C. Smith, jsmith@example.com, The Man).
+
+. Click btn:[Create].
+
+. Choose a passphrase that is strong but also easy to remember in the dialog that is displayed.
+
+. Click btn:[OK] and the key is created.
+
+Now see <<backup-gpg-keys-gnome>>.
+
+
+
+=== Creating GPG Keys Using the KDE Desktop
+
+. Start the KGpg program from the main menu by selecting menu:Applications[Utilities > KGpg].
+  If you have never used KGpg before, the program walks you through the process of creating your own GPG keypair.
+
+. Enter your name, email address, and an optional comment in the dialog box that appears prompting you to create a new key pair.
+  You can also choose an expiration time for your key, as well as the key strength (number of bits) and algorithms.
+
+. Enter your passphrase in the next dialog box.
+  At this point, your key appears in the main KGpg window.
+
+To find your GPG key ID, look in the _ID_ column next to the newly created key.
+In most cases, if you are asked for the key ID, you should prepend `0x` to the last 8 characters of the key ID, as in `0x6789ABCD`.
+
+Now see <<backup-gpg-keys-kde>>.
+
+
+
+=== Creating GPG Keys Using the Command Line
+
+. Use the following shell command:
++
+----
+gpg --full-generate-key
+----
++
+This command generates a key pair that consists of a public and a private key.
+Other people use your public key to authenticate and/or decrypt your communications.
+Distribute your *public* key as widely as possible, especially to people who you know will want to receive authentic communications from you, such as a mailing list.
+
+. Press the kbd:[Enter] key to assign a default value if desired.
+  The first prompt asks you to select what kind of key you prefer:
++
+----
+Please select what kind of key you want:
+   (1) RSA and RSA (default)
+   (2) DSA and Elgamal
+   (3) DSA (sign only)
+   (4) RSA (sign only)
+  (14) Existing key from card
+Your selection? 
+----
++
+In almost all cases, the default is the correct choice.
+A RSA/RSA key allows you not only to sign communications, but also to encrypt files.
+
+. Choose the key size:
++
+----
+RSA keys may be between 1024 and 4096 bits long.
+What keysize do you want? (3072) 
+----
++
+Again, the default is sufficient for almost all users, and represents an _extremely_ strong level of security.
+
+. Choose when the key will expire.
+  It is a good idea to choose an expiration date instead of using the default, which is _none._
+  If, for example, the email address on the key becomes invalid, an expiration date will remind others to stop using that public key.
++
+----
+Please specify how long the key should be valid.
+         0 = key does not expire
+      <n>  = key expires in n days
+      <n>w = key expires in n weeks
+      <n>m = key expires in n months
+      <n>y = key expires in n years
+Key is valid for? (0)
+----
++
+Entering a value of `1y`, for example, makes the key valid for one year.
+(You may change this expiration date after the key is generated, if you change your mind.)
+Before the `gpg` program asks for signature information, the following prompt appears:
++
+----
+Is this correct (y/N)?
+----
++
+. Enter `y` to finish the process.
+
+. Enter your name and email address.
+  _Remember this process is about authenticating you as a real individual._
+  For this reason, include your _real name_.
+  Do not use aliases or handles, since these disguise or obfuscate your identity.
+
+. Enter your real email address for your GPG key.
+  If you choose a bogus email address, it will be more difficult for others to find your public key.
+  This makes authenticating your communications difficult.
+  If you are using this GPG key for https://fedoraproject.org/wiki/Introduce_yourself_to_the_Docs_Project[self-introduction] on a mailing list, for example, enter the email address you use on that list.
+
+. Use the comment field to include aliases or other information.
+  (Some people use different keys for different purposes and identify each key with a comment, such as "Office" or "Open Source Projects.")
+
+. Enter the letter `O` at the confirmation prompt to continue if all entries are correct, or use the other options to fix any problems.
+
+. Enter a passphrase for your secret key.
+  The `gpg` program asks you to enter your passphrase twice to ensure you made no typing errors.
+
+Finally, `gpg` generates random data to make your key as unique as possible.
+Move your mouse, type random keys, or perform other tasks on the system during this step to speed up the process.
+Once this step is finished, your keys are complete and ready to use:
+
+----
+pub   rsa3072 2021-02-09 [SC] [expires: 2022-02-09]
+      3782CBB60147010B330523DD26FBCC7836BF353A
+uid                      John Doe (Fedora Docs) <johndoe@example.com>
+sub   rsa3072 2021-02-09 [E] [expires: 2022-02-09]
+----
+
+The key fingerprint is a shorthand signature for your key.
+It allows you to confirm to others that they have received your actual public key without any tampering.
+You do not need to write this fingerprint down.
+To display the fingerprint at any time, use this command, substituting your email address:
+
+----
+gpg --fingerprint johndoe@example.com
+----
+
+Your key fingerprint is actually a 160 bit SHA-1 hash of the key, represented as a 40 character string of hexadecimal digits.
+Though shorter than the public key itself, it's still a bit unwieldy, so people tend to use a shorter _GPG key ID_ to refer to a key when, for example, looking up a key in a keyserver.
+The GPG key ID is a small number of hex digits drawn from the characters representing the lower-order bits of the fingerprint.
+The "short" GPG key ID consists of the final 8 characters of the hexadecimal fingerprint, that is, the last 32 bits of the fingerprint.
+Short keys are unsafe and no longer recommended because it's possible to create collisions so that an attacker's forged key has the same short ID as your key.
+Thus if you give someone the short GPG key ID of your key, they may retrieve the attacker's key from a keyserver instead.
+
+For this reason, it's preferred to use the "long" GPG key ID, which consists of the final 16 characters of your key's hexadecimal fingerprint.
+This represents the 64 lower-order bits of your fingerprint, which is sufficient to be collision-resistant.
+The `gpg` program makes it easy for you to find your key's long GPG key ID:
+
+----
+gpg --list-keys --fingerprint --key-id-format 0xlong johndoe@example.com
+----
+
+The `0xlong` format prepends "0x" to the key ID to make it clear that this is a series of hexadecimal digits; it is considered good practice to do this.
+The output from the above command looks like this:
+
+----
+pub   rsa3072/0x26FBCC7836BF353A 2021-02-09 [SC] [expires: 2022-02-09]
+      Key fingerprint = 3782 CBB6 0147 010B 3305  23DD 26FB CC78 36BF 353A
+uid                      John Doe (Fedora Docs) <johndoe@example.com>
+sub   rsa3072/0xF834D62672E88A6F 2021-02-09 [E] [expires: 2022-02-09]
+----
+
+The first line (beginning with "pub") tells you what kind the key is (that is, 3072 bit RSA) and what the long key ID is (that is, `0x26FBCC7836BF353A`).
+You can see that this corresponds to the last 16 characters of the Key fingerprint in the output.
+
+Now see <<backup-gpg-keys-cli>>.
+Make sure to back up your revocation keys for all active keys as this allows to revoke keys in the event of lost passphrase of key compromise.
+
+
+
 
 [[making-a-backup]]
 == Making a Backup
 
-include::{partialsdir}/proc_backup-gpg-keys-gnome.adoc[leveloffset=+2]
+=== Making a Key Backup Using the GNOME Desktop
 
-include::{partialsdir}/proc_backup-gpg-keys-kde.adoc[leveloffset=+2]
+. Right-click your key and select _Properties_.
 
-include::{partialsdir}/proc_backup-gpg-keys-cli.adoc[leveloffset=+2]
+. Select the _Details_ tab, and select menu:Export to file[Export secret key].
+
+. Select a destination filename and click btn:[Export].
+
+Store the copy in a secure place, such as a locked container.
+
+Now see <<exporting-gpg-keys-gnome>>.
+
+
+
+[[backup-gpg-keys-kde]]
+=== Making a Key Backup Using the KDE Desktop
+
+. Right-click your key and select _Export Secret Key_.
+
+. Click btn:[Continue] to continue at the confirmation dialog.
+
+. Select a destination filename.
+
+. Click btn:[Save].
+
+Store the copy in a secure place, such as a locked container.
+
+Now see <<exporting-gpg-keys-kde>>.
+
+
+
+[[backup-gpg-keys-cli]]
+=== Making a Key Backup Using the Command Line
+
+Use the following command to make the backup, which you can then copy to a destination of your choice:
+
+----
+gpg --export-secret-keys --armor johndoe@example.com > johndoe-privkey.asc
+----
+
+Store the copy in a secure place, such as a locked container.
+
+Now see <<exporting-gpg-keys-cli>>.
+
+
 
 [[making-your-public-key-available]]
 == Making Your Public Key Available
@@ -32,13 +250,72 @@ This procedure is also known as _exporting_.
 
 See <<copying-public-gpg-keys-manually>> to a file if you wish to email it to individuals or groups.
 
-include::{partialsdir}/proc_exporting-gpg-keys-gnome.adoc[leveloffset=+2]
 
-include::{partialsdir}/proc_exporting-gpg-keys-kde.adoc[leveloffset=+2]
+[[exporting-gpg-keys-gnome]]
+=== Exporting a GPG Key Using the GNOME Desktop
 
-include::{partialsdir}/proc_exporting-gpg-keys-cli.adoc[leveloffset=+2]
+. Click the menu:Menu Button[Sync and Publish Keys...]
 
-include::{partialsdir}/proc_copying-public-gpg-keys-manually.adoc[leveloffset=+2]
+. Click btn:[Key Servers].
+
+. Select _ldap://keyserver.pgp.com_ in the _Publish Keys To_ combobox.
+
+. Click btn:[Close].
+
+. Click btn:[Sync].
+
+Now see <<safeguarding-your-secret-key>>.
+
+
+[[exporting-gpg-keys-kde]]
+=== Exporting a GPG Key Using the KDE Desktop
+
+After your key has been generated, you can export the key to a public keyserver 
+
+. Right-click on the key in the main window.
+
+. Select  _Export Public Keys._
+
+. From there you can export your public key to the clipboard, an ASCII file, to an email, or directly to a key server.
+
+. Export your public key to the default key server.
+
+Now see <<safeguarding-your-secret-key>>.
+
+
+[[exporting-gpg-keys-cli]]
+=== Exporting a GPG Key Using the Command Line
+
+Use the following command to send your key to a public keyserver:
+
+----
+gpg --send-key KEYNAME
+----
+
+For `KEYNAME`, substitute the key ID or fingerprint of your primary keypair.
+This will send your key to the gnupg default key server. If you prefer another one use:
+
+----
+gpg --keyserver hkp://pgp.mit.edu --send-key KEYNAME
+----
+
+Replacing `pgp.mit.edu` with your server of choice.
+
+Now see <<safeguarding-your-secret-key>>.
+
+
+[[copying-public-gpg-keys-manually]]
+=== Copying a Public Key Manually
+
+If you want to give or send a file copy of your key to someone, use this command to write it to an ASCII text file:
+
+----
+gpg --export --armor johndoe@example.com > johndoe-pubkey.asc
+----
+
+Now see <<safeguarding-your-secret-key>>.
+
+
 
 [[safeguarding-your-secret-key]]
 == Safeguarding Your Secret Key
@@ -57,7 +334,53 @@ There are several options available on the market, for example the https://www.y
 Look for a token which advertises OpenPGP support.
 See https://blog.josefsson.org/2014/06/23/offline-gnupg-master-key-and-subkeys-on-yubikey-neo-smartcard/[this blog entry] for how to create a key with offline backups, and use the token for online access.
 
-include::{partialsdir}/proc_revoking-gpg-keys.adoc[leveloffset=+1]
+[[revoking-gpg-keys]]
+== GPG Key Revocation
+
+When you revoke a key, you withdraw it from public use.
+_You should only have to do this if it is compromised or lost, or you forget the passphrase._
+
+[[generating-a-revocation-certificate]]
+=== Generating a Revocation Certificate
+
+When you create the key pair you should also create a key revocation certificate.
+If you later issue the revocation certificate, it notifies others that the public key is not to be used.
+Users may still use a revoked public key to verify old signatures, but not encrypt messages.
+As long as you still have access to the private key, messages received previously may still be decrypted.
+If you forget the passphrase, you will not be able to decrypt messages encrypted to that key.
+
+----
+gpg --output revoke.asc --gen-revoke KEYNAME
+----
+
+If you do not use the `--output` flag, the certificate will print to standard output.
+
+For `KEYNAME`, substitute either the key ID of your primary keypair or any part of a user ID that identifies your keypair.
+Once you create the certificate (the `revoke.asc` file), you should protect it.
+If it is published by accident or through the malicious actions of others, the public key will become unusable.
+It is a good idea to write the revocation certificate to secure removable media or print out a hard copy for secure storage to maintain secrecy.
+
+[[revoking-a-key]]
+=== Revoking a key
+
+. Revoke the key locally:
++
+----
+gpg --import revoke.asc
+----
++
+Once you locally revoke the key, you must send the revoked certificate to a keyserver, regardless of whether the key was originally issued in this way.
+Distribution through a server helps other users to quickly become aware the key has been compromised.
+
+. Export to a keyserver with the following command:
++
+----
+gpg --keyserver hkp://pgp.mit.edu --send-keys KEYNAME
+----
++
+For `KEYNAME`, substitute either the key ID of your primary keypair or any part of a user ID that identifies your keypair.
+
+
 
 == Additional resources
 
@@ -67,5 +390,3 @@ include::{partialsdir}/proc_revoking-gpg-keys.adoc[leveloffset=+1]
 
 See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://pagure.io/fedora-docs/quick-docs[quick-docs's git repository].
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
