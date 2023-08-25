@@ -1,4 +1,11 @@
 = Contribute to Quick Docs
+The Fedora Docs Team.
+:revnumber: all versions
+:revdate: 2023-08-25
+:category: Contributing
+:tags: How-to 
+//:page-aliases: 
+
 
 [abstract]
 The goal is to move away from wikis, where helpful guides are mixed with draft documentation, internal notes, to a nice, topic-oriented how-to guides and code-packed tutorials
@@ -10,68 +17,39 @@ with a pull-request-based workflow. We appreciate your help!
 . Fork the https://pagure.io/fedora-docs/quick-docs repo.
 . Make your changes to the `.adoc` file you want to improve.
 . Uncomment the file in [filename]`nav.adoc` remove the `FIXME` from the xref..
-. Build a local preview to ensure your changes look the way you intended: Make sure you either have *Podman* or *Docker* installed, and run `./build.sh && ./preview.sh`. Follow instructions printed on the command line.
+. Build a local preview to ensure your changes look the way you intended: Make sure you either have *Podman* or *Docker* installed, On a Linux desktop run `./docsbuilder.sh`. On macOS run either `./docsbuilder.sh -p` or `./preview.sh`. Follow instructions printed on the command line.
 . When you are satisfied with your updates, submit a pull request with your improvements.
 . If migrating a wiki page, create a redirect on the old page — see below.
 
 == Possible Source Material
 
-Perhaps you just want to improve an existing document,
-in which case the above is all you need.
-Or maybe you already have something in mind.
-But if you are interested in helping
-but don't know where to start, 
-here are some places to look for ideas:
+Perhaps you just want to improve an existing document, in which case the above is all you need. Or maybe you already have something in mind. But if you are interested in helping but don't know where to start, here are some places to look for ideas:
 
-* The old https://fedoraproject.org/wiki/Category:How_to[How To category]
-on the Fedora wiki. Many of those documents are ripe for conversion. (Many are also very out of date!)
+* The old https://fedoraproject.org/wiki/Category:How_to[How To category] on the Fedora wiki. Many of those documents are ripe for conversion. (Many are also very out of date!)
 * https://discussion.fedoraproject.org/c/ask/common-issues/82/none?solved=yes[Common Issues] questions on Ask Fedora.
-* Frequent
-https://unix.stackexchange.com/questions/tagged/fedora?sort=frequent&pageSize=50[Fedora
-questions on Stack Exchange].
+* Frequent https://unix.stackexchange.com/questions/tagged/fedora?sort=frequent&pageSize=50[Fedora questions on Stack Exchange].
 * https://fedoramagazine.org[Fedora Magazine] articles. The magazine format is conversational, and understood to represent a moment in time. Quick Docs versions should be more to-the-point, and kept updated if commands or best pratices change.
 
 
 == Wiki Redirects
 
-Usually,
-wikis do not allow redirects to external sites,
-because the potential for abuse is very high.
-We've developed a plugin for the Fedora Wiki
-which allows redirects to _only_ pages on this site,
-https://docs.fedoraproject.org/.
-To create such a link, use the
-`#fedoradocs`
-macro by putting something like this at the top of the wiki
-page you are replacing:
+Usually, wikis do not allow redirects to external sites, because the potential for abuse is very high. We've developed a plugin for the Fedora Wiki which allows redirects to _only_ pages on this site, https://docs.fedoraproject.org/. To create such a link, use the `#fedoradocs` macro by putting something like this at the top of the wiki page you are replacing:
 
 [source,mediawiki]
 ----
 {{#fedoradocs: https://docs.fedoraproject.org/en-US/council/fpl/}}
 ----
 
-Of course,
-you should to replace that example URL
-with the one for your new target page.
-Again,
-the URL can't be something arbitrary — 
-it _must_ begin with
-`https://docs.fedoraproject.org/`.
+Of course, you should to replace that example URL with the one for your new target page. Again, the URL can't be something arbitrary it _must_ begin with `https://docs.fedoraproject.org/`.
 
-Once the redirect is in place,
-visitors to that wiki page will be
-instantly whisked
-(well, redirected, with the code `301 Moved Permanently`)
-to the docs site.
+Once the redirect is in place, visitors to that wiki page will be
+instantly whisked (well, redirected, with the code `301 Moved Permanently`) to the docs site.
 
+Note that there is no validation that the target exists or is correct — please double-check that any redirects you create work properly before moving on.
 
-Note that there is no validation that the target exists or is correct —
-please double-check that any redirects you create work properly before
-moving on.
-
-If you need to edit such a page to correct the URL,
-or to remove the redirect for some reason,
-construct a wiki site URL with `&action=edit`,
-like:
+If you need to edit such a page to correct the URL, or to remove the redirect for some reason, construct a wiki site URL with `&action=edit`, like:
+----
 https://fedoraproject.org/w/index.php?title=Project_Leader&action=edit
+----
+
 
