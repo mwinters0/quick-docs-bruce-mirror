@@ -1,11 +1,17 @@
-ifdef::context[:parent-context: {context}]
-:context: xorg
+= Configuring Xorg as the default GNOME session
+Peter Lilley 
+:revnumber: F35 onwards
+:revdate: 2021-01-03
+:category: Printing
+:tags: How-to, Printer, Troubleshooting 
+//:page-aliases: 
+
 include::{partialsdir}/attributes.adoc[]
 
-[id='configuring-xorg-as-default-gnome-session']
-= Configuring Xorg as the default GNOME session
 
+[abstract]
 Wayland is the default GNOME display server, and has been the default in Fedora since Fedora 25. However, users may still need to use the older Xorg display server for compatibility reasons.
+
 
 To confirm the current windowing system in use, go to *Settings* and select *About*.
 
@@ -13,7 +19,39 @@ image::configuring-xorg-as-default-gnome-session_1.png[Settings - About]
 
 
 include::{partialsdir}/proc_configuring-xorg-as-default-gnome-session.adoc[leveloffset=+1]
+[id='proc-configuring-xorg-as-default-gnome-session']
+== Configuring GNOME to use Xorg
 
+At the login screen, select the "gear" icon and select *GNOME on Xorg*.
+
+image::configuring-xorg-as-default-gnome-session_2.png[Login screen - select GNOME on Xorg]
+
+Once login is completed the X11 windowing system will be in use, as can be seen by returning to *Settings* > *About*. This change will persist unless changed back at the login screen.
+
+
+image::configuring-xorg-as-default-gnome-session_3.png[Settings - About]
+
+[discrete]
+=== Changing the default GNOME session via configuration file
+
+As an alternative, this change can be made by editing a configuration file `/etc/gdm/custom.conf`.
+
+. Open `/etc/gdm/custom.conf` and uncomment the line:
+
+  WaylandEnable=false
+
+. Add the following line to the `[daemon]` section:
+
+  DefaultSession=gnome-xorg.desktop
+
+. Save the `custom.conf` file.
+
+. Logout or reboot to enter the new session.
+
+[NOTE]
+====
+With the above changes applied, the option to set the GNOME session to use Wayland will actually be removed from the "gear icon" menu on the login screen.
+====
 
 [discrete]
 == Additional Resources
@@ -21,6 +59,3 @@ include::{partialsdir}/proc_configuring-xorg-as-default-gnome-session.adoc[level
 
 . link:https://wayland.freedesktop.org/[Wayland @ freedesktop.org]
 
-
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
