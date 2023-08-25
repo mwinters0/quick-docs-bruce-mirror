@@ -1,15 +1,42 @@
-ifdef::context[:parent-context: {context}]
-:context: configuring-x-window-system-using-the-xorg-conf-file
-[id='configuring-x-window-system-using-the-xorg-conf-file']
 = Configuring X Window System using the xorg.conf file
+Peter Lilley
+:revnumber: F35 onwards
+:revdate: 2021-01-03
+:category: Administration
+:tags: How-to, Workstation, Gnome, Customization, Xorg
+//:page-aliases: 
 
-include::{partialsdir}/con_xorg-conf.adoc[leveloffset=+1]
 
-include::{partialsdir}/proc_creating_xorg_conf.adoc[leveloffset=+1]
+== About xorg.conf
+
+Traditionally, the xorg.conf file is used to configure an Xorg display server. In Fedora (where an Xorg display server is configured instead of the default Wayland) the X configuration is determined automatically each time X is started. As a result, no xorg.conf file is created. In most cases, this works well and there is no need to manually specify X configuration.
+
+If you need to make manual changes to your X configuration for any reason, you will first need to create an `xorg.conf` file.
+
+
+
+[[creating-an-xorg-conf-file]]
+== Creating an xorg.conf file
+
+You can create a basic file using the `X` executable. It will contain sections and entries that you can edit to suit your needs. To create the file, enter this command as *root*:
+
+----
+# Xorg :1 -configure
+----
+
+Next, copy the file to the correct location:
+
+----
+# cp /root/xorg.conf.new /etc/X11/xorg.conf
+----
+
+Now you may edit the file according to your needs.
+
+See the `xorg.conf(5)` man page for more information.
+
+
 
 [discrete]
 == Additional Resources
 . xref:configuring-xorg-as-default-gnome-session.adoc[Configuring Xorg as the default GNOME session]
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
