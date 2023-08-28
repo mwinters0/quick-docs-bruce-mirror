@@ -3,7 +3,7 @@ Mat McCabe; Joe Walker; Peter Boy (pboy)
 :revnumber: F36 and newer
 :revdate: 2023-06-18
 :category: SELinux
-:tags: How-to Security SELinux
+:tags: How-to, Security, SELinux
 :page-aliases: troubleshooting_selinux.adoc
 //:imagesdir: ./images
 

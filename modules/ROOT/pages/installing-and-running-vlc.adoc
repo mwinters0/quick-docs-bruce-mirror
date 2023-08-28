@@ -3,7 +3,7 @@ Lyle Corman ; Ankur Sinha
 :revnumber: unspecified
 :revdate: 2019
 :category: Software installation
-:tags: How-to VLC
+:tags: How-to, Multimedia, VLC
 //:page-aliases: 
 :experimental:
 //:imagesdir: ./images

@@ -3,7 +3,7 @@
 :revnumber: F37, F38
 :revdate: 2022-09-14
 :category: Administration
-:tags: How-to  Upgrade 
+:tags: How-to,  Upgrade 
 :page-aliases: upgrading.adoc 
 
 

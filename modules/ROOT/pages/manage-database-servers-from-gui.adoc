@@ -3,7 +3,7 @@ Héctor Louzao; Rafael Fontenelle
 :revnumber: F38
 :revdate: 2023-01-04
 :category: Databases
-:tags: How-to Database-Administration
+:tags: How-to, Database-Administration
 
 // Optional  free form useful additional information as comment
 

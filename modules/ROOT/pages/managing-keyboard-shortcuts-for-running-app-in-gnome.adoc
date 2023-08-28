@@ -3,7 +3,7 @@ Rekha K Raj
 :revnumber: unspecified
 :revdate: 2020-03-16
 :category: Administration
-:tags: How-to   Gnome
+:tags: How-to,   Gnome
 // :page-aliases:
 // :experimental:
 

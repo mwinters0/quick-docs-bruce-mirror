@@ -3,7 +3,7 @@ The Fedora Docs Team; Peter Boy (pboy)
 :revnumber: F35-F38
 :revdate: 2023-09-08 
 :category: SELinux
-:tags: How-to Security SELinux
+:tags: How-to, Security, SELinux
 :page-aliases: getting-started-with-selinux.adoc
 //:imagesdir: ./images
 

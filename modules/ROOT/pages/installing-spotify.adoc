@@ -3,7 +3,7 @@ Ankur Sinha; Weverton do Couto Timoteo; Mohammadreza Hendiani
 :revnumber: F38
 :revdate: 2023-07-04
 :category: Installation
-:tags: How-to Flatpak DNF RPMFusion Spotify
+:tags: How-to, Flatpak, DNF, RPMFusion, Spotify
 
 // Optional  free form useful additional information as comment
 

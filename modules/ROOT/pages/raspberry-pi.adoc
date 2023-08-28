@@ -3,7 +3,7 @@ Flo H;  jtagcat; The Fedora Docs Team
 :revnumber: F38
 :revdate: 2023-08-14
 :category: Installation
-:tags: How-to ARM-SBC Raspberry-Pi 
+:tags: How-to, ARM-SBC, Raspberry-Pi 
 
 // Optional  free form useful additional information as comment
 

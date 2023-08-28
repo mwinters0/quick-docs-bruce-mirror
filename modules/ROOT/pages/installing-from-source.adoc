@@ -2,7 +2,7 @@
 ramin; Alan Bowman  
 :revnumber: F37
 :revdate: 2023-01-23
-:category: Software installation
+:category: Software-installation
 :tags: How-to 
 //:page-aliases: 
 

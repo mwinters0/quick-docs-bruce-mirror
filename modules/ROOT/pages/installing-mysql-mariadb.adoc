@@ -3,7 +3,7 @@ Alessio ; Héctor Louzao ; Ankur Sinha
 :revnumber: F37
 :revdate: 2022-06-10
 :category: Databases
-:tags: How-to MySQL MariaDB
+:tags: How-to, MySQL, MariaDB
 //:page-aliases: 
 
 

@@ -3,7 +3,7 @@ quiet
 :revnumber: unspecified
 :revdate: 2020
 :category: Software Installation
-:tags: How-to   Jitsi
+:tags: How-to,   Jitsi
 // :page-aliases:
 // :experimental:
 

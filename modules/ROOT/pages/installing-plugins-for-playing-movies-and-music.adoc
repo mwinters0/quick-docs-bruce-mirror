@@ -3,7 +3,7 @@ Ankur Sinha ; Héctor Louzao ; The Fedora Docs team
 :revnumber: unknown
 :revdate: 2020-10-05
 :category: Administration
-:tags: How-to Plugins Multimedia 
+:tags: How-to, Plugins, Multimedia 
 :page-aliases: assembly_installing-plugins-for-playing-movies-and-music.adoc
 
 [abstract]

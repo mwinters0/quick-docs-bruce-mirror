@@ -3,7 +3,7 @@ Héctor H. Louzao P
 :revnumber: F28 and newer
 :revdate: 2021-11-21
 :category: Administration
-:tags: How-to root troubleshooting
+:tags: How-to, root, troubleshooting
 //:page-aliases: 
 
 

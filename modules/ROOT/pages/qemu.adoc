@@ -3,7 +3,7 @@ Richard Gregory
 :revnumber: unspecified
 :revdate: 2020-11-05
 :category: Virtualisation
-:tags: How-to  Qemu 
+:tags: How-to,  Qemu 
 // :page-aliases:
 
 

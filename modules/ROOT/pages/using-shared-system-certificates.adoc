@@ -3,7 +3,7 @@
 :revnumber: F31 and newer
 :revdate: 2020
 :category: Administration
-:tags: How-to Security Certificates
+:tags: How-to, Security, Certificates
 //:imagesdir: ./images
 
 

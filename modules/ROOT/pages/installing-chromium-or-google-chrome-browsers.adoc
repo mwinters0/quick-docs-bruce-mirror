@@ -3,7 +3,7 @@ Peter Lilley;
 :revnumber: unspecified
 :revdate: 2021-01-17
 :category: Software installation
-:tags: How-to Chromium Chrome
+:tags: How-to, Chromium, Chrome
 //:page-aliases: 
 
 

@@ -6,7 +6,7 @@ Connor Lim; Petr Bokoc; Mirek Jahoda
 :revnumber: unspecified
 :revdate: 2021-01-29
 :category: Administration
-:tags: How-to  Security Update 
+:tags: How-to,  Security, Update 
 //:page-aliases:  
 
 

@@ -3,7 +3,7 @@ Harsh Jain; Peter Boy
 :revnumber: unknown
 :revdate: 2023-08-08
 :category: Administration
-:tags: How-to root-privilegies  
+:tags: How-to, root-privilegies  
 //:page-aliases: 
 
 //include::partial$attributes.adoc[]

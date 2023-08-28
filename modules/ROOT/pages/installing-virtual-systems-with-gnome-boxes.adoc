@@ -3,7 +3,7 @@ Ankursinha; Brunovernay; Hhlp
 :revnumber: unknown
 :revdate: 2021-02-14
 :category: Multimedia
-:tags: How-to Screen-recorder  
+:tags: How-to, Screen-recorder  
 :experimental:
 //:page-aliases: 
 

@@ -3,7 +3,7 @@ Alessio, Peter Lilley, Petr Bokoc
 :revnumber: F32
 :revdate: 2020-12-01
 :category: Administration
-:tags: Samba share,
+:tags: Samba, share, file-sharing
 
 // pboy: Made just a quick fix. Used date from merge request #253 and issue #165.
 

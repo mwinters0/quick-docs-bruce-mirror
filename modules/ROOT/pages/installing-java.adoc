@@ -3,7 +3,7 @@ Héctor Louzao; Ankur Sinha ; alciregi
 :revnumber: F37
 :revdate: 2021-02-02
 :category: Software installation
-:tags: How-to Programming languages Java
+:tags: How-to, Programming languages, Java
 //:page-aliases: 
 
 

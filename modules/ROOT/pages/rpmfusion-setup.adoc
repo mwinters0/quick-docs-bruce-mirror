@@ -3,12 +3,8 @@ Micah Abbott
 :revnumber: F36 and newer
 :revdate: 2022-11-21
 :category: Managing Software
-:tags: How-to Repositories
+:tags: How-to, Repositories
 :page-aliases: setup-rpmfusion.adoc
-
-ifdef::context[:parent-context: {context}]
-:context: enabling-the-rpmfusion-repositories
-
 
 include::{partialsdir}/3rdparty-message.adoc[]
 
@@ -177,5 +173,3 @@ $ reboot
 * https://rpmfusion.org/Configuration
 * https://rpmfusion.org/Howto/OSTree
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]

@@ -3,7 +3,7 @@ Oliver Gutierrez
 :revnumber: F38
 :revdate: 2021-07-04
 :category: Administration
-:tags: How-to Network-Management Active-Directory FreeIPA
+:tags: How-to, Network-Management, Active-Directory, FreeIPA
 
 // Optional  free form useful additional information as comment
 
