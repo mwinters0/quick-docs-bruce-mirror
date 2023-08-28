@@ -1,9 +1,0 @@
-include::{partialsdir}/attributes.adoc[]
-
-= NVIDIA Optimus Bumblebee
-
-include::{partialsdir}/3rdparty-message.adoc[]
-
-With recent releases of Xorg and the NVIDIA driver, Bumblebee is no longer required.
-Please refer to the https://rpmfusion.org/Howto/NVIDIA[RPM Fusion NVIDIA documentation] to see how you can get the best out of your NVIDIA Optimus hardware on Fedora.
-

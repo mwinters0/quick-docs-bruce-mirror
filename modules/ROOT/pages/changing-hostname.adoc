@@ -1,11 +1,14 @@
-ifdef::context[:parent-context: {context}]
-:context: changing-hostname
-:imagesdir: ./images
-
-[[changing-hostname]]
 = Changing Hostname
+Peter Lilley; Peter Boy (pboy)
+:revnumber: F36 onwards
+:revdate: 2021-01-30
+:category: Administration
+:tags: How-to, Network, Hostname
+//:page-aliases: 
 
+[abstract]
 A new installation of Fedora will assign a default hostname. You may wish to set a different name for easier identification of your host(s) on a network.
+
 
 There are three variations of a hostname in a Fedora system:
 
@@ -13,9 +16,69 @@ There are three variations of a hostname in a Fedora system:
 . An optional **pretty** name can be longer and more descriptive, like "Emily's 2nd dev laptop".
 . A **transient** name is assigned by the network. It is probably going to be the same as the static name, unless there are multiple hosts with the same static name on the local network. For example, if there are two hosts both with static name "localhost", one machine may be assigned a transient name of "localhost-1".
 
-include::{partialsdir}/proc_displaying-current-hostname.adoc[leveloffset=0]
+== Displaying your current hostname
 
-include::{partialsdir}/proc_changing-the-hostname.adoc[leveloffset=0]
+For Fedora Workstation, using the default GNOME desktop,  open the Settings application and choose About.
 
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+image::displaying-current-hostname-1.png[GNOME Settings - About]
+
+To see the hostname from the command line, use the command `hostnamectl` with no options. The example output below shows the static and transient hostnames. Your output may be slightly different depending on which hostname types have been set.
+
+....
+   Static hostname: localhost.localdomain 
+Transient hostname: fedora
+         Icon name: computer-laptop
+           Chassis: laptop
+        Machine ID: 15fc9e69d007013025f31bc5272c4ed1
+           Boot ID: 41ac938872bae052294bcb277241ac93
+  Operating System: Fedora 33 (Workstation Edition)
+       CPE OS Name: cpe:/o:fedoraproject:fedora:33
+            Kernel: Linux 5.10.10-200.fc33.x86_64
+      Architecture: x86-64
+....
+
+To see the current static, transient or pretty hostname, you can use the `hostnamectl` command with options, such as: 
+
+....
+hostnamectl --static
+hostnamectl --transient
+hostnamectl --pretty
+....
+
+
+
+== Changing the hostname
+
+For Fedora Workstation, using the default GNOME desktop, open the Settings application and choose About.
+
+image::changing-hostname-1.png[GNOME Settings - About]
+
+You can replace the value in the Device name field with the name of your choosing. The effect of this field is as follows:
+
+* If you use a name that is shorter, contains only lowercase letters, numbers and/or dashes ("-"), this will set the host's static name, and the pretty name will be left blank.
+* If you enter a name that is more descriptive, contains mixed-case and other types of characters, this will set the pretty name, and a static name will be derived from that automatically.
+
+You can see the effect of the change by using the `hostnamectl` command again:
+
+....
+   Static hostname: emilys-2nd-dev-laptop
+   Pretty hostname: Emily's 2nd dev laptop
+         Icon name: computer-laptop
+           Chassis: laptop
+        Machine ID: 15fc9e69d007013025f31bc5272c4ed1
+           Boot ID: 41ac938872bae052294bcb277241ac93
+  Operating System: Fedora 33 (Workstation Edition)
+       CPE OS Name: cpe:/o:fedoraproject:fedora:33
+            Kernel: Linux 5.10.10-200.fc33.x86_64
+      Architecture: x86-64
+....
+
+In the previous example, "Emily's 2nd dev laptop" was entered via the Settings app, and the static hostname "emilys-2nd-dev-laptop" was set automatically.
+
+Hostnames can also be set at the command line with the `hostnamectl set-hostname` command. For example:
+
+....
+sudo hostnamectl set-hostname --pretty "Emily's 2nd dev laptop"
+sudo hostnamectl set-hostname --static emily-dev-2
+....
+
