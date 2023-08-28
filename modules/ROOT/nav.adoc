@@ -13,8 +13,8 @@
 * Installation
 ** xref:creating-and-using-a-live-installation-image.adoc[Creating and using a live installation image]
 ** xref:raspberry-pi.adoc[Fedora on Raspberry Pi]
-** xref:anaconda/anaconda.adoc[Anaconda: the Fedora installer]
-*** xref:anaconda/anaconda_logging.adoc[Anaconda Logging]
+** xref:anaconda-introduction.adoc[Anaconda: the Fedora installer]
+*** xref:anaconda-logging.adoc[Anaconda Logging]
 
 
 * Accessibility
