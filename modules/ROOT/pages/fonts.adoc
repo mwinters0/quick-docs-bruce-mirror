@@ -1,4 +1,4 @@
-= Adding new fonts in Fedora
+= Adding New Fonts in Fedora
 The Fedora Docs Team; Peter Boy 
 :revnumber: F36,F37
 :revdate: 2023-04-24
