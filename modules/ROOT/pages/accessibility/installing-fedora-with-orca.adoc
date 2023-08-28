@@ -1,4 +1,11 @@
 = Installing Fedora with Orca
+Devin Prater ;  Ankur Sinha
+:revnumber: F36 onwards
+:revdate: 2022-07-27
+:category: Accessibility
+:tags: How-to, Installation  
+//:page-aliases: accessibility/installing-fedora-with-orca.adoc
+
 
 Thanks for choosing to install Fedora.
 The first thing you'll need to do is put an installer onto a removable disk, like a DVD or Flash Drive.

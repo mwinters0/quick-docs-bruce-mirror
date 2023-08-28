@@ -1,4 +1,11 @@
 = Why Choose Fedora Linux?
+Devin Prater ;  Ankur Sinha
+:revnumber: F36 onwards
+:revdate: 2022-07-27
+:category: Accessibility
+:tags: How-to, Overview  
+//:page-aliases: accessibility/why-choose-fedora.adoc
+
 
 As other, proprietary, computer operating systems (OS) decline in accessibility, or fail to move forward on lofty promises, people with disabilities may begin looking for an alternative, particularly as computers that are more than three years old suddenly will not be supported by an OS upgrade.
 Many people with disabilities do not have a steady income, or cannot afford to spend the money they *do* have on a new computer just to keep their system current, secure, and future-proof.
