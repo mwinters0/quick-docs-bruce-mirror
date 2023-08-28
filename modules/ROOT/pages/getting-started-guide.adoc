@@ -3,7 +3,7 @@ Petr Bokoc ; Ooyama Yosiyuki; Liam Coogan
 :revnumber: F32 onwards
 :revdate: 2023-03-21
 :category: Introduction and Overview
-:tags: Tutorial Workstation
+:tags: Tutorial, Workstation
 :experimental:
 
 

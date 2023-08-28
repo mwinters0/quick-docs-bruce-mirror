@@ -2,8 +2,8 @@
 The Fedora Docs Team; Peter Boy 
 :revnumber: F36,F37
 :revdate: 2023-04-24
-:category: Adminisgtrtation
-:tags: How-to Workstation
+:category: Administration
+:tags: How-to, Workstation
 
 Fedora pre-installs several basic fonts by default.
 This page explains how to add new fonts to a Fedora installation.

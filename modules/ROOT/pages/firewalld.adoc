@@ -3,7 +3,7 @@ Richard Gregory; Petr Bokoc (pbokoc); Peter Boy (pboy)
 :revnumber: F34 onwards
 :revdate: 2023-08-23
 :category: Security
-:tags: How-to firewall
+:tags: How-to, Firewall
 :experimental:
 
 

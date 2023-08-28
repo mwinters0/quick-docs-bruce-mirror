@@ -4,8 +4,8 @@ Adam Samalik; Anthony McGlone
 :revnumber: F37
 :revdate: 2022-12-12
 :revremark: update procedure
-:category: how-to
-:tags: gnome, workstation, shortcut
+:category: Administration
+:tags: How-to, Workstation, Gnome, Shortcut
 :page-aliases: proc_setting-key-shortcut
 
 If you frequently use a certain application, you can set a keyboard shortcut to quickly launch that application on GNOME.

@@ -3,7 +3,7 @@ Michael Wu; The Fedora Documentation Team
 :revnumber: unknown
 :revdate: 2012-05-11
 :category: Administration
-:tags: How-to  Booting 
+:tags: How-to,  Booting 
 :page-aliases: installing-grub2.adoc
 
 

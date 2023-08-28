@@ -3,7 +3,7 @@ yohaan vakil; Otto Urpelainen; Ooyama Yosiyuki
 :revnumber: F28 and newer
 :revdate: 2022-06-02
 :category: Administration
-:tags: How-to Repositories
+:tags: How-to, Repositories
 :page-aliases: repositories.adoc
 
 include::{partialsdir}/attributes.adoc[]

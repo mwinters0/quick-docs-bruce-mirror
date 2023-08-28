@@ -3,7 +3,7 @@ Hanku Lee, Peter Boy; Fedora Documentation Team
 :revnumber: F36 and newer
 :revdate: 2023-03-04
 :category: Managing Software
-:tags: Tutorial Workstation
+:tags: Tutorial, Workstation
 
 [abstract]
 If you are looking for software to run on Fedora Linux, you will discover Fedora-packaged software, EPEL (Extra Packages for Enterprise Linux) and Flatpak apps. Here is an overview of software repositories and installation.

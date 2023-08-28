@@ -1,4 +1,6 @@
 = Fedora Quick Docs
+The Fedora Docs Team
+
 
 This is a collection of short HOW-TO and FAQ-style documentation for Fedora users. **Use the navigation menu on the left** to find an area of interest, and under that, solutions to your specific problem.
 

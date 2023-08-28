@@ -3,7 +3,7 @@ Ankur Sinha; Joe Walker
 :revnumber: all
 :revdate: 2023-05-15
 :category: Bugs
-:tags: How-to Bug-Report 
+:tags: How-to, Bug-Report 
 //:imagesdir: ./images
 
 include::partial$attributes.adoc[]

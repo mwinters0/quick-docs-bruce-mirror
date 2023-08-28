@@ -3,7 +3,7 @@ Mat McCabe ; Mauricio Tavares; The Fedora Docs team
 :revnumber: F37
 :revdate: 2023-01-05
 :category: Administration
-:tags: Tutorial Encryption LUKS 
+:tags: Tutorial, Encryption, LUKS 
 
 
 // Optional  free form useful additional information as comment

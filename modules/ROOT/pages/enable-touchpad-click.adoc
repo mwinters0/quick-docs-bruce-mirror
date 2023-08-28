@@ -3,7 +3,7 @@ Ankur Sinha; Caleb McKee; Petr Bokoc
 :revnumber: F38
 :revdate: 2023-05-08
 :category: Administration
-:tags: Touchpad 
+:tags: How-to, Workstation, Touchpad 
 
 
 [[scope]]
