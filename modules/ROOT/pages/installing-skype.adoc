@@ -26,7 +26,7 @@ To install Skype using the Skype RPM repository:
 . Add a Skype repository file on your machine
 +
 ----
-$ sudo /etc/yum.repos.d/microsoft-skype.repo
+$ sudo nano /etc/yum.repos.d/microsoft-skype.repo
 ----
 
 . Add Skype stable and unstable repositories by adding following text in the text editor
