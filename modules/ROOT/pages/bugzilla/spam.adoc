@@ -1,27 +1,27 @@
 = Reporting Bugzilla spam
+Ben Cotton 
+:revnumber: F36 onwards
+:revdate: 2022-03-11
+:category: Troubleshooting
+:tags: How-to, Bugzilla  
+//:page-aliases: bugzilla/find-dublicates.adoc
 
-Like any website that allows user contribution,
-Red Hat Bugzilla sometimes gets spam comments.
-There are two ways to report spam.
 
-TIP: If you have the necessary privileges,
-you can mark a spam comment as private
-until the admins have had a chance to remove it.
+
+Like any website that allows user contribution, Red Hat Bugzilla sometimes gets spam comments. There are two ways to report spam.
+
+TIP: If you have the necessary privileges, you can mark a spam comment as private until the admins have had a chance to remove it.
+
 
 == Tag comment
 
 The preferred way is to tag the comment as spam.
 
-. On the spam comment,
-click the tag icon.
-(The alt text says "tag comment".)
-. In the text box that opens,
-type "spam" and hit the Enter key.
+. On the spam comment, click the tag icon. (The alt text says "tag comment".)
+. In the text box that opens, type "spam" and hit the Enter key.
 
 This will flag the comment to the Bugzilla admins.
 
 == Report by email
 
-You can submit reports via email to
-mailto:bugzilla-owner@redhat.com[bugzilla-owner@redhat.com].
-Please include a direct link to the comment(s) you are reporting for spam.
+You can submit reports via email to mailto:bugzilla-owner@redhat.com[bugzilla-owner@redhat.com]. Please include a direct link to the comment(s) you are reporting for spam.

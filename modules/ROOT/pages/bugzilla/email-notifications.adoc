@@ -1,4 +1,11 @@
 = Managing Bugzilla email notifications
+Ben Cotton 
+:revnumber: F36 onwards
+:revdate: 2022-03-11
+:category: Troubleshooting
+:tags: How-to, Bugzilla  
+//:page-aliases: bugzilla/email-notifications.adoc
+
 
 Bugzilla allows you to set granular email notification preferences.
 

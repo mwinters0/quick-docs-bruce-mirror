@@ -1,4 +1,11 @@
-= Finding the correct component
+= Bugzilla – Finding the Correct Component
+Ben Cotton 
+:revnumber: F36 onwards
+:revdate: 2022-03-03
+:category: Troubleshooting
+:tags: How-to, Bugzilla  
+//:page-aliases: bugzilla/correct-component.adoc
+
 
 When filing a bug, it helps if you can identify the component at fault.
 This is not always obvious, so here are some tips.

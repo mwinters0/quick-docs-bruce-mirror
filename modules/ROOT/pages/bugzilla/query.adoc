@@ -1,33 +1,30 @@
 = Bugzilla queries
+Ben Cotton 
+:revnumber: F36 onwards
+:revdate: 2022-03-04
+:category: Troubleshooting
+:tags: How-to, Bugzilla  
+//:page-aliases: bugzilla/find-dublicates.adoc
 
-Bugzilla lets you search for bug reports that match specified conditions.
-This page covers common options.
-The https://bugzilla.redhat.com/docs/en/html/using/index.html[Red Hat Bugzilla User Guide] has more information.
+
+Bugzilla lets you search for bug reports that match specified conditions. This page covers common options. The  https://bugzilla.redhat.com/docs/en/html/using/index.html[Red Hat Bugzilla User Guide] has more information.
+
 
 == Simple queries
 
 The https://bugzilla.redhat.com/query.cgi?format=specific[simple Bugzilla query form] does a relatively simple keyword search.
 
-Enter a word or short phrase that identifies the problem you saw as uniquely as possible in the Summary field.
-Examples: "view source", "auto proxy", "drag drop", "png image".
+Enter a word or short phrase that identifies the problem you saw as uniquely as possible in the Summary field. Examples: "view source", "auto proxy", "drag drop", "png image".
+
 
 == Advanced queries
 
-The https://bugzilla.redhat.com/query.cgi?format=advanced[advanced Bugzilla query form] looks dauntingly complex.
-While it is complex and powerful, you can safely ignore most of the form.
-Any part of the form that is left blank does not limit the search.
-Each part that is filled in cuts the list of bugs down to only those that match the criteria you set.
+The https://bugzilla.redhat.com/query.cgi?format=advanced[advanced Bugzilla query form] looks dauntingly complex. While it is complex and powerful, you can safely ignore most of the form. Any part of the form that is left blank does not limit the search. Each part that is filled in cuts the list of bugs down to only those that match the criteria you set.
 
 The Status field is set by default to find NEW, ASSIGNED, NEEDINFO, and MODIFIED bugs—the unfixed bugs (or in the case of MODIFIED the recently fixed bugs).
 
-In the product field, you should always use "Fedora", "Fedora EPEL", or "Fedora Container Images".
-In the component field, select the source package that contains the defect.
-See the xref:bugzilla/correct-component.adoc[finding the correct component] for help.
+In the product field, you should always use "Fedora", "Fedora EPEL", or "Fedora Container Images". In the component field, select the source package that contains the defect. See the xref:bugzilla/correct-component.adoc[finding the correct component] for help.
 
-Enter a word or short phrase that identifies the problem you saw as uniquely as possible in the Summary field.
-Examples: "view source", "auto proxy", "drag drop", "png image".
-If you enter more than one word and they are not a phrase, change the type of matching for the Summary field from *contains the string* to *contains all of the words/strings* or *contains any of the words/strings*, as appropriate.
+Enter a word or short phrase that identifies the problem you saw as uniquely as possible in the Summary field. Examples: "view source", "auto proxy", "drag drop", "png image". If you enter more than one word and they are not a phrase, change the type of matching for the Summary field from *contains the string* to *contains all of the words/strings* or *contains any of the words/strings*, as appropriate.
 
-Fedora generally doesn't make use of keywords in Bugzilla, so you won't usually need to use this.
-Keywords are specific tags, not arbitrary words.
-If you try to search for keywords that are not on the list, it won't work.
+Fedora generally doesn't make use of keywords in Bugzilla, so you won't usually need to use this. Keywords are specific tags, not arbitrary words. If you try to search for keywords that are not on the list, it won't work.

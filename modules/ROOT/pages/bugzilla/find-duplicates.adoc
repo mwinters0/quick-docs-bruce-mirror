@@ -1,20 +1,24 @@
 = Finding duplicates in Bugzilla
-include::partial$attributes.adoc[]
+Ben Cotton 
+:revnumber: F36 onwards
+:revdate: 2022-03-03
+:category: Troubleshooting
+:tags: How-to, Bugzilla  
+//:page-aliases: bugzilla/find-dublicates.adoc
 
-Fedora developers want to hear about specific and reproducible bugs that happen when you use Fedora Linux, but it does not help to have the same bug reported many times.
-You can help to get more bugs fixed faster by checking duplicate reports before filing a new bug.
+// include::partial$attributes.adoc[]
+
+Fedora developers want to hear about specific and reproducible bugs that happen when you use Fedora Linux, but it does not help to have the same bug reported many times. You can help to get more bugs fixed faster by checking duplicate reports before filing a new bug.
 
 Commonly encountered bugs can be found:
 
 * On the https://bugzilla.redhat.com/duplicates.cgi?sortby=count&reverse=1&product=Fedora&maxrows=100&changedsince=7[most frequently reported bugs] list
-* On the https://fedoraproject.org/wiki/Bugs/Common[Common Bugs] page
-For Rawhide bugs, linked from a https://fedoraproject.org/wiki/BugZappers/HouseKeeping/Trackers[Blocker or Target Tracker]
+* On the https://fedoraproject.org/wiki/Bugs/Common[Common Bugs] page for Rawhide bugs, linked from a https://fedoraproject.org/wiki/BugZappers/HouseKeeping/Trackers[Blocker or Target Tracker]
 
 If your bug isn't in the lists above, you can use xref:bugzilla/query.adoc[Bugzilla's search tool] to find matching bugs.
 
 == What to do with duplicates once found
 
-If you are a triager or package maintainer, set the bug that has less information to the CLOSED status with a resolution of DUPLICATE, and add the bug number of the bug with the best information.
-This may very well mean closing a lower-numbered bug and keeping a higher-numbered one open—that's fine.
+If you are a triager or package maintainer, set the bug that has less information to the CLOSED status with a resolution of DUPLICATE, and add the bug number of the bug with the best information. This may very well mean closing a lower-numbered bug and keeping a higher-numbered one open—that's fine.
 
 If you do not have permissions to change bugs you have not reported, add a comment to both bugs pointing out the duplication and someone else will mark them appropriately.
