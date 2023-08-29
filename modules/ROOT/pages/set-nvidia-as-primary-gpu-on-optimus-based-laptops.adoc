@@ -4,6 +4,8 @@ Akashdeep Dhar ; Jun Aruga ; Ankur Sinha;
 :revdate: 2022-09-12
 :category: Administration
 :tags: How-to, Nvidia 
+:page-aliases: how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops.adoc
+
 //:imagesdir: ./images
 
 
