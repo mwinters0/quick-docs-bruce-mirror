@@ -1,0 +1,219 @@
+= Network Manager Quick Reference
+Peter Boy (pboy); The Fedora Docs Team
+:revnumber: F37 onwards
+:revdate: 2023-08-29
+:category: Administration
+:tags: How-to, Network, NetworkManager, Quick Refeence
+//:page-aliases: 
+
+
+== NetworkManager status
+
+Overall status of NetworkManager::
++
+----
+$ nmcli general status
+----
+
+Display active connections::
+----
+$ nmcli connection show --active
+----
+
+Display all configured connections::
+----
+$ nmcli connection show configured
+----
+
+== Connect/disconnect to an already configured connection
+
+Connect to a configured connection by name::
+----
+$ nmcli connection up id <connection_name>
+----
+
+Disconnection by name::
+----
+$ nmcli connection down id <connection_name>
+----
+
+
+== Wi-Fi
+
+Get Wi-Fi status::
+----
+$ nmcli radio wifi
+----
+
+Turn Wi-Fi on or off::
+----
+$ nmcli radio wifi _on|off_
+----
+
+Available access points (AP)::
+----
+$ nmcli device wifi list
+----
+
+Refresh the previous list::
+----
+$ nmcli device wifi rescan
+----
+
+Create a new connection to an open AP::
+----
+$ nmcli device wifi connect <SSID|BSSID>
+----
+
+Create a new connection to a protected AP::
+----
+$ nmcli device wifi connect <SSID|BSSID> password <password>
+----
+
+
+== Network interfaces
+
+List available devices and their status::
+----
+$ nmcli device status
+----
+
+Disconnect an interface::
+----
+$ nmcli device disconnect iface <interface>
+----
+
+
+== Create or modify a connection
+
+To create a new connection using an interactive editor
+----
+$ nmcli connection edit con-name <name_of_new_connection>
+----
+
+To edit an already existing connection using an interactive editor:
+----
+$ nmcli connection edit <connection_name>
+----
+
+[[exampletutorial]]
+=== Example/Tutorial
+
+Create a new connection:
+----
+$ nmcli connection edit con-name _name of new connection_
+----
+
+It asks us to define a connection type:
+----
+Valid connection types: 802-3-ethernet (ethernet), 802-11-wireless (wifi), wimax, gsm, cdma, infiniband, adsl, bluetooth, vpn, 802-11-olpc-mesh (olpc-mesh), vlan, bond, team, bridge, bond-slave, team-slave, bridge-slave
+Enter connection type:
+----
+
+In this example, we use ethernet:
+----
+Enter connection type: ethernet
+----
+
+The following message appears, note that `nmcli>` is a prompt and that it lists the main settings available:
+----
+===| nmcli interactive connection editor |===
+
+Adding a new '802-3-ethernet' connection
+
+Type 'help' or '?' for available commands.
+Type 'describe [<setting>.<prop>]' for detailed property description.
+
+You may edit the following settings: connection, 802-3-ethernet (ethernet), 802-1x, ipv4, ipv6
+nmcli>
+----
+
+Edit the setting `ipv4`:
+----
+nmcli> goto ipv4
+----
+
+Note that after this our prompt has changed to indicate that we are currently editing the `ipv4` setting:
+----
+nmcli ipv4>
+----
+
+List available properties under the `ipv4` setting and describe the `method` property:
+----
+nmcli ipv4> describe
+
+Available properties: method, dns, dns-search, addresses, routes, ignore-auto-routes, ignore-auto-dns, dhcp-client-id, dhcp-send-hostname, dhcp-hostname, never-default, may-fail
+Property name?
+
+Property name? method
+----
+
+Set property `method` to `auto`:
+----
+nmcli ipv4> set method auto
+----
+
+The `ipv4` setting is now finished. Go back to the main level. Enter the following command until the prompt looks like `nmcli>`:
+----
+nmcli ipv4> back
+----
+
+To list the main settings again, use the `goto` command without any arguments. After that, press `Enter` and ignore the error.
+----
+nmcli> goto
+
+Available settings: connection, 802-3-ethernet (ethernet), 802-1x, ipv4, ipv6
+Setting name?
+----
+
+It is possible to set a value for a property directly from the main level:
+----
+nmcli> set __setting__.__property__ _value_
+----
+
+For example:
+----
+nmcli> set connection.autoconnect TRUE
+
+nmcli> set connection.interface-name _interface name this connection is bound to_
+
+nmcli> set ethernet.cloned-mac-address _Spoofed MAC address_
+----
+
+Finally, check the connection details, save and exit:
+----
+nmcli> print
+
+nmcli> save
+
+nmcli> quit
+----
+
+
+=== Manually editing
+
+To manually edit an `ifcfg` connection configuration, open or create with a text editor the configuration file of the connection located in `/etc/sysconfig/network-scripts/ifcfg-`.
+
+A description of most common configuration options is available in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/deployment_guide/s1-networkscripts-interfaces[RHEL6 Deployment Guide].
+
+To modify a connection password, open with a text editor and edit the file `keys-` located in `/etc/sysconfig/network-scripts/`. The password is stored in plain text. For example:
+----
+$ cat /etc/sysconfig/network-scripts/keys-__connection name__
+WPA_PSK='password'
+----
+
+Or, if using keyfile, simply edit the connection file located inside `/etc/NetworkManager/system-connections/`
+
+Finally, save the files and to apply changes to an already active connection execute.
+----
+nmcli connection up id _connection name_
+----
+
+[[delete-a-connection-configuration]]
+== Delete a connection configuration
+
+Delete the connection:
+----
+nmcli connection delete id <connection_name>
+----
+Please note that this also deactivates the connection.
