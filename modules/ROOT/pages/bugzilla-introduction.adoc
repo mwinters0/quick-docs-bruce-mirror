@@ -4,7 +4,7 @@ Ben Cotton
 :revdate: 2022-03-11
 :category: Troubleshooting
 :tags: How-to, Bugzilla  
-//:page-aliases: bugzilla/index.adoc
+:page-aliases: bugzilla/index.adoc
 
 
 Fedora uses https://bugzilla.redhat.com[Red Hat Bugzilla] for bug tracking. This page and the other pages under the "Bugs" header on the left offer some tips and guidance.

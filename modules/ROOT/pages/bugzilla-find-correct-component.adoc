@@ -4,7 +4,7 @@ Ben Cotton
 :revdate: 2022-03-03
 :category: Troubleshooting
 :tags: How-to, Bugzilla  
-//:page-aliases: bugzilla/correct-component.adoc
+:page-aliases: bugzilla/correct-component.adoc
 
 
 When filing a bug, it helps if you can identify the component at fault.

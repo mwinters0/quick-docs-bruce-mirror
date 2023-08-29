@@ -4,7 +4,7 @@ Ben Cotton
 :revdate: 2022-03-04
 :category: Troubleshooting
 :tags: How-to, Bugzilla  
-//:page-aliases: bugzilla/find-dublicates.adoc
+:page-aliases: bugzilla/find-dublicates.adoc
 
 
 Bugzilla lets you search for bug reports that match specified conditions. This page covers common options. The  https://bugzilla.redhat.com/docs/en/html/using/index.html[Red Hat Bugzilla User Guide] has more information.
