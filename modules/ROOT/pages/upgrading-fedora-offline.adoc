@@ -191,6 +191,13 @@ You can see duplicate packages (packages with multiple versions installed) with:
 sudo dnf repoquery --duplicates
 ----
 
+And you can remove them with:
+
+[source,bash]
+----
+sudo dnf remove --duplicates
+----
+
 [NOTE]
 ====
 Run `sudo dnf upgrade` first, as this list is only valid if you have a fully updated system.
