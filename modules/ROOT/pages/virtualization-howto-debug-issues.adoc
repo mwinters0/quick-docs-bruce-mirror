@@ -23,7 +23,7 @@ Reporting bugs effectively is an important skill for any Fedora user or develope
 
 Narrowing down the possible causes of the bug and providing the right information in the bug report allows a bug to be resolved quickly. Filing a bug report with little useful information can mean that your bug lays unresolved, possibly until it is closed automatically when the distribution version reaches "end of life".
 
-See xref:howto-file-a-bug.adoc[how to file a bug report] for generic information on filing bugs. This page contains information specific to virtualization bugs.
+See xref:bugzilla-file-a-bug.adoc[how to file a bug report] for generic information on filing bugs. This page contains information specific to virtualization bugs.
 
 // Note: if you're filing a virtualization related bug against a package which isn't on [[Virtualization#Relevant_Packages|this list]], then please cc the [mailto:fedora-virt-maint@redhat.com fedora-virt-maint@redhat.com] alias in bugzilla to ensure virt developers see the bug.
 

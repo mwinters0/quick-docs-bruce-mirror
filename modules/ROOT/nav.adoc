@@ -3,7 +3,7 @@
 * xref:getting-started-guide.adoc[Getting started with Fedora]
 
 * xref:bugzilla/index.adoc[Bugs]
-** xref:howto-file-a-bug.adoc[How to file a bug]
+** xref:bugzilla-file-a-bug.adoc[How to file a bug]
 ** xref:bugzilla/query.adoc[Bugzilla queries]
 ** xref:bugzilla/find-duplicates.adoc[Finding duplicate bugs]
 ** xref:bugzilla/correct-component.adoc[Finding the correct component]
@@ -61,7 +61,7 @@
 ** xref:grub2-bootloader.adoc[The GRUB2 Bootloader]
 ** xref:samba.adoc[How to create a Samba share]
 ** xref:join-active-directory-freeipa.adoc[How to join an Active Directory or FreeIPA domain]
-** xref:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops.adoc[How to Set NVIDIA as Primary GPU on Optimus-based Laptops]
+** xref:set-nvidia-as-primary-gpu-on-optimus-based-laptops.adoc[How to Set NVIDIA as Primary GPU on Optimus-based Laptops]
 ** xref:debug-systemd-problems.adoc[How to debug systemd problems]
 ** xref:enable-touchpad-click.adoc[How to enable touchpad click]
 ** xref:installing-and-running-vlc.adoc[Installing and running the VLC player]
