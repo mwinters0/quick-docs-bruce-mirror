@@ -1,7 +1,7 @@
 = Enabling the RPM Fusion repositories
 Micah Abbott
 :revnumber: F36 and newer
-:revdate: 2022-11-21
+:revdate: 2023-09-17
 :category: Managing Software
 :tags: How-to, Repositories
 :page-aliases: setup-rpmfusion.adoc
@@ -144,22 +144,22 @@ For more information about this process and the problem it solves, please refer 
 +
 [subs=+quotes]
 ----
-$ sudo rpm-ostree install \
+$ rpm-ostree install \
   https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
   https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-$ reboot
+$ systemctl reboot
 ----
 
 . To replace the versioned RPM Fusion repos that were previously installed with the unversioned repos:
 +
 [subs=+quotes]
 ----
-$ sudo rpm-ostree update \
+$ rpm-ostree update \
   --uninstall rpmfusion-free-release \
   --uninstall rpmfusion-nonfree-release \
   --install rpmfusion-free-release \
   --install rpmfusion-nonfree-release
-$ reboot
+$ systemctl reboot
 ----
 
 
