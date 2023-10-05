@@ -10,9 +10,9 @@ include::partial$attributes.adoc[]
 
 == Downloading Fedora
 
-You can download Fedora from https://getfedora.org/.
+You can download Fedora from https://fedoraproject.org/.
 
-There are multiple desktops available for use with Fedora. Each has a slightly different look and feel and offers varying levels of customization. You can use the link:https://getfedora.org/en/workstation/[Fedora Workstation] image, which comes with the GNOME desktop by default, and then change your environment afterwards by installing additional packages, or you can download a spin image which will give you a different environment out of the box. Visit link:https://spins.fedoraproject.org/[Fedora Spins] for more information.
+There are multiple desktops available for use with Fedora. Each has a slightly different look and feel and offers varying levels of customization. You can use the link:https://fedoraproject.org/workstation/[Fedora Workstation] image, which comes with the GNOME desktop by default, and then change your environment afterwards by installing additional packages, or you can download a spin image which will give you a different environment out of the box. Visit link:https://spins.fedoraproject.org/[Fedora Spins] for more information.
 
 You can also take advantage of Fedora Labs. Fedora Labs is a selection of curated bundles of purpose-driven software and content as curated and maintained by members of the Fedora Community. These may be installed as standalone full versions of Fedora or as add-ons to existing Fedora installations. Visit link:https://labs.fedoraproject.org/[Fedora Labs] for details.
 
@@ -44,7 +44,7 @@ The official and supported tool to create a Fedora USB stick is the *Fedora Medi
 ====
 
 [id='gnome-disk-utility']
-=== Using GNOME Disk Utility
+=== Using GNOME Disks
 
 IMPORTANT: This method will destroy all data on the USB stick. If you need a non-destructive write method (to preserve existing data on your USB stick) and/or support for 'data persistence', you can use the `livecd-iso-to-disk` utility on Fedora.
 
@@ -53,7 +53,7 @@ IMPORTANT: This method will destroy all data on the USB stick. If you need a non
 This method is considered unsupported. You can use it on your own risk.
 ====
 
-This method is for people running Linux, or another unix with GNOME, Nautilus and the GNOME Disk Utility installed. Particularly, if you are using a distribution other than Fedora which does not support Flatpak, this may be the easiest available method. A standard installation of Fedora, or a standard GNOME installation of many other distributions, should be able to use this method. On Fedora, ensure the packages _nautilus_ and _gnome-disk-utility_ are installed. Similar graphical direct-write tools may be available for other desktops, or you may use the command-line _direct write_ method.
+This method is for people running Linux, or another unix with GNOME, Nautilus, and GNOME Disks installed. Particularly, if you are using a distribution other than Fedora which does not support Flatpak, this may be the easiest available method. A standard installation of Fedora, or a standard GNOME installation of many other distributions, should be able to use this method. On Fedora, ensure the packages _nautilus_ and _gnome-disk-utility_ are installed. Similar graphical direct-write tools may be available for other desktops, or you may use the command-line _direct write_ method.
 
 . Download a Fedora image, choose a USB stick that does not contain any data you need, and connect it.
 . Run Nautilus (Files), open the *Overview* by pressing the *Start/Super* key, type Files, and hit kbd:[Enter].
@@ -191,7 +191,6 @@ NOTE: If you are running a 64-bit Linux distribution, UNetbootin may fail to run
 . Click OK.
 
 NOTE: If you do not see _sdX_ listed, you might have to reformat the drive. You can do this from most file manager or disk utility tools, e.g. the GNOME disk utility ("Disks") on Fedora. The FAT32 format is most likely to result in a bootable stick. This will cause you to lose all data on the drive.
-
 
 [id='creating_usb_stick_from_a_running_live_environment']
 === Creating a USB stick from a running live environment
