@@ -1,4 +1,4 @@
-= Jitsi – Getting Started 
+= Jitsi Meet Self-Hosting Guide
 quiet
 :revnumber: unspecified
 :revdate: 2020
