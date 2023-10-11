@@ -75,6 +75,7 @@
 ** xref:screenrecorder-apps-comparison.adoc[Screen Recorder – Comparison of Applications in Fedora and How to Use them]
 ** xref:understanding-and-administering-systemd.adoc[Understanding and administering systemd]
 ** xref:gnome-shell-extensions.adoc[Using GNOME Shell extensions]
+** xref:using-kubernetes.adoc[Using Kubernetes on Fedora]
 ** xref:using-shared-system-certificates.adoc[Using shared system certificates]
 ** xref:using-yubikeys.adoc[Using Yubikeys with Fedora]
 ** xref:viewing-logs.adoc[Viewing logs in Fedora]
