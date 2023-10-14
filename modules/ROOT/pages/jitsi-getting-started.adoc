@@ -10,7 +10,7 @@ quiet
 
 [WARNING]
 ====
-This guide is badly outdated. It doesn't work anymore this way at all.
+This documentation hasn't been updated in a while. Some information might no longer be valid. You can find the latest version of the upstream documentation at https://jitsi.github.io/handbook/docs/devops-guide/
 ====
 
 
