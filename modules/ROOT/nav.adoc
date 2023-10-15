@@ -65,7 +65,7 @@
 ** xref:debug-systemd-problems.adoc[How to debug systemd problems]
 ** xref:enable-touchpad-click.adoc[How to enable touchpad click]
 ** xref:installing-and-running-vlc.adoc[Installing and running the VLC player]
-** xref:jitsi-getting-started.adoc[Jitsi Mee Self-Hosting Guide]
+** xref:jitsi-getting-started.adoc[Jitsi Meet Self-Hosting Guide]
 ** xref:managing-keyboard-shortcuts-for-running-app-in-gnome.adoc[Managing keyboard shortcuts for running an application in GNOME]
 ** xref:performing-administration-tasks-using-sudo.adoc[Performing administration tasks using sudo]
 ** xref:reset-root-password.adoc[Resetting a root password]
