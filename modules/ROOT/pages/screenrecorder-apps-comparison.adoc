@@ -81,7 +81,7 @@ sudo dnf install simplescreenrecorder
 
 == OBS Studio
 
-Open Broadcaster Software is available for Linux, Mac and Windows. It can perform recording as well as screencast. The recording functions seem similar to that of the simplescreenrecorder.
+OBS Studio provides feature-rich professional tools for your video recordings and live streaming. You can find the latest version of the upstream documentation at https://obsproject.com/kb/quick-start-guide
 
 
 == Recording Web apps or Web pages
