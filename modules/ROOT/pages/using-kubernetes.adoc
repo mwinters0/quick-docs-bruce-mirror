@@ -13,7 +13,7 @@ include::partial$3rdparty-message.adoc[]
 [[sect-overview]]
 == Overview
 
-This how-to provides an overview of the link:https://kubernetes.io[Kubernetes] rpms in the Fedora repositories, how to use them in a few scenarios and a short cluster creation guide using kubeadm on a Fedora machine.
+This how-to provides an overview of the link:https://kubernetes.io[Kubernetes] rpms in the Fedora repositories, how to use them in a few scenarios and a short cluster creation guide using kubeadm on a single Fedora machine.
 The guide also touches on an alternative source for Kubernetes rpms available in COPR and potential benefits.
 
 [[sect-what-is-kubernetes]]
@@ -49,7 +49,7 @@ A pod typically has a single primary container but may include more capabilities
 == Kubernetes rpms in Fedora
 
 The number, name, and organization of content in Fedora Kubernetes rpms depends on the Fedora release.
-Fedora 40 and newer releases will have one set of rpms.
+Fedora 40 and newer releases will have one set of rpms (change pending).
 Fedora 39 and older releases have the legacy set of rpms.
 
 [[sect-fedora-39-and-older]]
@@ -162,7 +162,7 @@ sudo dnf install kubernetes kubernetes-kubeadm kubernetes-control-plane-services
 Each Fedora release has a corresponding version of Kubernetes available as listed below.
 The goal is to provide the most current Kubernetes release available when a Fedora release reaches General Availability (GA).
 This is not always possible resulting in skipped Kubernetes releases. Skipping a release causes problems for Kubernetes cluster administrators given the Kubernetes cluster upgrade process.
-Alternatives are being explored.
+Alternative ways to package Kubernetes for Fedora are being explored.
 
 The version of the Go language supported for a given Fedora release can limit the version of Kubernetes if Kubernetes requires a newer version of Go.
 
@@ -196,11 +196,12 @@ The version of the Go language supported for a given Fedora release can limit th
 [cluster-creation]
 == Creating a Kubernetes cluster with kubeadm using Fedora rpms
 
+Below is a guide to creating a Kubernetes cluster on a single Fedora machine.
 Each Fedora release has a corresponding Kubernetes release as documented at the link:https://src.fedoraproject.org/rpms/kubernetes[Fedora Package Sources repository for Kubernetes].
 Fedora 39, for example, has rpms for Kubernetes 1.27.
-The installation process is the same for all current Fedora releases.
-These instructions have been tested on Fedora 38 virtual machines and on Raspberry Pi 4 hardware running Fedora 38 minimal.
-This guide follows the steps in the link:https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/[Creating a cluster with kubeadm] guide.
+The cluster initialization is the same for all current Fedora releases.
+These instructions have been tested on Fedora 38 and Fedora 39 virtual machines and on Raspberry Pi 4 hardware running Fedora 38 and Fedora 39 minimal.
+The guide below generally follows the link:https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/[Creating a cluster with kubeadm] guide.
 
 . Update system with DNF.
 Reboot if necessary, although a reboot can be deferred until after the next step.
@@ -296,8 +297,7 @@ sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables ne
 . Install a container runtime.
 CRI-O is installed in this example.
 Containerd is also an option.
-Note: verify that the major:minor version of cri-o is the same as the version of Kubernetes (installed below).
-On Fedora 38, for example you will need to install cri-o-0:1.26.1-1.fc38.x86_64 to avoid the 1.28 version that is also available.
+Note: If using cri-o, verify that the major:minor version of cri-o is the same as the version of Kubernetes (installed below).
 +
 [source,bash]
 ----
@@ -308,13 +308,13 @@ sudo dnf install cri-o containernetworking-plugins
 +
 [source,bash]
 ----
-# fedora 39 earlier use:
+# fedora 39 and earlier use:
 sudo dnf install kubernetes-client kubernetes-node kubernetes-kubeadm
 ----
 ////
 [source,bash]
 ----
-# fedora 39 earlier use:
+# fedora 39 and earlier use:
 sudo dnf install kubernetes-client kubernetes-node kubernetes-kubeadm
 
 #fedora 40 and later use:
@@ -428,7 +428,7 @@ There are Kubernetes projects in link:https://copr.fedorainfracloud.org/[COPR] t
 [[sect-versioned-kubernetes-rpms]]
 === Versioned Kubernetes RPMS
 
-The link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-versioned/[Versioned Kubernetes Packages] project is an experiment project exploring the use of versioned Kubernetes packages.
+The link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-versioned/[Versioned Kubernetes Packages] project is an experimental project exploring the use of versioned Kubernetes packages.
 A versioned package has a version number as part of the name such as `kubernetes1.28` or `kubernetes1.28-client`.
 The goal is to have multiple versions of Kubernetes available for a given Fedora release.
 This uncouples Fedora versions from Kubernetes versions allowing version upgrades to either Fedora or Kubernetes.
