@@ -10,7 +10,7 @@
 
 [IMPORTANT]
 ====
-. Make your system *fully up-to-date* before attempting system upgrade to a new Fedora release.
+. Make sure your system is *fully up-to-date* before attempting a system upgrade to a new Fedora release.
 . Be sure to *back-up your data* before upgrading your Fedora system in the event something breaks and leaves your system unusable.
 . Read the xref:fedora:release-notes:index.adoc[Release Notes] carefully before attempting an upgrade.
 ====
@@ -20,7 +20,7 @@
 
 [NOTE]
 ====
-This is the recommended upgrade method for the Fedora Workstation.
+This is the recommended upgrade method for Fedora Workstation.
 ====
 
 
