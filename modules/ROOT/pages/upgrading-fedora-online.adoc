@@ -1,10 +1,10 @@
 = Upgrading Fedora Online Using Package Manager
- Ben Cotton; Kamil Páral;  Caleb McKee 
-:revnumber: F37, F38
-:revdate: 2022-05-04
+ Ben Cotton; Kamil Páral;  Caleb McKee
+:revnumber: F37, F38, F39
+:revdate: 2023-11-07
 :category: Administration
-:tags: How-to,  Upgrade 
-//:page-aliases: 
+:tags: How-to,  Upgrade
+//:page-aliases:
 
 [abstract]
 This page contains information explaining how to upgrade Fedora online using `dnf` (without the xref:dnf-system-upgrade.adoc[DNF system upgrade plugin]).
@@ -26,7 +26,7 @@ link:SIGs/LiveUpgrade[Live Upgrade Special Interest Group].
 
 == Upgrading across multiple releases
 
-If you need to upgrade across several releases, it is generally recommended to go one release at a time: for example, rather than going directly from Fedora 31 to Fedora 33, first go to Fedora 32 and then to Fedora 33. This tends to reduce the number of package dependency issues you may encounter. If you are upgrading from an link:End_of_life[End of life] release, please also see link:#eol[the end-of-life section].
+If you need to upgrade across several releases, it is generally recommended to go one release at a time: for example, rather than going directly from Fedora 37 to Fedora 39, first go to Fedora 38 and then to Fedora 39. This tends to reduce the number of package dependency issues you may encounter. If you are upgrading from an link:End_of_life[End of life] release, please also see link:#eol[the end-of-life section].
 
 == Instructions to upgrade using dnf
 
