@@ -89,11 +89,6 @@ sudo dnf system-upgrade reboot
 
 These are some of the tasks you can do after a successful upgrade.
 
-[NOTE]
-====
-This section is mainly intended for power users. If you are a general user who doesn't use the terminal daily, you may skip this section.
-====
-
 [[sect-update-system-configuration-files]]
 === Update system configuration files
 
