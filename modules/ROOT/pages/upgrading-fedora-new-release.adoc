@@ -91,6 +91,22 @@ You should never allow a production Fedora deployment to reach end-of-life in th
 
 With that in mind, if you do have an end-of-life release installed on a system you cannot just discard or re-deploy, you upgrade using xref:upgrading-fedora-offline.adoc[DNF System Upgrade]. Note that upgrades are only tested from the two previous releases.
 
+=== Upgrading to a pre-release version using Gnome Software
+
+Upgrading to pre-released versions of Fedora can be enabled in Gnome software using the following command:
+
+----
+gsettings set org.gnome.software show-upgrade-prerelease true
+----
+
+If the upgrade banner does not show after executing that command, terminating the gnome-software process may be necessary.
+
+Once the upgrade is complete, it is highly recommended to disable that function so you do not get unwanted future pre-releases. Running the same command in reverse accomplishes that:
+
+----
+gsettings set org.gnome.software show-upgrade-prerelease false
+----
+
 === Upgrading using the Fedora installer (anaconda)?
 
 Fedora releases up to Fedora 17 included upgrade functionality in the Fedora installer, anaconda.
