@@ -231,7 +231,7 @@ However, that doesn't mean that the package is not useful or that you don't use 
 ====
 
 [[sect-clean-up-old-kernels]]
-=== Clean-up Old Kernels
+=== Clean-up old kernels
 
 After you boot into the latest kernel and test the system you can remove previous kernels. Old kernels remain even after `dnf autoremove` to avoid unintentional removals.
 
