@@ -77,7 +77,7 @@ Check status of `dnf-automatic`:
 
 [source,bash]
 ----
-systemctl list-timers dnf-*
+systemctl list-timers 'dnf-*'
 ----
 
 [[changes-as-of-fedora-26]]
