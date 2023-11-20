@@ -341,7 +341,7 @@ The boot process will likely take a long time, as it checks and fixes SELinux pe
 
 . See link:++https://fedoraproject.org/wiki/Bugs/Common++[Common bugs] to check if it is a known problem the community is already aware of.
 
-. Search link:++https://bugzilla.redhat.com/buglist.cgi?product=Fedora&component=dnf-plugin-system-upgrade&resolution=---++[Bugzilla for an existing bug report].
+. Search link:++https://bugzilla.redhat.com/buglist.cgi?component=dnf-plugins-core&list_id=13370526&product=Fedora&resolution=---++[Bugzilla for an existing bug report] filed against the system-upgrade plug-in.
 
 If you do not see a report that matches your symptoms, you can file a new report from the search page.
 Please follow the bug reporting instructions mentioned in the link:++https://github.com/rpm-software-management/dnf-plugin-system-upgrade/blob/master/README.md++[README from the GitHub repo] or in `man dnf.plugin.system-upgrade`.
