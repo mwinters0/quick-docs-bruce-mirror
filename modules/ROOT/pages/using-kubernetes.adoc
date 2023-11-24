@@ -13,24 +13,24 @@ include::partial$3rdparty-message.adoc[]
 [[sect-overview]]
 == Overview
 
-This how-to provides an overview of the link:https://kubernetes.io[Kubernetes] rpms in the Fedora repositories, how to use them in a few scenarios and a short cluster creation guide using kubeadm on a single Fedora machine.
-The guide also touches on an alternative source for Kubernetes rpms available in COPR and potential benefits.
+This how-to provides an overview of the link:https://kubernetes.io[Kubernetes] (K8s) rpms in the Fedora repositories, how to use them in a few scenarios and a short cluster creation guide using `kubeadm` on a single Fedora machine.
+The guide also touches on an alternative source for Kubernetes rpms available in link:https://copr.fedorainfracloud.org[COPR] and potential benefits.
 
 [[sect-what-is-kubernetes]]
 === What is Kubernetes?
 
 link:https:/kubernetes.io[Kubernetes] is an "open-source system for automating deployment, scaling, and management of containerized applications" on one or more machines.
-Kubernetes had it's genesis in the concepts and principles used at Google to run container-base workloads at scale and with resilience.
+Kubernetes had its genesis in the concepts and principles used at Google to run container-base workloads at scale and with resilience.
 Kubernetes is now at the center of a vast ecosystem of products and services (link:https://cncf.io/[Cloud Native Computing Foundation]) that help organizations create, install, run, manage and secure container-based applications and services at any possible scale.
 
 There are numerous ways to install and configure Kubernetes depending on purpose and target environment.
 Is this for a home lab on a single machine, a small cluster for home or business automation, edge-based services and applications in remote offices or enterprise scale production workloads in the cloud?
-This guide is narrowly focused on the Kubernetes rpms available from Fedora and using dnf and the command line to install these rpms on Fedora and create a basic cluster using kubeadm.
+This guide is narrowly focused on the Kubernetes rpms available from Fedora and using `dnf` and the command line to install these rpms on Fedora and create a basic cluster using `kubeadm`.
 
 [[sect-terminology]]
 === Terminology
 
-Kubernetes is complex and like many complex systems has it's own terminology.
+Kubernetes is complex and like many complex systems has its own terminology.
 The terminology used in this guide are defined here.
 The Kubernetes teams maintains a comprehensive link:https://kubernetes.io/docs/reference/glossary/[glossary] which is used in the subset below.
 
@@ -40,7 +40,7 @@ A cluster has at least one node and one control plane (these can be on the same 
 control plane:: the container orchestration layer in a cluster which manages the pods in the cluster.
 At least one node in a cluster has a control plane.
 node:: a worker machine (either a virtual machine or physical machine) in a Kubernetes cluster that has the services required to run pods.
-These services include the kubelet container runtime and kube-proxy.
+These services include the `kubelet` container runtime and `kube-proxy`.
 pods:: containerized applications are deployed and managed in Kubernetes as pods.
 A pod is the base object managed by Kubernetes in a cluster.
 A pod typically has a single primary container but may include more capabilities.
@@ -49,7 +49,7 @@ A pod typically has a single primary container but may include more capabilities
 == Kubernetes rpms in Fedora
 
 The number, name, and organization of content in Fedora Kubernetes rpms depends on the Fedora release.
-Fedora 40 and newer releases will have one set of rpms (change pending).
+Fedora 40 and newer releases will have one set of rpms (link:https://fedoraproject.org/wiki/Changes/RestructureKubernetesPackages[pending change proposal for Fedora 40]).
 Fedora 39 and older releases have the legacy set of rpms.
 
 [[sect-fedora-39-and-older]]
@@ -164,7 +164,7 @@ The goal is to provide the most current Kubernetes release available when a Fedo
 This is not always possible resulting in skipped Kubernetes releases. Skipping a release causes problems for Kubernetes cluster administrators given the Kubernetes cluster upgrade process.
 Alternative ways to package Kubernetes for Fedora are being explored.
 
-The version of the Go language supported for a given Fedora release can limit the version of Kubernetes if Kubernetes requires a newer version of Go.
+The version of the Go programming language supported for a given Fedora release can also limit the version of Kubernetes available if Kubernetes requires a newer version of Go.
 
 .Kubernetes versions and the corresponding Fedora release
 [cols="1,1,1,1", options="header"]
@@ -212,7 +212,7 @@ sudo dnf update
 ----
 
 . Disable swap.
-Kubernetes is configured to generate an installation error if swap is detected.
+Kubernetes is configured to generate an installation error if swap is detected (see link:https://github.com/kubernetes/kubernetes/issues/53533[this ticket for details]).
 Modern Fedora systems use zram by default.
 Reboot after disabling swap.
 +
@@ -234,7 +234,7 @@ sudo systemctl stop firewalld.system
 sudo systemctl disable firewalld.system
 ----
 
-. Install iptables and iproute-tc.
+. Install `iptables` and `iproute-tc.`
 +
 [source,bash]
 ----
@@ -260,7 +260,7 @@ sudo modprobe overlay
 sudo modprobe br_netfilter
 ----
 
-. Add required sysctl parameters and persist.
+. Add required `sysctl` parameters and persist.
 +
 [source,bash]
 ----
@@ -272,14 +272,14 @@ net.ipv4.ip_forward                 = 1
 EOF
 ----
 
-. Apply sysctl parameters without a reboot.
+. Apply `sysctl` parameters without a reboot.
 +
 [source,bash]
 ----
 sudo sysctl --system
 ----
 
-. Verify br_filter and overlay modules are loaded.
+. Verify `br_filter` and overlay modules are loaded.
 +
 [source,bash]
 ----
@@ -287,14 +287,14 @@ lsmod | grep br_netfilter
 lsmod | grep overlay
 ----
 
-. Verify that the net.bridge.bridge-nf-call-iptables, net.bridge.bridge-nf-call-ip6tables, and net.ipv4.ip_forward system variables are set to 1 in your sysctl configuration by running the following command:
+. Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, and `net.ipv4.ip_forward` system variables are set to `1` in your sysctl configuration by running the following command:
 +
 [source,bash]
 ----
 sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
 ----
 
-. Install a container runtime.
+. Install a link:https://kubernetes.io/docs/setup/production-environment/container-runtimes/[container runtime].
 CRI-O is installed in this example.
 Containerd is also an option.
 Note: If using cri-o, verify that the major:minor version of cri-o is the same as the version of Kubernetes (installed below).
@@ -304,13 +304,14 @@ Note: If using cri-o, verify that the major:minor version of cri-o is the same a
 sudo dnf install cri-o containernetworking-plugins
 ----
 
-. Install Kubernetes. This installs the three necessary Kubernetes applications (kubectl, kubelet, and kubeadm) that need to be on each machine in the cluster.
+. Install Kubernetes. This installs the three necessary Kubernetes applications (`kubectl`, `kubelet`, and `kubeadm`) that need to be on each machine in the cluster.
 +
 [source,bash]
 ----
 # fedora 39 and earlier use:
 sudo dnf install kubernetes-client kubernetes-node kubernetes-kubeadm
 ----
++
 ////
 [source,bash]
 ----
@@ -321,6 +322,7 @@ sudo dnf install kubernetes-client kubernetes-node kubernetes-kubeadm
 sudo dnf install kubernetes kubernetes-client
 ----
 ////
+
 . Start and enable cri-o.
 +
 [source,bash]
@@ -335,7 +337,7 @@ sudo systemctl enable --now crio
 sudo kubeadm config images pull
 ----
 
-. Start and enable kubelet.
+. Start and enable `kubelet`.
 Kubelet will be in a crash loop until the cluster is initialized in the next step.
 +
 [source,bash]
@@ -369,7 +371,8 @@ Alternatively, if you are the root user, you can run:
   export KUBECONFIG=/etc/kubernetes/admin.conf
 ----
 
-. The steps listed above allow a non-root user to use kubectl, the Kubernetes command line tool. Run these commands now.
+. The steps listed above allow a non-root user to use `kubectl`, the Kubernetes command line tool.
+Run these commands now.
 +
 [source,bash]
 ----
