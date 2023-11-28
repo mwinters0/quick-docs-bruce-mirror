@@ -1,7 +1,7 @@
 = Installing Java
 Héctor Louzao; Ankur Sinha ; alciregi 
-:revnumber: F37
-:revdate: 2021-02-02
+:revnumber: F39
+:revdate: 2023-11-28
 :category: Software installation
 :tags: How-to, Programming languages, Java
 //:page-aliases: 
@@ -18,16 +18,13 @@ Most Java applications run on one of the following:
 
 * OpenJDK -- an open-source implementation of the Java Platform, Standard Edition.
   This version is preferred, and included in Fedora.
-* Oracle Java SE -- a free JDK from Oracle.
-  This version is not open-source and we recommend that it only be used if OpenJDK is not sufficient.
+* Oracle Java SE -- The former Orale SE is no longer distributed by Fedora.
 
 You can find the following Versions:
 
-* Version (Ex. 8)
+* The Long Term Support `LTS` Versions, currently 1.8, 11, 17
 
-* Long Term Support or `LTS`
-
-* Latest
+* Latest, currently 21
 
 
 
@@ -105,7 +102,7 @@ For example, to extract it to the _/opt_ directory:
 `sudo tar xf Downloads/jdk-18_linux-x64_bin.tar.gz -C /opt`
 
 . Set the _JAVA_HOME_ environment variable to that directory.
-For example: `export JAVA_HOME=/opt/jdk-18.0.1.1`
+For example: `export JAVA_HOME=/opt/jdk-21.0.1.1`
 
 Note: Always make sure to download latest version available.
 
