@@ -27,10 +27,33 @@ It is possible to install Skype on Fedora using these package methods.
 
 To install Skype using the Skype RPM repository:
 
-. Add the Skype repository
+. Add a Skype repository file on your machine
 +
 ----
-$ sudo curl -o /etc/yum.repos.d/skype-stable.repo https://repo.skype.com/rpm/stable/skype-stable.repo
+$ sudo nano /etc/yum.repos.d/microsoft-skype.repo
+----
+
+. Add Skype stable and unstable repositories by adding following text in the text editor
++
+----
+[microsoft-skype]
+name=Microsoft Skype
+baseurl=https://repo.skype.com/rpm/stable/
+gpgkey=file:///usr/share/distribution-gpg-keys/skype/SKYPE-GPG-KEY
+[microsoft-skype-unstable]
+name=Microsoft Skype Unstable
+baseurl=https://repo.skype.com/rpm/unstable/
+gpgkey=file:///usr/share/distribution-gpg-keys/skype/SKYPE-GPG-KEY
+enabled=0
+----
+
+Hit CTRL + x to exit the text editor. Hit Y to save the file.
+
+. Import Microsoft's GPG keys for Skype
++
+----
+$ sudo dnf install distribution-gpg-keys
+$ sudo rpm --import /usr/share/distribution-gpg-keys/skype/SKYPE-GPG-KEY
 ----
 
 . Install Skype
