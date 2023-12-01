@@ -220,14 +220,8 @@ Number  Start   End     Size    Type      File system  Flags
 /dev/mapper/linux-swap: UUID="47b4d329-975c-4c08-b218-f9c9bf3635f1" TYPE="swap"
 ....
 
-
-// TODO: this link needs to be replaced to point to new documentation
-
-.  From the output above, you recall that your root volume exists on an
-    encrypted block device. Following the disk encryption guidance
-    from the
-    http://docs.fedoraproject.org/install-guide/f%7B%7BFedoraVersion%7D%7D/en-US/html/apcs04s04.html[
-    Installation Guide], you unlock your encrypted root volume.
+.  From the output above, you recall that your root volume exists on an 
+encrypted block device. Unlock your encrypted root volume.
 +
 ....
 UUID=$(cryptsetup luksUUID /dev/mapper/linux-root)
@@ -242,9 +236,9 @@ Key slot 0 unlocked.
 ln -s /dev/mapper/luks-$UUID /dev/root
 ....
 
-.  With the root volume available, you may continue booting the system
-    by exiting the dracut shell
-
+.  With the root volume available, you may continue booting the system 
+by exiting the dracut shell
++
 ....
 exit
 ....
@@ -254,21 +248,21 @@ exit
 
 A selection of the most common debugging related dracut options:
 
-==== `*rd.shell*`
+`*rd.shell*`::
 Drop to a shell, if the initramfs fails.
 
-==== `*rd.debug*`
+`*rd.debug*`::
 Set -x for the dracut shell.
 
-==== `*rd.break=[cmdline|pre-udev|pre-trigger|initqueue|pre-mount|mount|pre-pivot|cleanup]*`
+`*rd.break=[cmdline|pre-udev|pre-trigger|initqueue|pre-mount|mount|pre-pivot|cleanup]*`::
 Drop the shell on defined breakpoint (use
 `egrep 'rd.?break' /usr/lib/dracut/modules.d/99base/init.sh` to find the
 breakpoints supported by your dracut version)
 
-==== `*rd.udev.info*`
-Set udev to loglevel info
+`*rd.udev.info*`::
+Set udev to loglevel info (this is the default level)
 
-==== `*rd.udev.debug*`
+`*rd.udev.debug*`::
 Set udev to loglevel debug
 
 See the `dracut.cmdline(7)`
