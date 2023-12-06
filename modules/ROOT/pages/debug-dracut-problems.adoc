@@ -1,7 +1,7 @@
 = How to debug Dracut problems
 Caleb McKee; Héctor Louzao; Frank Sträter
 :revnumber: all
-:revdate: 2022-11-21
+:revdate: 2023-12-06
 :category: Bugs
 :tags: How-to, Bug-Report, kernel, dracut
 //:imagesdir: ./images
