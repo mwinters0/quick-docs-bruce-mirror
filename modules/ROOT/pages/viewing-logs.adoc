@@ -32,8 +32,10 @@ Please note that you may require `sudo` access to view these files.
 === Using journalctl to view system information
 
 * To view all collected journal entries, simply use:
+
+[source,bash]
 ----
-$ journalctl
+journalctl
 ----
 
 * To view a logs related to a specific file, you can provide the `journalctl` command with a filepath.
