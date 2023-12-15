@@ -9,15 +9,6 @@ Lyle Corman ; Ankur Sinha
 //:imagesdir: ./images
 
 
-include::{partialsdir}/3rdparty-message.adoc[]
-
-
-== Prerequisites
-
-* VLC is provided by the RPMFusion repositories.  xref:rpmfusion-setup.adoc[Use these instructions to enable them].
-
-
-
 == Installing VLC
 
 
