@@ -3,7 +3,7 @@ Michael Wu; Anthony McGlone; The Fedora Docs team
 :revnumber: F38, F39
 :revdate: 2023-11-07
 :category: Administration
-:tags: How-to, Upgrade
+:tags: How-to, Upgrade, Update 
 :page-aliases: dnf-system-upgrade.adoc
 
 include::ROOT:partial$attributes.adoc[]
