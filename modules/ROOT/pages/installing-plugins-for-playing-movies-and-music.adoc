@@ -9,20 +9,12 @@ Ankur Sinha ; Héctor Louzao ; The Fedora Docs team
 [abstract]
 As a Fedora user and system administrator, you can use these steps to install additional multimedia plugins that enable you to play various video and audio types.
 
-WARNING: If you live in a country where software patents apply, such as in the United States or in Japan, you need to obtain multimedia codecs from a source that legally distributes patented software in your country. For example, see the Fluendo Codec Pack: link:https://fluendo.com/en/products/enterprise/fluendo-codec-pack/[].
-
-
-== Prerequisites
-
-* xref:rpmfusion-setup.adoc[Enable the RPMFusion repositories].
-
-
 == Procedure
 
 * Use the `dnf` utility to install packages that provide multimedia libraries:
 +
 ----
-sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
+sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-plugin-libav --exclude=gstreamer1-plugins-bad-free-devel
 
 sudo dnf install lame\* --exclude=lame-devel 
 
@@ -32,8 +24,8 @@ sudo dnf group upgrade --with-optional Multimedia
 == Related information
 
 * There are also media players that include all relevant codecs by themselves. Consider using one of the following for offline video viewing:
-** VLC, available from the `vlc` package in RPM Fusion Free
-** MPV, available from the `mpv` package in RPM Fusion Free
+** VLC, available from the `vlc` package
+** MPV, available from the `mpv` package
 
 
 
