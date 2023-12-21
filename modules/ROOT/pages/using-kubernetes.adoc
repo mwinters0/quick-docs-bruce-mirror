@@ -196,7 +196,9 @@ The version of the Go programming language supported for a given Fedora release 
 [cluster-creation]
 == Creating a Kubernetes cluster with kubeadm using Fedora rpms
 
-Below is a guide to creating a Kubernetes cluster on a single Fedora machine.
+Below is a guide to creating a functional Kubernetes cluster on a single Fedora machine that is suitable as a learning and exploring environment.
+This guide is not intended for production environments.
+
 Each Fedora release has a corresponding Kubernetes release as documented at the link:https://src.fedoraproject.org/rpms/kubernetes[Fedora Package Sources repository for Kubernetes].
 Fedora 39, for example, has rpms for Kubernetes 1.27.
 The cluster initialization is the same for all current Fedora releases.
@@ -224,9 +226,11 @@ sudo reboot now
 ----
 
 . Disable the firewall.
-Kubernetes is configured to generate an installation error if the firewall is running.
+Kubeadm will generate an installation warning if the firewall is running.
+Disabling the firewall removes one source of complexity in a learning environment.
 Modern Fedora systems use firewalld.
-See link:https://devopstales.github.io/kubernetes/k8s-security[https://devopstales.github.io/kubernetes/k8s-security] for an alternative solution that retains the firewall and opens necessary ports.
+See link:https://devopstales.github.io/kubernetes/k8s-security/#use-firewalld[https://devopstales.github.io/kubernetes/k8s-security/#use-firewalld] for an alternative solution that retains the firewall and opens necessary ports.
+The current list of ports and protocols used by a Kubernetes cluster can be found at link:https://kubernetes.io/docs/reference/networking/ports-and-protocols/[https://kubernetes.io/docs/reference/networking/ports-and-protocols/].
 +
 [source,bash]
 ----
