@@ -442,19 +442,16 @@ This uncouples Fedora versions from Kubernetes versions allowing version upgrade
 A cluster manager can update the Fedora machines while maintaining the cluster version constant.
 Or the cluster manager can update Kubernetes while retaining the same Fedora release.
 
+[[sect-kubernetes-1.26]]
+=== Kubernetes 1.26 RPMS
+The link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.26/[Kubernetes 1.26] project provides Kubernetes 1.26 rpms for all current Fedora releases that provide Go language 1.20 or newer.
+This includes Fedora 39 and Fedora 40 (rawhide). Kubernetes 1.26 is directly available in Fedora 38.
+
+[references]
 [[sect-kubernetes-1.27]]
 === Kubernetes 1.27 RPMS
 The link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.27/[Kubernetes 1.27] project provides Kubernetes 1.27 rpms for all current Fedora releases that provide Go language 1.20 or newer.
-This includes Fedora 38, Fedora 39, and Fedora 40 (rawhide).
-
-[[sect-kubernetes-1.25]]
-=== Kubernetes 1.25 RPMS
-
-The link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.25/[Kubernetes 1.25] project provides rpms for all Fedora releases.
-Kubernetes 1.25 part of the Fedora 37 release along with Go language version 1.19.
-The upstream Kubernetes team  recently updated Kubernetes 1.25 to use Go language version 1.20.
-Kubernetes 1.25 can no longer be built on standard Fedora 37.
-This project uses a custom version of Go available in COPR to continue to provide this version of Kubernetes for Fedora 37 as well as for newer Fedora releases. Both Fedora 37 and Kubernetes 1.25 will reach end of life in the October-November 2023 time frame.
+This includes Fedora 38 and Fedora 40 (rawhide). Kubernetes 1.27 is directly available in Fedora 39.
 
 [references]
 == References
