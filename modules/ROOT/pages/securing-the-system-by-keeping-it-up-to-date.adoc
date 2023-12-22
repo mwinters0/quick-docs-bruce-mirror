@@ -57,7 +57,7 @@ package manager.
 [discrete]
 === Procedure
 
-* Upgrade the system:
+. Upgrade the system:
 +
 ----
 sudo dnf upgrade
@@ -65,12 +65,19 @@ sudo dnf upgrade
 +
 Confirm to download the available packages.
 
+. Ideally (but it is usually not required), use the `rpmconf` command to merge any config file changes you may have made with any new settings that might have been introduced by the package updates. You should do this before you reboot your system:
++
+----
+sudo rpmconf -a
+----
++
+To use the advanced merge option, you will need to set the `MERGE` environment variable to an editor that is capable of performing that function (e.g., `export MERGE="vimdiff"`). See the man page for details.
 
 [discrete]
 === Additional Resources
 
 * The `dnf(8)` manual page
-
+* The `rpmconf(8)` manual page
 
 
 == Setting automatic updates
