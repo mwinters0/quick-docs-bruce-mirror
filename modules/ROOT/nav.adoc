@@ -123,6 +123,7 @@
 ** xref:cups-filing-a-bug-report.adoc[Filing a CUPS Bug Report]
 
 * Troubleshooting
+** xref:troubleshooting-bluetooth-problems.adoc[Troubleshooting Bluetooth problems] 
 ** xref:troubleshooting-wayland-problems.adoc[Troubleshooting Wayland problems] 
 
 * FAQ
