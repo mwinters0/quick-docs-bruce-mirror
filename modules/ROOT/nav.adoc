@@ -107,8 +107,6 @@
 ** xref:uefi-with-qemu.adoc[Using UEFI with QEMU]
 ** xref:virtualization-howto-debug-issues.adoc[Virtualization – how to debug issues]
 
-//FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems] - note: maintained on wiki, does not fit quick-docs IMHO
-
 * xref:publish-rpm-on-copr.adoc[Publishing your software on Copr]
 
 * Databases
@@ -123,6 +121,9 @@
 ** xref:cups-terminology.adoc[Terminology]
 ** xref:cups-known-issues.adoc[Known issues]
 ** xref:cups-filing-a-bug-report.adoc[Filing a CUPS Bug Report]
+
+* Troubleshooting
+** xref:troubleshooting-wayland-problems.adoc[Troubleshooting Wayland problems] 
 
 * FAQ
 ** xref:fedora-and-red-hat-enterprise-linux.adoc[Fedora and Red Hat Enterprise Linux]

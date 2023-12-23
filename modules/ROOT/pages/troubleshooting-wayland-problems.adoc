@@ -1,20 +1,15 @@
-= How to debug Wayland problems
-N.N. 
+= Troubleshooting Wayland Problems
+Kparal 
 :revnumber: unspecified
-:revdate: 2020
+:revdate: 2017
 :category: Troubleshooting
 :tags: How-to, Workstation, Wayland
+:page-aliases: debug-wayland-problems.adoc
 //:imagesdir: ./images
 
-//FIXME * xref:debug-wayland-problems.adoc[How to debug Wayland problems] - note: maintained on wiki, does not fit quick-docs IMHO
-
-// Someone commented it out in nav.adoc (as of 2023-08-06)
-
-'''
 
 [IMPORTANT]
-======
-
+====
 This page was automatically converted from https://fedoraproject.org/wiki/How_to_debug_Wayland_problems
 
 It is probably
@@ -26,38 +21,19 @@ It is probably
 
 Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
 
-Once you've fixed this page, remove this notice, and update
-[filename]`modules/ROOT/nav.adoc`.
-
-Once the document is live, go to the original wiki page and replace its text
-with the following macro:
+Once you've fixed this page, remove this notice.
 
 ....
 {{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
 ....
+====
 
-======
-
-'''
 
 include::{partialsdir}/unreviewed-message.adoc[]
 
-https://en.wikipedia.org/wiki/Wayland_%28display_server_protocol%29[Wayland]
-is intended as a simpler replacement for
-https://en.wikipedia.org/wiki/X_Window_System[X11]. Wayland changes the
-design of a Linux desktop architecture considerably. Unlike X11, there
-is no dedicated standalone server in Wayland. What was previously done
-between the app, its toolkit, the Xserver and the window manager is now
-shared between the app, its toolkit and the Wayland compositor which
-manages the compositing, input, windows management, etc. The apps and
-toolkits are now in charge of their own rendering and decorations
-(client side decorations), so any issues usually sit between the toolkit
-(e.g. GTK+) and the Wayland compositor (e.g. mutter).
+https://en.wikipedia.org/wiki/Wayland_%28display_server_protocol%29[Wayland] is intended as a simpler replacement for https://en.wikipedia.org/wiki/X_Window_System[X11]. Wayland changes the design of a Linux desktop architecture considerably. Unlike X11, there is no dedicated standalone server in Wayland. What was previously done between the app, its toolkit, the Xserver and the window manager is now shared between the app, its toolkit and the Wayland compositor which manages the compositing, input, windows management, etc. The apps and toolkits are now in charge of their own rendering and decorations (client side decorations), so any issues usually sit between the toolkit (e.g. GTK+) and the Wayland compositor (e.g. mutter).
 
-You can read more about Wayland on the GNOME
-https://wiki.gnome.org/Initiatives/Wayland[Wayland initiative] wiki
-page. You can read more about the current state of Wayland features on
-link:Wayland_features[Wayland features] page.
+You can read more about Wayland on the GNOME https://wiki.gnome.org/Initiatives/Wayland[Wayland initiative] wiki page. You can read more about the current state of Wayland features on link:Wayland_features[Wayland features] page.
 
 [id='identifying-wayland-problems']
 == Identifying Wayland problems
@@ -87,7 +63,7 @@ Other desktop environments are not currently capable of running a
 Wayland session.
 
 [id='identifying-the-session-type-in-runtime']
-=== Identifying the session type in runtime
+==== Identifying the session type in runtime
 
 
 
@@ -118,9 +94,7 @@ application, or X11 itself, see link:How_to_debug_Xorg_problems[How to
 debug Xorg problems].
 
 [id='does-your-application-run-on-wayland-natively-or-uses-xwayland-x11-compatibility-layer']
-=== Does your application run on Wayland natively, or uses XWayland (X11
-compatibility layer)?
-
+=== Does your application run on Wayland natively, or uses XWayland (X11 compatibility layer)?
 
 It is important to know whether the problematic application is a native
 Wayland application, or runs through XWayland, which allows legacy
@@ -191,7 +165,7 @@ package), because XWayland is included in it (as
 `xorg-x11-server-Xwayland` subpackage).
 
 [id='identifying-problem-component]
-=== Identifying problem component
+== Identifying problem component
 
 Wayland itself is a protocol and the problem is rarely in the protocol
 itself. Rather, the problem is likely to be in the app or its toolkit,
@@ -216,8 +190,9 @@ The most notable Wayland compositors are:
 * https://community.kde.org/KWin/Wayland[Kwin] - compositor in KDE. If
   you run KDE, it is using this compositor.
 
+
 [id='testing-under-different-compositors']
-== Testing under different compositors
+=== Testing under different compositors
 
 If you experience a problem with a Wayland app, it is very useful to
 know whether the problem is present under just a single compositor (in
@@ -266,10 +241,10 @@ occurs only with XWayland apps but not native Wayland apps, report a bug
 against Xorg server.
 
 [id='reporting-the-issue']
-Reporting the issue
+== Reporting the issue
 
 [id='using-up-to-date-software]
-Using up-to-date software
+=== Using up-to-date software
 
 Before reporting the bug, please make sure you use the latest available
 software.
@@ -282,7 +257,7 @@ components you're seeing issues with), please update the system and
 verify whether the issue is still present or has been fixed.
 
 [id='looking-for-similar-reports']
-Looking for similar reports
+=== Looking for similar reports
 
 In order to avoid duplicate reports and also wasting your time debugging
 something someone has maybe already debugged, please search through the
@@ -308,7 +283,7 @@ most likely in here:
 * Google search
 
 [id='filing-a-bug']
-Filing a bug
+=== Filing a bug
 
 After you've identified against which component to (most probably)
 report the issue and found no existing report of it, there are several
@@ -335,7 +310,7 @@ of these trackers, depending where you reported the bug:
   GNOME Bugzilla]
 
 [id='information-to-include-in-your-bug-report']
-Information to include in your bug report
+=== Information to include in your bug report
 
 1.  System journal. Since there is no unique server like the X11 server,
     most of the important information will come from the the Wayland
@@ -399,7 +374,7 @@ $ rpm -qa | sort > packages.out
     information] that every bug report should have.
 
 [id='debugging-gnome-shell']
-Debugging gnome-shell
+=== Debugging gnome-shell
 
 If gnome-shell gets stuck and unresponsive, it's very helpful to obtain
 a backtrace from its process and attach it to the report. If this
@@ -424,7 +399,7 @@ $ gdb -p `pgrep -U $(id -un) -x gnome-shell`
 You should have the backtrace saved in `gdb.txt` file.
 
 [id='debugging-mutter']
-Debugging mutter
+=== Debugging mutter
 
 You can debug mutter (used in gnome-shell) by setting its
 https://developer.gnome.org/meta/stable/running-mutter.html[environment
@@ -436,7 +411,7 @@ called from a desktop file in `/usr/share/wayland-sessions`.
 helpful.*
 
 [id='known-issues-frequent-complaints-fundamental-changes']
-Known issues, frequent complaints, fundamental changes
+== Known issues, frequent complaints, fundamental changes
 
 Here we will list high-profile issues which are known to be broken, not
 yet implemented, or intentionally behaving differently from regular X11
@@ -447,7 +422,7 @@ To see all known issues, look at Bugzilla reports as mentioned in
 link:#Looking_for_similar_reports[Looking for similar reports].
 
 [id='graphical-applications-cant-be-run-as-root-from-terminal']
-Graphical applications can't be run as root from terminal
+=== Graphical applications can't be run as root from terminal
 
 It is not possible to start graphical apps under the root account from
 terminal when using `su` or `sudo`. Apps which use polkit to request
@@ -459,7 +434,7 @@ https://lists.fedoraproject.org/archives/list/devel%40lists.fedoraproject.org/th
 running gui applications as root" thread in fedora-devel mailing list].
 
 [id='many-well-known-x11-utilities-dont-work']
-Many well-known X11 utilities don't work
+=== Many well-known X11 utilities don't work
 
 Power users are familiar with a large range of X11-related utilities,
 like `xkill`, `xrandr`, `xdotool`, `xsel`. These tools won't work under
@@ -470,7 +445,7 @@ to perform similar tasks.
 *FIXME: add some Wayland-ready replacements for popular X11 tools*
 
 [id='games-and-other-apps-cant-change-monitor-resolution']
-Games and other apps can't change monitor resolution
+=== Games and other apps can't change monitor resolution
 
 It is no longer possible for an app to change monitor resolution.
 Usually this was done by games to increase performance. Wayland-based
@@ -487,7 +462,7 @@ resolution before running the game, if you really need it. It will not
 help always, though.
 
 [id='screen-capture-is-not-available-with-usual-apps']
-Screen capture is not available with usual apps
+=== Screen capture is not available with usual apps
 
 One of the features of Wayland is its security design, which helps to
 guard the user against malicious apps. Apps can no longer see everything
@@ -510,7 +485,7 @@ https://extensions.gnome.org/extension/690/easyscreencast/[EasyScreenCast]
 gnome-shell extension.
 
 [id='mouse-pointer-is-laggingstuttering-under-load']
-Mouse pointer is lagging/stuttering under load
+=== Mouse pointer is lagging/stuttering under load
 
 If your computer is under load, your mouse pointer movement might stop
 being fluent, but start lagging (get stuck in a place for a short time,
@@ -519,7 +494,7 @@ noticeable on slow systems/systems with fewer CPU cores. See
 https://bugzilla.gnome.org/show_bug.cgi?id=745032[bug 745032].
 
 [id='keyboard-events-are-sometimes-quickly-repeated']
-Keyboard events are sometimes quickly repeated
+=== Keyboard events are sometimes quickly repeated
 
 There is a rare issue when you press a key to type a letter and you'll
 see multiple copies of the letter typed in. See
@@ -527,18 +502,8 @@ https://bugzilla.gnome.org/show_bug.cgi?id=757942[bug 757942] and
 https://bugzilla.gnome.org/show_bug.cgi?id=777693[bug 777693].
 
 [id='not-all-keys-can-be-sent-to-a-remote-desktop-or-a-virtual-machine']
-Not all keys can be sent to a remote desktop or a virtual machine
+=== Not all keys can be sent to a remote desktop or a virtual machine
 
-Some applications forward all input, including system-specific
-keys/shortcuts like or , to a remote system. This is mostly remote
-desktop viewers like _vncviewer_ or virtual machine managers like
-_virt-manager_ or _boxes_. Under Wayland, some of these shortcuts can't
-be intercepted, and therefore are used in the host system, not the
-remote/guest system. See
-https://bugzilla.redhat.com/show_bug.cgi?id=1285770[bug 1285770].
+Some applications forward all input, including system-specific keys/shortcuts like or , to a remote system. This is mostly remote desktop viewers like _vncviewer_ or virtual machine managers like _virt-manager_ or _boxes_. Under Wayland, some of these shortcuts can't be intercepted, and therefore are used in the host system, not the
+remote/guest system. See https://bugzilla.redhat.com/show_bug.cgi?id=1285770[bug 1285770].
 
-Category:Debugging[W] Category:How_to[Category:How to] Category:Wayland
-'''
-
-See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
