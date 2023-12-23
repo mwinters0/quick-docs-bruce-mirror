@@ -107,13 +107,19 @@ sudo dnf install ccache
 
 == Building a Kernel from the Fedora dist-git
 
+First, a checkout from the https://src.fedoraproject.org/rpms/kernel[Fedora kernel dist-git] is required:
+
+[source,bash]
+----
+git clone https://src.fedoraproject.org/rpms/kernel.git
+----
+
 The kernel, like any other Fedora package, has a branch per Fedora release.
 `rawhide` corresponds to Rawhide and each version of Fedora has a branch called
-`f<version>`. For example, to build a Fedora 28 kernel, you would first need
-to check out that branch with:
+`f<version>`.
 
-. Check out the branch for which you would like to build a kernel (`rawhide`
-   corresponds to Rawhide):
+. For example, to build a Fedora 28 kernel, you would first need
+to switch to that branch with:
 +
 [source,bash]
 ----
@@ -124,7 +130,22 @@ git switch f28
    changing `# define buildid .local` to `%define buildid .<your_custom_id_here>`
    in `kernel.spec`.
 
-. Make whatever changes or customizations you need.
+. Make whatever changes or customizations you need:
+
+.. Kernel configuration options can be overriden by modifying the `kernel-local` file.
+
+.. Existing patches can be added to `linux-kernel-test.patch`, they will be
+picked up during the build automatically.
+
+.. Patches can also be kept in seperate files and added to `kernel.spec` with
+`Patch2: foo.patch`, `Patch3: bar.patch`, etc. They should be applied
+automatically during the build process.
+
+.. To make your own modifications to the kernel source, retrieve the kernel
+sources for your current dist-git branch with `fedpkg sources`, then make
+your desired changes to the kernel source and generate a patch, e.g. with
+`diff -rupN kernel_src_folder kernel_src_folder_patched > mypatch.patch`.
+The patch can then be added to `linux-kernel-test.patch` or the specfile.
 
 . Build the RPMs:
 +
@@ -139,24 +160,6 @@ fedpkg local
 ----
 sudo dnf install --nogpgcheck ./x86_64/kernel-$version.rpm
 ----
-
-
-=== Building a non-debugging kernel
-
-Most Rawhide kernels are built with debugging enabled by default. To make a
-kernel with debugging options disabled, you can follow the above instructions,
-but before you run `fedpkg local`, disable the debugging options with:
-
-[source,bash]
-----
-make release
-----
-
-=== Enabling configuration options
-
-If there are configuration options that need to be adjusted for your build, you
-can add changes in the kernel-local file. These changes will get picked up when
-you build.
 
 
 == Building a vanilla upstream kernel
