@@ -10,7 +10,11 @@ Kparal
 
 [IMPORTANT]
 ====
-This page was automatically converted from https://fedoraproject.org/wiki/How_to_debug_Wayland_problems
+This page was automatically converted from Wiki.
+
+It has been cleaned up for publishing here on the Fedora Docs Portal, but it has not yet been reviewed for technical accuracy. 
+
+https://fedoraproject.org/wiki/How_to_debug_Wayland_problems
 
 It is probably
 
@@ -19,17 +23,13 @@ It is probably
 * Out-of-date
 * In need of other love
 
+Reviews for technical accuracy are greatly appreciated. If you want to help, see the https://pagure.io/fedora-docs/quick-docs/blob/master/f/README.md[README file] in the source repository for instructions.
+
 Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
 
 Once you've fixed this page, remove this notice.
-
-....
-{{#fedoradocs: https://docs.fedoraproject.org/whatever-the-of-this-new-page}}
-....
 ====
 
-
-include::{partialsdir}/unreviewed-message.adoc[]
 
 https://en.wikipedia.org/wiki/Wayland_%28display_server_protocol%29[Wayland] is intended as a simpler replacement for https://en.wikipedia.org/wiki/X_Window_System[X11]. Wayland changes the design of a Linux desktop architecture considerably. Unlike X11, there is no dedicated standalone server in Wayland. What was previously done between the app, its toolkit, the Xserver and the window manager is now shared between the app, its toolkit and the Wayland compositor which manages the compositing, input, windows management, etc. The apps and toolkits are now in charge of their own rendering and decorations (client side decorations), so any issues usually sit between the toolkit (e.g. GTK+) and the Wayland compositor (e.g. mutter).
 
