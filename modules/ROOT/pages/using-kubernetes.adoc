@@ -1,7 +1,7 @@
 = Using Kubernetes on Fedora
-Bradley G Smith
+Bradley G Smith, 
 :revnumber: F37,F38,F39,rawhide
-:revdate: 2023-09-19
+:revdate: 2023-12-23
 :category: Installation
 :tags: How-to, kubernetes, dnf, rpm, containers
 
