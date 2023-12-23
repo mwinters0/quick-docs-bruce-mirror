@@ -170,6 +170,11 @@ The version of the Go programming language supported for a given Fedora release 
 [cols="1,1,1,1", options="header"]
 |===
 |Kubernetes Version |Target Fedora Release | Kubernetes End-of-Life | Kubernetes Golang 'Built-With' Version
+|1.29
+|TBD
+|2025.02.28
+|1.21
+
 |1.28
 |F40
 |2024.10.28
@@ -184,11 +189,6 @@ The version of the Go programming language supported for a given Fedora release 
 |F38
 |2024.02.24
 |1.20 (was 1.19)
-
-|1.25
-|COPR/F37^1^
-|2023.10.27
-|1.20 (was 1.19)
 |===
 
 ^1^ F37 provides Go version 1.19. When Kubernetes switched to Go 1.20 (1.25.12) a link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.25/[COPR project] was created for more recent versions of Kubernetes 1.25.
@@ -196,7 +196,9 @@ The version of the Go programming language supported for a given Fedora release 
 [cluster-creation]
 == Creating a Kubernetes cluster with kubeadm using Fedora rpms
 
-Below is a guide to creating a Kubernetes cluster on a single Fedora machine.
+Below is a guide to creating a functional Kubernetes cluster on a single Fedora machine that is suitable as a learning and exploring environment.
+This guide is not intended for production environments.
+
 Each Fedora release has a corresponding Kubernetes release as documented at the link:https://src.fedoraproject.org/rpms/kubernetes[Fedora Package Sources repository for Kubernetes].
 Fedora 39, for example, has rpms for Kubernetes 1.27.
 The cluster initialization is the same for all current Fedora releases.
@@ -224,9 +226,11 @@ sudo reboot now
 ----
 
 . Disable the firewall.
-Kubernetes is configured to generate an installation error if the firewall is running.
+Kubeadm will generate an installation warning if the firewall is running.
+Disabling the firewall removes one source of complexity in a learning environment.
 Modern Fedora systems use firewalld.
-See link:https://devopstales.github.io/kubernetes/k8s-security[https://devopstales.github.io/kubernetes/k8s-security] for an alternative solution that retains the firewall and opens necessary ports.
+See link:https://devopstales.github.io/kubernetes/k8s-security/#use-firewalld[https://devopstales.github.io/kubernetes/k8s-security/#use-firewalld] for an alternative solution that retains the firewall and opens necessary ports.
+The current list of ports and protocols used by a Kubernetes cluster can be found at link:https://kubernetes.io/docs/reference/networking/ports-and-protocols/[https://kubernetes.io/docs/reference/networking/ports-and-protocols/].
 +
 [source,bash]
 ----
@@ -438,19 +442,16 @@ This uncouples Fedora versions from Kubernetes versions allowing version upgrade
 A cluster manager can update the Fedora machines while maintaining the cluster version constant.
 Or the cluster manager can update Kubernetes while retaining the same Fedora release.
 
+[[sect-kubernetes-1.26]]
+=== Kubernetes 1.26 RPMS
+The link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.26/[Kubernetes 1.26] project provides Kubernetes 1.26 rpms for all current Fedora releases that provide Go language 1.20 or newer.
+This includes Fedora 39 and Fedora 40 (rawhide). Kubernetes 1.26 is directly available in Fedora 38.
+
+[references]
 [[sect-kubernetes-1.27]]
 === Kubernetes 1.27 RPMS
 The link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.27/[Kubernetes 1.27] project provides Kubernetes 1.27 rpms for all current Fedora releases that provide Go language 1.20 or newer.
-This includes Fedora 38, Fedora 39, and Fedora 40 (rawhide).
-
-[[sect-kubernetes-1.25]]
-=== Kubernetes 1.25 RPMS
-
-The link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.25/[Kubernetes 1.25] project provides rpms for all Fedora releases.
-Kubernetes 1.25 part of the Fedora 37 release along with Go language version 1.19.
-The upstream Kubernetes team  recently updated Kubernetes 1.25 to use Go language version 1.20.
-Kubernetes 1.25 can no longer be built on standard Fedora 37.
-This project uses a custom version of Go available in COPR to continue to provide this version of Kubernetes for Fedora 37 as well as for newer Fedora releases. Both Fedora 37 and Kubernetes 1.25 will reach end of life in the October-November 2023 time frame.
+This includes Fedora 38 and Fedora 40 (rawhide). Kubernetes 1.27 is directly available in Fedora 39.
 
 [references]
 == References
