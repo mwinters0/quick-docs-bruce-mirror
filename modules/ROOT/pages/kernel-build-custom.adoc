@@ -1,7 +1,7 @@
 = Building a Custom Kernel
 John Soros; Alessio; Brandon Nielsen
 :revnumber: unspecified
-:revdate: 2021-01-01
+:revdate: 2023-12-23
 :category: Kernel
 :tags: How-to,  Kernel, Custom kernel  
 :page-aliases: kernel/build-custom-kernel.adoc 
