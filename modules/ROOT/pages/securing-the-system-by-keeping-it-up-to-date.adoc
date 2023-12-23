@@ -2,9 +2,9 @@
 include::{partialsdir}/attributes.adoc[]
 
 = Securing the system by keeping it up-to-date
-Connor Lim; Petr Bokoc; Mirek Jahoda 
+Petr Bokoc; Mirek Jahoda; Gregory Lee Bartholomew 
 :revnumber: unspecified
-:revdate: 2021-01-29
+:revdate: 2023-12-23
 :category: Administration
 :tags: How-to,  Security, Update 
 //:page-aliases:  
