@@ -9,13 +9,30 @@
 // :experimental:
 
 //include::{partialsdir}/attributes.adoc[]
-[NOTE]
+
+[IMPORTANT]
 ====
 .*Work in progress!*
-Don't use it for now.
+This page was taken from the previous Fedora Wiki documentation.
+
+It has been cleaned up for publishing here on the Fedora Docs Portal, but it has not yet been reviewed for technical accuracy. 
+
+Don't use it for now. It is probably
+
+* Containing formatting issues
+* Out-of-date
+* In need of other love
+
+Reviews for technical accuracy are greatly appreciated. If you want to help, see the https://pagure.io/fedora-docs/quick-docs/blob/master/f/README.md[README file] in the source repository for instructions.
+
+Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
+
+Once you've fixed this page, remove this notice.
 ====
 // Migrated from 
 // https://fedoraproject.org/wiki/How_to_debug_Virtualization_problems
+
+
 
 == Effective bug reporting
 
