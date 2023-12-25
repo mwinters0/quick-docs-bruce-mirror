@@ -4,11 +4,12 @@
 
 * xref:bugzilla/index.adoc[Bugs]
 ** xref:bugzilla-file-a-bug.adoc[How to file a bug]
-** xref:bugzilla/query.adoc[Bugzilla queries]
-** xref:bugzilla/find-duplicates.adoc[Finding duplicate bugs]
-** xref:bugzilla/correct-component.adoc[Finding the correct component]
-** xref:bugzilla/spam.adoc[Reporting Bugzilla spam]
-** xref:bugzilla/email-notifications.adoc[Managing email notifications]
+** xref:bugzilla-query.adoc[Bugzilla queries]
+** xref:bugzilla-find-duplicates.adoc[Finding duplicate bugs]
+** xref:bugzilla-find-correct-component.adoc[Finding the correct component]
+** xref:bugzilla-spam.adoc[Reporting Bugzilla spam]
+** xref:bugzilla-email-notifications.adoc[Managing email notifications]
+** xref:bugzilla-providing-a-stacktrace.adoc[Providing a Stack Trace]
 
 * Installation
 ** xref:creating-and-using-a-live-installation-image.adoc[Creating and using a live installation image]
@@ -124,7 +125,8 @@
 
 * Troubleshooting
 ** xref:troubleshooting-bluetooth-problems.adoc[Troubleshooting Bluetooth problems] 
-** xref:troubleshooting-wayland-problems.adoc[Troubleshooting Wayland problems] 
+** xref:troubleshooting-mozilla-products.adoc[Troubleshooting Mozilla Products] 
+** xref:troubleshooting-wayland-problems.adoc[Troubleshooting Wayland Problems] 
 
 * FAQ
 ** xref:fedora-and-red-hat-enterprise-linux.adoc[Fedora and Red Hat Enterprise Linux]

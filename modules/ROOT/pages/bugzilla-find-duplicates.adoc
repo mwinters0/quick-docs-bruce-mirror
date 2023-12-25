@@ -15,7 +15,7 @@ Commonly encountered bugs can be found:
 * On the https://bugzilla.redhat.com/duplicates.cgi?sortby=count&reverse=1&product=Fedora&maxrows=100&changedsince=7[most frequently reported bugs] list
 * On the https://fedoraproject.org/wiki/Bugs/Common[Common Bugs] page for Rawhide bugs, linked from a https://fedoraproject.org/wiki/BugZappers/HouseKeeping/Trackers[Blocker or Target Tracker]
 
-If your bug isn't in the lists above, you can use xref:bugzilla/query.adoc[Bugzilla's search tool] to find matching bugs.
+If your bug isn't in the lists above, you can use xref:bugzilla-query.adoc[Bugzilla's search tool] to find matching bugs.
 
 == What to do with duplicates once found
 
