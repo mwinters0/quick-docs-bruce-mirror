@@ -1,0 +1,102 @@
+= Troubleshooting Java Programs
+ Ravidiip; Tuju
+:revnumber: unspecified
+:revdate: 2010
+:category: Troubleshooting
+:tags: How-to, Java
+
+
+[abstract]
+Java provides a range of information to resolve problems with application programs or the runtime environment, in particular stack traces.  These should be attached to a bug report. 
+
+
+[IMPORTANT]
+====
+This page was taken from the previous Fedora Wiki documentation.
+
+It has been cleaned up for publishing here on the Fedora Docs Portal, but it has not yet been reviewed for technical accuracy. 
+
+It is probably
+
+* Containing formatting issues
+* Out-of-date
+* In need of other love
+
+Reviews for technical accuracy are greatly appreciated. If you want to help, see the https://pagure.io/fedora-docs/quick-docs/blob/master/f/README.md[README file] in the source repository for instructions.
+
+Pull requests accepted at https://pagure.io/fedora-docs/quick-docs
+
+Once you've fixed this page, remove this notice.
+====
+
+
+This page is an appendix to the bugs xref:bugzilla-providing-a-stacktrace.adoc[Providing a Stack Trace] page. The situation for getting stack traces from Java software is slightly more complicated than with most other Fedora Project software, because of the two kinds of stack traces (Java and native).
+
+== The Two Kinds of Java Stack Traces 
+
+Stack traces produced by libgcj (i.e. produced by the virtual machine as it runs) cover all parts of the program and libraries written in Java, and all JNI and CNI methods as well - but _not_ non-Java code called _from_ JNI or CNI methods. Also, unfortunately, they do not typically provide source code line numbers - even if full debugging information is available. However, the good news is, libgcj stack traces will provide more information in gcc 4.1 - which it is hoped will go into Rawhide in time for inclusion in Fedora Core 5.
+
+Stack traces produced by gdb - which, by convention, are called "backtraces" - cover all native code (whether that is C code, or Java code compiled to machine code). However, for interpreted code, they only show calls to the interpreter, but not _what_ is being interpreted.
+
+Thus, neither Java stack traces nor gdb backtraces are suitable for all situations. Sometimes it will be necessary to examine Java stack traces, sometimes gdb backtraces, and sometimes both.
+
+== Obtaining a Java stack trace from a Java program 
+
+Sometimes, Java programs will print out Java stack traces when they crash or fail in some way, either to the terminal window from which they are run, or to a log file.
+
+If you get a stack trace, and if you get one or more "Caused by:" clauses, please remember that the *last* "Caused By" clause is the most important. **Please always post _at least_ the last "Caused By" clause (if any) when reporting a problem**.
+
+=== Application-specific details: 
+
+==== Eclipse 
+
+If you can get into Eclipse, you can view the error log by going to the `Window` menu and then `Show View -> Other -> PDE Runtime -> Error Log`. Double-click on an error to get a popup dialog with a stack trace, which can be copied-and-pasted directly into a bug report.
+
+If Eclipse fails to start, run it with `eclipse -consolelog` to output the log to the console. If that doesn't produce anything useful, try `eclipse -consolelog -debug` .
+
+==== Tomcat 
+
+Examine all the files in `/var/log/tomcat5</` and any webapp-specific log files that you have configured.
+
+=== When you cannot obtain a Java stack trace 
+
+If a Java program simply fails without printing a stack trace - not on the terminal window or even in a log file anywhere - then: If it is natively-compiled, or if it says `Aborted` or `Segmentation fault` or `Illegal instruction` immediately before it quits, try to obtain a gdb backtrace as described in the next section. Otherwise, a gdb backtrace will probably not be helpful, so just file a bug report without a stack trace.
+
+Future work: In the upcoming gcc 4.1, a `SIGQUIT` handler is planned which will enable the generation of Java stack traces on demand by the user. (This cannot be used for crashes which terminate the program, however - it can only be used for certain failures which leave the program running.)
+
+== Obtaining a gdb backtrace from a Java program 
+
+First you will need to read the StackTraces page, up to the point of starting gdb.
+
+Because libgcj uses several signals internally, you need to tell gdb first of all to ignore some of them, by typing or pasting the following commands into gdb:
+
+[source,]
+----
+handle SIGHUP nostop print
+handle SIGPWR nostop noprint
+handle SIGXCPU nostop noprint
+handle SIG32 nostop noprint
+handle SIG33 nostop noprint
+----
+
+gdb can also be quite slow at loading the debugging information for various libraries (which can drastically affect the startup time of programs), so, to get nice friendly progress indications, you might want to also specify:
+
+[source,]
+set verbose on
+
+Now type `run` or `r` for short and continue reading the instructions on the StackTraces page.
+
+=== Ignoring "Null Pointer Exceptions" of the harmless variety in gdb 
+
+Sometimes code generates one or more `Null Pointer Exceptions` which are in fact harmless - or at least, irrelevant to the bug you are trying to trace. (Not all `Null Pointer Exceptions` are harmless or irrelevant, but some are.) Because gcj uses SIGSEGV to detect `Null Pointer Exceptions`, you can also specify
+
+[source,]
+handle SIGSEGV nostop noprint
+
+to tell gdb to ignore SIGSEGVs, or
+
+[source,]
+handle SIGSEGV nostop print
+
+to tell gdb to inform you of SIGSEGVs, but otherwise ignore them.
+
