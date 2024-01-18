@@ -22,7 +22,8 @@ The reporter or assignee of a bug can modify any field in their own bug.
 == Creating an account
 
 You must have a link:https://bugzilla.redhat.com/createaccount.cgi[Bugzilla account] to file bugs and interact with them.
-Once you have created an account on Bugzilla, you can also login using your link:https://accounts.fedoraproject.org[Fedora account], but only if you used the same e-mail address for both accounts.
+Once you have created an account on Bugzilla, you can also login using your link:https://accounts.fedoraproject.org[Fedora account].
+To use your FAS account to login to Bugzilla, you need to either use the same e-mail address on FAS and on Bugzilla, or if they differ, you can set the Bugzilla e-mail address in your FAS profile explicitly.
 
 == Automatic changes
 
