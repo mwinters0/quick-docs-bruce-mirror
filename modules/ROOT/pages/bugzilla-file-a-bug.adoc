@@ -1,9 +1,9 @@
 = How to file a bug
 Ankur Sinha; Joe Walker
 :revnumber: all
-:revdate: 2023-05-15
+:revdate: 2024-01-18
 :category: Bugs
-:tags: How-to, Bug-Report 
+:tags: How-to, Bug-Report
 :page-aliases: howto-file-a-bug.adoc
 //:imagesdir: ./images
 
@@ -102,12 +102,11 @@ image::20180825-how-to-file-a-bug-cc-list.png[]
 
 === Step 0: Create a Bugzilla account
 
-TIP: *Use your Fedora account*: You can use your https://accounts.fedoraproject.org/[Fedora account] to sign into Bugzilla.
-This is preferred, since your Fedora account can also be used to log into all other Fedora services.
+Bugs are filed on https://bugzilla.redhat.com[Bugzilla] and you must have a link:https://bugzilla.redhat.com/createaccount.cgi[Bugzilla account] to file bugs and interact with them.
+Once you have created an account on Bugzilla, you can also login using your link:https://accounts.fedoraproject.org[Fedora account], but only if you used the same e-mail address for both accounts.
 
-Bugs are filed on https://bugzilla.redhat.com[Fedora's bugzilla instance], and you must have an account there to file bugs or interact with them.
-An account requires a valid e-mail address and can be created https://accounts.fedoraproject.org/[here] (click "Register").
-The bug tracker will only send e-mail notifications about bugs that a user is involved in. No other e-mails will be sent.
+The bug tracker will only send e-mail notifications about bugs that a user is involved in.
+No other e-mails will be sent.
 
 === Step 1: Filing a new bug
 

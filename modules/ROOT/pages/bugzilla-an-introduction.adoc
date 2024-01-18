@@ -1,7 +1,7 @@
 = Using Bugzilla
-Ben Cotton 
+Ben Cotton
 :revnumber: F36 onwards
-:revdate: 2022-03-11
+:revdate: 2024-01-18
 :category: Troubleshooting
 :tags: How-to, Bugzilla  
 :page-aliases: bugzilla/index.adoc
@@ -9,16 +9,20 @@ Ben Cotton
 
 Fedora uses https://bugzilla.redhat.com[Red Hat Bugzilla] for bug tracking. This page and the other pages under the "Bugs" header on the left offer some tips and guidance.
 
-
 == Permissions
 
-Any user, including "anonymous" (i.e. not logged in) users can view bugs. (Note that some bugs or comments may be marked "private"
-or restricted to specific groups. This is rare in Fedora and is generally to protect sensitive information that might be in an attachment or log snippet.)
+Any user, including "anonymous" (i.e. not logged in) users can view bugs.
+(Note that some bugs or comments may be marked "private" or restricted to specific groups.
+This is rare in Fedora and is generally to protect sensitive information that might be in an attachment or log snippet.)
 
 Any logged-in user can create a bug report or add a comment to an existing bug.
 
 The reporter or assignee of a bug can modify any field in their own bug.
 
+== Creating an account
+
+You must have a link:https://bugzilla.redhat.com/createaccount.cgi[Bugzilla account] to file bugs and interact with them.
+Once you have created an account on Bugzilla, you can also login using your link:https://accounts.fedoraproject.org[Fedora account], but only if you used the same e-mail address for both accounts.
 
 == Automatic changes
 
