@@ -28,9 +28,8 @@ You should have a valid license to work with VMware Workstation Pro.
 ==== Player
 
 ----
+$ sudo chmod +x ./VMware-Player-x.y.z-nn.x86_64.bundle      
 $ sudo ./VMware-Player-x.y.z-nn.x86_64.bundle                                   
-$ sudo chmod +x ./VMware-Player-x.y.z-nn.x86_64.bundle                          
-$ sudo ./VMware-Workstation-Full-x.y.z-nn.x86_64.bundle                                   
 ----
 
 ==== Workstation
@@ -38,7 +37,6 @@ $ sudo ./VMware-Workstation-Full-x.y.z-nn.x86_64.bundle
 ----
 $ sudo ./VMware-Workstation-Full-x.y.z-nn.x86_64.bundle
 $ sudo chmod +x ./VMware-Workstation-Full-x.y.z-nn.x86_64.bundle
-$ sudo ./VMware-Workstation-Full-x.y.z-nn.x86_64.bundle
 ----
 
 === Resolving Conflict with Kernel
