@@ -34,14 +34,9 @@ default (if you have at least `fedora-repos-24-0.5` package or newer).
 It contains OpenH264 binary link:Non-distributable-rpms[built inside the
 Fedora infrastructure], but distributed by Cisco, so that the all
 licensing fees are still covered by them. This repository also contains
-OpenH264 plugins for gstreamer and Firefox. It is disabled by default.
-In order to install OpenH264, you first need to enable it:
-
-....
-$ sudo dnf config-manager --set-enabled fedora-cisco-openh264
-....
-
-and then install the plugins:
+OpenH264 plugins for gstreamer and Firefox. It is enabled by default since
+Fedora 33 (if you have at least `fedora-repos-33-0.3` package or newer).
+In order to install OpenH264, just install the plugins:
 
 ....
 $ sudo dnf install gstreamer1-plugin-openh264 mozilla-openh264
