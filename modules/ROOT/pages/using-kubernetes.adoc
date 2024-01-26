@@ -1,5 +1,5 @@
 = Using Kubernetes on Fedora
-Bradley G Smith, 
+Bradley G Smith,
 :revnumber: F37,F38,F39,rawhide
 :revdate: 2023-12-23
 :category: Installation
@@ -49,7 +49,7 @@ A pod typically has a single primary container but may include more capabilities
 == Kubernetes rpms in Fedora
 
 The number, name, and organization of content in Fedora Kubernetes rpms depends on the Fedora release.
-Fedora 40 and newer releases will have one set of rpms (link:https://fedoraproject.org/wiki/Changes/RestructureKubernetesPackages[pending change proposal for Fedora 40]).
+Fedora 40 and newer releases (starting with Kubernetes v1.29) have one set of rpms.
 Fedora 39 and older releases have the legacy set of rpms.
 
 [[sect-fedora-39-and-older]]
@@ -106,11 +106,12 @@ If conducting a manual installation of Kubernetes (see link:https://github.com/k
 ----
 sudo dnf install kubernetes-master kubernetes-kubeadm
 ----
-////
+
 [[sect-fedora40-and-newer]]
 === Fedora 40 and newer releases
 
-Kubernetes rpms have been reorganized starting with Fedora 40 (rawhide in Sept 2023).
+Kubernetes rpms have been reorganized starting with version 1.29 in Fedora 40.
+Rawhide for Fedora 40 initially started with Kubernetes v1.28 and the legacy package organization but these have been superseded by Kubernetes v1.29 starting in late January 2024.
 The table below lists the available Kubernetes rpms, what the rpm contains, and notes on purpose and any cautions or restrictions.
 
 .Kubernetes rpms in Fedora 40 (and newer)
@@ -155,13 +156,14 @@ If conducting a manual installation of Kubernetes (see link:https://github.com/k
 ----
 sudo dnf install kubernetes kubernetes-kubeadm kubernetes-control-plane-services kubernetes-node-services kubernetes-client
 ----
-////
+
 [[sect-kubernetes-fedora-crosswalk]]
 == Kubernetes and Fedora version crosswalk
 
 Each Fedora release has a corresponding version of Kubernetes available as listed below.
 The goal is to provide the most current Kubernetes release available when a Fedora release reaches General Availability (GA).
-This is not always possible resulting in skipped Kubernetes releases. Skipping a release causes problems for Kubernetes cluster administrators given the Kubernetes cluster upgrade process.
+This is not always possible resulting in skipped Kubernetes releases.
+Skipping a release causes problems for Kubernetes cluster administrators given the Kubernetes cluster upgrade process.
 Alternative ways to package Kubernetes for Fedora are being explored.
 
 The version of the Go programming language supported for a given Fedora release can also limit the version of Kubernetes available if Kubernetes requires a newer version of Go.
@@ -171,12 +173,12 @@ The version of the Go programming language supported for a given Fedora release 
 |===
 |Kubernetes Version |Target Fedora Release | Kubernetes End-of-Life | Kubernetes Golang 'Built-With' Version
 |1.29
-|TBD
+|F40
 |2025.02.28
 |1.21
 
 |1.28
-|F40
+|COPR^1^
 |2024.10.28
 |1.20
 
@@ -191,7 +193,7 @@ The version of the Go programming language supported for a given Fedora release 
 |1.20 (was 1.19)
 |===
 
-^1^ F37 provides Go version 1.19. When Kubernetes switched to Go 1.20 (1.25.12) a link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.25/[COPR project] was created for more recent versions of Kubernetes 1.25.
+^1^ Rawhide for Fedora 40 was initialized with Kubernetes v1.28. Kubernetes v1.29 went live while Fedora 40 was still in rawhide and superseded v1.28. Since Fedora 39 has Kubernetes v1.27 and changing to v1.28 would be problematic for existing clusters, Kubernetes v1.28 was moved to a link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.28/[COPR project].
 
 [cluster-creation]
 == Creating a Kubernetes cluster with kubeadm using Fedora rpms
@@ -447,11 +449,22 @@ Or the cluster manager can update Kubernetes while retaining the same Fedora rel
 The link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.26/[Kubernetes 1.26] project provides Kubernetes 1.26 rpms for all current Fedora releases that provide Go language 1.20 or newer.
 This includes Fedora 39 and Fedora 40 (rawhide). Kubernetes 1.26 is directly available in Fedora 38.
 
-[references]
 [[sect-kubernetes-1.27]]
 === Kubernetes 1.27 RPMS
 The link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.27/[Kubernetes 1.27] project provides Kubernetes 1.27 rpms for all current Fedora releases that provide Go language 1.20 or newer.
 This includes Fedora 38 and Fedora 40 (rawhide). Kubernetes 1.27 is directly available in Fedora 39.
+
+[[sect-kubernetes-1.28]]
+=== Kubernetes 1.28 RPMS
+The link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.28/[Kubernetes 1.28] project provides Kubernetes 1.28 rpms for all current Fedora releases that provide Go language 1.20 or newer.
+This includes Fedora 38, Fedora 39 and Fedora 40 (rawhide).i
+Kubernetes 1.28 is not otherwise available.
+
+[[sect-kubernetes-1.29]]
+=== Kubernetes 1.29 RPMS
+The link:https://copr.fedorainfracloud.org/coprs/buckaroogeek/copr-k8s-1.29/[Kubernetes 1.29] project provides Kubernetes 1.29 rpms in the new package structure.
+Kubernetes v1.29 requires Go language 1.21 or newer which is only available in Fedora 40.
+This project was initialized for early access to the new package structure and will transition over time as the source for v1.29 in subsequent Fedora releases.
 
 [references]
 == References
