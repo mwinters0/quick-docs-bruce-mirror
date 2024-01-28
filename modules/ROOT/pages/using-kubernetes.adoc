@@ -104,7 +104,7 @@ If conducting a manual installation of Kubernetes (see link:https://github.com/k
 
 [source,bash]
 ----
-sudo dnf install kubernetes-master kubernetes-kubeadm
+sudo dnf install kubernetes-master kubernetes-kubeadm kubernetes-node kubernetes-client
 ----
 
 [[sect-fedora40-and-newer]]
@@ -154,7 +154,7 @@ If conducting a manual installation of Kubernetes (see link:https://github.com/k
 
 [source,bash]
 ----
-sudo dnf install kubernetes kubernetes-kubeadm kubernetes-control-plane-services kubernetes-node-services kubernetes-client
+sudo dnf install kubernetes kubernetes-client kubernetes-legacy-systemd
 ----
 
 [[sect-kubernetes-fedora-crosswalk]]
@@ -310,15 +310,10 @@ Note: If using cri-o, verify that the major:minor version of cri-o is the same a
 sudo dnf install cri-o containernetworking-plugins
 ----
 
-. Install Kubernetes. This installs the three necessary Kubernetes applications (`kubectl`, `kubelet`, and `kubeadm`) that need to be on each machine in the cluster.
+. Install Kubernetes.
+In this example, all three Kubernetes applications (`kubectl`, `kubelet`, and `kubeadm`) are installed on this single node machine.
+Please see the notes above on recommended packages for control plane or worker nodes if the cluster will have both types of machines.
 +
-[source,bash]
-----
-# fedora 39 and earlier use:
-sudo dnf install kubernetes-client kubernetes-node kubernetes-kubeadm
-----
-+
-////
 [source,bash]
 ----
 # fedora 39 and earlier use:
@@ -327,7 +322,7 @@ sudo dnf install kubernetes-client kubernetes-node kubernetes-kubeadm
 #fedora 40 and later use:
 sudo dnf install kubernetes kubernetes-client
 ----
-////
+
 
 . Start and enable cri-o.
 +
