@@ -37,13 +37,14 @@ The Kubernetes teams maintains a comprehensive link:https://kubernetes.io/docs/r
 [horizontal]
 cluster:: a set of one or more nodes managed as an entity.
 A cluster has at least one node and one control plane (these can be on the same or separate machines).
-control plane:: the container orchestration layer in a cluster which manages the pods in the cluster.
+control plane:: the node or nodes in the cluster hosting the management services for the cluster.
 At least one node in a cluster has a control plane.
+A control plane machine can also function as a worker node.
 node:: a worker machine (either a virtual machine or physical machine) in a Kubernetes cluster that has the services required to run pods.
 These services include the `kubelet` container runtime and `kube-proxy`.
 pods:: containerized applications are deployed and managed in Kubernetes as pods.
 A pod is the base object managed by Kubernetes in a cluster.
-A pod typically has a single primary container but may include more capabilities.
+A pod typically has a single primary container but may include more capabilities including multiple containers.
 
 [[sect-kubernetes-rpms]]
 == Kubernetes rpms in Fedora
@@ -110,7 +111,7 @@ sudo dnf install kubernetes-master kubernetes-kubeadm kubernetes-node kubernetes
 [[sect-fedora40-and-newer]]
 === Fedora 40 and newer releases
 
-Kubernetes rpms have been reorganized starting with version 1.29 in Fedora 40.
+Kubernetes rpms have been reorganized starting with Kubernetes version 1.29 in Fedora 40.
 Rawhide for Fedora 40 initially started with Kubernetes v1.28 and the legacy package organization but these have been superseded by Kubernetes v1.29 starting in late January 2024.
 The table below lists the available Kubernetes rpms, what the rpm contains, and notes on purpose and any cautions or restrictions.
 
