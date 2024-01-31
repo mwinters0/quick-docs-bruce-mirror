@@ -57,3 +57,4 @@ All extensions can be enabled, disabled, and their preferences modified by each 
 
 - the https://packages.fedoraproject.org/pkgs/gnome-extensions-app/gnome-extensions-app/[GNOME Extensions] app.
   Apart from other customisations, GNOME Extensions also allows enabling, disabling, and modifying preferences for GNOME shell extensions.
+ 
