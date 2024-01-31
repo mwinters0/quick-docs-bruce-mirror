@@ -27,9 +27,8 @@ NOTE: In the event of crashes with GNOME shell, the first recommended step to di
 These are generally provided in the Fedora repositories and can be installed, removed, and updated using the default package management tools like `dnf`.
 You can find a list https://packages.fedoraproject.org/search?query=gnome-shell-extension[here by searching the packages application] for `gnome-shell-extension`.
 
-Run dconf to update the system dconf databases, making the newly installed system extensions available to all users.
+Run dconf to update the system dconf databases, making the newly installed system-wide extensions available to all users.
 `# dconf update`  
-
 
 == Installing and removing local GNOME Shell extensions
 
@@ -58,5 +57,3 @@ All extensions can be enabled, disabled, and their preferences modified by each 
 
 - the https://packages.fedoraproject.org/pkgs/gnome-extensions-app/gnome-extensions-app/[GNOME Extensions] app.
   Apart from other customisations, GNOME Extensions also allows enabling, disabling, and modifying preferences for GNOME shell extensions.
-
-
