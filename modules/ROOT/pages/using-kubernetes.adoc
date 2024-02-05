@@ -131,7 +131,7 @@ This rpm is required on every Fedora machine in a cluster.
 Recommended on any node configured as a control plane as it allows the cluster administrator control over the cluster from an ssh session on the control plane.
 Install on a machine that can connect to the cluster over the network.
 
-|kubernetes-legacy-systemd
+|kubernetes-systemd
 |kube-apiserver, kube-controller-manager, kube-proxy, kube-scheduler
 |Systemd services for a kubernetes control-plane and/or node.
 Not needed for most installations as kubeadm will install these components as static pods.
@@ -155,7 +155,7 @@ If conducting a manual installation of Kubernetes (see link:https://github.com/k
 
 [source,bash]
 ----
-sudo dnf install kubernetes kubernetes-client kubernetes-legacy-systemd
+sudo dnf install kubernetes kubernetes-client kubernetes-systemd
 ----
 
 [[sect-kubernetes-fedora-crosswalk]]
