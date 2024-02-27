@@ -237,8 +237,7 @@ The current list of ports and protocols used by a Kubernetes cluster can be foun
 +
 [source,bash]
 ----
-sudo systemctl stop firewalld.system
-sudo systemctl disable firewalld.system
+sudo systemctl disable --now firewalld
 ----
 
 . Install `iptables` and `iproute-tc.`
