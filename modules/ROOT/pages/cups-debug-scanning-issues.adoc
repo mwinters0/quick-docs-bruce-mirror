@@ -1,9 +1,9 @@
 = CUPS – How to Debug Scanning Issues
-Brandon Nielsen ; 
+Brandon Nielsen ; Zdenek Dohnal
 :revnumber: unspecified
 :revdate: 2021-06-16
 :category: Scanner
-:tags: How-to, Scanner, Cups, Troubleshooting  
+:tags: How-to, Scanner, Troubleshooting, Debug, sane-backends, sane-airscan 
 :page-aliases: how-to-debug-scanning-problems.adoc
 
 

@@ -1,9 +1,9 @@
 = CUPS – Useful Tricks
-Brandon Nielsen 
+Brandon Nielsen; Zdenek Dohnal
 :revnumber: F31 onwards
 :revdate: 2021-06-16
 :category: Printing
-:tags: How-to, Cups, Workstation, Gnome
+:tags: How-to, Cups, Workstation, Gnome, Printer Install, Driverless
 
 
 == How to install a print queue

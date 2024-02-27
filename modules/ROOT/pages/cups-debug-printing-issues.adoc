@@ -3,7 +3,7 @@ Brandon Nielsen ; Zdenek Dohnal
 :revnumber: F35 onwards
 :revdate: 2022-02-10
 :category: Printing
-:tags: How-to, Printer, Troubleshooting 
+:tags: How-to, Printer, Troubleshooting, Debug
 :page-aliases: how-to-debug-printing-problems.adoc
 
 If you are experiencing a problem with printing, please take a look at the https://fedoraproject.org/wiki/Bugs/Common[common bugs] page before filing a bug. If the problem you are seeing is not listed there or none of the workarounds seem to help, please consider xref:cups-filing-a-bug-report.adoc#_filing_a_bug_report[filing a bug report] to help us make Fedora run better on your hardware.

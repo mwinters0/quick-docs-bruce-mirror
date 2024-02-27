@@ -1,9 +1,9 @@
 = CUPS – Known Issues
-Brandon Nielsen 
+Brandon Nielsen; Zdenek Dohnal
 :revnumber: F31 onwards
 :revdate: 2021-06-16
 :category: Printing
-:tags: How-to, Cups, Workstation, Gnome
+:tags: How-to, Cups, Workstation, Gnome, cups-browsed, ipp-usb
 
 
 Here are several known issues, which arise with certain circumstances, and there isn't general solution or upstream didn't want to add the solution to its project:
