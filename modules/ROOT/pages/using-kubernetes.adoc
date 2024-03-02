@@ -74,8 +74,9 @@ Install on a machine that can connect to the cluster over the network.
 
 |kubernetes-kubeadm
 |kubeadm
-|Bootstraps Kubernetes on a node.
-Required on each node.
+|Kubeadm initializes a cluster and joins new nodes to a cluster.
+This rpm is optional but recommended by the Kubernetes team.
+Install on every node if used.
 
 |kubernetes-master
 |kube-apiserver, kube-controller-manager, kube-proxy, kube-scheduler
@@ -120,10 +121,14 @@ The table below lists the available Kubernetes rpms, what the rpm contains, and 
 |===
 |RPM Name|Contents|Notes
 |kubernetes
-|kubeadm, kubelet
-|Kubeadm bootstraps the cluster on a node.
-Kubelet is the Kubernetes runtime on a node.
-This rpm is required on every Fedora machine in a cluster.
+|kubelet
+|Kubelet is the Kubernetes runtime on a node.
+
+|kubernetes-kubeadm
+|kubeadm
+|Kubeadm initializes a cluster and joins new nodes to a cluster.
+This rpm is optional but recommended by the Kubernetes team.
+Install on every node if used.
 
 |kubernetes-client
 |kubectl
@@ -143,15 +148,15 @@ Use systemctl to enable kube-proxy on all nodes. Enable kube-apiserver, kube-con
 [[sect-fedora-40-recommendations]]
 ==== Fedora 40 (and newer) installation recommendations
 
-For most modern kubernetes clusters install kubernetes, and kubernetes-client on each machine in the cluster.
+For most modern kubernetes clusters install kubernetes, kubernetes-kubeadm, and kubernetes-client on each machine in the cluster.
 If disk space is a constraint only install kubernetes-client on control-plane machines.
 
 [source,bash]
 ----
-sudo dnf install kubernetes kubernetes-client
+sudo dnf install kubernetes kubernetes-kubeadm kubernetes-client
 ----
 
-If conducting a manual installation of Kubernetes (see link:https://github.com/kelseyhightower/kubernetes-the-hard-way[Kubernetes The Hard Way]) then install all kubernetes rpms.
+If conducting a manual installation of Kubernetes (see link:https://github.com/kelseyhightower/kubernetes-the-hard-way[Kubernetes The Hard Way]) then install all kubernetes rpms except kubernetes-kubeadm.
 
 [source,bash]
 ----
@@ -173,6 +178,11 @@ The version of the Go programming language supported for a given Fedora release 
 [cols="1,1,1,1", options="header"]
 |===
 |Kubernetes Version |Target Fedora Release | Kubernetes End-of-Life | Kubernetes Golang 'Built-With' Version
+|1.30
+|F41
+|TBD
+|1.22
+
 |1.29
 |F40
 |2025.02.28
@@ -181,12 +191,12 @@ The version of the Go programming language supported for a given Fedora release 
 |1.28
 |COPR^1^
 |2024.10.28
-|1.20
+|1.21 (was 1.20)
 
 |1.27
 |F39
 |2024.06.28
-|1.20
+|1.21 (was 1.20)
 
 |1.26
 |F38
@@ -321,7 +331,7 @@ Please see the notes above on recommended packages for control plane or worker n
 sudo dnf install kubernetes-client kubernetes-node kubernetes-kubeadm
 
 #fedora 40 and later use:
-sudo dnf install kubernetes kubernetes-client
+sudo dnf install kubernetes kubernetes-kubeadm kubernetes-client
 ----
 
 
