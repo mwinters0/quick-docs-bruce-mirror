@@ -211,7 +211,7 @@ XWayland support enabled in your weston sessions. Create
 `~/.config/weston.ini` with this contents:
 
 `[core]` +
-`modules=xwayland.so`
+`xwayland=true`
 
 Now you can start weston either as nested window or as a full session.
 
