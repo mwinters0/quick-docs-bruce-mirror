@@ -1,7 +1,7 @@
 = Installing plugins for playing movies and music
-Ankur Sinha ; Héctor Louzao ; The Fedora Docs team
-:revnumber: unknown
-:revdate: 2020-10-05
+Ankur Sinha ; Héctor Louzao ; Neil Gompa (ngompa)
+:revnumber: F39 and newer
+:revdate: 2023-12-05
 :category: Administration
 :tags: How-to, Plugins, Multimedia 
 :page-aliases: assembly_installing-plugins-for-playing-movies-and-music.adoc
