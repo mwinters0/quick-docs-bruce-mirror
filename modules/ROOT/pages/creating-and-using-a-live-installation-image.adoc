@@ -18,7 +18,7 @@ You can also take advantage of Fedora Labs. Fedora Labs is a selection of curate
 @
 [NOTE]
 ====
-Please refer to xref:f{MAJOROSVER}@fedora:getting-started.adoc[Fedora Getting Started] Guide for getting help on the process of installing Fedora.
+Please refer to xref:fedora:getting-started.adoc[Fedora Getting Started] Guide for getting help on the process of installing Fedora.
 ====
 
 
@@ -30,7 +30,7 @@ You can write all Fedora ISO images to a USB stick, making this a convenient way
 [id='using-fedora-media-writer']
 === Using Fedora Media Writer
 
-The official and supported tool to create a Fedora USB stick is the *Fedora Media Writer* utility, which was formerly known as *LiveUSB Creator*. See xref:f{MAJOROSVER}@fedora:preparing-installation-media.adoc[Fedora Media Writer] guide in Fedora User Documentation overview.
+The official and supported tool to create a Fedora USB stick is the *Fedora Media Writer* utility, which was formerly known as *LiveUSB Creator*. See xref:fedora:preparing-boot-media.adoc[Fedora Media Writer] guide in Fedora User Documentation overview.
 
 // #fedora_media_writer
 [IMPORTANT]
