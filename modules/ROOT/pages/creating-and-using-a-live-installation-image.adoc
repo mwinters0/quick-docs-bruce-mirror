@@ -15,17 +15,12 @@ You can download Fedora from https://fedoraproject.org/.
 There are multiple desktops available for use with Fedora. Each has a slightly different look and feel and offers varying levels of customization. You can use the link:https://fedoraproject.org/workstation/[Fedora Workstation] image, which comes with the GNOME desktop by default, and then change your environment afterwards by installing additional packages, or you can download a spin image which will give you a different environment out of the box. Visit link:https://spins.fedoraproject.org/[Fedora Spins] for more information.
 
 You can also take advantage of Fedora Labs. Fedora Labs is a selection of curated bundles of purpose-driven software and content as curated and maintained by members of the Fedora Community. These may be installed as standalone full versions of Fedora or as add-ons to existing Fedora installations. Visit link:https://labs.fedoraproject.org/[Fedora Labs] for details.
-
+@
 [NOTE]
 ====
-Please refer to xref:f{MAJOROSVER}@fedora:install-guide:index.adoc[Fedora Installation Guide] for getting help on the process of installing Fedora.
+Please refer to xref:f{MAJOROSVER}@fedora:getting-started.adoc[Fedora Getting Started] Guide for getting help on the process of installing Fedora.
 ====
 
-
-//include::{partialsdir}/proc_creating-and-using-live-usb.adoc[leveloffset=+1]
-
-//:experimental:
-//include::{partialsdir}/attributes.adoc[]
 
 //[id='proc_creating-and-using-live-usb']
 == Creating and using live USB
@@ -35,7 +30,7 @@ You can write all Fedora ISO images to a USB stick, making this a convenient way
 [id='using-fedora-media-writer']
 === Using Fedora Media Writer
 
-The official and supported tool to create a Fedora USB stick is the *Fedora Media Writer* utility, which was formerly known as *LiveUSB Creator*.
+The official and supported tool to create a Fedora USB stick is the *Fedora Media Writer* utility, which was formerly known as *LiveUSB Creator*. See xref:latest@fedora:preparing-installation-media.adoc#fedora-media-writer[Fedora Media Writer] guide in Fedora User Documentation ovewrview.
 
 
 [IMPORTANT]
