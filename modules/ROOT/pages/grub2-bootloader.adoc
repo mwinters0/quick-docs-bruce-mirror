@@ -702,16 +702,22 @@ grub> configfile /grub2/grub.cfg
 
 == Setting a password for interactive edit mode
 
-If you wish to protect the *GRUB2* interactive edit mode with a password, but allow ordinary users to boot the computer, you have to create a definition file where you set up this functionality: 
+If you wish to protect the *GRUB2* interactive edit mode with a password, but allow ordinary users to boot the computer, use the `grub2-set-password` command. You will be prompted for the password, and then will have to confirm it. The encrypted password will be stored in /boot/grub2/user.cfg.
+
+To remove password protection, simply delete the user.cfg file.
+
+Alternately, you can set this up manually:
 
 .Procedure
 
 . Create the `/etc/grub.d/01_users` file and write the following lines into the file.
 +
 ----
+cat << EOF
 set superusers="root"
 export superusers
 password root <password>
+EOF
 ----
 
 . Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
@@ -724,6 +730,8 @@ You can encrypt the password by using *pbkdf2*. Use `grub2-mkpasswd-pbkdf2` to e
 ----
 password_pbkdf2 root grub.pbkdf2.sha512.10000.1B4BD9B60DE889A4C50AA9458C4044CBE129C9607B6231783F7E4E7191D8254C0732F4255178E2677BBE27D03186E44815EEFBAD82737D81C87F5D24313DDDE7.E9AEB53A46A16F30735E2558100D8340049A719474AEEE7E3F44C9C5201E2CA82221DCF2A12C39112A701292BF4AA071EB13E5EC8C8C84CC4B1A83304EA10F74
 ----
+
+To remove password protection, simple remove the changes you made to the `/etc/grub.d/01_users` file and regenerate the *GRUB2* configuration file, as before.
 
 More details can be found at https://help.ubuntu.com/community/Grub2/Passwords[Ubuntu Help: GRUB2 Passwords].
 
