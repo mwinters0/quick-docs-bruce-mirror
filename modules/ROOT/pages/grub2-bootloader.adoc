@@ -720,7 +720,7 @@ password root <password>
 EOF
 ----
 
-. Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
+. Regenerate the *GRUB2* configuration file, as described in xref:adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
 
 
 .More information
@@ -737,7 +737,7 @@ More details can be found at https://help.ubuntu.com/community/Grub2/Passwords[U
 
 [NOTE]
 ====
-Starting from Fedora 21, the `--md5pass` kickstart option must be used when using the `grub2-mkpasswd-pbkdf2` command.
+Starting from Fedora 15, the `--md5pass` or the `--password=<encrypted_grub_passwd> --iscrypted` kickstart option must be used if setting an encrypted *GRUB2* password in the kickstart.
 ====
 
 
