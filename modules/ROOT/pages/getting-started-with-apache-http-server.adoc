@@ -100,8 +100,8 @@ restorecon /etc/pki/tls/certs/myhost.com.crt
 .. Ownership
 +
 ----
-sudo chown root.root /etc/pki/tls/private/myhost.com.key
-sudo chown root.root /etc/pki/tls/certs/myhost.com.crt
+sudo chown root:root /etc/pki/tls/private/myhost.com.key
+sudo chown root:root /etc/pki/tls/certs/myhost.com.crt
 ----
 +
 .. Permissions
