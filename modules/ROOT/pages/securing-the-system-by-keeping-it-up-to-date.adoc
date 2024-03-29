@@ -87,6 +87,17 @@ you will need to set the `MERGE` environment variable
 to an editor that is capable of performing that function
 (e.g., `export MERGE="vimdiff"`).
 See the man page for details.
++
+[TIP]
+====
+If you install the rpmconf DNF plugin,
+`rpmconf` will run automatically at the end of each upgrade.
+Install it using the command:
+
+----
+sudo dnf install python3-dnf-plugin-rpmconf
+----
+====
 
 [discrete]
 === Additional Resources
