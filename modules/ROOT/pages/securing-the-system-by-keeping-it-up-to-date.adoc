@@ -2,12 +2,12 @@
 include::{partialsdir}/attributes.adoc[]
 
 = Securing the system by keeping it up-to-date
-Petr Bokoc; Mirek Jahoda; Gregory Lee Bartholomew 
+Petr Bokoc; Mirek Jahoda; Gregory Lee Bartholomew
 :revnumber: unspecified
 :revdate: 2023-12-23
 :category: Administration
-:tags: How-to,  Security, Update 
-//:page-aliases:  
+:tags: How-to,  Security, Update
+//:page-aliases:
 
 
 
@@ -25,7 +25,13 @@ This section explains:
 
 This section briefly explains the importance of updating your system on a regular basis.
 
-All software contains bugs. Often, these bugs can result in a vulnerability that can expose your system to malicious users. Packages that have not been updated are a common cause of computer intrusions. Implement a plan for installing security patches in a timely manner to quickly eliminate discovered vulnerabilities, so they cannot be exploited.
+All software contains bugs.
+Often, these bugs can result in a vulnerability
+that can expose your system to malicious users.
+Packages that have not been updated are a common cause of computer intrusions.
+Implement a plan for installing security patches in a timely manner
+to quickly eliminate discovered vulnerabilities,
+so they cannot be exploited.
 
 
 
@@ -36,13 +42,15 @@ This section describes how to manually download and install new updates by using
 [discrete]
 === Procedure
 
-. Hover the cursor over the upper-left corner of the screen and type "Software" and select the Software application to open it.
+. Hover the cursor over the upper-left corner of the screen
+  and type "Software" and select the Software application to open it.
 
 . Click the btn:[Updates] button to view the available updates.
 
 . Click the btn:[Download] button to download new updates.
 
-. After the updates are downloaded click the btn:[Restart & Update] button. Your system will restart to perform the upgrade.
+. After the updates are downloaded click the btn:[Restart & Update] button.
+  Your system will restart to perform the upgrade.
 
 image::software-updates.png[Updating by using the Software application]
 
@@ -50,8 +58,8 @@ image::software-updates.png[Updating by using the Software application]
 
 == Manual updating using CLI
 
-This section describes how to manually download and install new updates by using the DNF
-package manager.
+This section describes how to manually download and install new updates
+by using the DNF package manager.
 
 
 [discrete]
@@ -65,13 +73,31 @@ sudo dnf upgrade
 +
 Confirm to download the available packages.
 
-. Ideally (but it is usually not required), use the `rpmconf` command to merge any config file changes you may have made with any new settings that might have been introduced by the package updates. You should do this before you reboot your system:
+. Ideally (but it is usually not required),
+  use the `rpmconf` command to merge any config file changes you may have made
+  with any new settings that might have been introduced by the package updates.
+  You should do this before you reboot your system:
 +
 ----
 sudo rpmconf -a
 ----
 +
-To use the advanced merge option, you will need to set the `MERGE` environment variable to an editor that is capable of performing that function (e.g., `export MERGE="vimdiff"`). See the man page for details.
+To use the advanced merge option,
+you will need to set the `MERGE` environment variable
+to an editor that is capable of performing that function
+(e.g., `export MERGE="vimdiff"`).
+See the man page for details.
++
+[TIP]
+====
+If you install the rpmconf DNF plugin,
+`rpmconf` will run automatically at the end of each upgrade.
+Install it using the command:
+
+----
+sudo dnf install python3-dnf-plugin-rpmconf
+----
+====
 
 [discrete]
 === Additional Resources
@@ -97,7 +123,9 @@ This section describes how to use the DNF Automatic application to automatically
 sudo dnf install dnf-automatic
 ----
 
-. Edit the [filename]`/etc/dnf/automatic.conf` configuration file as needed. See the https://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation for details. 
+. Edit the [filename]`/etc/dnf/automatic.conf` configuration file as needed.
+  See the https://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic]
+  documentation for details.
 
 . Enable and start the `systemd` timer:
 +
@@ -111,7 +139,9 @@ Replace `_timer_` with one of following ones depending on what action you want t
 --
 * `dnf-automatic-install.timer` to download and install packages
 * `dnf-automatic-download.timer` to only download packages
-* `dnf-automatic-notifyonly.timer` to only get a notification using configured emitters in the [filename]`/etc/dnf/automatic.conf` file.
+* `dnf-automatic-notifyonly.timer`
+  to only get a notification using configured emitters in the
+  [filename]`/etc/dnf/automatic.conf` file.
 --
 +
 For example:
@@ -150,5 +180,5 @@ Jan 29 14:50:22 localhost.localdomain systemd[1]: Started dnf-automatic-install 
 [discrete]
 == Additional Resources
 
-* The xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc[DNF] chapter in the Fedora System Administrator's Guide
-
+* The xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc[DNF]
+  chapter in the Fedora System Administrator's Guide
