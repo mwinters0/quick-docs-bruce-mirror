@@ -1,7 +1,7 @@
 = Installing plugins for playing movies and music
-Ankur Sinha ; Héctor Louzao ; Neil Gompa (ngompa)
+Ankur Sinha ; Héctor Louzao ; Neil Gompa (ngompa) ; Dominik Mierzejewski (rathann)
 :revnumber: F39 and newer
-:revdate: 2023-12-05
+:revdate: 2024-03-06
 :category: Administration
 :tags: How-to, Plugins, Multimedia 
 :page-aliases: assembly_installing-plugins-for-playing-movies-and-music.adoc
@@ -14,18 +14,5 @@ As a Fedora user and system administrator, you can use these steps to install ad
 * Use the `dnf` utility to install packages that provide multimedia libraries:
 +
 ----
-sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-plugin-libav --exclude=gstreamer1-plugins-bad-free-devel
-
-sudo dnf install lame\* --exclude=lame-devel 
-
-sudo dnf group upgrade --with-optional Multimedia
+sudo dnf group install Multimedia
 ----
-
-== Related information
-
-* There are also media players that include all relevant codecs by themselves. Consider using one of the following for offline video viewing:
-** VLC, available from the `vlc` package
-** MPV, available from the `mpv` package
-
-
-
