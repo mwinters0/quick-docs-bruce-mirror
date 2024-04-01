@@ -111,8 +111,11 @@ No other e-mails will be sent.
 
 === Step 1: Filing a new bug
 
-If a bug report for the particular issue has not already been filed, you should file a new one.
-The easiest way to file a new report is using the "File a new bug" drop down from the right hand side bar in the https://packages.fedoraproject.org/[Fedora Packages Web application].
+If a bug report for the particular issue has not already been filed,
+you should file a new one.
+The easiest way to file a new report is to look up the package in the
+https://packages.fedoraproject.org/[Fedora Packages Web application],
+and use the "File a new bug report" link provided on the page.
 
 .The Fedora Packages Web Application provides a convenient shortcut to file new bugs.
 image::20240118-how-to-file-a-bug-new-bug-shortcut.png[]
