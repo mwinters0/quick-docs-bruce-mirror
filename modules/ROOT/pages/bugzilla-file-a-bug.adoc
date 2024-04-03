@@ -266,7 +266,7 @@ You may also find mention of specific devices or drivers in your system logs (ru
 === Security-Sensitive
 
 We pay special attention to security-sensitive bugs.
-Read the https://fedoraproject.org/wiki/Security_Bugs#Reporting_a_Security_Vulnerability[Reporting a Security Vulnerability]] page to understand the special process of opening a security bug.
+Read the https://fedoraproject.org/wiki/Security_Bugs#Reporting_a_Security_Vulnerability[Reporting a Security Vulnerability] page to understand the special process of opening a security bug.
 
 == Information required for bugs in specific components
 
