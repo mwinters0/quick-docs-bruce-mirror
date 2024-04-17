@@ -180,7 +180,7 @@ The version of the Go programming language supported for a given Fedora release 
 |Kubernetes Version |Target Fedora Release | Kubernetes End-of-Life | Kubernetes Golang 'Built-With' Version
 |1.30
 |F41
-|TBD
+|2025.06.28
 |1.22
 
 |1.29
@@ -200,7 +200,7 @@ The version of the Go programming language supported for a given Fedora release 
 
 |1.26
 |F38
-|2024.02.24
+|End Of Life
 |1.21 (was 1.19; was 1.20)
 |===
 
