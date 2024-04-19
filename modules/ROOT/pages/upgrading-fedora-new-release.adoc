@@ -1,6 +1,6 @@
-= Upgrading Fedora to a New Release
+= Upgrading Fedora Linux to a New Release
  Jun Aruga; Kamil Páral; Ben Cotton
-:revnumber: F37, F38, F39
+:revnumber: F37, F38, F39, F40
 :revdate: 2023-11-07
 :category: Administration
 :tags: How-to,  Upgrade
@@ -10,8 +10,8 @@
 
 [IMPORTANT]
 ====
-. Make sure your system is *fully up-to-date* before attempting a system upgrade to a new Fedora release.
-. Be sure to *back-up your data* before upgrading your Fedora system in the event something breaks and leaves your system unusable.
+. Make sure your system is *fully up-to-date* before attempting a system upgrade to a new Fedora Linux release.
+. Be sure to *back-up your data* before upgrading your Fedora Linux system in the event something breaks and leaves your system unusable.
 . Read the xref:fedora:release-notes:index.adoc[Release Notes] carefully before attempting an upgrade.
 ====
 
@@ -44,10 +44,10 @@ the new release.
 
 [NOTE]
 ====
-This is the recommended upgrade method for all other Fedora installations.
+This is the recommended upgrade method for all other Fedora Linux installations.
 ====
 
-This method is used to a upgrade Fedora installation using the command-line.
+This method is used to a upgrade Fedora Linux installation using the command-line.
 It is also used to troubleshoot issues with packages preventing the graphical method from upgrading.
 
 For instructions on upgrading with the DNF system upgrade plugin, refer to the xref:upgrading-fedora-offline.adoc[DNF System Upgrade Plugin] page.
@@ -56,44 +56,44 @@ For instructions on upgrading with the DNF system upgrade plugin, refer to the x
 
 [NOTE]
 ====
-Upgrading between major versions (such as from Fedora 38 to Fedora 39) can be completed using the Software application. Alternatively, Silverblue can be upgraded between major versions using the `ostree` command..
+Upgrading between major versions (such as from Fedora Linux 38 to Fedora Linux 39) can be completed using the Software application. Alternatively, Silverblue can be upgraded between major versions using the `ostree` command..
 ====
 
 For instructions on upgrading Fedora Silverblue Host, refer to the link:++https://docs.fedoraproject.org/en-US/fedora-silverblue/updates-upgrades-rollbacks/#upgrading++[dedicated page].
 
-== Can I upgrade between Fedora releases using only DNF?
+== Can I upgrade between Fedora Linux releases using only DNF?
 
 [WARNING]
 ====
 This is not a supported upgrade method.
 ====
 
-Upgrading between Fedora releases without the xref:upgrading-fedora-offline.adoc[DNF System Upgrade plugin] or xref:#_upgrading_to_the_next_fedora_workstation_release[GNOME Software] are not tested by the Fedora QA team, and are therefore not supported by the community. You can follow xref:upgrading-fedora-online.adoc[Upgrading Fedora using package manager], but you're doing that *at your own risk*.
+Upgrading between Fedora Linux releases without the xref:upgrading-fedora-offline.adoc[DNF System Upgrade plugin] or xref:#_upgrading_to_the_next_fedora_workstation_release[GNOME Software] are not tested by the Fedora Quality team, and are therefore not supported by the community. You can follow xref:upgrading-fedora-online.adoc[Upgrading Fedora Linux using package manager], but you're doing that *at your own risk*.
 
 == Upgrading from pre-release (beta) to final public release (stable)
 
-If you are using a pre-release of Fedora, you shouldn't need to do anything to get the final public release, other than updating packages as they become available. You can use `sudo dnf upgrade` or wait for desktop notification. When the pre-release is released as final, the `fedora-repos` packages will be updated and your `updates-testing` repository will be disabled. Once this happens (on the release day), it is highly recommended to run `sudo dnf distro-sync` in order to align package versions with the current release.
+If you are using a pre-release of Fedora Linux, you shouldn't need to do anything to get the final public release, other than updating packages as they become available. You can use `sudo dnf upgrade` or wait for desktop notification. When the pre-release is released as final, the `fedora-repos` packages will be updated and your `updates-testing` repository will be disabled. Once this happens (on the release day), it is highly recommended to run `sudo dnf distro-sync` in order to align package versions with the current release.
 
 == How do I upgrade to Rawhide and Branched?
 
-link:++https://fedoraproject.org/wiki/Releases/Rawhide++[Rawhide] and link:++https://fedoraproject.org/wiki/Releases/Branched++[Branched] are the development releases of Fedora.
-They are suitable for users developing or testing Fedora before public release.
+link:++https://fedoraproject.org/wiki/Releases/Rawhide++[Rawhide] and link:++https://fedoraproject.org/wiki/Releases/Branched++[Branched] are the development releases of Fedora Linux.
+They are suitable for users developing or testing Fedora Linux before public release.
 They are *NOT SUITABLE* for regular day-to-day use unless you are a fairly experienced user, and certainly not suitable for mission-critical use.
 You should read through those pages carefully before deciding to run Branched or Rawhide.
-See the link:++https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle++[Fedora Life Cycle] for more information on how the whole Fedora cycle works from Rawhide, to Branched, to the milestone releases (Beta), to the 'Final' release.
+See the link:++https://fedoraproject.org/wiki/Fedora_Release_Life_Cycle++[Fedora Release Life Cycle] for more information on how the whole Fedora cycle works from Rawhide, to Branched, to the milestone releases (Beta), to the 'Final' release.
 
 Upgrading to a Branched release or to Rawhide can be done using xref:upgrading-fedora-offline.adoc[DNF System Upgrade].
 
 == Can I upgrade from an End Of Life (EOL) release?
 
 Fedora strongly discourages running an end-of-life release on any production system, or any system connected to the public internet.
-You should never allow a production Fedora deployment to reach end-of-life in the first place.
+You should never allow a production Fedora Linux deployment to reach end-of-life in the first place.
 
 With that in mind, if you do have an end-of-life release installed on a system you cannot just discard or re-deploy, you upgrade using xref:upgrading-fedora-offline.adoc[DNF System Upgrade]. Note that upgrades are only tested from the two previous releases.
 
 === Upgrading to a pre-release version using Gnome Software
 
-Upgrading to pre-released versions of Fedora can be enabled in Gnome software using the following command:
+Upgrading to pre-released versions of Fedora Linux can be enabled in Gnome software using the following command:
 
 ----
 gsettings set org.gnome.software show-upgrade-prerelease true
@@ -107,11 +107,11 @@ Once the upgrade is complete, it is highly recommended to disable that function 
 gsettings set org.gnome.software show-upgrade-prerelease false
 ----
 
-=== Upgrading using the Fedora installer (anaconda)?
+=== Upgrading using the Fedora Linux installer (anaconda)?
 
-Fedora releases up to Fedora 17 included upgrade functionality in the Fedora installer, anaconda.
+Fedora releases up to 17 included upgrade functionality in the installer, anaconda.
 This can be a better choice than a package manager upgrade for some End Of Life (EOL) upgrades.
-If you are attempting to upgrade from Fedora 16 or older, it is highly recommended to upgrade to Fedora 16 and perform an installer upgrade from Fedora 16 to Fedora 17 before upgrading any further.
+If you are attempting to upgrade from 16 or older, it is highly recommended to upgrade to 16 and perform an installer upgrade from 16 to 17 before upgrading any further.
 
 To upgrade using the installer, boot the system from a network install or DVD image for the target release, and run through the initial steps of the install process.
 After you select storage devices the installer should offer you the option to upgrade the installed system.
