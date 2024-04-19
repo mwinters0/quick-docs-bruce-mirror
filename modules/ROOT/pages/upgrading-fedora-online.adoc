@@ -1,21 +1,21 @@
-= Upgrading Fedora Online Using Package Manager
+= Upgrading Fedora Linux Online Using Package Manager
  Ben Cotton; Kamil Páral;  Caleb McKee
-:revnumber: F37, F38, F39
+:revnumber: F37, F38, F39, F40
 :revdate: 2023-11-07
 :category: Administration
 :tags: How-to,  Upgrade
 //:page-aliases:
 
 [abstract]
-This page contains information explaining how to upgrade Fedora online using `dnf` (without the xref:dnf-system-upgrade.adoc[DNF system upgrade plugin]).
+This page contains information explaining how to upgrade Fedora Linux online using `dnf` (without the xref:dnf-system-upgrade.adoc[DNF system upgrade plugin]).
 
 
 [WARNING]
 ====
-This is not a supported upgrade method. Read xref:upgrading.adoc[Upgrading to a new release of Fedora] to see a list of supported and tested upgrade methods. The steps included in the guide are *at your own risk*.
+This is not a supported upgrade method. Read xref:upgrading.adoc[Upgrading to a new release of Fedora Linux] to see a list of supported and tested upgrade methods. The steps included in the guide are *at your own risk*.
 ====
 
-== Upgrading Fedora using dnf directly
+== Upgrading Fedora Linux using dnf directly
 
 == Participate
 
@@ -26,7 +26,7 @@ link:SIGs/LiveUpgrade[Live Upgrade Special Interest Group].
 
 == Upgrading across multiple releases
 
-If you need to upgrade across several releases, it is generally recommended to go one release at a time: for example, rather than going directly from Fedora 37 to Fedora 39, first go to Fedora 38 and then to Fedora 39. This tends to reduce the number of package dependency issues you may encounter. If you are upgrading from an link:End_of_life[End of life] release, please also see link:#eol[the end-of-life section].
+If you need to upgrade across several releases, it is generally recommended to go one release at a time: for example, rather than going directly from Fedora Linux 37 to Fedora Linux 39, first go to Fedora Linux 38 and then to Fedora Linux 39. This tends to reduce the number of package dependency issues you may encounter. If you are upgrading from an link:End_of_life[End of life] release, please also see link:#eol[the end-of-life section].
 
 == Instructions to upgrade using dnf
 
@@ -38,7 +38,7 @@ Backup any personal data to an external hard drive or to another machine. If the
 
 Further down in this page there is a list of common problems specific to dnf upgrades for specific versions. Some of them require attention before the upgrade.
 
-General advice on upgrading Fedora can be found on the link:https://docs.fedoraproject.org/en-US/quick-docs/upgrading/[Upgrading] page. You should also read the http://docs.fedoraproject.org/install-guide/[Installation Guide] and http://docs.fedoraproject.org/release-notes/[Release Notes] for the version you plan to upgrade to - they contain important information regarding upgrading issues. Finally, check the list of link:Common_bugs[Common bugs].
+General advice on upgrading Fedora Linux can be found on the link:https://docs.fedoraproject.org/en-US/quick-docs/upgrading/[Upgrading] page. You should also read the http://docs.fedoraproject.org/install-guide/[Installation Guide] and http://docs.fedoraproject.org/release-notes/[Release Notes] for the version you plan to upgrade to - they contain important information regarding upgrading issues. Finally, check the list of link:Common_bugs[Common bugs].
 
 === 3. Clean Stuff
 
@@ -55,9 +55,9 @@ TIP: *Find and review "lost" packages* + You can find orphaned packages (i.e. pa
 === 4. Do the upgrade
 
 If you have 3rd party repositories configured, you may need to adjust
-them for the new Fedora version. If you switch from one Fedora release
+them for the new Fedora Linux version. If you switch from one Fedora Linux release
 to another there is often nothing that needs to be done. If you switch
-to Rawhide from a standard Fedora release (or vice versa) then most of
+to Rawhide from a standard Fedora Linux release (or vice versa) then most of
 the time you will need to install the Rawhide release RPMs from the 3rd
 party repository as well (or the standard ones, if switching back).
 
@@ -101,7 +101,7 @@ systemctl isolate multi-user.target
 ....
 
 [[fully-update-your-current-fedora-install]]
-==== Fully update your current Fedora install
+==== Fully update your current Fedora Linux install
 
 ....
 # dnf upgrade
@@ -110,9 +110,9 @@ systemctl isolate multi-user.target
 [[install-the-package-signing-key-for-the-release-you-are-upgrading-to]]
 ==== Install the package signing key for the release you are upgrading to
 
-If you are upgrading across two releases or fewer from Fedora 20 or
+If you are upgrading across two releases or fewer from Fedora Linux 20 or
 later, this step should be unnecessary. If you are upgrading from an
-older Fedora or upgrading across three or more releases, you may need to
+older Fedora Linux or upgrading across three or more releases, you may need to
 import the signing key for the target release.
 
 If it turns out not to be, you should be able to import keys like so:
@@ -121,7 +121,7 @@ If it turns out not to be, you should be able to import keys like so:
  # rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-23-x86_64
 ....
 
-, replacing "23" and "x86_64" with the new Fedora version and your
+, replacing "23" and "x86_64" with the new Fedora Linux version and your
 architecture, respectively.
 
 You can also find package signing keys for currently-supported releases
@@ -167,7 +167,7 @@ If it seems like you must remove a package with many dependencies, especially on
 
 If you are at all unsure in any way, ask for help on a mailing list, forum or IRC before removing packages.
 
-=== 5. Make sure Fedora is upgraded
+=== 5. Make sure Fedora Linux is upgraded
 
 Distro-sync will usually take care of upgrades for the third party
 repositories you have enabled as well. Confirm with `dnf repolist` after the upgrade
@@ -225,7 +225,7 @@ cp --backup=numbered -a /boot/grub2/grub.cfg{,.bak} # create backup copy
 
 Again, cleanup your system as described in section 2. Also you might
 want to remove some cache files that are no longer used, for example
-files from older Fedora releases in the following directories:
+files from older Fedora Linux releases in the following directories:
 
 * /var/cache/dnf
 * /var/cache/mock
@@ -256,7 +256,7 @@ See the link:Releases/Rawhide[Rawhide] release page for more information on Rawh
 # touch /.autorelabel
 ....
 
-=== Fedora 31
+=== Fedora Linux 31
 Before running
 
 ....
@@ -271,21 +271,21 @@ dnf module reset libgit2 exa bat
 
 See link:https://bugzilla.redhat.com/show_bug.cgi?id=1747408[Bug 1747408].
 
-=== Fedora 30
+=== Fedora Linux 30
 
 No special instructions. Follow the above instructions.
 
-=== Fedora 29
+=== Fedora Linux 29
 
 No special instructions. Follow the above instructions.
 
 [[upgrading-from-legacy-end-of-life-eol-fedora-releases]]
-=== Upgrading from legacy end of life (EOL) Fedora releases
+=== Upgrading from legacy end of life (EOL) Fedora Linux releases
 
-Note that Fedora strongly recommends against ever running an end-of-life release on any production system, or any system connected to the public internet, in any circumstances. You should never allow a production Fedora deployment to reach end-of-life in the first place.
+Note that Fedora strongly recommends against ever running an end-of-life release on any production system, or any system connected to the public internet, in any circumstances. You should never allow a production Fedora Linux deployment to reach end-of-life in the first place.
 
 With that in mind, if you do have an end-of-life release installed on a system you cannot just discard or re-deploy, you can attempt to upgrade it, though this is a less-tested and less-supported operation.
 
-For detailed instructions on upgrades from EOL releases, please read link:Upgrading_from_EOL_Fedora_using_package_manager[Upgrading from EOL Fedora using package manager].
+For detailed instructions on upgrades from EOL releases, please read link:Upgrading_from_EOL_Fedora_using_package_manager[Upgrading from EOL Fedora Linux using package manager].
 
 See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
