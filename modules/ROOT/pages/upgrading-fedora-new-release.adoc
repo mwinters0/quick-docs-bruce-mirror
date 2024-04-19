@@ -12,6 +12,7 @@
 ====
 . Make sure your system is *fully up-to-date* before attempting a system upgrade to a new Fedora Linux release.
 . Be sure to *back-up your data* before upgrading your Fedora Linux system in the event something breaks and leaves your system unusable.
+. This is extremely unlikely, but it's better to be safe than sorry. It's a good idea to back up important data regularly in any case, and now is a great time to double-check.
 . Read the xref:fedora:release-notes:index.adoc[Release Notes] carefully before attempting an upgrade.
 ====
 
