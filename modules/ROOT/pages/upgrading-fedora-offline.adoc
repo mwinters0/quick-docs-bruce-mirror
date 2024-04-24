@@ -120,7 +120,7 @@ Find the device node the `/boot/` directory is located on:
 
 [source,bash]
 ----
-$ sudo mount | grep "/boot "
+sudo mount | grep "/boot "
 /dev/sda4 on /boot type ext4 (rw,relatime,seclabel)
 ----
 
@@ -128,7 +128,7 @@ The device node is `/dev/sda4`. Reinstall the bootloader while specifying the de
 
 [source,bash]
 ----
-$ sudo grub2-install /dev/sda
+sudo grub2-install /dev/sda
 ----
 
 The correct output should be:
@@ -152,16 +152,16 @@ If you upgrade across one release (e.g. Fedora Linux {PREVVER} to {MAJOROSVER}),
 
 [source,bash]
 ----
-$ sudo dnf install remove-retired-packages
-$ remove-retired-packages
+sudo dnf install remove-retired-packages
+remove-retired-packages
 ----
 
 If you upgrade across two releases (e.g. Fedora Linux {PREVPREVVER} to {MAJOROSVER}), you must supply the old release version to `remove-retired-packages`:
 
 [source,bash,subs="attributes"]
 ----
-$ sudo dnf install remove-retired-packages
-$ remove-retired-packages {PREVPREVVER}
+sudo dnf install remove-retired-packages
+remove-retired-packages {PREVPREVVER}
 ----
 
 NOTE: Upgrades across *more* than two releases are not supported.
