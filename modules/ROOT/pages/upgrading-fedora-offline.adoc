@@ -129,6 +129,12 @@ The device node is `/dev/sda4`. Reinstall the bootloader while specifying the de
 [source,bash]
 ----
 $ sudo grub2-install /dev/sda
+----
+
+The correct output should be:
+
+[source,bash]
+----
 Installing for i386-pc platform.
 Installation finished. No error reported.
 ----
