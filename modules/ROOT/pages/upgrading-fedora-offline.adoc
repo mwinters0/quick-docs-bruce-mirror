@@ -1,7 +1,7 @@
 = Upgrading Fedora Linux Using DNF System Plugin
 Michael Wu; Anthony McGlone; The Fedora Docs team
 :revnumber: F38, F39, F40
-:revdate: 2023-11-07
+:revdate: 2024-04-25
 :category: Administration
 :tags: How-to, Upgrade, Update 
 :page-aliases: dnf-system-upgrade.adoc
