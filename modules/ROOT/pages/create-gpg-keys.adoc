@@ -171,7 +171,7 @@ This represents the 64 lower-order bits of your fingerprint, which is sufficient
 The `gpg` program makes it easy for you to find your key's long GPG key ID:
 
 ----
-gpg --list-keys --fingerprint --key-id-format 0xlong johndoe@example.com
+gpg --list-keys --fingerprint --keyid-format 0xlong johndoe@example.com
 ----
 
 The `0xlong` format prepends "0x" to the key ID to make it clear that this is a series of hexadecimal digits; it is considered good practice to do this.
