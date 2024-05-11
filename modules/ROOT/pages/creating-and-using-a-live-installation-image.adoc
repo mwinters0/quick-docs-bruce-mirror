@@ -197,6 +197,7 @@ If you are already running a live CD, DVD, or USB and want to convert that into 
 # livecd-iso-to-disk /run/initramfs/livedev /dev/sdX"
 ----
 
+ NOTE: This method will no longer be effective for Fedora 37 and later versions. As of Fedora 37, the syslinux (ioslinux) booting method has been entirely removed.
 
 
 //include::{partialsdir}/proc_booting-from-usb-sticks.adoc[leveloffset=+1]
