@@ -44,13 +44,6 @@ and reboot your computer.
 +
 *Important:* Do not skip this step. System updates are required to receive signing keys of higher-versioned releases, and they often fix problems related to the upgrade process.
 
-. Install the dnf-plugin-system-upgrade package if it is not currently installed:
-+
-[source,bash]
-----
-sudo dnf install dnf-plugin-system-upgrade
-----
-
 . Download the updated packages:
 +
 [source,bash,subs="attributes"]
