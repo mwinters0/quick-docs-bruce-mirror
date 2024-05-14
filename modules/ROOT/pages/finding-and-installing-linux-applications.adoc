@@ -1,7 +1,7 @@
 = Finding and installing Linux applications
 Hanku Lee, Peter Boy; Fedora Documentation Team
 :revnumber: F36 and newer
-:revdate: 2023-03-04
+:revdate: 2024-05-14
 :category: Managing Software
 :tags: Tutorial, Workstation
 
@@ -23,8 +23,6 @@ The Fedora repository is available for all Fedora releases and backed by the fol
 - Fedora-packaged software: registry.fedoraproject.org
 
 - Updates repo
-
-- Modularity
 
 === Optional repos
 
