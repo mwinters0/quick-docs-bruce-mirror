@@ -1,0 +1,29 @@
+= Machine Owner Key Enrollment
+
+This page documents how to enroll a machine owner key that is created during the Nvidia driver installation (typically in GNOME Software).
+
+== Prerequisite
+
+The Nvidia driver has been installed and a machine owner key to self-sign the driver has been created in GNOME Software (or in a similar tool that supports it).
+
+== Enrolling Self-signing Key after Reboot
+
+In order to successfully reboot to Fedora Workstation after the Nvidia driver installation, you have to enroll the machine owner key you created during installation in GNOME Software. During rebooting you'll be presented with the mokutil tool, follow the below steps to enroll the key:
+
+1. Press any key to continue.
+image:mok-util-01.png[mok-util-01.png,title="Shim UEFI key management"]
+
+2. Select *Enroll MOK*.
+image:mok-util-02.png[mok-util-02.png,title="Perform MOK management"]
+
+3. Select *Continue* to proceed to the enrollment.
+image:mok-util-03.png[mok-util-03.png,title="Enroll MOK"]
+
+4. Select *Yes* to enroll the key.
+image:mok-util-04.png[mok-util-05.png,title="Enroll the key(s)?"]
+
+5. Type the password you created for the key during installation.
+image:mok-util-05.png[mok-util-06.png,title="mokutil start screen"]
+
+6. Select *Reboot* to reboot into the OS with the Nvidia drivers enabled.
+image:mok-util-06.png[mok-util-07.png,title="Enroll the key(s) - Password"]
