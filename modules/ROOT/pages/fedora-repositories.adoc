@@ -1,7 +1,7 @@
 = Fedora Repositories
-yohaan vakil; Otto Urpelainen; Ooyama Yosiyuki
-:revnumber: F28 and newer
-:revdate: 2022-06-02
+yohaan vakil; Otto Urpelainen; Chetan Giradkar; Adam Williamson
+:revnumber: F40 and newer
+:revdate: 2024-06-15
 :category: Administration
 :tags: How-to, Repositories
 :page-aliases: repositories.adoc
@@ -26,7 +26,7 @@ The stable release _fedora_ repositories for the various primary architectures c
 [[the-fedora-repository-in-branched-releases]]
 === The _fedora_ repository in Branched releases
 
-In Branched releases - the state a release is in between branching from Rawhide and stable release, see https://fedoraproject.org/wiki/Releases/Branched[Branched] for more details - the fedora repository alone represents the release's stable state. The _updates_ repository for Branched releases is not used until they become stable. Before the https://fedoraproject.org/wiki/Updates_Policy#Bodhi_enabling[Bodhi enabling point], package builds for the Branched release are sent directly to this repository. After the _Bodhi enabling point_, package builds that pass the https://fedoraproject.org/wiki/Updates_Policy[Updates Policy] move from _updates-testing_ repository to this repository.
+In Branched releases - the state a release is in between branching from Rawhide and stable release, see https://fedoraproject.org/wiki/Releases/Branched[Branched] for more details - the fedora repository alone represents the release's stable state. The _updates_ repository for Branched releases is not used until they become stable. Before the  https://docs.fedoraproject.org/en-US/fesco/Updates_Policy/#updates-testing-activation[updates-testing activation], package builds for the Branched release are sent directly to this repository. After the _Bodhi enabling point_, package builds that pass the https://fedoraproject.org/wiki/Updates_Policy[Updates Policy] move from _updates-testing_ repository to this repository.
 
 The Branched _fedora_ repositories for the various primary https://fedoraproject.org/wiki/Architectures[architectures] can be found in the `/fedora/linux/development/XX` directory on the mirrors (where XX is the release), and can also be queried from MirrorManager. For instance, https://mirrors.fedoraproject.org/mirrorlist?repo=fedora-{NEXTVER}&arch=x86_64 will return mirrors for the x86_64 _fedora_ repository for release {NEXTVER}.
 
