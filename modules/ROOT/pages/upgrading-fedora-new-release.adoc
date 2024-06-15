@@ -1,12 +1,13 @@
 = Upgrading Fedora Linux to a New Release
  Jun Aruga; Kamil Páral; Ben Cotton
 :revnumber: F37, F38, F39, F40
-:revdate: 2023-11-07
+:revdate: 2024-06-15
 :category: Administration
 :tags: How-to,  Upgrade
 :page-aliases: upgrading.adoc
 
-
+[abstract]
+This article mainly describes the update procedures for the Fedora Desktop variants. Some of the descriptions also apply to the server versions. However, the latter may provide their own documentation for the release upgrade.  Please check this yourself. 
 
 [IMPORTANT]
 ====
@@ -108,14 +109,6 @@ Once the upgrade is complete, it is highly recommended to disable that function 
 gsettings set org.gnome.software show-upgrade-prerelease false
 ----
 
-=== Upgrading using the Fedora Linux installer (anaconda)?
-
-Fedora releases up to 17 included upgrade functionality in the installer, anaconda.
-This can be a better choice than a package manager upgrade for some End Of Life (EOL) upgrades.
-If you are attempting to upgrade from 16 or older, it is highly recommended to upgrade to 16 and perform an installer upgrade from 16 to 17 before upgrading any further.
-
-To upgrade using the installer, boot the system from a network install or DVD image for the target release, and run through the initial steps of the install process.
-After you select storage devices the installer should offer you the option to upgrade the installed system.
 
 [IMPORTANT]
 ====
