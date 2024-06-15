@@ -1,5 +1,11 @@
 = Machine Owner Key Enrollment
+Jiri Eischmann 
+:revnumber: F40
+:revdate: 2024-06-15
+:category: Administration
+:tags: How-to,   Nvidia
 
+[abstract]
 This page documents how to enroll a machine owner key that is created during the Nvidia driver installation (typically in GNOME Software).
 
 == Prerequisite
