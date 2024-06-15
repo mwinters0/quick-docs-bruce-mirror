@@ -1,7 +1,7 @@
 = Creating and using a live installation image
-Chase Lau ; The Fedora Docs Team
+Chase Lau ; ctrngk; The Fedora Docs Team
 :revnumber: unknown
-:revdate: 2019-10-05
+:revdate: 2024-05-05
 :category: Installation
 :tags: How-to, Workstation  
 //:page-aliases: 
