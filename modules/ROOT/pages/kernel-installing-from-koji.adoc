@@ -57,7 +57,7 @@ This assumes we are working with the `x86_64` architecture.
     cd $(mktemp -d) \
       && koji download-build --arch=x86_64 --arch=noarch kernel-n.nn.nn-nnn.fcnn \
       && rm *debug*.rpm *uki*.rpm \
-      && sudo dnf install
+      && sudo dnf install *
 
 This eliminates the need to clean up after installation and the risk of installing unwanted rpms accidentally.
 
