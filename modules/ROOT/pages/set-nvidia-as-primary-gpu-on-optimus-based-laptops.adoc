@@ -13,19 +13,18 @@ include::{partialsdir}/3rdparty-message.adoc[]
 
 
 == Introduction
-The objective is to enable NVIDIA GPU of an Optimus-based laptop *all the time* and use it for every single activity.
-Please do not use this guide if you want to render your desktop using the integrated GPU and specifically select applications to be rendered using the NVIDIA GPU.
+The goal is to have an active NVIDIA GPU on an Optimus-based laptop and use it for all activities on Desktops Environments with Xorg-X11. 
+Avoid using this guide if you prefer to render your desktop with the integrated GPU and selectively choose applications to utilize the NVIDIA GPU.
 
 [NOTE]
 ====
-The steps listed here have been verified to be working on Fedora 32 Workstation. Please update your installation to include your experiences and any other tweaks that may be needed if you are using any other desktop environments.
+The instructions in this document have been verified to work on releases of Fedora 32 Workstation and later versions that use Xorg-X11.
 
-Some guides on the internet advise a different approach to installing nVidia drivers on Fedora, such as directly using the binaries provided by nVidia. The Fedora Project cannot ensure these will always work on every Fedora release, and we therefore recommend following the steps in this document instead.
-====
+Some guides on the internet recommend a different approach to installing Nvidia drivers on Fedora, such as directly using the binaries provided by Nvidia. However, the Fedora Project cannot guarantee that these will always function with every Fedora release. Therefore, we recommend following the steps outlined in this document instead.
 
-[NOTE]
-====
-As Prime works less satisfactorily with Wayland server, following the steps provided in this guide would default the server to Xorg.
+As of Fedora 34, Wayland has become the default display server on Fedora Workstation for GNOME desktop environments. To follow the steps provided in this guide, you must be logged in to a session that runs on Xorg-X11.
+
+
 ====
 
 [WARNING]
@@ -33,24 +32,26 @@ As Prime works less satisfactorily with Wayland server, following the steps prov
 This guide requires the secure boot to be **turned off** to load up the unsigned NVIDIA kernel modules.
 ====
 
-In order to make all the rendering default to the NVIDIA GPU, you need the follow the steps very carefully.
+To make all rendering default to the NVIDIA GPU, you need to follow these steps very carefully.
 
-First, you need to see if you really want to achieve this.
+First, consider the following points:
 
-=== Why would you want to do that?
-* The use of NVIDIA GPU all the time would allow for smoother transitions and richer animation effects. Premium desktop environments like GNOME would benefit a lot from this.
-* Enabling the NVIDIA GPU all the time would lead to lower CPU load and memory consumption which otherwise would have been high due to added in-memory video buffer.
+* Why would you want to do this?
 
-=== Why would you not want to do that?
-* With the NVIDIA GPU used all the time, there would be a slight increase in battery consumption which should not be a concern if your device is used while being plugged in.
-* Increased generation of heat from the all-the-time enabled NVIDIA GPU can be worrisome. You would not want to play AAA-titles on Proton while placing your laptop on your lap.
+    Using the NVIDIA GPU all the time allows for smoother transitions and richer animation effects. Premium desktop environments like GNOME benefit greatly from this.
+    Enabling the NVIDIA GPU all the time leads to lower CPU load and memory consumption, which would otherwise be high due to the added in-memory video buffer.
+
+* Why might this not be ideal?
+
+    Using the NVIDIA GPU all the time can cause a slight increase in battery consumption. This shouldn't be a concern if your device is plugged in while in use.
+    The increased heat generation from the constantly enabled NVIDIA GPU might be a concern. You wouldn't want to play demanding games (AAA titles) on Proton while using your laptop on your lap.
 
 == Step #1: Update from the existing repositories
 Execute
 ----
 sudo dnf upgrade
 ----
-once to update all your packages first.
+Once to update all your packages first.
 
 image:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops-0.png[]
 
@@ -93,7 +94,9 @@ This would force the configuration to be read from the updated kernel modules wh
 == Step #7: Reboot your system
 Wait for 3-5 minutes for the changes to take effect and then reboot your system.
 
-Once your system has started, go to the *About* page in the *Settings* application. You are likely to see the following output.
+Log in to a session with Xorg-X11.
+
+From the desktop, go to the *About* page in the *Settings* application. You are likely to see the following output.
 
 image:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops-4.png[]
 
