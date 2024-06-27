@@ -255,6 +255,17 @@ echo "Removed old kernels"
 exit 0
 ----
 
+[[sect-clean-up-old-keys]]
+=== Clean-up old keys trusted for RPM package signing
+
+Keys from older Fedora releases and third-party repositories will accumulate in the RPM database over time.  You can remove keys no-longer referenced from `/etc/yum.repos.d/` with:
+
+[source,bash]
+----
+sudo dnf install clean-rpm-gpg-pubkey
+sudo clean-rpm-gpg-pubkey
+----
+
 [[sect-clean-up-old-symlinks]]
 === Clean-up old symlinks
 
