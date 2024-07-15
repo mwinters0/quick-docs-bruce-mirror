@@ -2,8 +2,6 @@
 
 This page documents how to enroll a machine owner key that is created during the Nvidia driver installation (typically in GNOME Software).
 
-====
-
 == Prerequisite
 
 The Nvidia driver has been installed and a machine owner key to self-sign the driver has been created in GNOME Software (or in a similar tool that supports it).
