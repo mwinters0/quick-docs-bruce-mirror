@@ -2,10 +2,11 @@
 
 This is the content repository for the Fedora Quick Docs.
 
+Quick docs is a collection of short HOW-TO, tutorials and FAQ-style documentation for Fedora users on the official Fedora documentation site that cover commonly used workflows/tools.
+
 Please report Issues and submit Pull Requests for **Content Fixes** here.
 Never done a pull request (or "PR")? Here's the [Pagure documentation for
 Pull Requests](https://docs.pagure.org/pagure/usage/pull_requests.html).
-
 
 General appearance issues and publishing issues should be reported against
 the [Fedora Docs Website](https://gitlab.com/fedora/docs/docs-website/docs-fp-o).
