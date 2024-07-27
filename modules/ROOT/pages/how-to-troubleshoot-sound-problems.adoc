@@ -1,0 +1,147 @@
+= How to troubleshoot sound problems
+The Music and Audio SIG ; Ask Fedora
+:revnumber: F40
+:revdate: 2024-07-27
+:category: Administration
+:tags: Troubleshooting, Sound, Multimedia
+
+[abstract]
+This article explains information that should be included when filing bugs related to sound. General sound problems - where the problem is observed across multiple applications - should usually be filed against the kernel, or PipeWire (see below for instructions on determining whether the problem is PipeWire-related). If the problem is observed only in a specific application, or only in applications which use a single multimedia library (such as SDL or OpenAL), the bug should be filed against that component.
+
+== Check which Kernel driver is in use by PCI devices
+
+To display kernel drivers handling each device, use the lspci (List PCI) command with the option -k. Searching for known issues specific to driver’s name and your hardware model before reporting issues to Ask Fedora.
+
+[source,bash]
+----
+$ sudo lspci -k
+----
+
+New hardware drivers are updated continuously. If you see a device listed as unknown, query your PCI device ID database.
+
+[source,bash]
+----
+$ sudo lspci -Q
+----
+
+And update your local PCI ID database by running the command update-pciids.
+
+[source,bash]
+----
+$ sudo update-pciids
+----
+
+== ALSA Firmware
+
+The ALSA Firmware package contains firmware for various third-party sound cards.
+
+See which firmware is in use by running the following command.
+
+[source,bash]
+----
+$ sudo dnf list alsa-firmware
+----
+
+The regular ALSA Firmware will appear <alsa-firmware.noarch>.
+
+If the regular firmware is not on the output, install the alsa-firmware.
+
+[source,bash]
+----
+$ sudo dnf install alsa-firmware
+----
+
+If any other firmware is installed, put them on blocklist on configuration directory for modprobe.
+
+----
+/etc/modprobe.d/*.conf
+----
+
+Add the line on configuration file.
+
+----
+blacklist <the module to blocklist>
+----
+
+The dracut tool creates an initial image used by the kernel for preloading the block device modules such as IDE or SATA drives. The option -f overwrite existing initramfs file.
+
+[source,bash]
+----
+$ sudo dracut -f
+----
+
+Reboot your computer for the change to take effect.
+
+[source,bash]
+----
+$ sudo reboot
+----
+
+== Hardware information
+
+It is always useful to include detailed information on your sound hardware when filing a sound-related bug. To produce this information, run this command:
+
+[source,bash]
+----
+$ alsa-info.sh --no-upload
+----
+
+It will generate a file containing detailed information about your sound hardware with the name /tmp/alsa-info.txt. Attach this file to your bug report.
+
+== Is it PipeWire?
+
+PipeWire is a media sharing server, low-level multimedia framework that aims to;
+
+* improve handling of audio and video under Linux
+
+* work for all users at all levels
+
+* offer support for PulseAudio, JACK (JACK Audio Connection Kit), ALSA and GStreamer-based applications
+
+=== Visual checks on ports
+
+Qpwgraph is a graph manager dedicated to PipeWire.
+
+Visual checks on ports using Qpwgraph will help discover all the routing between applications and devices and change the routing as you need. For example, if multiple applications and devices are connected and disconnected like below,
+
+* Firefox: video conference application using WebRTC protocol
+
+* VLC: media playback
+
+* OBS Studio: live stream and recording
+
+* USB soundcards or mixers: devices
+
+it will be useful to learn how ports are connected to applications and devices graphically.
+
+Ports are directional, they can be either:
+
+* Source ports (output). Located at the right-most edge of a node, they generate an audio/video/midi stream.
+
+* Sink ports (input). Located at the left-most edge of a node, they consume an audio/video/midi stream.
+
+Ports also have different types:
+
+* Audio (default color: green)
+
+* Video (default color: blue)
+
+* PipeWire/JACK MIDI (default color: red)
+
+* ALSA MIDI (default color: purple)
+
+Ports of the same type and opposite directions can be connected.
+
+Check the upstream documentation for link:https://gitlab.freedesktop.org/rncbc/qpwgraph/-/blob/main/docs/qpwgraph-user_manual.md[Qpwgraph User Guide].
+
+=== PipeWire debugging options
+
+Debugging usually starts after the bug has been identified, and works best when users are very familiar with the circumstances surrounding the bug.
+
+PipeWire has its own debugging options. Please see the link:https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Troubleshooting#pipewire-debugging-options[PipeWire debugging].
+
+== Please read before posting sound problems to Ask Fedora
+
+Remember that when dealing with sound problems, it's always best to refer to the most recent official sources in upstream projects for the most accurate and up-to-date information on troubleshooting sound-related issues. When you add tags at Ask Fedora, keep them to a minimum and do not include tags for issues that are not clearly identified yet.
+
+Report the page that contains outdated or inaccurate information. If you have the technical expertise and up-to-date information, you could consider contributing to the Fedora Project by submitting updated content for the page.

@@ -128,7 +128,8 @@
 ** xref:troubleshooting-bluetooth-problems.adoc[Troubleshooting Bluetooth problems] 
 ** xref:troubleshooting-java-programs.adoc[Troubleshooting Java Programs] 
 ** xref:troubleshooting-mozilla-products.adoc[Troubleshooting Mozilla Products] 
-** xref:troubleshooting-wayland-problems.adoc[Troubleshooting Wayland Problems] 
+** xref:troubleshooting-wayland-problems.adoc[Troubleshooting Wayland Problems]
+** xref:how-to-troubleshoot-sound-problems.adoc[Troubleshooting Sound Problems]
 
 * FAQ
 ** xref:fedora-and-red-hat-enterprise-linux.adoc[Fedora and Red Hat Enterprise Linux]
