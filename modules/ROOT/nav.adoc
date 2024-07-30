@@ -78,6 +78,12 @@
 ** xref:understanding-and-administering-systemd.adoc[Understanding and administering systemd]
 ** xref:gnome-shell-extensions.adoc[Using GNOME Shell extensions]
 ** xref:using-kubernetes.adoc[Using Kubernetes on Fedora]
+*** xref:using-kubernetes-basics.adoc[Kubernetes Basics]
+*** xref:using-kubernetes-non-versioned.adoc[Nonversioned Kubernetes rpms (F39, F40)]
+*** xref:using-kubernetes-versioned.adoc[Versioned Kubernetes rpms (F41 and newer)]
+*** xref:using-kubernetes-kubelet.adoc[Configuring kubelet]
+*** xref:using-kubernetes-kubeadm.adoc[Creating a Kubernetes cluster]
+*** xref:using-kubernetes-cri-o.adoc[CRI-O and CRI-Tools]
 ** xref:using-shared-system-certificates.adoc[Using shared system certificates]
 ** xref:using-yubikeys.adoc[Using Yubikeys with Fedora]
 ** xref:viewing-logs.adoc[Viewing logs in Fedora]
@@ -125,9 +131,9 @@
 ** xref:cups-filing-a-bug-report.adoc[Filing a CUPS Bug Report]
 
 * Troubleshooting
-** xref:troubleshooting-bluetooth-problems.adoc[Troubleshooting Bluetooth problems] 
-** xref:troubleshooting-java-programs.adoc[Troubleshooting Java Programs] 
-** xref:troubleshooting-mozilla-products.adoc[Troubleshooting Mozilla Products] 
+** xref:troubleshooting-bluetooth-problems.adoc[Troubleshooting Bluetooth problems]
+** xref:troubleshooting-java-programs.adoc[Troubleshooting Java Programs]
+** xref:troubleshooting-mozilla-products.adoc[Troubleshooting Mozilla Products]
 ** xref:troubleshooting-wayland-problems.adoc[Troubleshooting Wayland Problems]
 ** xref:how-to-troubleshoot-sound-problems.adoc[Troubleshooting Sound Problems]
 
