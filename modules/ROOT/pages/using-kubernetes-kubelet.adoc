@@ -1,0 +1,93 @@
+= Resilient kubelet configuration
+Bradley G Smith,
+:revnumber: F39,F40,F41
+:revdate: 2024-07-28
+:category: Installation
+:tags: How-to, kubernetes, dnf, rpm, containers, kubeadm, installation
+:page-aliases: kubernetes/kubelet
+
+// Optional  free form useful additional information as comment
+
+//include::{partialsdir}/3rdparty-message.adoc[]
+include::partial$3rdparty-message.adoc[]
+
+[[overview]]
+== kubelet overview
+
+The ```kublet``` is the Kubernetes agent that runs on every node in a cluster. ```kublet``` is installed using the kubernetes rpm (_e.g._ ```kubernetes1.30``` is a versioned rpm for Kubernetes v1.30). The ```kubelet``` runs as a systemd service on Fedora. In early implementations, the ```kubelet``` was configured via link:https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/[flags] that were set in a systemd unit file and passed to the ```kubelet``` as command line parameters.
+
+In more recent versions of the ```kubelet``` these flags are deprecated in favor of a link:https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/[configuration file] that uses either JSON or YAML for the configuration syntax.
+
+The legacy non-versioned rpms use, by default, flags to configure the ```kubelet```. Versioned rpms use the configuration file method.
+
+With both versioned and non-versioned rpms, all files, including systemd related files, can be erased during version updates (_e.g._ kubernetes1.29 to kubernetes1.30 - minor version updates). If these files are modified by the user then there is risk that useful or important changes can be lost. Systemd provides options that help safeguard against loss of node-specific configurations.
+
+[[systemd]]
+== Systemd configuration recommendations
+
+Flags for the ```kublet``` running on a node are set in a systemd unit file with the relevant file dependent on which rpms are installed.
+
+The kubernetes rpm (_e.g_ kubernetes1.30 for version 1.30) installs the default ```kubelet``` systemd file at:
+
+[source,bash]
+----
+/usr/lib/systemd/system/kubelet.service
+----
+
+The kubernetes-kubeadm rpm installs an overriding ```kubelet``` unit file at:
+
+[source,bash]
+----
+/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
+----
+
+We strongly recommend to *not* modify either file as any changes could be lost during an update.
+
+As documented by the Kubernetes team (link:https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd)[https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd]), create the following directory for user managed, system-level systemd ```kubelet``` overrides:
+
+[source,bash]
+----
+$ sudo mkdir -p /etc/systemd/system/kubelet.service.d/
+----
+
+Then create a unit file (```.conf``` extension required) and copy the file to the directory listed above. Settings in this file will override settings from either or both of the default systemd files.
+
+This file is not managed by the system package manager and will be unchanged by kubernetes version updates. Be sure to have software version control and/or a backup plan in place to avoid loss during a Fedora system upgrade or crash.
+
+[[configfile]]
+== Configuration file recommendations
+
+All versioned kubernetes rpms use a ```kubelet``` configuration file by default. If this file does not exist it will be created during the cluster instantiation process. The default configuration file location is:
+
+[source,bash]
+----
+# default configuration file
+$ /var/lib/kubelet/config.yaml
+----
+
+This file is *not* managed by rpm so will persist across kubernetes upgrades.
+
+[[configfile-dropin]]
+=== Drop-in configuration file
+
+Kubernetes 1.30 and newer have a drop-in configuration file option that is *not* enabled by default.
+In a systemd file define a path using the ```--config-dir``` option:
+
+[source,bash]
+----
+# define configdir
+--config-dir=/etc/kubernetes/kubelet.conf.d
+----
+
+See link:https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/#kubelet-conf-d[the online documentation] for current information including an option to enable this feature for v1.28 or v1.29.
+
+[[configfile-merge-order]]
+=== Configuration file merge order
+
+As the ```kubelet``` starts, configuration settings are merged in the following order (link:https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/#kubelet-configuration-merging-order[merge order documentation]):
+
+. Feature gates specified over the command line (lowest precedence).
+. The kubelet configuration.
+. Drop-in configuration files, according to sort order.
+. Command line arguments excluding feature gates (highest precedence).
+

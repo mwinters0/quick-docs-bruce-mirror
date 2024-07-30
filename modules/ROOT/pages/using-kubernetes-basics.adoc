@@ -1,0 +1,60 @@
+= Kubernetes Basics
+Bradley G Smith,
+:revnumber: F37,F38,F39,F40,rawhide
+:revdate: 2023-12-23
+:category: Installation
+:tags: How-to, kubernetes, dnf, rpm, containers
+:page-aliases: kubernetes/basics
+
+// Optional  free form useful additional information as comment
+
+//include::{partialsdir}/3rdparty-message.adoc[]
+include::partial$3rdparty-message.adoc[]
+
+[[sect-kubernetes-defined]]
+== Kubernetes Defined
+
+link:https:/kubernetes.io[Kubernetes] is an "open-source system for automating deployment, scaling, and management of containerized applications" on one or more machines.
+Kubernetes automates many of the tasks necessary to deploy, manage, and scale applications that are running as a container.
+This automation is vital when managing applications in data center or cloud environment where there are 100's or 1000's of machines and a corresponding complexity in numbers of applications.Fedora provides several technologies, in addition to Kubernetes, that run containers such as link:https://docker.com[Docker] or link:https://podman.io[Podman].
+
+Kubernetes had its genesis in the concepts and principles used at Google to run container-base workloads at scale and with resilience.
+Kubernetes is now at the center of a vast ecosystem of products and services (link:https://cncf.io/[Cloud Native Computing Foundation]) that help organizations create, install, run, manage and secure container-based applications and services at any possible scale.
+
+There are numerous ways to install and configure Kubernetes depending on purpose and target environment.
+Is this for a home lab on a single machine, a small cluster for home or business automation, edge-based services and applications in remote offices or enterprise scale production workloads in the cloud?
+
+There is an enormous amount of Kubernetes information available online and in books. A good place to start is the link:https://kubernetes.io/docs/home/[Kubernetes Documentation] web site. Become familiar with what is available here, then use your favorite search engine to find additional material tailored to your requirements.
+
+[[sect-versions]]
+== Versions
+
+The Kubernetes team uses link:https://semver.org[semantic versioning] for Kubernetes where a given version has 3 primary components separated by periods: _major.minor.patch_. An example is 1.30.1 where the major version is _1_, the minor version is _30_, and the patch level is _1_. *A Kubernetes release is a new minor version such as 1.30 or 1.31.* The versioned rpms in Fedora are, therefore, at the minor version level.
+
+Using ```dnf update``` on an existing versioned kubernetes rpm will update patch releases only. See the xref:using-kubernetes-versioned.adoc#sect-fedora-40-version-update[update process recommendations] for versioned rpms.
+
+[[sect-terminology]]
+== Terminology
+
+Kubernetes is complex and like many complex systems has its own terminology.
+The terminology used in this guide are defined here.
+The Kubernetes teams maintains a comprehensive link:https://kubernetes.io/docs/reference/glossary/[glossary] which is used in the subset below.
+
+[horizontal]
+cluster:: a set of one or more nodes managed as an entity.
+A cluster has at least one node and one control plane (these can be on the same or separate machines).
+control plane:: the node or nodes in the cluster hosting the management services for the cluster.
+At least one node in a cluster has a control plane.
+A control plane machine can also function as a worker node.
+node:: a worker machine (either a virtual machine or physical machine) in a Kubernetes cluster that has the services required to run pods.
+These services include the `kubelet` container runtime and `kube-proxy`.
+pods:: containerized applications are deployed and managed in Kubernetes as pods.
+A pod is the base object managed by Kubernetes in a cluster.
+A pod typically has a single primary container but may include more capabilities including multiple containers.
+
+
+[[sect-additional-information]]
+== Additional Information
+
+Kubernetes and the ecosystem of related components found under the link:https://www.cncf.io[Cloud Native Computing Foundation] umbrella is vast as is the plethora of internet accessible information about Kubernetes. Kubernetes and this ecosystem is also evolving rapidly such that online information may be out-dated or incomplete (_likely including information in this Quick Doc -ed_).
+

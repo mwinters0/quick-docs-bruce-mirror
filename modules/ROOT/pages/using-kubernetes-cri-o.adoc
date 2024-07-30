@@ -1,0 +1,30 @@
+= Versioned CRI-O and CRI-Tools RPMs
+Bradley G Smith,
+:revnumber: F41
+:revdate: 2024-07-30
+:category: Installation
+:tags: How-to, kubernetes, dnf, rpm, containers, cri-o, cri-tools
+
+// Optional  free form useful additional information as comment
+
+//include::{partialsdir}/3rdparty-message.adoc[]
+include::partial$3rdparty-message.adoc[]
+
+[[sect-overview]]
+== Overview
+
+link:https://cri-o.io[CRI-O] and link:https://github.com/kubernetes-sigs/cri-tools[CRI-Tools] are independent software packages available in Fedora repositories that are version matched to Kubernetes. If Kubernetes 1.30 is installed, then, when installed, CRI-O and CRI-Tools should also have the same minor version, _i.e_ 1.30.
+
+[[sect-cri-o]]
+== CRI-O
+
+The **C**ontainer **R**untime **I**nterface(link:https://kubernetes.io/docs/concepts/architecture/cri/[CRI]) is the plugin interface used by the ```kubelet``` to communicate with the container runtime on each node that launches pods and their containers. There are several implementations of CRI including link:https://cri-o.io[CRI-O] and link://https://containerd.io/[containerd].
+
+CRI-O is available in Fedora repositories as versioned rpms in parallel with Kubernetes. If kubernetes1.30 is installed and CRI-O is the designated CRI implementation, then cri-o1.30 needs to be installed.
+
+[[sect-cri-tools]]
+== CRI-Tools
+
+link:https://github.com/kubernetes-sigs/cri-tools/[CRI-Tools] is a command line interface to any implementation of the CLI. CRI-Tools is available from the Kubernetes team. It is required when using ```kubeadm``` to initialize a cluster.
+
+CRI-Tools is available in Fedora repositories as versioned rpms in parallel with Kubernetes. If kubernetes1.30 and kubernetes1.30-kubeadm are installed then cri-tools1.30 needs to be installed.

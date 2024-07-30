@@ -1,0 +1,128 @@
+= Versioned Kubernetes RPMS on Fedora
+Bradley G Smith,
+:revnumber: F41,rawhide
+:revdate: 2024-07-27
+:category: Installation
+:tags: How-to, kubernetes, dnf, rpm, containers
+:page-aliases: kubernetes/versioned
+
+// Optional  free form useful additional information as comment
+
+//include::{partialsdir}/3rdparty-message.adoc[]
+include::partial$3rdparty-message.adoc[]
+
+[[sect-overview]]
+== Overview
+
+Versioned Kubernetes rpms were introduced in Fedora 41 and will be the format used in subsequent releases.
+Past practice had one version of Kubernetes available for each Fedora release.
+The differing release cadences for Fedora (a new release every 6 months) and Kubernetes (a new version every quarter) resulted in either the version of Kubernetes available falling well behind or skipping Kubernetes releases.
+Neither option provided a good user experience for Fedora users.
+
+Versioned rpms solve these problems by providing all supported Kubernetes versions on each Fedora release (subject to a Golang constraint - see below).
+Fedora 41 (currently rawhide) has rpms for Kubernetes 1.31, Kubernetes 1.30, Kubernetes 1.29, and Kubernetes 1.28.
+These rpms will be named, respectively, kubernetes1.31, kubernetes1.30, kubernetes1.29, and kubernetes1.28.
+Since these rpms have different names, the Fedora package manager, rpm, identifies them as different applications, not as different versions of the same application.
+Because of this difference, versioned rpms require changes to the normal package update process is be documented below.
+
+[[changes]]
+=== What Changed? ===
+
+The versioned rpms contain several changes and updates that differ from the non-version rpms. For the most part these changes should not affect usage or rpm updates but a few are worth attention.
+
+[ordered]
+kubelet configuration:: ```kubelet``` configuration now uses the ```kubelet``` configuration file rather than flags passed as command line parameters in the systemd unit file.
+
+kubelet systemd files:: ```kubelet``` systemd unit files are now largely consistent with corresponding unit files used by the Kubernetes team in their rpms. In particular, kubelet now defaults to runtime configuration using the standard ```kubelet``` configuration file. Non-versioned rpms used command line parameters in systemd files to configure```kubelet```.
+
+kubelet sysuser:: non-versioned rpms created a ```kube``` sysuser for ```kubelet```. This sysuser was used for file and group ownership of some but not all files and directories used by ```kubelet```. This sysuser was not present in rpms from the Kubernetes team and, given its partial implementation in Fedora, removed from the versioned rpms.
+
+[[golang-constraint]]
+=== Go language constraint
+
+Each Kubernetes version (at the _minor_ level, _e.g._ Kubernetes v1.31) is built with a specific version of the go language. Each Fedora release is paired with a specific go version. Go 1.22 is available on Fedora 40 and go 1.23 is available on Fedora 41.
+
+A new Kubernetes version may be built with a version of Go not available on older Fedora releases thereby blocking the packaging of that Kubernetes version for that Fedora release.
+
+[[sect-kubernetes-rpms]]
+== Kubernetes rpms in Fedora
+
+Versioned Kubernetes rpms have the following organization.
+Note that this package structure also applies to the kubernetes1.28 and kubernetes1.29 packages which is different from the non-versioned counterparts of these Kubernetes versions.
+The table below lists the available Kubernetes rpms, what the rpm contains, and notes on purpose and any cautions or restrictions.
+
+.Versioned Kubernetes rpms in Fedora 41 (and newer)
+[cols="1,1,1", options="header"]
+|===
+|RPM Name|Contents|Notes
+|kubernetes
+|kubelet
+|Kubelet is the Kubernetes runtime on a node.
+
+|kubernetes-kubeadm
+|kubeadm
+|Kubeadm initializes a cluster and joins new nodes to a cluster.
+This rpm is optional but recommended by the Kubernetes team.
+Install on every node if used.
+
+|kubernetes-client
+|kubectl
+|Kubernetes command line client.
+Recommended on any node configured as a control plane as it allows the cluster administrator control over the cluster from an ssh session on the control plane.
+Install on a machine that can connect to the cluster over the network.
+
+|kubernetes-systemd
+|kube-apiserver, kube-controller-manager, kube-proxy, kube-scheduler
+|Systemd services for a kubernetes control-plane and/or node.
+Not needed for most installations as kubeadm will install these components as static pods.
+If used, then install on all nodes.
+Use systemctl to enable kube-proxy on all nodes. Enable kube-apiserver, kube-controller-manager, and kube-scheduler on control plane nodes.
+
+|===
+
+[[sect-fedora-40-installation]]
+== Versioned rpm installation recommendations
+
+For most modern kubernetes clusters install kubernetes, kubernetes-kubeadm, and kubernetes-client on each machine in the cluster.
+If disk space is a constraint only install kubernetes-client on control-plane machines.
+
+[source,bash]
+----
+# using kubernetes 1.30 as an example
+sudo dnf install kubernetes1.30 kubernetes1.30-kubeadm kubernetes1.30-client
+----
+
+If conducting a manual installation of Kubernetes (see link:https://github.com/kelseyhightower/kubernetes-the-hard-way[Kubernetes The Hard Way]) then install all kubernetes rpms except kubernetes-kubeadm.
+
+[source,bash]
+----
+# using kubernetes 1.30 as an example
+sudo dnf install kubernetes1.30 kubernetes1.30-client kubernetes1.30-systemd
+----
+
+[[sect-fedora-40-version-update]]
+== Versioned rpm update recommendations
+
+Since rpm treats kubernetes1.30 as a different application from kubernetes1.31, yet both rpms install the same files in the same locationsthey conflict and the normal ```dnf update``` will not succeed in replacing v1.30 with v1.31.
+There are two options available when using dnf: remove/install or swap.
+
+The remove and install sequence using normal ```dnf``` commands to first remove one version of Kubernetes and then replace it with the next version. Both ```dnf``` commands will also remove/install any dependencies.
+
+*Important Note* - this is only needed when changing minor versions, that is replacing v1.30 with v1.31. Updates at the patch level such as v1.30.2 to v1.30.3 use the normal ```dnf update``` command.
+
+[source,bash]
+----
+# Remove and replace with kubernetes 1.30 and 1.31 as an example
+sudo dnf remove kubernetes1.30 kubernetes1.30-kubeadm kubernetes1.30-client
+sudo dnf install kubernetes1.31 kubernetes1.31-kubeadm kubernetes1.31-client
+----
+
+The ```dnf swap``` command can also be used to change from one Kubernetes release to the next. Using swap avoids re-installation of dependencies but the ```kubernetes1.31*``` dnf package specification will install all matching rpms from the repository and not just the rpms removed by the initial ```kubernetes1.30*``` package specification.:w
+
+
+[source,bash]
+----
+# Remove and replace with kubernetes 1.30 and 1.31 as an example
+sudo dnf swap kubernetes1.30* kubernetes1.31*
+----
+

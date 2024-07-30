@@ -1,0 +1,249 @@
+= Creating a Kubernetes cluster on Fedora
+Bradley G Smith,
+:revnumber: F37,F38,F39,F40,rawhide
+:revdate: 2024-07-24
+:category: Installation
+:tags: How-to, kubernetes, dnf, rpm, containers, kubeadm, installation
+:page-aliases: kubernetes/kubeadm
+
+// Optional  free form useful additional information as comment
+
+//include::{partialsdir}/3rdparty-message.adoc[]
+include::partial$3rdparty-message.adoc[]
+
+[cluster-creation]
+== Creating a Kubernetes cluster with ```kubeadm``` using Fedora rpms
+
+Below is a guide to creating a functional Kubernetes cluster on a single Fedora machine that is suitable as a learning and exploring environment.
+This guide is not intended to create a production environment.
+
+The guide below generally follows and substantially borrows from the link:https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/[Creating a cluster with kubeadm] guide created by the Kubernetes team.
+
+. Update system with DNF.
+Reboot if necessary, although a reboot can be deferred until after the next step.
++
+[source,bash]
+----
+sudo dnf update
+----
+
+. Disable swap.
+The kubeadm installation process will generate a warning if swap is detected (see link:https://github.com/kubernetes/kubernetes/issues/53533[this ticket for details]).
+For a learning and lab environment it may be easiest to disable swap.
+Swap can be left enabled if desired and the kubeadm is configured to not stop if swap is detected.
+Modern Fedora systems use zram by default.
+Reboot after disabling swap.
++
+[source,bash]
+----
+sudo systemctl stop swap-create@zram0
+sudo dnf remove zram-generator-defaults
+sudo reboot now
+----
+
+. SELinux.
+Most guides to installing Kubernetes on Fedora recommend that xref:getting-started-with-selinux.adoc[SELinux] be disabled.
+Kubernetes will work well with SELinux enabled and many containers will work as intended.
+If problems are encountered then disabling SELinux might be one option to try.
+See xref:selinux-changing-states-and-modes.adoc[the Quick Doc SELinux guide to changing SELinux states] for more information.
+
+. Disable the firewall.
+Kubeadm will generate an installation warning if the firewall is running.
+Disabling the firewall removes one source of complexity in a learning environment.
+Modern Fedora systems use firewalld.
++
+[source,bash]
+----
+sudo systemctl disable --now firewalld
+----
++
+See the Firewall Rules section in Roman Gherta's article link:https://fedoramagazine.org/kubernetes-with-cri-o-on-fedora-linux-39/[Kubernetes with CRI-O on Fedora 39] for the proper way to configure the Fedora firewall to work with Kubernetes,
++
+The current list of ports and protocols used by a Kubernetes cluster can be found at link:https://kubernetes.io/docs/reference/networking/ports-and-protocols/[https://kubernetes.io/docs/reference/networking/ports-and-protocols/].
+
+. Install `iptables` and `iproute-tc.`
+Newer Kubernetes rpms include these packages by default.
++
+[source,bash]
+----
+sudo dnf install iptables iproute-tc
+----
+
+. Configure IPv4 forwarding and bridge filters.
+Below copied from link:https://kubernetes.io/docs/setup/production-environment/container-runtimes/[https://kubernetes.io/docs/setup/production-environment/container-runtimes/]
++
+[source,bash]
+----
+sudo cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+----
+
+. Load the overlay and bridge filter modules.
++
+[source,bash]
+----
+sudo modprobe overlay
+sudo modprobe br_netfilter
+----
+
+. Add required `sysctl` parameters and persist.
++
+[source,bash]
+----
+# sysctl params required by setup, params persist across reboots
+sudo cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+----
+
+. Apply `sysctl` parameters without a reboot.
++
+[source,bash]
+----
+sudo sysctl --system
+----
+
+. Verify `br_filter` and overlay modules are loaded.
++
+[source,bash]
+----
+lsmod | grep br_netfilter
+lsmod | grep overlay
+----
+
+. Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, and `net.ipv4.ip_forward` system variables are set to `1` in your sysctl configuration by running the following command:
++
+[source,bash]
+----
+sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+----
+
+. Install a link:https://kubernetes.io/docs/setup/production-environment/container-runtimes/[container runtime].
+CRI-O is installed in this example.
+Containerd is also an option.
+Note: If using cri-o, verify that the major:minor version of cri-o is the same as the version of Kubernetes (installed below).
++
+[source,bash]
+----
+sudo dnf install cri-o containernetworking-plugins
+----
+
+. Install Kubernetes.
+In this example, all three Kubernetes applications (`kubectl`, `kubelet`, and `kubeadm`) are installed on this single node machine.
+Please see the notes above on recommended packages for control plane or worker nodes if the cluster will have both types of machines.
++
+[source,bash]
+----
+# Fedora 39 and earlier use:
+sudo dnf install kubernetes-client kubernetes-node kubernetes-kubeadm
+
+# Fedora 40 and later use:
+sudo dnf install kubernetes kubernetes-kubeadm kubernetes-client
+----
+
+. Start and enable cri-o.
++
+[source,bash]
+----
+sudo systemctl enable --now crio
+----
+
+. Pull needed system container images for Kubernetes.
+This is strictly optional.
+The ```kubeadm init``` command below will pull images, if needed.
++
+[source,bash]
+----
+sudo kubeadm config images pull
+----
+
+. Start and enable `kubelet`.
+Kubelet will be in a crash loop until the cluster is initialized in the next step.
++
+[source,bash]
+----
+sudo systemctl enable --now kubelet
+----
+
+. Initialize the cluster.
++
+[source,bash]
+----
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+----
+
+. kubeadm will generate output to the terminal tracking initialization steps.
+If successful, the output below is displayed.
+At this point there is a cluster running on this single machine.
+After kubeadm finishes you should see:
++
+----
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+----
+
+. The steps listed above allow a non-root user to use `kubectl`, the Kubernetes command line tool.
+Run these commands now.
++
+[source,bash]
+----
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+----
+
+. Allow the control plane machine to also run pods for applications.
+Otherwise more than one machine is needed in the cluster.
++
+[source,bash]
+----
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+----
+
+. Install flannel into the cluster to provide cluster networking.
+There are many other networking solutions besides flannel.
+Flannel is straightforward and suitable for this guide.
++
+[source,bash]
+----
+kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml
+----
+
+. Display list of running pods in the cluster.
+All pods should display a status of Running.
+A status of CrashLoopBackOff may show up for the coredns pod.
+This happens commonly when installing Kubernetes on a virtual machine and the DNS service in the cluster may not select the proper network.
+Use your favorite internet search engine to find possible solutions.
++
+[source,bash]
+----
+kubectl get pods --all-namespaces
+----
+
+At this point there is a single machine in the cluster running the control plane and available for work as a node.
+
+Upgrades to Kubernetes clusters requires care and planning.
+See link:https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/[Upgrading kubeadm clusters] for more information.
+
+The xref:dnf.adoc#sect-using-dnf-plugin[DNF Versionlock plugin] is useful in blocking unplanned updates to Kubernetes rpms.
+Occasionally, the Kubernetes version in a Fedora release reaches end-of-life and a new version of Kubernetes is added to the repositories.
+Or, an upgrade to Fedora on a cluster machine will also result in a different version of Kubernetes.
+Once DNF Versionlock is installed, the following command will hold kubernetes rpms and the cri-o rpm at the 1.28 major:minor version but still allow patch updates to occur:
+[source,bash]
+----
+sudo dnf versionlock add kubernetes*-1.28.* cri-o-1.28.*
+----
+
