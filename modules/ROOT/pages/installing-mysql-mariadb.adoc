@@ -107,41 +107,6 @@ sudo systemctl enable {mysqld|mariadb}
 sudo systemctl start  {mysqld|mariadb}
 ----
 
-=== Installing MariaDB server from the Fedora Modular repository
-
-To list the available versions (_streams_ in modularity terminology) of MariaDB:
-
-----
-dnf module list mariadb
-----
-
-To enable the version of MariaDB you want to use and make the stream RPMs available in the package set:
-
-----
-sudo dnf module enable mariadb:10.4
-----
-
-At this point you can verify that the available RPM provides the 10.4 verison of MariaDB server:
-
-----
-dnf list mariadb-server
-----
-
-To install MariaDB server:
-
-----
-sudo dnf module install mariadb/server
-----
-
-With modules, you could also install a specific profile: like client, devel or galera (the multi-master replica).
-For instance, if you don't want to install the server stuff, but only the client packages:
-
-----
-sudo dnf module install mariadb:10.4/client
-----
-
-* MariaDB default root password is empty.
-
 === Configuring SQL before the first use
 
 ----
