@@ -19,6 +19,8 @@ This guide is not intended to create a production environment.
 
 The guide below generally follows and substantially borrows from the link:https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/[Creating a cluster with kubeadm] guide created by the Kubernetes team.
 
+Fedora 41 has both versioned (v1.29, v1.30, v1.31) and unversioned (v1.29) Kubernetes rpms. We recommend using the versioned rpms as we do not experience the CrashLoopBackoff problem with CoreDNS noted below.
+
 . Update system with DNF.
 Reboot if necessary, although a reboot can be deferred until after the next step.
 +
@@ -226,7 +228,7 @@ kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube
 All pods should display a status of Running.
 A status of CrashLoopBackOff may show up for the coredns pod.
 This happens commonly when installing Kubernetes on a virtual machine and the DNS service in the cluster may not select the proper network.
-Use your favorite internet search engine to find possible solutions.
+Use your favorite internet search engine to find possible solutions. See also the troubleshooting section below for two possible solutions.
 +
 [source,bash]
 ----
@@ -246,4 +248,30 @@ Once DNF Versionlock is installed, the following command will hold kubernetes rp
 ----
 sudo dnf versionlock add kubernetes*-1.28.* cri-o-1.28.*
 ----
+
+[cluster-creation-troubleshooting]
+== Troubleshooting CrashLoopBackOff
+
+The CoreDNS team provides a guide to link:https://coredns.io/plugins/loop/#troubleshooting-loops-in-kubernetes-clusters[troubleshooting loops in Kubernetes clusters] with several options to help resolve the problem.
+
+A "quick and dirty" option, as described by the CoreDNS team, is to edit the CoreDNS configmap using `kubectl`. In the configmap, replace `forward . /etc/resolv.conf` with the IP address of the DNS server for your network. If the DNS server has an IP address of `192.168.110.201` then the result would look like `forward . 192.168.110.201`. To edit the CoreDNS configmap use:
+
+[source,bash]
+----
+kubectl edit configmap coredns -n kube-system
+----
+
+`kubectl` will launch the editor for your instance of Fedora. The Fedora default is `nano` which can be easily changed.
+
+Another option is to disable the systemd-resolved stub resolving on the machine hosting the cluster using the code below. Many thanks for @jasonbrooks (https://pagure.io/user/jasonbrooks) for his review and recommendations.
+
+[source,bash]
+----
+sudo mkdir -p /etc/systemd/resolved.conf.d/
+sudo cat <<EOF | sudo tee /etc/systemd/resolved.conf.d/stub-listener.conf
+[Resolve]
+DNSStubListener=no
+EOF
+----
+
 
