@@ -59,7 +59,7 @@ or you can run the following command:
 == Applying The Patch
 
 To apply the patch, take the .patch file you've been requested to apply,
-and save it in the "kerenl" directory the previous step created as:
+and save it in the "kernel" directory the previous step created as:
 
   linux-kernel-test.patch
 
