@@ -1,5 +1,5 @@
 = How to troubleshoot sound problems
-Hank Lee ; The Music & Audio SIG
+Hank Lee ; The Music and Audio SIG
 :revnumber: F40
 :revdate: 2024-07-29
 :category: Administration
