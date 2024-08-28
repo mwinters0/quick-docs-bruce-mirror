@@ -22,6 +22,12 @@ The **C**ontainer **R**untime **I**nterface(link:https://kubernetes.io/docs/conc
 
 CRI-O is available in Fedora repositories as versioned rpms in parallel with Kubernetes. If kubernetes1.30 is installed and CRI-O is the designated CRI implementation, then cri-o1.30 needs to be installed.
 
+=== Configuration
+
+CRI-O configuration options are set in `/etc/crio/crio.conf`. This file is managed by rpm and therefore replaced when a versioned CRI-O package is replaced by another package (not counting patch level updates) such as when the cri-o1.30 rpm is replaced by the cri-o1.31 rpm. One method to create and manage custom CRI-O conifiguration settings that persist across updates is to take advantage of CRI-O support for a drop-in configuration. The default drop-in subdirectory is `/etc/crio/crio.conf.d/`. Settings in configuration files placed in the drop-in directory take precedence over the same setting in the default configuration file `/etc/crio/crio.conf`. If multiple drop-in configuration files have the same setting, the file that is sorted last in lexical order will have precedence. See link:https://github.com/cri-o/cri-o/blob/main/docs/crio.conf.d.5.md[crio.conf.d] man file for additional information.
+
+See xref:using-kubernetes-kubelet.adoc[Resilient kubelet configuration] for related `kublet` configuration options.
+
 [[sect-cri-tools]]
 == CRI-Tools
 
