@@ -33,3 +33,17 @@ image:mok-util-05.png[mok-util-06.png,title="mokutil start screen"]
 
 6. Select *Reboot* to reboot into the OS with the Nvidia drivers enabled.
 image:mok-util-06.png[mok-util-07.png,title="Enroll the key(s) - Password"]
+
+== Security Implications
+
+Note that the enrolled machine owner key will be used to sign any future updates to the module or any other module you will decide to install and they will be implicitly trusted. All future updates will happen transparently with no interaction and/or authorization. Therefore, it's recommended to delete the machine owner key when it's no longer needed.
+
+== Deleting Machine Owner Key
+
+To delete the machine owner key, perform the following command in the terminal:
++
+[subs="quotes"]
+----
+$ *sudo mokutil --delete /etc/pki/akmods/certs/public_key.der*
+----
+
