@@ -138,8 +138,9 @@ git switch f28
 picked up during the build automatically.
 
 .. Patches can also be kept in seperate files and added to `kernel.spec` with
-`Patch2: foo.patch`, `Patch3: bar.patch`, etc. They should be applied
-automatically during the build process.
+`Patch2: foo.patch`, `Patch3: bar.patch`, etc. Matching `ApplyOptionalPatch foo.patch`,
+`ApplyOptionalPatch bar.patch` lines must be added to apply the patches during
+the build process.
 
 .. To make your own modifications to the kernel source, retrieve the kernel
 sources for your current dist-git branch with `fedpkg sources`, then make
