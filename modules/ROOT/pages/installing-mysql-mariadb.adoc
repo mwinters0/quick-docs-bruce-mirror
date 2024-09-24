@@ -48,7 +48,7 @@ via their communication channels: https://www.mysql.com/about/faq/
 === Installing MySQL on Fedora
 
 ----
-sudo dnf install mysql-community-server
+sudo dnf install mysql-server
 ----
 
 === Start MySQL Service and Enable at login:
