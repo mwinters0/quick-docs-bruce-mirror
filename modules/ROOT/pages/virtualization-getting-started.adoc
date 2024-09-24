@@ -27,7 +27,7 @@ To run virtualization on Fedora, you need:
 KVM requires a CPU with virtualization extensions, found on most consumer CPUs. These extensions are called Intel VT or AMD-V. To check whether you have CPU support, run the following command:
 
 ----
-$ egrep '^flags.*(vmx|svm)' /proc/cpuinfo
+$ grep -E '^flags.*(vmx|svm)' /proc/cpuinfo
 ----
 
 If this command results in nothing printed, your system does not support the relevant virtualization extensions. You can still use QEMU/KVM, but the emulator will fall back to software virtualization, which is much slower.
