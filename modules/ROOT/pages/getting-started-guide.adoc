@@ -33,7 +33,7 @@ Typical daily computer usage, you might say.
 Fedora Workstation is a Linux distribution, an operating system with the Linux kernel at its core plus the software you need to install it, manage it, and the applications that you want to use for daily work.
 
 Fedora is one of many Linux distributions, and includes a lot of software you'll find in many Linux distributions.
-For example, the GNOME desktop environment, and the [application]*Firefox* web browser, [application]*LibreOffice* office suite, and a lot of **GNU utilities** and so much more.
+For example, the *GNOME* desktop environment, and the [application]*Firefox* web browser, [application]*LibreOffice* office suite, and a lot of **GNU utilities** and so much more.
 
 == Understanding Linux
 
