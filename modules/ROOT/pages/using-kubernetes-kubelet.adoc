@@ -14,7 +14,7 @@ include::partial$3rdparty-message.adoc[]
 [[overview]]
 == kubelet overview
 
-The ```kublet``` is the Kubernetes agent that runs on every node in a cluster. ```kublet``` is installed using the kubernetes rpm (_e.g._ ```kubernetes1.30``` is a versioned rpm for Kubernetes v1.30). The ```kubelet``` runs as a systemd service on Fedora. In early implementations, the ```kubelet``` was configured via link:https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/[flags] that were set in a systemd unit file and passed to the ```kubelet``` as command line parameters.
+The ```kubelet``` is the Kubernetes agent that runs on every node in a cluster. ```kubelet``` is installed using the kubernetes rpm (_e.g._ ```kubernetes1.30``` is a versioned rpm for Kubernetes v1.30). The ```kubelet``` runs as a systemd service on Fedora. In early implementations, the ```kubelet``` was configured via link:https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/[flags] that were set in a systemd unit file and passed to the ```kubelet``` as command line parameters.
 
 In more recent versions of the ```kubelet``` these flags are deprecated in favor of a link:https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/[configuration file] that uses either JSON or YAML for the configuration syntax.
 
@@ -25,7 +25,7 @@ With both versioned and non-versioned rpms, all files, including systemd related
 [[systemd]]
 == Systemd configuration recommendations
 
-Flags for the ```kublet``` running on a node are set in a systemd unit file with the relevant file dependent on which rpms are installed.
+Flags for the ```kubelet``` running on a node are set in a systemd unit file with the relevant file dependent on which rpms are installed.
 
 The kubernetes rpm (_e.g_ kubernetes1.30 for version 1.30) installs the default ```kubelet``` systemd file at:
 
