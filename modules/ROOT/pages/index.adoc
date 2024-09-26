@@ -6,7 +6,7 @@ This is a collection of short HOW-TO and FAQ-style documentation for Fedora user
 
 This documentation is community-made. Your xref:contribute-to-quick-docs.adoc[contributions and improvements ]are welcome!
 
-If you cannot find an answer here, you may also get help on https://ask.fedoraproject.org[Ask Fedora], our questions-and-answers forum.
+If you cannot find an answer here, you may also get https://discussion.fedoraproject.org/c/ask/6/none[Ask Fedora], our questions-and-answers forum.
 
 Fedora Docs team empowers contributors to create and maintain user documentation by providing https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/tools-file-edit-pagure/[self-starter's guide] and https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/asciidoc-markup/[other resources].
 
