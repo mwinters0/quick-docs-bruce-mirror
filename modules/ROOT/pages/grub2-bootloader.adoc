@@ -309,7 +309,7 @@ bootable by *GRUB2*.
 
 .Before you start
 
-* Get the Fedora Live ISO from link:https://download.fedoraproject.org/pub/fedora/linux/releases/[getfedora.org].
+* Get the Fedora Live ISO from link:https://fedoraproject.org[fedoraproject.org].
 
 * Prepare a bootable device using the downloaded ISO, either a CD or a USB.
 
