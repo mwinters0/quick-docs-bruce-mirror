@@ -205,7 +205,7 @@ To see a list of these packages do:
 
 [source,bash]
 ----
-sudo dnf list extras
+sudo dnf list --extras
 ----
 
 If you see a package you do not need, or use, you can remove it with:
