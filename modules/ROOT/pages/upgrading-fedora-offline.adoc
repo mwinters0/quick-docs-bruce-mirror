@@ -10,7 +10,7 @@ include::ROOT:partial$attributes.adoc[]
 
 // Optional  free form useful additional information as comment
 
-link:++https://github.com/rpm-software-management/dnf-plugins-extras++[`dnf-plugin-system-upgrade`] is a plugin for the xref:dnf.adoc[DNF] package manager and is used to upgrade your system to the current release of Fedora Linux.
+`dnf system-upgrade` command (embedded into link:++https://github.com/rpm-software-management/dnf5++[DNF5] and a link:++https://github.com/rpm-software-management/dnf-plugins-extras++[`dnf-plugin-system-upgrade`] plugin for the xref:dnf.adoc[DNF4] package manager ) is used to upgrade your system to the current release of Fedora Linux.
 For Fedora Silverblue and Fedora CoreOS, which use rpm-ostree, you may refer to link:++https://coreos.github.io/rpm-ostree/administrator-handbook/++[rpm-ostree documentation] for details.
 
 This is the recommended command-line upgrade method.
@@ -367,10 +367,10 @@ The boot process will likely take a long time, as it checks and fixes SELinux pe
 
 . See link:++https://fedoraproject.org/wiki/Bugs/Common++[Common bugs] to check if it is a known problem the community is already aware of.
 
-. Search link:++https://bugzilla.redhat.com/buglist.cgi?component=dnf-plugins-core&list_id=13370526&product=Fedora&resolution=---++[Bugzilla for an existing bug report] filed against the system-upgrade plug-in.
+. Search Bugzilla for an existing bug report filed against link:++https://bugzilla.redhat.com/buglist.cgi?component=dnf5&product=Fedora&resolution=---++[DNF5], resp. link:++https://bugzilla.redhat.com/buglist.cgi?component=dnf-plugins-core&list_id=13370526&product=Fedora&resolution=---++[DNF4 plug-in].
 
 If you do not see a report that matches your symptoms, you can file a new report from the search page.
-Please follow the bug reporting instructions mentioned in the link:++https://github.com/rpm-software-management/dnf-plugin-system-upgrade/blob/master/README.md++[README from the GitHub repo] or in `man dnf.plugin.system-upgrade`.
+Please follow the bug reporting instructions mentioned in the link:++https://github.com/rpm-software-management/dnf-plugin-system-upgrade/blob/master/README.md++[README from the GitHub repo].
 
 If you encounter any issues after the upgrade with a specific package, file a bug against the package with which you are having issues.
 
