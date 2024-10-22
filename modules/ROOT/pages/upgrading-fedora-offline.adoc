@@ -169,15 +169,6 @@ NOTE: Upgrades across *more* than two releases are not supported.
 [[sect-clean-up-old-packages]]
 === Clean-up old packages
 
-You can see a list of packages with broken dependencies by typing:
-
-[source,bash]
-----
-sudo dnf repoquery --unsatisfied
-----
-
-The list should be empty, but if this is not the case consider removing them as they are not likely to work.
-
 You can see duplicate packages (packages with multiple versions installed) with:
 
 [source,bash]
