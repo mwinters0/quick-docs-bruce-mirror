@@ -42,6 +42,21 @@ _Download_ in the _"Fedora Linux <number> Available"_ section to begin upgrading
 the new release.
 
 
+== Upgrading to the next Fedora KDE release
+
+[NOTE]
+====
+This is the recommended upgrade method for Fedora KDE.
+====
+
+In _Fedora KDE_, when the next stable release becomes available, opening **Discover** will display a notice for you to start upgrading your system.
+
+**Important:** Before you start upgrading, your system needs to be fully up-to-date, to ensure that the system upgrade will be smooth.
+
+image:fedora-kde-discover-upgrade.jpg[fedora-kde-discover-upgrade.jpg,title="Discover Release Upgrade"]
+
+Once you click on the _Upgrade Now_ button at the top right, you will be moved over to the _Updates_ section of the Discover interface. Simply click _Update All_ at the top right, and the download of all the new files will initiate. Once the process is complete, rebooting will initiate the installation of the new release on your system.
+
 == Upgrading using the DNF System Upgrade plugin
 
 [NOTE]
@@ -93,7 +108,7 @@ You should never allow a production Fedora Linux deployment to reach end-of-life
 
 With that in mind, if you do have an end-of-life release installed on a system you cannot just discard or re-deploy, you upgrade using xref:upgrading-fedora-offline.adoc[DNF System Upgrade]. Note that upgrades are only tested from the two previous releases.
 
-=== Upgrading to a pre-release version using Gnome Software
+== Upgrading to a pre-release version using Gnome Software
 
 Upgrading to pre-released versions of Fedora Linux can be enabled in Gnome software using the following command:
 
@@ -109,8 +124,27 @@ Once the upgrade is complete, it is highly recommended to disable that function 
 gsettings set org.gnome.software show-upgrade-prerelease false
 ----
 
-
 [IMPORTANT]
 ====
 If your installation is located on a 'specialized' storage device, be sure to configure and select it.
 ====
+
+== Upgrading to a pre-release version using KDE's Discover application
+
+Upgrading to a pre-release version of Fedora KDE can be enabled in Discover. To do so, edit (or create, if it does not already exist) ~/.config/discoverrc to match the following:
+
+----
+[DistroUpgrade]
+AllowPreRelease=true
+AllowDevelopmentRelease=true
+----
+
+If the upgrade banner does not show after executing that command, terminating the discover process may be necessary.
+
+Once the upgrade is complete, it is highly recommended to disable that function so you do not get unwanted future pre-releases. Reverting the previous settings accomplishes that, as thus:
+
+----
+[DistroUpgrade]
+AllowPreRelease=false
+AllowDevelopmentRelease=false
+----
