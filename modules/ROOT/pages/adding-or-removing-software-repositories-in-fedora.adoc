@@ -29,7 +29,7 @@ dnf config-manager --add-repo `*_repository_*`
 Where *_repository_* is the path to the created `.repo` file, for example:
 +
 ----
-dnf config-manager --add-repo /etc/yum.repos.d/fedora_extras.repo
+dnf config-manager addrepo --from-repofile=/tmp/fedora_extras.repo
 ----
 
 
@@ -43,13 +43,13 @@ This section shows how to enable a particular software repository by using the `
 +
 [literal,subs="+quotes,attributes"]
 ----
-dnf config-manager --set-enabled *_repository_*
+dnf config-manager setopt *_repository_*.enabled=1
 ----
 +
 Where *_repository_* is the unique repository ID, for example:
 +
 ----
-dnf config-manager --set-enabled fedora-extras
+dnf config-manager setopt fedora-extras.enabled=1
 ----
 
 
@@ -62,13 +62,14 @@ This section shows how to disable a particular software repository by using the 
 +
 [literal,subs="+quotes,attributes"]
 ----
-dnf config-manager --set-disabled *_repository_*
+dnf config-manager setopt *_repository_*.enabled=0
+
 ----
 +
 Where *_repository_* is the unique repository ID, for example:
 +
 ----
-dnf config-manager --set-disabled fedora-extras
+dnf config-manager setopt fedora-extras.enabled=0
 ----
 
 
