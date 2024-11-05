@@ -157,13 +157,13 @@ podman logs mysql 2>&1 | grep GENERATED
 ----
 
 ----
-podman  -d -e MYSQL_ROOT_PASSWORD=mypassword mysql/mysql-Server
+podman run -d --name=mysql -e MYSQL_ROOT_PASSWORD=mypassword mysql/mysql-server
 ----
 
 === Starting a MariaDB Server Instance 
 
 ----
-podman run -d --name=mariadb -ed MYSQL_ROOT_PASSWORD=mypassword -d mariadb/server
+podman run -d --name=mariadb -ed MYSQL_ROOT_PASSWORD=mypassword mariadb/server
 ----
 
 WARNING: Password blank default for MariaDB
