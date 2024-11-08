@@ -59,7 +59,7 @@ $ *rpm -q _package_name_*
 
 .Procedure
 
-. If your system has SELinux disabled at the kernel level (this is the recommended way, see xref:changing-selinux-states-and-modes.adoc#_disabling_selinux[[]), change this first. Check if you have the `selinux=0` option in your kernel command line:
+. If your system has SELinux disabled at the kernel level (this is the recommended way, see xref:changing-selinux-states-and-modes.adoc#_disabling_selinux[]), change this first. Check if you have the `selinux=0` option in your kernel command line:
 +
 [subs="quotes"]
 ----
