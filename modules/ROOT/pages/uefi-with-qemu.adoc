@@ -26,7 +26,7 @@ Here's how to pull down the nightly builds for x86:
 [source,bash]
 ----
 […]# sudo dnf install dnf-plugins-core
-[…]# sudo dnf config-manager --add-repo http://www.kraxel.org/repos/firmware.repo
+[…]# sudo dnf config-manager addrepo --from-repofile=http://www.kraxel.org/repos/firmware.repo
 […]# sudo dnf install edk2.git-ovmf-x64
 ----
 
