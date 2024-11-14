@@ -16,3 +16,9 @@ As a Fedora user and system administrator, you can use these steps to install ad
 ----
 sudo dnf group install Multimedia
 ----
+
+* For f41 and newer:
++
+----
+sudo dnf group install multimedia
+----
