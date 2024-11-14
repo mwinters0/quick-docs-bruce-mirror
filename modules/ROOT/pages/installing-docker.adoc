@@ -1,0 +1,208 @@
+= Installing Docker and Docker-Compose
+Bradley G Smith,
+:revnumber: F40,F41,rawhide
+:revdate: 2024-11-13
+:category: Installation
+:tags: How-to, docker, docker-compose, dnf, rpm, containers
+
+// Optional  free form useful additional information as comment
+
+//include::{partialsdir}/3rdparty-message.adoc[]
+include::partial$3rdparty-message.adoc[]
+
+[[sect-overview]]
+== Overview
+
+This guide provides useful information about installing link:https://www.docker.com/[Docker] and Docker-Compose using rpms available from Fedora.
+The role of Podman and related packages is also discussed.
+
+The Docker community also provides rpms for Fedora. For instructions on how to install these rpms please see link:https://docs.docker.com/engine/install/fedora/[Install Docker Engine on Fedora].
+
+[[sect-what-is-docker]]
+=== What is Docker?
+
+link:https:/docker.io[Docker] accelerates "how you build, share, and run applications" by providing an easy to use and configure mechanism to develop and run containers.
+
+This guide is primarily  focused on the Docker rpms available from Fedora and using `dnf` and the command line to install these rpms on Fedora.
+
+[[sect-what-is-docker-compose]]
+=== What is Docker-Compose?
+
+link:https://docs.docker.com/compose/[Docker-Compose] (referred to as Compose below) is software that enables users to easily manage multi-container applications or multiple applications on a single instance of Docker.
+
+Version 1 of Compose was deployed as a stand-alone application called `docker-compose`.
+Version 2 (the current version) is available as a plug-in to the `docker` command and launched as `docker compose [options]`.
+
+[[sect-fedora-41]]
+== Docker on Fedora 41 (and newer)
+
+The Docker related rpms in Fedora 41 and newer are listed in the table below.
+The corresponding rpm names from the Docker community are also listed for comparison.
+Mixing rpms from Docker with Fedora provided rpms is not recommended and may be blocked by `dnf`.
+
+.Docker rpms in Fedora 41 (and newer) compared to rpms from Docker community.
+[cols="1,1,1", options="header"]
+|===
+|Fedora RPM Name|Docker RPM Name|Notes
+
+|containerd
+|containerd
+|Container runtime
+
+|docker-buildx
+|docker-buildx-plugin
+|Docker buildx plug-in
+
+|docker-cli
+|docker-ce-cli
+|Docker command line client, i.e. `docker`
+
+|docker-compose
+|docker-compose-plugin
+|Compose v2 implemented as a plug-in
+
+|docker-compose-switch
+|n/a - See link:https://github.com/docker/compose-switch[compose-switch] for installation instructions
+|Provides command line `docker-compose` that works with Compose v2
+
+|moby-engine
+|docker-ce
+|Server component for Docker
+|===
+
+=== Installation
+
+In order to get `docker` on the command line, use the command below.
+This will also install appropriate dependencies.
+
+[source,bash]
+----
+sudo dnf install docker-cli containerd
+----
+
+In order to get Compose as a plug-in use the command below.
+This will also install appropriate dependencies.
+This provides Compose v2 features and capabilities.
+
+[source,bash]
+----
+sudo dnf install docker-compose
+----
+
+In order to get `docker-compose` on the command line, use the command below.
+This will also install appropriate dependencies.
+This provides Compose v2 features and capabilities.
+
+[source,bash]
+----
+sudo dnf install docker-switch
+----
+
+=== Podman Alternatives
+
+link:https://podman.io/[Podman] is a powerful and feature complete application that can be used instead of Docker.
+The instructions below are limited to only those that provide the `docker` and/or `docker-compose` commands.
+Please visit link:https://podman.io/[Podman] to learn more about Podman capabilities and benefits.
+
+In order to get `docker` on the command line, use the command below.
+This will also install appropriate dependencies.
+This will conflict with `docker-cli`.
+
+[source,bash]
+----
+sudo dnf install podman-docker
+----
+
+In order to get Compose as a plug-in use the command below.
+This will also install appropriate dependencies.
+This provides Compose v2 features and capabilities.
+
+[source,bash]
+----
+sudo dnf install podman docker-compose
+----
+
+In order to get `docker-compose` on the command line, use the command below.
+This will also install appropriate dependencies.
+This provides Compose v2 features and capabilities.
+
+[source,bash]
+----
+sudo dnf install podman docker-switch
+----
+
+[[sect-fedora-40]]
+== Fedora 40
+
+The Docker related rpms in Fedora 40 are listed in the table below.
+The corresponding rpm names from the Docker community are also listed for comparison.
+Mixing rpms from Docker with Fedora provided rpms is not recommended and may be blocked by `dnf`.
+
+.Docker rpms in Fedora 40 compared to rpms from Docker community.
+[cols="1,1,1", options="header"]
+|===
+|Fedora RPM Name|Docker RPM Name|Notes
+
+|containerd
+|containerd
+|Container runtime
+
+|n/a
+|docker-buildx-plugin
+|Docker buildx plug-in
+
+|docker-cli
+|docker-ce-cli
+|Docker command line client, i.e. `docker`
+
+|docker-compose
+|docker-compose
+|Compose v1
+
+|moby-engine
+|docker-ce
+|Server component for Docker
+|===
+
+=== Installation
+
+In order to get `docker` on the command line, use the command below.
+This will also install appropriate dependencies.
+
+[source,bash]
+----
+sudo dnf install docker-cli containerd
+----
+
+In order to get `docker-compose` on the command line, use the command below.
+This will also install appropriate dependencies.
+This provides Compose v1 features and capabilities.
+
+[source,bash]
+----
+sudo dnf install docker-compose
+----
+
+=== Podman Alternatives
+
+link:https://podman.io/[Podman] is a powerful and feature complete application that can be used instead of Docker.
+The instructions below are limited to only those that provide the `docker` and/or `docker-compose` commands.
+Please visit link:https://podman.io/[Podman] to learn more about Podman capabilities and benefits.
+
+In order to get `docker` on the command line, use the command below.
+This will also install appropriate dependencies.
+This will conflict with `docker-cli`.
+
+[source,bash]
+----
+sudo dnf install podman-docker
+----
+
+In order to get `docker-compose` on the command line, use the command below.
+This will also install appropriate dependencies.
+This provides Compose v1 features and capabilities.
+
+[source,bash]
+----
+sudo dnf install podman docker-compose
+----

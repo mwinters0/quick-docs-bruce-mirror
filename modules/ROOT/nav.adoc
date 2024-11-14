@@ -66,6 +66,7 @@
 ** xref:debug-systemd-problems.adoc[How to debug systemd problems]
 ** xref:enable-touchpad-click.adoc[How to enable touchpad click]
 ** xref:installing-and-running-vlc.adoc[Installing and running the VLC player]
+** xref:installing-docker.adoc[Installing Docker and Docker-Compose on Fedora]
 ** xref:jitsi-getting-started.adoc[Jitsi Meet Self-Hosting Guide]
 ** xref:mok-enrollment.adoc[Machine Owner Key Enrollment]
 ** xref:managing-keyboard-shortcuts-for-running-app-in-gnome.adoc[Managing keyboard shortcuts for running an application in GNOME]
