@@ -15,6 +15,27 @@ This section describes how to add, enable, or disable a software repository with
 
 This section describes how to add software repositories with the `dnf config-manager` command.
 
+=== For Fedora 40 or earlier (DNF 4)
+
+* To add a new repository, do the following as `*root*`.
+
+. Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory. For details about various options to use in the `.repo` file, see the xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc#sec-Setting_repository_Options[Setting [repository\] Options] section in the System Administrator's Guide
+
+. Add the repository with `--add-repo`, where *_repository_* is the file path:
++
+[literal,subs="+quotes,attributes"]
+----
+dnf config-manager --add-repo `*_repository_*`
+----
++
+For example:
++
+----
+dnf config-manager --add-repo /tmp/fedora_extras.repo
+----
+
+=== For Fedora 41 or later (DNF 5)
+
 * To add a new repository, do the following as `*root*`.
 
 . Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory. For details about various options to use in the `.repo` file, see the xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc#sec-Setting_repository_Options[Setting [repository\] Options] section in the System Administrator's Guide
