@@ -55,7 +55,7 @@ By default, dnf-automatic runs from the configurations in the `/etc/dnf/automati
 
 [source,bash]
 ----
-env EDITOR='gedit -w' sudoedit /etc/dnf/automatic.conf
+sudo nano /etc/dnf/automatic.conf
 ----
 
 Detailed description of dnf-automatic settings is provided on the
