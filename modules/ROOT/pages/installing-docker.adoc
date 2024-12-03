@@ -132,7 +132,7 @@ sudo dnf install podman docker-switch
 ----
 
 [[sect-fedora-40]]
-== Fedora 40
+== Docker on Fedora 40
 
 The Docker related rpms in Fedora 40 are listed in the table below.
 The corresponding rpm names from the Docker community are also listed for comparison.
@@ -151,7 +151,7 @@ Mixing rpms from Docker with Fedora provided rpms is not recommended and may be 
 |docker-buildx-plugin
 |Docker buildx plug-in
 
-|docker-cli
+|moby-engine
 |docker-ce-cli
 |Docker command line client, i.e. `docker`
 
@@ -171,7 +171,7 @@ This will also install appropriate dependencies.
 
 [source,bash]
 ----
-sudo dnf install docker-cli containerd
+sudo dnf install moby-engine containerd
 ----
 
 In order to get `docker-compose` on the command line, use the command below.
