@@ -161,11 +161,12 @@ $ avahi-browse -avrt
 
 and if CUPS or its backends see the printer by commands:
 
-(lists all existing print queues - permanent or temporary)
+(lists all existing print queues - permanent or temporary - temporary ones contain *network* as the second string on a line)
 
 ----
-$ lpstat -e
-HP_LaserJet_M1536dnf_MFP_42307C_
+$ lpstat -l -e
+HP_LaserJet_M1536dnf_MFP_42307C network none ipp://HP%20LaserJet%20M1536dnf%20MFP%20(42307C)._ipp._tcp.local/
+myprinter permanent ipp://localhost/printers/myprinter beh:/1/3/5/socket://printer:9100
 ----
 
 or
