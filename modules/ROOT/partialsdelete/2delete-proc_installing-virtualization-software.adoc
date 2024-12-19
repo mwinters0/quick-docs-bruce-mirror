@@ -10,7 +10,7 @@ For existing Fedora installations, you can install the virtualization tools via 
 
 [source,shell,subs="attributes"]
 ----
-$ dnf groupinfo virtualization
+$ dnf group info virtualization
 
 Group: Virtualization
  Description: These packages provide a graphical virtualization environment.

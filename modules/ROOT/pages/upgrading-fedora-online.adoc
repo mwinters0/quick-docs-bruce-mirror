@@ -182,19 +182,19 @@ Ensure that all (new) essential packages from the new version are
 installed with
 
 ....
-# dnf groupupdate 'Minimal Install'
+# dnf group upgrade 'Minimal Install'
 ....
 
 You might want to update other groups too, see
 
 ....
-# dnf grouplist
+# dnf group list -v
 ....
 
 For example
 
 ....
-# dnf groupupdate "GNOME Desktop" \
+# dnf group upgrade "GNOME Desktop" \
     "Development Tools" "Sound and Video" \
     "Games and Entertainment" "Administration Tools" \
     "Office/Productivity" "System Tools"

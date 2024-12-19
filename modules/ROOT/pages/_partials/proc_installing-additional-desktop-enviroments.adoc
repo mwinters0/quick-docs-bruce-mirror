@@ -2,7 +2,14 @@
 = Installing additional desktop environments
 
 You can list available desktop environments using the default package manager, [code]`dnf`.
-In a terminal use the [code]`dnf group list` command to list all available desktop environments:
+
+Since Fedora 41, in a terminal use the [code]`dnf environment list` command to list all available desktop environments:
+
+----
+$ dnf environment list --available | grep desktop
+----
+
+For older Fedoras, use the [code]`dnf group list` command to list all available desktop environments:
 
 ----
 $ dnf group list -v --available | grep desktop
@@ -11,14 +18,7 @@ $ dnf group list -v --available | grep desktop
 Install the required desktop environment using the `dnf install` command.
 Ensure to prefix with the `@` sign, for example:
 
-
 ----
 # dnf install @kde-desktop-environment
-----
-
-You can also use the full name using the `groupinstall` command to install the complete package set:
-
-----
-# dnf groupinstall "KDE Plasma Workspaces"
 ----
 
