@@ -134,17 +134,41 @@ Note: If using cri-o, verify that the major:minor version of cri-o is the same a
 sudo dnf install cri-o containernetworking-plugins
 ----
 
+. Check for available Kubernetes versions.
+If uncertain about what versions of Kubernetes are currently available in Fedora 41 or newer the following command may be useful.
+In the example below, Kubernetes 1.29, 1.30, 1.31, and 1.32 versioned rpms are available in Fedora 41.
+Current information on supported releases and end-of-life dates can be found on the link:https://kubernetes.io/releases/[Release History] page maintained by the Kubernetes team.
++
+[source,bash]
+----
+sudo dnf list kubernetes1.??
+----
++
+Output will look like:
++
+[source]
+----
+> sudo dnf list kubernetes1.??
+Updating and loading repositories:
+Repositories loaded.
+Available packages
+kubernetes1.29.x86_64 1.29.11-2.fc41 updates
+kubernetes1.30.x86_64 1.30.7-1.fc41  updates
+kubernetes1.31.x86_64 1.31.3-1.fc41  updates
+kubernetes1.32.x86_64 1.32.0-1.fc41  updates
+----
+
 . Install Kubernetes.
 In this example, all three Kubernetes applications (`kubectl`, `kubelet`, and `kubeadm`) are installed on this single node machine.
 Please see the notes above on recommended packages for control plane or worker nodes if the cluster will have both types of machines.
 +
 [source,bash]
 ----
-# Fedora 39 and earlier use:
-sudo dnf install kubernetes-client kubernetes-node kubernetes-kubeadm
-
-# Fedora 40 and later use:
+# Fedora 40 use:
 sudo dnf install kubernetes kubernetes-kubeadm kubernetes-client
+
+# Fedora 41 and later use (using Kubernetes 1.31 as example):
+sudo dnf install kubernetes1.31 kubernetes1.31-kubeadm kubernetes1.31-client
 ----
 
 . Start and enable cri-o.

@@ -13,7 +13,7 @@ include::partial$3rdparty-message.adoc[]
 [[sect-overview]]
 == Overview
 
-Non-versioned Kubernetes RPMS are the standard rpm format for Kubernetes through Fedora 40. Fedora 41 (currently rawhide) contains both versioned and non-versioned rpms.
+Non-versioned Kubernetes RPMS are the standard rpm format for Kubernetes through Fedora 40. Fedora 41 contains both versioned and non-versioned rpms.
 
 [[sect-kubernetes-rpms]]
 == Non-versioned Kubernetes rpms in Fedora

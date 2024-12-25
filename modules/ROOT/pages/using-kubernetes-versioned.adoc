@@ -20,7 +20,7 @@ The differing release cadences for Fedora (a new release every 6 months) and Kub
 Neither option provided a good user experience for Fedora users.
 
 Versioned rpms solve these problems by providing all supported Kubernetes versions on each Fedora release (subject to a Golang constraint - see below).
-Fedora 41 (currently rawhide) has rpms for Kubernetes 1.31, Kubernetes 1.30, Kubernetes 1.29, and Kubernetes 1.28.
+Fedora 41 has rpms for Kubernetes 1.31, Kubernetes 1.30, Kubernetes 1.29, and Kubernetes 1.28.
 These rpms will be named, respectively, kubernetes1.31, kubernetes1.30, kubernetes1.29, and kubernetes1.28.
 Since these rpms have different names, the Fedora package manager, rpm, identifies them as different applications, not as different versions of the same application.
 Because of this difference, versioned rpms require changes to the normal package update process is be documented below.

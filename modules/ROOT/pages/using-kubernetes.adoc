@@ -15,7 +15,7 @@ include::partial$3rdparty-message.adoc[]
 
 This guide provides useful information about link:https://kubernetes.io[Kubernetes] and the Kubernetes rpms available from Fedora.
 
-Starting with Fedora 41 (currently rawhide) the packaging standard for Kubernetes changed from one version of Kubernetes for each Fedora release (_non-versioned_ rpms) to all versions of Kubernetes available for each release of Fedora (_versioned_ rpms - with availability subject to a link:https://go.dev[Golang] language constraint).
+Starting with Fedora 41 the packaging standard for Kubernetes changed from one version of Kubernetes for each Fedora release (_non-versioned_ rpms) to all versions of Kubernetes available for each release of Fedora (_versioned_ rpms - with availability subject to a link:https://go.dev[Golang] language constraint).
 These changes are documented here, including what changed, and how installation of these rpms has been affected.
 A short guide on creating a Kubernetes cluster using ```kubeadm``` is included, as a short introduction to Kubernetes for those new to this technology stack.
 
