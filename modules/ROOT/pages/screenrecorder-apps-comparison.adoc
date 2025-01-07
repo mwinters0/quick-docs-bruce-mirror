@@ -48,7 +48,7 @@ It is similar to former Istanbul, but can also produce:
 
 == Simple Screen Recorder
 
-SimpleScreenRecorder is a Linux program that I've created to record programs and games.
+SimpleScreenRecorder is a Linux program that is created to record programs and games.
 
 Features
 
