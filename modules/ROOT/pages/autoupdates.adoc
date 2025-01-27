@@ -171,8 +171,8 @@ may need to modify the base section to add
 `exclude=kernel*`.)
 * Your environment requires meticulous change-control procedures.
 * You update from other third party DNF repositories besides Fedora
-(core, extras, legacy), repositories which may conflict in versioning
-schemes for the same packages.
+  repositories which may conflict in versioning
+  schemes for the same packages.
 
 There are also some other reasons why installing automatic updates
 without testing may be a bad idea. A few such reasons are:
@@ -189,9 +189,15 @@ without testing may be a bad idea. A few such reasons are:
   openssl, openldap, sql servers, etc. can have an effect on many other
   seemingly unrelated packages.
 * Bugs. Many packages contain buggy software or installation scripts.
-  The update may create problems during or after installation. Even cosmetic bugs, like those found in previous Mozilla updates causing the user's icons to be removed or break, can be annoying or problematic.
-* Automatic updates may not complete the entire process needed to make the system secure. For example, DNF can install a kernel update, but until the machine is rebooted (which DNF will not do automatically) the new changes won't take effect.
-  The same may apply to restarting daemons. This can leave the user feeling that he is secure when he is not.
+  The update may create problems during or after installation. Even cosmetic
+  bugs, like those found in previous Mozilla updates causing the user's
+  icons to be removed or break, can be annoying or problematic.
+* Automatic updates may not complete the entire process needed to make the
+  system secure. For example, DNF can install a kernel update, but until the
+  machine is rebooted (which DNF will not do automatically) the new changes
+  won't take effect.
+  The same may apply to restarting daemons. This can leave the user feeling
+  that he is secure when he is not.
 
 
 [[best-practices-when-using-automatic-updates]]
