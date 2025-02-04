@@ -132,12 +132,12 @@ git switch f28
 
 . Make whatever changes or customizations you need:
 
-.. Kernel configuration options can be overriden by modifying the `kernel-local` file.
+.. Kernel configuration options can be overridden by modifying the `kernel-local` file.
 
 .. Existing patches can be added to `linux-kernel-test.patch`, they will be
 picked up during the build automatically.
 
-.. Patches can also be kept in seperate files and added to `kernel.spec` with
+.. Patches can also be kept in separate files and added to `kernel.spec` with
 `Patch2: foo.patch`, `Patch3: bar.patch`, etc. Matching `ApplyOptionalPatch foo.patch`,
 `ApplyOptionalPatch bar.patch` lines must be added to apply the patches during
 the build process.
