@@ -89,6 +89,11 @@ $ sudo dnf install fedora-workstation-repositories
 . Enable the Google Chrome repo:
 +
 ----
+$ sudo dnf config-manager setopt google-chrome.enabled=1
+----
+
+For Fedora 40 and older:
+----
 $ sudo dnf config-manager --set-enabled google-chrome
 ----
 +
