@@ -36,7 +36,6 @@
 ** xref:installing-chromium-or-google-chrome-browsers.adoc[Installing Chromium or Google Chrome browsers]
 ** xref:installing-from-source.adoc[Installing Software from Source]
 ** xref:installing-spotify.adoc[Installing Spotify on Fedora]
-** xref:installing-skype.adoc[Installing Skype on Fedora]
 ** xref:zoom.adoc[Installing Zoom on Fedora]
 ** xref:openh264.adoc[OpenH264]
 ** xref:package-management.adoc[Package management system]
