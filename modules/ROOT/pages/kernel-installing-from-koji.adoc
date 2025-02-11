@@ -26,6 +26,7 @@ One way is to download the identified packages using the browser and installing 
 Download the following package rpms for a specific kernel version into a directory 
 (best to create a new directory and just have the downloaded rpms in it.:
 
+[source,bash]
 ----
 kernel-<version>.<release>.<arch>.rpm
 kernel-core-<version>.<release>.<arch>.rpm
@@ -36,6 +37,7 @@ kernel-modules-core<version>.<release>.<arch>.rpm
 then, open a command prompt and change to this directory.
 Execute the command to install the kernel:
 
+[source,bash]
 ----
 sudo dnf install *
 ----
@@ -47,7 +49,10 @@ sudo dnf install *
 The koji client makes the process of installing a specific kernel much easier from the command line. 
 Use this command to install the client:
 
-    $ sudo dnf install koji
+[source,bash]
+----
+sudo dnf install koji
+----
 
 === Download and install the kernel
 
@@ -55,17 +60,24 @@ Below is a one-line command that creates a new unique temporary directory,
 downloads kernel RPMs to it and installs them. 
 This assumes we are working with the `x86_64` architecture.
 
-    cd $(mktemp -d) \
-      && koji download-build --arch=x86_64 --arch=noarch kernel-n.nn.nn-nnn.fcnn \
-      && rm *debug*.rpm *uki*.rpm \
-      && sudo dnf install *
+[source,bash]
+----
+cd $(mktemp -d) \
+  && koji download-build --arch=x86_64 --arch=noarch kernel-n.nn.nn-nnn.fcnn \
+  && rm *debug*.rpm \
+  && rm *uki*.rpm \
+  && sudo dnf install *
+----
 
 This eliminates the need to clean up after installation and the risk of installing unwanted rpms accidentally.
 
 The following part of the above command downloads the kernel 
 and its dependencies for the given architecture and kernel version.
 
-    koji download-build --arch=[arch] kernel-<version>.<release>
+[source,bash]
+----
+koji download-build --arch=[arch] kernel-<version>.<release>
+----
 
 where [arch] indicates the architecture i.e. `x86_64`
 
@@ -85,4 +97,3 @@ See xref:dnf.adoc#sect-using-dnf-plugin[quick-doc on using the dnf versionlock p
 == References
 
 . https://fedoramagazine.org/install-kernel-koji/#comment-472889[Fedora Magazine article: How to install a kernel from koji]
-
