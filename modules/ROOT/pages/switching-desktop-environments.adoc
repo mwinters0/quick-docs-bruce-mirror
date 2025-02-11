@@ -1,16 +1,117 @@
 = Switching desktop environments
 Fedora Documentation Team
 :revnumber: F36 and newer
-:revdate: 2023-02-10
+:revdate: 2025-02-11
 :category: Managing Software
 :tags: Tutorial, Workstation
 
 [abstract]
 Different Fedora Linux variants (Spins/Labs) have different default environments. For example, the Fedora workstation uses GNOME as its default desktop environment, while the KDE spin will use KDE. Irrespective of what installation media you used to install Fedora Linux, you can easily try and switch to any of the many other desktop environments that are available without affecting your current desktop environment.
 
-include::{partialsdir}/proc_installing-additional-desktop-enviroments.adoc[leveloffset=+1]
-include::{partialsdir}/proc_switching-desktop-enviroments-using-gui.adoc[leveloffset=+1]
+[[installing-desktop-environments]]
+== Installing additional desktop environments
 
-include::{partialsdir}/proc_switching-desktop-enviroments-using-cli.adoc[leveloffset=+1]
-ifdef::parent-context[:context: {parent-context}]
-ifndef::parent-context[:!context:]
+You can list available desktop environments using the default package manager, `dnf`.
+
+Since Fedora 41, in a terminal use the `dnf environment list` command to list all available desktop environments:
+
+[source,bash]
+----
+dnf environment list --available | grep desktop
+----
+
+For older Fedoras, use the `dnf group list` command to list all available desktop environments:
+
+[source,bash]
+----
+dnf group list -v --available | grep desktop
+----
+
+Install the required desktop environment using the `dnf install` command.
+Ensure to prefix with the `@` sign, for example:
+
+[source,bash]
+----
+dnf install @kde-desktop-environment
+----
+
+[[switching-desktop-environments-using-gui]]
+== Switching desktop environments using a graphical user interface (GUI)
+
+First, install the desired desktop environment as described in link:#installing-desktop-environments[Installing additional desktop environments].
+
+You can login to a different desktop for a single session using the login manager.
+For example, for the Gnome Display Manager (GDM) that is used by default on the Fedora Linux Workstation:
+
+. On the login screen, select a user from the list.
+
+. Click on the Preferences icon right below the password field. A window appears with a list of several different desktop environments.
+
+. Choose one, and enter password as usual.
+
+image::switching-desktop-environments-login.png[Login Screen]
+
+=== Using switchdesk
+
+You also change your desktop environment using the `switchdesk` tool.
+It also allows you to change default desktop environment for individual users, and for all users.
+
+. Install the `switchdesk` and `switchdesk-gui` packages:
++
+[source,bash]
+----
+dnf install switchdesk switchdesk-gui
+----
++
+. Run the Desktop Switching Tool application.
+
+. Select the default desktop from the list of available desktop environments, and confirm.
+
+image::switching-desktop-environments-switchdesk.png[Desktop Switching Tool]
+
+[[switching-desktop-environments-using-cli]]
+== Switching desktop environments using the command line interface (CLI)
+
+First, install the desired desktop environment as described in link:#installing-desktop-environments[Installing additional desktop environments].
+
+Install the `switchdesk` package:
+
+[source,bash]
+----
+dnf install switchdesk
+----
+
+
+Pass the selected desktop environment as the only argument to the `switchdesk` command, for example:
+
+[source,bash]
+----
+switchdesk kde
+----
+
+See the `switchdesk(1)` man page for more information.
+
+== Manually changing the default desktop
+
+// This still seems to work on Fedora 36. See:
+// https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/FAYINUZPKLGH4BLYSZLV6ADNKI4C3ZIG/
+
+You can also change your default desktop environment using the `/etc/sysconfig/desktop` system configuration file.
+If this file does not exists, please create it.
+This file specifies the desktop for new users and the display manager to run when entering runlevel 5.
+
+Please create/edit it using your preferred text editor.
+Note that you will need administrator (root) privileges to create or edit this file.
+
+Correct values are:
+
+`DESKTOP="_<value>_"`, where `_<value>_` is one of the following:
+
+1. `GNOME` - Selects the GNOME desktop environment.
+2. `KDE` - Selects the KDE desktop environment.
+
+`DISPLAYMANAGER="_<value>_"`, where `_<value>_` is one of the following:
+
+1. `GNOME` - Selects the GNOME Display Manager.
+2. `KDE` - Selects the KDE Display Manager.
+3. `XDM` - Selects the X Display Manager.
