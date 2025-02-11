@@ -125,7 +125,7 @@ For the sake of this procedure, we assume that the created partition is recogniz
 [[install-the-bootloader-files]]
 === Install the bootloader files
 
-In order to use *GRUB2* with on the UEFI systems, you need to install or re-install appropriate packages:
+In order to use *GRUB2* with on UEFI systems, you need to install necessary packages:
 
 
 . Re-install the necessary packages.
