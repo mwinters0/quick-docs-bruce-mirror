@@ -51,9 +51,9 @@ Fedora 13 and several modifications
 |Red Hat Enterprise Linux 7 |Maipo |2014-06-10 |Primarily Fedora 19 with
 several changes from 20 and later
 
-|Red Hat Enterprise Linux 8|Ootpa |2019-05-07 |Fedora 28
+|Red Hat Enterprise Linux 8|Ootpa |2019-05-07 |Originally Fedora 28, later CentOS Stream 8, which was also based on Fedora 28
 
-|Red Hat Enterprise Linux 9|Plow |2022-05-17 |Fedora 34
+|Red Hat Enterprise Linux 9|Plow |2022-05-17 |CentOS Stream 9, itself based on Fedora 34
 |===
 
 == Difference between Red Hat Enterprise Linux and Fedora
