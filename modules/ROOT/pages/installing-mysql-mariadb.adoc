@@ -352,7 +352,7 @@ Check parameters in configuration file:
 mysqld --print-defaults
 ----
 
-* MariaDB/MySQL Comunnity:
+* MariaDB/MySQL Community:
 
 ----
 /usr/libexec/mysqld --print-defaults
