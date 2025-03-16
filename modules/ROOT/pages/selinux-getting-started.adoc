@@ -36,11 +36,11 @@ To better understand SELinux basic concepts, see the following documentation:
 
 * link:++https://people.redhat.com/duffy/selinux/selinux-coloring-book_A4-Stapled.pdf++[The SELinux Coloring Book]
 
-* link:++https://people.redhat.com/tcameron/Summit2012/SELinux/cameron_w_120_selinux_for_mere_mortals.pdf++[SELinux for Mere Mortals]
+* link:++https://videos.cdn.redhat.com/summit2015/presentations/13893_security-enhanced-linux-for-mere-mortals.pdf++[SELinux for Mere Mortals]
 
 * link:++http://selinuxproject.org/page/FAQ++[SELinux Wiki FAQ]
 
-* link:++http://freecomputerbooks.com/books/The_SELinux_Notebook-4th_Edition.pdf++[The SELinux Notebook]
+* link:++https://github.com/SELinuxProject/selinux-notebook/releases/++[The SELinux Notebook]
 
 
 == Benefits of running SELinux
