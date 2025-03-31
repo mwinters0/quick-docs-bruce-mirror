@@ -85,18 +85,7 @@ Based on your VMware product, replace “x.y.z” with your installed version an
 
 === Dealing with Secure Boot and VMware modules
 
-----
-git clone https://github.com/hhlp/vmware-secureboot-sign-linux.git
-cd vmware-secureboot-sign-linux
-----
-
-** `sudo mkdir -p /var/lib/shim-signed/mok` is this Directory doesn't exit.
-** Execute `sudo ./gen-key.sh` to generate a key pair.
-** Reboot to approve the key into your system.
-** Execute `sudo ./sign.sh` to sign the modules.
-** Enjoy.
-
-NOTE: If you are using VirtualBox, this Directory should exist.
+Options are available but for the moment __Disabe Secure Boot__ is the best option.
 
 === Deal with Kernel Updates
 
