@@ -1,7 +1,7 @@
-= *VMware* – what is it and how use it?
+= *VMware* – What is it and How use it?
 Héctor Louzao; The Fedora Docs team
 :revnumber: unknown
-:revdate: 2020-08-05
+:revdate: 2025-03-31
 :category: Virtualization
 :tags: How-to, VMware 
 :page-aliases: how-to-use-vmware.adoc
@@ -11,15 +11,23 @@ VMware provides cloud computing and virtualization software and services, their 
 
 ** VMware Workstation Player, is a virtualization software package and can run existing virtual appliances and create its own virtual machines (which require an operating system to be installed to be functional). VMware Player is available for personal non-commercial use.
 
-- link:https://www.vmware.com/products/workstation-player.html[Player]
-
 ** VMware Workstation Pro, it enables users to set up virtual machines (VMs) on a single physical machine, and use them simultaneously along with the actual machine. Each virtual machine can execute its own operating system, including versions of Microsoft Windows, Linux, BSD, and MS-DOS.
 
-- link:https://www.vmware.com/products/workstation-pro.html[Workstation]
+** https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion[VMware Player/Workstation]
 
 [IMPORTANT]
 
-You should have a valid license to work with VMware Workstation Pro.
+Wmware is now free for commercial, educational, and personal use!, the free version includes all the features from the former paid versions.
+
+== How to Download VMware
+
+To download any Product::
+
+   * Navigate to Broadcom Support: https://support.broadcom.com/[Broadcom Support] and create an account.
+   * From the Software menu section, select VMware Cloud Foundation then My Downloads.
+   * Click on VMware Workstation Player/VMware Worstation Pro.
+   * Click on your release.
+   * Click Download.
 
 == How to Resolve Issues for WORKSTATION and PLAYER (ANY KERNEL + ANY VERSION)
 
@@ -75,12 +83,26 @@ sudo make install
 
 Based on your VMware product, replace “x.y.z” with your installed version and/or “workstation” with “player”.
 
+=== Dealing with Secure Boot and VMware modules
+
+----
+git clone https://github.com/hhlp/vmware-secureboot-sign-linux.git
+cd vmware-secureboot-sign-linux
+----
+
+** `sudo mkdir -p /var/lib/shim-signed/mok` is this Directory doesn't exit.
+** Execute `sudo ./gen-key.sh` to generate a key pair.
+** Reboot to approve the key into your system.
+** Execute `sudo ./sign.sh` to sign the modules.
+** Enjoy.
+
+NOTE: If you are using VirtualBox, this Directory should exist.
+
 === Deal with Kernel Updates
 
 You can create a script to take of this after a kernel update. Save it as `/etc/kernel/install.d/99-vmmodules.install`:
 
 ----
-
 #!/usr/bin/bash
 
 export LANG=C
@@ -115,7 +137,6 @@ case "$COMMAND" in
 esac
 
 exit $ret
-
 ----
 
 === Additional Resources
