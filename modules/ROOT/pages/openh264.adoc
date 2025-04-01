@@ -14,7 +14,7 @@ https://www.openh264.org/[OpenH264] codec.
 
 
 Cisco provides an OpenH264 codec (as a source and a binary), which is
-their of implementation H.264 codec, and they cover all licensing fees
+their implementation of the H.264 codec, and they cover all licensing fees
 for all parties using their binary. This codec allows you to use H.264
 in WebRTC with gstreamer and Firefox. It does *not* enable generic H.264
 playback, only WebRTC (see link:https://bugzilla.mozilla.org/show_bug.cgi?id=1057646[Mozilla bug 1057646]).
@@ -24,14 +24,14 @@ a BSD license. The binary is released under this agreement from Cisco:
 https://www.openh264.org/BINARY_LICENSE.txt
 
 Upstream Firefox versions download and install the OpenH264 plugin by
-default automatically. Due to it's binary nature, Fedora disables this
+default automatically. Due to its binary nature, Fedora disables this
 automatic download.
 
 == Installation from fedora-cisco-openh264 repository
 
 A `fedora-cisco-openh264` repository is distributed since Fedora 24 by
 default (if you have at least `fedora-repos-24-0.5` package or newer).
-It contains OpenH264 binary link:Non-distributable-rpms[built inside the
+It contains the OpenH264 binary link:Non-distributable-rpms[built inside the
 Fedora infrastructure], but distributed by Cisco, so that the all
 licensing fees are still covered by them. This repository also contains
 OpenH264 plugins for gstreamer and Firefox. It is enabled by default since
@@ -42,14 +42,14 @@ In order to install OpenH264, just install the plugins:
 $ sudo dnf install gstreamer1-plugin-openh264 mozilla-openh264
 ....
 
-Afterwards you need open Firefox, go to menu -> Add-ons -> Plugins and
+Afterward, you need to open Firefox, go to menu -> Add-ons -> Plugins and
 enable OpenH264 plugin.
 
 You can do a simple test whether your H.264 works in RTC on
 https://mozilla.github.io/webrtc-landing/pc_test.html[this page] (check
 _Require H.264 video_).
 
-== Manual install of binary
+== Manual installation of binary
 
 * View and agree to the https://www.openh264.org/BINARY_LICENSE.txt
 * Download the appropriate binary for your system here:
@@ -68,7 +68,7 @@ unzip ~/openh264-linux64-v1.1-Firefox33.zip
 
 Type about:config into the Firefox address/URL field and accept the warning.
 
-* From the Search field type in 264 and a handful of options will
+* From the Search field, type in 264 and a handful of options will
   appear. Give the following Preference Names a value of true by
   double-clicking on false:
 
