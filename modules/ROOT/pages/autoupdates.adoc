@@ -43,7 +43,7 @@ started automatically.
 [[install-and-settings-of-dnf-automatic]]
 === Install and settings of dnf-automatic
 
-On a fresh install of Fedora 22 with default options, the dnf-automatic
+On a fresh install of Fedora 22+ with default options, the dnf-automatic
 RPM is not installed. The first command below installs this RPM:
 
 [source,bash]
@@ -58,7 +58,16 @@ By default, dnf-automatic runs from the configurations in the `/etc/dnf/automati
 sudo nano /etc/dnf/automatic.conf
 ----
 
-Detailed description of dnf-automatic settings is provided on the
+A modification to automatic.conf to download all updates, apply them, and reboot could be:
+
+[source]
+----
+[commands]
+apply_updates=True
+reboot=when-needed
+----
+
+Omit reboot=when-needed to manually reboot. A full and detailed description of dnf-automatic settings is provided on the
 https://dnf.readthedocs.org/en/latest/automatic.html[dnf-automatic] page.
 
 [[run-dnf-automatic]]
@@ -77,8 +86,10 @@ Check status of `dnf-automatic`:
 
 [source,bash]
 ----
-systemctl list-timers 'dnf-*'
+systemctl list-timers
 ----
+
+and look for dnf5-automatic.timer
 
 [[changes-as-of-fedora-26]]
 === Changes as of Fedora 26
