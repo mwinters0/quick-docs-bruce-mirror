@@ -91,18 +91,17 @@ systemctl list-timers
 
 and look for dnf5-automatic.timer
 
-[[changes-as-of-fedora-26]]
-=== Changes as of Fedora 26
+[[preconfigured-timers]]
+=== Preconfigured Timers
 
-As of Fedora 26 there are now three timers that control dnf-automatic.
+Some special timer units are provided which override parts of the configuration file with some standard behaviors:
 
-* `dnf-automatic-download.timer` - Only download
-* `dnf-automatic-install.timer` - Download and install
-* `dnf-automatic-notifyonly.timer` - Only notify via configured emitters
-  in `/etc/dnf/automatic.conf`
+* `dnf-automatic-download.timer` - Download, but not install updates 
+* `dnf-automatic-install.timer` - Download and install updates
+* `dnf-automatic-notifyonly.timer` - Only notify of available updates via configured emitters in `/etc/dnf/automatic.conf`
 
-You can still use `download_updates` and `apply_updates` settings from
-inside `/etc/dnf/automatic.conf`.
+A full and detailed description of dnf-automatic settings is provided on the
+https://dnf.readthedocs.org/en/latest/automatic.html[dnf-automatic] page.
 
 [[can-we-trust-dnf-updates]]
 == Can we trust DNF updates?
