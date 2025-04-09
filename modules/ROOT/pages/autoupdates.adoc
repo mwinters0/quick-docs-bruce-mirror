@@ -43,7 +43,7 @@ started automatically.
 [[install-and-settings-of-dnf-automatic]]
 === Install and settings of dnf-automatic
 
-On a fresh install of Fedora 22+ with default options, the dnf-automatic
+On a fresh install of Fedora with default options, the dnf-automatic
 RPM is not installed. The first command below installs this RPM:
 
 [source,bash]
