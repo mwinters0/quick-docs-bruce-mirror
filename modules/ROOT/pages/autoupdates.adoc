@@ -86,10 +86,8 @@ Check status of `dnf-automatic`:
 
 [source,bash]
 ----
-systemctl list-timers
+systemctl status dnf-automatic.timer
 ----
-
-and look for dnf5-automatic.timer
 
 [[preconfigured-timers]]
 === Preconfigured Timers
