@@ -8,7 +8,25 @@ Hank Lee ; The Music and Audio SIG
 [abstract]
 This page covers some basic troubleshooting techniques to help narrow down the root cause of an issue. It also explains information that should be included when filing bugs related to sound. General sound problems - where the problem is observed across multiple applications - should usually be filed against the kernel, or PipeWire (see below for instructions on determining whether the problem is PipeWire-related). If the problem is observed only in a specific application, or only in applications which use a single multimedia library (such as SDL or OpenAL), the bug should be filed against that component.
 
-== Check which Kernel driver is in use by PCI devices
+== Introduction
+
+Sound problems in Fedora can arise from a variety of causes, ranging from misconfigured audio services to missing or outdated drivers. In most cases, these issues are related to the transition to PipeWire, Fedora's default audio server since Fedora 34. While PipeWire aims to unify and improve audio handling across applications, its integration with legacy tools like PulseAudio and ALSA can sometimes lead to conflicts or device recognition problems.
+
+Common symptoms include:
+- No sound output or input
+- Only “Dummy Output” is available
+- Microphones not being detected
+- Audio devices missing after updates
+- Broken Bluetooth audio connections
+
+This guide provides a step-by-step approach to diagnosing and resolving these sound issues. It covers both general troubleshooting and specific fixes for input-related problems, such as missing microphones or inactive input devices.
+
+== Diagnosing the Problem
+
+- Determining if the issue is with the kernel, PipeWire, or specific applications.
+- Collecting logs and system information.
+
+=== Check which Kernel driver is in use by PCI devices
 
 To display kernel drivers handling each device, use the lspci (List PCI) command with the option -k. Searching for known issues specific to driver’s name and your hardware model before reporting issues to Ask Fedora.
 
@@ -31,7 +49,7 @@ And update your local PCI ID database by running the command update-pciids.
 $ sudo update-pciids
 ----
 
-== ALSA Firmware
+=== ALSA Firmware
 
 The ALSA Firmware package contains firmware for various third-party sound cards.
 
@@ -77,7 +95,7 @@ Reboot your computer for the change to take effect.
 $ sudo reboot
 ----
 
-== Hardware information
+=== Hardware information
 
 It is always useful to include detailed information on your sound hardware when filing a sound-related bug. To produce this information, run this command:
 
@@ -88,7 +106,7 @@ $ alsa-info.sh --no-upload
 
 It will generate a file containing detailed information about your sound hardware with the name /tmp/alsa-info.txt. Attach this file to your bug report.
 
-== Is it PipeWire?
+=== Is it PipeWire?
 
 PipeWire is a media sharing server, low-level multimedia framework that aims to;
 
@@ -134,9 +152,86 @@ Ports of the same type and opposite directions can be connected.
 
 Check the upstream documentation for user guide link:https://gitlab.freedesktop.org/rncbc/qpwgraph/-/blob/main/docs/qpwgraph-user_manual.md[Qpwgraph User Guide].
 
-=== PipeWire debugging options
+== Resolving Audio Input Issues
+
+Follow these steps to resolve most audio input issues.
+
+Solution steps:
+
+=== Step 1: Reinstall PipeWire and Related Packages
+
+Make sure the necessary PipeWire components are installed and working correctly.
+
+[source, bash]
+----
+sudo dnf reinstall pipewire pipewire-pulseaudio pipewire-alsa wireplumber
+----
+
+Then reboot your system.
+
+=== Step 2: Check Audio Service Status
+
+Ensure that the PipeWire and WirePlumber services are active.
+
+[source, bash]
+----
+systemctl --user status pipewire
+systemctl --user status wireplumber
+----
+
+If they are not running, enable them:
+
+[source, bash]
+----
+systemctl --user enable --now pipewire
+systemctl --user enable --now wireplumber
+----
+
+=== Step 3: Verify User Permissions
+
+Check that your user belongs to the correct groups:
+
+[source, bash]
+----
+groups
+----
+
+If `audio` is missing, add it:
+
+[source, bash]
+----
+sudo usermod -aG audio $USER
+----
+
+=== Step 4: Reset configuration files
+
+If the audio configuration is corrupted, you can reset it by moving the old config folders:
+
+[source, bash]
+----
+mv ~/.config/pulse ~/.config/pulse_backup
+mv ~/.config/pipewire ~/.config/pipewire_backup
+----
+
+Then reboot your system.
+
+=== Step 5: Check hardware
+
+If you're using an external microphone, try reconnecting it or testing with a different device to rule out hardware issues.
+
+
+== Debugging options
 
 Debugging usually starts after the bug has been identified, and works best when users are very familiar with the circumstances surrounding the bug.
 
 PipeWire has its own debugging options. Please see the upstream documentation link:https://gitlab.freedesktop.org/pipewire/pipewire/-/wikis/Troubleshooting#pipewire-debugging-options[PipeWire debugging].
+
+== Need More Help?
+
+If the above steps don't resolve your issue, visit the Fedora community:
+
+* https://discussion.fedoraproject.org/ – Ask Fedora
+* https://docs.fedoraproject.org/en-US/fedora-docs/contributing/ – Docs Contribution Guide
+
+Contributions and feedback help improve Fedora documentation for everyone.
 
