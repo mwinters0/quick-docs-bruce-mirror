@@ -1,7 +1,7 @@
 = How to troubleshoot sound problems
 Hank Lee ; The Music and Audio SIG
 :revnumber: F40
-:revdate: 2024-07-29
+:revdate: 2025-04-15
 :category: Administration
 :tags: Troubleshooting, Sound, Multimedia
 
@@ -12,12 +12,13 @@ This page covers some basic troubleshooting techniques to help narrow down the r
 
 Sound problems in Fedora can arise from a variety of causes, ranging from misconfigured audio services to missing or outdated drivers. In most cases, these issues are related to the transition to PipeWire, Fedora's default audio server since Fedora 34. While PipeWire aims to unify and improve audio handling across applications, its integration with legacy tools like PulseAudio and ALSA can sometimes lead to conflicts or device recognition problems.
 
-Common symptoms include:
-- No sound output or input
-- Only “Dummy Output” is available
-- Microphones not being detected
-- Audio devices missing after updates
-- Broken Bluetooth audio connections
+Typical issues users may encounter:
+
+* No sound output or input
+* Only “Dummy Output” is available
+* Microphones not being detected
+* Audio devices missing after updates
+* Broken Bluetooth audio connections
 
 This guide provides a step-by-step approach to diagnosing and resolving these sound issues. It covers both general troubleshooting and specific fixes for input-related problems, such as missing microphones or inactive input devices.
 
@@ -231,7 +232,6 @@ PipeWire has its own debugging options. Please see the upstream documentation li
 If the above steps don't resolve your issue, visit the Fedora community:
 
 * https://discussion.fedoraproject.org/ – Ask Fedora
-* https://docs.fedoraproject.org/en-US/fedora-docs/contributing/ – Docs Contribution Guide
 
 Contributions and feedback help improve Fedora documentation for everyone.
 
