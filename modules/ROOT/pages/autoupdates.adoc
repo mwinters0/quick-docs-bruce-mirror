@@ -90,7 +90,7 @@ systemctl status dnf-automatic.timer
 ----
 
 
-Note: preconfigured timers like `automatic-download.timer`, `automatic-install.timer` and `automatic-notifyonly.timer` were merged into above `dnf-automatic.timer` for versions above Fedora 40 with the switch to dnf5.
+Note: pre-configured timers like `automatic-download.timer`, `automatic-install.timer` and `automatic-notifyonly.timer` were merged into `dnf-automatic.timer` for versions above Fedora 40 with the switch to dnf5. For the replacement commands, please see the https://dnf5.readthedocs.io/en/latest/dnf5_plugins/automatic.8.html#options[options section] in the upstream dnf documentation.
 
 
 [[can-we-trust-dnf-updates]]
