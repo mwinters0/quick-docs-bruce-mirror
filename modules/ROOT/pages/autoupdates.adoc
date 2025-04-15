@@ -36,7 +36,7 @@ otherwise inherent in automatic updates.
 You can use a service to automatically download and install any new
 updates (for example security updates).
 
-The https://dnf.readthedocs.org/en/latest/automatic.html[dnf-automatic]
+The https://dnf5.readthedocs.io/en/latest/dnf5_plugins/automatic.8.html[dnf-automatic]
 RPM package as a link:dnf[DNF] component provides a service which is
 started automatically.
 
@@ -68,7 +68,7 @@ reboot=when-needed
 ----
 
 Omit reboot=when-needed to manually reboot. A full and detailed description of dnf-automatic settings is provided on the
-https://dnf.readthedocs.org/en/latest/automatic.html[dnf-automatic] page.
+https://dnf5.readthedocs.io/en/latest/dnf5_plugins/automatic.8.html[dnf-automatic] page.
 
 [[run-dnf-automatic]]
 === Run dnf-automatic
@@ -89,17 +89,9 @@ Check status of `dnf-automatic`:
 systemctl status dnf-automatic.timer
 ----
 
-[[preconfigured-timers]]
-=== Preconfigured Timers
 
-Some special timer units are provided which override parts of the configuration file with some standard behaviors:
+Note: preconfigured timers like `automatic-download.timer`, `automatic-install.timer` and `automatic-notifyonly.timer` were merged into above `dnf-automatic.timer` for versions above Fedora 40 with the switch to dnf5.
 
-* `dnf-automatic-download.timer` - Download, but not install updates 
-* `dnf-automatic-install.timer` - Download and install updates
-* `dnf-automatic-notifyonly.timer` - Only notify of available updates via configured emitters in `/etc/dnf/automatic.conf`
-
-A full and detailed description of dnf-automatic settings is provided on the
-https://dnf.readthedocs.org/en/latest/automatic.html[dnf-automatic] page.
 
 [[can-we-trust-dnf-updates]]
 == Can we trust DNF updates?
