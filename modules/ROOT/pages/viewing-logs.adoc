@@ -49,7 +49,7 @@ $ journalctl /dev/sda
 $ journalctl -b
 ----
 
-* To view kernel logs for the current boot, you can add the `-k` option:
+* To view kernel logs for the previous boot, you can add the `-k` option:
 ----
 $ journalctl -k -b -1
 ----
