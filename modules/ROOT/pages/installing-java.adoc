@@ -18,7 +18,7 @@ Most Java applications run on one of the following:
 
 * OpenJDK -- an open-source implementation of the Java Platform, Standard Edition.
   This version is preferred, and included in Fedora.
-* Oracle Java SE -- The former Orale SE is no longer distributed by Fedora.
+* Oracle Java SE -- The former Oracle SE is no longer distributed by Fedora.
 
 You can find the following Versions:
 
