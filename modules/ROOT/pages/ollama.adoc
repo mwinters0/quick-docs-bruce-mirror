@@ -1,0 +1,74 @@
+= Getting Started with Ollama
+Sumantro Mukherjee;
+:revnumber: F42 onwards
+:revdate: 2025-05-16
+:category: AI
+:tags: How-to, LLM, GenAI, Quick Refeence
+
+Ollama is a command-line tool that makes it easy to run and manage large language models (LLMs) locally. It supports running models such as LLaMA, Mistral, and others directly on your machine with minimal setup. Fedora 42 introduces native support for Ollama, making it easier than ever for developers and enthusiasts to get started with local LLMs.
+
+[WARNING]
+====
+Ollama is officially available only on Fedora 42 and above. Attempting to install on earlier versions may result in errors or broken dependencies.
+====
+
+== Installation
+
+Installing Ollama is straightforward using Fedora’s native package manager. Open a terminal and run:
+
+[source, bash]
+----
+sudo dnf install ollama
+----
+
+This command installs the Ollama CLI and its supporting components.
+
+== Basic Usage
+
+Once installed, you can start using Ollama immediately. Below are a few basic commands to get you started:
+
+=== Run a Model
+
+To download and run a supported LLM (e.g., `llama2`):
+
+[source, bash]
+----
+ollama run llama2
+----
+
+This command pulls the model if it's not already downloaded, and starts a local session.
+
+=== Pull a Model Without Running
+
+[source, bash]
+----
+ollama pull mistral
+----
+
+This will download the `mistral` model without starting it.
+
+=== List Installed Models
+
+[source, bash]
+----
+ollama list
+----
+
+Shows all models currently available on your system.
+
+=== Remove a Model
+
+[source, bash]
+----
+ollama remove llama2
+----
+
+Cleans up disk space by removing a previously downloaded model.
+
+== Learn More
+
+To explore supported models and advanced configurations, visit the upstream project:
+
+https://ollama.com/
+
+---

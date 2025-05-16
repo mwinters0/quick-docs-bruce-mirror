@@ -23,6 +23,11 @@
 ** xref:accessibility/installing-fedora-with-orca.adoc[Installing Fedora using Orca]
 ** xref:accessibility/after-installing-with-orca.adoc[Post installation configuration]
 
+* AI
+** xref:ollama.adoc[Run local LLMs on Fedora]
+** xref:ramalama.adoc[Run LLMs in Podman containers]
+** xref:pytorch.adoc[Play with tensors in pytorch]
+
 * Adding and managing software
 ** xref:autoupdates.adoc[AutoUpdates]
 ** xref:adding-or-removing-software-repositories-in-fedora.adoc[Adding or removing software repositories in Fedora]
