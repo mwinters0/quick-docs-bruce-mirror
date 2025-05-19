@@ -1,0 +1,73 @@
+= Getting Started with PyTorch on Fedora 42
+Sumantro Mukherjee;
+:revnumber: F42 onwards
+:revdate: 2025-05-16
+:category: AI
+:tags: How-to, LLM, GenAI, Quick Refeence
+
+PyTorch is an open-source machine learning framework developed by Meta AI. 
+It provides dynamic computational graphs and automatic differentiation, making it highly flexible and popular in both academia and industry. 
+At its core, the `torch` module in PyTorch offers powerful tensor computation, similar to NumPy, but with GPU acceleration.
+
+With Fedora 42, PyTorch is now available directly through the system package manager, making installation and updates seamless for users.
+
+[WARNING]
+====
+PyTorch is officially available only on Fedora 42 and above via the system repositories. Installing on earlier Fedora versions using `dnf` is not supported.
+====
+
+== Installation
+
+You can install PyTorch using the Fedora package manager:
+
+[source, bash]
+----
+sudo dnf install python3-torch
+----
+
+This installs the core `torch` package and dependencies required to start developing with PyTorch.
+
+== Basic Usage
+
+After installation, you can verify the install and start working with tensors immediately.
+
+=== Import and Version Check
+
+[source, python]
+----
+import torch
+
+print("PyTorch version:", torch.__version__)
+print("CUDA available:", torch.cuda.is_available())
+----
+
+=== Tensor Creation
+
+[source, python]
+----
+import torch
+
+# Create a 1D tensor
+a = torch.tensor([1.0, 2.0, 3.0])
+print("Tensor a:", a)
+
+# Random tensor
+b = torch.rand(3)
+print("Tensor b:", b)
+
+# Add two tensors
+c = a + b
+print("Sum a + b:", c)
+----
+
+== Learn More
+
+For tutorials, model zoo, and full documentation, visit:
+
+- https://pytorch.org/
+- https://docs.fedoraproject.org/
+
+== Feedback
+
+If you encounter issues or have suggestions for the Fedora package, file a bug at https://bugzilla.redhat.com or join the Fedora AI SIG.
+
