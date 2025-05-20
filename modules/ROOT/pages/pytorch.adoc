@@ -11,10 +11,6 @@ At its core, the `torch` module in PyTorch offers powerful tensor computation, s
 
 With Fedora 42, PyTorch is now available directly through the system package manager, making installation and updates seamless for users.
 
-[WARNING]
-====
-PyTorch is officially available only on Fedora 42 and above via the system repositories. Installing on earlier Fedora versions using `dnf` is not supported.
-====
 
 == Installation
 
@@ -26,6 +22,14 @@ sudo dnf install python3-torch
 ----
 
 This installs the core `torch` package and dependencies required to start developing with PyTorch.
+
+You can also use pip to install Pytorch:
+[source, bash]
+----
+pip install torch
+----
+
+Setting up local development with CUDA is very well documented here https://pytorch.org/get-started/locally/
 
 == Basic Usage
 
