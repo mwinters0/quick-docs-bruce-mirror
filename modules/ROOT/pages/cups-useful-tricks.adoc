@@ -92,7 +92,7 @@ The important thing is to prevent applying options multiple times in this scenar
 
 === How to find out whether my printer is capable of driverless printing?
 
-Network printers have the prerequisites - enablement of IPP port on the printer is the minimum, mDNS is required for automatic printer discovery by `libcups`.
+Network printers have the prerequisites - enablement of IPP port on the printer is the minimum, mDNS is required for automatic printer discovery by `libcups`. If needed, enable AirPrint, IPP Everywhere or any other driverless standards related options in the printer settings, either via the printer panel or the printer web interface.
 
 * [command]`ipptool` command which sends IPP Get-Printer-Attributes request to the network printer passes:
 
@@ -129,6 +129,8 @@ Check whether your USB device has a following text in [command]`lsusb -v` output
 ----
 
 If the device has the _bInterfaceClass 7_, _bInterfaceSubClass 1_ and _bInterfaceProtocol 4_ in the sequence, it supports IPP over USB which is critical for USB device driverless printing and scanning.
+
+Note: Some manufacturers bind IPP over USB support with network driverless standards, which is not correct. If the printer has network and USB connectivity and IPP over USB is not shown in `lsusb` output, try to look into printer settings, enable AirPrint and check the `lsusb -v` output again. 
 
 === How to setup CUPS temporary queues
 
