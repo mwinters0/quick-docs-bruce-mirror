@@ -72,7 +72,13 @@ You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki
 +
 [source,bash]
 ----
-sudo dnf system-upgrade reboot
+sudo dnf system-upgrade reboot 
+----
+
+When upgrading from Fedora 41, the following is a valid command.
+[source,bash]
+----
+sudo dnf5 offline reboot 
 ----
 
 . Once the upgrade process completes, your system will reboot a second time into the updated release version of Fedora Linux.
