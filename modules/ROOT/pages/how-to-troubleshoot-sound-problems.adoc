@@ -1,7 +1,7 @@
 = How to troubleshoot sound problems
 Hank Lee ; The Music and Audio SIG
 :revnumber: F40
-:revdate: 2025-04-15
+:revdate: 2025-05-26
 :category: Administration
 :tags: Troubleshooting, Sound, Multimedia
 
@@ -208,8 +208,7 @@ sudo usermod -aG audio $USER
 
 If the audio configuration is corrupted, you can reset it by moving the old config folders:
 
-[source, bash]
-----
+ 
 mv ~/.config/pulse ~/.config/pulse_backup
 mv ~/.config/pipewire ~/.config/pipewire_backup
 ----
@@ -224,6 +223,8 @@ If you're using an external microphone, try reconnecting it or testing with a di
 
 Bluetooth audio issues can often be categorized into one of three stages: device detection, pairing, or audio profile switching. This section provides a structured guide for identifying the stage where the issue occurs and how to resolve it.
 
+=== Stage 1: Device Not Detected
+
 Symptoms::
 
 * Bluetooth audio device does not appear in `bluetoothctl` or GNOME Settings.
@@ -234,13 +235,14 @@ This usually means the Linux Bluetooth stack never received an advertisement pac
 
 - The Bluetooth adapter (HCI device) is not fully initialized or supported.
 - The device uses a newer Bluetooth version or chipset that requires kernel or firmware support not yet available.
-- The device requires special vendor-specific commands for pairing (common in Sony, Bose, etc.).
+- The device requires special vendor-specific commands for pairing.
 - Signal interference or range issues (less likely if other devices are detected).
 
 Check::
 
 * Confirm HCI device status:
-+
+
+[source, bash]
 ----
 hciconfig
 btmon
@@ -275,7 +277,8 @@ Symptoms::
 Check::
 
 * Use `bluetoothctl` for manual steps:
-+
+
+[source, bash]
 ----
 bluetoothctl
 power on
@@ -290,13 +293,15 @@ connect <MAC>
 Fix::
 
 * Remove device and retry pairing:
-+
+
+[source, bash]
 ----
 bluetoothctl remove <MAC>
 ----
 
 * Restart Bluetooth service:
-+
+
+[source, bash]
 ----
 sudo systemctl restart bluetooth
 ----
@@ -314,13 +319,15 @@ Symptoms::
 Check::
 
 * Confirm PipeWire is used:
-+
+
+[source, bash]
 ----
 pactl info | grep Server
 ----
 
 * List available profiles:
-+
+
+[source, bash]
 ----
 pactl list cards
 ----
@@ -328,13 +335,15 @@ pactl list cards
 Fix::
 
 * Manually switch to A2DP profile:
-+
+
+[source, bash]
 ----
 pactl set-card-profile <card> a2dp-sink
 ----
 
 * Ensure required packages are installed:
-+
+
+[source, bash]
 ----
 pipewire-pulse
 wireplumber
@@ -346,9 +355,10 @@ bluez
 === Notes
 
 * Some Bluetooth 5.3+ headsets require newer kernel support.
-* High-quality codecs (e.g. AAC, aptX) may not be supported by default.
+* High-quality codecs (Example: AAC, aptX) may not be supported by default.
 * Diagnostic tools:
-+
+
+[source, bash]
 ----
 btmon
 bluetoothctl
