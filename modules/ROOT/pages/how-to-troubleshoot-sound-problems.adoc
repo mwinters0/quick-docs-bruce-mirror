@@ -352,7 +352,7 @@ $ sudo systemctl restart bluetooth
 
 For some devices, make sure to hold the pairing button until rapid blinking starts.
 
-=== Category 3: Audio Profile Switching Fails
+=== Category 3: Missing or Failing Audio Profiles
 
 *Symptoms*
 
@@ -373,7 +373,7 @@ $ pactl info | grep Server
 
 [source, bash]
 ----
-pactl list cards
+$ pactl list cards
 ----
 
 Then, look for the Profiles section under your Bluetooth device. You can filter the output using grep to make it easier.
@@ -427,12 +427,13 @@ $ cp ~/.config/wireplumber/bluetooth/51-bluez-config.lua ~/.config/wireplumber/b
 ----
 
 Open the configuration file in a text editor.
+
 [source, bash]
 ----
 $ nano ~/.config/wireplumber/bluetooth/51-bluez-config.lua
 ----
 
-Create your own config file (minimal AAC-enabled example)
+Create your own config file (minimal AAC-enabled example).
 
 [source, lua]
 ----
@@ -450,7 +451,6 @@ Save the file. Restart WirePlumber (if running as user service).
 ----
 $ systemctl --user restart wireplumber
 ----
-
 
 *Fix*
 
@@ -480,9 +480,9 @@ Use `blueman` for profile selection if needed.
 
 [source, bash]
 ----
-btmon
-bluetoothctl
-journalctl -xeu bluetooth.service
+$ btmon
+$ bluetoothctl
+$ journalctl -xeu bluetooth.service
 ----
 
 == Pipewire Debugging options
