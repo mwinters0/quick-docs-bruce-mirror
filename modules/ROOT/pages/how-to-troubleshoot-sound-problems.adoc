@@ -369,12 +369,48 @@ For some devices, make sure to hold the pairing button until rapid blinking star
 pactl info | grep Server
 ----
 
-* List available profiles.
+* To confirm whether the A2DP profile is missing and only HSP/HFP is available, use the following command.
 
 [source, bash]
 ----
 pactl list cards
 ----
+
+Then, look for the Profiles section under your Bluetooth device. You can filter the output using grep to make it easier.
+
+[source, bash]
+----
+pactl list cards | grep -i 'profile\|name:'
+----
+
+If the output shows only headset_head_unit or similar HSP/HFP entries and no a2dp_sink, it means A2DP is not available. This typically indicates:
+
+* The Bluetooth codec (Example: AAC, aptX) may not be supported or enabled in your PipeWire configuration.
+
+* Your device firmware or the system's Bluetooth stack lacks proper support for stereo audio profiles.
+
+* A WirePlumber policy or module might be blocking the A2DP profile.
+
+Example Output (Missing A2DP):
+
+[source, bash]
+----
+        Profiles:
+                headset_head_unit: Headset Head Unit (HSP/HFP) (available: yes)
+                off: Off (available: yes)
+----
+
+Expected Output (A2DP Present):
+
+[source, bash]
+----
+        Profiles:
+                a2dp_sink: High Fidelity Playback (A2DP Sink) (available: yes)
+                headset_head_unit: Headset Head Unit (HSP/HFP) (available: yes)
+                off: Off (available: yes)
+----
+
+If A2DP is missing, you may need to review the bluetooth.lua.d configuration in your WirePlumber setup or check codec support.
 
 *Fix*
 
