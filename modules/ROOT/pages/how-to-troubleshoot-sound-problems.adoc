@@ -241,7 +241,19 @@ This usually means the Linux Bluetooth stack never received an advertisement pac
 
 *Check*
 
-* Confirm HCI device status:
+Run the following command to list Bluetooth devices and their statuses:
+
+[source, bash]
+----
+  $ hciconfig
+  hci0:	Type: Primary  Bus: USB
+  	BD Address: 12:34:56:78:9A:BC  ACL MTU: 1021:8  SCO MTU: 64:1
+  	UP RUNNING 
+  	RX bytes:1234 acl:0 sco:0 events:68 errors:0
+  	TX bytes:5678 acl:0 sco:0 commands:65 errors:0
+----
+
+  The `UP RUNNING` status indicates that the Bluetooth adapter is active and functioning properly. If the device is down or missing, it may require driver or firmware updates.
 
 [source, bash]
 ----
@@ -250,7 +262,18 @@ btmon
 lsusb | grep Bluetooth
 ----
 
-* Use `btmon` and watch for *LE Advertising Report* or *Inquiry Result* events. Absence of these while the device is in pairing mode strongly suggests a low-level compatibility issue.
+* Use `btmon` to monitor Bluetooth traffic and look for *LE Advertising Report* or *Inquiry Result* events. For example, a typical *LE Advertising Report* might look like this:
+
+----
+> HCI Event: LE Meta Event (0x3e) plen 42
+  LE Advertising Report
+    AdvType: Connectable undirected - ADV_IND (0x00)
+    Address: 12:34:56:78:9A:BC (Random)
+    Data length: 31
+    Flags: 0x06
+----
+
+If you do not see such events while the device is in pairing mode, it strongly suggests that the Bluetooth adapter is not receiving advertisement packets from the device, indicating a low-level compatibility or hardware issue.
 
 *Caution*
 
@@ -266,7 +289,7 @@ NOTE: If the device never appears in scans (no MAC shown), this is often **not s
 
 *Comment*
 
-* In community forums, it's helpful to distinguish device detection issues from pairing or profile switching problems. While many Bluetooth devices work well under Linux, some may not yet be fully supported due to hardware or firmware limitations. Acknowledging this distinction helps manage expectations and encourages contributions that improve clarity and troubleshooting effectiveness.
+* In community forums, it's helpful to distinguish device detection issues from pairing or profile switching problems. Many Bluetooth devices work well under Linux. However, some may exhibit issues—such as failing to pair or not switching audio profiles—because of missing drivers, unsupported codecs, or limitations in kernel or firmware support. Understanding the differences between these issue types helps users know what to expect and makes it easier for contributors to improve guidance and support.
 
 === Category 2: Pairing Fails or Is Incomplete
 
