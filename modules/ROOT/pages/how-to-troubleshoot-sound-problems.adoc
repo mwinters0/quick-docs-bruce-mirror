@@ -1,7 +1,7 @@
 = How to troubleshoot sound problems
 Hank Lee ; The Music and Audio SIG
 :revnumber: F40
-:revdate: 2025-05-27
+:revdate: 2025-05-28
 :category: Administration
 :tags: Troubleshooting, Sound, Multimedia
 
@@ -165,7 +165,7 @@ Make sure the necessary PipeWire components are installed and working correctly.
 
 [source, bash]
 ----
-sudo dnf reinstall pipewire pipewire-pulseaudio pipewire-alsa wireplumber
+$ sudo dnf reinstall pipewire pipewire-pulseaudio pipewire-alsa wireplumber
 ----
 
 Then reboot your system.
@@ -176,16 +176,16 @@ Ensure that the PipeWire and WirePlumber services are active.
 
 [source, bash]
 ----
-systemctl --user status pipewire
-systemctl --user status wireplumber
+$ systemctl --user status pipewire
+$ systemctl --user status wireplumber
 ----
 
 If they are not running, enable them:
 
 [source, bash]
 ----
-systemctl --user enable --now pipewire
-systemctl --user enable --now wireplumber
+$ systemctl --user enable --now pipewire
+$ systemctl --user enable --now wireplumber
 ----
 
 === Step 3: Verify User Permissions
@@ -201,7 +201,7 @@ If `audio` is missing, add it:
 
 [source, bash]
 ----
-sudo usermod -aG audio $USER
+$ sudo usermod -aG audio $USER
 ----
 
 === Step 4: Reset configuration files
@@ -210,8 +210,8 @@ If the audio configuration is corrupted, you can reset it by moving the old conf
 
 [source, bash]
 ---- 
-mv ~/.config/pulse ~/.config/pulse_backup
-mv ~/.config/pipewire ~/.config/pipewire_backup
+$ mv ~/.config/pulse ~/.config/pulse_backup
+$ mv ~/.config/pipewire ~/.config/pipewire_backup
 ----
 
 Then reboot your system.
@@ -324,7 +324,7 @@ NOTE: If the device never appears in scans (no MAC shown), this is often **not s
 
 [source, bash]
 ----
-bluetoothctl
+$ bluetoothctl
 power on
 agent on
 default-agent
@@ -340,14 +340,14 @@ connect <MAC>
 
 [source, bash]
 ----
-bluetoothctl remove <MAC>
+$ bluetoothctl remove <MAC>
 ----
 
 * Restart Bluetooth service.
 
 [source, bash]
 ----
-sudo systemctl restart bluetooth
+$ sudo systemctl restart bluetooth
 ----
 
 For some devices, make sure to hold the pairing button until rapid blinking starts.
@@ -366,7 +366,7 @@ For some devices, make sure to hold the pairing button until rapid blinking star
 
 [source, bash]
 ----
-pactl info | grep Server
+$ pactl info | grep Server
 ----
 
 * To confirm whether the A2DP profile is missing and only HSP/HFP is available, use the following command.
@@ -380,7 +380,7 @@ Then, look for the Profiles section under your Bluetooth device. You can filter 
 
 [source, bash]
 ----
-pactl list cards | grep -i 'profile\|name:'
+$ pactl list cards | grep -i 'profile\|name:'
 ----
 
 If the output shows only headset_head_unit or similar HSP/HFP entries and no a2dp_sink, it means A2DP is not available. This typically indicates:
@@ -412,13 +412,53 @@ Expected Output (A2DP Present):
 
 If A2DP is missing, you may need to review the bluetooth.lua.d configuration in your WirePlumber setup or check codec support.
 
+Look for the configuration file.
+
+[source, bash]
+----
+$ ls ~/.config/wireplumber/bluetooth/51-bluez-config.lua
+----
+
+Back up your config file before editing, so you can easily restore the original if something goes wrong.
+
+[source, bash]
+----
+$ cp ~/.config/wireplumber/bluetooth/51-bluez-config.lua ~/.config/wireplumber/bluetooth/51-bluez-config.lua.bak
+----
+
+Open the configuration file in a text editor.
+[source, bash]
+----
+$ nano ~/.config/wireplumber/bluetooth/51-bluez-config.lua
+----
+
+Create your own config file (minimal AAC-enabled example)
+
+[source, lua]
+----
+bluez_monitor.properties = {
+  ["bluez5.enable-sbc-xq"] = true,
+  ["bluez5.enable-msbc"] = true,
+  ["bluez5.enable-hw-volume"] = true,
+  ["bluez5.codecs"] = {"sbc", "aac"}
+}
+----
+
+Save the file. Restart WirePlumber (if running as user service).
+
+[source, bash]
+----
+$ systemctl --user restart wireplumber
+----
+
+
 *Fix*
 
 * Manually switch to A2DP profile.
 
 [source, bash]
 ----
-pactl set-card-profile <card> a2dp-sink
+$ pactl set-card-profile <card> a2dp-sink
 ----
 
 * Ensure required packages are installed.
