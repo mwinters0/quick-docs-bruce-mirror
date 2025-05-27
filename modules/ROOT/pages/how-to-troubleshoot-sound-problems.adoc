@@ -222,24 +222,24 @@ If you're using an external microphone, try reconnecting it or testing with a di
 
 == Diagnosing and Fixing Bluetooth Audio Problems
 
-Bluetooth audio issues can often be categorized into one of three stages: device detection, pairing, or audio profile switching. This section provides a structured guide for identifying the stage where the issue occurs and how to resolve it.
+Bluetooth audio issues can often be categorized into one of three categories: device detection, pairing, or audio profile switching. This section provides a structured guide for identifying the stage where the issue occurs and how to resolve it.
 
-=== Stage 1: Device Not Detected
+=== Category 1: Device Not Detected
 
-Symptoms::
+*Symptoms*
 
 * Bluetooth audio device does not appear in `bluetoothctl` or GNOME Settings.
 * No MAC address shown even while device is in pairing mode.
-* `btmon` shows no HCI events.
+* `btmon` shows no the Host Controller Interface (HCI) events.
 
 This usually means the Linux Bluetooth stack never received an advertisement packet from the device. Common causes include:
 
-- The Bluetooth adapter (HCI device) is not fully initialized or supported.
-- The device uses a newer Bluetooth version or chipset that requires kernel or firmware support not yet available.
-- The device requires special vendor-specific commands for pairing.
-- Signal interference or range issues (less likely if other devices are detected).
+* The Bluetooth adapter (HCI device) is not fully initialized or supported.
+* The device uses a newer Bluetooth version or chipset that requires kernel or firmware support not yet available.
+* The device requires special vendor-specific commands for pairing.
+* Signal interference or range issues (less likely if other devices are detected).
 
-Check::
+*Check*
 
 * Confirm HCI device status:
 
@@ -252,30 +252,30 @@ lsusb | grep Bluetooth
 
 * Use `btmon` and watch for *LE Advertising Report* or *Inquiry Result* events. Absence of these while the device is in pairing mode strongly suggests a low-level compatibility issue.
 
-Caution::
+*Caution*
 
-Some Bluetooth devices—especially newer models using Bluetooth 5.2+—may not be fully compatible with Linux unless the kernel and BlueZ stack support their advertisement mode and codec negotiation.
+* Some Bluetooth devices—especially newer models using Bluetooth 5.2+—may not be fully compatible with Linux unless the kernel and BlueZ stack support their advertisement mode and codec negotiation.
 
 NOTE: If the device never appears in scans (no MAC shown), this is often **not solvable by user-level configuration or re-pairing**, and may indicate hardware or firmware-level incompatibility.
 
-Recommendation::
+*Recommendation*
 
-- Test the device on other operating systems (Windows, macOS, Android) to confirm functionality.
-- Search bug trackers (e.g. kernel.org, Fedora Bugzilla, bluez mailing list) for known issues related to the specific device or chipset.
-- If no workaround exists, consider using another headset known to work well with Linux (some vendors like Jabra, Sennheiser, Logitech have better Linux track records).
+* Test the device on other operating systems (Windows, macOS, Android) to confirm functionality.
+* Search bug trackers (e.g. kernel.org, Fedora Bugzilla, bluez mailing list) for known issues related to the specific device or chipset.
+* If no workaround exists, consider using another headset known to work well with Linux (some vendors like Jabra, Sennheiser, Logitech have better Linux track records).
 
-Comment::
+*Comment*
 
-In community forums, it's helpful to distinguish device detection issues from pairing or profile switching problems. While many Bluetooth devices work well under Linux, some may not yet be fully supported due to hardware or firmware limitations. Acknowledging this distinction helps manage expectations and encourages contributions that improve clarity and troubleshooting effectiveness.
+* In community forums, it's helpful to distinguish device detection issues from pairing or profile switching problems. While many Bluetooth devices work well under Linux, some may not yet be fully supported due to hardware or firmware limitations. Acknowledging this distinction helps manage expectations and encourages contributions that improve clarity and troubleshooting effectiveness.
 
-=== Stage 2: Pairing Fails or Is Incomplete
+=== Category 2: Pairing Fails or Is Incomplete
 
-Symptoms::
+*Symptoms*
 
 * Device is visible but cannot be paired or consistently fails to connect.
 * Authorization timeouts or connection errors.
 
-Check::
+*Check*
 
 * Use `bluetoothctl` for manual steps:
 
@@ -291,7 +291,7 @@ trust <MAC>
 connect <MAC>
 ----
 
-Fix::
+*Fix*
 
 * Remove device and retry pairing:
 
@@ -307,17 +307,17 @@ bluetoothctl remove <MAC>
 sudo systemctl restart bluetooth
 ----
 
-* For some devices, make sure to hold the pairing button until rapid blinking starts.
+For some devices, make sure to hold the pairing button until rapid blinking starts.
 
-=== Stage 3: Audio Profile Switching Fails
+=== Category 3: Audio Profile Switching Fails
 
-Symptoms::
+*Symptoms*
 
 * Device connects but no sound is played.
 * Only HSP/HFP is available, A2DP is missing.
 * Microphone works but stereo audio output does not.
 
-Check::
+*Check*
 
 * Confirm PipeWire is used:
 
@@ -333,7 +333,7 @@ pactl info | grep Server
 pactl list cards
 ----
 
-Fix::
+*Fix*
 
 * Manually switch to A2DP profile:
 
@@ -351,7 +351,7 @@ wireplumber
 bluez
 ----
 
-* Use `blueman` for profile selection if needed.
+Use `blueman` for profile selection if needed.
 
 === Notes
 
