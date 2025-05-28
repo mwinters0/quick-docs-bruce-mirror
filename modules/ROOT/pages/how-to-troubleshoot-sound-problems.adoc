@@ -452,40 +452,9 @@ Save the file. Restart WirePlumber (if running as user service).
 $ systemctl --user restart wireplumber
 ----
 
-*Fix*
-
-* Manually switch to A2DP profile.
-
-[source, bash]
-----
-$ pactl set-card-profile <card> a2dp-sink
-----
-
-* Ensure required packages are installed.
-
-[source, bash]
-----
-pipewire-pulse
-wireplumber
-bluez
-----
-
 If you are more comfortable with graphical tools, `blueman` can be used to visually inspect available Bluetooth devices and their profiles.
 
 NOTE: `blueman` does not resolve missing profile issues. It is intended for convenience and visibility only. If A2DP or certain codec options (Example: AAC, aptX) are missing, further investigation is needed in your PipeWire configuration and codec module support.
-
-=== Notes
-
-* Some Bluetooth 5.3+ headsets require newer kernel support.
-* High-quality Bluetooth codecs such as AAC and aptX are not always enabled by default in Linux distributions.
-* Diagnostic tools:
-
-[source, bash]
-----
-$ btmon
-$ bluetoothctl
-$ journalctl -xeu bluetooth.service
-----
 
 == Pipewire Debugging options
 
