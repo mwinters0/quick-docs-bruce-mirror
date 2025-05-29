@@ -1,7 +1,7 @@
 = How to troubleshoot sound problems
 Hank Lee ; The Music and Audio SIG
 :revnumber: F40
-:revdate: 2025-05-28
+:revdate: 2025-05-29
 :category: Administration
 :tags: Troubleshooting, Sound, Multimedia
 
@@ -24,8 +24,8 @@ This guide provides a step-by-step approach to diagnosing and resolving these so
 
 == Diagnosing the Problem
 
-- Determining if the issue is with the kernel, PipeWire, or specific applications.
-- Collecting logs and system information.
+* Determining if the issue is with the kernel, PipeWire, or specific applications.
+* Collecting logs and system information.
 
 === Check which Kernel driver is in use by PCI devices
 
@@ -222,7 +222,7 @@ If you're using an external microphone, try reconnecting it or testing with a di
 
 == Diagnosing and Fixing Bluetooth Audio Problems
 
-Bluetooth audio issues can often be categorized into one of three categories: device detection, pairing, or audio profile switching. This section provides a structured guide for identifying the stage where the issue occurs and how to resolve it.
+Bluetooth audio issues can often be categorized into one of three categories: device detection, pairing, or missing audio profile. This section provides a structured guide for identifying the stage where the issue occurs and how to resolve it.
 
 === Category 1: Device Not Detected
 
@@ -230,86 +230,104 @@ Bluetooth audio issues can often be categorized into one of three categories: de
 
 * Bluetooth audio device does not appear in `bluetoothctl` or GNOME Settings.
 * No MAC address shown even while device is in pairing mode.
-* `btmon` shows no the Host Controller Interface (HCI) events.
 
 This usually means the Linux Bluetooth stack never received an advertisement packet from the device. Common causes include:
 
 * The Bluetooth adapter (HCI device) is not fully initialized or supported.
 * The device uses a newer Bluetooth version or chipset that requires kernel or firmware support not yet available.
-* The device requires special vendor-specific commands for pairing.
-* Signal interference or range issues (less likely if other devices are detected).
 
 *Check*
 
-Run the following command to list Bluetooth devices and their statuses.
-
-[source, bash]
-----
-  $ hciconfig
-  hci0:	Type: Primary  Bus: USB
-  	BD Address: 12:34:56:78:9A:BC  ACL MTU: 1021:8  SCO MTU: 64:1
-  	UP RUNNING 
-  	RX bytes:1234 acl:0 sco:0 events:68 errors:0
-  	TX bytes:5678 acl:0 sco:0 commands:65 errors:0
-----
-
-The `UP RUNNING` status indicates that the Bluetooth adapter is active and functioning properly. If the device is down or missing, it may require driver or firmware updates.
-
-* Use `btmon` to monitor Bluetooth traffic and look for *LE Advertising Report* or *Inquiry Result* events. For example, a typical *LE Advertising Report* might look like this.
+Use `btmon` to monitor Bluetooth traffic and look for *LE Advertising Report* event. For example, a typical *LE Advertising Report* might look like this.
 
 [source, bash]
 ----
   $ sudo btmon
-  HCI Event: LE Meta Event (0x3e) plen 42
-  LE Advertising Report
-    AdvType: Connectable undirected - ADV_IND (0x00)
-    Address: 12:34:56:78:9A:BC (Random)
-    Data length: 31
-    Flags: 0x06
+  Bluetooth monitor ver 5.81
+  LE Advertising Report (0x02)
+    Num reports: 1
+    Event type: Connectable undirected - ADV_IND (0x00)
+    Address type: Random (0x01)
+    Address: C4:9D:61:BC:E7:09 (Static)
+    Data length: 25
+    16-bit Service UUIDs (partial): 1 entry
+    Unknown (0xfd2a)
+    Company: Sony Corporation (301)
+    Data[17]: 13000130ed000000004001fffd1c91351c
+    RSSI: -40 dBm (0xd8)
 ----
 
-Start the Bluetooth control tool.
+Run the `bluetoothctl show` command to display the current status and configuration of the Bluetooth adapter. It provides information such as adapter name, power status (on/off), discoverability (whether other devices can see it), and pairability.
+
+[source, bash]
+----
+  $ bluetoothctl show
+  Controller A0:C5:89:3B:26:52 (public)
+  Manufacturer: 0x0002 (2)
+  Version: 0x08 (8)
+  Name: hanku
+  Alias: hanku
+  Class: 0x007c010c (8126732)
+  Powered: yes
+  PowerState: on
+  Discoverable: yes
+  DiscoverableTimeout: 0x000000b4 (180)
+  Pairable: yes
+----
+
+This is useful for checking if your Bluetooth adapter is properly initialized and ready for scanning, pairing, or connecting to devices.
+
+Start the Bluetooth control tool to list Bluetooth devices and their statuses.
 
 [source, bash]
 ----
   $ bluetoothctl
-  Waiting to connect to bluetoothd...[bluetooth]# Agent registered
-
-  [bluetooth]# scan on
-  [bluetooth]# SetDiscoveryFilter success
-  [bluetooth]# Discovery started
-
-  [NEW] Device 34:F6:4B:77:10:27 Sony WH-1000XM4
-  [NEW] Device 5C:3A:9B:12:34:56 JBL Flip 5
-  [NEW] Device 00:1A:7D:DA:71:13 Keyboard K380
-  [CHG] Device 34:F6:4B:77:10:27 RSSI: -40
-  [CHG] Device 5C:3A:9B:12:34:56 RSSI: -55
-  [CHG] Device 34:F6:4B:77:10:27 Name: Sony WH-1000XM4
+  Agent registered
+  [CHG] Device 40:19:20:19:69:9F RSSI: 0xffffffb9 (-71)
+  [CHG] Device 28:6B:B4:40:2F:87 RSSI: 0xffffffbd (-67)
+  [CHG] Device 28:6B:B4:4C:82:E5 RSSI: 0xffffffb9 (-71)
+  [WF-C710N]> scan on
+  SetDiscoveryFilter success
+  Discovery started
+  [DEL] Device C4:9D:61:BC:E7:09 LE_WF-C710N
+  [NEW] Device C4:9D:61:BC:E7:09 LE_WF-C710N
+  [WF-C710N]> 
 ----
 
-[NEW] Device <MAC Address> <Device Name>: Indicates a new device has been discovered.
+Here's a summary of what's happening in your bluetoothctl session:
 
-[CHG] Device <MAC Address> RSSI: <value>: Notification of a change in signal strength (Received Signal Strength Indicator).
+* Agent registered: A Bluetooth agent (for pairing/authentication) has been successfully registered.
 
-Discovery started: Indicates that scanning has begun.
+* [CHG] Device ... RSSI: 0xffffffb9 (-71): RSSI (signal strength) for a known device has changed. The value 0xffffffb9 is just a signed hex representation of -71 dBm — a moderate signal.
 
-If your Bluetooth device (expected MAC like 34:F6:4B:77:10:27) does not appear in the list while other nearby devices are detected, this clearly indicates that your device is not broadcasting advertisement packets properly. This points to a low-level compatibility or hardware issue with your device itself, rather than a problem with the Bluetooth adapter.
+* [WF-C710N]> scan on
+→ You've started device discovery (scanning). WF-C710N is the device name, typically set by the manufacturer.
 
-*Caution*
+* SetDiscoveryFilter success
+→ Any filters for discovery (For example, only LE devices) were successfully applied. LE means Low Energy, which is common for Bluetooth audio devices.
 
-* Some Bluetooth devices—especially newer models using Bluetooth 5.2+—may not be fully compatible with Linux unless the kernel and BlueZ stack support their advertisement mode and codec negotiation.
+* Discovery started
+→ The adapter began scanning for nearby devices.
+
+* [DEL] Device C4:9D:61:BC:E7:09 LE_WF-C710N
+→ The device was removed from the internal cache/list temporarily — possibly due to reappearance or profile update.
+
+* [NEW] Device C4:9D:61:BC:E7:09 LE_WF-C710N
+→ The device reappeared during scanning and is now listed as newly discovered.
+
+If your Bluetooth device with MAC ID does not appear in the list while other nearby devices are detected, this clearly indicates that your device is not broadcasting advertisement packets properly. This points to a low-level compatibility or hardware issue with your device itself, rather than a problem with the Bluetooth adapter.
 
 NOTE: If the device never appears in scans (no MAC shown), this is often **not solvable by user-level configuration or re-pairing**, and may indicate hardware or firmware-level incompatibility.
 
 *Recommendation*
 
-* Test the device on other operating systems (Windows, macOS, Android) to confirm functionality.
-* Search bug trackers (e.g. kernel.org, Fedora Bugzilla, bluez mailing list) for known issues related to the specific device or chipset.
-* If no workaround exists, consider using another headset known to work well with Linux (some vendors like Jabra, Sennheiser, Logitech have better Linux track records).
+* Test the device on other operating systems (Ubuntu LTS, Windows, macOS) to confirm functionality.
+* Search bug trackers (For example, kernel.org, Fedora Bugzilla, bluez mailing list) for known issues related to the specific device or chipset.
+* If no workaround exists, consider using another headset known to work well with Linux.
 
 *Comment*
 
-* In community forums, it's helpful to distinguish device detection issues from pairing or profile switching problems. Many Bluetooth devices work well under Linux. However, some may exhibit issues—such as failing to pair or not switching audio profiles—because of missing drivers, unsupported codecs, or limitations in kernel or firmware support. Understanding the differences between these issue types helps users know what to expect and makes it easier for contributors to improve guidance and support.
+* In community forums, it's helpful to distinguish device detection issues from pairing or profile switching problems. Many Bluetooth devices work well under Linux. However, some may exhibit issues—such as failing to pair or not switching audio profiles—because of unsupported codecs. Understanding the differences between these issue types helps users know what to expect and makes it easier for contributors to improve guidance and support.
 
 === Category 2: Pairing Fails or Is Incomplete
 
@@ -324,14 +342,14 @@ NOTE: If the device never appears in scans (no MAC shown), this is often **not s
 
 [source, bash]
 ----
-$ bluetoothctl
-power on
-agent on
-default-agent
-scan on
-pair <MAC>
-trust <MAC>
-connect <MAC>
+  $ bluetoothctl
+  power on
+  agent on
+  default-agent
+  scan on
+  pair <MAC>
+  trust <MAC>
+  connect <MAC>
 ----
 
 *Fix*
@@ -369,92 +387,61 @@ For some devices, make sure to hold the pairing button until rapid blinking star
 $ pactl info | grep Server
 ----
 
-* To confirm whether the A2DP profile is missing and only HSP/HFP is available, use the following command.
+Example Output:
 
 [source, bash]
 ----
-$ pactl list cards
+  Server String: /run/user/1000/pulse/native
+  Server Protocol Version: 35
+  Server Name: PulseAudio (on PipeWire 1.4.2)
+  Server Version: 15.0.0
 ----
 
-Then, look for the Profiles section under your Bluetooth device. You can filter the output using grep to make it easier.
+* The command `pactl list cards short` provides a concise summary of all audio cards recognized by PulseAudio. It’s useful for quickly identifying available audio devices without diving into detailed properties.
+
+[source, bash]
+----
+$ pactl list cards short
+----
+
+Example Output:
+
+[source, bash]
+----
+  42 alsa_card.pci-0000_00_1f.3 alsa
+  1092 bluez_card.14_06_A7_04_73_78 module-bluez5-device.c
+----
+
+Thw command below filters the output of pactl list cards to only show lines containing either profile or name, ignoring case;
 
 [source, bash]
 ----
 $ pactl list cards | grep -i 'profile\|name:'
 ----
 
-If the output shows only headset_head_unit or similar HSP/HFP entries and no a2dp_sink, it means A2DP is not available. This typically indicates:
-
-* The Bluetooth codec (Example: AAC, aptX) may not be supported or enabled in your PipeWire configuration.
-
-* Your device firmware or the system's Bluetooth stack lacks proper support for stereo audio profiles.
-
-* A WirePlumber policy or module might be blocking the A2DP profile.
-
-Example Output (Missing A2DP):
+Example Output:
 
 [source, bash]
 ----
-        Profiles:
-                headset_head_unit: Headset Head Unit (HSP/HFP) (available: yes)
-                off: Off (available: yes)
+  Name: alsa_card.pci-0000_00_1f.3
+  api.acp.auto-profile = "false"
+  Name: bluez_card.14_06_A7_04_73_78
+  bluez5.profile = "off"
 ----
 
-Expected Output (A2DP Present):
+Line-by-Line Explanation:
 
-[source, bash]
-----
-        Profiles:
-                a2dp_sink: High Fidelity Playback (A2DP Sink) (available: yes)
-                headset_head_unit: Headset Head Unit (HSP/HFP) (available: yes)
-                off: Off (available: yes)
-----
+* Name: alsa_card.pci-0000_00_1f.3
+→ This is a built-in or PCI-based audio card managed by ALSA.
 
-If A2DP is missing, you may need to review the bluetooth.lua.d configuration in your WirePlumber setup or check codec support.
+* api.acp.auto-profile = "false"
+→ ACP (Advanced Configuration Profile) is disabled for this card; it won’t automatically switch profiles.
 
-Look for the configuration file.
+* Name: bluez_card.14_06_A7_04_73_78
+→ This is a Bluetooth audio device, identified by its MAC address.
 
-[source, bash]
-----
-$ ls ~/.config/wireplumber/bluetooth/51-bluez-config.lua
-----
-
-Back up your config file before editing, so you can easily restore the original if something goes wrong.
-
-[source, bash]
-----
-$ cp ~/.config/wireplumber/bluetooth/51-bluez-config.lua ~/.config/wireplumber/bluetooth/51-bluez-config.lua.bak
-----
-
-Open the configuration file in a text editor.
-
-[source, bash]
-----
-$ nano ~/.config/wireplumber/bluetooth/51-bluez-config.lua
-----
-
-Create your own config file (minimal AAC-enabled example).
-
-[source, lua]
-----
-bluez_monitor.properties = {
-  ["bluez5.enable-sbc-xq"] = true,
-  ["bluez5.enable-msbc"] = true,
-  ["bluez5.enable-hw-volume"] = true,
-  ["bluez5.codecs"] = {"sbc", "aac"}
-}
-----
-
-Save the file. Restart WirePlumber (if running as user service).
-
-[source, bash]
-----
-$ systemctl --user restart wireplumber
-----
-
-If you are more comfortable with graphical tools, `blueman` can be used to visually inspect available Bluetooth devices and their profiles.
-
-NOTE: `blueman` does not resolve missing profile issues. It is intended for convenience and visibility only. If A2DP or certain codec options (Example: AAC, aptX) are missing, further investigation is needed in your PipeWire configuration and codec module support.
+* bluez5.profile = "off"
+→ The Bluetooth device’s audio profile is currently turned off. It’s not active (For example, not set to a2dp_sink or headset_head_unit).
 
 == Pipewire Debugging options
 
