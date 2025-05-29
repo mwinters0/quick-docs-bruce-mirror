@@ -1,7 +1,7 @@
 = How to troubleshoot sound problems
 Hank Lee ; The Music and Audio SIG
 :revnumber: F40
-:revdate: 2025-05-29
+:revdate: 2025-05-30
 :category: Administration
 :tags: Troubleshooting, Sound, Multimedia
 
@@ -427,6 +427,10 @@ Example Output:
   api.acp.auto-profile = "false"
   Name: bluez_card.14_06_A7_04_73_78
   bluez5.profile = "off"
+  Active Profile: a2dp-sink
+    Part of profile(s): headset-head-unit-cvsd, headset-head-unit
+    Part of profile(s): a2dp-sink-sbc, a2dp-sink-sbc_xq, a2dp-sink
+    Part of profile(s): headset-head-unit-cvsd, headset-head-unit
 ----
 
 Line-by-Line Explanation:
@@ -441,7 +445,18 @@ Line-by-Line Explanation:
 → This is a Bluetooth audio device, identified by its MAC address.
 
 * bluez5.profile = "off"
-→ The Bluetooth device’s audio profile is currently turned off. It’s not active (For example, not set to a2dp_sink or headset_head_unit).
+→ In PipeWire (especially with WirePlumber), this value can be outdated or not reflect the actual active state, since profiles can be switched dynamically and not always update the stored property.
+
+* Active Profile: a2dp-sink
+→ This indicates that the A2DP (Advanced Audio Distribution Profile) is currently active, allowing high-quality audio streaming. It also supports HSP/HFP (headset mode) and multiple SBC-based A2DP variations. This structure helps PipeWire choose or switch profiles depending on use case (For example, music vs. calls)
+
+*Recommendation*
+
+* Verify PipeWire and WirePlumber Installation.
+* Restart Bluetooth and Audio Services to refresh profiles.
+* Use bluetoothctl for Manual Pairing.
+* Use the Pairing Button on Your Device: Some devices require holding the pairing button until rapid blinking starts to enter pairing mode.
+* Install and Use Blueman for Profile Management: Blueman provides a GUI for Bluetooth and allows easier profile switching.
 
 == Pipewire Debugging options
 
