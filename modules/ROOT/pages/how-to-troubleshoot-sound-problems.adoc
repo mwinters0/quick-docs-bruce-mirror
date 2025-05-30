@@ -222,7 +222,7 @@ If you're using an external microphone, try reconnecting it or testing with a di
 
 == Diagnosing and Fixing Bluetooth Audio Problems
 
-Bluetooth audio issues can often be categorized into one of three categories: device detection, pairing, or missing audio profile. This section provides a structured guide for identifying the stage where the issue occurs and how to resolve it.
+Bluetooth audio issues can often be categorized into one of three categories: device detection, pairing, or missing audio profile. This section provides a structured guide to determine which of these stages the problem belongs to and how to resolve it.
 
 === Category 1: Device Not Detected
 
@@ -238,7 +238,7 @@ This usually means the Linux Bluetooth stack never received an advertisement pac
 
 *Check*
 
-Use `btmon` to monitor Bluetooth traffic and look for *LE Advertising Report* event. For example, a typical *LE Advertising Report* might look like this.
+Use `btmon` to monitor Bluetooth traffic and look for *LE Advertising Report* event. When a Bluetooth device is detected properly, you will see lines like:
 
 [source, bash]
 ----
@@ -257,41 +257,49 @@ Use `btmon` to monitor Bluetooth traffic and look for *LE Advertising Report* ev
     RSSI: -40 dBm (0xd8)
 ----
 
-Run the `bluetoothctl show` command to display the current status and configuration of the Bluetooth adapter. It provides information such as adapter name, power status (on/off), discoverability (whether other devices can see it), and pairability.
+* LE Advertising Report indicates the device is actively broadcasting (advertising).
+
+* Address is the MAC address of the detected device.
+
+* RSSI: Signal strength; a negative value of -40 dBm, means the device is nearby.
+
+As a next step, run the `bluetoothctl show` command to display the current status and configuration of the Bluetooth adapter. It provides information such as adapter name, power status (on/off), discoverability (whether other devices can see it), and pairability.
 
 [source, bash]
 ----
   $ bluetoothctl show
-  Controller A0:C5:89:3B:26:52 (public)
-  Manufacturer: 0x0002 (2)
-  Version: 0x08 (8)
-  Name: hanku
-  Alias: hanku
-  Class: 0x007c010c (8126732)
-  Powered: yes
-  PowerState: on
-  Discoverable: yes
-  DiscoverableTimeout: 0x000000b4 (180)
-  Pairable: yes
+    Controller A0:C5:89:3B:26:52 (public)
+    Manufacturer: 0x0002 (2)
+    Version: 0x08 (8)
+    Name: hanku
+    Alias: hanku
+    Class: 0x007c010c (8126732)
+    Powered: yes
+    PowerState: on
+    Discoverable: yes
+    DiscoverableTimeout: 0x000000b4 (180)
+    Pairable: yes
 ----
 
 This is useful for checking if your Bluetooth adapter is properly initialized and ready for scanning, pairing, or connecting to devices.
 
-Start the Bluetooth control tool to list Bluetooth devices and their statuses.
+NOTE: If there is a problem, the output of `bluetoothctl show` or `btmon` may reveal signs like the adapter being powered off, not discoverable, or missing from the index entirely. For example, in btmon, if no LE Advertising Report appears, it may indicate the Bluetooth device is not broadcasting or not being detected.
+
+To continue, start the Bluetooth control tool to list Bluetooth devices and their statuses.
 
 [source, bash]
 ----
   $ bluetoothctl
-  Agent registered
-  [CHG] Device 40:19:20:19:69:9F RSSI: 0xffffffb9 (-71)
-  [CHG] Device 28:6B:B4:40:2F:87 RSSI: 0xffffffbd (-67)
-  [CHG] Device 28:6B:B4:4C:82:E5 RSSI: 0xffffffb9 (-71)
-  [WF-C710N]> scan on
-  SetDiscoveryFilter success
-  Discovery started
-  [DEL] Device C4:9D:61:BC:E7:09 LE_WF-C710N
-  [NEW] Device C4:9D:61:BC:E7:09 LE_WF-C710N
-  [WF-C710N]> 
+    Agent registered
+    [CHG] Device 40:19:20:19:69:9F RSSI: 0xffffffb9 (-71)
+    [CHG] Device 28:6B:B4:40:2F:87 RSSI: 0xffffffbd (-67)
+    [CHG] Device 28:6B:B4:4C:82:E5 RSSI: 0xffffffb9 (-71)
+    [WF-C710N]> scan on
+    SetDiscoveryFilter success
+    Discovery started
+    [DEL] Device C4:9D:61:BC:E7:09 LE_WF-C710N
+    [NEW] Device C4:9D:61:BC:E7:09 LE_WF-C710N
+    [WF-C710N]> 
 ----
 
 Here's a summary of what's happening in your bluetoothctl session:
@@ -314,8 +322,6 @@ Here's a summary of what's happening in your bluetoothctl session:
 
 * [NEW] Device C4:9D:61:BC:E7:09 LE_WF-C710N
 → The device reappeared during scanning and is now listed as newly discovered.
-
-If your Bluetooth device with MAC ID does not appear in the list while other nearby devices are detected, this clearly indicates that your device is not broadcasting advertisement packets properly. This points to a low-level compatibility or hardware issue with your device itself, rather than a problem with the Bluetooth adapter.
 
 NOTE: If the device never appears in scans (no MAC shown), this is often **not solvable by user-level configuration or re-pairing**, and may indicate hardware or firmware-level incompatibility.
 
@@ -343,13 +349,13 @@ NOTE: If the device never appears in scans (no MAC shown), this is often **not s
 [source, bash]
 ----
   $ bluetoothctl
-  power on
-  agent on
-  default-agent
-  scan on
-  pair <MAC>
-  trust <MAC>
-  connect <MAC>
+    power on
+    agent on
+    default-agent
+    scan on
+    pair <MAC>
+    trust <MAC>
+    connect <MAC>
 ----
 
 *Fix*
@@ -374,9 +380,8 @@ For some devices, make sure to hold the pairing button until rapid blinking star
 
 *Symptoms*
 
-* Device connects but no sound is played.
-* Only HSP/HFP is available, A2DP is missing.
-* Microphone works but stereo audio output does not.
+* The device is paired but no usable audio profile (for example, A2DP, HSP) is shown or active.
+* Only HSP/HFP is available, A2DP (Advanced Audio Distribution Profile) is missing.
 
 *Check*
 
@@ -397,7 +402,7 @@ Example Output:
   Server Version: 15.0.0
 ----
 
-* The command `pactl list cards short` provides a concise summary of all audio cards recognized by PulseAudio. It’s useful for quickly identifying available audio devices without diving into detailed properties.
+This output shows that the system is using the PulseAudio compatibility layer on top of PipeWire. To further inspect the audio setup, the command `pactl list cards short` provides a concise summary of all audio cards recognized by PulseAudio. It’s useful for quickly identifying available audio devices without diving into detailed properties.
 
 [source, bash]
 ----
@@ -412,7 +417,9 @@ Example Output:
   1092 bluez_card.14_06_A7_04_73_78 module-bluez5-device.c
 ----
 
-Thw command below filters the output of pactl list cards to only show lines containing either profile or name, ignoring case;
+The absence of Bluetooth-related cards (in the format bluez_card.XX_XX_XX_XX_XX_XX) in the output of the `pactl list cards short` command indicates that one or more issues may be present.
+
+Next, the command below filters the output of `pactl list cards` to only show lines containing either profile or name, ignoring case;
 
 [source, bash]
 ----
@@ -448,15 +455,15 @@ Line-by-Line Explanation:
 → In PipeWire (especially with WirePlumber), this value can be outdated or not reflect the actual active state, since profiles can be switched dynamically and not always update the stored property.
 
 * Active Profile: a2dp-sink
-→ This indicates that the A2DP (Advanced Audio Distribution Profile) is currently active, allowing high-quality audio streaming. It also supports HSP/HFP (headset mode) and multiple SBC-based A2DP variations. This structure helps PipeWire choose or switch profiles depending on use case (For example, music vs. calls)
+→ This indicates that the A2DP (Advanced Audio Distribution Profile) is currently active, allowing high-quality audio streaming. It also supports HSP/HFP (headset mode) and multiple SBC-based A2DP variations. This structure helps PipeWire choose or switch profiles depending on use case (for example, music vs. calls)
+
+NOTE: If there is no Bluetooth audio card (for example, bluez_card) present and no Bluetooth-related active profile (such as a2dp-sink or headset-head-unit), this indicates a problem in the audio system, whether PulseAudio or PipeWire.
 
 *Recommendation*
 
-* Verify PipeWire and WirePlumber Installation.
-* Restart Bluetooth and Audio Services to refresh profiles.
-* Use bluetoothctl for Manual Pairing.
-* Use the Pairing Button on Your Device: Some devices require holding the pairing button until rapid blinking starts to enter pairing mode.
-* Install and Use Blueman for Profile Management: Blueman provides a GUI for Bluetooth and allows easier profile switching.
+* Test on a clean and latest Fedora system, preferably without having installed multiple conflicting Bluetooth/audio tools.
+* Make sure the Bluetooth audio device is in proper pairing mode—usually indicated by rapid blinking—by following the manufacturer's instructions.
+* Avoid tweaking or reinstalling PipeWire/WirePlumber based on general forum advice, unless logs show actual service failure.
 
 == Pipewire Debugging options
 
