@@ -10,9 +10,7 @@ This page covers some basic troubleshooting techniques to help narrow down the r
 
 == Introduction
 
-Sound problems in Fedora can arise from a variety of causes, ranging from misconfigured audio services to missing or outdated drivers. In most cases, these issues are related to the transition to PipeWire, Fedora's default audio server since Fedora 34. While PipeWire aims to unify and improve audio handling across applications, its integration with legacy tools like PulseAudio and ALSA can sometimes lead to conflicts or device recognition problems.
-
-Typical issues users may encounter:
+Sound problems in Fedora Linux can stem from various factors, including audio profiles, pairing procedures, device compatibility, or user misconfiguration. Typical issues users may encounter:
 
 * No sound output or input
 * Only “Dummy Output” is available
