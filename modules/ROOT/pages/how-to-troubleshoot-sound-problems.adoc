@@ -1,12 +1,12 @@
 = How to troubleshoot sound problems
 Hank Lee ; The Music and Audio SIG
 :revnumber: F40
-:revdate: 2025-05-30
+:revdate: 2025-06-06
 :category: Administration
 :tags: Troubleshooting, Sound, Multimedia
 
 [abstract]
-This page covers some basic troubleshooting techniques to help narrow down the root cause of an issue. It also explains information that should be included when filing bugs related to sound. General sound problems - where the problem is observed across multiple applications - should usually be filed against the kernel, or PipeWire (see below for instructions on determining whether the problem is PipeWire-related). If the problem is observed only in a specific application, or only in applications which use a single multimedia library (such as SDL or OpenAL), the bug should be filed against that component.
+This page covers some basic troubleshooting techniques to help narrow down the root cause of an issue. It also explains information that should be included when filing bugs related to sound.
 
 == Introduction
 
