@@ -14,9 +14,9 @@ include::partial$3rdparty-message.adoc[]
 [[sect-kubernetes-defined]]
 == Kubernetes Defined
 
-link:https:/kubernetes.io[Kubernetes] is an "open-source system for automating deployment, scaling, and management of containerized applications" on one or more machines.
+link:https:/kubernetes.io[Kubernetes] is an "open-source system for automating the deployment, scaling, and management of containerized applications" on one or more machines.
 Kubernetes automates many of the tasks necessary to deploy, manage, and scale applications that are running as a container.
-This automation is vital when managing applications in data center or cloud environment where there are 100's or 1000's of machines and a corresponding complexity in numbers of applications.Fedora provides several technologies, in addition to Kubernetes, that run containers such as link:https://docker.com[Docker] or link:https://podman.io[Podman].
+This automation is vital when managing applications in data center or cloud environment where there are 100's or 1000's of machines and a corresponding complexity in numbers of applications. Fedora provides several technologies, in addition to Kubernetes, that run containers such as link:https://docker.com[Docker] or link:https://podman.io[Podman].
 
 Kubernetes had its genesis in the concepts and principles used at Google to run container-base workloads at scale and with resilience.
 Kubernetes is now at the center of a vast ecosystem of products and services (link:https://cncf.io/[Cloud Native Computing Foundation]) that help organizations create, install, run, manage and secure container-based applications and services at any possible scale.
