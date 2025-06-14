@@ -3,7 +3,7 @@ yohaan vakil;  hankuoffroad ;  mikerkelly87
 :revnumber: F38
 :revdate: 2023-05-15
 :category: Community
-:tags: Red Hat; 
+:tags: Red Hat
 
 // Optional  free form useful additional information as comment
 
