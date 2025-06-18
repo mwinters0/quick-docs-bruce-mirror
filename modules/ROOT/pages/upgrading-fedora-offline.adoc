@@ -191,6 +191,16 @@ sudo dnf remove --duplicates
 
 [NOTE]
 ====
+This command uses your system's default `dnf` binary:
+* On Fedora 38: Points to DNF4
+* On Fedora 39+: Points to DNF5
+
+The older DNF4 is available as `dnf4` if needed, but the default `dnf`
+command is recommended for general use.
+====
+
+[NOTE]
+====
 Run `sudo dnf upgrade` first, as this list is only valid if you have a fully updated system.
 Otherwise, you will see a list of installed packages that are no longer in the repositories because an update is available.
 This list may also contain packages installed from third-party repositories who may not have updated their repositories.
