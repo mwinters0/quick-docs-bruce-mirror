@@ -68,20 +68,34 @@ You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki
 
 . When the new GPG key is imported, you are asked to verify the key's fingerprint. Refer to link:https://fedoraproject.org/security[https://fedoraproject.org/security] to do so.
 
-. Trigger the upgrade process. This will reboot your machine (immediately!, without a countdown or confirmation, so close other programs and save your work) into the upgrade process running in a console terminal:
-+
+. Trigger the upgrade process, based on which version of DNF your system uses:
+
+**If you're using DNF 4 (default in older Fedora releases):** +
 [source,bash]
 ----
-sudo dnf system-upgrade reboot 
+sudo dnf system-upgrade reboot
 ----
 
-When upgrading from Fedora 41, the following is a valid command.
+This will reboot your machine **immediately** into a special upgrade environment.
+**Close all programs and save your work first.**
+No countdown or confirmation is given.
+
+**If you're using DNF 5 (starting from Fedora 41+):** +
+
 [source,bash]
 ----
-sudo dnf5 offline reboot 
+sudo dnf5 offline reboot
 ----
 
-. Once the upgrade process completes, your system will reboot a second time into the updated release version of Fedora Linux.
+This performs the upgrade **offline** during the next boot. To cancel the upgrade and delete downloaded files:
+
+[source,bash]
+----
+sudo dnf5 offline clean
+----
+
+. Once the upgrade process completes, your system will reboot a second time into the updated Fedora Linux release.
+
 
 [[sect-optional-post-upgrade-tasks]]
 == Optional post-upgrade tasks
