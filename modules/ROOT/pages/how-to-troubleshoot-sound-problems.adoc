@@ -175,14 +175,18 @@ Ensure that the PipeWire and WirePlumber services are active.
 [source, bash]
 ----
 $ systemctl --user status pipewire
+$ systemctl --user status pipewire-pulse
 $ systemctl --user status wireplumber
 ----
 
-If they are not running, enable them:
+If they are not running, start and enable them:
 
 [source, bash]
 ----
-$ systemctl --user enable --now pipewire
+$ systemctl --user enable --now pipewire.socket
+$ systemctl --user enable --now pipewire-pulse.socket
+$ systemctl --user start  pipewire
+$ systemctl --user start  pipewire-pulse
 $ systemctl --user enable --now wireplumber
 ----
 
