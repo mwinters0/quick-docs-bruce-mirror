@@ -1,7 +1,7 @@
 = Fedora on Raspberry Pi
 Flo H;  jtagcat; The Fedora Docs Team
-:revnumber: F38
-:revdate: 2023-12-07
+:revnumber: F42
+:revdate: 2025-06-24
 :category: Installation
 :tags: How-to, ARM-SBC, Raspberry-Pi 
 
@@ -148,7 +148,7 @@ This procedure shows Linux users how to add Fedora ARM to a microSD for use with
 ._Procedure_
 
 . Download a Fedora ARM image from the link:https://fedoraproject.org/[Fedora website].
-+Fedora ARM aarch64
+
 . Run the following command to extract the `.raw` image and write the image to your microSD card:
 +
 [NOTE]
