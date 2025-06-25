@@ -422,7 +422,7 @@ There are some limitations to the USB bus of the Raspberry Pi hardware prior to 
 
 === Is the onboard Wi-Fi supported on the Raspberry Pi 3, 4, and Zero 2W?
 
-Wifi on the Raspberry Pi 3-series, 4-series, and Zero 2W devices works out of the box with Fedora 29.
+Wifi on the Raspberry Pi 3-series, 4-series, and Zero 2W devices works out of the box with all supported versions of Fedora.
 
 *Using Wi-Fi on CLI*
 
