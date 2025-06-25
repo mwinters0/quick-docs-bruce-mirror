@@ -30,7 +30,7 @@ At the end of the document you find a Frequently Asked Questions (FAQ) section a
 ** A Micro-HDMI to HDMI adapter/cable for the Raspberry Pi 4B.
 ** A Mini-HDMI to HDMI adapter/cable for the Raspberry Pi Zero 2W.
 * A USB keyboard and USB mouse.
-A USB-A to Micro USB adapter, possibly with a USB hub, for the Raspberry Pi Zero 2W, as it has only a single Micro USB port for data.
+** A Micro USB to USB-A adapter, possibly with a USB hub, for the Raspberry Pi Zero 2W, as it has only a single Micro USB port for data.
 * If using an SD card:
 ** A microSD card reader.
 ** A microSD Card (16 GB or larger).
@@ -331,7 +331,7 @@ Follow these steps to boot Fedora ARM on your Raspberry Pi. If your MicroSD card
 ** A Micro-HDMI to HDMI adapter/cable for the Raspberry Pi 4B.
 ** A Mini-HDMI to HDMI adapter/cable for the Raspberry Pi Zero 2W.
 * A USB keyboard and USB mouse.
-** A USB-A to Micro USB adapter, possibly with a USB hub, for the Raspberry Pi Zero 2W, as it has only a single Micro USB port for data.
+** A Micro USB to USB-A adapter, possibly with a USB hub, for the Raspberry Pi Zero 2W, as it has only a single Micro USB port for data.
 * The MicroSD card with Fedora imaged to it.
 
 
