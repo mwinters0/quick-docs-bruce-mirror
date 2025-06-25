@@ -11,7 +11,7 @@ Flo H;  jtagcat; The Fedora Docs Team
 [abstract]
 The link:https://www.raspberrypi.org[Raspberry Pi] is a credit card-sized ARM based single board computer (SBC). This documentation describes how to get started
 
-The Raspberry Pi 3 series, 4 series, and Zero 2W are officially supported, with support for the 3 being introduced in link:https://fedoraproject.org/wiki/Changes/aarch64SBCImages[Fedora 27] and support for the 2 and Zero 2W being introduced in link:https://fedoraproject.org/wiki/Changes/RaspberryPi4[Fedora 37]. This includes hardware accelerated graphics, for which OSS support was previously lacking.
+The Raspberry Pi 3 series, 4 series, and Zero 2W are officially supported, with support for the 3 being introduced in link:https://fedoraproject.org/wiki/Changes/aarch64SBCImages[Fedora 27] and support for the 4 and Zero 2W being introduced in link:https://fedoraproject.org/wiki/Changes/RaspberryPi4[Fedora 37]. This includes hardware accelerated graphics, for which OSS support was previously lacking.
 
 However, Fedora decided to cut off support for (32 bit) armv7 / armhfp as of link:https://fedoraproject.org/wiki/Changes/RetireARMv7[Fedora 37], so the Raspberry Pi 1 series, 2B, and Zero are no longer supported.
 
