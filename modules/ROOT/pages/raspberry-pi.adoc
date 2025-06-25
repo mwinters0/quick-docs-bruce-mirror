@@ -11,9 +11,11 @@ Flo H;  jtagcat; The Fedora Docs Team
 [abstract]
 The link:https://www.raspberrypi.org[Raspberry Pi] is a credit card-sized ARM based single board computer (SBC). This documentation describes how to get started
 
-The Raspberry Pi 4 is link:https://fedoraproject.org/wiki/Changes/RaspberryPi4[ officially supported] from Fedora release 37 onwards. This includes hardware accelerated graphics, for which OSS support was previously lacking.
+The Raspberry Pi 3 series, 4 series, and Zero 2W are officially supported, with support for the 3 being introduced in link:https://fedoraproject.org/wiki/Changes/aarch64SBCImages[Fedora 27] and support for the 2 and Zero 2W being introduced in link:https://fedoraproject.org/wiki/Changes/RaspberryPi4[Fedora 37]. This includes hardware accelerated graphics, for which OSS support was previously lacking.
 
-Support for older Raspberry Pi models (2B and 3-series of devices including the 3B, 3B+, 3A+, 3CM and 3CM+) is available since Fedora Linux 29 and later releases. But Fedora decided to cut off support for (32 bit) armv7 / armhfp.
+However, Fedora decided to cut off support for (32 bit) armv7 / armhfp as of link:https://fedoraproject.org/wiki/Changes/RetireARMv7[Fedora 37], so the Raspberry Pi 1 series, 2B, and Zero are no longer supported.
+
+The Raspberry Pi 5 is not yet officially supported.
 
 At the end of the document you find a Frequently Asked Questions (FAQ) section about what is supported, and what is not.
 
@@ -32,7 +34,7 @@ At the end of the document you find a Frequently Asked Questions (FAQ) section a
 * If using a USB flash drive, with USB boot:
 ** A USB flash drive, preferrably USB 3.0 or newer (16GB or larger)
 * A computer running Microsoft Windows, macOS, or Linux.
-* A Fedora ARM aarch64 Workstation or server image from: link:https://fedoraproject.org/[].
+* A Fedora ARM aarch64 image, such as Workstation or Server, from: link:https://fedoraproject.org/[].
 
 The procedure for installing Fedora ARM on a microSD in preparation for using Fedora on a Raspberry Pi depends on your computers' operating system (Microsoft Windows, macOS, or Linux).
 
@@ -59,7 +61,7 @@ This procedure shows Fedora users how to add Fedora ARM to a microSD for use wit
 * A microSD Card (16 GB or larger).
 * A computer running Fedora 28 or newer.
 * SD card reader.
-* A Fedora ARM aarch64 Workstation or server image from:  link:https://fedoraproject.org/[]
+* A Fedora ARM aarch64 image, such as Workstation or Server, from:  link:https://fedoraproject.org/[]
 
 ._Procedure_
 
@@ -141,12 +143,12 @@ This procedure shows Linux users how to add Fedora ARM to a microSD for use with
 * A computer running Linux.
 * Root user access (via `su` or `sudo`).
 * SD card reader.
-* A Fedora ARM aarch64 Workstation or server image from:  link:https://fedoraproject.org/[].
+* A Fedora ARM aarch64 image, such as Workstation or Server, from:  link:https://fedoraproject.org/[].
 
 ._Procedure_
 
 . Download a Fedora ARM image from the link:https://fedoraproject.org/[Fedora website].
-+
++Fedora ARM aarch64
 . Run the following command to extract the `.raw` image and write the image to your microSD card:
 +
 [NOTE]
@@ -227,12 +229,12 @@ This procedure shows Microsoft Windows users how to add Fedora ARM to a microSD 
 * A microSD Card (16 GB or larger).
 * A computer running Microsoft Windows.
 * SD card reader.
-* A Fedora ARM image from: link:https://arm.fedoraproject.org/[].
+* A Fedora ARM aarch64 image, such as Workstation or Server, from: link:https://fedoraproject.org/[].
 * File-decompression software (such as link:https://www.7-zip.org/[7zip]).
 
 ._Procedure_
 
-. Download a Fedora ARM image from the  link:https://arm.fedoraproject.org/[Fedora ARM website].
+. Download a Fedora ARM image from the link:https://fedoraproject.org/[Fedora website].
 +
 . Extract the `.raw` file from the Fedora ARM image using file-decompression software (such as link:https://www.7-zip.org/[7zip]).
 +
@@ -274,12 +276,12 @@ This procedure shows macOS users how to add Fedora ARM to a microSD for use with
 * A microSD Card (16 GB or larger).
 * A computer running macOS.
 * SD card reader.
-* A Fedora ARM image from: link:https://arm.fedoraproject.org/[].
+* A Fedora ARM aarch64 image, such as Workstation or Server, from: link:https://fedoraproject.org/[].
 * File-decompression software (such as link:https://theunarchiver.com/[The Unarchiver desktop application] or link:https://theunarchiver.com/command-line[The Unarchiver command-line tools]).
 
 ._Procedure_
 
-. Download a Fedora ARM image from the  link:https://arm.fedoraproject.org/[Fedora ARM website].
+. Download a Fedora ARM image from the link:https://arm.fedoraproject.org/[Fedora website].
 +
 . Extract the `.raw` file from the Fedora ARM image using file-decompression software (such as link:https://theunarchiver.com/[The Unarchiver])
 +
@@ -317,18 +319,23 @@ Follow these steps to boot Fedora ARM on your Raspberry Pi. If your MicroSD card
 
 ._Prerequisites_
 
-* Raspberry Pi Model B, version 2 or 3.
-* A power supply (link:https://www.raspberrypi.org/help/faqs/#power[details here]).
-** Minimum 2 Amps for Raspberry Pi Model B, version 2.
-** Minimum 2.5 Amps for the Raspberry Pi Model B, version 3.
+* Raspberry Pi 3-series, 4-series, or Zero 2W.
+* A power supply (link:https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#power-supply[details here]).
+** Recommended 2.5 Amps, Micro USB, for Raspberry Pi 3 Model B.
+** Recommended 3 Amps, USB-C, for the Raspberry Pi 4 Model B.
+** Recommended 2 Amps, Micro USB, for the Raspberry Pi Zero 2W.
 * HDMI-compatible Monitor or TV.
+** A Micro-HDMI to HDMI adapter/cable for the Raspberry Pi 4B.
+** A Mini-HDMI to HDMI adapter/cable for the Raspberry Pi Zero 2W.
 * A USB keyboard and USB mouse.
+** A USB-A to Micro USB adapter, possibly with a USB hub, for the Raspberry Pi Zero 2W, as it has only a single Micro USB port for data.
+* The MicroSD card with Fedora imaged to it.
 
 
 ._Procedure_
 
 . Insert the SD card into the Raspberry Pi.
-. Connect a keyboard, mouse, network cable, and monitor.
+. Connect a keyboard, mouse, monitor, and optionally network cable.
 . Plug the Raspberry Pi into the power source. The "Initial setup wizard" should appear after Fedora loads.
 . Follow the wizard to set your language, timezone and to create users.
 
@@ -370,6 +377,8 @@ Frequently asked questions regarding what is supported.
 
 === Why do I get a rainbow display when I try and power on my Raspberry Pi?
 
+The rainbow display will appear for a second at the start of the boot process when the GPU firmware loads. However, if it persists, there is likely a problem preventing the Pi from booting.
+
 Common causes of the rainbow display include:
 
 * Insufficient power supply. See the xref:raspberry-pi-prerequisites[Prerequisites] section at the beginning of this document.
@@ -381,7 +390,7 @@ Common causes of the rainbow display include:
 ** For Microsoft Windows users, see: <<installing-fedora-on-a-raspberry-pi-for-microsoft-windows-users>>.
 ** For macOS users, see: <<installing-fedora-on-a-raspberry-pi-for-macos-users>>.
 
-* If you try to use Fedora on a Raspberry Pi 1, Raspberry Pi Zero, or a Raspberry Pi model A, you will receive the rainbow display. This occurs because your Raspberry Pi is not supported (ARMv6 SoCs architectures are not supported).
+* If you try to use Fedora on a Raspberry Pi 1, Raspberry Pi 2, Raspberry Pi Zero, or a Raspberry Pi model A, you will receive the rainbow display. This occurs because your Raspberry Pi is not supported (ARMv6 and ARMv7 SoCs architectures are not supported).
 
 === What desktop environments are supported?
 
@@ -394,25 +403,26 @@ Yes.
 New enhancements will be delivered by the standard Fedora updates mechanism.
 New, significant features will be announced by the link:https://fedoramagazine.org/[Fedora Magazine] or the link:http://fedoraplanet.org/[Fedora Planet].
 
-=== What about support for the Raspberry Pi Models A/A+, B/B+ (generation 1), Zero/ZeroW and Compute Module?
+=== What about support for the Raspberry Pi Models A/A+, B/B+ (generation 1), 2, Zero/ZeroW, and Compute Module (generation 1)?
 
 These Raspberry Pi models are not supported.
 
-Fedora is not supported on ARMv6 processors.
+Fedora is not supported on ARMv6 or ARMv7 processors.
 There's been a number of attempts to support these over the years.
-The current best effort is Pignus based on Fedora 23.
+The current best effort for ARMv6 is Pignus based on Fedora 23.
 More information can be found at link:https://pignus.computer[the Pignus site].
+As ARMv7 support was retired with Fedora 37, the best option for the Raspberry Pi 2 is likely to use Fedora 36.
 
 NOTE: Fedora DOES support the Compute Module 3 based on the same SoC as the Raspberry Pi 3, but *as the previous generation Compute Modules are based on ARMv6 architecture, they are [#.underline]#not supported#*.
 
 === What USB devices are supported on the Raspberry Pi?
 
-Most USB-2 compatible devices that are supported in Fedora on other devices.
-There are some limitations to the USB bus of the Raspberry Pi hardware as link:https://www.raspberrypi.org/documentation/hardware/raspberrypi/usb/README.md[documented here].
+Most USB2 and USB3 compatible devices that are supported in Fedora on other devices.
+There are some limitations to the USB bus of the Raspberry Pi hardware prior to the Raspberry Pi 4 as link:https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#universal-serial-bus-usb[documented here].
 
-=== Is the onboard Wi-Fi supported on the Raspberry Pi 3?
+=== Is the onboard Wi-Fi supported on the Raspberry Pi 3, 4, and Zero 2W?
 
-Wifi on the Raspberry Pi 3-series devices works out of the box with Fedora 29.
+Wifi on the Raspberry Pi 3-series, 4-series, and Zero 2W devices works out of the box with Fedora 29.
 
 *Using Wi-Fi on CLI*
 
@@ -433,7 +443,7 @@ nmcli device wifi connect __$SSID__ --ask
 +
 Where: `_$SSID_` is the network identifier (or name).
 
-=== Is the onboard Bluetooth supported on the Raspberry Pi 3?
+=== Is the onboard Bluetooth supported on the Raspberry Pi 3, 4, and Zero 2W?
 
 Bluetooth works and is stable. The device sometimes has a generic bluetooth address but should work without any configuration.
 
