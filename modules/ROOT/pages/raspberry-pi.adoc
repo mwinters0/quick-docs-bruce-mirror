@@ -149,9 +149,9 @@ This procedure shows Linux users how to add Fedora ARM to a microSD for use with
 * A Fedora ARM aarch64 image, such as Workstation or Server, from:  link:https://fedoraproject.org/[].
 
 ._Procedure_
-+
-. Download a Fedora ARM image from the link:https://fedoraproject.org/[Fedora website].
 
+. Download a Fedora ARM image from the link:https://fedoraproject.org/[Fedora website].
++
 . Run the following command to extract the `.raw` image and write the image to your microSD card:
 +
 [NOTE]
