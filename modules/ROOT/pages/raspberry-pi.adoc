@@ -23,11 +23,14 @@ At the end of the document you find a Frequently Asked Questions (FAQ) section a
 
 * A supported Raspberry Pi (link:https://pagure.io/arm-image-installer/blob/main/f/boards.d[supported boards]).
 * A power supply (link:https://www.raspberrypi.org/documentation/computers/raspberry-pi.html#power-supply[details on raspberrypi.org]).
-** 2B: 1.8 Amps
+** Zero 2 W: 2 Amps
 ** 3B and 3B+: 2.5 Amps
 ** 4B: 3.0 Amps
 * HDMI-compatible Monitor or TV.
+** A Micro-HDMI to HDMI adapter/cable for the Raspberry Pi 4B.
+** A Mini-HDMI to HDMI adapter/cable for the Raspberry Pi Zero 2W.
 * A USB keyboard and USB mouse.
+A USB-A to Micro USB adapter, possibly with a USB hub, for the Raspberry Pi Zero 2W, as it has only a single Micro USB port for data.
 * If using an SD card:
 ** A microSD card reader.
 ** A microSD Card (16 GB or larger).
@@ -321,7 +324,7 @@ Follow these steps to boot Fedora ARM on your Raspberry Pi. If your MicroSD card
 
 * Raspberry Pi 3-series, 4-series, or Zero 2W.
 * A power supply (link:https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#power-supply[details here]).
-** Recommended 2.5 Amps, Micro USB, for Raspberry Pi 3 Model B.
+** Recommended 2.5 Amps, Micro USB, for Raspberry Pi 3 Model B and B+.
 ** Recommended 3 Amps, USB-C, for the Raspberry Pi 4 Model B.
 ** Recommended 2 Amps, Micro USB, for the Raspberry Pi Zero 2W.
 * HDMI-compatible Monitor or TV.
