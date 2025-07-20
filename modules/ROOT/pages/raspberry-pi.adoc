@@ -484,7 +484,7 @@ There is some missing enabling patches which will be added to the Fedora kernel 
 
 === Are the expansion HATs supported?
 
-The the expansion HATs are not currently supported.
+The expansion HATs are not currently supported.
 
 The long answer is a lot more complex. Most of the hardware interfaces that are exposed by the 40 pin HAT connector are supported with drivers shipped with Fedora.
 
