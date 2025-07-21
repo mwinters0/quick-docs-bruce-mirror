@@ -205,7 +205,6 @@ Finally, run the virt-install command using the following format (adjusting para
 --ram 4096 \
 --vcpus 2 \
 --disk path=/var/lib/libvirt/images/Fedora-Workstation-{MAJOROSVER}/Fedora-Workstation-{MAJOROSVER}-20180518.0.x86_64.qcow2,size=20 \
---os-type linux \
 --os-variant fedora{MAJOROSVER} \
 --network bridge=virbr0 \
 --graphics vnc,listen=127.0.0.1,port=5901 \
