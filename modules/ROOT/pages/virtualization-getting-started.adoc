@@ -64,31 +64,28 @@ Group: Virtualization
 ----
 
 . Run the following command to install the mandatory and default packages in the virtualization group:
-+
-[source,shell,subs="attributes"]
-----
-# sudo dnf install @virtualization
+$ sudo dnf install @virtualization
 ----
 +
 Alternatively, to install the mandatory, default, and optional packages, run:
 +
 [source,shell,subs="attributes"]
 ----
-# sudo dnf group install --with-optional virtualization
+$ sudo dnf group install --with-optional virtualization
 ----
 +
 . After the packages install, start the `libvirtd` service:
 +
 [source,shell,subs="attributes"]
 ----
-# sudo systemctl start libvirtd
+$ sudo systemctl start libvirtd
 ----
 +
 To start the service on boot, run:
 +
 [source,shell,subs="attributes"]
 ----
-# sudo systemctl enable libvirtd
+$ sudo systemctl enable libvirtd
 ----
 +
 . To verify that the KVM kernel modules are properly loaded:
@@ -131,19 +128,19 @@ Adjust the ram, vcpus, and disk size parameters according to the resources you h
 +
 [source,shell,subs="attributes"]
 ----
-# df -h
+$ df -h
 ----
 * Memory: You can check your available memory from the shell using free(1):
 +
 [source,shell,subs="attributes"]
 ----
-# free -m
+$ free -m
 ----
 * VCPU: You can check your processor information using `lscpu(1)`:
 +
 [source,shell,subs="attributes"]
 ----
-# lscpu
+$ lscpu
 ----
 
 When allocating resources to your VM, keep in mind the minimum system requirements for the version of Fedora you are installing as well as your use case requirements. For Fedora {MAJOROSVER}, you can find this in the xref:f{MAJOROSVER}@fedora:release-notes:welcome/Hardware_Overview.adoc[Release Notes].
@@ -165,14 +162,14 @@ To create a fully allocated (non-sparse) raw file:
 
 [source,shell,subs="attributes"]
 ----
-# sudo dd if=/dev/zero of=/var/lib/libvirt/images/guest.img bs=1M count=20480
+$ sudo dd if=/dev/zero of=/var/lib/libvirt/images/guest.img bs=1M count=20480
 ----
 
 you can also use fallocate(1):
 
 [source,shell,subs="attributes"]
 ----
-# sudo fallocate -l 20480M /var/lib/libvirt/images/guest.img
+$ sudo fallocate -l 20480M /var/lib/libvirt/images/guest.img
 ----
 
 ====== Raw File (Sparse)
@@ -181,8 +178,8 @@ To create a dynamically allocated (sparse) raw file:
 
 [source,shell,subs="attributes"]
 ----
-# sudo rm -f /var/lib/libvirt/images/guest.img
-# sudo truncate --size=20480M /var/lib/libvirt/images/guest.img
+$ sudo rm -f /var/lib/libvirt/images/guest.img
+$ sudo truncate --size=20480M /var/lib/libvirt/images/guest.img
 ----
 
 
@@ -200,7 +197,7 @@ Finally, run the virt-install command using the following format (adjusting para
 
 [source,shell,subs="attributes"]
 ----
-# sudo virt-install --name Fedora{MAJOROSVER} \
+$ sudo virt-install --name Fedora{MAJOROSVER} \
 --description 'Fedora {MAJOROSVER} Workstation' \
 --ram 4096 \
 --vcpus 2 \
@@ -227,7 +224,7 @@ If graphics were enabled, a VNC window will open and present the graphical insta
 +
 [source,shell,subs="attributes"]
 ----
-# sudo virt-manager
+$ sudo virt-manager
 ----
 +
 . Open a connection to a hypervisor by navigating to menu:File[Add connection].
@@ -248,7 +245,7 @@ When the installation of the guest operating system is complete, it can be manag
 . Start the Virtual Machine Manager by navigating to menu:[Applications]System Tools, or run:
 +
 ----
-# virt-manager
+$ virt-manager
 ----
 +
 If you are not root, you will be prompted to enter the root password. 
@@ -273,55 +270,55 @@ The `virsh` command-line utility allows you to manage virtual machines on the co
 To start a virtual machine:
 
 ----
-# virsh create <name of virtual machine>
+$ virsh create <name of virtual machine>
 ----
 
 To list the virtual machines currently running:
 
 ----
-# virsh list
+$ virsh list
 ----
 
 To list all virtual machines, running or not:
 
 ----
-# virsh list --all
+$ virsh list --all
 ----
 
 To gracefully power off a guest:
 
 ----
-# virsh shutdown <virtual machine (name | id | uuid)>
+$ virsh shutdown <virtual machine (name | id | uuid)>
 ----
 
 To non gracefully power off a guest:
 
 ----
-# virsh destroy <virtual machine (name | id | uuid)>
+$ virsh destroy <virtual machine (name | id | uuid)>
 ----
 
 To save a snapshot of the machine to a file:
 
 ----
-# virsh save <virtual machine (name | id | uuid)> <filename>
+$ virsh save <virtual machine (name | id | uuid)> <filename>
 ----
 
 To restore a previously saved snapshot:
 
 ----
-# virsh restore <filename>
+$ virsh restore <filename>
 ----
 
 To export the configuration file of a virtual machine:
 
 ----
-# virsh dumpxml <virtual machine (name | id | uuid)
+$ virsh dumpxml <virtual machine (name | id | uuid)
 ----
 
 For a complete list of commands available for use with `virsh`:
 
 ----
-# virsh help
+$ virsh help
 ----
 
 Or consult the manual page: `man virsh`.
