@@ -64,6 +64,9 @@ Group: Virtualization
 ----
 
 . Run the following command to install the mandatory and default packages in the virtualization group:
++
+[source,shell,subs="attributes"]
+----
 $ sudo dnf install @virtualization
 ----
 +
