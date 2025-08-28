@@ -1,7 +1,7 @@
 = Upgrading Fedora Linux Using DNF System Plugin
 Michael Wu; Anthony McGlone; The Fedora Docs team
-:revnumber: F38, F39, F40
-:revdate: 2024-04-25
+:revnumber: F42
+:revdate: 2025-08-28
 :category: Administration
 :tags: How-to, Upgrade, Update 
 :page-aliases: dnf-system-upgrade.adoc
@@ -347,7 +347,7 @@ Only follow these steps if you encounter problems with your upgraded system.
 === Rebuilding the RPM database
 
 If you see warnings when working with RPM/DNF tools, your database might be corrupt.
-It is possible to rebuild it to see if resolves your issues. Always back up `/var/lib/rpm/` first.
+It is possible to rebuild it to see if resolves your issues. Always back up `/usr/lib/sysimage/rpm` first.
 To rebuild the database, run:
 
 [source,bash]
