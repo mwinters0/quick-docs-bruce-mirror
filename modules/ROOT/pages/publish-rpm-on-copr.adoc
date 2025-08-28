@@ -14,7 +14,7 @@ This is a short tutorial on how to create and maintain a Copr repository for you
 
 In this guide, we'll
 
-- create a RPM package for a program
+- create an RPM package for a program
 
 - create a Copr repository and publish the program to it
 
