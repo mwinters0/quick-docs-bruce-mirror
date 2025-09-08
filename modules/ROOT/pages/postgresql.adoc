@@ -269,7 +269,7 @@ As soon as you are able to connect, turn on the security systems one by
 one while verifying the connection can be established.
 
 For more information see official documentation for
-link:#link-pghba[pg_hba.conf file].
+https://www.postgresql.org/docs/current/auth-pg-hba-conf.html[pg_hba.conf file].
 
 [[optimization]]
 == Optimization
