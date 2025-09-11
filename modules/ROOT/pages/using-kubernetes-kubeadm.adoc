@@ -19,7 +19,8 @@ This guide is not intended to create a production environment.
 
 The guide below generally follows and substantially borrows from the link:https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/[Creating a cluster with kubeadm] guide created by the Kubernetes team.
 
-Fedora 41 has both versioned (v1.29, v1.30, v1.31) and unversioned (v1.29) Kubernetes rpms. We recommend using the versioned rpms as we do not experience the CrashLoopBackoff problem with CoreDNS noted below.
+Fedora 41 has both versioned and unversioned (v1.29) Kubernetes rpms.
+Kubernetes 1.29 is no longer supported by the Kubernetes community.
 
 . Update system with DNF.
 Reboot if necessary, although a reboot can be deferred until after the next step.
@@ -127,11 +128,13 @@ sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables ne
 . Install a link:https://kubernetes.io/docs/setup/production-environment/container-runtimes/[container runtime].
 CRI-O is installed in this example.
 Containerd is also an option.
-Note: If using cri-o, verify that the major:minor version of cri-o is the same as the version of Kubernetes (installed below).
+Note: If using CRI-O, verify that the major:minor version of cri-o is the same as the version of Kubernetes (installed below).
+CRI-O rpms are versioned like Kubernetes rpms.
+Install the CRI-O version that matches the target Kubernetes version.
 +
 [source,bash]
 ----
-sudo dnf install cri-o containernetworking-plugins
+sudo dnf install cri-o1.31 containernetworking-plugins
 ----
 
 . Check for available Kubernetes versions.
@@ -164,10 +167,6 @@ Please see the notes above on recommended packages for control plane or worker n
 +
 [source,bash]
 ----
-# Fedora 40 use:
-sudo dnf install kubernetes kubernetes-kubeadm kubernetes-client
-
-# Fedora 41 and later use (using Kubernetes 1.31 as example):
 sudo dnf install kubernetes1.31 kubernetes1.31-kubeadm kubernetes1.31-client
 ----
 
@@ -267,10 +266,10 @@ See link:https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upg
 The xref:dnf.adoc#sect-using-dnf-plugin[DNF Versionlock plugin] is useful in blocking unplanned updates to Kubernetes rpms.
 Occasionally, the Kubernetes version in a Fedora release reaches end-of-life and a new version of Kubernetes is added to the repositories.
 Or, an upgrade to Fedora on a cluster machine will also result in a different version of Kubernetes.
-Once DNF Versionlock is installed, the following command will hold kubernetes rpms and the cri-o rpm at the 1.28 major:minor version but still allow patch updates to occur:
+Once DNF Versionlock is installed, the following command will hold kubernetes rpms and the cri-o rpm at the 1.31 major:minor version but still allow patch updates to occur:
 [source,bash]
 ----
-sudo dnf versionlock add kubernetes*-1.28.* cri-o-1.28.*
+sudo dnf versionlock add kubernetes*-1.31.* cri-o-1.31.*
 ----
 
 [cluster-creation-troubleshooting]

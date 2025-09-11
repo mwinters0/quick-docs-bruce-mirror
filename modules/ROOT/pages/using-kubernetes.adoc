@@ -13,13 +13,13 @@ include::partial$3rdparty-message.adoc[]
 [[sect-overview]]
 == Overview
 
-This guide provides useful information about link:https://kubernetes.io[Kubernetes] and the Kubernetes rpms available from Fedora.
+This guide provides information about link:https://kubernetes.io[Kubernetes] and the Kubernetes rpms available from Fedora.
 
-Starting with Fedora 41 the packaging standard for Kubernetes changed from one version of Kubernetes for each Fedora release (_non-versioned_ rpms) to all versions of Kubernetes available for each release of Fedora (_versioned_ rpms - with availability subject to a link:https://go.dev[Golang] language constraint).
-These changes are documented here, including what changed, and how installation of these rpms has been affected.
+All currently supported versions of Kubernetes are available in each Fedora release (subject to a possible link:https://go.dev[Golang] language constraint).
+
 A short guide on creating a Kubernetes cluster using ```kubeadm``` is included, as a short introduction to Kubernetes for those new to this technology stack.
 
-The guide also touches on an alternative source for Kubernetes rpms available in link:https://copr.fedorainfracloud.org[COPR] and potential benefits.
+The guide also touches on an alternative source for Kubernetes rpms available in link:https://copr.fedorainfracloud.org[COPR] and potential uses.
 
 [[sect-what-is-kubernetes]]
 === What is Kubernetes?
@@ -32,7 +32,8 @@ Kubernetes is now at the center of a vast ecosystem of products and services (li
 
 Kubernetes can be used in a home lab on a single machine, a small cluster for home or business automation, edge-based services and applications in remote offices or enterprise scale production workloads in the cloud.
 
-This guide is narrowly focused on the Kubernetes rpms available from Fedora and using `dnf` and the command line to install these rpms on Fedora and create a basic cluster using `kubeadm`.
+This guide is focused on the Kubernetes rpms available from Fedora and using `dnf` and the command line to install these rpms on Fedora and create a basic cluster using `kubeadm`.
+A short section on versioned rpms for link:https://cri-o.io[CRI-O] and link:https://github.com/kuberb    etes/cri-tools[CRI-Tools] is included.
 
 Please visit the xref:virtualization-an-overview.adoc[Fedora Quick Docs Virtualization Guide] to learn more about containers and other virtualization technologies and their availability in Fedora.
 
@@ -44,9 +45,6 @@ Please visit the xref:virtualization-an-overview.adoc[Fedora Quick Docs Virtuali
 |xref:using-kubernetes-basics.adoc[Basics]
 |A brief overview of Kubernetes for those new to the technology along with a terminology table.
 
-|xref:using-kubernetes-non-versioned.adoc[Non-versioned rpms - Fedora 40 and older]
-|The guide to the legacy, non-versioned rpm format for Kubernetes in Fedora 41, 40, and 39.
-
 |xref:using-kubernetes-versioned.adoc[Versioned rpms - Fedora 41 and newer]
 |The guide to the versioned rpm format for Kubernetes in Fedora 41 and newer.
 
@@ -54,10 +52,10 @@ Please visit the xref:virtualization-an-overview.adoc[Fedora Quick Docs Virtuali
 | A brief guide to ```kubelet``` configuration methods.
 
 |xref:using-kubernetes-kubeadm.adoc[Create a cluster]
-|The guide to using ```kubeadm``` to instantiate a Kubernetes cluster on a single Fedora machine for exploration, testing, and development.
+|A guide to using ```kubeadm``` to instantiate a Kubernetes cluster on a single Fedora machine for exploration, testing, and development.
 
 |xref:using-kubernetes-cri-o.adoc[CRI-O and CRI-Tools]
-|The guide to the new versions of link:https://cri-o.io[CRI-O] and link:https://github.com/kuberbetes/cri-tools[CRI-Tools] available in Fedora 41 and newer.
+|A guide to the versions of link:https://cri-o.io[CRI-O] and link:https://github.com/kuberbetes/cri-tools[CRI-Tools] available in Fedora 41 and newer.
 
 |===
 

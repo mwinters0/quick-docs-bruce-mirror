@@ -13,18 +13,18 @@ include::partial$3rdparty-message.adoc[]
 [[sect-overview]]
 == Overview
 
-link:https://cri-o.io[CRI-O] and link:https://github.com/kubernetes-sigs/cri-tools[CRI-Tools] are independent software packages available in Fedora repositories that are version matched to Kubernetes. If Kubernetes 1.30 is installed, then, when installed, CRI-O and CRI-Tools should also have the same minor version, _i.e_ 1.30.
+link:https://cri-o.io[CRI-O] and link:https://github.com/kubernetes-sigs/cri-tools[CRI-Tools] are independent software packages available in Fedora repositories that are version matched to Kubernetes. If Kubernetes 1.34 is installed, then, when installed, CRI-O and CRI-Tools should also have the same minor version, _i.e_ 1.34.
 
 [[sect-cri-o]]
 == CRI-O
 
 The **C**ontainer **R**untime **I**nterface(link:https://kubernetes.io/docs/concepts/architecture/cri/[CRI]) is the plugin interface used by the ```kubelet``` to communicate with the container runtime on each node that launches pods and their containers. There are several implementations of CRI including link:https://cri-o.io[CRI-O] and link://https://containerd.io/[containerd].
 
-CRI-O is available in Fedora repositories as versioned rpms in parallel with Kubernetes. If kubernetes1.30 is installed and CRI-O is the designated CRI implementation, then cri-o1.30 needs to be installed.
+CRI-O is available in Fedora repositories as versioned rpms in parallel with Kubernetes. If kubernetes1.34 is installed and CRI-O is the designated CRI implementation, then cri-o1.34 needs to be installed.
 
 === Configuration
 
-CRI-O configuration options are set in `/etc/crio/crio.conf`. This file is managed by rpm and therefore replaced when a versioned CRI-O package is replaced by another package (not counting patch level updates) such as when the cri-o1.30 rpm is replaced by the cri-o1.31 rpm. One method to create and manage custom CRI-O conifiguration settings that persist across updates is to take advantage of CRI-O support for a drop-in configuration. The default drop-in subdirectory is `/etc/crio/crio.conf.d/`. Settings in configuration files placed in the drop-in directory take precedence over the same setting in the default configuration file `/etc/crio/crio.conf`. If multiple drop-in configuration files have the same setting, the file that is sorted last in lexical order will have precedence. See link:https://github.com/cri-o/cri-o/blob/main/docs/crio.conf.d.5.md[crio.conf.d] man file for additional information.
+CRI-O configuration options are set in `/etc/crio/crio.conf`. This file is managed by rpm and therefore replaced when a versioned CRI-O package is replaced by another package (not counting patch level updates) such as when the cri-o1.34 rpm is replaced by the cri-o1.31 rpm. One method to create and manage custom CRI-O conifiguration settings that persist across updates is to take advantage of CRI-O support for a drop-in configuration. The default drop-in subdirectory is `/etc/crio/crio.conf.d/`. Settings in configuration files placed in the drop-in directory take precedence over the same setting in the default configuration file `/etc/crio/crio.conf`. If multiple drop-in configuration files have the same setting, the file that is sorted last in lexical order will have precedence. See link:https://github.com/cri-o/cri-o/blob/main/docs/crio.conf.d.5.md[crio.conf.d] man file for additional information.
 
 See xref:using-kubernetes-kubelet.adoc[Resilient kubelet configuration] for related `kublet` configuration options.
 
@@ -33,4 +33,9 @@ See xref:using-kubernetes-kubelet.adoc[Resilient kubelet configuration] for rela
 
 link:https://github.com/kubernetes-sigs/cri-tools/[CRI-Tools] is a command line interface to any implementation of the CLI. CRI-Tools is available from the Kubernetes team. It is required when using ```kubeadm``` to initialize a cluster.
 
-CRI-Tools is available in Fedora repositories as versioned rpms in parallel with Kubernetes. If kubernetes1.30 and kubernetes1.30-kubeadm are installed then cri-tools1.30 needs to be installed.
+CRI-Tools is available in Fedora repositories as versioned rpms in parallel with Kubernetes. If kubernetes1.34 and kubernetes1.34-kubeadm are installed then cri-tools1.34 needs to be installed.
+
+[[sect-retirement]]
+== Retirement
+
+Versioned packages for CRI-O and CRI-Tools are retired from Fedora repositories when the corresponding Kubernetes version is retired. See xref:using-kubernetes-versioned.adoc#sect-retirement[Versioned rpm retirement policy] for additional information.
