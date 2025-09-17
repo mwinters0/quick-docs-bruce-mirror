@@ -3,7 +3,8 @@ Anthony McGlone
 :revnumber: F37
 :revdate: 2023-01-05
 :category: Administration
-:tags: How-to, DNF, Application, Software-Installation  
+:tags: How-to, DNF, Application, Software-Installation
+:url-40: https://docs.fedoraproject.org/en-US/fedora/f40/system-administrators-guide/package-management/DNF/#sec-Setting_repository_Options
 //:page-aliases: 
 
 include::partial$attributes.adoc[]
@@ -19,7 +20,7 @@ This section describes how to add software repositories with the `dnf config-man
 
 * To add a new repository, do the following as `*root*`.
 
-. Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory. For details about various options to use in the `.repo` file, see the xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc#sec-Setting_repository_Options[Setting [repository\] Options] section in the System Administrator's Guide
+. Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory. For details about various options to use in the `.repo` file, see the {url-40}[Setting [repository\] Options] section in the System Administrator's Guide
 
 . Add the repository with `--add-repo`, where *_repository_* is the file path:
 +
@@ -38,7 +39,7 @@ dnf config-manager --add-repo /tmp/fedora_extras.repo
 
 * To add a new repository, do the following as `*root*`.
 
-. Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory. For details about various options to use in the `.repo` file, see the xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc#sec-Setting_repository_Options[Setting [repository\] Options] section in the System Administrator's Guide
+. Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory. For details about various options to use in the `.repo` file, see the {url-40}[Setting [repository\] Options] section in the System Administrator's Guide
 
 . Add the repository with `addrepo`, where *_repository_* is the file path:
 +
