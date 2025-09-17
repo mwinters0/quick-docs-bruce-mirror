@@ -20,7 +20,7 @@ To discover what firmware your machine uses, run the following command:
 
 [source,bash]
 ----
-$ [ -d /sys/firmware/efi ] && echo UEFI || echo BIOS
+[ -d /sys/firmware/efi ] && echo UEFI || echo BIOS
 ----
 
 The output returns only UEFI or BIOS, depending on the firmware your machine runs.
@@ -35,9 +35,11 @@ This procedure shows the steps to install *GRUB2* on your _Master Boot Record_ (
 .Before you start
 
 * Make sure you have the the *GRUB2* packages and the _os-prober_ package installed in your system.
-+   
++
+
+[source,bash]
 ----
-$ dnf list installed | grep grub
+dnf list installed | grep grub
 ----
 
 * To automatically collect information about your disks and operating systems installed on them, the `os-prober` package needs to be installed on your system.
@@ -46,22 +48,25 @@ $ dnf list installed | grep grub
 
 . List block devices available on the system.
 +
+[source, bash]
 ----
-$ lsblk
+lsblk
 ----  
 
 . Identify the primary hard disk. Usually, it is the `sda` device.
 
 . Install *GRUB2* in the MBR of the primary hard disk.
 +
+[source, bash]
 ----
-# grub2-install /dev/sda
+grub2-install /dev/sda
 ----
 
 . Create a configuration file for *GRUB2*.
 +
+[source, bash]
 ----
-# grub2-mkconfig -o /boot/grub2/grub.cfg
+grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
 
 . Reboot your computer to boot with the newly installed bootloader.
@@ -89,34 +94,39 @@ a disk with a GPT label. To create such a partition:
 
 . List available block devices to find a place to create your ESP.
 +
+[source, bash]
 ----
-$ lsblk -f -p
+lsblk -f -p
 ----
 
 . Create at least a 128 MiB disk partition using a GPT label on the primary hard disk.
 +
+[source, bash]
 ----
-# gdisk /dev/sda
+gdisk /dev/sda
 ----
 +
 For the sake of this procedure, we assume that the created partition is recognized as `/dev/sda1`.
 
 . Format the partition with the _FAT32_ file system.
 +
+[source, bash]
 ----
-# mkfs.vfat /dev/sda1
+mkfs.vfat /dev/sda1
 ----
 
 . Create the `/boot/efi` directory as a mount point for the new partition.
 +
+[source, bash]
 ----
-# mkdir /boot/efi
+mkdir /boot/efi
 ----
 
 . Mount the partition to the `/boot/efi` mount point. 
 +
+[source, bash]
 ----
-# mount /dev/sda1 /boot/efi
+mount /dev/sda1 /boot/efi
 ----
 
 . Proceed to the next part.
@@ -130,14 +140,18 @@ In order to use *GRUB2* with on UEFI systems, you need to install necessary pack
 
 . Re-install the necessary packages.
 +
+
+[source, bash]
 ----
-# dnf reinstall grub2-efi grub2-efi-modules shim-\*
+dnf reinstall grub2-efi grub2-efi-modules shim-\*
 ----
 
 . If the above command ends with an error, install the packages.
 +
+
+[source, bash]
 ----
-# dnf install grub2-efi grub2-efi-modules shim-\*
+dnf install grub2-efi grub2-efi-modules shim-\*
 ----
 
 .More information
@@ -153,17 +167,19 @@ If you already have a working *GRUB2* EFI configuration file, you do not need to
 
 Otherwise, create the configuration file using the `grub2-mkconfig` command. 
 
+[source, bash]
 ----
-# grub2-mkconfig -o /boot/grub2/grub.cfg
+grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
 
 .More information
 
 * Under EFI, *GRUB2* looks for its configuration in `/boot/efi/EFI/fedora/grub.cfg`, however the postinstall script of `grub2-common` installs a small shim which chains to the standard configuration at `/boot/grub2/grub.cfg` which is generated above. To reset this shim to defaults, delete the existing `/boot/efi/EFI/fedora/grub.cfg` and then reinstall `grub2-common`.
 +
+[source, bash]
 ----
-# rm -f /boot/efi/EFI/fedora/grub.cfg
-# dnf reinstall grub2-common
+rm -f /boot/efi/EFI/fedora/grub.cfg
+dnf reinstall grub2-common
 ----
 +
 * For newly installed kernels to work, `grubby` expects `/etc/grub2-efi.cfg` to be a symlink to the real `grub.cfg` (for example `/boot/grub2/grub.cfg`).
@@ -218,20 +234,23 @@ Adding other records into the *GRUB2* menu only means to run `grub2-mkconfig` co
 
 . Recreate the *GRUB2* configuration file.
 +
+[source, bash]
 ----
-# grub2-mkconfig -o /boot/grub2/grub.cfg
+grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
 
 . Install *GRUB2*.
 * On UEFI systems.
 +
+[source, bash]
 ----
-# dnf reinstall shim-\* grub2-efi-\* grub2-common
+dnf reinstall shim-\* grub2-efi-\* grub2-common
 ----
 * On BIOS systems, specify the disk where the bootloader should be installed.
 +
+[source, bash]
 ----
-# grub2-install /dev/sda
+grub2-install /dev/sda
 ----
 
 .More information
@@ -248,6 +267,7 @@ Since `grub2-mkconfig` (and *os-prober*) cannot estimate which operating system,
 
 . Open `/etc/default/grub` and make sure these lines exist in the file.
 +
+[source, bash]
 ----
 GRUB_DEFAULT=saved
 GRUB_SAVEDEFAULT=false
@@ -255,28 +275,32 @@ GRUB_SAVEDEFAULT=false
 
 . If you needed to change the content of the `/etc/default/grub`, apply the changes to `grub.cfg`.
 +
+[source, bash]
 ----
-# grub2-mkconfig -o /boot/grub2/grub.cfg
+grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
 
 .Procedure
 
 . List all possible menu entries.
 +
+[source, bash]
 ----
-# grep -P "^menuentry" /boot/grub2/grub.cfg | cut -d "'" -f2
+grep -P "^menuentry" /boot/grub2/grub.cfg | cut -d "'" -f2
 ----
 
 . Select one of the displayed options and use it as an argument to set the default menu entry.
 +
+[source, bash]
 ----
-# grub2-set-default <menuentry>
+grub2-set-default <menuentry>
 ----
 
 . Verify the default menu entry
 +
+[source, bash]
 ----
-# grub2-editenv - list
+grub2-editenv - list
 ----
 
 . Regenerate the *GRUB2* configuration file and reinstall the bootloader into the MBR, as described in link:#adding-other-operating-systems-grub2[Adding other operating systems to the *GRUB2* menu].
@@ -286,6 +310,7 @@ GRUB_SAVEDEFAULT=false
 If you understand the risks involved, you can manually modify the `/boot/grub2/grub.cfg` file. In that case, set the number of the default operating system using the `set default` variable.
 
 For example:
+[source, bash]
 ----
 set default="5"
 ----
@@ -321,22 +346,25 @@ bootable by *GRUB2*.
 
 . Examine the partition layout and identify the `/boot` and the `/root` partition.
 +
+[source, bash]
 ----
-# lsblk -f -p
+lsblk -f -p
 ----
 
 . If your `/root` partition is encrypted by LUKS, it must be decrypted.
 
 .. Make sure the crypt module is in use.
 +
+[source, bash]
 ----
-# modprobe dm-crypt
+modprobe dm-crypt
 ----
 
 .. Decrypt the `/root` partition (e.g. `/dev/sda3`).
 +
+[source, bash]
 ----
-# cryptsetup luksOpen /dev/sda3 myvolume
+cryptsetup luksOpen /dev/sda3 myvolume
 ----
 +
 The decrypted device (i.e. `myvolume`) will be accessible under `/dev/mapper`.
@@ -347,95 +375,110 @@ The decrypted device (i.e. `myvolume`) will be accessible under `/dev/mapper`.
 +
 * For LUKS.
 +
+[source, bash]
 ----
-# mount /dev/mapper/myvolume /mnt -o subvol=root
+mount /dev/mapper/myvolume /mnt -o subvol=root
 ----
 +
 * For non-LUKS.
 +
+[source, bash]
 ----
-# mount /dev/sda3 /mnt -o subvol=root
+mount /dev/sda3 /mnt -o subvol=root
 ----
 
 . Follow the LVM steps (used by default before Fedora 33).
 
 .. Scan the LVM volumes for the volume group corresponding to the `/root` partition.
 +
+[source, bash]
 ----
-# vgscan
+vgscan
 ----
 +
+[source, bash]
 .. Activate the volume group (e.g. `fedora`).
 +
+[source, bash]
 ----
-# vgchange -ay fedora
+vgchange -ay fedora
 ----
 +
 .. Find the logical volume corresponding to `/root`.
 +
+[source, bash]
 ----
-# lvs
+lvs
 ----
 +
 The logical volume will be accessible under `/dev/mapper`.
 +
 .. Mount the logical volume (e.g. `/dev/mapper/fedora-root`) corresponding to the `/root` partition.
 +
+[source, bash]
 ----
-# mount /dev/mapper/fedora-root /mnt
+mount /dev/mapper/fedora-root /mnt
 ----
 
 . Mount the `/boot` partition (e.g. `/dev/sda2`).
 +
+[source, bash]
 ----
-# mount /dev/sda2 /mnt/boot
+mount /dev/sda2 /mnt/boot
 ----
 +
 . Mount system processes and devices into the `/root` filesystem.
 +
+[source, bash]
 ----
-# mount -o bind /dev /mnt/dev
-# mount -o bind /proc /mnt/proc
-# mount -o bind /sys /mnt/sys
-# mount -o bind /run /mnt/run
+mount -o bind /dev /mnt/dev
+mount -o bind /proc /mnt/proc
+mount -o bind /sys /mnt/sys
+mount -o bind /run /mnt/run
 ----
 +
 . On UEFI systems, bind the `efivars` directory and mount the EFI system partition (e.g. `/dev/sda1`).
 +
+[source, bash]
 ----
-# mount -o bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
-# mount /dev/sda1 /mnt/boot/efi
+mount -o bind /sys/firmware/efi/efivars /mnt/sys/firmware/efi/efivars
+mount /dev/sda1 /mnt/boot/efi
 ----
 +
 . Change your filesystem to the one mounted under `/mnt`.
 +
+[source, bash]
 ----
-# chroot /mnt
+chroot /mnt
 ----
 +
 . Re-install *GRUB2*.
 
 * On UEFI systems, several packages are required.
 +
+[source, bash]
 ----
-# dnf reinstall shim-\* grub2-efi-\* grub2-common
+dnf reinstall shim-\* grub2-efi-\* grub2-common
 ----
 * On BIOS systems, specify the disk (e.g. `/dev/sda`) where *GRUB2* should be installed.
 +
+[source, bash]
 ----
-# grub2-install /dev/sda
+grub2-install /dev/sda
 ----
 +
 . Re-generate the *GRUB2* configuration file.
 +
+[source, bash]
 ----
-# grub2-mkconfig -o /boot/grub2/grub.cfg
+grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
 +
 . Sync and exit the chroot.
 +
+[source, bash]
 ----
-# sync && exit
+sync && exit
 ----
 +
 . Reboot the system.
@@ -639,6 +682,7 @@ Alternately, you can set this up manually:
 
 . Create the `/etc/grub.d/01_users` file and write the following lines into the file.
 +
+[source, bash]
 ----
 cat << EOF
 set superusers="root"
