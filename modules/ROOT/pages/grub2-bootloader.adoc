@@ -36,7 +36,6 @@ This procedure shows the steps to install *GRUB2* on your _Master Boot Record_ (
 
 * Make sure you have the the *GRUB2* packages and the _os-prober_ package installed in your system.
 +
-
 [source,bash]
 ----
 dnf list installed | grep grub
@@ -140,7 +139,6 @@ In order to use *GRUB2* with on UEFI systems, you need to install necessary pack
 
 . Re-install the necessary packages.
 +
-
 [source, bash]
 ----
 dnf reinstall grub2-efi grub2-efi-modules shim-\*
@@ -148,7 +146,6 @@ dnf reinstall grub2-efi grub2-efi-modules shim-\*
 
 . If the above command ends with an error, install the packages.
 +
-
 [source, bash]
 ----
 dnf install grub2-efi grub2-efi-modules shim-\*
