@@ -5,6 +5,8 @@ content:
   sources:
    - url: .
      branches: HEAD
+   - url: https://gitlab.com/fedora/docs/community-tools/documentation-contributors-guide.git
+     branches: main
 ui:
   bundle:
     url: https://gitlab.com/fedora/docs/docs-website/ui-bundle/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
