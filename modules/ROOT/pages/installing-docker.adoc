@@ -95,7 +95,7 @@ This provides Compose v2 features and capabilities.
 
 [source,bash]
 ----
-sudo dnf install docker-switch
+sudo dnf install docker-compose-switch
 ----
 
 === Podman Alternatives
