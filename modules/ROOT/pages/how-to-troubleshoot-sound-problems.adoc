@@ -31,21 +31,21 @@ To display kernel drivers handling each device, use the lspci (List PCI) command
 
 [source,bash]
 ----
-$ sudo lspci -k
+sudo lspci -k
 ----
 
 New hardware drivers are updated continuously. If you see a device listed as unknown, query your PCI device ID database.
 
 [source,bash]
 ----
-$ sudo lspci -Q
+sudo lspci -Q
 ----
 
 And update your local PCI ID database by running the command update-pciids.
 
 [source,bash]
 ----
-$ sudo update-pciids
+sudo update-pciids
 ----
 
 === ALSA Firmware
@@ -56,7 +56,7 @@ See which firmware is in use by running the following command.
 
 [source,bash]
 ----
-$ sudo dnf list alsa-firmware
+sudo dnf list alsa-firmware
 ----
 
 The regular ALSA Firmware will appear <alsa-firmware.noarch>.
@@ -65,7 +65,7 @@ If the regular firmware is not on the output, install the alsa-firmware.
 
 [source,bash]
 ----
-$ sudo dnf install alsa-firmware
+sudo dnf install alsa-firmware
 ----
 
 If any other firmware is installed, put them on blocklist on configuration directory for modprobe.
@@ -84,14 +84,14 @@ The dracut tool creates an initial image used by the kernel for preloading the b
 
 [source,bash]
 ----
-$ sudo dracut -f
+sudo dracut -f
 ----
 
 Reboot your computer for the change to take effect.
 
 [source,bash]
 ----
-$ sudo reboot
+sudo reboot
 ----
 
 === Hardware information
@@ -100,7 +100,7 @@ It is always useful to include detailed information on your sound hardware when 
 
 [source,bash]
 ----
-$ alsa-info.sh --no-upload
+alsa-info.sh --no-upload
 ----
 
 It will generate a file containing detailed information about your sound hardware with the name /tmp/alsa-info.txt. Attach this file to your bug report.
@@ -163,7 +163,7 @@ Make sure the necessary PipeWire components are installed and working correctly.
 
 [source, bash]
 ----
-$ sudo dnf reinstall pipewire pipewire-pulseaudio pipewire-alsa wireplumber
+sudo dnf reinstall pipewire pipewire-pulseaudio pipewire-alsa wireplumber
 ----
 
 Then reboot your system.
@@ -174,20 +174,20 @@ Ensure that the PipeWire and WirePlumber services are active.
 
 [source, bash]
 ----
-$ systemctl --user status pipewire
-$ systemctl --user status pipewire-pulse
-$ systemctl --user status wireplumber
+systemctl --user status pipewire
+systemctl --user status pipewire-pulse
+systemctl --user status wireplumber
 ----
 
 If they are not running, start and enable them:
 
 [source, bash]
 ----
-$ systemctl --user enable --now pipewire.socket
-$ systemctl --user enable --now pipewire-pulse.socket
-$ systemctl --user start  pipewire
-$ systemctl --user start  pipewire-pulse
-$ systemctl --user enable --now wireplumber
+systemctl --user enable --now pipewire.socket
+systemctl --user enable --now pipewire-pulse.socket
+systemctl --user start  pipewire
+systemctl --user start  pipewire-pulse
+systemctl --user enable --now wireplumber
 ----
 
 === Step 3: Verify User Permissions
@@ -203,7 +203,7 @@ If `audio` is missing, add it:
 
 [source, bash]
 ----
-$ sudo usermod -aG audio $USER
+sudo usermod -aG audio $USER
 ----
 
 === Step 4: Reset configuration files
@@ -212,8 +212,8 @@ If the audio configuration is corrupted, you can reset it by moving the old conf
 
 [source, bash]
 ---- 
-$ mv ~/.config/pulse ~/.config/pulse_backup
-$ mv ~/.config/pipewire ~/.config/pipewire_backup
+mv ~/.config/pulse ~/.config/pulse_backup
+mv ~/.config/pipewire ~/.config/pipewire_backup
 ----
 
 Then reboot your system.
@@ -244,19 +244,24 @@ Use `btmon` to monitor Bluetooth traffic and look for *LE Advertising Report* ev
 
 [source, bash]
 ----
-  $ sudo btmon
-  Bluetooth monitor ver 5.81
-  LE Advertising Report (0x02)
-    Num reports: 1
-    Event type: Connectable undirected - ADV_IND (0x00)
-    Address type: Random (0x01)
-    Address: C4:9D:61:BC:E7:09 (Static)
-    Data length: 25
-    16-bit Service UUIDs (partial): 1 entry
-    Unknown (0xfd2a)
-    Company: Sony Corporation (301)
-    Data[17]: 13000130ed000000004001fffd1c91351c
-    RSSI: -40 dBm (0xd8)
+sudo btmon
+----
+
+Example Output:
+[source, bash]
+----
+Bluetooth monitor ver 5.81
+LE Advertising Report (0x02)
+Num reports: 1
+Event type: Connectable undirected - ADV_IND (0x00)
+Address type: Random (0x01)
+Address: C4:9D:61:BC:E7:09 (Static)
+Data length: 25
+16-bit Service UUIDs (partial): 1 entry
+Unknown (0xfd2a)
+Company: Sony Corporation (301)
+Data[17]: 13000130ed000000004001fffd1c91351c
+RSSI: -40 dBm (0xd8)
 ----
 
 * LE Advertising Report indicates the device is actively broadcasting (advertising).
@@ -269,18 +274,23 @@ As a next step, run the `bluetoothctl show` command to display the current statu
 
 [source, bash]
 ----
-  $ bluetoothctl show
-    Controller A0:C5:89:3B:26:52 (public)
-    Manufacturer: 0x0002 (2)
-    Version: 0x08 (8)
-    Name: hanku
-    Alias: hanku
-    Class: 0x007c010c (8126732)
-    Powered: yes
-    PowerState: on
-    Discoverable: yes
-    DiscoverableTimeout: 0x000000b4 (180)
-    Pairable: yes
+bluetoothctl show
+----
+
+Example Output:
+[source, bash]
+----
+Controller A0:C5:89:3B:26:52 (public)
+Manufacturer: 0x0002 (2)
+Version: 0x08 (8)
+Name: hanku
+Alias: hanku
+Class: 0x007c010c (8126732)
+Powered: yes
+PowerState: on
+Discoverable: yes
+DiscoverableTimeout: 0x000000b4 (180)
+Pairable: yes
 ----
 
 This is useful for checking if your Bluetooth adapter is properly initialized and ready for scanning, pairing, or connecting to devices.
@@ -291,17 +301,22 @@ To continue, start the Bluetooth control tool to list Bluetooth devices and thei
 
 [source, bash]
 ----
-  $ bluetoothctl
-    Agent registered
-    [CHG] Device 40:19:20:19:69:9F RSSI: 0xffffffb9 (-71)
-    [CHG] Device 28:6B:B4:40:2F:87 RSSI: 0xffffffbd (-67)
-    [CHG] Device 28:6B:B4:4C:82:E5 RSSI: 0xffffffb9 (-71)
-    [WF-C710N]> scan on
-    SetDiscoveryFilter success
-    Discovery started
-    [DEL] Device C4:9D:61:BC:E7:09 LE_WF-C710N
-    [NEW] Device C4:9D:61:BC:E7:09 LE_WF-C710N
-    [WF-C710N]> 
+bluetoothctl
+----
+
+Example Output:
+[source, bash]
+----
+Agent registered
+[CHG] Device 40:19:20:19:69:9F RSSI: 0xffffffb9 (-71)
+[CHG] Device 28:6B:B4:40:2F:87 RSSI: 0xffffffbd (-67)
+[CHG] Device 28:6B:B4:4C:82:E5 RSSI: 0xffffffb9 (-71)
+[WF-C710N]> scan on
+SetDiscoveryFilter success
+Discovery started
+[DEL] Device C4:9D:61:BC:E7:09 LE_WF-C710N
+[NEW] Device C4:9D:61:BC:E7:09 LE_WF-C710N
+[WF-C710N]> 
 ----
 
 Here's a summary of what's happening in your bluetoothctl session:
@@ -350,14 +365,18 @@ NOTE: If the device never appears in scans (no MAC shown), this is often **not s
 
 [source, bash]
 ----
-  $ bluetoothctl
-    power on
-    agent on
-    default-agent
-    scan on
-    pair <MAC>
-    trust <MAC>
-    connect <MAC>
+bluetoothctl
+----
+
+Example `bluetoothctl` commands:
+----
+ power on
+ agent on
+ default-agent
+ scan on
+ pair <MAC>
+ trust <MAC>
+ connect <MAC>
 ----
 
 *Fix*
@@ -366,14 +385,14 @@ NOTE: If the device never appears in scans (no MAC shown), this is often **not s
 
 [source, bash]
 ----
-$ bluetoothctl remove <MAC>
+bluetoothctl remove <MAC>
 ----
 
 * Restart Bluetooth service.
 
 [source, bash]
 ----
-$ sudo systemctl restart bluetooth
+sudo systemctl restart bluetooth
 ----
 
 For some devices, make sure to hold the pairing button until rapid blinking starts.
@@ -391,32 +410,30 @@ For some devices, make sure to hold the pairing button until rapid blinking star
 
 [source, bash]
 ----
-$ pactl info | grep Server
+pactl info | grep Server
 ----
 
 Example Output:
-
 [source, bash]
 ----
-  Server String: /run/user/1000/pulse/native
-  Server Protocol Version: 35
-  Server Name: PulseAudio (on PipeWire 1.4.2)
-  Server Version: 15.0.0
+Server String: /run/user/1000/pulse/native
+Server Protocol Version: 35
+Server Name: PulseAudio (on PipeWire 1.4.2)
+Server Version: 15.0.0
 ----
 
 This output shows that the system is using the PulseAudio compatibility layer on top of PipeWire. To further inspect the audio setup, the command `pactl list cards short` provides a concise summary of all audio cards recognized by PulseAudio. It’s useful for quickly identifying available audio devices without diving into detailed properties.
 
 [source, bash]
 ----
-$ pactl list cards short
+pactl list cards short
 ----
 
 Example Output:
-
 [source, bash]
 ----
-  42 alsa_card.pci-0000_00_1f.3 alsa
-  1092 bluez_card.14_06_A7_04_73_78 module-bluez5-device.c
+42 alsa_card.pci-0000_00_1f.3 alsa
+1092 bluez_card.14_06_A7_04_73_78 module-bluez5-device.c
 ----
 
 The absence of Bluetooth-related cards (in the format bluez_card.XX_XX_XX_XX_XX_XX) in the output of the `pactl list cards short` command indicates that one or more issues may be present.
@@ -425,21 +442,20 @@ Next, the command below filters the output of `pactl list cards` to only show li
 
 [source, bash]
 ----
-$ pactl list cards | grep -i 'profile\|name:'
+pactl list cards | grep -i 'profile\|name:'
 ----
 
 Example Output:
-
 [source, bash]
 ----
-  Name: alsa_card.pci-0000_00_1f.3
-  api.acp.auto-profile = "false"
-  Name: bluez_card.14_06_A7_04_73_78
-  bluez5.profile = "off"
-  Active Profile: a2dp-sink
-    Part of profile(s): headset-head-unit-cvsd, headset-head-unit
-    Part of profile(s): a2dp-sink-sbc, a2dp-sink-sbc_xq, a2dp-sink
-    Part of profile(s): headset-head-unit-cvsd, headset-head-unit
+Name: alsa_card.pci-0000_00_1f.3
+api.acp.auto-profile = "false"
+Name: bluez_card.14_06_A7_04_73_78
+bluez5.profile = "off"
+Active Profile: a2dp-sink
+  Part of profile(s): headset-head-unit-cvsd, headset-head-unit
+  Part of profile(s): a2dp-sink-sbc, a2dp-sink-sbc_xq, a2dp-sink
+  Part of profile(s): headset-head-unit-cvsd, headset-head-unit
 ----
 
 Line-by-Line Explanation:
