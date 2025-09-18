@@ -5,6 +5,9 @@ content:
   sources:
    - url: .
      branches: HEAD
+   - url: https://pagure.io/fedora-server.git
+     branches: main
+     start-path: docs
 ui:
   bundle:
     url: https://gitlab.com/fedora/docs/docs-website/ui-bundle/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
