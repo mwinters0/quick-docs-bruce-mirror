@@ -19,7 +19,7 @@ The Bluetooth solution is composed of a userspace daemon, bluetoothd, that commu
 
 * make sure bluetooth was found and enabled (note hci0: and 'UP RUNNING'):
 +
-[source,]
+[source, console]
 ----
 $ hciconfig
 hci0:	Type: Primary  Bus: USB
@@ -31,7 +31,7 @@ hci0:	Type: Primary  Bus: USB
 
 * If the command returns nothing (no hci: info), then there is a hardware issue
 +
-[source,]
+[source, console]
 ----
 $ lsusb -v | grep Bluetooth | grep DeviceProtocol
 bDeviceProtocol         1 Bluetooth
@@ -41,7 +41,7 @@ bDeviceProtocol         1 Bluetooth
 
 * If the lsusb commands returns Bluetooth, then check for attached driver
 +
-[source,]
+[source, console]
 ----
 $ lsusb -t | grep Wireless
     |__ Port 4: Dev 4, If 1, Class=Wireless, Driver=btusb, 12M
@@ -52,14 +52,14 @@ $ lsusb -t | grep Wireless
 
 * If hciconfig shows output but not UP
 +
-[source,]
+[source, console]
 ----
 $ hciconfig up
 ----
 
 * List of paired devices:
 +
-[source,]
+[source, console]
 ----
 $ bluetoothctl
 [bluetooth]# show
@@ -71,7 +71,7 @@ $ bluetoothctl
 
 * Verify under systemd bluetooth is 'Active' and 'enabled'
 +
-[source,bash]
+[source, console]
 ----
 $ systemctl status bluetooth
 ● bluetooth.service - Bluetooth service
@@ -86,11 +86,11 @@ $ systemctl status bluetooth
 ----
 
 * Verify obex is configured to run (to transfer files from phone)
-+
-[source,bash]
+
+[source, console]
 ----
 $ systemctl --global --user is-enabled obex
-enabled
+  enabled
 ----
 
 == Simple debugging 
@@ -102,16 +102,20 @@ Most bluetooth problems happen in the bluez package (bluetoothd), ie the userspa
   * add `-d` to ExecStart line as option to bluetoothd
   * save and quit
 
-    $ systemctl daemon-reload
-    $ systemctl restart bluetooth
+[source, console]
+----
+$ systemctl daemon-reload
+$ systemctl restart bluetooth
+----
 
 Debugging is enabled and can help pinpoint where some of the bluetooth problems are
 
-* Capture the logs to put in bugzilla report
-+
+.Capture the logs to put in bugzilla report
 
-    $ journalctl -r -u bluetooth > /tmp/bluetoothd.out
-
+[source, console]
+----
+$ journalctl -r -u bluetooth > /tmp/bluetoothd.out
+----
 
 == Resolving firmware problems
 
