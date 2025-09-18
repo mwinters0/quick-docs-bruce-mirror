@@ -97,25 +97,20 @@ enabled
 
 Most bluetooth problems happen in the bluez package (bluetoothd), ie the userspace daemon.
 
-* Enabling bluetoothd debugging
-+
-[source,bash]
-----
-$ \<edit\> /usr/lib/systemd/system/bluetooth.service
-\<add '-d' to ExecStart line as option to bluetoothd\>
-\<save and quit\>
-$ systemctl daemon-reload
-$ systemctl restart bluetooth
-----
-+
+.Enabling bluetoothd debugging
+  * edit `/usr/lib/systemd/system/bluetooth.service`
+  * add `-d` to ExecStart line as option to bluetoothd
+  * save and quit
+
+    $ systemctl daemon-reload
+    $ systemctl restart bluetooth
+
 Debugging is enabled and can help pinpoint where some of the bluetooth problems are
 
 * Capture the logs to put in bugzilla report
 +
-[source,bash]
-----
-$ journalctl -r -u bluetooth > /tmp/bluetoothd.out
-----
+
+    $ journalctl -r -u bluetooth > /tmp/bluetoothd.out
 
 
 == Resolving firmware problems
