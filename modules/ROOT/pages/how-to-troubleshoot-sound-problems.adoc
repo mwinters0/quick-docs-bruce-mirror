@@ -31,21 +31,21 @@ To display kernel drivers handling each device, use the lspci (List PCI) command
 
 [source, console]
 ----
-sudo lspci -k
+$ sudo lspci -k
 ----
 
 New hardware drivers are updated continuously. If you see a device listed as unknown, query your PCI device ID database.
 
 [source, console]
 ----
-sudo lspci -Q
+$ sudo lspci -Q
 ----
 
 And update your local PCI ID database by running the command update-pciids.
 
 [source, console]
 ----
-sudo update-pciids
+$ sudo update-pciids
 ----
 
 === ALSA Firmware
@@ -56,7 +56,7 @@ See which firmware is in use by running the following command.
 
 [source, console]
 ----
-sudo dnf list alsa-firmware
+$ sudo dnf list alsa-firmware
 ----
 
 The regular ALSA Firmware will appear <alsa-firmware.noarch>.
@@ -65,17 +65,19 @@ If the regular firmware is not on the output, install the alsa-firmware.
 
 [source, console]
 ----
-sudo dnf install alsa-firmware
+$ sudo dnf install alsa-firmware
 ----
 
 If any other firmware is installed, put them on blocklist on configuration directory for modprobe.
 
+[source, console]
 ----
 /etc/modprobe.d/*.conf
 ----
 
 Add the line on configuration file.
 
+[source, console]
 ----
 blacklist <the module to blocklist>
 ----
@@ -84,14 +86,14 @@ The dracut tool creates an initial image used by the kernel for preloading the b
 
 [source, console]
 ----
-sudo dracut -f
+$ sudo dracut -f
 ----
 
 Reboot your computer for the change to take effect.
 
 [source, console]
 ----
-sudo reboot
+$ sudo reboot
 ----
 
 === Hardware information
@@ -100,7 +102,7 @@ It is always useful to include detailed information on your sound hardware when 
 
 [source, console]
 ----
-alsa-info.sh --no-upload
+$ alsa-info.sh --no-upload
 ----
 
 It will generate a file containing detailed information about your sound hardware with the name /tmp/alsa-info.txt. Attach this file to your bug report.
@@ -163,7 +165,7 @@ Make sure the necessary PipeWire components are installed and working correctly.
 
 [source, console]
 ----
-sudo dnf reinstall pipewire pipewire-pulseaudio pipewire-alsa wireplumber
+$ sudo dnf reinstall pipewire pipewire-pulseaudio pipewire-alsa wireplumber
 ----
 
 Then reboot your system.
@@ -174,20 +176,20 @@ Ensure that the PipeWire and WirePlumber services are active.
 
 [source, console]
 ----
-systemctl --user status pipewire
-systemctl --user status pipewire-pulse
-systemctl --user status wireplumber
+$ systemctl --user status pipewire
+$ systemctl --user status pipewire-pulse
+$ systemctl --user status wireplumber
 ----
 
 If they are not running, start and enable them:
 
 [source, console]
 ----
-systemctl --user enable --now pipewire.socket
-systemctl --user enable --now pipewire-pulse.socket
-systemctl --user start  pipewire
-systemctl --user start  pipewire-pulse
-systemctl --user enable --now wireplumber
+$ systemctl --user enable --now pipewire.socket
+$ systemctl --user enable --now pipewire-pulse.socket
+$ systemctl --user start  pipewire
+$ systemctl --user start  pipewire-pulse
+$ systemctl --user enable --now wireplumber
 ----
 
 === Step 3: Verify User Permissions
@@ -203,7 +205,7 @@ If `audio` is missing, add it:
 
 [source, console]
 ----
-sudo usermod -aG audio $USER
+$ sudo usermod -aG audio $USER
 ----
 
 === Step 4: Reset configuration files
@@ -212,8 +214,8 @@ If the audio configuration is corrupted, you can reset it by moving the old conf
 
 [source, console]
 ---- 
-mv ~/.config/pulse ~/.config/pulse_backup
-mv ~/.config/pipewire ~/.config/pipewire_backup
+$ mv ~/.config/pulse ~/.config/pulse_backup
+$ mv ~/.config/pipewire ~/.config/pipewire_backup
 ----
 
 Then reboot your system.
@@ -371,14 +373,14 @@ Example `bluetoothctl` prompt commands:
 
 [source, console]
 ----
-bluetoothctl remove <MAC>
+$ bluetoothctl remove <MAC>
 ----
 
 * Restart Bluetooth service.
 
 [source, console]
 ----
-sudo systemctl restart bluetooth
+$ sudo systemctl restart bluetooth
 ----
 
 For some devices, make sure to hold the pairing button until rapid blinking starts.
@@ -396,7 +398,7 @@ For some devices, make sure to hold the pairing button until rapid blinking star
 
 [source, console]
 ----
-pactl info | grep Server
+$ pactl info | grep Server
 ----
 
 Example Output:
@@ -413,7 +415,7 @@ This output shows that the system is using the PulseAudio compatibility layer on
 
 [source, console]
 ----
-pactl list cards short
+$ pactl list cards short
 ----
 
 Example Output:
@@ -430,7 +432,7 @@ Next, the command below filters the output of `pactl list cards` to only show li
 
 [source, console]
 ----
-pactl list cards | grep -i 'profile\|name:'
+$ pactl list cards | grep -i 'profile\|name:'
 ----
 
 Example Output:
