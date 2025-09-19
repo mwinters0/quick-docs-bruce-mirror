@@ -15,7 +15,7 @@ Gnome3 has already a screen recording functionality. Pressing Alt+Ctrl+Shift+R r
 === Increase the duration of screencast videos
 
 At just 30 seconds long the default length of screencast using this method isn’t ideal, particularly if you plan on making a lengthy video or need to demo a particular workflow or feature. It is possible to increase the duration of screencasts manually, by modifying the following gsettings string using the Terminal application:
-[source,]
+[,console]
 ----
 gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 60
 ----
@@ -34,7 +34,7 @@ Press 'Finish recording' to stop the recording. Recorded footage will be saved a
 == Byzanz
 
 Byzanz is a desktop recorder striving for ease of use. It can record to GIF images, Ogg Theora video - optionally with sound – and other formats. It is available in Fedora. To install execute
-[source,]
+[,console]
 ----
 % sudo dnf install byzanz
 ----

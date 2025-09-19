@@ -112,6 +112,7 @@ With that in mind, if you do have an end-of-life release installed on a system y
 
 Upgrading to pre-released versions of Fedora Linux can be enabled in Gnome software using the following command:
 
+[,console]
 ----
 gsettings set org.gnome.software show-upgrade-prerelease true
 ----
@@ -120,6 +121,7 @@ If the upgrade banner does not show after executing that command, terminating th
 
 Once the upgrade is complete, it is highly recommended to disable that function so you do not get unwanted future pre-releases. Running the same command in reverse accomplishes that:
 
+[,console]
 ----
 gsettings set org.gnome.software show-upgrade-prerelease false
 ----
@@ -133,6 +135,7 @@ If your installation is located on a 'specialized' storage device, be sure to co
 
 Upgrading to a pre-release version of Fedora KDE can be enabled in Discover. To do so, edit (or create, if it does not already exist) ~/.config/discoverrc to match the following:
 
+[source,]
 ----
 [DistroUpgrade]
 AllowPreRelease=true
@@ -143,6 +146,7 @@ If the upgrade banner does not show after executing that command, terminating th
 
 Once the upgrade is complete, it is highly recommended to disable that function so you do not get unwanted future pre-releases. Reverting the previous settings accomplishes that, as thus:
 
+[source,]
 ----
 [DistroUpgrade]
 AllowPreRelease=false
