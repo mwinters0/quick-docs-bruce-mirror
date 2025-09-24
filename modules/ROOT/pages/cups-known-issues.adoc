@@ -93,6 +93,22 @@ $ sudo update-crypto-policies --set DEFAULT:FEDORA32
 
 The policy change transitionally has an impact on devices found by cups-browsed, because the daemon prefers IPPS uris if they are reported as available by printer/server.
 
+=== Printed PDF has incorrectly printed characters
+
+Sometimes PDF support in printer does not work correctly, which ends up in garbled output. If the printer driver supports rasterization as well, there is possibility to force rasterization for the new print job this way:
+
+----
+$ lp -d <printer> -o print-as-raster <file>
+----
+
+or set the rasterization such printer by default:
+
+----
+$ lpadmin -p <printer> -o print-as-raster-default=true
+----
+
+. However be aware some of IPP functionality is expected to do not work with rasterization, f.e. finishings, so the best way of solving such issues is to contact your printer manufacturer and ask for updating printer's PDF support.
+
 == HPLIP
 
 First I would like to mention that we are not responsible for support HPLIP, which is downloaded and installed from HP website. Please install hplip rpms from official Fedora repositories at most cases.
