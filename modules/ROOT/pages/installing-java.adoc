@@ -1,7 +1,7 @@
 = Installing Java
-Héctor Louzao; Ankur Sinha ; alciregi 
-:revnumber: F39
-:revdate: 2023-11-28
+Héctor Louzao; Ankur Sinha ; alciregi; Nico Shetty
+:revnumber: F42
+:revdate: 2025-9-24
 :category: Software installation
 :tags: How-to, Programming languages, Java
 //:page-aliases: 
@@ -22,9 +22,9 @@ Most Java applications run on one of the following:
 
 You can find the following Versions:
 
-* The Long Term Support `LTS` Versions, currently 1.8, 11, 17
+* The Long Term Support `LTS` Versions, currently 21
 
-* Latest, currently 21
+* Latest, currently 25
 
 
 
@@ -52,11 +52,11 @@ sudo dnf install <openjdk-package-name>
 Examples:
 
 ----
-sudo dnf install java-1.8.0-openjdk.x86_64
+sudo dnf install java-21-openjdk.x86_64
 ----
 
 ----
-sudo dnf install java-11-openjdk.x86_64
+sudo dnf install java-25-openjdk.x86_64
 ----
 
 ----
@@ -74,11 +74,11 @@ sudo dnf install <openjdk-package-name>-devel
 Examples:
 
 ----
-sudo dnf install java-1.8.0-openjdk-devel.x86_64
+sudo dnf install java-21-openjdk-devel.x86_64
 ----
 
 ----
-sudo dnf install java-11-openjdk-devel.x86_64
+sudo dnf install java-25-openjdk-devel.x86_64
 ----
 
 ----
@@ -99,10 +99,10 @@ To install Oracle Java SE:
 
 . Unpack the tar.gz file somewhere.
 For example, to extract it to the _/opt_ directory:
-`sudo tar xf Downloads/jdk-18_linux-x64_bin.tar.gz -C /opt`
+`sudo tar xf Downloads/jdk-25_linux-x64_bin.tar.gz -C /opt`
 
 . Set the _JAVA_HOME_ environment variable to that directory.
-For example: `export JAVA_HOME=/opt/jdk-21.0.1.1`
+For example: `export JAVA_HOME=/opt/jdk-25.0.1.1`
 
 Note: Always make sure to download latest version available.
 
