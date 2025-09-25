@@ -22,9 +22,9 @@ Most Java applications run on one of the following:
 
 You can find the following Versions:
 
-* The Long Term Support `LTS` Versions, currently 21
+* The Long Term Support `LTS` Versions, currently 21, 25
 
-* Latest, currently 25
+* Latest, currently 24
 
 
 
