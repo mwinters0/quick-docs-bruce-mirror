@@ -6,7 +6,7 @@ Jiri Eischmann
 :tags: How-to,   Nvidia
 
 [abstract]
-This page documents how to enroll a machine owner key that is created during the Nvidia driver installation (typically in GNOME Software).
+This page documents how to enroll a machine owner key that is created during the Nvidia driver installation (typically in GNOME Software, or as described in the RPM Fusion article 'Secure Boot': https://rpmfusion.org/Howto/Secure%20Boot ).
 
 == Prerequisite
 
