@@ -195,7 +195,7 @@ Created tag: hellocopr-1.0.1-1
 Note that by ommiting the `--use-version` option, tito now updates the version automatically. It does so by
 
 . Increasing the Version's final digit by 1 - `1.0.0` -> `1.0.1`
-. Resetting the Release to 1 it it isn't already.
+. Resetting the Release to 1 if it isn't already.
 
 If you want to bump to a different version, say `1.1.0`, you can do so again by passing `--use-version`.
 
