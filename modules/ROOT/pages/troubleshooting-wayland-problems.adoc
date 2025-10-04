@@ -33,7 +33,7 @@ Once you've fixed this page, remove this notice.
 
 https://en.wikipedia.org/wiki/Wayland_%28display_server_protocol%29[Wayland] is intended as a simpler replacement for https://en.wikipedia.org/wiki/X_Window_System[X11]. Wayland changes the design of a Linux desktop architecture considerably. Unlike X11, there is no dedicated standalone server in Wayland. What was previously done between the app, its toolkit, the Xserver and the window manager is now shared between the app, its toolkit and the Wayland compositor which manages the compositing, input, windows management, etc. The apps and toolkits are now in charge of their own rendering and decorations (client side decorations), so any issues usually sit between the toolkit (e.g. GTK+) and the Wayland compositor (e.g. mutter).
 
-You can read more about Wayland on the GNOME https://wiki.gnome.org/Initiatives/Wayland[Wayland initiative] wiki page. You can read more about the current state of Wayland features on link:Wayland_features[Wayland features] page.
+You can read more about Wayland on the GNOME https://wiki.gnome.org/Initiatives/Wayland[Wayland initiative] wiki page. You can read more about the current state of Wayland features on https://fedoraproject.org/wiki/Wayland_features[Wayland features] page.
 
 [id='identifying-wayland-problems']
 == Identifying Wayland problems
@@ -90,7 +90,7 @@ Type=x11
 
 If you're running an X11 session, not a Wayland session, your problems
 are not related to Wayland. It's a bug either in that particular
-application, or X11 itself, see link:How_to_debug_Xorg_problems[How to
+application, or X11 itself, see https://fedoraproject.org/wiki/How_to_debug_Xorg_problems[How to
 debug Xorg problems].
 
 [id='does-your-application-run-on-wayland-natively-or-uses-xwayland-x11-compatibility-layer']
@@ -158,7 +158,7 @@ in the first line, this app is running under Wayland. If you see
 If you have identified the problem to be in a XWayland application, try
 to reproduce the issue in a standard X11 session. If it happens as well,
 it is not related to Wayland, it's a bug either in that particular
-application, or Xorg server, see link:How_to_debug_Xorg_problems[How to
+application, or Xorg server, see https://fedoraproject.org/wiki/How_to_debug_Xorg_problems[How to
 debug Xorg problems]. If the problem happens only under XWayland but not
 in an X11 session, it should still be reported against Xorg server (
 package), because XWayland is included in it (as
@@ -262,8 +262,7 @@ verify whether the issue is still present or has been fixed.
 In order to avoid duplicate reports and also wasting your time debugging
 something someone has maybe already debugged, please search through the
 existing reports first. The most visible issues or concerns are listed
-in
-link:#Known_issues.2C_frequent_complaints.2C_fundamental_changes[Known
+in xref:troubleshooting-wayland-problems#known-issues-frequent-complaints-fundamental-changes[Known
 issues, frequent complaints, fundamental changes]. If you don't see it
 there, you need to search deeper. You can find Wayland related issues
 most likely in here:
@@ -415,11 +414,10 @@ helpful.*
 
 Here we will list high-profile issues which are known to be broken, not
 yet implemented, or intentionally behaving differently from regular X11
-apps. Also please look at link:Wayland_features[Wayland features] which
+apps. Also please look at https://fedoraproject.org/wiki/Wayland_features[Wayland features] which
 lists all current missing or in-progress features and their details.
 
-To see all known issues, look at Bugzilla reports as mentioned in
-link:#Looking_for_similar_reports[Looking for similar reports].
+To see all known issues, look at Bugzilla reports as mentioned in xref:troubleshooting-wayland-problems/#looking-for-similar-reports[Looking for similar reports].
 
 [id='graphical-applications-cant-be-run-as-root-from-terminal']
 === Graphical applications can't be run as root from terminal
