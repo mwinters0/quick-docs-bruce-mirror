@@ -9,7 +9,7 @@ Devin Prater ;  Ankur Sinha
 
 Thanks for choosing to install Fedora.
 The first thing you'll need to do is put an installer onto a removable disk, like a DVD or Flash Drive.
-For maximum accessibility, choose Fedora's Mate spin, found at https://spins.fedoraproject.org/mate-compiz/download/index.html[the Fedora Mate download page].
+For maximum accessibility, choose Fedora's Mate spin, found at https://fedoraproject.org/spins/mate/download/index.html[the Fedora Mate download page].
 Follow xref:creating-and-using-a-live-installation-image.adoc#proc_creating-and-using-live-usb[the guide on flashing the downloaded image to a flash drive or DVD], and prepare to restart the computer to begin the installation.
 
 To install Fedora Mate, hereafter referred to as just "Fedora", you'll need to start your computer with the installer's drive set as the drive the computer starts from.
