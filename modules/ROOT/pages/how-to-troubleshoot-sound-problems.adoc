@@ -29,21 +29,21 @@ This guide provides a step-by-step approach to diagnosing and resolving these so
 
 To display kernel drivers handling each device, use the lspci (List PCI) command with the option -k. Searching for known issues specific to driver’s name and your hardware model before reporting issues to Ask Fedora.
 
-[source,bash]
+[source, console]
 ----
 $ sudo lspci -k
 ----
 
 New hardware drivers are updated continuously. If you see a device listed as unknown, query your PCI device ID database.
 
-[source,bash]
+[source, console]
 ----
 $ sudo lspci -Q
 ----
 
 And update your local PCI ID database by running the command update-pciids.
 
-[source,bash]
+[source, console]
 ----
 $ sudo update-pciids
 ----
@@ -54,7 +54,7 @@ The ALSA Firmware package contains firmware for various third-party sound cards.
 
 See which firmware is in use by running the following command.
 
-[source,bash]
+[source, console]
 ----
 $ sudo dnf list alsa-firmware
 ----
@@ -63,33 +63,35 @@ The regular ALSA Firmware will appear <alsa-firmware.noarch>.
 
 If the regular firmware is not on the output, install the alsa-firmware.
 
-[source,bash]
+[source, console]
 ----
 $ sudo dnf install alsa-firmware
 ----
 
 If any other firmware is installed, put them on blocklist on configuration directory for modprobe.
 
+[source, console]
 ----
 /etc/modprobe.d/*.conf
 ----
 
 Add the line on configuration file.
 
+[source, console]
 ----
 blacklist <the module to blocklist>
 ----
 
 The dracut tool creates an initial image used by the kernel for preloading the block device modules. The option -f overwrite existing initramfs file.
 
-[source,bash]
+[source, console]
 ----
 $ sudo dracut -f
 ----
 
 Reboot your computer for the change to take effect.
 
-[source,bash]
+[source, console]
 ----
 $ sudo reboot
 ----
@@ -98,7 +100,7 @@ $ sudo reboot
 
 It is always useful to include detailed information on your sound hardware when filing a sound-related bug. To produce this information, run this command:
 
-[source,bash]
+[source, console]
 ----
 $ alsa-info.sh --no-upload
 ----
@@ -161,7 +163,7 @@ Solution steps:
 
 Make sure the necessary PipeWire components are installed and working correctly.
 
-[source, bash]
+[source, console]
 ----
 $ sudo dnf reinstall pipewire pipewire-pulseaudio pipewire-alsa wireplumber
 ----
@@ -172,7 +174,7 @@ Then reboot your system.
 
 Ensure that the PipeWire and WirePlumber services are active.
 
-[source, bash]
+[source, console]
 ----
 $ systemctl --user status pipewire
 $ systemctl --user status pipewire-pulse
@@ -181,7 +183,7 @@ $ systemctl --user status wireplumber
 
 If they are not running, start and enable them:
 
-[source, bash]
+[source, console]
 ----
 $ systemctl --user enable --now pipewire.socket
 $ systemctl --user enable --now pipewire-pulse.socket
@@ -194,14 +196,14 @@ $ systemctl --user enable --now wireplumber
 
 Check that your user belongs to the correct groups:
 
-[source, bash]
+[source, console]
 ----
-groups
+$ groups
 ----
 
 If `audio` is missing, add it:
 
-[source, bash]
+[source, console]
 ----
 $ sudo usermod -aG audio $USER
 ----
@@ -210,7 +212,7 @@ $ sudo usermod -aG audio $USER
 
 If the audio configuration is corrupted, you can reset it by moving the old config folders:
 
-[source, bash]
+[source, console]
 ---- 
 $ mv ~/.config/pulse ~/.config/pulse_backup
 $ mv ~/.config/pipewire ~/.config/pipewire_backup
@@ -242,9 +244,9 @@ This usually means the Linux Bluetooth stack never received an advertisement pac
 
 Use `btmon` to monitor Bluetooth traffic and look for *LE Advertising Report* event. When a Bluetooth device is detected properly, you will see lines like:
 
-[source, bash]
+[source, console]
 ----
-  $ sudo btmon
+$ sudo btmon
   Bluetooth monitor ver 5.81
   LE Advertising Report (0x02)
     Num reports: 1
@@ -267,20 +269,20 @@ Use `btmon` to monitor Bluetooth traffic and look for *LE Advertising Report* ev
 
 As a next step, run the `bluetoothctl show` command to display the current status and configuration of the Bluetooth adapter. It provides information such as adapter name, power status (on/off), discoverability (whether other devices can see it), and pairability.
 
-[source, bash]
+[source, console]
 ----
-  $ bluetoothctl show
-    Controller A0:C5:89:3B:26:52 (public)
-    Manufacturer: 0x0002 (2)
-    Version: 0x08 (8)
-    Name: hanku
-    Alias: hanku
-    Class: 0x007c010c (8126732)
-    Powered: yes
-    PowerState: on
-    Discoverable: yes
-    DiscoverableTimeout: 0x000000b4 (180)
-    Pairable: yes
+$ bluetoothctl show
+  Controller A0:C5:89:3B:26:52 (public)
+  Manufacturer: 0x0002 (2)
+  Version: 0x08 (8)
+  Name: hanku
+  Alias: hanku
+  Class: 0x007c010c (8126732)
+  Powered: yes
+  PowerState: on
+  Discoverable: yes
+  DiscoverableTimeout: 0x000000b4 (180)
+  Pairable: yes
 ----
 
 This is useful for checking if your Bluetooth adapter is properly initialized and ready for scanning, pairing, or connecting to devices.
@@ -291,17 +293,17 @@ To continue, start the Bluetooth control tool to list Bluetooth devices and thei
 
 [source, bash]
 ----
-  $ bluetoothctl
-    Agent registered
-    [CHG] Device 40:19:20:19:69:9F RSSI: 0xffffffb9 (-71)
-    [CHG] Device 28:6B:B4:40:2F:87 RSSI: 0xffffffbd (-67)
-    [CHG] Device 28:6B:B4:4C:82:E5 RSSI: 0xffffffb9 (-71)
-    [WF-C710N]> scan on
-    SetDiscoveryFilter success
-    Discovery started
-    [DEL] Device C4:9D:61:BC:E7:09 LE_WF-C710N
-    [NEW] Device C4:9D:61:BC:E7:09 LE_WF-C710N
-    [WF-C710N]> 
+$ bluetoothctl
+  Agent registered
+  [CHG] Device 40:19:20:19:69:9F RSSI: 0xffffffb9 (-71)
+  [CHG] Device 28:6B:B4:40:2F:87 RSSI: 0xffffffbd (-67)
+  [CHG] Device 28:6B:B4:4C:82:E5 RSSI: 0xffffffb9 (-71)
+  [WF-C710N]> scan on
+  SetDiscoveryFilter success
+  Discovery started
+  [DEL] Device C4:9D:61:BC:E7:09 LE_WF-C710N
+  [NEW] Device C4:9D:61:BC:E7:09 LE_WF-C710N
+  [WF-C710N]> 
 ----
 
 Here's a summary of what's happening in your bluetoothctl session:
@@ -348,30 +350,35 @@ NOTE: If the device never appears in scans (no MAC shown), this is often **not s
 
 * Use `bluetoothctl` for manual steps.
 
-[source, bash]
+[source, console]
 ----
-  $ bluetoothctl
-    power on
-    agent on
-    default-agent
-    scan on
-    pair <MAC>
-    trust <MAC>
-    connect <MAC>
+$ bluetoothctl
+----
+
+Example `bluetoothctl` prompt commands:
+[source, console]    
+----
+  power on
+  agent on
+  default-agent
+  scan on
+  pair <MAC>
+  trust <MAC>
+  connect <MAC>
 ----
 
 *Fix*
 
 * Remove device and retry pairing.
 
-[source, bash]
+[source, console]
 ----
 $ bluetoothctl remove <MAC>
 ----
 
 * Restart Bluetooth service.
 
-[source, bash]
+[source, console]
 ----
 $ sudo systemctl restart bluetooth
 ----
@@ -389,57 +396,57 @@ For some devices, make sure to hold the pairing button until rapid blinking star
 
 * Confirm PipeWire is used.
 
-[source, bash]
+[source, console]
 ----
 $ pactl info | grep Server
 ----
 
 Example Output:
 
-[source, bash]
+[source, console]
 ----
-  Server String: /run/user/1000/pulse/native
-  Server Protocol Version: 35
-  Server Name: PulseAudio (on PipeWire 1.4.2)
-  Server Version: 15.0.0
+Server String: /run/user/1000/pulse/native
+Server Protocol Version: 35
+Server Name: PulseAudio (on PipeWire 1.4.2)
+Server Version: 15.0.0
 ----
 
 This output shows that the system is using the PulseAudio compatibility layer on top of PipeWire. To further inspect the audio setup, the command `pactl list cards short` provides a concise summary of all audio cards recognized by PulseAudio. It’s useful for quickly identifying available audio devices without diving into detailed properties.
 
-[source, bash]
+[source, console]
 ----
 $ pactl list cards short
 ----
 
 Example Output:
 
-[source, bash]
+[source, console]
 ----
-  42 alsa_card.pci-0000_00_1f.3 alsa
-  1092 bluez_card.14_06_A7_04_73_78 module-bluez5-device.c
+42 alsa_card.pci-0000_00_1f.3 alsa
+1092 bluez_card.14_06_A7_04_73_78 module-bluez5-device.c
 ----
 
 The absence of Bluetooth-related cards (in the format bluez_card.XX_XX_XX_XX_XX_XX) in the output of the `pactl list cards short` command indicates that one or more issues may be present.
 
 Next, the command below filters the output of `pactl list cards` to only show lines containing either profile or name, ignoring case;
 
-[source, bash]
+[source, console]
 ----
 $ pactl list cards | grep -i 'profile\|name:'
 ----
 
 Example Output:
 
-[source, bash]
+[source, console]
 ----
-  Name: alsa_card.pci-0000_00_1f.3
-  api.acp.auto-profile = "false"
-  Name: bluez_card.14_06_A7_04_73_78
-  bluez5.profile = "off"
-  Active Profile: a2dp-sink
-    Part of profile(s): headset-head-unit-cvsd, headset-head-unit
-    Part of profile(s): a2dp-sink-sbc, a2dp-sink-sbc_xq, a2dp-sink
-    Part of profile(s): headset-head-unit-cvsd, headset-head-unit
+Name: alsa_card.pci-0000_00_1f.3
+api.acp.auto-profile = "false"
+Name: bluez_card.14_06_A7_04_73_78
+bluez5.profile = "off"
+Active Profile: a2dp-sink
+  Part of profile(s): headset-head-unit-cvsd, headset-head-unit
+  Part of profile(s): a2dp-sink-sbc, a2dp-sink-sbc_xq, a2dp-sink
+  Part of profile(s): headset-head-unit-cvsd, headset-head-unit
 ----
 
 Line-by-Line Explanation:
