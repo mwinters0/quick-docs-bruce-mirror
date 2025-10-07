@@ -8,7 +8,7 @@ Jiyoung Joung; niko d; Héctor H. Louzao P
 
 [NOTE]
 ====
-Users of Fedora Server Edition find additional information in xref:fedora-server::services/setup-postgresql.adoc[Setting up PostgreSQL Database Server]
+Users of Fedora Server Edition find additional information in xref:fedora-server::services/postgresql-setup.adoc[Setting up PostgreSQL Database Server]
 ====
 [[installation]]
 == Installation
