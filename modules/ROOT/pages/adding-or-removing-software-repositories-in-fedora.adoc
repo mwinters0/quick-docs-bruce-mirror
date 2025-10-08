@@ -19,8 +19,7 @@ This section describes how to add software repositories with the `dnf config-man
 
 * To add a new repository, do the following as `*root*`.
 
-. Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory. For details about various options to use in the `.repo` file, see the xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc#sec-Setting_repository_Options[Setting [repository\] Options] section in the System Administrator's Guide
-
+. Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory. For details about various options to use in the `.repo` file, see the xref:f40@fedora:system-administrators-guide:package-management/DNF.adoc#sec-Setting_repository_Options[Setting [repository\] Options] section in the System Administrator's Guide
 . Add the repository with `--add-repo`, where *_repository_* is the file path:
 +
 [literal,subs="+quotes,attributes"]
@@ -38,7 +37,7 @@ dnf config-manager --add-repo /tmp/fedora_extras.repo
 
 * To add a new repository, do the following as `*root*`.
 
-. Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory. For details about various options to use in the `.repo` file, see the xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc#sec-Setting_repository_Options[Setting [repository\] Options] section in the System Administrator's Guide
+. Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory. For details about various options to use in the `.repo` file, see the xref:f41@fedora:system-administrators-guide:package-management/DNF.adoc#sec-Setting_repository_Options[Setting [repository\] Options] section in the System Administrator's Guide
 
 . Add the repository with `addrepo`, where *_repository_* is the file path:
 +
