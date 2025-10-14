@@ -1,7 +1,7 @@
 = Installing Java
-Héctor Louzao; Ankur Sinha ; alciregi; Nico Shetty
+Héctor Louzao; Ankur Sinha ; alciregi; Nico Shetty; chris-r
 :revnumber: F42
-:revdate: 2025-9-24
+:revdate: 2025-10-14
 :category: Software installation
 :tags: How-to, Programming languages, Java
 //:page-aliases: 
@@ -85,6 +85,47 @@ sudo dnf install java-25-openjdk-devel.x86_64
 sudo dnf install java-latest-openjdk-devel.x86_64
 ----
 
+
+== Installing an older Java version
+
+To install an older version of Java:
+
+* Install the Adoptium Temurin Java Repository:
+
+----
+sudo dnf install adoptium-temurin-java-repository
+----
+
+Then, enable the third party repos:
+
+----
+sudo fedora-third-party enable
+----
+
+* Run the following command to list available versions:
+
+----
+dnf search temurin
+----
+
+
+* Copy the version of Temurin you want to install.
+
+* Run the following command to install Temurin JDK:
+
+----
+sudo dnf install <temurin-package-name>
+----
+
+Examples:
+
+----
+sudo dnf install temurin-8-jdk.x86_64
+----
+
+----
+sudo dnf install temurin-17-jdk.x86_64
+----
 
 
 == Installing Oracle Java SE
