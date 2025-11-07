@@ -95,19 +95,27 @@ The policy change transitionally has an impact on devices found by cups-browsed,
 
 === Printed PDF has incorrectly printed characters
 
-Sometimes PDF support in printer does not work correctly, which ends up in garbled output. If the printer driver supports rasterization as well, there is possibility to force rasterization for the new print job this way:
+Sometimes, PDF support does not work correctly with certain printers, which can result in garbled output (e.g. diacritics such as š or ž are printed as small rectangles).
+
+If the printer driver supports rasterization as well, one could reinstall the printer with IPP Everywhere driver (the default driverless driver doesn't work with print as raster option):
+
+----
+$ lpadmin -p <printer> -m everywhere -E
+----
+
+One can now force rasterization for a new print job with:
 
 ----
 $ lp -d <printer> -o print-as-raster <file>
 ----
 
-or set the rasterization such printer by default:
+or set the rasterization for this printer by default with:
 
 ----
 $ lpadmin -p <printer> -o print-as-raster-default=true
 ----
 
-. However be aware some of IPP functionality is expected to do not work with rasterization, f.e. finishings, so the best way of solving such issues is to contact your printer manufacturer and ask for updating printer's PDF support.
+However, be aware that some of the IPP functionality will not work with rasterization, e.g. finishings, so the best way of solving such issues is to contact your printer's manufacturer and ask them to update the printer's PDF support in its firmware.
 
 == HPLIP
 
