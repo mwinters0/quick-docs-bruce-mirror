@@ -22,6 +22,14 @@ It works as follows:
 
 . Upon completion, the system reboots into the new Fedora Linux release
 
+[[review-the-release-notes]]
+== Review the Release Notes
+
+Before you start the upgrade, review the release notes for the Fedora Linux version you are upgrading to.
+This ensures you are aware of important changes, new features, and any potential issue that may affect your system.
+
+See new release notes at: https://docs.fedoraproject.org/en-US/fedora/latest/release-notes/
+
 [[sect-performing-system-upgrade]]
 == Performing system upgrade
 
