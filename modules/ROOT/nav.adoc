@@ -25,7 +25,7 @@
 
 * AI
 ** xref:ollama.adoc[Run local LLMs on Fedora]
-** xref:ramalama.adoc[Run LLMs in Podman containers]
+// ** xref:ramalama.adoc[Run LLMs in Podman containers] // FIXME: broken link
 ** xref:pytorch.adoc[Play with tensors in pytorch]
 
 * Adding and managing software
