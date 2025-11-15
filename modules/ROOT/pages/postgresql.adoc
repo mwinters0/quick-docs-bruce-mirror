@@ -1,5 +1,5 @@
 = PostgreSQL
-Jiyoung Joung; niko d; Héctor H. Louzao P 
+Jiyoung Joung; niko d; Héctor H. Louzao P
 :revnumber: F37 and newer
 :revdate: 2022-12-19
 :category: Databases
@@ -16,7 +16,7 @@ Users of Fedora Server Edition find additional information in xref:fedora-server
 The installation and initialization of the postgresql server is a little
 bit different in comparison to other packages and other Linux distros.
 This document aims to summarize basic installation steps relevant to
-recent Fedora Linux releases. 
+recent Fedora Linux releases.
 
 ....
 sudo dnf install postgresql-server postgresql-contrib
@@ -38,7 +38,7 @@ sudo postgresql-setup --initdb --unit postgresql
 To start the postgresql server manually, run
 
 ....
-sudo systemctl start postgresql 
+sudo systemctl start postgresql
 ....
 
 
@@ -80,7 +80,7 @@ The postgresql server is using two main configuration files
 * /var/lib/pgsql/data/pg_hba.conf
 
 
-If you’re getting ident errors from your app you’ll probably need to perform the accepted solution described at https://serverfault.com/questions/406606/postgres-error-message-fatal-ident-authentication-failed-for-user?newreg=a4fdc3e21349449985cc65b82399c5b4 
+If you’re getting ident errors from your app you’ll probably need to perform the accepted solution described at https://serverfault.com/questions/406606/postgres-error-message-fatal-ident-authentication-failed-for-user?newreg=a4fdc3e21349449985cc65b82399c5b4
 ....
 sudo gedit /var/lib/pgsql/data/pg_hba.conf
 ....
@@ -126,6 +126,30 @@ You may need to switch postgresql to trust mode before updating. This should be 
 
 You can also upgrade by dumping your database and loading it again. For
 more information, see the link:#link-upgrade[official documentation].
+
+[[skipped-release]]
+=== Skipped major release
+
+In Fedora 43 the Postgres packages went from 16 to 18. Database upgrades cannot skip a major release and the above procedure will not work.
+Unless you have already upgraded to Postgres 17 on Fedora 42, you will have to do the upgrade from 16 to 18 in 2 steps on Fedora 43.
+
+First you have to uninstall Postgres 18 and install Postgres 17. You can verify which packages are installed with `rpm -qa |grep ^postgres`
+Before you install Postgres 17, please backup your data directory. Even though a backup is part of the upgrade procedure, it is better to be safe than sorry.
+After installing the Postgres 17 packages, you can use the above upgrade procedure to do the actual upgrade from 16 to 17.
+Then you have to uninstall Postgres 17 and install Postgres 18 again.
+Please run above upgrade procedure one more time and you are good to go.
+
+During this 2 step procedure you might encounter a few obstacles, which are explained here:
+
+In case you see the error `old cluster does not use data checksums but the new one does` you can either choose to create the checksums or upgrade with checksums disabled.
+To create the checksums, drop into the shell of the `postgres` user and run the following command: `pg_checksums -e -D <data-dir>`.
+However, when you see this error, you have already updated the packages to a newer release while the database is still on the previous one.
+Thus it might be easier to upgrade with `PGSETUP_INITDB_OPTIONS="–no-data-checksums" postgresql-upgrade <data-dir>` and create the checksums afterwards.
+Unless you changed the Postgres data directory, `<data-dir>` is `/var/lib/pgsql/data`.
+
+Don't forget to adjust and consolidate your config files (`*.conf`) from the old and new data directories as well as to update the collation for all databases.
+
+Update the collation (as postgres user): `ALTER DATABASE <dbname> REFRESH COLLATION VERSION; \c <dbname>; REINDEX DATABASE;`
 
 [[firewall]]
 == Firewall
@@ -424,13 +448,13 @@ link:PostgreSQL/README.rpm-dist[Full RPM packaging documentation]
 https://wiki.postgresql.org/wiki/Tuning_Your_PostgreSQL_Server[Tuning
 performance]
 
-https://www.postgresql.org/docs/9.1/runtime-config-logging.html[Logging
+https://www.postgresql.org/docs/18/runtime-config-logging.html[Logging
 configuration]
 
-https://www.postgresql.org/docs/9.1/static/upgrading.html[Upgrading
+https://www.postgresql.org/docs/18/upgrading.html[Upgrading
 PostgreSQL]
 
-https://www.postgresql.org/docs/8.3/static/auth-pg-hba-conf.html[pg_hba.conf
+https://www.postgresql.org/docs/18/auth-pg-hba-conf.html[pg_hba.conf
 file]
 
 See a typo, something missing or out of date, or anything else which can be
