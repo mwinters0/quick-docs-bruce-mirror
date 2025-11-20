@@ -1,9 +1,9 @@
 = How to Publish your Software on Copr, Fedora's User Repository
-Christopher Engelhard; Jean-Baptiste Holcroft; Otto Urpelainen 
+Christopher Engelhard; Jean-Baptiste Holcroft; Otto Urpelainen
 :revnumber: unspecified
 :revdate: 2022-02-05
 :category: Development
-:tags: Tutorial,  Copr 
+:tags: Tutorial,  Copr
 // :page-aliases:
 
 include::{partialsdir}/attributes.adoc[]
@@ -192,7 +192,7 @@ Created tag: hellocopr-1.0.1-1
    Push: git push --follow-tags origin
 ----
 
-Note that by ommiting the `--use-version` option, tito now updates the version automatically. It does so by
+Note that by omitting the `--use-version` option, tito now updates the version automatically. It does so by
 
 . Increasing the Version's final digit by 1 - `1.0.0` -> `1.0.1`
 . Resetting the Release to 1 if it isn't already.
@@ -223,7 +223,7 @@ destination_file = src/hellocopr/__init__.py
 template_file = .tito/templates/__init__.py.template
 ----
 
-https://pagure.io/copr-tito-quickdoc/c/28600f6e41d5a4b60f2e47cf077f2fe2d9224e1d?branch=master[Commit the changes]. Now, when we tag a new release, tito will take the template, replace `$version` with whatever version was tagged, and copy the resulting file to `src/hellocopr/pass:[__]initpass:[__].py` before updating the spec file and commiting the changes.
+https://pagure.io/copr-tito-quickdoc/c/28600f6e41d5a4b60f2e47cf077f2fe2d9224e1d?branch=master[Commit the changes]. Now, when we tag a new release, tito will take the template, replace `$version` with whatever version was tagged, and copy the resulting file to `src/hellocopr/pass:[__]initpass:[__].py` before updating the spec file and committing the changes.
 
 We can test this by tagging a new release:
 [source,]

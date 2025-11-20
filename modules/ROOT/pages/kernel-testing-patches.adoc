@@ -3,15 +3,15 @@ wchilders@nearce.com
 :revnumber: F38
 :revdate: 2021-08-11
 :category: Kernel
-:tags: How-to,  Kernel, Testing 
-:page-aliases: kernel/testing-patches.adoc  
+:tags: How-to,  Kernel, Testing
+:page-aliases: kernel/testing-patches.adoc
 
 
 [abstract]
 A quick guide for testing if a patch resolves your issue.
 
 
-Occassionally, when attempting to resolve a kernel issue (particularly one
+Occasionally, when attempting to resolve a kernel issue (particularly one
 that's specific to your hardware) you may be asked to apply a patch to
 verify that the issue is fixed before the patch is included.
 
@@ -160,7 +160,7 @@ Finally, install all the rpm packages in this directory using dnf:
 
 == Testing The Kernel
 
-Once everything is installed succesfully, reboot. The kernel you built should
+Once everything is installed successfully, reboot. The kernel you built should
 automatically be selected by GRUB when your system starts up. Simply allow your
 computer to boot, and check to see if your issue has been resolved.
 

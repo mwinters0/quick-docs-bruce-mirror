@@ -12,7 +12,7 @@ To enable the version of MariaDB you want to use and make the stream RPMs availa
 $ sudo dnf module enable mariadb:10.4
 ----
 
-At this point you can verify that the available RPM provides the 10.4 verison of MariaDB server:
+At this point you can verify that the available RPM provides the 10.4 version of MariaDB server:
 
 ----
 $ dnf list mariadb-server

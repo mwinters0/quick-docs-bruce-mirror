@@ -28,7 +28,7 @@ To create Red Hat Enterprise Linux, some version of Fedora is forked and enters 
 
 == History of Red Hat Enterprise Linux and Fedora
 
-Red Hat first offered an enterprise Linux support subscription for Red Hat Linux 6.1. It was not a separate product, but the subscription offering was branded as Red Hat 6.2E. Subsequently, Red Hat started creating a separate product with commercial service level agreements and longer lifecyle based on Red Hat Linux, and later on Fedora.
+Red Hat first offered an enterprise Linux support subscription for Red Hat Linux 6.1. It was not a separate product, but the subscription offering was branded as Red Hat 6.2E. Subsequently, Red Hat started creating a separate product with commercial service level agreements and longer lifecycle based on Red Hat Linux, and later on Fedora.
 
 .Red Hat Enterprise Linux and Fedora Lineage
 [options="header"]
@@ -83,4 +83,3 @@ several changes from 20 and later
 |Red Hat Enterprise Linux updates are more conservative and generally focus on security and bug fixes.
 |Fedora's Updates Policy is more liberal compared to Red Hat Enterprise Linux.
 |===
-

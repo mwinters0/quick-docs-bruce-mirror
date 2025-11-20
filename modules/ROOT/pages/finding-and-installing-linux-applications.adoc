@@ -112,7 +112,7 @@ Step through the numbered list and the number annotated on the image of KDE Plas
 
 ==== 1. Explore applications with Kickoff
 
-To launch Kickoff, in the default configuration, press the Super key (next to left Alt key). Hover your mouse over installed apps as caterogized on the left pane. All the available apps will be shown on the right pane.
+To launch Kickoff, in the default configuration, press the Super key (next to left Alt key). Hover your mouse over installed apps as categorized on the left pane. All the available apps will be shown on the right pane.
 
 .Kickoff application launcher
 image::finding-installing-linux-apps/KDE1_KickoffCategory.png[KDE Plasma Kickoff]
@@ -128,7 +128,7 @@ image::finding-installing-linux-apps/KDE1_KickoffGetApp.png[Get application with
 
 To launch Discover directly, press the Super key (next to left Alt key), type discover, and press Enter key.
 
-Hover your mouse over available apps as caterogized on the left pane. Click a category that is of your interest. All the featured apps will be shown on the right pane.
+Hover your mouse over available apps as categorized on the left pane. Click a category that is of your interest. All the featured apps will be shown on the right pane.
 
 .Application by categories
 image::finding-installing-linux-apps/KDE2_Discover_category.png[Application by categories]

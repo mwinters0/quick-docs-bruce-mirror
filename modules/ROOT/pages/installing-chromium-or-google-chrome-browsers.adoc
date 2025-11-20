@@ -1,10 +1,10 @@
 = Installing Chromium or Google Chrome browsers
-Peter Lilley;   
+Peter Lilley;
 :revnumber: unspecified
 :revdate: 2021-01-17
 :category: Software installation
 :tags: How-to, Chromium, Chrome
-//:page-aliases: 
+//:page-aliases:
 
 
 include::{partialsdir}/3rdparty-message.adoc[]
@@ -66,11 +66,11 @@ Chrome can be installed using Software or a terminal, once the repository is ena
 
 . Click on the menu at the top right and select *Software Repositories*.
 
-. Make sure Third Party Repositories is enabled. If the button label is *Install*, then click that button to install the third party repositiories. If the button reads *Remove All* then the third party repositories are already installed.
+. Make sure Third Party Repositories is enabled. If the button label is *Install*, then click that button to install the third party repositories. If the button reads *Remove All* then the third party repositories are already installed.
 +
 image:installing-chromium-or-google-chrome-browsers-0.png[]
 +
-. Scroll down to find the repository called *google-chrome*. Click on it and choose *Enable*. 
+. Scroll down to find the repository called *google-chrome*. Click on it and choose *Enable*.
 +
 image:installing-chromium-or-google-chrome-browsers-1.png[]
 
@@ -117,5 +117,3 @@ If you want to install Chrome Beta use the following:
 $ sudo dnf install google-chrome-beta
 ----
 ====
-
-

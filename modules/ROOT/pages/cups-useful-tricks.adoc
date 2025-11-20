@@ -52,7 +52,7 @@ Such remote printers are discovered automatically via mDNS and used as xref:_how
 
 ==== I want to print, but I don't want to or can't use mDNS, regardless whether my printer supports driverless printing
 
-Every printer which can't be discovered by mDNS has to be installed xref:_how_to_install_a_permanent_print_queue[permanently] in CUPS or, in CUPS 3.0, by printer profile. 
+Every printer which can't be discovered by mDNS has to be installed xref:_how_to_install_a_permanent_print_queue[permanently] in CUPS or, in CUPS 3.0, by printer profile.
 
 . Driverless printers:
 * all of them supported by *IPP Everywhere* model under Manufacturer entry in CUPS Web UI and as *everywhere* in CLI
@@ -123,18 +123,18 @@ Check whether your USB device has a following text in [command]`lsusb -v` output
 ...
       bInterfaceClass         7 Printer
       bInterfaceSubClass      1 Printer
-      bInterfaceProtocol      4 
-      iInterface              0 
+      bInterfaceProtocol      4
+      iInterface              0
 ...
 ----
 
 If the device has the _bInterfaceClass 7_, _bInterfaceSubClass 1_ and _bInterfaceProtocol 4_ in the sequence, it supports IPP over USB which is critical for USB device driverless printing and scanning.
 
-Note: Some manufacturers bind IPP over USB support with network driverless standards, which is not correct. If the printer has network and USB connectivity and IPP over USB is not shown in `lsusb` output, try to look into printer settings, enable AirPrint and check the `lsusb -v` output again. 
+Note: Some manufacturers bind IPP over USB support with network driverless standards, which is not correct. If the printer has network and USB connectivity and IPP over USB is not shown in `lsusb` output, try to look into printer settings, enable AirPrint and check the `lsusb -v` output again.
 
 === How to setup CUPS temporary queues
 
-To setup the temporary queues correctly, there are several prerequisities:
+To setup the temporary queues correctly, there are several prerequisites:
 
 * printer/remote print queue has a driverless support and has it enabled,
 * your PC has avahi-daemon service or avahi-daemon socket running,
@@ -183,7 +183,7 @@ Device: uri = ipp://HP%20LaserJet%20M1536dnf%20MFP%20(42307C)._ipp._tcp.local/
         info = HP LaserJet M1536dnf MFP (driverless)
         make-and-model = HP LaserJet M1536dnf MFP
         device-id = MFG:HP;MDL:LaserJet M1536dnf MFP;CMD:PDF,PS,PCL,AppleRaster,URF;
-        location = 
+        location =
 ...
 ----
 
@@ -200,7 +200,7 @@ Then you can follow the steps in xref:_how_to_setup_cups_temporary_queues_with_n
 
 === How to install a permanent print queue
 
-Prerequisties for permanent driverless printers: enable IPP in your firewall, enable IPP on your printer if possible.
+Prerequisites for permanent driverless printers: enable IPP in your firewall, enable IPP on your printer if possible.
 
 ==== Installation via CUPS web UI ====
 
@@ -236,7 +236,7 @@ ipp://<server_ip_or_server_hostname>:631/printers/<remote_print_queue>
 
 *Notes:*
 
-Adding a permanent queue for driverless USB printers or non-driverless printers installed in a printer application is usually unnecessary, because they are shared by mDNS on localhost, so any application using CUPS 2.0+ API functions (cupsGetDests(), cupsGetNamedDest(), cupsCopyDestInfo()) should be able to pick them automatically (for network printer it depends whether the device is in the same subnet as your machine). Installling them permanently should be necessary only if an application doesn't use the recent API or to work around a bug which happens when using them as temporary queues.
+Adding a permanent queue for driverless USB printers or non-driverless printers installed in a printer application is usually unnecessary, because they are shared by mDNS on localhost, so any application using CUPS 2.0+ API functions (cupsGetDests(), cupsGetNamedDest(), cupsCopyDestInfo()) should be able to pick them automatically (for network printer it depends whether the device is in the same subnet as your machine). Installing them permanently should be necessary only if an application doesn't use the recent API or to work around a bug which happens when using them as temporary queues.
 
 If there are more devices via *ipp-usb* or printer applications, they listen on different ports - devices via ipp-usb start on port 60000, separate printer applications start on port 8000.
 
@@ -405,4 +405,3 @@ You restart cups service with:
 ----
 su -c 'systemctl restart cups.service'
 ----
-

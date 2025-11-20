@@ -1,8 +1,8 @@
 = Getting started with Apache HTTP Server
-Jan Kuparinen 
+Jan Kuparinen
 :revnumber: F34 onwards
 :revdate: 2020-11-15
-:revremark: Needs Review! 
+:revremark: Needs Review!
 :category: Virtualization
 :tags: How-to, Overview, Introduction
 
@@ -210,7 +210,7 @@ Web applications commonly require the use of a database server. This Quick Docs 
 //[id='configuring-apache-httpd']
 == Configuring Apache HTTPD
 
-`/etc/httpd/conf/httpd.conf` is the main Apache configuration file. Custom confirguration files are specified under `/etc/httpd/conf.d/*.conf`. If the same settings are specified in both `/etc/httpd/conf/httpd.conf` and a `.conf` file in `/etc/httpd/conf.d/`, the setting from the `/etc/httpd/conf.d/` file will be used.
+`/etc/httpd/conf/httpd.conf` is the main Apache configuration file. Custom configuration files are specified under `/etc/httpd/conf.d/*.conf`. If the same settings are specified in both `/etc/httpd/conf/httpd.conf` and a `.conf` file in `/etc/httpd/conf.d/`, the setting from the `/etc/httpd/conf.d/` file will be used.
 
 Files in `/etc/httpd/conf.d/` are read in alphabetical order: a setting from `/etc/httpd/conf.d/z-foo.conf` will be used over a setting from `/etc/httpd/conf.d/foo.conf`. Similarly, a setting from `/etc/httpd/conf.d/99-foo.conf`, will be used over a setting from `/etc/httpd/conf.d/00-foo.conf`.
 

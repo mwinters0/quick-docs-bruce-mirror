@@ -3,7 +3,7 @@ Flo H;  jtagcat; The Fedora Docs Team
 :revnumber: F42
 :revdate: 2025-06-24
 :category: Installation
-:tags: How-to, ARM-SBC, Raspberry-Pi 
+:tags: How-to, ARM-SBC, Raspberry-Pi
 
 // Optional  free form useful additional information as comment
 
@@ -35,14 +35,14 @@ At the end of the document you find a Frequently Asked Questions (FAQ) section a
 ** A microSD card reader.
 ** A microSD Card (16 GB or larger).
 * If using a USB flash drive, with USB boot:
-** A USB flash drive, preferrably USB 3.0 or newer (16GB or larger)
+** A USB flash drive, preferably USB 3.0 or newer (16GB or larger)
 * A computer running Microsoft Windows, macOS, or Linux.
 * A Fedora ARM aarch64 image, such as Workstation or Server, from: link:https://fedoraproject.org/[].
 
 The procedure for installing Fedora ARM on a microSD in preparation for using Fedora on a Raspberry Pi depends on your computers' operating system (Microsoft Windows, macOS, or Linux).
 
 * For Fedora users, see:  xref:raspberry-pi.adoc#_installing_fedora_on_a_raspberry_pi_using_the_fedora_arm_installer[Installing Fedora on a Raspberry Pi using the Fedora ARM installer].
-* For users of other Linux distributions, see:  
+* For users of other Linux distributions, see:
 xref:raspberry-pi.adoc#_installing_fedora_on_a_raspberry_pi_for_linux_users[Installing Fedora on a Raspberry Pi for Linux users].
 * For Microsoft Windows users, see:  xref:raspberry-pi.adoc#_installing_fedora_on_a_raspberry_pi_for_microsoft_windows_users[Installing Fedora on a Raspberry Pi for Microsoft Windows users].
 * For macOS users, see: xref:raspberry-pi.adoc#_installing_fedora_on_a_raspberry_pi_for_macos_users[Installing Fedora on a Raspberry Pi for macOS users].
@@ -60,7 +60,7 @@ This procedure shows Fedora users how to add Fedora ARM to a microSD for use wit
 
 ._Prerequisites_
 
-* A supported Rasbperry Pi
+* A supported Raspberry Pi
 * A microSD Card (16 GB or larger).
 * A computer running Fedora 28 or newer.
 * SD card reader.
@@ -74,7 +74,7 @@ This procedure shows Fedora users how to add Fedora ARM to a microSD for use wit
     curl https://getfedora.org/static/fedora.gpg | gpg --import
     gpg --verify-files *-CHECKSUM
     sha256sum -c *-CHECKSUM
-    
+
 . Install the `arm-image-installer`:
 +
 [source,shell,subs="attributes"]
@@ -578,4 +578,3 @@ $ append ro root=UUID="LARGE UUID STRING OF TEXT" console=tty0 console=ttyS0,115
 ** link:https://ask.fedoraproject.org/[Ask Fedora]
 ** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]
 ** link:https://web.libera.chat/?channels=#fedora-arm[IRC via the #fedora-arm channel on Libera.Chat]
-

@@ -6,7 +6,7 @@ The Fedora Documentation Team; Alexander Wellbrock
 :tags: How-to, Security
 
 
-== What is a YubiKey? 
+== What is a YubiKey?
 
 A YubiKey is a small USB and NFC based device, a so called https://developers.yubico.com/Developer_Program/Guides/YubiKey_Hardware.html[hardware security token], with modules for many security related use-cases. It generates one time passwords (OTPs), stores private keys and in general implements different authentication protocols. They are created and sold via a company called http://yubico.com/[Yubico].
 
@@ -45,7 +45,7 @@ The packages required for both PAM modules are available in the official reposit
 
 [NOTE]
 ===
-Note that one difference of both PAM modules is, with pam_yubico you don't need to touch your yubikey, its enought if the key is inserted in your device. With pam_u2f you have to touch your key every time authentication is required.
+Note that one difference of both PAM modules is, with pam_yubico you don't need to touch your yubikey, it's enough if the key is inserted in your device. With pam_u2f you have to touch your key every time authentication is required.
 ===
 
 ==== For pam_yubico
@@ -147,7 +147,7 @@ Create a configuration file ~/.yubico/authorized_keys with your user account fol
 fedora-user:cccccbcgebif[:<another-key-id>]
 
 Alternatively, activate challenge-response in slot 2 and register with your user account.
-The first command (ykman) can be skipped if you already have a challenge-response credential stored in slot 2 on your YubiKey. (Verify with 'ykman otp info') 
+The first command (ykman) can be skipped if you already have a challenge-response credential stored in slot 2 on your YubiKey. (Verify with 'ykman otp info')
 Repeat both or only the last step if you have a backup key (strongly recommended).
 
 [source, bash]
@@ -292,7 +292,7 @@ The -a option, again, is the 32-byte AES key and append-cr appends a carriage re
 
 When you hit the <ENTER> key, the ykpersonalize program will present you with my options and ask for
 confirmation before continuing:
-    
+
 ====
 Firmware version 2.1.1 Touch level 1795 Program sequence 3
 Configuration data to be written to key configuration 1:
@@ -302,24 +302,24 @@ uid: h:deadbeefcafe
 key: h:123456deadcfaebeef65432112345678
 acc_code: h:000000000000
 ticket_flags: APPEND_CR
-config_flags: 
+config_flags:
 
 Commit? (y/n) [n]:
 ====
 
 After pressing 'y', I am able to generate OTPs with my new key!
 
-==== What is modhex? 
+==== What is modhex?
 
 When plugged in, the operating system treats the YubiKey as a USB keyboard. USB keyboards send scancodes to the operating system, which the operating system then interprets as keystrokes. The YubiKey has to make sure no ambiguity arises: there are many different kinds of keyboard layouts and the scancodes have to be interpreted as the same character on machines using every random keyboard layout out there. To fix this, the people of Yubico have created 'modhex', which is a modified representation of hexadecimal characters that uses only 'safe' characters. 'Safe' characters are basically characters which have the same scancode on all keyboard layouts.
 
-==== Uploading the generated AES key to Yubico 
+==== Uploading the generated AES key to Yubico
 
 If you want to customize your YubiKey's AES key but still want to use it to authenticate through Yubico's servers, you can upload the key through https://upgrade.yubico.com/getapikey/. You will need to enter your email address and YubiKey's OTP.
 
 === Update the PINs of the PIV module
 
-The https://www.yubico.com/authentication-standards/smart-card/[Personal Identitiy Verification (PIV)] module stores private keys and corresponding certificate files for purposes such as encryption, authentication and signatures. If your YubiKey supports this you want to change the PIN and PUK as well as the Management Key.
+The https://www.yubico.com/authentication-standards/smart-card/[Personal Identity Verification (PIV)] module stores private keys and corresponding certificate files for purposes such as encryption, authentication and signatures. If your YubiKey supports this you want to change the PIN and PUK as well as the Management Key.
 
 Set the PIN.
 
@@ -381,7 +381,7 @@ Configure your device to remember this password so you don't have to re-enter it
 
 == Using the YubiKey to authenticate against OpenSSH servers
 
-Using FIDO2 and OpenSSH 8.2+ you can generate OpenSSH keys that are only usable if the YubiKey is connected. It's possible to protect the key usage by either presence or presence + pin-entry. 
+Using FIDO2 and OpenSSH 8.2+ you can generate OpenSSH keys that are only usable if the YubiKey is connected. It's possible to protect the key usage by either presence or presence + pin-entry.
 
 Generate a public key on every host you intend to use the private key, so an OpenSSH agent may discover it:
 
@@ -398,7 +398,7 @@ So called resident keys require that the private key is protected by a PIN.
 
 === Alternative for keys without FIDO2 support
 
-If the key does not support FIDO2 you have to use an alternative method via the PIV module and PKCS#11. 
+If the key does not support FIDO2 you have to use an alternative method via the PIV module and PKCS#11.
 
 Create an ED25519 private key inside the PIV module, requiring pin entry upon use and always require a touch of the YubiKey button:
 

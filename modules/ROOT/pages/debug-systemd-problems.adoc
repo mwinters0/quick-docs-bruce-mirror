@@ -9,7 +9,7 @@ If you are experiencing a problem with system boot-up due to xref:understanding-
 
 [TIP]
 ====
-Have a look at the upstream project's  link:http://freedesktop.org/wiki/Software/systemd/Debugging[helpful documentation] on the topic. 
+Have a look at the upstream project's  link:http://freedesktop.org/wiki/Software/systemd/Debugging[helpful documentation] on the topic.
 ====
 
 
@@ -110,4 +110,4 @@ systemd.log_color=:: Highlights important log messages. Argument is a boolean va
 systemd.log_location=:: Includes code location in log messages. This is mostly relevant for debugging purposes. Argument is a boolean value. If the argument is omitted it defaults to true.
 
 
-See a typo, something missing or out of date, or anything else which can be improved? Edit this document or provide a comment using the buttons above on the right side below gthe blue header banner. 
+See a typo, something missing or out of date, or anything else which can be improved? Edit this document or provide a comment using the buttons above on the right side below the blue header banner.

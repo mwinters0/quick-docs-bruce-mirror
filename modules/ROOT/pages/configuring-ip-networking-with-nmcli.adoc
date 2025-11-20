@@ -4,7 +4,7 @@ Richard Gregory; Peter Boy (pboy)
 :revdate: 2023-08-28
 :category: Administration
 :tags: How-to, Network, NetworkManager
-//:page-aliases: 
+//:page-aliases:
 
 
 [abstract]
@@ -210,7 +210,7 @@ lo      loopback  unmanaged  --
 
 You can also use the following abbreviations of the [application]*nmcli* commands:
 
-[[tabl-nmcli_examples]]
+[[table-nmcli_examples]]
 .Abbreviations of some nmcli commands
 
 [options="header"]
@@ -293,4 +293,3 @@ A unique identification string assigned by the system to a connection profile. T
 === Additional resources
 
 *  See the comprehensive list in the [citetitle]_pass:attributes[{blank}]*nmcli*(1)_ man page.
-

@@ -1,4 +1,4 @@
-= Providing a Stack Trace 
+= Providing a Stack Trace
 Michael Schwendt; Rahul Sundaram; Ankur Sinha
 :revnumber: unspecified
 :revdate: 2014
@@ -12,7 +12,7 @@ Michael Schwendt; Rahul Sundaram; Ankur Sinha
 ====
 This page was taken from the previous Fedora Wiki documentation.
 
-It has been cleaned up for publishing here on the Fedora Docs Portal, but it has not yet been reviewed for technical accuracy. 
+It has been cleaned up for publishing here on the Fedora Docs Portal, but it has not yet been reviewed for technical accuracy.
 
 It is probably
 
@@ -42,17 +42,17 @@ If ABRT does not start automatically, you will need to start the program in a sp
 Special instructions apply for <<JavaStackTraces,Java programs>> and <<firefox>>.
 
 
-== What is a stack trace (backtrace)? 
+== What is a stack trace (backtrace)?
 
-A stack trace (sometimes also called a backtrace) is a list of function calls that leads to some point in the program. Debugging tools like gdb or bug-buddy can get stack traces from crashed applications so that developers can figure out what went wrong. 
+A stack trace (sometimes also called a backtrace) is a list of function calls that leads to some point in the program. Debugging tools like gdb or bug-buddy can get stack traces from crashed applications so that developers can figure out what went wrong.
 
-== What does a stack trace look like? 
+== What does a stack trace look like?
 
 A typical stack trace looks similar to the following:
 
 [source,]
 ----
-[New Thread 8192 (LWP 15167)] 
+[New Thread 8192 (LWP 15167)]
 
 0x420ae169 in wait4 () from /lib/i686/libc.so.6
 .
@@ -74,7 +74,7 @@ A better backtrace, with debuginfo symbols (see below) looks like that:
 
 Notice the filenames and line numbers of where the functions are called appearing.
 
-== What are debugging symbols, and why are they important? 
+== What are debugging symbols, and why are they important?
 
 When a program is compiled with special switches to generate debugging symbols (the -g compiler switch) extra information is stored in the program file. This information can be used to generate a stack trace that contains much more information, such as the exact line number of the source file where things went wrong. Without this information it is very hard to figure out what went wrong by looking at the stack trace.
 
@@ -94,7 +94,7 @@ gaim-debuginfo-2.0.0-0.26.beta5.i386
 
 Each package with binaries in the distribution has a corresponding debuginfo package.
 
-=== Installing debuginfo RPMs using DNF 
+=== Installing debuginfo RPMs using DNF
 
 debuginfo-install is a handy plugin, part of `dnf-plugins-core` package, that automatically enable the debuginfo repositories and download all the debuginfo packages needed. You can do:
 
@@ -110,7 +110,7 @@ $ dnf --enablerepo=fedora-debuginfo --enablerepo=updates-debuginfo install <pkg-
 
 This is useful when you don't want to install debuginfo for all the dependencies of the debugged package as their debuginfo is often not required.
 
-=== Installing debuginfo RPMs using yum 
+=== Installing debuginfo RPMs using yum
 
 The `debuginfo-install` is a handy utility, part of `yum-utils` package, that automatically enable the debuginfo repositories and download all the debuginfo packages needed. You can do:
 
@@ -126,23 +126,23 @@ $ yum --enablerepo fedora-debuginfo,updates-debuginfo install foo-debuginfo
 
 This is useful when you don't want to install debuginfo for all the dependencies of the debugged package as their debuginfo is often not required.
 
-=== Installing debuginfo RPMs manually 
+=== Installing debuginfo RPMs manually
 
 These packages can be downloaded from the normal fedora mirrors in the "debug" subdirectory of the architecture directory. For example, the debuginfo packages for the latest development version is available from https://mirrors.fedoraproject.org/publiclist/Fedora/development/[ http://mirrors.fedoraproject.org/publiclist/Fedora/development/] . Please use the mirror closest to you when downloading.
 
-=== Packagers 
+=== Packagers
 If you are a packager looking for information about debuginfo RPMs, see document xref:packaging-guidelines:Debuginfo.adoc[Debuginfo packages].
 
 //[[Packaging/Debuginfo]]
 // Wiki article:
-// https://fedoraproject.org/wiki/Packaging:Debuginfo 
+// https://fedoraproject.org/wiki/Packaging:Debuginfo
 // refers to Docs article
 // https://docs.fedoraproject.org/en-US/packaging-guidelines/Debuginfo/
 // ToDo: check if Wiki can be redirected to Docs article:
 // {{#fedoradocs: https://docs.fedoraproject.org/en-US/packaging-guidelines/Debuginfo/}}
- 
 
-== How do I generate a backtrace? 
+
+== How do I generate a backtrace?
 
 First make sure that you have installed the debuginfo packages for the application you are debugging and all related libraries. A developer often tells you to install specific debuginfo packages because he can tell from a stack trace which libraries are involved in the crash. See below for recommended packages for some common type of applications.
 
@@ -152,7 +152,7 @@ There are several ways to get a stack trace:
 * Obtaining a stack trace from a <<coredump,core dump with GDB>>.
 * Obtaining a stack trace from an application using <<abrt,Automatic Bug Reporting Tool>>.
 
-== What debuginfo packages should I install? 
+== What debuginfo packages should I install?
 
 At the very least you will need to install the debuginfo package for the application that is crashing. You can find out what package this application is in by typing `rpm -qf path-of-program`.
 
@@ -163,7 +163,7 @@ For certain types of programs it is also very useful to install a couple of defa
 
 
 [id=gdb]
-== Obtaining a stack trace using just GDB 
+== Obtaining a stack trace using just GDB
 
 [NOTE]
 ====
@@ -212,7 +212,7 @@ gdb
 ----
 
 [id=coredump]
-== Obtaining a stack trace from a core dump 
+== Obtaining a stack trace from a core dump
 
 If the program that crashes leaves a core dump, you can use GDB to obtain a stack trace. Core dumps are saved in a file on your hard disk and are usually named something along the lines of "core" or "core.3124". To obtain a stack trace from one of these files, run the following command:
 
@@ -238,7 +238,7 @@ ulimit -c unlimited
 
 
 [id=abrt]
-== How to install ABRT 
+== How to install ABRT
 
 If you installed Fedora via a LiveCD image, ABRT should already be installed. You should be able to start it in `Applications -> System Tools -> Automatic Bug Reporting Tool`. If ABRT is not installed, for whatever reason, you can install it manually by doing the following on a command line:
 
@@ -249,36 +249,36 @@ or go to `System` -> `Administration` -> `Add/Remove Software` in Gnome, and typ
 
 
 
-== Configuring ABRT for Bugzilla 
+== Configuring ABRT for Bugzilla
 
-Go to `Application` -> `System Tools` -> `Automated Bug Reporting Tool` and select it to start it manually. Once the GUI window appears, choose `Edit` -> `Plugins` and from the Settings window, scroll down, highlight Bugzilla and choose `Configure Plugin`. The Bugzilla URL should be https://bugzilla.redhat.com[https://bugzilla.redhat.com] and enter your own Bugzilla login and password in the proper boxes. 
+Go to `Application` -> `System Tools` -> `Automated Bug Reporting Tool` and select it to start it manually. Once the GUI window appears, choose `Edit` -> `Plugins` and from the Settings window, scroll down, highlight Bugzilla and choose `Configure Plugin`. The Bugzilla URL should be https://bugzilla.redhat.com[https://bugzilla.redhat.com] and enter your own Bugzilla login and password in the proper boxes.
 [NOTE]
 ====
 If you do not yet have a Bugzilla account, now is the time to get one, just go to the URL as displayed on that page and https://bugzilla.redhat.com/createaccount.cgi[create a new account].
 ====
 
-Next time you have a program crash, and ABRT triggers, when you hit Report, ABRT will be able to automatically log in to Bugzilla and submit a Bug Report for you. 
+Next time you have a program crash, and ABRT triggers, when you hit Report, ABRT will be able to automatically log in to Bugzilla and submit a Bug Report for you.
 
 
-== Using ABRT 
+== Using ABRT
 
 (The following assumes Gnome as the desktop ... someone else will have to update for KDE/Others)
 
 If ABRT detects a crashed program, you will get an ABRT alert. This will be visually indicated by a flashing red light in the system tray. Left click on the alert light, and the Automatic Bug Reporting Tool should start, displaying all of the crashes it has registered. To report the bug, right click on it and choose report. ABRT will gather the logs it needs to submit with the bug and will then let you know it is going to submit a bug on your behalf. If you have configured ABRT as in the previous section, it will then ask you to verify whether or not to include the various logs, then will automatically go out to Bugzilla and open a bug, attaching the logs into the bug. It will then show you the bug number so that you can track the bug as it is worked on.
 
-== Configuring ABRT when missing Debuginfos 
+== Configuring ABRT when missing Debuginfos
 
 When you right click on a bug in ABRT and choose Report, ABRT will attempt to go out and retrieve the logs it will need to send as part of the bug report. The developers have added code to detect whether or not symbolic traces are included within the backtrace, and if it detects that there are none, ABRT will alert you of this, and will show you the command to run. This is the same as what is shown in the <<debuginfo,debuginfo>> section.
 
 [id=special]
 == Special cases
 
-== Programs running as another user 
+== Programs running as another user
 
 If you do not get any output from gdb after typing `thread apply all bt` or `bt`, it may be because the program is run as root or as another user. In GNOME for example, this is the case when running gnome-games. In such cases, you will need to be root in order to capture a trace. So, quit gdb, login as root, and then repeat the steps to obtain a stack trace.
 
 [id=firefox]
-=== Firefox 
+=== Firefox
 
 * Install Firefox and Xulrunner debug info packages - run `ebuginfo-install firefox xulrunner` as root on the command line.
 * Run `firefox -g` on the command line.  That will start firefox running inside of gdb debugger.
@@ -299,7 +299,7 @@ For additional info see xref:troubleshooting-mozilla-products.adoc[Debugging gui
 
 See document xref:troubleshooting-java-programs[Troubleshooting Java Programs] for info on getting stack traces from programs running in Java.
 
-=== Daemons and their spawn 
+=== Daemons and their spawn
 
 You will need to gather the backtrace from the core file.
 
@@ -333,9 +333,9 @@ you can test whether dumping a core file would work by running `kill -SEGV 1234`
 
 == Other tools
 
-=== Valgrind 
+=== Valgrind
 
-The brilliant tool https://valgrind.org/[valgrind] is often able to say more about what is going wrong; it can give a strack trace to the point where things start to go wrong, which might be long time before the program actually crashes. Programs run through valgrind will run an order of magnitude slower and use more memory, but it will be buddyamazingly usable.
+The brilliant tool https://valgrind.org/[valgrind] is often able to say more about what is going wrong; it can give a stack trace to the point where things start to go wrong, which might be long time before the program actually crashes. Programs run through valgrind will run an order of magnitude slower and use more memory, but it will be buddyamazingly usable.
 
 With valgrind installed (`dnf install valgrind) you can use it on a program:
 
@@ -344,7 +344,7 @@ valgrind name-of-program program-arguments
 
 With debuginfo installed stacktraces will use symbolic names. See [http://valgrind.org/ valgrind.org]  for more info and tips and tricks.
 
-=== strace 
+=== strace
 
 strace can track all system calls made by a program, which can also be helpful in debugging, though it cannot produce stack traces.  Install with `dnf install strace`, and see `man strace` for details.
 
@@ -353,4 +353,3 @@ The situation is a bit improved. Now stack trace feature is implemented (`strace
 == References ==
 * Much of the text from this page comes from the excellent link:https://live.gnome.org/GettingTraces[GNOME bugsquad on getting stack traces].
 * link:https://linux.bytesex.org/gdb.html[]
-

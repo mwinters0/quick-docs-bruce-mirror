@@ -189,7 +189,7 @@ for graphic mode. This command installs HP printers and HP scanners. If you have
 
 === Device which needs plugin does not work after HPLIP update
 
-Devices which need plugin can stop to work after update to newer HPLIP version - it is due the check for plugin version in the code. The check is necessary to prevent inconsitencies when new features in open sourced HPLIP need new proprietary libraries from plugin. To make your printer work again, just download and install plugin again with:
+Devices which need plugin can stop to work after update to newer HPLIP version - it is due the check for plugin version in the code. The check is necessary to prevent inconsistencies when new features in open sourced HPLIP need new proprietary libraries from plugin. To make your printer work again, just download and install plugin again with:
 
 ----
 $ hp-plugin -i
@@ -258,4 +258,3 @@ $ sudo systemctl restart ipp-usb
 === There are less options available if the device is discovered by sane-airscan than with a classic driver
 
 The similar situation can happen with `everywhere` or `driverless` printer models. Some devices declare less options via protocols - f.e. IPP 2.0+, WSD, eSCL - which support driverless solutions than via classic drivers. Usually it is an issue with device's firmware, which can be verify in sane-airscan debug logs and network traffic. The solution is to try to update the device firmware, report the issue to the device manufacturer and at https://bugzilla.redhat.com[bugzilla] with logs.
-

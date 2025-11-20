@@ -1,9 +1,9 @@
 = Screen Recorder – Comparison of Applications and How to Use Them
-Ankursinha; Brunovernay; Hhlp 
+Ankursinha; Brunovernay; Hhlp
 :revnumber: unknown
 :revdate: 2021-02-14
 :category: Multimedia
-:tags: How-to, Screen-recorder  
+:tags: How-to, Screen-recorder
 :experimental:
 :page-aliases: screencast-apps-comparison.adoc
 
@@ -27,9 +27,9 @@ Remember: you can stop recording at any time regardless of the duration you set.
 
 KDE Spectacle supports screen recording for a KDE Plasma Wayland session since the 23.04 release. To launch Spectacle, press kbd:[PrtSc].
 
-On the middle right side of Spectacle, click the tab 'Recording', select one of three options - Workspace, Selected Screeen and Selected Window.
+On the middle right side of Spectacle, click the tab 'Recording', select one of three options - Workspace, Selected Screen and Selected Window.
 
-Press 'Finish recording' to stop the recording. Recorded footage will be saved as WebM file format as a default. 
+Press 'Finish recording' to stop the recording. Recorded footage will be saved as WebM file format as a default.
 
 == Byzanz
 
@@ -66,7 +66,7 @@ Features
 * Sensible default settings: no need to change anything if you don't want to.
 * Tooltips for almost everything: no need to read the documentation to find out what something does.
 
-SimpleScreenRecorder is available in the RPM Fusion reposity. RPM Fusion can be activated with this command:
+SimpleScreenRecorder is available in the RPM Fusion repository. RPM Fusion can be activated with this command:
 [source,]
 ----
 rpm -Uvh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm
@@ -86,7 +86,7 @@ OBS Studio provides feature-rich professional tools for your video recordings an
 
 == Recording Web apps or Web pages
 
-This is a special case, and tools designed for this task can achieve a better result. Chrome has plugins to do the job. 
+This is a special case, and tools designed for this task can achieve a better result. Chrome has plugins to do the job.
 
 == Advanced Topics: Adding Audio
 
@@ -113,7 +113,7 @@ gst-launch-0.8 videotestsrc num-buffers=250 ! video/x-raw-yuv,framerate=25.0 ! t
 ----
 // This file could not be found on the WIKI
 //+
-//Or use the provided https://fedoraproject.org/w/index.php?title=Special:Upload&wpDestFile=ScreenCasting_test.ogg[File:ScreenCasting test.ogg] 
+//Or use the provided https://fedoraproject.org/w/index.php?title=Special:Upload&wpDestFile=ScreenCasting_test.ogg[File:ScreenCasting test.ogg]
 
 * chain the two videos together to produce a video with 10 second lead-in
 [source,]
@@ -130,7 +130,7 @@ cat test.ogg desktop-recording.ogg > edit-video.ogg
 
 == Advanced Topics: Adding a video timestamp
 
-For further editing needs, one can overlay the time over the original video. This may help in the production of additional audio tracks. 
+For further editing needs, one can overlay the time over the original video. This may help in the production of additional audio tracks.
 
 // Here is a small script to produce a video with video timestamp visible: File:ScreenCasting_fedora-video-timestamp.sh
 // Not working
@@ -154,5 +154,3 @@ For further editing needs, one can overlay the time over the original video. Thi
 * http://blogcritics.org/archives/2007/02/05/194332.php
 * https://github.com/foss-project/green-recorder
 * https://www.maartenbaert.be/simplescreenrecorder/
-
-

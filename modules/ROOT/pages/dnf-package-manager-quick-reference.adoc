@@ -3,7 +3,7 @@ Peter Boy (pboy) ; The Fedora Docs Team
 :revnumber: F37 onwards
 :revdate: 2023-08-29
 :category: Administration
-:tags: How-to, DNF, Quick Reference 
+:tags: How-to, DNF, Quick Reference
 
 This sections lists the most useful commands provided by the *dnf* utility. For a complete list of commands, options, and their syntax, see the *dnf*(8) man page.
 
@@ -117,7 +117,7 @@ freeipa-common.noarch : Common files used by IPA
 freeipa-server.x86_64 : The IPA authentication server
 freeipa-server-dns.noarch : IPA integrated DNS server with support for automatic DNSSEC signing
 freeipa-client-common.noarch : Common files used by IPA client
-freeipa-python-compat.noarch : Compatiblity package for Python libraries used by IPA
+freeipa-python-compat.noarch : Compatibility package for Python libraries used by IPA
 freeipa-server-common.noarch : Common files used by IPA server
 freeipa-server-trust-ad.x86_64 : Virtual package to install packages required for Active Directory trusts
 libsss_idmap.x86_64 : FreeIPA Idmap library

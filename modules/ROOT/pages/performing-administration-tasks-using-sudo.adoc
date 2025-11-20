@@ -1,10 +1,10 @@
 = Performing administration tasks using sudo
-Harsh Jain; Peter Boy 
+Harsh Jain; Peter Boy
 :revnumber: unknown
 :revdate: 2023-08-08
 :category: Administration
-:tags: How-to, root-privilegies  
-//:page-aliases: 
+:tags: How-to, root-privileges
+//:page-aliases:
 
 //include::partial$attributes.adoc[]
 
@@ -37,7 +37,7 @@ Replace `_COMMAND_` with the command to run as the root user.
 
 Add users to the [directory]`/etc/sudoers` configuration file to allow them to use the [command]`sudo` command. For these users, the [command]`sudo` command is run in the user’s shell instead of in a root shell. As a result, the root shell can be disabled for increased security.
 
-The administrator can also allow different users access to specific commands using the sudo configuration. Administrators must use the [command]`visudo` command to edit the [directory]`/etc/sudoers` configuration file. 
+The administrator can also allow different users access to specific commands using the sudo configuration. Administrators must use the [command]`visudo` command to edit the [directory]`/etc/sudoers` configuration file.
 
 To assign full administrative privileges to a user, type [command]`visudo` and add the following line to the user privilege section after replacing `_USERNAME_` with the target user name:
 
@@ -81,7 +81,7 @@ $ su -
 +
 Replace `_USERNAME_` with your account name
 
-. Log off and back on in order to have access to the group. 
+. Log off and back on in order to have access to the group.
 
 NOTE: When [command]`sudo` prompts you for a password, it expects your user password, not the `root` password.
 
@@ -125,9 +125,9 @@ By default, [command]`sudo` stores the password for a five minute timeout period
 Defaults    timestamp_timeout=_VALUE_
 ------------
 
-Here, `_VALUE_` is the desired timeout length in minutes. Setting the value to 0 causes [command]`sudo` to require a password every time. 
+Here, `_VALUE_` is the desired timeout length in minutes. Setting the value to 0 causes [command]`sudo` to require a password every time.
 
-If an account is compromised, an attacker can use [command]`sudo` to open a new shell with administrative privileges. 
+If an account is compromised, an attacker can use [command]`sudo` to open a new shell with administrative privileges.
 
 Opening a new shell as a root user in this way allows an attacker administrative access for a theoretically unlimited period of time and bypasses the timeout period specified in the `/etc/sudoers` file. Using this method, the attacker *does not* need to provide a password for [command]`sudo` again until the session ends.
 
@@ -162,8 +162,6 @@ You can enable `root` access without a password specified, allowing any process 
 _user_        ALL=(ALL)       NOPASSWD: /usr/bin/docker
 ------------
 
-This will allow `_user_` to access docker without a password. 
+This will allow `_user_` to access docker without a password.
 
-IMPORTANT: For security reasons, it is recommended that you always use [command]`sudo` with a password. 
-
-
+IMPORTANT: For security reasons, it is recommended that you always use [command]`sudo` with a password.

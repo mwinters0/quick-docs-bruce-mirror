@@ -3,8 +3,8 @@
 :revnumber: unknown
 :revdate: 2022-10-03
 :category: Virtualization
-:tags: How-to,  Windows, Wine 
-//:page-aliases: 
+:tags: How-to,  Windows, Wine
+//:page-aliases:
 
 [abstract]
 http://winehq.org/[Wine] is an open source implementation of the Windows API on top of X and OpenGL.
@@ -27,15 +27,15 @@ The default wine configuration files is stored in your `$HOME` directory:
 $HOME/.wine
 ```
 
-TIP: Different prefixes can be used as descibed in the
+TIP: Different prefixes can be used as described in the
 xref:#working-with-prefix[wine prefix] section lower in this document.
 
 [[wine-desktop-files]]
 == Wine desktop files
 
 https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html#variables[Wine respects the XDG Base Directory Specification].
-`$XDG_DATA_HOME` defines the base directory relative to which 
-user-specific data files should be stored. If `$XDG_DATA_HOME` is either 
+`$XDG_DATA_HOME` defines the base directory relative to which
+user-specific data files should be stored. If `$XDG_DATA_HOME` is either
 not set or empty, it defaults to `$HOME/.local/share`.
 
 Wine stores its desktop files in `$XDG_DATA_HOME/applications/wine`.
@@ -57,7 +57,7 @@ It allows you to:
 - change sound/audio settings
 
 WARNING: Some applications do not work with the default
-Windows version which Wine offers. E.g.: Amazon Kindle 
+Windows version which Wine offers. E.g.: Amazon Kindle
 Desktop Edition.
 
 [[wine-script]]
@@ -81,10 +81,10 @@ needed to run some programs in Wine, e.g., Adobe Digital Edition.
 == Wine prefix
 
 A https://wiki.winehq.org/FAQ#Wineprefixes[Wine prefix] is a folder that contains all of the Wine configurations
-as well as all of the Windows pieces that Wine uses for compatibility, 
+as well as all of the Windows pieces that Wine uses for compatibility,
 including libraries and a registry.
 
-Some applications need a 32 or 64 wine prefix, this can be done in the 
+Some applications need a 32 or 64 wine prefix, this can be done in the
 following way:
 
 - Create a clean wine32/64 prefix:
@@ -110,9 +110,9 @@ How to install the follow applications under wine?
 
 1. Adobe Digital Edition 4.5
 
-* use `winetricks` as descibed before and select **install application** in 
+* use `winetricks` as described before and select **install application** in
 the menu "What you do you want to do?"
-* in "Which package(s) would you like to install?" select `adobe_diged4` 
+* in "Which package(s) would you like to install?" select `adobe_diged4`
 
 2. Kindle Desktop Edition
 

@@ -4,7 +4,7 @@ Alessio ; Héctor Louzao ; Ankur Sinha
 :revdate: 2022-06-10
 :category: Databases
 :tags: How-to, MySQL, MariaDB
-//:page-aliases: 
+//:page-aliases:
 
 
 [abstract]
@@ -22,7 +22,7 @@ In the Fedora repositories you can find:
 
 NOTE: MariaDB and MySQL packages conflict because they provide similar files. So, you can only install one of them, either MariaDB or MySQL, but not both.
 
-In addition you can also install MySQL commmunity edition (8.0 or 5.7) from the repository maintained by Oracle/MySQL itself.
+In addition you can also install MySQL community edition (8.0 or 5.7) from the repository maintained by Oracle/MySQL itself.
 
 
 
@@ -118,7 +118,7 @@ Some questions will be asked: answer to them as you prefer; answering _yes_ to a
 === Using SQL
 
 ----
-sudo mysql -u root -p                                                                     
+sudo mysql -u root -p
 ----
 
 === Removing SQL
@@ -153,14 +153,14 @@ podman logs {mysql|mariadb}
 The command's below contain the random password generated for the root user;
 
 ----
-podman logs mysql 2>&1 | grep GENERATED                                                   
+podman logs mysql 2>&1 | grep GENERATED
 ----
 
 ----
 podman run -d --name=mysql -e MYSQL_ROOT_PASSWORD=mypassword mysql/mysql-server
 ----
 
-=== Starting a MariaDB Server Instance 
+=== Starting a MariaDB Server Instance
 
 ----
 podman run -d --name=mariadb -ed MYSQL_ROOT_PASSWORD=mypassword mariadb/server
@@ -176,10 +176,10 @@ NOTE: The -d option used for _BOTH_ in the podman run command above makes the co
 podman exec -it mysql mysql -uroot -p
 ----
 
-you must reset the server root password by issuing this statement:                        
- 
+you must reset the server root password by issuing this statement:
+
 ----
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';                            
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
 ----
 
 === Connecting to MariaDB Server from within the Container
@@ -188,12 +188,12 @@ mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
 podman exec -it mariadb bash
 ----
 
-=== Reseting SQL_ROOT_PASSWORD
+=== Resetting SQL_ROOT_PASSWORD
 
-you must reset the server root password by issuing this statement:                        
+you must reset the server root password by issuing this statement:
 
 ----
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';                            
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
 ----
 
 === Stopping and Deleting a SQL Container
@@ -278,7 +278,7 @@ systemctl restart firewalld.service
 
 Configuration files:
 
-* MySQL           -> `/etc/my.cnf/` 
+* MySQL           -> `/etc/my.cnf/`
 * MySQL Community -> `/etc/my.cnf.d/community-mysql-server.cnf`
 * MariaDB         -> `/etc/my.conf`
 
@@ -314,11 +314,11 @@ GRANT ALL PRIVILEGES ON *.* TO 'your_username'@'%';
 
 #### OR ####
 
-It is common for people to want to create a "root" user that can connect from anywhere, so as an example, we'll do just that, but to improve on it we'll create 
+It is common for people to want to create a "root" user that can connect from anywhere, so as an example, we'll do just that, but to improve on it we'll create
 a root user that can connect from anywhere on the local area network (LAN)
 
 ----
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.100.%' 
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.100.%'
   IDENTIFIED BY 'my-new-password' WITH GRANT OPTION;
 ----
 
@@ -335,7 +335,7 @@ mysql -u [USER] -h [IP] -p
 
 
 //include::{partialsdir}/proc_troubleshooting-mysql.adoc[leveloffset=+1]
-//[id='how-to-troubleshoot-issues-in-sql'] 
+//[id='how-to-troubleshoot-issues-in-sql']
 == How To Troubleshoot Issues in SQL
 
 Version:
@@ -358,11 +358,11 @@ mysqld --print-defaults
 /usr/libexec/mysqld --print-defaults
 ----
 
-WARNING: Compatiblity between different version are not allowed Just install one of them.
+WARNING: Compatibility between different version are not allowed Just install one of them.
 
-=== How to Access SQL Error Logs                                                           
+=== How to Access SQL Error Logs
 
-Oftentimes, the root cause of slowdowns, crashes, or other unexpected behavior in SQL can 
+Oftentimes, the root cause of slowdowns, crashes, or other unexpected behavior in SQL can
 In many cases, the error logs are most easily read with the less program, a command line u
 
 if SQL isn’t behaving as expected, you can obtain more information about the source of the
@@ -431,5 +431,3 @@ sudo systemctl restart {mysqld|mariadb}
 ----
 
 Then try accessing the MySQL prompt once again. If you still encounter the socket error, there’s likely a deeper issue with your MySQL instance, in which case you should review the error log to see if it can provide any clues.
-
-

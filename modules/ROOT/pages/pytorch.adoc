@@ -3,10 +3,10 @@ Sumantro Mukherjee;
 :revnumber: F42 onwards
 :revdate: 2025-05-16
 :category: AI
-:tags: How-to, LLM, GenAI, Quick Refeence
+:tags: How-to, LLM, GenAI, Quick Reference
 
-PyTorch is an open-source machine learning framework developed by Meta AI. 
-It provides dynamic computational graphs and automatic differentiation, making it highly flexible and popular in both academia and industry. 
+PyTorch is an open-source machine learning framework developed by Meta AI.
+It provides dynamic computational graphs and automatic differentiation, making it highly flexible and popular in both academia and industry.
 At its core, the `torch` module in PyTorch offers powerful tensor computation, similar to NumPy, but with GPU acceleration.
 
 With Fedora 42, PyTorch is now available directly through the system package manager, making installation and updates seamless for users.
@@ -74,4 +74,3 @@ For tutorials, model zoo, and full documentation, visit:
 == Feedback
 
 If you encounter issues or have suggestions for the Fedora package, file a bug at https://bugzilla.redhat.com or join the Fedora AI SIG.
-

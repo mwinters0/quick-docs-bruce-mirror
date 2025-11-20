@@ -3,7 +3,7 @@ Michael Wu; Anthony McGlone; The Fedora Docs team
 :revnumber: F42
 :revdate: 2025-08-28
 :category: Administration
-:tags: How-to, Upgrade, Update 
+:tags: How-to, Upgrade, Update
 :page-aliases: dnf-system-upgrade.adoc
 
 include::ROOT:partial$attributes.adoc[]
@@ -298,7 +298,7 @@ sudo clean-rpm-gpg-pubkey
 [[sect-clean-up-old-symlinks]]
 === Clean-up old symlinks
 
-There may be some dangling symlinks in the filesystem after an upgrade. You can clean the dangling links by installing the symlinks utility and deleteing the old links.
+There may be some dangling symlinks in the filesystem after an upgrade. You can clean the dangling links by installing the symlinks utility and deleting the old links.
 
 [source,bash]
 ----

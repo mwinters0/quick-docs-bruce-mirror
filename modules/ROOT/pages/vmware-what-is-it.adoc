@@ -3,7 +3,7 @@ Héctor Louzao; The Fedora Docs team
 :revnumber: unknown
 :revdate: 2025-03-31
 :category: Virtualization
-:tags: How-to, VMware 
+:tags: How-to, VMware
 :page-aliases: how-to-use-vmware.adoc
 
 
@@ -25,7 +25,7 @@ To download any Product::
 
    * Navigate to Broadcom Support: https://support.broadcom.com/[Broadcom Support] and create an account.
    * From the Software menu section, select VMware Cloud Foundation then My Downloads.
-   * Click on VMware Workstation Player/VMware Worstation Pro.
+   * Click on VMware Workstation Player/VMware Workstation Pro.
    * Click on your release.
    * Click Download.
 
@@ -36,8 +36,8 @@ To download any Product::
 ==== Player
 
 ----
-$ sudo chmod +x ./VMware-Player-x.y.z-nn.x86_64.bundle      
-$ sudo ./VMware-Player-x.y.z-nn.x86_64.bundle                                   
+$ sudo chmod +x ./VMware-Player-x.y.z-nn.x86_64.bundle
+$ sudo ./VMware-Player-x.y.z-nn.x86_64.bundle
 ----
 
 ==== Workstation
@@ -85,7 +85,7 @@ Based on your VMware product, replace “x.y.z” with your installed version an
 
 === Dealing with Secure Boot and VMware modules
 
-Options are available but for the moment __Disabe Secure Boot__ is the best option.
+Options are available but for the moment __Disable Secure Boot__ is the best option.
 
 === Deal with Kernel Updates
 

@@ -3,8 +3,8 @@ Chase Lau ; ctrngk; The Fedora Docs Team
 :revnumber: unknown
 :revdate: 2024-05-05
 :category: Installation
-:tags: How-to, Workstation  
-//:page-aliases: 
+:tags: How-to, Workstation
+//:page-aliases:
 
 include::partial$attributes.adoc[]
 
@@ -288,7 +288,7 @@ Sector size (logical/physical): 512B/512B
 Partition Table: msdos
 
 Number  Start   End     Size    Type     File system  Flags
- 1      32.3kB  1062MB  1062MB  primary  fat16        boot 
+ 1      32.3kB  1062MB  1062MB  primary  fat16        boot
 
 (parted) quit
 Information: Don't forget to update /etc/fstab, if necessary.
@@ -296,7 +296,7 @@ Information: Don't forget to update /etc/fstab, if necessary.
 
 Partitions need a filesystem label:: If you get the message `Need to have a filesystem label` or `UUID` for your USB device, you need to label the partition: `dosfslabel /dev/sdX LIVE`.
 
-Partition has different physical/logical endings:: If you get this message from fdisk, you may need to reformat the flash drive when writing the image, by passing `--format` when writing the stick. 
+Partition has different physical/logical endings:: If you get this message from fdisk, you may need to reformat the flash drive when writing the image, by passing `--format` when writing the stick.
 
 MBR appears to be blank:: If your test boot reports a corrupted boot sector, or you get the message `MBR appears to be blank.`, you need to install or reset the master boot record (MBR), by passing `--reset-mbr` when writing the stick.
 
@@ -338,7 +338,7 @@ The `livecd-creator` tool is part of the _livecd-tools_package. If it is not ins
 
 [options="nowrap"]
 ----
-# dnf install livecd-tools mock 
+# dnf install livecd-tools mock
 ----
 
 Hint: We are creating a livecd like the fedora-live-workstation image, which is totally localized, but has english as default. There is no need to install any localization support on your own. You can change it in the created kickstart.cfg if necessary.
@@ -353,7 +353,7 @@ We need to add you current user to the mock group, or you need to do anything as
 # sudo usermod -aG mock $(whoami)
 ----
 
-The $(whoami) adds your current user, as we do not know what username you are currently using ;) 
+The $(whoami) adds your current user, as we do not know what username you are currently using ;)
 
 A relogin to make the change effective, would be wise, or you switch to root now.
 
@@ -376,23 +376,23 @@ it shall output your username together with the old groups and the new group "mo
 [id='creating-your-build-environment']
 === Creating your build environment
 
-Now we can init the build environment. In this example we use the most likely x86_64, but if you build it for ARM or PowerPC, you can just use a different config by changing the ARCH-Type to the desired plattform!
+Now we can init the build environment. In this example we use the most likely x86_64, but if you build it for ARM or PowerPC, you can just use a different config by changing the ARCH-Type to the desired platform!
 
 [options="nowrap"]
 ----
 # mock -r /etc/mock/fedora-42_x86_64.cfg --init
 ----
 
-Mock creates us an empty toolbox for this, so we need to fill it with packages, which we will need to create the image later in the process. If you now think "Why so complicated?" you are only partly right, as a toolbox is a simple container, which we need to seperate the work for different releases of Fedora, otherwise you have to overwrite and mixing different builds on your own.
+Mock creates us an empty toolbox for this, so we need to fill it with packages, which we will need to create the image later in the process. If you now think "Why so complicated?" you are only partly right, as a toolbox is a simple container, which we need to separate the work for different releases of Fedora, otherwise you have to overwrite and mixing different builds on your own.
 
-Make sure you have enogh free disk space for all these files and the ones, the livemedia-creator will download later. We suggest at least 10 GB free diskspace for this.
+Make sure you have enough free disk space for all these files and the ones, the livemedia-creator will download later. We suggest at least 10 GB free diskspace for this.
 
 [options="nowrap"]
 ----
 # mock -r /etc/mock/fedora-42_x86_64.cfg --install lorax anaconda git pykickstart vim lorax anaconda git pykickstart vim libblockdev-lvm libblockdev-btrfs libblockdev-swap libblockdev-loop libblockdev-crypto libblockdev-dm libblockdev-mdraid libblockdev-part libblockdev-fs libblockdev-nvme libblockdev-mpath
 ----
 
-If you wanne use a different texteditor then "vim", you need to install it now, otherwise you are stuck to a not so well integrated basic "vim" installation, which will be a bit unpleasent to use. Don't panic, we don't do much editing inside the toolbox, vim will do :)
+If you wanne use a different texteditor then "vim", you need to install it now, otherwise you are stuck to a not so well integrated basic "vim" installation, which will be a bit unpleasant to use. Don't panic, we don't do much editing inside the toolbox, vim will do :)
 
 Now we enter the toolbox for the first time ...
 
@@ -434,23 +434,23 @@ INFO: enabled HW Info plugin
 INFO: Package manager dnf5 detected and used (direct choice)
 Finish: chroot init
 Start: shell
-<mock-chroot> sh-5.2# 
+<mock-chroot> sh-5.2#
 ----
 
-Now we need to download the kickstart files, which previouse Fedora releases had as a package, from the Fedora Servers:
+Now we need to download the kickstart files, which previous Fedora releases had as a package, from the Fedora Servers:
 
 [options="nowrap"]
 ----
 # git clone https://pagure.io/fedora-kickstarts -b f42
 ----
 
-You can access the page with a normal browser, to see which tags aka 'branches' like "f42" are available, in case you wanne do another version. What happens now is a git checkout into the current directory of your toolbox. Big advantage: no danger of overwriting files on your os. 
+You can access the page with a normal browser, to see which tags aka 'branches' like "f42" are available, in case you wanne do another version. What happens now is a git checkout into the current directory of your toolbox. Big advantage: no danger of overwriting files on your os.
 
-ATTENTION: before you continue, make sure you have at least 10 GB of free storage on your systems partition as we will download a lot of rpms and create an image that is at least 2,3 GB in size. If you don't have enough space, all future steps can faill with the wildest error messages and your will waste A LOT of time with it!
+ATTENTION: before you continue, make sure you have at least 10 GB of free storage on your systems partition as we will download a lot of rpms and create an image that is at least 2,3 GB in size. If you don't have enough space, all future steps can fail with the wildest error messages and your will waste A LOT of time with it!
 
-What we now need is a kickstart file. Never heared of it, don't panic :D 
+What we now need is a kickstart file. Never heard of it, don't panic :D
 
-A kickstart file contains informations about the size of the tmp drive in the later started live image, it mounts, its packages and so on. You will not need to reinvent the wheel, relax. Here is an example:
+A kickstart file contains information about the size of the tmp drive in the later started live image, it mounts, its packages and so on. You will not need to reinvent the wheel, relax. Here is an example:
 
 [options="nowrap"]
 ----
@@ -484,9 +484,9 @@ thunderbird
 
 ----
 
-What you see is a subsection of all possible options, because that git checkout before, downloaded a full set of already working kickstart files, which we will join up to one new kickstart.cfg file. 
+What you see is a subsection of all possible options, because that git checkout before, downloaded a full set of already working kickstart files, which we will join up to one new kickstart.cfg file.
 
-The above file will remove packages and groups of packages from the later created image, compared to the normal Fedora-Live-Workstation image. We call this a DELTA-file, because we just define the differences between our image and the original Fedora Live Workstation image. 
+The above file will remove packages and groups of packages from the later created image, compared to the normal Fedora-Live-Workstation image. We call this a DELTA-file, because we just define the differences between our image and the original Fedora Live Workstation image.
 
 You see this:
 
@@ -502,7 +502,7 @@ This includes the original kickstart (ks) config for the original Fedora-Live-Wo
 
 In this example, we removed some gnome-apps and end up what you know as "Fedora-Minimal-Workstation" Image.
 
-Take that example and save it to a file you can name i.E. "example-START.ks". Make sure you can distingish your file later as the starting point of your work. Because now, we will "join" aka. "flatten" the included files to one big kickstart.cfg file, that we will need for livemedia-creator later.
+Take that example and save it to a file you can name i.E. "example-START.ks". Make sure you can distinguish your file later as the starting point of your work. Because now, we will "join" aka. "flatten" the included files to one big kickstart.cfg file, that we will need for livemedia-creator later.
 
 [options="nowrap"]
 ----
@@ -513,7 +513,7 @@ The problem you are now facing is, it doesn't work out-of-box, because ksflatten
 
 a) you move your ks file to the directory named "fedora-kickstarts" and switch to it with cd, or
 
-b) you execute the above command and copy all files it names in the errormessage from "fedora-kickstarts" to "." untill it stops complaining.
+b) you execute the above command and copy all files it names in the errormessage from "fedora-kickstarts" to "." until it stops complaining.
 
 From now on, you should only edit the created kickstart.cfg file for changes, otherwise you have to repeat the next step over and over again.
 
@@ -534,7 +534,7 @@ search for "# Disk partitioning information" and change the two lines, that star
 part / --fstype="ext4" --size=8576
 ----
 
-We will try to fix this, but it could take until Fedora 45. 
+We will try to fix this, but it could take until Fedora 45.
 
 
 [id='create-the-iso']
@@ -547,11 +547,11 @@ Now the part you are waiting for: Let's create the iso image.
 livemedia-creator --ks kickstart.cfg --no-virt --resultdir /var/lmc --project MYPROJECTNAME --make-iso --volid MY_ID --iso-only --iso-name <FILENAME>.iso --releasever 42 --macboot
 ----
 
-Please replace the folling terms:
+Please replace the following terms:
 
 "MYPROJECTNAME"  That is your internal project name, that ends up in /etc/os-release
 "MY_ID" that is the name of the mounted ISO file AND VERY IMPORTANT if you wanne refer to that iso in GRUB
-"<FILENAME>" thats the name of the created iso file unter /var/lmc 
+"<FILENAME>" thats the name of the created iso file under /var/lmc
 
 In approximitly 15 minutes, if everything works, you have a created <filename>.iso image IN YOUR TOOLBOX.
 
@@ -562,20 +562,20 @@ To get it out there, you enter ...
 # exit
 ----
 
-and copy it to the desired place. In example: 
+and copy it to the desired place. In example:
 
 [options="nowrap"]
 ----
 # cp /var/lib/mock/fedora-42-x86_64/root/var/lmc/<filename>.iso /home/themasteruser/Downloads/Images/
 ----
 
-Now you can test your image in different ways: 
+Now you can test your image in different ways:
 
 a) you can use Gnome-Boxen to just run it in your desktop environment, which is way easier.
 
 or
 
-b) use the QEMU line in the next section. 
+b) use the QEMU line in the next section.
 
 Congratulations: You are done creating our own live-image. Some tips on the way:
 
@@ -584,40 +584,36 @@ Congratulations: You are done creating our own live-image. Some tips on the way:
 - If you want to have your own packages inside the image, you need to add a custom repo. See "repo" in kickstart.cfg .
 
 [id='testing-your-live-cd-using-kvm-or-qemu']
-	
+
 === Testing your live CD using KVM or qemu
-	
+
 image:qemu_gtk3.png[QEMU running Fedora 17,title="QEMU running Fedora 17"]
-	
+
 As root:
-	
+
 [options="nowrap"]
 ----
 
 # qemu-kvm -m 2048 -vga qxl -cdrom filename.iso
 ----
-	
+
 [NOTE]
-	
+
 ====
 
 If you do not have https://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine[KVM] support, you have to use qemu instead.
-	
+
 [options="nowrap"]
 ----
 # qemu-system-x86_64 -m 2048 -vga qxl -cdrom filename.iso
 ----
-	
+
 ====
-	
+
 Replace `_filename.iso_` with the name of your created Live CD image and `_qemu-system-x86_64_` with an appropriate qemu binary for the target system, e.g. `qemu-system-i386`.
-	
+
 [id='live-image-media-verification']
-	
+
 === Live image media verification
-	
+
 The live image can incorporate functionality to verify itself. To do so, you need to have _isomd5sum_ installed both on the system used for creating the image and installed into the image. This is so that the `implantisomd5` and `checkisomd5` utilities can be used. These utilities take advantage of embedding an _md5sum_ into the application area of the iso9660 image. This then gets verified before mounting the real root filesystem.
-
-
-
-

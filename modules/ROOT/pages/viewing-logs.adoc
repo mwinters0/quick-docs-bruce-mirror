@@ -1,5 +1,5 @@
 = Viewing logs in Fedora
-JJ Asghar; hector louzao ; Mirek Jahoda  
+JJ Asghar; hector louzao ; Mirek Jahoda
 :revnumber: F31 and newer
 :revdate: 2020
 :category: Administration
@@ -9,7 +9,7 @@ JJ Asghar; hector louzao ; Mirek Jahoda
 Log files contain messages about the system, including the kernel, services, and applications running on it.
 These contain information that helps troubleshoot issues, or simply monitor system functions.
 Fedora uses the https://freedesktop.org/wiki/Software/systemd/[systemd] system and service manager.
-With systemd, messages for most services are now stored in the systemd journal which is a binary file that must be accessed usinng the `journalctl` command.
+With systemd, messages for most services are now stored in the systemd journal which is a binary file that must be accessed using the `journalctl` command.
 
 System tools that do not use systemd for their logs continue to place them as plain text files in the `/var/log/` directory.
 In Fedora, there are two ways of accessing system logs:
@@ -135,5 +135,3 @@ In `GNOME Logs`, you can filter for time periods, search within logs, and displa
 * To search within logs, select a log file from the results pane.
 . Click the search icon.
 . Enter one or more search criterion in the search field.
-
-

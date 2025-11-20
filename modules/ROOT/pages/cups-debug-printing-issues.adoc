@@ -30,7 +30,7 @@ The best start is to attach files with logs described further down.
 
 All CUPS logging is redirected to journal by default since Fedora 28 (there was a redirecting of error_log to journal by default before Fedora 28).
 
-We need to define two different ways of capturing incident-bound CUPS whole logs - the one if the broken print queue isn't provided by HPLIP and the other if it is. They differs in the filter option of journald - if you use non-HPLIP queue for debugging, it is okay to gather the logs from cups systemd unit (by '-u cups'), because all error messages are correctly redirected to cups systemd unit logging and they are accessible in the output after unit filtering. HPLIP libraries are not implemented to do the same (upstream is unresponsive to accept a potencial fix into the project and the issue is not critical enough to drag a downstream patch forever), so their messages aren't marked for cups systemd unit and they're filtered out after calling journald with '-u cups'. For such queues journald log without filtering is required.
+We need to define two different ways of capturing incident-bound CUPS whole logs - the one if the broken print queue isn't provided by HPLIP and the other if it is. They differs in the filter option of journald - if you use non-HPLIP queue for debugging, it is okay to gather the logs from cups systemd unit (by '-u cups'), because all error messages are correctly redirected to cups systemd unit logging and they are accessible in the output after unit filtering. HPLIP libraries are not implemented to do the same (upstream is unresponsive to accept a potential fix into the project and the issue is not critical enough to drag a downstream patch forever), so their messages aren't marked for cups systemd unit and they're filtered out after calling journald with '-u cups'. For such queues journald log without filtering is required.
 
 [NOTE]
 ===============================
@@ -221,7 +221,7 @@ Device: uri = usb://HP/DESKJET%20990C?serial=U123456789AB
         device-id = MFG:HEWLETT-PACKARD;MDL:DESKJET 990C;CMD:MLC,PCL,PML;CLS:PRI
 NTER;DES:Hewlett-Packard DeskJet 990C;SN:U123456789AB;S:00808880800010032C100000
 0C2000000;P:0800,FL,B0;J:                    ;
-        location = 
+        location =
 ----
 
 The line which identifies this particular model type is the long one that starts "device-id =" (shown here wrapping over three lines).
@@ -233,7 +233,7 @@ $ /usr/lib/cups/backend/snmp 10.34.18.3
 
 network socket://10.34.18.3 "HP Color LaserJet CP2025dn" "HP Color LaserJet CP2025dn"
 "MFG:Hewlett-Packard;CMD:PJL,PML,PCLXL,POSTSCRIPT,PCL;MDL:HP Color LaserJet CP2025dn;
-CLS:PRINTER;DES:Hewlett-Packard Color LaserJet CP2025dn;MEM:MEM=55MB;COMMENT:RES=600x8;" "HP Color LaserJet CP2025dn" 
+CLS:PRINTER;DES:Hewlett-Packard Color LaserJet CP2025dn;MEM:MEM=55MB;COMMENT:RES=600x8;" "HP Color LaserJet CP2025dn"
 ----
 
 Device ID is in this case (see http://www.cups.org/documentation.php/doc-1.5/man-backend.html[backend(7)]) the last but one field.
@@ -459,7 +459,7 @@ Please follow the steps in the following sections:
 * xref:how-to-debug-printing-problems.adoc#_how_to_start_to_capture_incident_bound_journal_logging[start to capture journal logs]
 * trigger your issue
 * xref:how-to-debug-printing-problems.adoc#_how_to_get_incident_bound_journal_logging[get the journal logs]
-* attach files with output of [command]`lsusb -v` and from `/var/log/ipp-usb` if the device is connected by USB 
+* attach files with output of [command]`lsusb -v` and from `/var/log/ipp-usb` if the device is connected by USB
 * attach the files to the bugzilla ticket and xref:how-to-debug-printing-problems.adoc#_turning_off_debug_logging[turn off debug logging]
 * provide printer model name and printer PPD file from `/etc/cups/ppd/`
 
@@ -476,7 +476,7 @@ Please follow the steps in the following sections:
 * attach the file you wanted to print
 * tell what application you printed from
 * mention your xref:how-to-debug-printing-problems.adoc#_which_driver_am_i_using[printer model]
-* attach files with output of [command]`lsusb -v` and from `/var/log/ipp-usb` if the device is connected by USB 
+* attach files with output of [command]`lsusb -v` and from `/var/log/ipp-usb` if the device is connected by USB
 
 === CUPS generic issue
 
@@ -489,7 +489,7 @@ For generic issues - printer wasn't found, segfault - please follow the steps in
 * attach created files to the ticket and xref:how-to-debug-printing-problems.adoc#_turning_off_debug_logging[turn off debug logging]
 * put the output of xref:how-to-debug-printing-problems.adoc#_what_make_and_model_is_my_printer[lpinfo] into a file and attach it
 * put the output of xref:how-to-debug-printing-problems.adoc#_which_print_queues_are_available_for_me[both lpstat commands] into a file and attach it
-* attach files with output of [command]`lsusb -v` and from `/var/log/ipp-usb` if the device is connected by USB 
+* attach files with output of [command]`lsusb -v` and from `/var/log/ipp-usb` if the device is connected by USB
 
 === My printer doesn't print correctly - I use 'everywhere' model
 

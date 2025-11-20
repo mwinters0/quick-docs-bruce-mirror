@@ -3,7 +3,7 @@ Sumantro Mukherjee;
 :revnumber: F42 onwards
 :revdate: 2025-05-16
 :category: AI
-:tags: How-to, LLM, GenAI, Quick Refeence
+:tags: How-to, LLM, GenAI, Quick Reference
 
 Ollama is a command-line tool that makes it easy to run and manage large language models (LLMs) locally. It supports running models such as LLaMA, Mistral, and others directly on your machine with minimal setup. Fedora 42 introduces native support for Ollama, making it easier than ever for developers and enthusiasts to get started with local LLMs.
 
