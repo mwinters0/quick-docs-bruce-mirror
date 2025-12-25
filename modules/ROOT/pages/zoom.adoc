@@ -1,7 +1,7 @@
 = Installing Zoom on Fedora
 Akshata Khedekar
 :revnumber: unknown 
-:revdate: 2021
+:revdate: 2025
 :category: Administration
 :tags: How-to, Video  
 //:page-aliases: 
@@ -14,11 +14,12 @@ It provides videotelephony and online chat services through a cloud-based peer-t
 
 == How to Setup
 
-In Fedora one can setup zoom using the following steps
+In Fedora one can setup zoom using either of the following options
 
-=== Using a graphical installer (Fedora only)
+=== Download the RPM 
 
 If you're using Fedora Workstation Edition, you can install Zoom using the GNOME application center.
+Note that this option doesn't automatically update Zoom when a new version is released.
 
 * Download the RPM installer file at our https://zoom.us/download?os=linux[Download Center].
 * Open the download location using a file manager.
@@ -27,12 +28,15 @@ If you're using Fedora Workstation Edition, you can install Zoom using the GNOME
 * Enter your admin password and continue the installation when prompted.
 
 
-=== Using the Terminal 
+=== Install the Zoom DNF repo
+Download and import the Zoom DNF repo, and import the GPG key.
+Enter your admin password when prompted by sudo:
+....
+sudo curl --location https://repo.zoom.us/repo/rpm/zoom_release.repo --output /etc/yum.repos.d/zoom_release.repo
+sudo rpmkeys --import https://zoom.us/linux/download/pubkey?version=6-3-10
+....
 
-* Open Terminal and navigate to ~/Downloads
-* Download the RPM installer file at our https://zoom.us/download?os=linux[Download Center].
-* Type in the following command and press Enter to run it. 
---------------------------------
-sudo dnf install zoom_x86_64.rpm 
---------------------------------
-* Enter your admin password and continue the installation when prompted.
+Then install Zoom itself:
+....
+sudo dnf install zoom
+....
