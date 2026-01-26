@@ -85,7 +85,13 @@ If you’re getting ident errors from your app you’ll probably need to perform
 sudo gedit /var/lib/pgsql/data/pg_hba.conf
 ....
 
-and edit `host all all 127.0.0.1/32 ident` to `host all all 127.0.0.1/32 md5`. This should allow most applications to connect with username/password.
+and edit `host all all 127.0.0.1/32 ident` to `host all all 127.0.0.1/32 md5` and `host all all ::1/128 ident` to `host all all ::1/128 md5`. Once you've made this change, be sure to restart the postgresql service for the changes to take affect.
+
+....
+sudo systemctl restart postgresql
+....
+
+These changes should allow most applications to connect with username/password.
 
 
 [[upgrade]]
