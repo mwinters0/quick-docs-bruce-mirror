@@ -69,11 +69,8 @@ This procedure shows Fedora users how to add Fedora ARM to a microSD for use wit
 ._Procedure_
 
 . Download a Fedora ARM image from the link:https://fedoraproject.org/[Fedora website]
-+
-. Check the integrity of the download
-    curl https://getfedora.org/static/fedora.gpg | gpg --import
-    gpg --verify-files *-CHECKSUM
-    sha256sum -c *-CHECKSUM
+
+. Check the integrity of the download, following the instructions here: link:https://fedoraproject.org/security[]
 
 . Install the `arm-image-installer`:
 +
