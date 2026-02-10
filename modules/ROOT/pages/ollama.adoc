@@ -60,7 +60,7 @@ Shows all models currently available on your system.
 
 [source, bash]
 ----
-ollama remove llama2
+ollama rm llama2
 ----
 
 Cleans up disk space by removing a previously downloaded model.
