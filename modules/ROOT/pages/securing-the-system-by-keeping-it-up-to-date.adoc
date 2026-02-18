@@ -175,10 +175,3 @@ Jan 29 14:50:22 localhost.localdomain systemd[1]: Started dnf-automatic-install 
 === Additional Resources
 
 * The https://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation
-
-
-[discrete]
-== Additional Resources
-
-* The xref:f{MAJOROSVER}@fedora:system-administrators-guide:package-management/DNF.adoc[DNF]
-  chapter in the Fedora System Administrator's Guide

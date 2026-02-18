@@ -54,7 +54,4 @@ With the above changes applied, the option to set the GNOME session to use Wayla
 
 [discrete]
 == Additional Resources
-. xref:f{MAJOROSVER}@fedora:system-administrators-guide:Wayland.adoc[Wayland Display Server in the System Administrator's Guide]
-
 . link:https://wayland.freedesktop.org/[Wayland @ freedesktop.org]
-

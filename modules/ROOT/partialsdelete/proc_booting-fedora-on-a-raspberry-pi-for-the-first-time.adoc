@@ -55,7 +55,6 @@ $ xfs_growfs -d /
 
 ._Additional Resources_
 
-* For information on configuring Fedora, including installing programs and updates, see: xref:f{MAJOROSVER}@fedora:system-administrators-guide:index.adoc[Fedora Docs: System Administrator’s Guide]
 * For assistance or support, see:
 ** link:https://ask.fedoraproject.org/[Ask Fedora]
 ** link:https://lists.fedoraproject.org/admin/lists/arm%40lists.fedoraproject.org/[Fedora ARM mailing list]

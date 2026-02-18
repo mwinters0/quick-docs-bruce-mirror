@@ -5,30 +5,10 @@ content:
   sources:
    - url: .
      branches: HEAD
-   - url: https://gitlab.com/fedora/docs/community-tools/documentation-contributors-guide.git
+   - url: https://forge.fedoraproject.org/docs/team-docs.git
      branches: main
-   - url: https://pagure.io/fedora-server.git
+   - url: https://forge.fedoraproject.org/server/user-documentation.git
      branches: main
-     start-path: docs
-   - url: https://gitlab.com/fedora/docs/fedora-linux-documentation/fedora-linux-sysadmin-guide.git
-     branches:
-      - main
-      - f41
-      - f40
-      - f39
-      - f38
-      - f37
-      - f36
-      - f35
-      - f34
-      - f33
-      - f32
-      - f31
-      - f30
-      - f29
-      - f28
-      - f27
-      - f26
 ui:
   bundle:
     url: https://gitlab.com/fedora/docs/docs-website/ui-bundle/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable

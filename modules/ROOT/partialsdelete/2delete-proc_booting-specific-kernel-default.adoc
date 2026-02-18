@@ -36,9 +36,3 @@ For the above scenario, the command will look like so
 ----
 sudo grubby --set-default /boot/vmlinuz-5.12.18-200.fc33.x86_64
 ----
-
-
-[[sect-references]]
-=== References:
-
-* https://docs.fedoraproject.org/en-US/fedora/rawhide/system-administrators-guide/kernel-module-driver-configuration/Working_with_the_GRUB_2_Boot_Loader/[Fedora Rawhide Docs :: Working with the GRUB 2 Boot Loader]
