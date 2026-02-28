@@ -197,7 +197,7 @@ without testing may be a bad idea. A few such reasons are:
   machine is rebooted (which DNF will not do automatically) the new changes
   won't take effect.
   The same may apply to restarting daemons. This can leave the user feeling
-  that he is secure when he is not.
+  that they are secure when they are not.
 
 
 [[best-practices-when-using-automatic-updates]]
