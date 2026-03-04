@@ -6,7 +6,7 @@ Jiri Eischmann
 :tags: How-to,   Nvidia
 
 [abstract]
-This page documents how to enroll a machine owner key that is created during the Nvidia driver installation (typically in GNOME Software, or as described in the RPM Fusion article 'Secure Boot': https://rpmfusion.org/Howto/Secure%20Boot ).
+This page documents how to enroll a machine owner key that is created during the Nvidia driver installation (typically in GNOME Software, or as described in the link:++https://rpmfusion.org/Howto/Secure%20Boot++[RPM Fusion article 'Secure Boot'].
 
 == Prerequisite
 
@@ -46,4 +46,3 @@ To delete the machine owner key, perform the following command in the terminal:
 ----
 $ *sudo mokutil --delete /etc/pki/akmods/certs/public_key.der*
 ----
-
