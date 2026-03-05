@@ -14,7 +14,7 @@ with a pull-request-based workflow. We appreciate your help!
 == Steps
 
 . Pick a document to update. You can find documents needing updates in the [filename]`modules/ROOT/nav.adoc` file. They are on the commented-out lines (those that start with a `//FIXME`).
-. Fork the https://forge.fedoraproject.org/quick-docs repo.
+. Fork the https://forge.fedoraproject.org/docs/quick-docs repo.
 . Make your changes to the `.adoc` file you want to improve.
 . Uncomment the file in [filename]`nav.adoc` remove the `FIXME` from the xref..
 . xref:fedora-docs:ROOT:contributing-docs/tools-localenv-preview.adoc[Build a local preview] to ensure your changes look the way you intended: Make sure you either have *Podman* or *Docker* installed, On a Linux desktop run `./docsbuilder.sh`. On macOS run either `./docsbuilder.sh -p` or `./preview.sh`. Follow instructions printed on the command line.

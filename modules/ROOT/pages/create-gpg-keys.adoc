@@ -388,5 +388,5 @@ For `KEYNAME`, substitute either the key ID of your primary keypair or any part 
 * https://www.gnupg.org/documentation/[Official GPG documentation]
 * https://en.wikipedia.org/wiki/Public-key_cryptography[Wikipedia - Public Key Cryptography]
 
-See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://forge.fedoraproject.org/quick-docs[quick-docs's git repository].
+See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://forge.fedoraproject.org/docs/quick-docs[quick-docs's git repository].
 

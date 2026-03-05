@@ -20,9 +20,9 @@ It is probably
 * Out-of-date
 * In need of other love
 
-Reviews for technical accuracy are greatly appreciated. If you want to help, see the https://forge.fedoraproject.org/quick-docs/blob/master/f/README.md[README file] in the source repository for instructions.
+Reviews for technical accuracy are greatly appreciated. If you want to help, see the https://forge.fedoraproject.org/docs/quick-docs/blob/master/f/README.md[README file] in the source repository for instructions.
 
-Pull requests accepted at https://forge.fedoraproject.org/quick-docs
+Pull requests accepted at https://forge.fedoraproject.org/docs/quick-docs
 
 Once you've fixed this page, remove this notice.
 ====

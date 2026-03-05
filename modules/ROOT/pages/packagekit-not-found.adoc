@@ -220,4 +220,4 @@ December 2010, Red Hat filed brief with U.S. Supreme Court opposing expansion of
 * https://www.gnu.org/philosophy/why-audio-format-matters.html
 * https://dwheeler.com/essays/software-patents.html
 
-See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://forge.fedoraproject.org/quick-docs.
+See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://forge.fedoraproject.org/docs/quick-docs.

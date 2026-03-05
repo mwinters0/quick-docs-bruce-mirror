@@ -130,4 +130,4 @@ The main purpose is to insulate _image builds_ from potentially problematic chan
 
 For this and other less important functions, we need as much feedback as possible, so it makes sense to have all pre-release testers have _updates-testing_ enabled by default, and encourage them to provide feedback through Bodhi.
 
-See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://forge.fedoraproject.org/quick-docs.
+See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://forge.fedoraproject.org/docs/quick-docs.

@@ -88,4 +88,4 @@ media.gmp-gmpopenh264.version
 ....
 
 See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://forge.fedoraproject.org/quick-docs.
+improved? Edit this document at https://forge.fedoraproject.org/docs/quick-docs.
