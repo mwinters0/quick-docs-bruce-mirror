@@ -288,4 +288,4 @@ With that in mind, if you do have an end-of-life release installed on a system y
 
 For detailed instructions on upgrades from EOL releases, please read link:Upgrading_from_EOL_Fedora_using_package_manager[Upgrading from EOL Fedora Linux using package manager].
 
-See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
+See a typo, something missing or out of date, or anything else which can be improved? Edit this document at https://forge.fedoraproject.org/quick-docs.

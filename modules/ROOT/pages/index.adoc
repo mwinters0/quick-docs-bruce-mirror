@@ -10,7 +10,7 @@ If you cannot find an answer here, you may also get https://discussion.fedorapro
 
 Fedora Docs team empowers contributors to create and maintain user documentation by providing https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/tools-file-edit-pagure/[self-starter's guide] and https://docs.fedoraproject.org/en-US/fedora-docs/contributing-docs/asciidoc-markup/[other resources].
 
-Document writer and reviewer:: Quick Docs requires care and maintenance to ensure technical accuracy and conformance to documentation style guide. Check https://pagure.io/fedora-docs/quick-docs/issues[the Issue Board] to know what documentation tasks will interest you.
+Document writer and reviewer:: Quick Docs requires care and maintenance to ensure technical accuracy and conformance to documentation style guide. Check https://forge.fedoraproject.org/quick-docs/issues[the Issue Board] to know what documentation tasks will interest you.
 Docs design and UX specialist:: Members with expertise in web design, UI or UX development can help optimize the graphical and functional appearance of Quick Docs and curation. Visit https://gitlab.com/fedora/docs/docs-website/ui-bundle[Docs UI repo].
 
 // Note: link to https://docs.fedoraproject.org/en-US/project/help/ when that document is updated.

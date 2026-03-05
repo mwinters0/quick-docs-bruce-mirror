@@ -464,4 +464,4 @@ https://www.postgresql.org/docs/18/auth-pg-hba-conf.html[pg_hba.conf
 file]
 
 See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://pagure.io/fedora-docs/quick-docs.
+improved? Edit this document at https://forge.fedoraproject.org/quick-docs.
