@@ -42,14 +42,14 @@ _Download_ in the _"Fedora Linux <number> Available"_ section to begin upgrading
 the new release.
 
 
-== Upgrading to the next Fedora KDE release
+== Upgrading to the next Fedora KDE Plasma Desktop release
 
 [NOTE]
 ====
-This is the recommended upgrade method for Fedora KDE.
+This is the recommended upgrade method for Fedora KDE Plasma Desktop.
 ====
 
-In _Fedora KDE_, when the next stable release becomes available, opening **Discover** will display a notice for you to start upgrading your system.
+In _Fedora KDE Plasma Desktop_, when the next stable release becomes available, opening **Discover** will display a notice for you to start upgrading your system.
 
 **Important:** Before you start upgrading, your system needs to be fully up-to-date, to ensure that the system upgrade will be smooth.
 
