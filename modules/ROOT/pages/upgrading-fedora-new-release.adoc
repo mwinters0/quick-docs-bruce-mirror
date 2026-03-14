@@ -69,14 +69,9 @@ It is also used to troubleshoot issues with packages preventing the graphical me
 
 For instructions on upgrading with the DNF system upgrade plugin, refer to the xref:upgrading-fedora-offline.adoc[DNF System Upgrade Plugin] page.
 
-== Upgrading between major versions in Fedora Silverblue
+== Upgrading between major versions in Fedora Atomic Desktops (Silverblue, Kinoite, Sway Atomic, Budgie Atomic, COSMIC Atomic)
 
-[NOTE]
-====
-Upgrading between major versions (such as from Fedora Linux 38 to Fedora Linux 39) can be completed using the Software application. Alternatively, Silverblue can be upgraded between major versions using the `ostree` command..
-====
-
-For instructions on upgrading Fedora Silverblue Host, refer to the link:++https://docs.fedoraproject.org/en-US/fedora-silverblue/updates-upgrades-rollbacks/#upgrading++[dedicated page].
+For instructions on upgrading Fedora Atomic Desktops, refer to the link:++https://docs.fedoraproject.org/en-US/atomic-desktops/updates-upgrades-rollbacks/#upgrading++[dedicated page] which covers all variants (Silverblue, Kinoite, Sway Atomic, Budgie Atomic or COSMIC Atomic).
 
 == Can I upgrade between Fedora Linux releases using only DNF?
 
