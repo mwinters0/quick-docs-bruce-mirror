@@ -150,7 +150,7 @@ During this 2 step procedure you might encounter a few obstacles, which are expl
 In case you see the error `old cluster does not use data checksums but the new one does` you can either choose to create the checksums or upgrade with checksums disabled.
 To create the checksums, drop into the shell of the `postgres` user and run the following command: `pg_checksums -e -D <data-dir>`.
 However, when you see this error, you have already updated the packages to a newer release while the database is still on the previous one.
-Thus it might be easier to upgrade with `PGSETUP_INITDB_OPTIONS="–no-data-checksums" postgresql-upgrade <data-dir>` and create the checksums afterwards.
+Thus it might be easier to upgrade with `PGSETUP_INITDB_OPTIONS="-–no-data-checksums" postgresql-upgrade <data-dir>` and create the checksums afterwards.
 Unless you changed the Postgres data directory, `<data-dir>` is `/var/lib/pgsql/data`.
 
 Don't forget to adjust and consolidate your config files (`*.conf`) from the old and new data directories as well as to update the collation for all databases.
