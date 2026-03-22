@@ -117,7 +117,25 @@ If you want to use both methods for different use cases, just create the respect
 
 ==== For pam_u2f
 
+===== Enable pam_u2f using authselect (recommended)
+
+Authselect is the recommended way to *integrate* `pam_u2f` into Fedora's PAM configuration. This step enables U2F authentication in the PAM stack in a way that is consistent across services and system updates.
+
+Before enabling the feature, make sure you have registered your security key (see the `Register YubiKey(s) with your local account(s)` section) so that `pam_u2f` can find your `u2f_keys` file.
+
+
+===== Advanced: Manual PAM configuration for pam_u2f (not recommended)
+
+Manual modifications of PAM configuration files can lead to inconsistencies or even lock users out of the system. Authselect manages these configurations through predefined profiles and helps maintain compatibility across system updates.
+
 Create two base configuration files in /etc/pam.d/u2f-required and u2f-sufficient.
+
+[NOTE]
+====
+The files `/etc/pam.d/u2f-required` and `/etc/pam.d/u2f-sufficient` are *PAM include files*. Creating them does not enable U2F authentication on its own.
+
+To actually use them, you must include one of these files in the PAM configuration of the desired service (e.g. `login`, `sudo`, `sshd`, `gdm`/`sddm`) as described in the next section.
+====
 
 [source]
 #%PAM-1.0
