@@ -63,7 +63,7 @@ Documentation published on this site, as well as various tutorials and guides on
 
 === GNOME
 
-[application]*GNOME*, Fedora's default _window manager_, is the underlying graphical user environment.
+[application]*GNOME*, Fedora's default _desktop environment_, is the underlying graphical user environment.
 It provides a visual front-end using a desktop analogy.
 When you log into Fedora, GNOME is started with a predefined set of icons and menus on the desktop.
 
