@@ -123,7 +123,7 @@
 
 * Databases
 ** xref:postgresql.adoc[PostgreSQL]
-** xref:installing-mysql-mariadb.adoc[Installing, Configuring and Troubleshooting MySQL/MariaDB]
+** xref:installing-mysql-mariadb.adoc[MariaDB, MySQL]
 ** xref:manage-database-servers-from-gui.adoc[How to Manage Various Database Servers from GUI]
 
 * Printing and scanning
