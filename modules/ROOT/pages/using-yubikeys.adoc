@@ -119,9 +119,50 @@ If you want to use both methods for different use cases, just create the respect
 
 ===== Enable pam_u2f using authselect (recommended)
 
-Authselect is the recommended way to *integrate* `pam_u2f` into Fedora's PAM configuration. This step enables U2F authentication in the PAM stack in a way that is consistent across services and system updates.
+Authselect is the recommended way to integrate `pam_u2f` into Fedora's PAM configuration. This enables U2F authentication in the PAM stack in a way that is consistent across services and system updates.
 
 Before enabling the feature, make sure you have registered your security key (see the `Register YubiKey(s) with your local account(s)` section) so that `pam_u2f` can find your `u2f_keys` file.
+
+[CAUTION]
+====
+Keep an existing root shell or an additional login session open while changing authentication settings and test changes before logging out. Misconfiguration can lock you out of the system.
+====
+
+==== Check the current authselect profile:
+
+[source,bash]
+----
+sudo authselect current
+----
+
+==== Enable U2F support on the current profile by adding the `with-pam-u2f` feature. Use the same `Profile ID` that is shown by `authselect current`. For example:
+
+[source,bash]
+----
+sudo authselect select sssd with-pam-u2f
+----
+
+or:
+
+[source,bash]
+----
+sudo authselect select local with-pam-u2f
+----
+
+==== Apply the changes (if needed):
+
+[source,bash]
+----
+sudo authselect apply-changes
+----
+
+==== Test authentication in a new terminal session (for example with `sudo`) before logging out:
+
+[source,bash]
+----
+sudo -k
+sudo true
+----
 
 
 ===== Advanced: Manual PAM configuration for pam_u2f (not recommended)
