@@ -90,28 +90,3 @@ switchdesk kde
 ----
 
 See the `switchdesk(1)` man page for more information.
-
-== Manually changing the default desktop
-
-// This still seems to work on Fedora 36. See:
-// https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/FAYINUZPKLGH4BLYSZLV6ADNKI4C3ZIG/
-
-You can also change your default desktop environment using the `/etc/sysconfig/desktop` system configuration file.
-If this file does not exists, please create it.
-This file specifies the desktop for new users and the display manager to run when entering runlevel 5.
-
-Please create/edit it using your preferred text editor.
-Note that you will need administrator (root) privileges to create or edit this file.
-
-Correct values are:
-
-`DESKTOP="_<value>_"`, where `_<value>_` is one of the following:
-
-1. `GNOME` - Selects the GNOME desktop environment.
-2. `KDE` - Selects the KDE desktop environment.
-
-`DISPLAYMANAGER="_<value>_"`, where `_<value>_` is one of the following:
-
-1. `GNOME` - Selects the GNOME Display Manager.
-2. `KDE` - Selects the KDE Display Manager.
-3. `XDM` - Selects the X Display Manager.
