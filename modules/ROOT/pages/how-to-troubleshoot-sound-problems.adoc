@@ -181,15 +181,11 @@ $ systemctl --user status pipewire-pulse
 $ systemctl --user status wireplumber
 ----
 
-If they are not running, start and enable them:
+To ensure all services are active and will persist after reboot, run:
 
 [source, console]
 ----
-$ systemctl --user enable --now pipewire.socket
-$ systemctl --user enable --now pipewire-pulse.socket
-$ systemctl --user start  pipewire
-$ systemctl --user start  pipewire-pulse
-$ systemctl --user enable --now wireplumber
+$ systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service
 ----
 
 === Step 3: Verify User Permissions
