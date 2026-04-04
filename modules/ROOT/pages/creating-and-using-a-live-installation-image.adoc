@@ -263,15 +263,6 @@ Hint: We are creating a livecd like the fedora-live-workstation image, which is 
 
 We need to add you current user to the mock group, or you need to do anything as root user.
 
-[options="nowrap"]
-----
-# sudo usermod -aG mock $(whoami)
-----
-
-The $(whoami) adds your current user, as we do not know what username you are currently using ;)
-
-A relogin to make the change effective, would be wise, or you switch to root now.
-
 Let's create the mock group:
 
 [options="nowrap"]
@@ -287,6 +278,15 @@ If you now enter:
 ----
 
 it shall output your username together with the old groups and the new group "mock". If this is not the case, you did something wrong.
+
+[options="nowrap"]
+----
+# sudo usermod -aG mock $(whoami)
+----
+
+The $(whoami) adds your current user, as we do not know what username you are currently using ;)
+
+A relogin to make the change effective, would be wise, or you switch to root now.
 
 [id='creating-your-build-environment']
 === Creating your build environment
