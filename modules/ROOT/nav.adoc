@@ -51,6 +51,7 @@
 
 * Usage and customisation
 ** xref:adding_user_to_sudoers_file.adoc[Adding a user to sudoers]
+** xref:automatic-power-management-power2top.adoc[Automatic power management using powertop2tuned]
 ** xref:changing-hostname.adoc[Changing Hostname]
 ** xref:aide-checking-file-integrity.adoc[Checking file integrity with AIDE]
 ** xref:configuring-ip-networking-with-nmcli.adoc[Configuring IP networking with nmcli]
