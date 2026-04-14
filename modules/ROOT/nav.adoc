@@ -62,6 +62,7 @@
 ** xref:create-gpg-keys.adoc[Creating GPG Keys]
 ** xref:disabling-automatic-screenlock.adoc[Disabling the GNOME automatic screen locking]
 ** xref:displaying_user_prompt_on_gnome_login_screen.adoc[Displaying a user prompt on the GNOME login screen]
+** xref:persistent-identifiers-for-storage-devices.adoc[Persistent Identifiers for Storage Devices]
 ** xref:encrypting-drives-using-LUKS.adoc[Encrypting drives using LUKS]
 ** xref:getting-started-with-apache-http-server.adoc[Getting started with Apache HTTP Server]
 ** xref:grub2-bootloader.adoc[The GRUB2 Bootloader]
