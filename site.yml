@@ -9,6 +9,8 @@ content:
      branches: main
    - url: https://forge.fedoraproject.org/server/user-documentation.git
      branches: main
+   - url: https://forge.fedoraproject.org/operations/docs.git
+     branches: main
 ui:
   bundle:
     url: https://gitlab.com/fedora/docs/docs-website/ui-bundle/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable

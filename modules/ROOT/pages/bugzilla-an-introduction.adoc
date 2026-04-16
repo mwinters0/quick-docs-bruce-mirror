@@ -42,11 +42,11 @@ Bugzilla uses fields called "Status" and "Resolution" to track the state of a bu
 
 The table below summarizes the statuses.
  
-include::program_management::partial$bz_status.adoc[]
+include::operations::partial$bz_status.adoc[]
 
 
 === Resolution
  
 The table below describes the resolutions that can apply to the _CLOSED_ status.
  
-include::program_management::partial$bz_resolution.adoc[]
+include::operations::partial$bz_resolution.adoc[]
