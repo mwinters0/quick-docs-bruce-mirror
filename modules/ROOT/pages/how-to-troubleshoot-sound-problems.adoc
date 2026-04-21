@@ -172,7 +172,7 @@ Then reboot your system.
 
 === Step 2: Check Audio Service Status
 
-Ensure that the PipeWire and WirePlumber services are active.
+Check whether the PipeWire and WirePlumber user services are running:
 
 [source, console]
 ----
@@ -181,11 +181,19 @@ $ systemctl --user status pipewire-pulse
 $ systemctl --user status wireplumber
 ----
 
-To ensure all services are active and will persist after reboot, run:
+To ensure all services are active and enabled on login for the current user, run:
 
 [source, console]
 ----
 $ systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service
+----
+
+
+To enable these user services system-wide (for all users) and avoid creating per-user overrides under `~/.config/systemd/user/`, run:
+
+[source, console]
+----
+$ sudo systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service
 ----
 
 === Step 3: Verify User Permissions
