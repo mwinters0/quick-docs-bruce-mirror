@@ -13,5 +13,5 @@ Please do not change this message without consultation. Thanks!
 ====
 This page has been converted from the Fedora Project Wiki and cleaned up for publishing here on the Fedora Docs Portal, but it has not yet been reviewed for technical accuracy.
 This means any information on this page may be outdated or inaccurate.
-Reviews for technical accuracy are greatly appreciated. If you want to help, see the link:https://pagure.io/fedora-docs/quick-docs/blob/master/f/README.md[README] file in the source repository for instructions.
+Reviews for technical accuracy are greatly appreciated. If you want to help, see the link:https://forgre.fedoraproject.org/docs/quick-docs/blob/master/f/README.md[README] file in the source repository for instructions.
 ====
