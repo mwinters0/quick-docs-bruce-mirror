@@ -19,7 +19,7 @@ This section describes how to add software repositories with the `dnf config-man
 
 * To add a new repository, do the following as `*root*`.
 
-. Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory.
+. Define a new repository by creating a new file with the `.repo` suffix in a temporary location, such as the [filename]`/tmp` directory.
 . Add the repository with `--add-repo`, where *_repository_* is the file path:
 +
 [literal,subs="+quotes,attributes"]
@@ -37,7 +37,7 @@ dnf config-manager --add-repo /tmp/fedora_extras.repo
 
 * To add a new repository, do the following as `*root*`.
 
-. Define a new repository by adding a new file with the `.repo` suffix to the [filename]`/etc/yum.repos.d/` directory.
+. Define a new repository by creating a new file with the `.repo` suffix in a temporary location, such as the [filename]`/tmp` directory.
 . Add the repository with `addrepo`, where *_repository_* is the file path:
 +
 [literal,subs="+quotes,attributes"]
