@@ -17,10 +17,10 @@ This section describes how to add software repositories with the `dnf config-man
 
 === For Fedora 40 or earlier (DNF 4)
 
-* To add a new repository, do the following as `*root*`.
+To add a new repository, as `*root*`, use one of the following methods.
 
-. Define a new repository by creating a new file with the `.repo` suffix in a temporary location, such as the [filename]`/tmp` directory.
-. Add the repository with `--add-repo`, where *_repository_* is the file path:
+* Define a new repository by creating a new file with the `.repo` suffix in a temporary location, such as the [filename]`/tmp` directory.
+* Add the repository with `--add-repo`, where *_repository_* is the file path:
 +
 [literal,subs="+quotes,attributes"]
 ----
@@ -35,10 +35,10 @@ dnf config-manager --add-repo /tmp/fedora_extras.repo
 
 === For Fedora 41 or later (DNF 5)
 
-* To add a new repository, do the following as `*root*`.
+To add a new repository, as `*root*`, use one of the following methods.
 
-. Define a new repository by creating a new file with the `.repo` suffix in a temporary location, such as the [filename]`/tmp` directory.
-. Add the repository with `addrepo`, where *_repository_* is the file path:
+* Define a new repository by creating a new file with the `.repo` suffix in a temporary location, such as the [filename]`/tmp` directory.
+* Add the repository with `addrepo`, where *_repository_* is the file path:
 +
 [literal,subs="+quotes,attributes"]
 ----
