@@ -230,11 +230,15 @@ fedora-user:owBYtPIH2yzjlSQaRrVcxB...Pg==,es256,+presence
 
 If the key is PIN protected, you'll be asked to enter the PIN for this operation.
 
+Insert your key and run:
+
 [source, bash]
 […]$ mkdir -p ~/.config/Yubico
 […]$ pamu2fcfg > ~/.config/Yubico/u2f_keys
 
 If you have a backup key, add it with the --nouser option and append it to the existing key (line). (All output should end up in the same line.)
+
+Insert your backup key and run:
 
 [source, bash]
 […]$ pamu2fcfg -n >> ~/.config/Yubico/u2f_keys
