@@ -253,20 +253,43 @@ Next, configure PAM to accept a YubiKey as a means of authentication. There are 
 - /etc/pam.d/sudo
 - /etc/pam.d/sshd
 
-In a PAM configuration file, if using {yubikey,u2f}-sufficient, add an include line before, or if using {yubikey,u2f}-required, add it after a line that reads "auth substack system-auth" or "auth include system-auth". An include of yubikey-sufficient looks like this:
+=== Configure desired PAM modules
+
+Next, configure PAM to accept a YubiKey as a means of authentication. There are many options in /etc/pam.d to modify and add a YubiKey, but the most common use cases are:
+
+- /etc/pam.d/login
+- /etc/pam.d/gdm
+- /etc/pam.d/sudo
+- /etc/pam.d/sshd
+
+In a PAM configuration file, add the include line either *before* or *after* the existing system-auth line, depending on whether you use a `*-sufficient` or `*-required` include file:
+
+- If using a `*-sufficient` include, add it *before* `auth substack system-auth` (or `auth include system-auth`).
+- If using a `*-required` include, add it *after* that line.
+
+The include file name depends on which PAM module you configured earlier:
+
+- For *pam_yubico*, use `yubikey-sufficient` or `yubikey-required`
+- For *pam_u2f* (manual PAM configuration), use `u2f-sufficient` or `u2f-required`
+
+NOTE: If you enabled pam_u2f via authselect (recommended), you usually do not need to edit individual /etc/pam.d/* files manually.
+
+Examples:
 
 [source]
 auth include yubikey-sufficient
 
-The following example sets a YubiKey OTP as a 'sufficient' factor for terminal login. This means that a YubiKey alone is enough to authenticate a user when logging in on a terminal.
+[source]
+auth include u2f-sufficient
 
-Open /etc/pam.d/login with your editor of choice. Find the line that reads "auth substack system-auth". Above that, insert the following:
+The following example sets a YubiKey OTP (pam_yubico) as a 'sufficient' factor for terminal login. This means that a YubiKey alone is enough to authenticate a user when logging in on a terminal.
+
+Open /etc/pam.d/login with your editor of choice. Find the line that reads "auth substack system-auth". Above that, insert:
 
 [source]
 auth include yubikey-sufficient
 
 The result looks similar to this:
-
 [source]
 #%PAM-1.0
 auth       include      yubikey-sufficient
