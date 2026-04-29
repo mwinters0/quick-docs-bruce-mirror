@@ -78,7 +78,7 @@ You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki
 
 . Trigger the upgrade process, based on which version of DNF your system uses:
 
-**If you're using DNF 4 (default in older Fedora releases):** +
+**If you're using DNF 4 (Fedora 40 and earlier):** +
 [source,bash]
 ----
 sudo dnf system-upgrade reboot
