@@ -80,7 +80,7 @@ You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki
 
 [source,bash]
 ----
-sudo dnf5 offline reboot
+sudo dnf offline reboot
 ----
 
 Note: This will reboot your machine **immediately** into a special upgrade environment.
