@@ -83,13 +83,6 @@ You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki
 sudo dnf offline reboot
 ----
 
-Note: This will reboot your machine **immediately** into a special upgrade environment.
-
-**Close all programs and save your work first.**
-
-No countdown or confirmation is given.
-
-
 To cancel the upgrade and delete downloaded files:
 
 [source,bash]
@@ -105,6 +98,12 @@ If `dnf` reports that `dnf offline` is not a valid command, typical on **Fedora 
 ----
 sudo dnf system-upgrade reboot
 ----
+
+Note: This will reboot your machine **immediately** into a special upgrade environment.
+
+**Close all programs and save your work first.**
+
+No countdown or confirmation is given.
 
 
 [[sect-optional-post-upgrade-tasks]]
