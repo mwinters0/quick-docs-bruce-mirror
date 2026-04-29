@@ -1,7 +1,7 @@
 = Upgrading Fedora Linux Using DNF System Plugin
 Michael Wu; Anthony McGlone; The Fedora Docs team
-:revnumber: F42
-:revdate: 2025-08-28
+:revnumber: F44
+:revdate: 2026-04-29
 :category: Administration
 :tags: How-to, Upgrade, Update
 :page-aliases: dnf-system-upgrade.adoc
@@ -76,33 +76,35 @@ You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki
 
 . When the new GPG key is imported, you are asked to verify the key's fingerprint. Refer to link:https://fedoraproject.org/security[https://fedoraproject.org/security] to do so.
 
-. Trigger the upgrade process, based on which version of DNF your system uses:
-
-**If you're using DNF 4 (Fedora 40 and earlier):** +
-[source,bash]
-----
-sudo dnf system-upgrade reboot
-----
-
-This will reboot your machine **immediately** into a special upgrade environment.
-**Close all programs and save your work first.**
-No countdown or confirmation is given.
-
-**If you're using DNF 5 (starting from Fedora 41+):** +
+. Trigger the **offline** upgrade process during next boot:
 
 [source,bash]
 ----
 sudo dnf5 offline reboot
 ----
 
-This performs the upgrade **offline** during the next boot. To cancel the upgrade and delete downloaded files:
+Note: This will reboot your machine **immediately** into a special upgrade environment.
+
+**Close all programs and save your work first.**
+
+No countdown or confirmation is given.
+
+
+To cancel the upgrade and delete downloaded files:
 
 [source,bash]
 ----
 sudo dnf5 offline clean
 ----
 
-. Once the upgrade process completes, your system will reboot a second time into the updated Fedora Linux release.
+Once the upgrade process completes, your system will reboot a second time into the updated Fedora Linux release.
+
+If `dnf` reports that `dnf offline` is not a valid command, typical on **Fedora 40 and earlier with DNF 4**, run
+
+[source,bash]
+----
+sudo dnf system-upgrade reboot
+----
 
 
 [[sect-optional-post-upgrade-tasks]]
