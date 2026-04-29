@@ -94,7 +94,7 @@ To cancel the upgrade and delete downloaded files:
 
 [source,bash]
 ----
-sudo dnf5 offline clean
+sudo dnf offline clean
 ----
 
 Once the upgrade process completes, your system will reboot a second time into the updated Fedora Linux release.
