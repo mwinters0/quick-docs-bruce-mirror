@@ -11,16 +11,16 @@ Different Fedora Linux variants (Spins/Labs) have different default environments
 [[installing-desktop-environments]]
 == Installing additional desktop environments
 
-You can list available desktop environments using the default package manager, `dnf`.
+You can list available desktop environments using `dnf`.
 
-Since Fedora 41, in a terminal use the `dnf environment list` command to list all available desktop environments:
+Since Fedora 44, in a terminal use the `dnf environment list` command to list all available desktop environments:
 
 [source,bash]
 ----
-dnf environment list --available | grep desktop
+dnf environment list --available | grep -i desktop
 ----
 
-For older Fedoras, use the `dnf group list` command to list all available desktop environments:
+On older releases (dnf5) use:
 
 [source,bash]
 ----
@@ -32,7 +32,7 @@ Ensure to prefix with the `@` sign, for example:
 
 [source,bash]
 ----
-dnf install @kde-desktop-environment
+sudo dnf install @kde-desktop-environment
 ----
 
 [[switching-desktop-environments-using-gui]]
@@ -60,7 +60,7 @@ It also allows you to change default desktop environment for individual users, a
 +
 [source,bash]
 ----
-dnf install switchdesk switchdesk-gui
+sudo dnf install switchdesk switchdesk-gui
 ----
 +
 . Run the Desktop Switching Tool application.
@@ -78,7 +78,7 @@ Install the `switchdesk` package:
 
 [source,bash]
 ----
-dnf install switchdesk
+sudo dnf install switchdesk
 ----
 
 
