@@ -20,7 +20,7 @@ Since Fedora 44, in a terminal use the `dnf environment list` command to list al
 dnf environment list --available | grep -i desktop
 ----
 
-On older releases (dnf5) use:
+On older releases (Fedora 40 and older) use:
 
 [source,bash]
 ----
