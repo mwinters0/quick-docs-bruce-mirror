@@ -41,7 +41,7 @@ IMPORTANT: All data on the selected USB flash drive will be lost. Please relocat
 
 Fedora Media Writer will automatically verify the download and check the image once it has been written to the USB flash drive. Your Fedora Linux live USB flash drive is now ready to use.
 
-To learn more, see xref:preparing-boot-media.adoc[Fedora Media Writer].
+To learn more, see https://docs.fedoraproject.org/en-US/fedora/latest/preparing-boot-media/#_fedora_media_writer[Fedora Media Writer].
 
 === Restoring the USB flash drive
 Once you have finished using your Fedora Linux live USB flash drive, you may want to use the USB flash drive to hold files again. Some operating systems may not recognize the USB flash drive until it is reformatted. For best results, use Fedora Media Writer to restore the USB flash drive so it can be used to store files.
