@@ -23,9 +23,10 @@ The current versions of the Wine packages can also be seen on the https://packag
 
 The default wine configuration files is stored in your `$HOME` directory:
 
-```
+[,console]
+----
 $HOME/.wine
-```
+----
 
 TIP: Different prefixes can be used as described in the
 xref:#working-with-prefix[wine prefix] section lower in this document.
@@ -70,9 +71,10 @@ source libraries.
 
 It is provided by the https://packages.fedoraproject.org/pkgs/winetricks/winetricks/[`winetricks` package]:
 
-```
+[,console]
+----
 sudo dnf install winetricks
-```
+----
 
 It can download and install applications and libraries
 needed to run some programs in Wine, e.g., Adobe Digital Edition.
@@ -90,18 +92,20 @@ following way:
 - Create a clean wine32/64 prefix:
 
 
-```
+[,console]
+----
 WINEPREFIX="$HOME/<directory>" WINEARCH=winxx wine wineboot
-```
+----
 
 * Where `xx` is 32 or 64 bits
 * `<directory>` is the directory which you can store the wine environment
 
 To use a wine prefix created before:
 
-```
+[,console]
+----
 export WINEPREFIX=$HOME/<directory>
-```
+----
 
 [[install-basic-applications]]
 == Install some basics/utils applications
@@ -127,15 +131,17 @@ version
 Before reporting bugs against Wine please make sure your system is fully
 up to date.
 
-....
+[,console]
+----
 dnf upgrade
-....
+----
 
 Also check if a newer version is available in the https://fedoraproject.org/wiki/QA:Updates_Testing[updates-testing] repository.
 
-....
+[,console]
+----
 dnf --enablerepo=updates-testing update wine
-....
+----
 
 If you are using the proprietary graphics drivers please remove them
 from your system and try again, as they are known to cause problems.
@@ -151,16 +157,18 @@ functionality.
 The next step is to see if the problem persists with a clean ~/.wine
 folder. To try this without losing your old configuration:
 
-....
+[,console]
+----
 mv ~/.wine ~/.wine-save
-....
+----
 
 Afterwards try to trigger the bug again. Your original wine folder can
 be restored with:
 
-....
+[,console]
+----
 rm -fr ~/.wine; mv ~/.wine-save ~/.wine
-....
+----
 
 If your application still does not work but has been working in a
 previous version of wine it is probably a regression. Consider filling a
