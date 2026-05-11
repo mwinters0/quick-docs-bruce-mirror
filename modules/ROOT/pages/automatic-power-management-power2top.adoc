@@ -30,10 +30,6 @@ use `--apply-now` if you installed powertop and tuned-utils with DNF (standard F
 use `apply-live` if you are using rpm-ostree.
 ====
 
-
-`--apply-now` if you installed powertop and tuned-utils via dnf, in case you don't want to restart before doing this
-`--apply-live` for rpm-ostree
-
 === Generate profiles
 
 By default it creates the profile in the `/etc/tuned` directory based on the currently selected tuned profile.
