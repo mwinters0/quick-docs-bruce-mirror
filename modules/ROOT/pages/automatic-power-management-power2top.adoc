@@ -24,7 +24,15 @@ or
 rpm-ostree install powertop tuned-utils
 ----
 
-`--apply-now` in case you don't want to restart before doing this
+[NOTE]
+====
+use `--apply-now` if you installed powertop and tuned-utils with DNF (standard Fedora Worstation/Server).
+use `apply-live` if you are using rpm-ostree.
+====
+
+
+`--apply-now` if you installed powertop and tuned-utils via dnf, in case you don't want to restart before doing this
+`--apply-live` for rpm-ostree
 
 === Generate profiles
 
@@ -109,3 +117,10 @@ sudo tuned-adm profile balanced_powertop
 ----
 tuned-adm active
 ----
+
+[NOTE]
+====
+After switching to your new profile, restart the tuned-ppd service to ensure all tools recognize the change:
+
+`sudo systemctl restart tuned-ppd.service`
+====
