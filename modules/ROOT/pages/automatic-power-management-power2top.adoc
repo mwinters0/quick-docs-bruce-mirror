@@ -27,7 +27,7 @@ rpm-ostree install powertop tuned-utils
 [NOTE]
 ====
 - use `--apply-now` if you installed powertop and tuned-utils with DNF (standard Fedora Worstation/Server).
-- use `apply-live` if you are using rpm-ostree.
+- use `--apply-live` if you are using rpm-ostree.
 ====
 
 === Generate profiles
