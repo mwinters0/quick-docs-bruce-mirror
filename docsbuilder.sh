@@ -17,7 +17,7 @@
 
 
 script_name="docsbuilder.sh"
-script_source="https://gitlab.com/fedora/docs/templates/fedora-docs-template/-/raw/main/${script_name}"
+script_source="https://forge.fedoraproject.org/docs/docs-template/raw/branch/main/${script_name}"
 version="1.2.0"
 image="registry.gitlab.com/fedora/docs/docs-website/docs-fp-o:latest"
 cmd="--html-url-extension-style=indexify site.yml"
