@@ -21,20 +21,19 @@ or
 
 [source]
 ----
-rpm-ostree install powertop tuned-utils
+rpm-ostree install powertop tuned-utils --apply-live
 ----
 
 [NOTE]
 ====
-- use `--apply-now` if you installed powertop and tuned-utils with DNF (standard Fedora Worstation/Server).
-- use `--apply-live` if you are using rpm-ostree.
+Use `--apply-live` to avoid reboot after installation.
 ====
 
 === Generate profiles
 
 By default it creates the profile in the `/etc/tuned` directory based on the currently selected tuned profile.
 
-I recommend to run the following command three times, once for the balanced profile (while pugged to the AC), once for the powersaver profile and once again for the balanced profile (while on battery, for the laptop users)
+I recommend to run the following command three times, once for the balanced profile (while plugged to the AC), once for the powersaver profile and once again for the balanced profile (while on battery, for the laptop users)
 
 [source]
 ----
@@ -89,7 +88,7 @@ performance=throughput-performance
 balanced=balanced-battery_powertop
 ----
 
-== Enable the generated profie
+== Enable the generated profile
 
 After generating a tuned profile with `powertop2tuned`, enable it using `tuned-adm`.
 
