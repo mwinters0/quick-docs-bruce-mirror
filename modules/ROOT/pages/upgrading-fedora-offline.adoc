@@ -207,19 +207,21 @@ sudo dnf repoquery --duplicates
 
 And you can remove them with:
 
+===== Fedora 38 and older (DNF4):
 [source,bash]
 ----
 sudo dnf remove --duplicates
 ----
 
+===== Fedora 39+ (DNF5)
+[source,bash]
+----
+sudo dnf4 remove --duplicates
+----
+
 [NOTE]
 ====
-This command uses your system's default `dnf` binary:
-* On Fedora 38: Points to DNF4
-* On Fedora 39+: Points to DNF5
-
-The older DNF4 is available as `dnf4` if needed, but the default `dnf`
-command is recommended for general use.
+`--duplicates` is a DNF4-only option and is not supported in DNF5.
 ====
 
 [NOTE]
