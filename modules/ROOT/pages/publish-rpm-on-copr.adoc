@@ -42,7 +42,7 @@ colors.py  hellocopr.py  __init__.py
 
 . A _Fedora (FAS) account_ in order to be able to create repositories on Copr. This tutorial's demo repository can be found link:https://copr.fedorainfracloud.org/coprs/lcts/hellocopr/[here].
 
-. The utility _`tito`_ installed on your system. link:https://github.com/rpm-software-management/tito[Tito] is capable of a lot of advanced automation for package creation, most of which we won't need here. Check out its documentation to learn more.
+. The utility `tito` installed on your system. link:https://github.com/rpm-software-management/tito[Tito] is capable of a lot of advanced automation for package creation, most of which we won't need here. Check out its documentation to learn more.
 
 . A _specfile_ for our program. For more information on how to create one,
 refer to xref:package-maintainers::Packaging_Tutorial_GNU_Hello.adoc[Packaging Tutorial: GNU Hello]
@@ -54,9 +54,9 @@ TIP: You can follow along with this tutorial by cloning or forking the repositor
 
 Copy link:https://pagure.io/copr-tito-quickdoc/c/00963ac9339a13eefd2ab1ca42b1f72af12d3cac?branch=master[the spec file] into the project's base directory. A few changes should be made before proceeding:
 
-. The values of `Version:` and `Release:` do not matter, since these will be managed by tito. It makes sense to set them to `Version: 0.0.0` and `Release: 0%\{?dist}` to mark that this package hasn't been built yet.
+. The values of `Version:` and `Release:` do not matter, since these will be managed by tito. It makes sense to set them to `Version: 0.0.0` and `+Release: 0%{?dist}+` to mark that this package hasn't been built yet.
 
-. tito will also handle the creation of the source tarball from the git repository, so change the _`Source0:` URL_ to the filename `%\{name}-%\{version}.tar.gz` & add a comment to tell users how to get the tarball
+. tito will also handle the creation of the source tarball from the git repository, so change the `Source0:` URL to the filename `+%{name}-%{version}.tar.gz+` & add a comment to tell users how to get the tarball
 
 . The changelog can be left empty.
 +
@@ -64,13 +64,13 @@ Copy link:https://pagure.io/copr-tito-quickdoc/c/00963ac9339a13eefd2ab1ca42b1f72
 user@host ~/copr-tito-quickdoc % cat hellocopr.spec
 ...
 Version: 0.0.0
-Release: 0%\{?dist}
+Release: 0%{?dist}
 ...
 # Sources can be obtained by
 # git clone https://pagure.io/copr-tito-quickdoc
 # cd copr-tito-quickdoc
 # tito build --tgz
-Source0: %\{name}-%\{version}.tar.gz
+Source0: %{name}-%{version}.tar.gz
 ...
 %changelog
 ```
@@ -92,7 +92,7 @@ Done!
 
 This creates link:https://pagure.io/copr-tito-quickdoc/c/7a6919d3dd56943bb988a755f8233157965aa9bb?branch=master[a subdirectory `.tito` with some default configuration], which can be left unchanged for now.
 
-We can now do a test build of the package using _`tito build`_. Usually, tito will build from a tag, which we haven't created yet. However, using the `--test` flag, we can build from the most recent commit instead, which will be written to `/tmp/tito`:
+We can now do a test build of the package using `tito build`. Usually, tito will build from a tag, which we haven't created yet. However, using the `--test` flag, we can build from the most recent commit instead, which will be written to `/tmp/tito`:
 
 [source,]
 ----
@@ -275,6 +275,6 @@ tagger = tito.tagger.ReleaseTagger
 
 . Don't do any tito templating
 
-The rest of the procedure stays the same. If you make changes to the package without changing the source, you can just tag a new release with tito. If you do update the source tarball, you need to update the `Version:` field and reset `Release:` to `0%\{?dist}` before tagging.
+The rest of the procedure stays the same. If you make changes to the package without changing the source, you can just tag a new release with tito. If you do update the source tarball, you need to update the `Version:` field and reset `Release:` to `0%{?dist}` before tagging.
 
 TIP: The tarball-adapted version of the project can be found in the `https://pagure.io/copr-tito-quickdoc/tree/foreign-sources[foreign-sources]` branch of the git repo.
