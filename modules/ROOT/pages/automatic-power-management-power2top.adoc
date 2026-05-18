@@ -21,12 +21,11 @@ or
 
 [source]
 ----
-rpm-ostree install powertop tuned-utils --apply-live
+rpm-ostree install powertop tuned-utils
 ----
-
 [NOTE]
 ====
-Use `--apply-live` to avoid reboot after installation.
+If using rpm-ostree, reboot the system after installation before continuing.
 ====
 
 === Generate profiles
