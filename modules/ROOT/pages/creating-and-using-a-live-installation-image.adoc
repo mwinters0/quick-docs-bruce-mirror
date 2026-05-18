@@ -67,7 +67,7 @@ IMPORTANT: All data on the selected USB flash drive will be lost. Please relocat
 ==== Part one - download and verify your Fedora Linux image
 
 1. Download your preferred version of Fedora Linux from https://fedoraproject.org/.
-2. Visit https://www.fedoraproject.org/security/ for instructions on verifying the integrity of the image.
+2. Visit https://fedoraproject.org/security/ for instructions on verifying the integrity of the image.
 
 ==== Part two - positively identify your USB flash drive
 1. Unplug your USB flash drive.
