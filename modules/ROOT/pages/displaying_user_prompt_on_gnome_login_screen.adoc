@@ -35,21 +35,6 @@ To not display the banner message, do not include the first and second line. To 
 +
 Save the file and return to the terminal.
 
-. Create another file for GDM configuration.
-+
-----
-$ sudo vim /etc/dconf/profile/gdm
-----
-+
-Insert the following content in the `/etc/dconf/profile/gdm` file:
-+
-----
-user-db:user
-system-db:gdm
-----
-+
-Save the file.
-
 . Enter the following command:
 +
 ----
