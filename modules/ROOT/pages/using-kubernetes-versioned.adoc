@@ -100,7 +100,7 @@ sudo dnf install kubernetes1.31 kubernetes1.31-kubeadm kubernetes1.31-client
 ----
 
 The ```dnf swap``` command can also be used to change from one Kubernetes release to the next.
-Using swap avoids re-installation of dependencies but the ```kubernetes1.31*``` dnf package specification will install all matching rpms from the repository and not just the rpms removed by the initial ```kubernetes1.34*``` package specification.:w
+Using swap avoids re-installation of dependencies but the ```kubernetes1.31*``` dnf package specification will install all matching rpms from the repository and not just the rpms removed by the initial ```kubernetes1.34*``` package specification.
 
 
 [source,bash]
