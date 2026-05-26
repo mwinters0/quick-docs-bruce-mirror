@@ -1,172 +1,122 @@
-= Finding and installing Linux applications
-Hanku Lee, Peter Boy; Fedora Documentation Team
-:revnumber: F36 and newer
-:revdate: 2024-05-14
+= Finding and Installing Linux Applications
+Hanku Lee; Peter Boy; Rowan Puttergill; Fedora Documentation Team
+:revnumber: F41 and newer
+:revdate: 2026-05-11
 :category: Managing Software
 :tags: Tutorial, Workstation
 
 [abstract]
-If you are looking for software to run on Fedora Linux, you will discover Fedora-packaged software, EPEL (Extra Packages for Enterprise Linux) and Flatpak apps. Here is an overview of software repositories and installation.
+Fedora provides software through several sources: the official Fedora repositories, Flatpak applications from Flathub, and third-party repositories.
+This page explains how to find and install applications using the graphical software managers on GNOME and KDE Plasma.
 
-== Sources of software packages
+For an overview of available software sources, see xref:fedora-repositories.adoc[Fedora DNF repositories] and xref:third-party-software.adoc[Understanding third-party software].
 
-=== Fedora Repository
+== GNOME Software
 
-The Fedora repository is available for all Fedora releases and backed by the following characteristics.
+In the GNOME desktop environment, GNOME Software helps you explore, install, and update applications and system extensions.
 
-- Free and Open Source software packaged in Fedora Linux meets license approval criteria. (Link to: https://docs.fedoraproject.org/en-US/legal/license-approval/)
+To launch GNOME Software, press the Super key, type *software*, and press Enter.
 
-- Fedora Quality Assurance continually improves the quality of Fedora releases and updates. (Link to: https://docs.fedoraproject.org/en-US/qa-docs/)
+=== Explore applications by category
 
-=== What comes with default?
-
-- Fedora-packaged software: registry.fedoraproject.org
-
-- Updates repo
-
-=== Optional repos
-
-- Fedora Flatpaks
-
-- EPEL
-
-- Test repo
-
-- Flathub
-
-== Installation Procedures
-
-The Fedora Linux ships with a graphical software manager to browse, test, install apps and update the installation. This article caters for users who prefer the use of graphical interface to command line interface. The process diverges depending on desktop environment.
-
-=== GNOME
-
-In GNOME desktop environment, GNOME Software helps you explore, install and update applications and system extensions.
-
-==== How to use Software
-
-To launch Software, press the Super key (next to left Alt key), type software, and press Enter key.
-
-Step through the numbered list and the number annotated on the image of GNOME Software.
-
-==== 1. Explore applications by categories
-
-All the featured apps will be shown on banner in the middle.
+A featured app appears on the banner in the center of the screen.
+Browse by use case category below: *Create*, *Work*, *Play*, *Socialize*, *Learn*, and *Develop*.
 
 .GNOME Software
-image::finding-installing-linux-apps/gnome1-featured.png[GNOME Software]
+image::finding-installing-linux-apps/gnome1-featured.png[GNOME Software main screen showing featured applications and categories]
 
-Browse apps as categorized below and click a category that is of your interest.
+=== Search for an application
 
-- Use case: Create, Work, Play, Socialize, Learn, Develop
-- Editor's choice
+Click the magnifying glass icon in the top left corner, type the name of the application, and press Enter.
+GNOME Software shows applications that match your search.
 
-==== 2. Search applications by name
+=== Check software details
 
-If you know the name of apps to install, click the magnifying glass on the top left corner and type in the name of apps and press Enter key. GNOME Software will suggest a set of applications that match your search.
+Click an application icon to see screenshots, a description, version history, reviews, and license details.
 
-==== 3. Check the software metadata
+If an application has optional add-ons, they appear in the *Add-ons* section before the metadata.
 
-Once you click an app icon, Software presents screenshot of apps and overview.
+.Application details
+image::finding-installing-linux-apps/GNOME_SW3_metadata.png[GNOME Software showing application details, screenshots and metadata]
 
-Scroll down to examine version history, reviews and license details.
+=== Install an application
 
-.App overview
-image::finding-installing-linux-apps/GNOME_SW3_metadata.png[App overview]
+On the application details page, click the *Install* button in the top right corner.
 
-If an app has optional add-ons to install together with the app, they will be displayed as *Add-ons* before the software metadata section.
+The source repository, Fedora Linux (RPM) or Fedora Flatpak, is shown beneath the *Install* or *Open* button.
 
-==== 4. Installation
+.Installing an application
+image::finding-installing-linux-apps/GNOME_SW2_Install.png[GNOME Software install button and source repository label]
 
-If you have checked the software metadata, scroll up to find and click the blue *Install* button on top right corner of software you selected.
+=== Updates
 
-Source (repository) is labelled as Fedora Linux (RPM) or Fedora Flatpak under the blue 'Install' or 'Open' button.
+To check for system and application updates, open the *Updates* tab and click *Refresh*.
+If updates are available, click *Download* and then *Restart & Update* when prompted.
+System updates require a restart.
 
-.App Installation
-image::finding-installing-linux-apps/GNOME_SW2_Install.png[App Installation]
+To receive automatic update notifications, enable *Automatic Updates* in the menu at the top right.
 
-==== 5. Updates
+=== Manage repositories
 
-To check system and app updates, go to updates tab and load updates.
-If there are updates available, the blue download button will appear.
+To manage repositories, open the menu at the top right and select *Software Repositories*.
+From there you can enable or disable sources such as Fedora Flatpaks and Flathub.
 
-Click download and wait for the blue Restart & Update button. System updates require restart.
+.Software repositories
+image::finding-installing-linux-apps/GNOME_SW6_repo.png[GNOME Software repositories dialog showing available repository options]
 
-If you prefer automatic notification when there are updates available, enable automatic Updates in the hamburger menu on the top right corner.
+== KDE Discover
 
-==== 6. Manage repositories
+In KDE Plasma, Discover helps you explore, install, and update applications and system extensions.
 
-To enable or disable repositories, go to the hamburger menu on the top right corner and select Software Repositories. From there, you can toggle Fedora Flatpaks to explore more apps.
+To launch Discover, press the Super key, type *discover*, and press Enter.
 
-.Optional Repos
-image::finding-installing-linux-apps/GNOME_SW6_repo.png[Optional Repos]
+=== Explore applications by category
 
-=== KDE
+Select a category from the left panel to browse available applications.
+Applications in the selected category appear in the right panel, sorted by popularity by default.
 
-In KDE Plasma desktop, Discover helps you explore, install and update applications and system extensions.
+.Application categories
+image::finding-installing-linux-apps/KDE2_Discover_category.png[KDE Discover showing application categories on the left and featured apps on the right]
 
-==== How to use Discover
+=== Search for an application
 
-Before launching Discover, Kickoff Application Launcher (Kickoff in short) assists you to use the integrated search function.
+Type the name of an application in the search bar at the top left and press Enter.
+Discover shows applications that match your search.
 
-Step through the numbered list and the number annotated on the image of KDE Plasma desktop and Discover.
+If Kickoff suggests an application that is not installed, click *Get <application name>* to open it in Discover.
 
-==== 1. Explore applications with Kickoff
+.Kickoff suggesting an application
+image::finding-installing-linux-apps/KDE1_KickoffGetApp.png[KDE Kickoff launcher showing a Get button for an uninstalled application]
 
-To launch Kickoff, in the default configuration, press the Super key (next to left Alt key). Hover your mouse over installed apps as categorized on the left pane. All the available apps will be shown on the right pane.
+=== Check software details
 
-.Kickoff application launcher
-image::finding-installing-linux-apps/KDE1_KickoffCategory.png[KDE Plasma Kickoff]
+Click an application to see screenshots, a description, version, reviews, and license details.
 
-If you look for an application that has not been installed yet, Kickoff will suggest a set of applications that match your search.
+.Application details
+image::finding-installing-linux-apps/KDE2_Discover_metadata.png[KDE Discover showing application details and metadata]
 
-Get <application name>. Click the app to navigate to Discover, enabling you to installation.
+=== Install an application
 
-.Get application with Kickoff
-image::finding-installing-linux-apps/KDE1_KickoffGetApp.png[Get application with Kickoff]
+On the application details page, click the *Install* button in the top right corner.
 
-==== 2. Explore applications by categories
+=== Updates
 
-To launch Discover directly, press the Super key (next to left Alt key), type discover, and press Enter key.
-
-Hover your mouse over available apps as categorized on the left pane. Click a category that is of your interest. All the featured apps will be shown on the right pane.
-
-.Application by categories
-image::finding-installing-linux-apps/KDE2_Discover_category.png[Application by categories]
-
-==== 3. Search applications by name
-
-If you know the name of apps to install, type in the name of apps in the search window on the top left corner and press Enter key. Discover will suggest a set of applications that match your search.
-
-==== 4. Check the software metadata
-
-Once you click an app icon, Discover presents screenshot of apps and overview, software metadata such as software version, reviews and license details.
-
-.Check metadata
-image::finding-installing-linux-apps/KDE2_Discover_metadata.png[Check metadata]
-
-==== 5. Installation
-
-If you have checked the software metadata, click the *Install* button on top right corner of software you selected.
-
-==== 6. Updates
-
-Update notification will appear on status bar when updates become available. Click the notification to open Discover. Press “Update All” button on the top right corner. System updates require restart.
+When updates are available, a notification appears in the status bar.
+Click the notification to open Discover, then click *Update All* in the top right corner.
+System updates require a restart.
 
 .Application updates
-image::finding-installing-linux-apps/KDE6_Updates.png[Application updates]
+image::finding-installing-linux-apps/KDE6_Updates.png[KDE Discover updates view showing available updates and Update All button]
 
-==== 7. Manage repositories
+=== Manage repositories
 
-To enable repositories, go to Settings in Discover. In case Flathub is required to explore more apps, click the Add Flathub button.
+To manage repositories, open *Settings* in Discover.
+To add Flathub and access more applications, click *Add Flathub*.
 
 == More information
 
-For latest improvements on functionality and look of graphical software manager, please check the upstream documentation on the link below.
-
-GNOME Software: https://wiki.gnome.org/Apps/Software
-
-KDE Discover: https://userbase.kde.org/Discover
-
-To explore and install command-line apps, refer to the DNF Command Reference: https://dnf.readthedocs.io/en/latest/command_ref.html
-
-To explore and install language libraries, packages, and development toolchain, refer to the Fedora Developer Portal: https://developer.fedoraproject.org/tech.html
+* xref:dnf.adoc[Using the DNF software package manager]  - installing applications from the command line
+* xref:flathub-flatpak-applications.adoc[Installing applications from Flathub]  - Flatpak applications
+* https://wiki.gnome.org/Apps/Software[GNOME Software upstream documentation]
+* https://userbase.kde.org/Discover[KDE Discover documentation]
+* https://developer.fedoraproject.org/tech.html[Fedora Developer Portal]  - language libraries, packages, and development toolchains

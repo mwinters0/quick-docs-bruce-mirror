@@ -3,7 +3,7 @@ Anthony McGlone
 :revnumber: F37
 :revdate: 2023-01-05
 :category: Administration
-:tags: How-to, DNF, Application, Software-Installation  
+:tags: How-to, DNF, Application, Software-Installation 
 //:page-aliases: 
 
 include::partial$attributes.adoc[]
@@ -14,26 +14,6 @@ This section describes how to add, enable, or disable a software repository with
 == Adding repositories
 
 This section describes how to add software repositories with the `dnf config-manager` command.
-
-=== For Fedora 40 or earlier (DNF 4)
-
-To add a new repository, as `*root*`, use one of the following methods.
-
-* Define a new repository by creating a new file with the `.repo` suffix in a temporary location, such as the [filename]`/tmp` directory.
-* Add the repository with `--add-repo`, where *_repository_* is the file path:
-+
-[literal,subs="+quotes,attributes"]
-----
-dnf config-manager --add-repo `*_repository_*`
-----
-+
-For example:
-+
-----
-dnf config-manager --add-repo /tmp/fedora_extras.repo
-----
-
-=== For Fedora 41 or later (DNF 5)
 
 To add a new repository, as `*root*`, use one of the following methods.
 
@@ -94,16 +74,16 @@ dnf config-manager setopt fedora-extras.enabled=0
 
 == Removing repositories
 
-This section shows how to remove a Yum repository (or `.repo` file).
+This section shows how to remove a repository (or `.repo` file).
 
 [NOTE]
 ====
-If you know the ID of a repository, but you're not sure what `.repo` it belongs to,
+If you know the ID of a repository, but you are not sure what `.repo` it belongs to,
 you can run the following command [red]#`pass:[grep -E "^\[.*\]" /etc/yum.repos.d/*]`#.
-This will print a list of the repository IDs that are associated with each Yum repository.
+This will print a list of the repository IDs that are associated with each repository.
 ====
 
-* To remove a Yum repository, run the following command as `*root*`.
+* To remove a repository, run the following command as `*root*`.
 +
 [literal,subs="+quotes,attributes"]
 ----

@@ -5,7 +5,7 @@ Weverton do Couto Timoteo; JetStream ; The Fedora Docs team
 :category: Administration
 :tags: How-to, DNF 
 
-// Optional  free form useful additional information as comment
+// Optional free form useful additional information as comment
 
 [abstract]
 DNF is a software package manager that installs, updates, and removes packages on Fedora and is the successor to YUM (Yellow-Dog Updater Modified).
@@ -15,6 +15,8 @@ DNF makes it easy to maintain packages by automatically checking for dependencie
 This method eliminates the need to manually install or update the package, and its dependencies, using the `rpm` command.
 DNF is now the default software package management tool in Fedora.
 
+NOTE: DNF applies to standard Fedora editions. On image-based variants such as the Fedora Atomic Desktops and Fedora CoreOS, package management works differently. See the xref:atomic-desktops::index.adoc[Fedora Atomic Desktops User Guide] for details.
+
 [[sect-usage]]
 == Usage
 
@@ -22,20 +24,23 @@ DNF is now the default software package management tool in Fedora.
 
 To search the repositories for a package type:
 
+[source,bash,console]
 ----
-# dnf search packagename
+$ dnf search packagename
 ----
 
 To install the package:
 
+[source,bash,console]
 ----
-# dnf install packagename
+$ sudo dnf install packagename
 ----
 
 To remove a package:
 
+[source,bash,console]
 ----
-# dnf remove packagename
+$ sudo dnf remove packagename
 ----
 
 Other common DNF commands include:
@@ -60,7 +65,7 @@ For more DNF commands refer to the man pages by typing `man dnf` at the command-
 == Automatic Updates
 
 The `dnf-automatic` package is a component that allows automatic download and installation of updates.
-It can automatically monitor and report, via e-mail, the availability of updates or send a log about downloaded packages and installed updates.
+It can automatically monitor and report, via email, the availability of updates or send a log about downloaded packages and installed updates.
 
 For more information, refer to the link:https://dnf.readthedocs.org/en/latest/automatic.html[Read the Docs: DNF-Automatic] page.
 
@@ -84,14 +89,16 @@ There are officially supported https://dnf-plugins-core.readthedocs.io[Core DNF 
 and also third-party https://dnf-plugins-extras.readthedocs.io[Extras DNF Plugins].
 To install them, run
 
+[source,bash,console]
 ----
-# dnf install dnf-plugins-core-PLUGIN_NAME
+$ sudo dnf install dnf-plugins-core-PLUGIN_NAME
 ----
 
 or
 
+[source,bash,console]
 ----
-# dnf install dnf-plugins-extras-PLUGIN_NAME
+$ sudo dnf install dnf-plugins-extras-PLUGIN_NAME
 ----
 
 [[exclude-package]]
@@ -103,21 +110,23 @@ DNF allows you to exclude a package from the transaction:
 
 * using the command line
 
+[source,bash,console]
 ----
-sudo dnf upgrade --exclude=packagename
+$ sudo dnf upgrade --exclude=packagename
 ----
 
 * using its configuration files
 
 You can add a line to `/etc/dnf/dnf.conf` to exclude packages:
 
+[source,source]
 ----
 excludepkgs=packagename
 ----
 
 This can also be added to the specific repository configuration files in `/etc/yum.repos.d/`.
 https://en.wikipedia.org/wiki/Glob_(programming)[Globs] may be used here to list multiple packages, and each specification must be separated by a comma.
-If you have used this configuration, you can disable it in individual DNF commands using using the `--disableexcludes` command line switch.
+If you have used this configuration, you can disable it in individual DNF commands using the `--disableexcludes` command line switch.
 
 If you use a GUI update application which does not allow you to specify packages to exclude when they run, this method can be used.
 
@@ -129,20 +138,23 @@ It allows you to list what versions of particular packages should be considered 
 All other versions of the specified packages will be ignored.
 The plugin is part of `dnf-plugins-core` package and can be installed using the command below:
 
+[source,bash,console]
 ----
-sudo dnf install 'dnf-command(versionlock)'
+$ sudo dnf install 'dnf-command(versionlock)'
 ----
 
 To lock the currently installed version of a package, use:
 
+[source,bash,console]
 ----
-sudo dnf versionlock add package
+$ sudo dnf versionlock add package
 ----
 
 To remove the version lock, use:
 
+[source,bash,console]
 ----
-sudo dnf versionlock delete package
+$ sudo dnf versionlock delete package
 ----
 
 The `list` command can be used to list all locked packages, while the `clear` command will delete all locked entries.

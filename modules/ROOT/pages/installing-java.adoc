@@ -17,14 +17,14 @@ If you want to just run a specific application, check the documentation of that 
 Most Java applications run on one of the following:
 
 * OpenJDK -- an open-source implementation of the Java Platform, Standard Edition.
-  This version is preferred, and included in Fedora.
+ This version is preferred, and included in Fedora.
 * Oracle Java SE -- The former Oracle SE is no longer distributed by Fedora.
 
 You can find the following Versions:
 
 * The Long Term Support `LTS` Versions, currently 21, 25
 
-* Latest, currently 24
+* Latest, currently 26
 
 
 
@@ -34,55 +34,64 @@ To install OpenJDK from the Fedora repository:
 
 * Run the following command to list available versions:
 
+[source,bash,console]
 ----
-dnf search openjdk
+$ dnf search openjdk
 ----
 
 * Copy the version of OpenJDK you want to install.
 
 [NOTE]
-Various flavors of OpenJDK are available. For information about these options, search the link:https://openjdk.java.net/[OpenJDK web site].
+Various flavors of OpenJDK are available. For information about these options, search the link:https://openjdk.org/[OpenJDK web site].
 
 * Run the following command to install OpenJDK:
 
+[source,bash,console]
 ----
-sudo dnf install <openjdk-package-name>
+$ sudo dnf install <openjdk-package-name>
 ----
 
 Examples:
 
+[source,bash,console]
 ----
-sudo dnf install java-21-openjdk.x86_64
-----
-
-----
-sudo dnf install java-25-openjdk.x86_64
+$ sudo dnf install java-21-openjdk
 ----
 
+[source,bash,console]
 ----
-sudo dnf install java-latest-openjdk.x86_64
+$ sudo dnf install java-25-openjdk
+----
+
+[source,bash,console]
+----
+$ sudo dnf install java-latest-openjdk
 ----
 
 === Installing OpenJDK for development
 
 In order to install the Java Development Kit, runtime environment and associated development tools.
 
+[source,bash,console]
 ----
-sudo dnf install <openjdk-package-name>-devel
+$ sudo dnf install <openjdk-package-name>-devel
 ----
 
 Examples:
 
+[source,bash,console]
 ----
-sudo dnf install java-21-openjdk-devel.x86_64
-----
-
-----
-sudo dnf install java-25-openjdk-devel.x86_64
+$ sudo dnf install java-21-openjdk-devel
 ----
 
+[source,bash,console]
 ----
-sudo dnf install java-latest-openjdk-devel.x86_64
+$ sudo dnf install java-25-openjdk-devel
+----
+
+[source,bash,console]
+----
+$ sudo dnf install java-latest-openjdk-devel
 ----
 
 
@@ -92,20 +101,23 @@ To install an older version of Java:
 
 * Install the Adoptium Temurin Java Repository:
 
+[source,bash,console]
 ----
-sudo dnf install adoptium-temurin-java-repository
+$ sudo dnf install adoptium-temurin-java-repository
 ----
 
 Then, enable the third party repos:
 
+[source,bash,console]
 ----
-sudo fedora-third-party enable
+$ sudo fedora-third-party enable
 ----
 
 * Run the following command to list available versions:
 
+[source,bash,console]
 ----
-dnf search temurin
+$ dnf search temurin
 ----
 
 
@@ -113,18 +125,21 @@ dnf search temurin
 
 * Run the following command to install Temurin JDK:
 
+[source,bash,console]
 ----
-sudo dnf install <temurin-package-name>
+$ sudo dnf install <temurin-package-name>
 ----
 
 Examples:
 
+[source,bash,console]
 ----
-sudo dnf install temurin-8-jdk.x86_64
+$ sudo dnf install temurin-8-jdk
 ----
 
+[source,bash,console]
 ----
-sudo dnf install temurin-17-jdk.x86_64
+$ sudo dnf install temurin-17-jdk
 ----
 
 
@@ -134,7 +149,7 @@ include::{partialsdir}/3rdparty-message.adoc[]
 
 To install Oracle Java SE:
 
-. Navigate to link:https://www.oracle.com/java/technologies/javase-downloads.html[Oracle Java SE downloads page], and choose the version of Java you wish to use.
+. Navigate to link:https://www.oracle.com/java/technologies/javase-downloads.html[Oracle Java SE downloads page], and choose the version of Java you want to use.
 
 . Accept the license agreement and download the appropriate tar.gz file for your systems architecture. 
 
@@ -145,7 +160,7 @@ For example, to extract it to the _/opt_ directory:
 . Set the _JAVA_HOME_ environment variable to that directory.
 For example: `export JAVA_HOME=/opt/jdk-25.0.1.1`
 
-Note: Always make sure to download latest version available.
+NOTE: Always make sure to download the latest version available.
 
 
 
@@ -155,16 +170,18 @@ You might have installed several versions of Java on your system, you can switch
 
 After running this command, you will see a list of all installed Java versions, select:
 
+[source,bash,console]
 ----
-sudo alternatives --config java
+$ sudo alternatives --config java
 ----
 
 Simply enter a selection number to choose which java executable should be used by default.
 
 * verify:
 
+[source,bash,console]
 ----
-java -version
+$ java -version
 ----
 
 
@@ -177,13 +194,9 @@ JRE:: Java Runtime Environment; required to run Java code and applications
 JVM:: Java Virtual Machine; main component of the JRE
 JDK:: Java Development Kit; required only for development, coding
 SDK:: Software Development Kit; see JDK
-JavaWS:: link:https://en.wikipedia.org/wiki/Java_Web_Start[Java Web Start] is a framework to start application from the Internet
-JavaFX:: link:https://en.wikipedia.org/wiki/JavaFX[JavaFX] is a platform to create and deliver desktop and Rich Internet Apps
-OpenJFX:: is the JavaFX Open Source implementation
-OpenJDK:: Open Source project behind the Java Platform link:https://openjdk.java.net/[openjdk.java.net].
-IcedTea:: is a support project for OpenJDK (concern only developers) link:http://icedtea.classpath.org/[icedtea.classpath.org]
-IcedTea-Web:: is the Java Web Start package (contains only JavaWS, no applets anymore); install to run *JNPL* files
-applets:: are obsolete technology; Not implemented in any recent package
+JavaFX:: link:https://en.wikipedia.org/wiki/JavaFX[JavaFX] is a platform to create and deliver desktop applications
+OpenJFX:: the JavaFX open source implementation
+OpenJDK:: open source implementation of the Java Platform; see link:https://openjdk.org/[openjdk.org]
 JSE, J2SE, JEE, ...:: obsolete acronyms for Java Standard & Enterprise Edition; JavaSE is like JRE
 
 
@@ -192,39 +205,32 @@ JSE, J2SE, JEE, ...:: obsolete acronyms for Java Standard & Enterprise Edition; 
 
 The JDK has as its primary components a collection of programming tools, including:
 
-`appletviewer`:: this tool can be used to run and debug Java applets without a web browser
-`apt`:: the annotation-processing tool
-`extcheck`:: a utility which can detect JAR-file conflicts
-`idlj`:: the IDL-to-Java compiler. This utility generates Java bindings from a given Java IDL file.
-`jabswitch`:: the Java Access Bridge. Exposes assistive technologies on Microsoft Windows systems.
-`java`:: the loader for Java applications. This tool is an interpreter and can interpret the class files generated by the javac compiler. Now a single launcher is used for both development and deployment. The old deployment launcher, jre, no longer comes with Sun JDK, and instead it has been replaced by this new java loader.
+`java`:: the loader for Java applications; interprets the class files produced by `javac`
 `javac`:: the Java compiler, which converts source code into Java bytecode
 `javadoc`:: the documentation generator, which automatically generates documentation from source code comments
-`jar`:: the archiver, which packages related class libraries into a single JAR file. This tool also helps manage JAR files.
-`javafxpackager`:: tool to package and sign JavaFX applications
+`jar`:: the archiver, which packages related class libraries into a single JAR file
 `jarsigner`:: the jar signing and verification tool
-`javah`:: the C header and stub generator, used to write native methods
 `javap`:: the class file disassembler
-`javaws`:: the Java Web Start launcher for JNLP applications
-`JConsole`:: Java Monitoring and Management Console
 `jdb`:: the debugger
-`jhat`:: Java Heap Analysis Tool (experimental)
-`jinfo`:: This utility gets configuration information from a running Java process or crash dump. (experimental)
-`jmap`:: This utility outputs the memory map for Java and can print shared object memory maps or heap memory details of a given process or core dump. (experimental)
-`jmc`:: Java Mission Control
-`jps`:: Java Virtual Machine Process Status Tool lists the instrumented HotSpot Java Virtual Machines (JVMs) on the target system. (experimental)
-`jrunscript`:: Java command-line script shell.
-`jstack`:: utility which prints Java stack traces of Java threads (experimental)
-`jstat`:: Java Virtual Machine statistics monitoring tool (experimental)
-`jstatd`:: jstat daemon (experimental)
+`jdeps`:: analyses class file dependencies; useful for identifying required modules
+`jhsdb`:: the HotSpot debugger; provides serviceability tools for attaching to a running JVM or analysing a core dump
+`jinfo`:: gets configuration information from a running Java process or crash dump
+`jlink`:: assembles and optimises a custom Java runtime image containing only the modules your application requires
+`jmap`:: outputs the memory map for a Java process and can print heap memory details of a given process or core dump
+`jmc`:: Java Mission Control; a tool for managing, monitoring, profiling, and troubleshooting Java applications
+`jmod`:: creates and manages JMOD files, which can include native code and configuration files not suited to JAR format
+`jpackage`:: packages a Java application into a platform-specific installer or executable
+`jps`:: lists the instrumented HotSpot Java Virtual Machines (JVMs) on the target system
+`jrunscript`:: Java command-line script shell
+`jshell`:: an interactive Java REPL (Read-Eval-Print Loop) for prototyping and exploring Java code
+`jstack`:: prints Java stack traces of Java threads
+`jstat`:: Java Virtual Machine statistics monitoring tool
+`jstatd`:: jstat daemon
+`JConsole`:: Java Monitoring and Management Console
 `keytool`:: tool for manipulating the keystore
-`pack200`:: JAR compression tool
-`policytool`:: the policy creation and management tool, which can determine policy for a Java runtime, specifying which permissions are available for code from various sources
-`VisualVM`:: visual tool integrating several command-line JDK tools and lightweight clarification needed] performance and memory profiling capabilities
-`wsimport`:: generates portable JAX-WS artifacts for invoking a web service.
-`xjc`:: Part of the Java API for XML Binding (JAXB) API. It accepts an XML schema and generates Java classes.
+`xjc`:: Part of the Java API for XML Binding (JAXB) API; accepts an XML schema and generates Java classes
 
-The JDK also comes with a complete Java Runtime Environment, usually called a private runtime, due to the fact that it is separated from the "regular" JRE and has extra contents. It consists of a Java Virtual Machine and all of the class libraries present in the production environment, as well as additional libraries only useful to developers, such as the internationalization libraries and the IDL libraries.
+The JDK also includes a complete Java Runtime Environment, usually called a private runtime, due to the fact that it is separated from the "regular" JRE and has extra contents. It consists of a Java Virtual Machine and all of the class libraries present in the production environment, as well as additional libraries only useful to developers, such as the internationalization libraries and the IDL libraries.
 
 
 
@@ -232,14 +238,14 @@ The JDK also comes with a complete Java Runtime Environment, usually called a pr
 
 For Java in Fedora, see:
 
-* link:https://admin.fedoraproject.org/mailman/listinfo/java-devel[java-devel mailing list]
-* Freenode IRC channel link:irc://irc.freenode.net/fedora-java[#fedora-java]
+* link:https://discussion.fedoraproject.org/tag/java[Fedora Discussion - Java]
+\* link:irc://irc.libera.chat/fedora-java[#fedora-java on irc.libera.chat]
 * link:https://ask.fedoraproject.org/tags/java[Ask Fedora about Java]
 
 For more information about Java in general, see:
 
 * link:https://en.wikipedia.org/wiki/Java_(programming_language)[Wikipedia page for Java]
-* link:https://openjdk.java.net/[OpenJDK homepage]
+* link:https://openjdk.org/[OpenJDK homepage]
 * link:https://oracle.com/java/[Oracle homepage for Java]
 
 To develop Java applications, consider the following open-source IDEs:

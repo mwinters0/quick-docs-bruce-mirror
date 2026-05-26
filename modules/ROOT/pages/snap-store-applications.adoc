@@ -1,0 +1,184 @@
+= Installing Applications from Snap Store
+Rowan Puttergill, Fedora Documentation Team
+:revnumber: F42 and newer
+:revdate: 2026-05-08
+:category: Software Management
+:tags: Snap, Snapcraft, Applications, Third-Party
+:page-aliases: snap-store.adoc, snapcraft-applications.adoc
+
+[abstract]
+This page explains how to install and manage containerized applications from Snap Store using the Snap package format.
+
+== What is Snap Store
+
+Snap Store is a centralized repository of Snap applications, providing thousands of applications packaged using the Snap format.
+Snaps are containerized, self-contained applications that include all necessary dependencies and can run on any Linux system that has Snapd installed.
+
+== Understanding Snaps
+
+A Snap (or "Snapcraft" package) is a universal application package format that bundles an application with its dependencies in a compressed, self-contained archive.
+Snaps aim to provide consistent application behavior across different Linux distributions and versions.
+
+Snaps are similar to Flatpaks and AppImages in that they are designed to be distribution-agnostic and include all necessary dependencies. Snaps differ from Flatpaks in that they use a different packaging format and have different mechanisms for updates and confinement. Snaps are developed and maintained by Canonical, the company behind Ubuntu, but they can be used on any Linux distribution that supports Snapd, including Fedora. 
+
+Snaps are not enabled by default on Fedora, but you can easily install the Snapd daemon to use them.
+
+
+== Installing Snapd
+
+To use Snaps on Fedora, install the Snapd daemon:
+
+[source,bash,console,subs="quotes"]
+----
+$ sudo dnf install snapd
+----
+
+Then enable the Snapd socket:
+
+[source,bash,console,subs="quotes"]
+----
+$ sudo systemctl enable --now snapd.socket
+----
+
+After installation, you may need to reboot or log out and back in for Snap support to work properly.
+
+== Finding and installing applications
+
+=== Using Snap Store (GUI)
+
+On Fedora, you can install the Snap Store graphical application:
+
+[source,bash,console,subs="quotes"]
+----
+$ sudo snap install snap-store
+----
+
+Then:
+
+. Open *Snap Store* from your Applications menu
+. Search for the application you want to install
+. Click *Install* to begin the installation
+. The application automatically downloads and installs
+
+=== Using the command line
+
+Search for applications:
+
+[source,bash,console,subs="quotes"]
+----
+$ snap find _application_name_
+----
+
+Install an application:
+
+[source,bash,console,subs="quotes"]
+----
+$ snap install _application_name_
+----
+
+For example, to install Visual Studio Code:
+
+[source,bash,console,subs="quotes"]
+----
+$ snap install code --classic
+----
+
+NOTE: Some Snaps require the `--classic` flag to run outside the confinement environment for full functionality.
+
+== Managing Snap applications
+
+=== Launching applications
+
+Installed Snap applications appear in your Applications menu and launch like any other application.
+You can also run them from the command line using their name:
+
+[source,bash,console,subs="quotes"]
+----
+$ _application_name_
+----
+
+=== Updating applications
+
+Snaps update automatically in the background. To manually check for updates:
+
+[source,bash,console,subs="quotes"]
+----
+$ snap refresh
+----
+
+Update a specific Snap:
+
+[source,bash,console,subs="quotes"]
+----
+$ snap refresh _application_name_
+----
+
+=== Removing applications
+
+Remove an installed Snap:
+
+[source,bash,console,subs="quotes"]
+----
+$ snap remove _application_name_
+----
+
+=== Listing installed applications
+
+View all installed Snaps:
+
+[source,bash,console,subs="quotes"]
+----
+$ snap list
+----
+
+== Snap confinement levels
+
+Snaps use different confinement levels that control system access:
+
+Strict::
+The most restrictive mode. The Snap runs in a sandbox with minimal access to the system.
+Most Snaps use strict confinement.
+
+Classic::
+The least restrictive mode. The Snap has full access to the system like a traditionally installed application.
+Some Snaps require classic confinement to function properly.
+
+Devmode::
+Used during development. Runs in strict confinement but with warnings instead of denials.
+
+== Snap channels
+
+Snaps can offer multiple versions through different channels:
+
+Stable::
+The default channel, containing fully released and tested versions.
+
+Candidate::
+Pre-release versions near completion, good for testing before general release.
+
+Beta::
+Early testing versions, may contain bugs or incomplete features.
+
+Edge::
+Development versions, the newest code but potentially unstable.
+
+To install from a specific channel:
+
+[source,bash,console,subs="quotes"]
+----
+$ snap install _application_name_ --_channel_
+----
+
+For example:
+
+[source,bash,console,subs="quotes"]
+----
+$ snap install _application_name_ --beta
+----
+
+== Finding more information
+
+* **Snap Store website** - Visit https://snapcraft.io/store to browse available applications
+* **Snapcraft documentation** - https://snapcraft.io/docs for detailed information
+* **Snap directory** - https://snapcraft.io/snaps for searchable application directory
+

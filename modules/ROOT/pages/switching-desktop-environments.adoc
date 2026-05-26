@@ -1,7 +1,7 @@
-= Switching desktop environments
+= Installing and Switching Desktop Environments
 Fedora Documentation Team
-:revnumber: F36 and newer
-:revdate: 2025-02-11
+:revnumber: F41 and newer
+:revdate: 2026-05-10
 :category: Managing Software
 :tags: Tutorial, Workstation
 
@@ -11,28 +11,19 @@ Different Fedora Linux variants (Spins/Labs) have different default environments
 [[installing-desktop-environments]]
 == Installing additional desktop environments
 
-You can list available desktop environments using `dnf`.
+You can list available desktop environments using `dnf environment list`.
 
-Since Fedora 44, in a terminal use the `dnf environment list` command to list all available desktop environments:
-
-[source,bash]
+[source,bash,console]
 ----
-dnf environment list --available | grep -i desktop
-----
-
-On older releases (Fedora 40 and older) use:
-
-[source,bash]
-----
-dnf group list -v --available | grep desktop
+$ dnf environment list --available | grep -i desktop
 ----
 
 Install the required desktop environment using the `dnf install` command.
 Ensure to prefix with the `@` sign, for example:
 
-[source,bash]
+[source,bash,console]
 ----
-sudo dnf install @kde-desktop-environment
+$ sudo dnf install @kde-desktop-environment
 ----
 
 [[switching-desktop-environments-using-gui]]
@@ -41,7 +32,7 @@ sudo dnf install @kde-desktop-environment
 First, install the desired desktop environment as described in link:#installing-desktop-environments[Installing additional desktop environments].
 
 You can login to a different desktop for a single session using the login manager.
-For example, for the Gnome Display Manager (GDM) that is used by default on the Fedora Linux Workstation:
+For example, for the GNOME Display Manager (GDM) that is used by default on the Fedora Linux Workstation:
 
 . On the login screen, select a user from the list.
 
@@ -58,9 +49,9 @@ It also allows you to change default desktop environment for individual users, a
 
 . Install the `switchdesk` and `switchdesk-gui` packages:
 +
-[source,bash]
+[source,bash,console]
 ----
-sudo dnf install switchdesk switchdesk-gui
+$ sudo dnf install switchdesk switchdesk-gui
 ----
 +
 . Run the Desktop Switching Tool application.
@@ -76,17 +67,16 @@ First, install the desired desktop environment as described in link:#installing-
 
 Install the `switchdesk` package:
 
-[source,bash]
+[source,bash,console]
 ----
-sudo dnf install switchdesk
+$ sudo dnf install switchdesk
 ----
-
 
 Pass the selected desktop environment as the only argument to the `switchdesk` command, for example:
 
-[source,bash]
+[source,bash,console]
 ----
-switchdesk kde
+$ switchdesk kde
 ----
 
 See the `switchdesk(1)` man page for more information.

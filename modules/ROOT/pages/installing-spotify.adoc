@@ -5,7 +5,7 @@ Ankur Sinha; Weverton do Couto Timoteo; Mohammadreza Hendiani
 :category: Installation
 :tags: How-to, Flatpak, DNF, RPMFusion, Spotify
 
-// Optional  free form useful additional information as comment
+// Optional free form useful additional information as comment
 
 //include::{partialsdir}/3rdparty-message.adoc[]
 include::partial$3rdparty-message.adoc[]
@@ -13,7 +13,7 @@ include::partial$3rdparty-message.adoc[]
 
 link:https://www.spotify.com/[Spotify] is a cross-platform proprietary music streaming service.
 Spotify is a freemium service, with advertisements which can be removed by purchasing a subscription.
-Although Spotify is not officially supported on Fedora, it can be installed on Fedora in a number of ways:
+Although Spotify is not officially supported on Fedora, it can be installed on Fedora in several ways:
 
 . Using a Flatpak hosted by https://flathub.org[Flathub].
 . Using Snap hosted by https://snapcraft.io/spotify[snapcraft].
@@ -39,10 +39,10 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 ----
 
 . Install Spotify:
-.. Using Gnome Software:
+.. Using GNOME Software:
 ... Head to the link:https://flathub.org/apps/details/com.spotify.Client[Spotify page on Flathub].
-... Click "install", and choose to open the file using Gnome Software.
-... Click "install" in Gnome Software.
+... Click "install", and choose to open the file using GNOME Software.
+... Click "install" in GNOME Software.
 ... Click "launch" to run Spotify once installed.
 
 .. Using the command line:
@@ -70,13 +70,13 @@ To install Spotify using link:https://snapcraft.io/spotify[Snap]:
 sudo dnf install snapd
 ----
 
-. Either log out and back in again, or restart your system, to ensure snap’s paths are updated correctly.
+. Either log out and back in again, or restart your system, to ensure snap's paths are updated correctly.
 . To enable classic snap support, enter the following to create a symbolic link between `/var/lib/snapd/snap` and `/snap`:
 +
 ----
 sudo ln -s /var/lib/snapd/snap /snap
 ----
-. Install spotify, simply use the following command:
+. Install Spotify with the following command:
 +
 ----
 snap install spotify
@@ -88,7 +88,7 @@ snap install spotify
 
 // UNVERIFIED
 
-For this method, please refer to the link:https://github.com/leamas/lpf[`lpf GitHub Page`]
+For this method, refer to the link:https://github.com/leamas/lpf[`lpf GitHub Page`]
 requirements.
 
 . xref:rpmfusion-setup.adoc[Enable the RPMFusion repositories].

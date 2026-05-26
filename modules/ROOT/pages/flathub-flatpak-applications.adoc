@@ -1,0 +1,176 @@
+= Installing Flatpak Applications from Flathub
+Rowan Puttergill, Fedora Documentation Team
+:revnumber: F42 and newer
+:revdate: 2026-05-08
+:category: Software Management
+:tags: Flathub, Flatpak, Applications, Third-Party
+:page-aliases: flathub.adoc, flatpak-applications.adoc
+
+[abstract]
+This page explains how to install and manage containerized applications from Flathub, a centralized repository for Flatpak applications.
+
+== What is Flathub
+
+Flathub is a centralized repository that hosts thousands of Flatpak applications.
+Flatpak is a containerization technology that packages applications with their dependencies in a sandboxed environment.
+This approach provides several benefits including improved security through isolation, compatibility across different Linux distributions, and simplified dependency management.
+
+Flatpak applications work across all Linux distributions, not just Fedora. Once an application is packaged as a Flatpak, it can run on any system with Flatpak installed without requiring distribution-specific packaging. Therefore, many software vendors choose to distribute their applications as Flatpaks on Flathub to reach a wider Linux audience.
+
+Flatpak applications run in a sandbox with limited access to your system.
+Each application only has access to the resources it explicitly needs, providing an additional layer of security compared to traditional package installation.
+
+Because Flatpak applications are self-contained, they can use different versions of libraries and dependencies than those provided by your system. This means you can run multiple versions of the same application or library simultaneously without conflicts.
+
+Installing and removing Flatpak applications is straightforward and does not leave system-wide dependencies or configuration files scattered across your system.
+
+Flathub and Flatpak include built-in automatic update functionality, keeping applications current with minimal user intervention.
+
+Fedora Workstation includes Flatpak support pre-installed and configured, making it easy to get started with Flathub applications.
+
+== Prerequisites
+
+To use Flathub on Fedora, ensure Flatpak is installed:
+
+[source,bash,console,subs="quotes"]
+----
+$ sudo dnf install flatpak
+----
+
+If not already enabled, add the Flathub repository to your system:
+
+[source,bash,console,subs="quotes"]
+----
+$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+----
+
+On Fedora Workstation, Flatpak is typically pre-installed and configured to use Flathub, so you may not need to perform these steps.
+
+== Finding and installing applications
+
+=== Using the GNOME Software Center
+
+The easiest way to browse and install Flatpak applications is through GNOME Software:
+
+. Open *Software* from your Applications menu
+. Search for the application you want to install
+. If the application is available on Flathub, click *Install*
+. The application downloads and installs automatically
+
+=== Using KDE Discover
+
+KDE Plasma includes Discover, a graphical software center that supports Flatpak applications.
+On Fedora KDE Spin, Discover is pre-installed. To enable Flatpak support, ensure the Flatpak backend is installed:
+
+[source,bash,console,subs="quotes"]
+----
+$ sudo dnf install plasma-discover-flatpak
+----
+
+To find and install applications:
+
+. Open *Discover* from the application launcher
+. Search for the application you want to install
+. If multiple sources are available for the same application, select *Flathub* as the source
+. Click *Install*
+
+=== Using the command line
+
+To search for applications:
+
+[source,bash,console,subs="quotes"]
+----
+$ flatpak search _application_name_
+----
+
+To install an application:
+
+[source,bash,console,subs="quotes"]
+----
+$ flatpak install flathub _application_id_
+----
+
+For example, to install GIMP:
+
+[source,bash,console,subs="quotes"]
+----
+$ flatpak install flathub org.gimp.GIMP
+----
+
+== Managing Flatpak applications
+
+=== Launching applications
+
+Installed Flatpak applications appear in your Applications menu and launch like any other application.
+You can also run them from the command line using the application ID:
+
+[source,bash,console,subs="quotes"]
+----
+$ flatpak run _application_id_
+----
+
+=== Updating applications
+
+Update all installed Flatpak applications:
+
+[source,bash,console,subs="quotes"]
+----
+$ flatpak update
+----
+
+Update a specific application:
+
+[source,bash,console,subs="quotes"]
+----
+$ flatpak update _application_id_
+----
+
+Note that GNOME Software and KDE Discover will also notify you of available updates for Flatpak applications.
+
+=== Removing applications
+
+Remove an installed Flatpak application:
+
+[source,bash,console,subs="quotes"]
+----
+$ flatpak uninstall _application_id_
+----
+
+=== Listing installed applications
+
+View all installed Flatpak applications:
+
+[source,bash,console,subs="quotes"]
+----
+$ flatpak list --app
+----
+
+== Permissions and sandboxing
+
+Flatpak applications run in a sandbox with restricted access to your system.
+Some applications may request additional permissions to function properly:
+
+* **File system access** - Read or write access to specific directories
+* **Hardware access** - Access to cameras, microphones, or other hardware
+* **System services** - Access to D-Bus services for system notifications, and so on
+* **Network access** - Access to the internet
+
+When installing an application, review the requested permissions and decide whether to grant them based on the application's functionality.
+
+== Overriding permissions
+
+If an application needs additional permissions, you can grant or modify them using Flatseal, a graphical permissions manager:
+
+[source,bash,console,subs="quotes"]
+----
+$ flatpak install flathub com.github.tchx84.Flatseal
+----
+
+Alternatively, modify permissions from the command line using `flatpak override`.
+
+== Finding more information
+
+* **Flathub website** - Visit https://flathub.org to browse available applications
+* **Flatpak documentation** - https://docs.flatpak.org for detailed technical information
+* **Application pages** - Most Flatpak applications have information pages on Flathub with reviews and details
+

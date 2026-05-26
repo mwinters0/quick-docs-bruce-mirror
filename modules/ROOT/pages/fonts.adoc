@@ -1,163 +1,145 @@
 = Adding New Fonts in Fedora
-The Fedora Docs Team; Peter Boy 
-:revnumber: F36,F37
-:revdate: 2023-04-24
+The Fedora Docs Team; Peter Boy; Rowan Puttergill
+:revnumber: F41 and newer
+:revdate: 2026-05-11
 :category: Administration
 :tags: How-to, Workstation
 
 Fedora pre-installs several basic fonts by default.
 This page explains how to add new fonts to a Fedora installation.
 
-
 [[packaged]]
 == Packaged fonts
 
-Did you know Fedora packages several freely-licensed fonts?
-There are several supplementary fonts to preview and try out that are not installed by default.
-Like all fonts on Fedora, these fonts are not encumbered with licenses or restrictions.
+Fedora includes several supplementary fonts in its official repositories that are not installed by default.
+These fonts are all freely licensed.
 
-An added benefit of packaged fonts is they give you control over the font package in the future.
-You will receive future updates and can easily uninstall it later if you decide it is not the font for you.
+Installing packaged fonts has the advantage of being managed by DNF. The system receives future updates automatically and you can uninstall the font cleanly at any time.
 
 [[gnome-software]]
 === GNOME Software
 
-[NOTE]
-====
-This section uses a Graphical User Interface (G.U.I.) for managing fonts.
-====
+The easiest way to preview and install packaged fonts is through the desktop environment's software mangement tool, such as GNOME Software or KDE Discover.
 
-The easiest way to preview and install new fonts is to use [application]`GNOME Software`.
-Search for a specific font or search "fonts" in [application]`GNOME Software` to see what other freely-licensed fonts are available.
+Search for a specific font name, or search "fonts" to browse what is available.
 
 [[dnf]]
 === DNF package manager
 
-[NOTE]
-====
-This section uses a Command Line Interface (C.L.I.) for managing fonts.
-====
+To install fonts from the command line, use `dnf`.
 
-If you prefer working in a C.L.I., you can also install fonts with [application]`dnf`.
+List all available font packages from enabled repositories:
 
-Add or enable third-party repositories with font packages::
-Many fonts are available from the RPM Fusion repository.
-To enable the repository on your system, follow xref:rpmfusion-setup.adoc[these instructions].
+[source,bash,console]
+----
+$ dnf search fonts
+----
 
-List all available font packages from enabled repositories::
-[source,]
-[…]$ dnf search fonts
+Install the font package you need:
 
-Install the font package you need::
-[source,]
-[…]$ sudo dnf install libreoffice-opensymbol-fonts
+[source,bash,console]
+----
+$ sudo dnf install <font-package-name>
+----
 
+For example:
+
+[source,bash,console]
+----
+$ sudo dnf install google-roboto-fonts
+----
+
+NOTE: Additional fonts are also available from third-party repositories such as xref:rpmfusion-setup.adoc[RPM Fusion]. Enable the repository first, then use `dnf search fonts` to find what is available.
 
 [[unpackaged]]
 == Unpackaged fonts
 
-In many cases, you may want to use a specific font that is not available in Fedora or is not made available under https://freedomdefined.org/Definition[Free Culture] licenses.
+If you need a font that is not available in Fedora's repositories, you can install it manually.
 
 [IMPORTANT]
 ====
-Unpackaged fonts are not managed by a package manager.
-You will not automatically receive updates or optimizations.
-If a font is provided by a distribution package, you should always use a packaged version of a font.
+Manually installed fonts are not managed by DNF.
+You will not receive updates automatically.
+Where a packaged version of a font exists, use it instead.
 ====
 
 [[system-fonts]]
 === System fonts
 
-System fonts are installed for all users.
-Anyone with an account on the machine will be able to use these fonts.
+System fonts are installed for all users on the system.
 
-Create a new directory in the system fonts directory (`/usr/local/share/fonts/`) to accommodate the new font family, and copy the downloaded fonts (e.g. robofont.ttf files)::
-[source,]
-----
-[…]$ sudo mkdir -p /usr/local/share/fonts/robofont
-[…]$ sudo cp ~/Downloads/robofont.ttf /usr/local/share/fonts/robofont/
-----
+Create a directory in the system fonts path and copy the font files there:
 
-Set permissions and update SELinux labels::
-[source,]
+[source,bash,console]
 ----
-[…]$ sudo chown -R root: /usr/local/share/fonts/robofont
-[…]$ sudo chmod 644 /usr/local/share/fonts/robofont/*
-[…]$ sudo restorecon -vFr /usr/local/share/fonts/robofont
+$ sudo mkdir -p /usr/local/share/fonts/robofont
+$ sudo cp ~/Downloads/robofont.ttf /usr/local/share/fonts/robofont/
 ----
 
-Update the font cache::
-[source,]
-[…]$ sudo fc-cache -v
+Set permissions and update SELinux labels:
+
+[source,bash,console]
+----
+$ sudo chown -R root: /usr/local/share/fonts/robofont
+$ sudo chmod 644 /usr/local/share/fonts/robofont/*
+$ sudo restorecon -vFr /usr/local/share/fonts/robofont
+----
+
+Update the font cache:
+
+[source,bash,console]
+----
+$ sudo fc-cache -v
+----
 
 [[user-fonts]]
 === User fonts
 
-User fonts are installed for an individual user.
-Only the user who installs the fonts on the machine will be able to use these fonts.
-This is also convenient if you do not have superuser (i.e. `root`) access on the machine.
-
-There are three ways to install user fonts.
+User fonts are installed for a single user only.
+This approach does not require superuser access.
 
 [[user-fonts--gnome-font-viewer]]
 ==== GNOME Font Viewer
 
-[NOTE]
-====
-This section uses a Graphical User Interface (G.U.I.) for managing fonts.
-====
+Install GNOME Font Viewer if it is not already present:
 
-The [application]`GNOME Font Viewer` is an application to display the fonts installed on the system.
-It also allows you to locally install fonts.
-Follow these steps to add new user fonts with [application]`GNOME Font Viewer`:
+[source,bash,console]
+----
+$ sudo dnf install gnome-font-viewer
+----
 
-. Install [application]`GNOME Font Viewer`.
-** Use GNOME Software or use the command line (`sudo dnf install gnome-font-viewer`)
-. Open a file browser.
-. Double-click on a font file to open it in [application]`GNOME Font Viewer`.
-. Click on the blue btn:[Install] button on the top bar.
+To install a font:
 
-[NOTE]
-====
-Currently, there is a bug in the application.
-When you click on the btn:[Install] button, it does not inform whether the installation succeeded.
-====
+. Open a file manager and navigate to the downloaded font file.
+. Double-click the font file to open it in GNOME Font Viewer.
+. Click the btn:[Install] button in the top bar.
 
-[application]`GNOME Font Viewer` does two things to install fonts:
-
-. Copy font files to a font directory in the user's home directory `.local/share/fonts`.
-. Update the font cache.
+GNOME Font Viewer copies the font file to `~/.local/share/fonts/` and updates the font cache automatically.
 
 [[user-fonts--KDE]]
 ==== KDE Font Management
 
-. Go to Settings and enter font in Quick Settings.
-. On Font Management window, press the Install from...button, and select the downloaded fonts from within the dialog.
-. On pop-up window (see UI text below), select a font group that will control where the fonts will be installed.
+KDE Plasma includes a font management tool in System Settings.
 
-----
-Do you wish to install the font(s) for personal use (only available to you), or system-wide (available to all users)?
-----
+. Open *System Settings*.
+. Search for "fonts" or navigate to *Appearance* → *Text and Fonts*  → *Font Management*.
+. Click *Install from File* and select the downloaded font file.
+. Choose whether to install the font for your user only or system-wide.
 
 [[user-fonts--command-line]]
 ==== Command line
 
-[NOTE]
-====
-This section uses a Command Line Interface (C.L.I.) for managing fonts.
-====
+Create a directory for the new font family in your local fonts path and copy the font files there:
 
-If you prefer a command line interface, you can install user fonts manually.
-Follow these steps in a terminal window to install a font locally:
+[source,bash,console]
+----
+$ mkdir -p ~/.local/share/fonts/robofont
+$ cp ~/Downloads/robofont.ttf ~/.local/share/fonts/robofont/
+----
 
-Create a new directory `~/.local/share/fonts/<font-family-name>/` for the new font family::
-[source,]
-[…]$ mkdir -p ~/.local/share/fonts/robofont
+Update the font cache:
 
-Copy font files (e.g. `.ttf` files) to the new directory::
-[source,]
-[…]$ cp ~/Downloads/robofont.ttf ~/.local/share/fonts/robofont
-
-Update the font cache::
-[source,]
-[…]$ fc-cache -v 
+[source,bash,console]
+----
+$ fc-cache -v
+----

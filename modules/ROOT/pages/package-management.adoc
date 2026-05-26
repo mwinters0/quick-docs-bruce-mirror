@@ -1,119 +1,67 @@
-= Package management system
-Caleb McKee ; Otto Urpelainen; Ben Cotton 
-:revnumber: unspecified
-:revdate: 2022-05-04
+= Package Management System
+Caleb McKee; Otto Urpelainen; Ben Cotton
+:revnumber: F41 and newer
+:revdate: 2026-05-10
 :category: Administration
-:tags: How-to   
-// :page-aliases:
+:tags: How-to
 
+[abstract]
+Fedora uses a package management system based on RPM to install, update, and remove software.
+This page explains what a package management system is, its advantages, and the tools available.
 
-[[package-management-system]]
-Package Management System
--------------------------
+== Introduction
 
-[[introduction]]
-Introduction
-~~~~~~~~~~~~
+Fedora uses a package management system based on https://rpm.org[RPM], the RPM Package Manager.
+RPM provides the base for several higher-level tools, including:
 
-Fedora is a distribution that uses a package management system. This
-system is based on https://rpm.org[rpm] , the RPM Package Manager, with
-several higher level tools built on top of it, most notably
-https://www.freedesktop.org/software/PackageKit/[PackageKit] (default
-gui) and xref:dnf.adoc[DNF].
-GNOME Software is another GUI package manager.
+* xref:dnf.adoc[DNF] - the default command-line package manager since Fedora 41
+* xref:finding-and-installing-linux-applications.adoc[GNOME Software] - the default graphical package manager on Fedora Workstation
+* xref:finding-and-installing-linux-applications.adoc[KDE Discover] - the graphical package manager on Fedora KDE Spin
 
-[[advantages-of-package-management-systems]]
-Advantages of package management systems
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+NOTE: On image-based Fedora variants such as the Fedora Atomic Desktops, package management works differently. See the xref:atomic-desktops::index.adoc[Fedora Atomic Desktops User Guide] for details.
+
+== Advantages of package management systems
 
 Package management systems have many advantages:
 
-* It's easy to query what version of a package is installed or available.
+* It is easy to query what version of a package is installed or available.
+* It is easy to remove a package entirely, removing all its files.
+* It is easy to verify the integrity of a package's files, so you can check for corruption or tampering.
+* It is easy to upgrade a package by installing the new version and removing all the old version's files, avoiding lingering files that could cause problems.
+* It is easy to see what packages require or provide things that other packages need, ensuring all dependencies are met.
+* It is easy to install or remove groups of packages.
+* In many cases it is possible to downgrade to an earlier version of a package, for example when a new version has a bug.
 
-* It's easy to remove a package entirely, making sure all its files are gone.
+== Disadvantages of package management systems
 
-* It's easy to verify the integrity of the packages files, so you can
-  see if it's been corrupted or tampered with.
+* You can only use the versions of the package that are available, or having to make your own package if you need a different version.
 
-* It's easy to upgrade a package by installing the new version and
-  removing all the old versions files. This will make sure not to leave
-  any lingering files from the old package around to confuse or break
-  things.
+== Why mixing source installs and packages is a bad idea
 
-* It's easy to see what packages require or provide things that other
-  packages provide or require, so you can be sure to have the needed items
-  for the package to function correctly.
+Package management systems have no way to track when you bypass them and install something from source.
+Avoid mixing source installs and packaged installs for the following reasons:
 
-* It's easy to install or remove groups of packages.
+* You lose all the advantages of a package managed system listed above.
+* Installing from source might overwrite, delete, or change existing files owned by a package, causing that package to stop functioning correctly.
+* The source install might override a package install, causing undefined behavior in either.
+* Installing from source makes it difficult to debug issues, since versions cannot be easily queried and integrity cannot be checked.
+* Fedora packages might include patches or configuration to work correctly with other packages that upstream source does not include, leading to loss of functionality.
+* Software installed from source does not upgrade with package managed packages, leading to breakage on system updates.
 
-* In many cases it's possible to downgrade back to a previous version of
-  a package, for example when a new version has a bug.
-
-[[disadvantages-of-package-management-systems]]
-Disadvantages of package management systems
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* You are restricted to either using the versions of the package that
-  are available or having to make your own package if you need a different
-  version.
-
-[[why-mixing-source-installs-and-packages-is-a-bad-idea]]
-Why mixing source installs and packages is a bad idea
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Package management systems have no way to query or note when you bypass
-them and install something from source. You should avoid mixing source
-installs and packaged installs for (at least) the following reasons:
-
-* You lose all the advantages above from a package managed system.
-
-* Installing from source may overwrite, delete, or change existing files
-  that are in a package, making that package not function correctly.
-
-* The source install may override a package install causing undefined
-  behavior in the package or source installed item.
-
-* Installing from source makes it impossible or very difficult for
-  anyone to help you debug issues, since versions can't be easily queried
-  and integrity checked.
-
-* Fedora packages may include patches or configuration to work with
-  other packages, but upstream source does not, leading to loss of
-  functionality.
-
-* Software installed from source will not upgrade with package managed
-  packages, leading to breakage in the source install package on upgrades
-  or os updates.
-
-Strongly consider making your own package if you need a different
-version or a version of some package with changes. See:
+Consider making your own package if you need a different version or a modified package. See:
 xref:package-maintainers::Packaging_Tutorial_GNU_Hello.adoc[Packaging Tutorial: GNU Hello]
 
-[[preferred-search-order-for-a-software]]
-Preferred search order for a software
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== Finding software
 
-If some software is missing in your installation then you should try the
-following steps to get the packaged version:
+If software is missing from your installation, try the following steps to find a packaged version:
 
-1.  Search in Fedora ( 'dnf search foo' or search for 'foo' in the
-    PackageKit gui )
-2.  Try one of the available xref:finding-and-installing-linux-applications.adoc#_enabling_third_party_repositories[third-party repositories]
-3.  xref:package-maintainers::Packaging_Tutorial_GNU_Hello.adoc[Build your own package]
+. Search in Fedora using `dnf search _foo_`, or search using GNOME Software or KDE Discover.
+. Try one of the available xref:third-party-software.adoc[third-party repositories].
+. xref:package-maintainers::Packaging_Tutorial_GNU_Hello.adoc[Build your own package].
 
-[[package-management-tools]]
-Package Management tools
-~~~~~~~~~~~~~~~~~~~~~~~~
+== Package management tools
 
-Here are some tools for managing packages:
-
-* xref:dnf.adoc[dnf] - Dandified Yum
-* https://www.freedesktop.org/software/PackageKit/[PackageKit] -
-PackageKit gui tool ('add/remove software' in your menu)
-* https://wiki.gnome.org/Apps/Software[GNOME Software] - ­Graphical package manager for GNOME
-* https://apps.kde.org/discover/[KDE Discover] - Graphical package manager for KDE Plasma
-* https://rpm.org[rpm] - RPM package manager.
-* https://github.com/timlau/yumex-dnf[yumex] - Yum Extender
-
-See a typo, something missing or out of date, or anything else which can be
-improved? Edit this document at https://forge.fedoraproject.org/docs/quick-docs.
+* xref:dnf.adoc[DNF] - the default command-line package manager
+* https://wiki.gnome.org/Apps/Software[GNOME Software] - graphical package manager for GNOME
+* https://apps.kde.org/discover/[KDE Discover] - graphical package manager for KDE Plasma
+* https://rpm.org[rpm] - the underlying low-level RPM package manager

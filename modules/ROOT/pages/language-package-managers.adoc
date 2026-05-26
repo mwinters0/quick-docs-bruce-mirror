@@ -1,0 +1,251 @@
+= Installing Software from Language Package Managers
+Rowan Puttergill, Fedora Documentation Team
+:revnumber: F42 and newer
+:revdate: 2026-05-08
+:category: Software Management
+:tags: pip, npm, cargo, gem, go, Python, Node.js, Rust, Ruby, Third-Party
+
+[abstract]
+Many programming language ecosystems include their own package managers for installing libraries and tools.
+This page explains how to use common language package managers on Fedora, and the important differences between them and DNF.
+
+== What are language package managers
+
+Language package managers install software published within a specific programming language ecosystem. For example, you can install Python libraries and some Python applications by using tools such as pip. You can also install many JavaScript based applications by using tools such as npm.
+These tools operate independently and install packages outside of Fedora's package management system.
+
+Before using a language package manager, check whether the package you need is already available in the Fedora repositories.
+Many popular libraries are packaged for Fedora and can be installed with DNF:
+
+[source,bash,console,subs="quotes"]
+----
+$ dnf search _package_name_
+----
+
+Installing from Fedora repositories is preferred because those packages receive security updates through the normal Fedora update process and are tested for compatibility with your system.
+
+Language package managers bypass DNF, which means:
+
+* Packages installed this way are invisible to DNF and do not receive updates through `dnf upgrade`
+* Packages might conflict with system packages if installed globally
+* Security updates must be managed separately, using the language package manager itself
+* Removing packages requires the language package manager, not DNF
+* Sources are not vetted by Fedora maintainers, so there is a higher risk of installing malicious or unmaintained software
+
+For these reasons, install language packages at the user level or in isolated environments wherever possible, rather than system-wide.
+
+== Python - pip
+
+Python's package manager is pip.
+Many Python packages are available in Fedora repositories as `python3-_packagename_` and should be installed that way when possible.
+
+=== Installing pip
+
+pip is included with Python, which is pre-installed on Fedora.
+If pip is missing:
+
+[source,bash,console,subs="quotes"]
+----
+$ sudo dnf install python3-pip
+----
+
+=== Using virtual environments
+
+Always use a virtual environment to isolate pip-installed packages from the system Python installation.
+Installing pip packages globally can conflict with system Python libraries and break system tools.
+
+Create and activate a virtual environment:
+
+[source,bash,console,subs="quotes"]
+----
+$ python3 -m venv _myenv_
+$ source _myenv_/bin/activate
+----
+
+Install a package inside the virtual environment:
+
+[source,bash,console,subs="quotes"]
+----
+$ pip install _package_name_
+----
+
+Deactivate the virtual environment when finished:
+
+[source,bash,console,subs="quotes"]
+----
+$ deactivate
+----
+
+=== Updating pip packages
+
+Update all packages inside an active virtual environment:
+
+[source,bash,console,subs="quotes"]
+----
+$ pip install --upgrade _package_name_
+----
+
+=== Alternative Python package managers
+
+You can use other Python package managers that create isolated environments, such as:
+
+* https://github.com/pypa/pipx[pipx] - installs and manages Python command-line tools in isolated environments
+* https://docs.astral.sh/uv/[uv] - a modern Python package manager and environment manager that improves on pip and virtualenv
+
+These tools can be installed either from Fedora repositories or by using pip. 
+
+For example, to install pipx, run:
+[source,bash,console,subs="quotes"]
+----
+$ sudo dnf install pipx
+----
+
+Or, to install uv, run:
+[source,bash,console,subs="quotes"]
+----
+$ sudo dnf install python3-uv
+----
+
+== Node.js - npm
+
+npm is the package manager for the Node.js ecosystem.
+
+=== Installing Node.js and npm
+
+Install Node.js and npm from the Fedora repositories:
+
+[source,bash,console,subs="quotes"]
+----
+$ sudo dnf install nodejs npm
+----
+
+=== Installing packages
+
+Install a package locally for a specific project (recommended):
+
+[source,bash,console,subs="quotes"]
+----
+$ npm install _package_name_
+----
+
+Install a package globally to make a command-line tool available system-wide:
+
+[source,bash,console,subs="quotes"]
+----
+$ npm install -g _package_name_
+----
+
+NOTE: Global npm installs may require elevated permissions depending on how Node.js was installed.
+To avoid permission issues, consider using a Node.js version manager such as https://github.com/nvm-sh/nvm[nvm].
+
+=== Updating npm packages
+
+Update packages in the current project:
+
+[source,bash,console,subs="quotes"]
+----
+$ npm update
+----
+
+== Rust - Cargo
+
+Cargo is Rust's package manager and build system.
+Cargo compiles packages from source, so builds can take some time.
+
+=== Installing Rust and Cargo
+
+Install Rust and Cargo from the Fedora repositories:
+
+[source,bash,console,subs="quotes"]
+----
+$ sudo dnf install rust cargo
+----
+
+Alternatively, use the official Rust toolchain installer https://rustup.rs[rustup] for more control over Rust versions.
+
+=== Installing packages
+
+Install a Rust package (called a "crate") and make it available as a command-line tool:
+
+[source,bash,console,subs="quotes"]
+----
+$ cargo install _crate_name_
+----
+
+Cargo installs binaries to `~/.cargo/bin/` by default.
+Ensure this directory is in your `PATH`.
+
+=== Updating installed crates
+
+[source,bash,console,subs="quotes"]
+----
+$ cargo install --force _crate_name_
+----
+
+== Ruby - gem
+
+gem is Ruby's package manager for installing Ruby libraries and tools (called "gems").
+Many Ruby gems are available in the Fedora repositories as `rubygem-_packagename_` and should be installed that way when possible.
+
+=== Installing Ruby and gem
+
+Install Ruby from the Fedora repositories:
+
+[source,bash,console,subs="quotes"]
+----
+$ sudo dnf install ruby
+----
+
+gem is included with Ruby.
+
+=== Installing gems
+
+Install a gem for the current user:
+
+[source,bash,console,subs="quotes"]
+----
+$ gem install --user-install _gem_name_
+----
+
+Using `--user-install` avoids writing to system directories and does not require root access.
+
+=== Updating gems
+
+[source,bash,console,subs="quotes"]
+----
+$ gem update _gem_name_
+----
+
+== Go - go install
+
+The Go toolchain includes `go install` for installing Go-based tools.
+
+=== Installing Go
+
+Install Go from the Fedora repositories:
+
+[source,bash,console,subs="quotes"]
+----
+$ sudo dnf install golang
+----
+
+=== Installing tools
+
+Install a Go tool by its module path:
+
+[source,bash,console,subs="quotes"]
+----
+$ go install _module_path_@latest
+----
+
+For example:
+
+[source,bash,console,subs="quotes"]
+----
+$ go install golang.org/x/tools/cmd/goimports@latest
+----
+
+Go installs binaries to `~/go/bin/` by default.
+Ensure this directory is in your `PATH`.
+
+

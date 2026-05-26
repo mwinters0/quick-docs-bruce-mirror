@@ -1,119 +1,103 @@
-= Installing Chromium or Google Chrome browsers
-Peter Lilley;
-:revnumber: unspecified
-:revdate: 2021-01-17
+= Installing Chromium or Google Chrome Browsers
+Peter Lilley; Rowan Puttergill
+:revnumber: F41 and newer
+:revdate: 2026-05-11
 :category: Software installation
 :tags: How-to, Chromium, Chrome
-//:page-aliases:
-
 
 include::{partialsdir}/3rdparty-message.adoc[]
 
 == Chromium and Google Chrome web browsers
 
-Fedora Workstation, in its out of the box configuration, only includes free and open source software. **Mozilla Firefox** is the browser included in Fedora Workstation by default. However, it easy to install either **Google Chrome** or **Chromium**, if preferred.
+Fedora Workstation includes Mozilla Firefox as the default browser.
+It is easy to install either Google Chrome or Chromium if preferred.
 
 === Chromium
 
-Chromium is the upstream project for Google Chrome. Chromium is included in the Fedora Repositories. Fedora's Chromium package only contains free and open source software, so does not include several features of Google Chrome that rely on proprietary software.
+Chromium is the upstream open source project on which Google Chrome is based.
+It is available in the Fedora repositories.
+
+Fedora's Chromium package includes only free and open source software, so it does not include features of Google Chrome that rely on proprietary software — including support for proprietary media codecs such as H.264 and AAC.
+
+NOTE: If you need full codec support in Chromium, install `chromium-freeworld` from RPM Fusion instead. See xref:rpmfusion-setup.adoc[Enabling the RPM Fusion repositories].
 
 === Google Chrome
 
-Google Chrome is a popular web browser developed by Google. Chrome is built on top of the open-source browser project, Chromium. Chrome includes additional features such as support for proprietary media files (such as H.264 or AAC) and playback of rights-protected media (Netflix, etc.) Chrome also includes support for other Google services such as browser sync and location services, which are not supported by Chromium.
+Google Chrome is a popular web browser developed by Google, built on top of the Chromium project.
+Chrome includes additional features not present in Fedora's Chromium package, such as support for proprietary media codecs, playback of rights-protected content (Netflix, and so on), and Google services including browser sync and location services.
 
-Google Chrome is available in Fedora Workstation via a curated third-party repository. Once this repository is enabled, Chrome can be installed via Software or the command line.
-
-
+Google Chrome is available via a curated third-party repository.
+Once the repository is enabled, Chrome can be installed through GNOME Software or the command line.
 
 == Installing the browsers
 
-Both Chromium and Google Chrome can be installed on Fedora.
-
-
 === Installing Chromium
 
-Chromium can be installed using the Software application and via command line.
+==== Using GNOME Software
 
-==== Installing Chromium using Software (GUI)
+. Open *Software* from the Applications menu.
+. Search for *Chromium Web Browser*.
+. Click *Install*.
 
-. Click on Software tool in Fedora.
+==== Using the command line
 
-. Search for Chromium Web Browser.
-
-. Click on Install.
-
-==== Installing Chromium using Terminal
-
-. To install Chromium Web Browser, use the command:
-+
+[source,bash,console]
 ----
-# dnf install chromium
-----
-+
-. To upgrade Chromium, use the command:
-+
-----
-# dnf upgrade chromium
+$ sudo dnf install chromium
 ----
 
-=== Installing Chrome
+To upgrade Chromium:
 
-Chrome can be installed using Software or a terminal, once the repository is enabled.
+[source,bash,console]
+----
+$ sudo dnf upgrade chromium
+----
 
-==== Installing Chrome using Software (GUI)
+=== Installing Google Chrome
+
+==== Using GNOME Software
 
 . Open the *Software* application.
-
 . Click on the menu at the top right and select *Software Repositories*.
-
-. Make sure Third Party Repositories is enabled. If the button label is *Install*, then click that button to install the third party repositories. If the button reads *Remove All* then the third party repositories are already installed.
+. Scroll down to find the *Third Party Repositories* section. Optionally, you can enable the option to *Enable New Repositories* to automatically enable new third-party repositories as they become available.
 +
-image:installing-chromium-or-google-chrome-browsers-0.png[]
+. Scroll down to find the *google-chrome* repository. Ensure that it is enabled by toggling the switch.
 +
-. Scroll down to find the repository called *google-chrome*. Click on it and choose *Enable*.
+image:installing-chromium-or-google-chrome-browsers-gnome.png[Enabling the Google Chrome repository in GNOME Software]
+
+You can now search for *Google Chrome* in Software and install it.
+
+==== Using Plasma Discover
+. Open *Discover* from the Applications menu.
+. Click on *Settings*
+. Scroll down to find the *google-chrome* repository. Ensure that it is enabled by toggling the checkbox.
 +
-image:installing-chromium-or-google-chrome-browsers-1.png[]
+image:installing-chromium-or-google-chrome-browsers-plasma.png[Enabling the Google Chrome repository in Plasma Discover]
 
-You can now search for *Google Chrome* in Software, and install it.
 
-==== Installing Chrome using Terminal
+You can now search for *Google Chrome* in Discover and install it.
 
-The additional repositories can also be managed using a terminal and DNF.
+==== Using the command line
 
-. Install Third Party Repositories
+. Install the third-party repositories package:
 +
+[source,bash,console]
 ----
 $ sudo dnf install fedora-workstation-repositories
 ----
 +
-. Enable the Google Chrome repo:
+. Enable the Google Chrome repository:
 +
+[source,bash,console]
 ----
 $ sudo dnf config-manager setopt google-chrome.enabled=1
 ----
-
-For Fedora 40 and older:
-----
-$ sudo dnf config-manager --set-enabled google-chrome
-----
 +
-. Finally, install Chrome:
+. Install Google Chrome:
 +
+[source,bash,console]
 ----
 $ sudo dnf install google-chrome-stable
 ----
 
-[NOTE]
-====
-If you want to install the Chrome Dev Channel version, use the following command:
-
-----
-$ sudo dnf install google-chrome-unstable
-----
-
-If you want to install Chrome Beta use the following:
-
-----
-$ sudo dnf install google-chrome-beta
-----
-====
+NOTE: To install the Beta or Dev channel versions instead, replace `google-chrome-stable` with `google-chrome-beta` or `google-chrome-unstable`.

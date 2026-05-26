@@ -1,64 +1,60 @@
 = Automatic Updates
-Ben Cotton; Petr Bokoc;  Jean-Baptiste Holcroft 
-:revnumber: all
-:revdate: 2025
+Ben Cotton; Petr Bokoc; Jean-Baptiste Holcroft; Rowan Puttergill
+:revnumber: F41 and newer
+:revdate: 2026-05-10
 :category: Administration
 :tags: How-to, DNF, Updates
-//:imagesdir: ./images
 
+[abstract]
+Fedora can automatically download and install updates using `dnf-automatic`.
+This page covers how to decide whether automatic updates are right for your system, how to set them up, and how to adjust their behaviour.
 
-You must decide whether to use automatic xref:dnf.adoc[DNF]
-updates on each of your machines. There are a number of arguments both
-for and against automatic updates to consider. However, there is no
-single answer to this question: it is up to the system administrator or
-owner of each machine to decide whether automatic updates are desirable
-or not for that machine. One of the things which makes one a good system
-administrator is the ability to evaluate the facts and other people's
-suggestions, and then decide for oneself what one should do.
+== Deciding whether to use automatic updates
 
-A general rule that applies in most cases is as follows:
+There is no single answer to the question of whether to use automatic updates, as this depends on the system and your requirements. A useful general rule:
 
-_If the machine is a critical server, for which unplanned downtime of a
-service on the machine can not be tolerated, then you should not use
-automatic updates. Otherwise, you *may* choose to use them._
+_If the system is a critical server that cannot tolerate unplanned downtime, do not use automatic updates. Otherwise, you can use them._
 
-Even the general rule above has exceptions, or can be worked around.
-Some issues might be resolved through a special setup on your part. For
-example, you could create your own DNF repository on a local server,
-and only put in tested or trusted updates. Then use the automatic
-updates from only your own repository. Such setups, while perhaps more
-difficult to set up and maintain, can remove a large amount of risk
-otherwise inherent in automatic updates.
+That said, keeping a system up-to-date is an important part of security, and automatic updates can help ensure that you do not miss important updates. If you decide not to use automatic updates, make sure to apply updates manually on a regular basis or consider setting up a test and integration environment to validate updates before applying them to production systems. You can also use xref:dnf-repository-mirror.adoc[repository mirroring] to test updates on a non-critical system before applying them to production.
 
-[[how-are-automatic-updates-done]]
-== How are automatic updates done?
+=== Reasons to use automatic updates
 
-You can use a service to automatically download and install any new
-updates (for example security updates).
+* You are unlikely to apply updates manually on a regular basis.
+* The system is not critical and occasional unplanned downtime is acceptable.
+* You can access the system physically if an update causes problems.
+* You have proper backups of any important data on the system.
 
-The https://dnf5.readthedocs.io/en/latest/dnf5_plugins/automatic.8.html[dnf-automatic]
-RPM package as a link:dnf[DNF] component provides a service which is
-started automatically.
+=== Reasons to avoid automatic updates
 
-[[install-and-settings-of-dnf-automatic]]
-=== Install and settings of dnf-automatic
+* The system provides a critical service where unscheduled downtime is not acceptable.
+* You use custom, compiled, or third-party software with strict package version requirements.
+* You use a custom kernel or third-party kernel modules. You can mitigate this by excluding kernel updates, which is the default in Fedora's `dnf.conf`.
+* Your environment requires formal change-control procedures.
+* You use third-party DNF repositories that might conflict with Fedora's versioning.
+* Updates to packages such as OpenSSL or database servers can have unexpected effects on dependent services.
+* A kernel update does not take effect until the system reboots, and service updates might require a restart. Updating a system and not rebooting can create a window where the system appears updated but the fix is not yet active.
 
-On a fresh install of Fedora with default options, the dnf-automatic
-RPM is not installed. The first command below installs this RPM:
+== Setting up dnf-automatic
 
-[source,bash]
+`dnf-automatic` is not installed by default. Install it with:
+
+[source,bash,console]
 ----
-sudo dnf install dnf-automatic
+$ sudo dnf install dnf-automatic
 ----
 
-By default, dnf-automatic runs from the configurations in the `/etc/dnf/automatic.conf` file. These configurations only download, but do not apply any of the packages. In order to change or add any configurations, open the `.conf` file as the root user (or using `sudo`) from a terminal window.
+=== Configuring automatic.conf
 
-[source,bash]
+`dnf-automatic` reads its configuration from `/etc/dnf/automatic.conf`.
+By default it downloads updates but does not install them.
+Open the file to adjust this:
+
+[source,bash,console]
 ----
-sudo nano /etc/dnf/automatic.conf
+$ sudo nano /etc/dnf/automatic.conf
 ----
 
-A modification to automatic.conf to download all updates, apply them, and reboot could be:
+To download, install, and reboot when needed:
 
 [source]
 ----
@@ -67,153 +63,34 @@ apply_updates=True
 reboot=when-needed
 ----
 
-Omit reboot=when-needed to manually reboot. A full and detailed description of dnf-automatic settings is provided on the
-https://dnf5.readthedocs.io/en/latest/dnf5_plugins/automatic.8.html[dnf-automatic] page.
+Omit `reboot=when-needed` to leave rebooting to you.
+See the https://dnf5.readthedocs.io/en/latest/dnf5_plugins/automatic.8.html[dnf-automatic documentation] for the full list of options.
 
-[[run-dnf-automatic]]
-=== Run dnf-automatic
+=== Enabling the timer
 
-Once you are finished with the configuration, execute:
+Once configured, enable and start the systemd timer:
 
-[source,bash]
+[source,bash,console]
 ----
-systemctl enable --now dnf-automatic.timer
-----
-
-to enable and start the `systemd` timer.
-
-Check status of `dnf-automatic`:
-
-[source,bash]
-----
-systemctl status dnf-automatic.timer
+$ sudo systemctl enable --now dnf-automatic.timer
 ----
 
+Check that it is running:
 
-Note: pre-configured timers like `automatic-download.timer`, `automatic-install.timer` and `automatic-notifyonly.timer` were merged into `dnf-automatic.timer` for versions above Fedora 40 with the switch to dnf5. For the replacement commands, please see the https://dnf5.readthedocs.io/en/latest/dnf5_plugins/automatic.8.html#options[options section] in the upstream dnf documentation.
+[source,bash,console]
+----
+$ systemctl status dnf-automatic.timer
+----
 
+NOTE: Fedora signs packages with GPG (GNU Privacy Guard) keys and enables `gpgcheck` by default in `/etc/dnf/dnf.conf`, so DNF verifies each automatically installed update before installation. Update quality is a separate concern. Each package goes through a QA process, but it is always possible that an update causes problems. Monitoring your system after updates is good practice regardless.
 
-[[can-we-trust-dnf-updates]]
-== Can we trust DNF updates?
+== Monitoring updates
 
-Dnf in Fedora has the GPG key checking enabled by default.
-Assuming that you have imported the correct GPG keys, and still have
-`gpgcheck=1` in your `/etc/dnf/dnf.conf`, then we can at least assume that
-any automatically installed updates were not corrupted or modified from
-their original state. Using the GPG key checks, there is no way for an
-attacker to generate packages that your system will accept as valid
-(unless they have a copy of the *private* key corresponding to one you
-installed) and any data corruption during download would be caught.
+Check what `dnf-automatic` has installed by monitoring its log file `/var/log/dnf5.log`.
 
-However, the question would also apply to the question of update
-quality. Will the installation of the package cause problems on your
-system? This we can not answer. Each package goes through a QA process,
-and is assumed to be problem free. But, problems happen, and QA can not
-test all possible cases. It is always possible that any update may cause
-problems during or after installation.
+To receive email notifications after each run, add the following to `/etc/dnf/automatic.conf`:
 
-[[why-use-automatic-updates]]
-== Why use automatic updates?
-
-The main advantage of automating the updates is that machines are likely
-to get updated more quickly, more often, and more uniformly than if the
-updates are done manually. We see too many compromised machines on the
-internet which would have been safe if the latest updates where
-installed in a timely way.
-
-So while you should still be cautious with any automated update
-solution, in particular on production systems, it is definitely worth
-considering, at least in some situations.
-
-[[reasons-for-using-automatic-updates]]
-=== Reasons FOR using automatic updates
-
-While no one can determine for you if your machine is a good candidate
-for automatic updates, there are several things which tend to make a
-machine a better candidate for automatic updates.
-
-Some things which might make your machine a good candidate for automatic
-updates are:
-
-* You are unlikely to apply updates manually for whatever reason(s).
-* The machine is not critical and occasional unplanned downtime is
-  acceptable.
-* You can live without remote access to the machine until you can get to
-  its physical location to resolve problems.
-* You do not have any irreplaceable data on the machine, or have proper
-  backups of such data.
-
-If all the above apply to your machine(s), then automatic updates may
-be your best option to help secure your machine. If not all the above
-apply, then you will need to weigh the risks and decide for yourself if
-automatic updates are the best way to proceed.
-
-[[reasons-against-using-automatic-updates]]
-=== Reasons AGAINST using automatic updates
-
-While no one can determine for you if your machine is a bad candidate
-for automatic updates, there are several things which tend to make a
-machine a worse candidate for automatic updates.
-
-Some things which might make your machine be a bad candidate for
-automatic updates are:
-
-* It provides a critical service that you don't want to risk having
-  unscheduled downtime.
-* You installed custom software, compiled software from source, or use
-  third party software that has strict package version requirements.
-* You installed a custom kernel, custom kernel modules, third party
-kernel modules, or have a third party application that depends on kernel
-versions (this may not be a problem if you exclude kernel updates, which
-is the default in Fedora `dnf.conf` files). (See also
-https://bugzilla.redhat.com/show_bug.cgi?id=870790[bug #870790] - you
-may need to modify the base section to add
-`exclude=kernel*`.)
-* Your environment requires meticulous change-control procedures.
-* You update from other third party DNF repositories besides Fedora
-  repositories which may conflict in versioning
-  schemes for the same packages.
-
-There are also some other reasons why installing automatic updates
-without testing may be a bad idea. A few such reasons are:
-
-* The need to back up your configuration files before an update. Even
-  the best package spec files can have mistakes. If you have modified a
-  file which is not flagged as a configuration file, then you might lose
-  your configuration changes. Or an update may have a different format of
-  configuration file, requiring a manual reconfiguration. It is often best
-  to back up your configuration files before doing updates on critical
-  packages such as mail, web, or database server packages.
-* Unwanted side effects. Some packages can create annoying side effects,
-  particularly ones which have cron jobs. Updates to base packages like
-  openssl, openldap, sql servers, etc. can have an effect on many other
-  seemingly unrelated packages.
-* Bugs. Many packages contain buggy software or installation scripts.
-  The update may create problems during or after installation. Even cosmetic
-  bugs, like those found in previous Mozilla updates causing the user's
-  icons to be removed or break, can be annoying or problematic.
-* Automatic updates may not complete the entire process needed to make the
-  system secure. For example, DNF can install a kernel update, but until the
-  machine is rebooted (which DNF will not do automatically) the new changes
-  won't take effect.
-  The same may apply to restarting daemons. This can leave the user feeling
-  that they are secure when they are not.
-
-
-[[best-practices-when-using-automatic-updates]]
-== Best practices when using automatic updates
-
-If you decide to use automatic updates, you should at least do a few
-things to make sure you are up-to-date.
-
-Check for package updates which have been automatically performed, and
-note if they need further (manual) intervention. You can monitor what
-DNF has updated via its log file (usually `/var/log/dnf.log`).
-
-You can monitor updates availability automatically by email after
-modifying the dnf-automatic configuration file (usually `/etc/dnf/automatic.conf`).
-
-[source,bash]
+[source]
 ----
 [emitters]
 emit_via = email
@@ -229,81 +106,48 @@ email_to = root
 email_host = localhost
 ----
 
-You would replace root with an actual email address to which you want the
-report sent, and localhost with an actual address of a SMTP server. This
-change will mean that after dnf-automatic runs, it will email you
-information about available updates, a log about downloaded
-packages, or installed updates according to settings in `automatic.conf`.
+Replace `root` with the address you want reports sent to, and `localhost` with your SMTP server address.
 
-[[alternative-methods]]
-== Alternative methods
+== Adjusting update behaviour
 
-As an alternative to dnf-automatic,
-https://github.com/rackerlabs/auter[auter] can be used. This operates in
-a similar way to dnf-automatic, but provides more flexibility in scheduling,
-and some additional options including running custom scripts before or
-after updates, and automatic reboots. This comes at the expense of
-more complexity to configure.
+=== Download-only or notify-only mode
 
-[source,bash]
+If you would rather review updates before installing them, set `apply_updates=False` in `/etc/dnf/automatic.conf`.
+`dnf-automatic` will then download updates without applying them, and can notify you by email.
+The options in `automatic.conf` control the full range of behaviour, including notify-only without downloading.
+See the https://dnf5.readthedocs.io/en/latest/dnf5_plugins/automatic.8.html#options[dnf-automatic options reference] for details.
+
+=== Scheduling
+
+By default, `dnf-automatic.timer` runs once daily.
+To change when it runs, change the timer by using the instructions on the xref:understanding-and-administering-systemd.adoc[Understanding and administering systemd] page.
+
+=== Other protection while updates are pending
+
+If you pause or delay automatic updates, consider additional precautions: a host-based firewall by using xref:firewalld.adoc[firewalld], monitoring system logs for intrusions, and restarting services that require it after updates are applied.
+
+== Alternative tools
+
+https://github.com/rackerlabs/auter[auter] is an alternative to `dnf-automatic` that offers more flexibility in scheduling and supports running custom scripts before and after updates, including automatic reboots.
+
+[source,bash,console]
 ----
-sudo dnf install auter
-----
-
-You should then edit the configuration. Descriptions of the options are contained in the
-conf file `/etc/auter/auter.conf`.
-
-Auter is not scheduled by default. Add a schedule for `--prep` (if you
-want to pre-download updates) and `--apply` (install updates). The
-installed cron job which you can see in `/etc/cron.d/auter` contains lots of examples.
-
-To make auter run immediately without waiting for the cron job to run,
-for example for testing or debugging, you can simply run it from the
-command line:
-
-[source,bash]
-----
-auter --apply
+$ sudo dnf install auter
 ----
 
-If you want to disable auter from running, including from any cron job:
+Edit `/etc/auter/auter.conf` to configure it.
+`auter` is not scheduled by default. Add a schedule for `--prep` (pre-download) and `--apply` (install updates) using the examples in `/etc/cron.d/auter`.
 
-[source,bash]
+To run auter immediately for testing:
+
+[source,bash,console]
 ----
-auter --disable
+$ auter --apply
 ----
 
-[[alternatives-to-automatic-updates]]
-== Alternatives to automatic updates
+To disable auter from running, including from any cron job:
 
-[[notifications]]
-=== Notifications
-
-Instead of automatic updates, dnf-automatic can only download new
-updates and can alert you via email of available updates which you
-could then install manually. This can be set by editing of `/etc/dnf/automatic.conf` file.
-
-[[scheduling-updates]]
-=== Scheduling updates
-
-Another common problem is having automatic updates run when it isn't
-desired (holidays, weekends, vacations, etc). If there are times that no
-one will be around to fix any problem arising from the updates, it
-may be best to avoid doing updates on those days.
-
-This problem can be fixed by modification of the timer of dnf-automatic
-using the description on the
-xref:understanding-and-administering-systemd.adoc[Understanding and administering systemd]
-page.
-
-[[other-methods-of-protection]]
-=== Other methods of protection
-
-Yet another thing to consider if not using automatic updates is to
-provide your machine with some other forms of protection to help defend it of
-any attacks that might occur before updates are in place. This might
-include an external firewall, a host-based firewall (like iptables,
-ipchains, and/or tcp wrappers), not performing dangerous tasks on the
-computer (like browsing the web, reading e-mail, etc.), and monitoring
-the system for intrusions (with system log checkers, IDS systems,
-authentication or login monitoring, etc).
+[source,bash,console]
+----
+$ auter --disable
+----

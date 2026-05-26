@@ -1,0 +1,134 @@
+= Understanding Third-Party Software versus Fedora Release Software
+Rowan Puttergill, Fedora Documentation Team
+:revnumber: F42 and newer
+:revdate: 2026-05-08
+:category: Administration
+:tags: Repositories, Software Management, Packages
+:page-aliases: third-party.adoc, packagekit-not-found.adoc
+
+[abstract]
+This page explains the distinction between third-party software and software included in official Fedora releases, including their differences, how they are managed, and important considerations for each.
+
+== What is Fedora release software
+
+Fedora release software comprises all packages that are part of the official Fedora distribution repositories.
+These repositories include the _fedora_ repository and the _updates_ repository, which together form the complete, officially supported package set for a Fedora release.
+
+Fedora also releases software packages in other repositories for development and testing purposes, such as _rawhide_ for the latest development branch and _updates-testing_ for packages that are being tested before inclusion in the stable updates repository. However, the term "Fedora release software" specifically refers to packages that are included in the stable _fedora_ and _updates_ repositories for a given Fedora release.
+
+See xref:fedora-repositories.adoc[Fedora Repositories] for more details on the different repositories and their purposes.
+
+=== Characteristics of Fedora release software
+
+Vetting and testing::
+All packages in Fedora repositories undergo rigorous testing and review by the Fedora Project community before inclusion.
+Packages must meet strict xref:fedora-repositories.adoc[repository standards] and pass quality assurance checks.
+
+Source code availability::
+All Fedora release software is open source and free to use, modify, and distribute.
+The source code is available in the Fedora repositories and must comply with Fedora's licensing guidelines.
+
+Community maintenance::
+Each package in Fedora has maintainers who are responsible for updates, security patches, and bug fixes.
+Maintenance is handled through the Fedora package maintenance workflow and tools such as Bodhi.
+
+Release cycle integration::
+Fedora release software follows the official Fedora release cycle.
+Packages are frozen at release time for stable releases and receive updates through the updates repository according to the Fedora Updates Policy.
+
+Free distribution::
+All Fedora release software can be downloaded and installed at no cost through the official Fedora repositories.
+
+== What is third-party software
+
+Third-party software refers to packages and applications not included in the official Fedora repositories.
+
+=== Why software might be absent from Fedora's repositories
+
+Software might be missing from Fedora's official repositories for several reasons:
+
+* It is encumbered by software patents or uses a license incompatible with Fedora's policies. See xref:fedora-and-software-patents.adoc[Fedora and software patents] for details.
+* No one has yet packaged it for Fedora. If you want to help, consider xref:package-maintainers::index.adoc[becoming a Fedora package maintainer].
+* For drivers specifically, Fedora does not package out-of-tree kernel drivers. Drivers must be submitted to and accepted by the upstream Linux kernel before Fedora will include them.
+
+=== Installation methods
+
+Third-party software can be installed through:
+- Third-party repositories (e.g., xref:rpmfusion-setup.adoc[RPM Fusion], Copr, or vendor-specific repositories)
+- Container images (xref:flathub-flatpak-applications.adoc[Flatpak], or xref:snap-store-applications.adoc[Snap])
+- Manual installation archives containing all dependencies (xref:appimage.adoc[AppImage])
+- xref:language-package-managers.adoc[Language package managers] such as pip (Python), npm (Node.js), or Cargo (Rust)
+- Compilation from source code (xref:third-party-software.adoc[Third Party Software])
+- Direct binary package download from vendor websites
+
+=== Characteristics of third-party software
+
+Independent maintenance::
+Entities outside the Fedora Project maintain third-party software.
+The maintainer or software vendor handles updates, security patches, and compatibility with Fedora releases.
+
+Variable quality and support::
+The quality, testing rigor, and support availability varies widely depending on the third-party provider.
+Some third-party projects have excellent support and frequent updates, while others may be less actively maintained.
+
+Licensing flexibility::
+Third-party software may use any license, including proprietary, commercial, or open source licenses.
+Some third-party software may not be redistributable or modifiable.
+
+Potential compatibility issues::
+Since third-party software is developed and maintained independently, it may not be fully tested with all Fedora versions.
+Compatibility issues can arise, particularly across major Fedora releases.
+
+
+== Using third-party software safely
+
+If you choose to use third-party software with Fedora, follow these best practices:
+
+=== Verify the source
+
+* Download software only from official project websites or well-known, reputable repositories
+* Avoid downloading from untrusted sources or mirrors
+* Use digital signatures to verify package authenticity when available
+
+=== Check repository health
+
+* For third-party repositories, verify that they are actively maintained
+* Ensure the repository's packages are compatible with your Fedora version
+* Review the repository's security and maintenance practices
+
+=== Understand dependencies
+
+* Be aware that third-party packages may conflict with Fedora packages
+* Carefully review dependency requirements before installation
+* Consider using containerized solutions (xref:flathub-flatpak-applications.adoc[Flatpak], xref:snap-store-applications.adoc[Snap]) for isolation from system packages, or AppImage for self-contained applications that maintain their own dependencies
+
+=== Keep systems updated
+
+* Enable automatic updates when possible
+* Regularly check for updates from third-party sources
+* Uninstall software you no longer use to reduce potential security risks
+
+=== Use third-party repositories wisely
+
+When using third-party repositories like xref:rpmfusion-setup.adoc[RPM Fusion] or others:
+
+* Install only repositories from trusted sources
+* Do not enable multiple overlapping repositories simultaneously
+* Remove repositories if they are no longer needed or maintained
+* Be aware that mixing many third-party repositories can cause dependency conflicts
+
+== Common third-party sources
+
+Some well-known third-party software sources for Fedora include:
+
+* **xref:rpmfusion-setup.adoc[RPM Fusion]** - Provides packages restricted in Fedora due to licensing concerns (multimedia codecs, drivers)
+* **xref:flathub-flatpak-applications.adoc[Flathub]** - Provides Flatpak containerized applications with sandboxing
+* **xref:snap-store-applications.adoc[Snap Store]** - Provides Snap containerized applications
+* **xref:appimage.adoc[AppImage]** - Self-contained portable applications for easy distribution
+* **Upstream projects** - Many open source projects maintain their own repositories
+* **Vendor repositories** - Commercial software vendors (e.g., JetBrains, Slack) often provide official repositories
+* **Copr** - Fedora community projects repository, hosting community-maintained packages
+* **xref:language-package-managers.adoc[Language package managers]** - Install libraries and tools directly from language ecosystems such as Python's pip, Node.js's npm, and Rust's Cargo
+
+NOTE: Copr is not officially supported by Fedora infrastructure. Use packages at your own risk.
+

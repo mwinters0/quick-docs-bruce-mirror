@@ -6,12 +6,12 @@ Petr Bokoc; Mirek Jahoda; Gregory Lee Bartholomew
 :revnumber: unspecified
 :revdate: 2023-12-23
 :category: Administration
-:tags: How-to,  Security, Update
+:tags: How-to, Security, Update
 //:page-aliases:
 
 
 
-This section explains:
+
 
 * xref:securing-the-system-by-keeping-it-up-to-date.adoc#_why_it_is_important_to_keep_your_system_up_to_date[Why it is important to update your system regularly]
 * How to apply updates manually by using the xref:securing-the-system-by-keeping-it-up-to-date.adoc#_manual_updating_using_gui[GUI] or xref:securing-the-system-by-keeping-it-up-to-date.adoc#_manual_updating_using_cli[CLI]
@@ -29,28 +29,28 @@ All software contains bugs.
 Often, these bugs can result in a vulnerability
 that can expose your system to malicious users.
 Packages that have not been updated are a common cause of computer intrusions.
-Implement a plan for installing security patches in a timely manner
-to quickly eliminate discovered vulnerabilities,
-so they cannot be exploited.
+Install security patches promptly
+to end discovered vulnerabilities quickly,
+so attackers cannot exploit them.
 
 
 
 == Manual updating using GUI
 
-This section describes how to manually download and install new updates by using GUI.
+The following steps describe how to manually download and install new updates by using GUI.
 
 [discrete]
 === Procedure
 
 . Hover the cursor over the upper-left corner of the screen
-  and type "Software" and select the Software application to open it.
+ and type "Software" and select the Software application to open it.
 
 . Click the btn:[Updates] button to view the available updates.
 
 . Click the btn:[Download] button to download new updates.
 
 . After the updates are downloaded click the btn:[Restart & Update] button.
-  Your system will restart to perform the upgrade.
+ Your system will restart to perform the upgrade.
 
 image::software-updates.png[Updating by using the Software application]
 
@@ -58,44 +58,55 @@ image::software-updates.png[Updating by using the Software application]
 
 == Manual updating using CLI
 
-This section describes how to manually download and install new updates
+The following steps describe how to manually download and install new updates
 by using the DNF package manager.
 
+Fedora recommends applying updates offline: packages are downloaded while the system is running normally, then applied during a reboot.
+This avoids conflicts caused by updating libraries or services that are actively in use.
 
 [discrete]
 === Procedure
 
-. Upgrade the system:
+. Download available updates:
 +
+[source,bash,console]
 ----
-sudo dnf upgrade
+$ sudo dnf offline-upgrade download
 ----
 +
 Confirm to download the available packages.
 
-. Ideally (but it is usually not required),
-  use the `rpmconf` command to merge any config file changes you may have made
-  with any new settings that might have been introduced by the package updates.
-  You should do this before you reboot your system:
+. Reboot to apply the updates:
 +
+[source,bash,console]
 ----
-sudo rpmconf -a
+$ sudo dnf offline-upgrade reboot
+----
++
+The system reboots, applies the downloaded updates, then starts normally.
+
+. Optionally, use the `rpmconf` command to merge any configuration file changes
+ introduced by the package updates:
++
+[source,bash,console]
+----
+$ sudo rpmconf -a
 ----
 +
 To use the advanced merge option,
-you will need to set the `MERGE` environment variable
-to an editor that is capable of performing that function
+set the `MERGE` environment variable
+to an editor capable of performing that function
 (e.g., `export MERGE="vimdiff"`).
 See the man page for details.
 +
 [TIP]
 ====
 If you install the rpmconf DNF plugin,
-`rpmconf` will run automatically at the end of each upgrade.
-Install it using the command:
+`rpmconf` runs automatically at the end of each upgrade:
 
+[source,bash,console]
 ----
-sudo dnf install python3-dnf-plugin-rpmconf
+$ sudo dnf install python3-dnf-plugin-rpmconf
 ----
 ====
 
@@ -103,75 +114,13 @@ sudo dnf install python3-dnf-plugin-rpmconf
 === Additional Resources
 
 * The `dnf(8)` manual page
+* The `dnf-offline-upgrade(8)` manual page
 * The `rpmconf(8)` manual page
 
 
 == Setting automatic updates
 
-This section describes how to use the DNF Automatic application to automatically:
+The `dnf-automatic` package provides a systemd timer that can automatically download, install, or alert you about available updates.
+Whether the timer downloads only, installs, or just notifies the options in the [filename]`/etc/dnf/automatic.conf` configuration file.
 
-* Download and install any new updates
-* Only download the updates
-* Get notified about the updates
-
-[discrete]
-=== Procedure
-
-. Install the [package]_dnf-automatic_ package:
-+
-----
-sudo dnf install dnf-automatic
-----
-
-. Edit the [filename]`/etc/dnf/automatic.conf` configuration file as needed.
-  See the https://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic]
-  documentation for details.
-
-. Enable and start the `systemd` timer:
-+
-[literal,subs="+quotes,attributes"]
-----
-sudo systemctl enable --now _timer_
-----
-+
-Replace `_timer_` with one of following ones depending on what action you want to do:
-+
---
-* `dnf-automatic-install.timer` to download and install packages
-* `dnf-automatic-download.timer` to only download packages
-* `dnf-automatic-notifyonly.timer`
-  to only get a notification using configured emitters in the
-  [filename]`/etc/dnf/automatic.conf` file.
---
-+
-For example:
-+
-----
-sudo systemctl enable --now dnf-automatic-install.timer
-Created symlink /etc/systemd/system/timers.target.wants/dnf-automatic-install.timer → /usr/lib/systemd/system/dnf-automatic-install.timer.
-----
-
-. Ensure that the timer has been successfully enabled and started:
-+
-[literal,subs="+quotes,attributes"]
-----
-sudo systemctl status _timer_
-----
-+
-Replace `_timer_` with the timer from the previous step, for example:
-+
-----
-sudo systemctl status dnf-automatic-install.timer
-● dnf-automatic-install.timer - dnf-automatic-install timer
-     Loaded: loaded (/usr/lib/systemd/system/dnf-automatic-install.timer; enabled; vendor preset: disabled)
-     Active: active (waiting) since Fri 2021-01-29 14:50:22 +08; 1s ago
-    Trigger: Sat 2021-01-30 06:05:57 +08; 15h left
-   Triggers: ● dnf-automatic-install.service
-
-Jan 29 14:50:22 localhost.localdomain systemd[1]: Started dnf-automatic-install timer.
-----
-
-[discrete]
-=== Additional Resources
-
-* The https://dnf.readthedocs.io/en/latest/automatic.html[DNF Automatic] documentation
+For full setup instructions, see xref:autoupdates.adoc[Automatic Updates].

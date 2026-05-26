@@ -1,0 +1,150 @@
+= Creating a DNF Repository Mirror
+Rowan Puttergill; Fedora Documentation Team
+:revnumber: F42 and newer
+:revdate: 2026-05-10
+:category: Administration
+:tags: How-to, DNF, Repositories, Mirror
+
+[abstract]
+A local DNF repository mirror lets you serve Fedora package updates from your own infrastructure.
+This is useful for organisations managing multiple Fedora systems, restricted or metered network environments, or testing updates on a staging system before rolling them out to production.
+
+== Prerequisites
+
+=== Disk space
+
+Use `dnf repoinfo` to check the size of each repository you plan to mirror:
+
+[source,bash,console]
+----
+$ dnf repoinfo fedora updates
+----
+
+The `Repodate Info: Size` fields in the output show the total package size for each repository.
+Run the same command for any additional repositories you want to mirror, using `dnf repolist` to see available repository IDs.
+
+NOTE: Repository size grows throughout a release lifecycle as updates accumulate. The `updates` repository in particular grows steadily from release day until end-of-life. Budget additional headroom beyond the initial estimate. Repositories can grow by up to 30% or more over the lifecycle of a release, so plan accordingly. 
+
+=== Installing dnf5-plugins
+
+The `dnf reposync` command comes from the `dnf5-plugins` package:
+
+[source,bash,console]
+----
+$ sudo dnf install dnf5-plugins
+----
+
+=== An HTTP server
+
+A web server is required to serve the mirrored content to other systems.
+This guide uses Apache httpd, but nginx works equally well.
+
+[source,bash,console]
+----
+$ sudo dnf install httpd
+$ sudo systemctl enable --now httpd
+----
+
+== Syncing the repository
+
+Use `dnf reposync` to download repository content to a local directory.
+The following example syncs the `fedora` and `updates` repositories:
+
+[source,bash,console]
+----
+$ sudo dnf reposync --repo=fedora --repo=updates --download-path=/var/www/html/mirror
+----
+
+To limit the sync to specific architectures and avoid downloading packages you do not need:
+
+[source,bash,console]
+----
+$ sudo dnf reposync --repo=fedora --repo=updates --download-path=/var/www/html/mirror --arch=x86_64 --arch=noarch
+----
+
+To remove packages from the local mirror that are no longer present in the remote repository:
+
+[source,bash,console]
+----
+$ sudo dnf reposync --repo=fedora --repo=updates --download-path=/var/www/html/mirror --delete
+----
+
+The synced content is now accessible at `http://localhost/mirror/`, or whatever your server's hostname or IP address is.
+
+NOTE: The first sync downloads the full repository and can take a long time depending on your connection. Later syncs only download new or changed packages.
+
+== Configuring client systems
+
+On each system that should use the local mirror, create a `.repo` file in `/etc/yum.repos.d/`.
+For example, `/etc/yum.repos.d/local-mirror.repo`:
+
+[source]
+----
+[local-fedora]
+name=Local Fedora mirror
+baseurl=http://mirror-server/mirror/fedora/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+
+[local-updates]
+name=Local Fedora updates mirror
+baseurl=http://mirror-server/mirror/updates/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+----
+
+Replace `mirror-server` with the hostname or IP address of your mirror server.
+
+To ensure clients use only the local mirror, disable the default Fedora repositories by setting `enabled=0` in `/etc/yum.repos.d/fedora.repo` and `/etc/yum.repos.d/fedora-updates.repo`.
+
+== GPG verification
+
+`dnf reposync` downloads repository metadata and packages including their signatures.
+Clients use the Fedora GPG keys already present at `/etc/pki/rpm-gpg/` to verify packages, so no additional key configuration is required.
+
+== Keeping the mirror current
+
+Set up a systemd service and timer to sync the mirror automatically.
+
+Create a service file at `/etc/systemd/system/dnf-mirror.service`:
+
+[source]
+----
+[Unit]
+Description=Sync DNF repository mirror
+
+[Service]
+Type=oneshot
+ExecStart=dnf reposync --repo=fedora --repo=updates --download-path=/var/www/html/mirror --delete
+----
+
+Create the timer at `/etc/systemd/system/dnf-mirror.timer`:
+
+[source]
+----
+[Unit]
+Description=Daily DNF repository mirror sync
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+----
+
+Enable and start the timer:
+
+[source,bash,console]
+----
+$ sudo systemctl enable --now dnf-mirror.timer
+----
+
+Verify the timer is active:
+
+[source,bash,console]
+----
+$ systemctl status dnf-mirror.timer
+----

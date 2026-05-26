@@ -1,0 +1,94 @@
+= Fedora and Software Patents
+Caleb McKee; Frank Sträter
+:revnumber: F42 and newer
+:revdate: 2021-02-10
+:category: Community
+:tags: Legal, Software Patents, Licensing
+
+[abstract]
+This page explains Fedora's position on software patents, why patent restrictions affect what software Fedora can include, and how Fedora and Red Hat actively work to reduce the impact of software patents on free and open source software.
+
+WARNING: This information is provided only for answering common questions from Fedora users and should not be read as legal advice. What applies to Red Hat and the Fedora Project may not necessarily apply to you. If you need legal assistance, consult your own lawyer. This material does not represent the official views of Red Hat or the Fedora Project.
+
+[[what-is-a-software-patent]]
+== What is a software patent?
+A patent is a set of exclusionary rights granted by a government to a patent holder for a limited period of time, usually 20 years from the earliest effective filing date of the patent application. These monopoly rights are granted to patent applicants in exchange for their disclosure of the invention claimed by the patent. Once a patent is granted in a given country, the patent holder may exclude someone from making, using, selling or importing embodiments of the claimed invention in that country. Software patents are different from copyright or trademarks despite being lumped together with them under the collective term link:https://www.gnu.org/philosophy/not-ipr.html[Intellectual Property].
+
+[[who-is-responsible-for-taking-care-of-any-legal-issues-in-fedora]]
+== Who is responsible for taking care of any legal issues in Fedora?
+The Fedora Project is not a separate and distinct legal entity. Red Hat, the primary sponsor of the Fedora Project, is actively involved in legal matters relating to Fedora, along with other Fedora participants. For example, Red Hat lawyers assist Fedora Project contributors in issues pertaining to free and open source software licensing, trademarks and patents. Refer to the xref:legal::index.adoc[Legal] page for more information.
+
+[[if-software-patents-are-not-recognized-in-all-regions-why-not]]
+== If software patents are not recognized in all regions, why can't you distribute Fedora with such software in other regions?
+Contrary to common belief, software patents are granted in some form or other in most countries, including most of the countries in which most Fedora participants reside.
+
+[[cant-you-pay-the-patent-license-fees-for-patent-encumbered-codecs]]
+== Can't you pay the patent license fees for patent encumbered codecs?
+A codec is a set of methods to encode and decode video or audio information into a data stream. In the case of codecs like WMV, the company or companies associated with developing the format are also involved in asserting (or restrictively licensing) patents that purportedly cover the format; we refer to such codecs as "patent encumbered". Other codecs, such as WebM, Ogg Theora or Ogg Vorbis, Dirac, and FLAC, are made available by their developers without asserting patents on their implementations; we refer to such codecs as "patent unencumbered". Fedora includes comprehensive support for open, patent-unencumbered codecs but is unable to include support for the patent encumbered ones.
+
+Patent licenses usually require the licensee to pay royalties based on the number of users. Since Fedora is free and open source software, the effective number of users is essentially unrestricted. Patent holders are generally unwilling to give a blanket patent license for unlimited use; moreover, the royalty payments would be too high for it to be practical for the Fedora Project, or its sponsors, to pay them. Proprietary operating systems like Microsoft Windows include the costs of third-party patent licenses in the pricing of the product as sold to end users. Fedora is not sold commercially, so there is no way to recoup these substantial expenses.
+
+Even if funds were available to do so, such royalty-bearing patent licenses would have to be compatible with the free/open source software licenses governing the software covered by the patent license. In practice this is usually challenging. For example, the most widely-used FOSS licenses (GPL and LGPL) place constraints on the ability of distributors to distribute software under benefit of third-party patent licenses. Even if the software in question is placed under some other license, distributing such software under benefit of a patent license may make the software effectively non-free and thus incompatible with Fedora legal policies.
+
+[[there-are-free-and-open-software-implementations-of-the-codecs]]
+== There are free and open software implementations of the codecs. Why don't you include them?
+When we speak of an implementation being FOSS, usually we are thinking only in terms of copyright licensing. An independent FOSS implementation of a patent-encumbered codec, however, is subject to at least as much patent risk as, say, some proprietary reference implementation of the same codec. Note that while copyright covers only a particular implementation of software, patents are broader because they are more abstract, covering ideas that might be implemented in software in any number of ways.
+
+[[cant-you-link-to-third-party-repositories-and-guide-users-to-find]]
+== Can't you link to third party repositories and guide users to find such software?
+In general, no, because of the risk of liability for link:https://en.wikipedia.org/wiki/Patent_infringement[contributory patent infringement].
+
+[[how-is-it-that-some-other-linux-distributions-include-such-software]]
+== How is it that some other Linux distributions include such software?
+There are different reasons:
+
+* Some of them include proprietary software, in some cases charging users for their product, where the charge incorporates the cost of licensing third-party patents. Fedora is not a commercial product and has a policy of not distributing proprietary software.
+* They are willing to deal with the risk somehow. In some cases, it is because they are not backed by a large and profitable company like Red Hat. Red Hat, the legal entity and primary sponsor of the Fedora Project determines its own risks which can be different from other organizations.
+
+[[what-is-bad-about-patented-formats]]
+== What is bad about patented formats?
+Even if you are willing to pay for patent licenses, there are other things to consider:
+
+* No guarantee that your consumers actually will be able to read the data you're trying to produce. If you've reached this page, you've already experienced this - by producing media in a patented format, you automatically limit your audience to whatever platforms the patent holder has licensed their software to.
+* No guarantee of being able to access your data forever. If you're using some software to view a patented media format, what happens if that software vendor goes out of business, or refuses to port their software to newer systems? You no longer have access to your data.
+
+Note that this isn't even restricted to patented media formats - the same applies to popular proprietary formats used for word processing, spreadsheets, presentations, etc.
+
+For more information about how software patents are bad, refer to the link:https://ffii.org/[Foundation for a Free Information Infrastructure].
+
+[[cant-you-convert-a-patent-encumbered-code-to-an-open-codec]]
+== Can't you convert a patent encumbered codec to an open codec?
+Fedora cannot include the decoders necessary to do this since those are patent encumbered as well. Although users might be able to do this, converting from one format to another typically results in a visible loss of quality. The only long term viable method is to encourage the creation of content in open formats and Fedora and Red Hat actively encourage and participate in such activities.
+
+[[how-fedora-works-against-software-patents]]
+== How Fedora works against software patents
+* __Fedora sponsors development of free, non-patent-encumbered open formats__
+
+In support of free culture and the open web, and to reduce the hold of proprietary and patent encumbered codecs, Red Hat has been sponsoring improvements on the open Ogg Theora video codec.
+
+* __Fedora uses free, non-patented, open formats by default that anyone can implement, use, and view without having to obtain patent licenses__
+
+Instead of Windows Media, use WebM or Ogg Theora. Instead of Microsoft Office Open XML, use link:https://en.wikipedia.org/wiki/OpenDocument[Open Document format] documents, or even PDF. Vote with your currency by purchasing hardware and solutions that support these free and open formats.
+
+[[the-problem-with-proprietary-and-patent-encumbered-media-formats]]
+== The problem with proprietary and patent encumbered media formats
+Imagine sitting down to your email. Your sister has sent you some pictures of your niece. However, when you go to look at them, all you see is:
+
+__I'm sorry, you need Frobozz Viewer 3.0 to view this file. It's only $19.99, have your credit card ready.__
+
+Later, you go to view your mail on a public computer at the local library. And you get the same dialog box on their computer.
+
+That is the reality for any sound, image, or document format that is encumbered by software patents that require licensing - any application that wishes to view, play, or create them requires paying the patent holders a fee. Normally, software and hardware vendors include this support, but they pass the costs directly onto the consumers in the cost of their software or hardware.
+
+Fedora, however, has a link:https://docs.fedoraproject.org/en-US/project/objectives/[public promise] to always be freely redistributable by anyone. That is why Fedora cannot include support for patented media formats - it would break this redistribution promise. Fedora supports open media formats such as WebM or Ogg link:https://xiph.org/vorbis/[Vorbis] and link:https://www.theora.org/[Theora], which are **freely implementable and usable by anyone without a patent license**.
+
+Red Hat has consistently taken the position that software patents generally impede innovation in software development and that software patents are inconsistent with open source/free software. Red Hat holds several software patents for defensive purposes and has a patent policy under which it agrees to refrain from enforcing its patents against any party for exercising rights under certain free and open source software licenses, including GPLv2, GPLv3, LGPLv2.1, and LGPLv3.
+
+* https://www.redhat.com/en/about/patent-promise
+
+[[references]]
+== References
+* https://fedoraproject.org/wiki/Forbidden_items
+* https://docs.fedoraproject.org/en-US/project/
+* https://www.gnu.org/philosophy/why-audio-format-matters.html
+* https://dwheeler.com/essays/software-patents.html

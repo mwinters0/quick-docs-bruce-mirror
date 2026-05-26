@@ -1,10 +1,10 @@
 = Installing plugins for playing movies and music
-Ankur Sinha ; Héctor Louzao ; Neil Gompa (ngompa) ; Dominik Mierzejewski (rathann)
-:revnumber: F39 and newer
-:revdate: 2024-03-06
-:category: Administration
+Ankur Sinha ; Héctor Louzao ; Neil Gompa (ngompa) ; Dominik Mierzejewski (rathann); Caleb McKee; Rowan Puttergill
+:revnumber: F42 and newer
+:revdate: 2026-05-10
+:category: Software installation
 :tags: How-to, Plugins, Multimedia 
-:page-aliases: assembly_installing-plugins-for-playing-movies-and-music.adoc
+:page-aliases: assembly_installing-plugins-for-playing-movies-and-music.adoc, openh264.adoc
 
 [abstract]
 As a Fedora user and system administrator, you can use these steps to install additional multimedia plugins that enable you to play various video and audio types.
@@ -13,12 +13,39 @@ As a Fedora user and system administrator, you can use these steps to install ad
 
 * Use the `dnf` utility to install packages that provide multimedia libraries:
 +
+[source,bash,console]
 ----
-sudo dnf group install Multimedia
+$ sudo dnf group install multimedia
 ----
 
-* For f41 and newer:
-+
+== Extended codec support with RPM Fusion
+
+The `multimedia` group covers many common formats, but some codecs are not included in Fedora's official repositories due to patent or licensing restrictions.
+For full support including MP3, AAC, H.264 video files, and HEVC, enable the RPM Fusion repositories and install the additional codec packages from there.
+
+See xref:rpmfusion-setup.adoc[Enabling the RPM Fusion repositories] for setup instructions.
+
+== H.264 support for WebRTC
+
+Cisco provides an OpenH264 codec (as a source and a binary), which is
+their implementation of the H.264 codec, and they cover all licensing fees for all parties using their binary. This codec allows you to use H.264 in WebRTC with gstreamer and Firefox. 
+
+The code source is available at https://github.com/cisco/openh264 under
+a BSD license. The binary is released under this agreement from Cisco:
+https://www.openh264.org/BINARY_LICENSE.txt
+
+Upstream Firefox versions download and install the OpenH264 plugin by
+default automatically. Due to its binary nature, Fedora disables this
+automatic download.
+
+
+NOTE: OpenH264 only enables H.264 in WebRTC contexts such as video calls. It does not provide general H.264 video playback. For general H.264 playback, see xref:rpmfusion-setup.adoc[Enabling the RPM Fusion repositories].
+
+The `fedora-cisco-openh264` repository is enabled by default. To install the plugins:
+
+[source,bash,console]
 ----
-sudo dnf group install multimedia
+$ sudo dnf install gstreamer1-plugin-openh264 mozilla-openh264
 ----
+
+After installation, open Firefox and navigate to *menu* -> *Extensions and themes* -> *Plugins* to confirm the OpenH264 plugin is enabled.

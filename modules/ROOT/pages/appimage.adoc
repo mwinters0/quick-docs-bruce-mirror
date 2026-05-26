@@ -1,0 +1,155 @@
+= Running Applications with AppImage
+Rowan Puttergill, Fedora Documentation Team
+:revnumber: F42 and newer
+:revdate: 2026-05-08
+:category: Software Management
+:tags: AppImage, Applications, Third-Party, Portable
+
+[abstract]
+This page explains what AppImages are and how to run AppImage applications on Fedora.
+
+== What is AppImage
+
+AppImage is a format for packaging Linux applications as portable, self-contained executable files.
+
+An AppImage file contains everything needed to run an application including the application itself, its libraries, and any other dependencies. Everything is bundled into a single file, that can be run directly without any installation or system modifications. 
+
+Because AppImages include all dependencies, they tend to be larger than traditional packages, but they offer the advantage of being portable and distribution-independent. Also, because everything is available as a single file, you can carry AppImages on USB drives or external media and run them on any compatible Linux system without worrying about missing dependencies or conflicts with other software. Removing an AppImage is as simple as deleting the file, with no leftover configuration or dependencies.
+
+Developers often use AppImages to distribute their applications across many Linux distributions without maintaining separate packages for each distribution.
+
+AppImages might not integrate as deeply with your desktop environment as native packages, and Desktop entries, file associations, and system menus might not work without additional setup. Furthermore, AppImages do not receive automatic updates through the system package manager, so you must manually check for and install updates from the developer. However, some AppImages include built-in update mechanisms that can check for and download updates directly from the application.
+
+AppImages offer a convenient way to run applications on Fedora without installation or dependency management.
+They are ideal for portable, distribution-independent applications and for developers who want to distribute their software easily.
+However, you are responsible for managing updates and security. Use AppImages from trusted sources and keep them updated to ensure your system remains secure. Note that unlike Flatpak or Snap, AppImages do not provide sandboxing or confinement, so they run with the same permissions as your user account. Be cautious when running AppImages from untrusted sources, as they have the potential to access your files and system resources.
+
+== How AppImages work
+
+When you run an AppImage, the system:
+
+1. Mounts the AppImage file as a temporary read-only filesystem
+2. Runs the application within that environment
+3. Unmounts the filesystem when the application closes
+
+Applications can run without installation, making them portable and easy to distribute.
+
+== Prerequisites
+
+AppImages require:
+
+* A 64-bit Fedora system (most modern AppImages)
+* The FUSE library, which allows AppImages to mount themselves
+
+FUSE is usually pre-installed on Fedora, but if needed:
+
+[source,bash,console,subs="quotes"]
+----
+$ sudo dnf install fuse
+----
+
+== Finding AppImages
+
+Developers distribute AppImages directly, typically through:
+
+* **Project websites** - Many open source projects offer AppImage downloads
+* **AppImage repository** - https://appimage.github.io/apps/ lists available AppImages
+* **GitHub releases** - Many projects host AppImage files in their GitHub release pages
+* **Custom repositories** - Some developers maintain their own AppImage distribution sites
+
+== Running AppImages
+
+1. Download the `.AppImage` file from the developer's website or repository.
+2. Make it executable:
++
+[source,bash,console,subs="quotes"]
+----
+$ chmod +x _application_name_.AppImage
+----
+
+3. Run the AppImage
++
+[source,bash,console,subs="quotes"]
+----
+$ ./_application_name_.AppImage
+----
+Or double-click the file in your file manager if it has execute permissions.
+
+
+== Creating desktop shortcuts
+
+To integrate an AppImage with your desktop environment, create a `.desktop` shortcut file:
+
+1. Create a file in `~/.local/share/applications/`:
++
+[source,bash,console,subs="quotes"]
+----
+$ touch ~/.local/share/applications/_application_name_.desktop
+----
+
+2. Add the following content (replace placeholders with actual values):
++
+[source,bash,console,subs="quotes"]
+----
+[Desktop Entry]
+Type=Application
+Name=_Application Display Name_
+Exec=_/path/to/application_name_.AppImage_
+Icon=_application_name_
+Categories=_Category_;
+----
+
+3. Save the file and it appears in your Applications menu
+
+For example, for an application called "MyApp":
+
+[source,bash,console,subs="quotes"]
+----
+[Desktop Entry]
+Type=Application
+Name=MyApp
+Exec=/home/username/Downloads/MyApp.AppImage
+Icon=myapp
+Categories=Utility;
+----
+
+== Managing AppImages
+
+=== Organizing AppImages
+
+It is helpful to keep AppImages in a dedicated directory:
+
+[source,bash,console,subs="quotes"]
+----
+$ mkdir ~/Applications
+$ mv _application_name_.AppImage ~/Applications/
+$ chmod +x ~/Applications/_application_name_.AppImage
+----
+
+Then reference this directory in desktop shortcuts.
+
+=== Updating AppImages
+
+Update methods vary by application:
+
+Built-in updates::
+Some AppImages include automatic update checks. Run the AppImage and look for update options in the application's preferences or help menu.
+
+Manual updates::
+For applications without built-in updates, download the latest version from the project website and replace the existing AppImage.
+
+AppImage update tools::
+Some third-party tools such as `appimaged` can help manage AppImage updates, though these are typically for advanced users.
+
+=== Running multiple versions
+
+Because AppImages are self-contained, you can safely keep and run multiple versions of the same application:
+
+[source,bash,console,subs="quotes"]
+----
+$ ./MyApp-1.0.AppImage &
+$ ./MyApp-2.0.AppImage &
+----
+
+Both versions can run simultaneously without conflicts.
+
