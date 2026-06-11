@@ -53,7 +53,6 @@
 *** xref:switching-desktop-environments.adoc[Installing and switching desktop environments]
 *** xref:installing-spotify.adoc[Installing Spotify on Fedora]
 *** xref:installing-and-running-vlc.adoc[Installing and running the VLC player]
-*** xref:zoom.adoc[Installing Zoom on Fedora]
 
 
 
