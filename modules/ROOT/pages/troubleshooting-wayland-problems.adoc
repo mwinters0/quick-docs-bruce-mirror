@@ -74,19 +74,21 @@ figure it out:
 * Wayland session should have `WAYLAND_DISPLAY` variable set, X11
   session should not have it:
 +
-....
+[source, console]
+----
 $ echo $WAYLAND_DISPLAY
 wayland-0
-....
+----
 * `loginctl` can give you this information. First run `loginctl` and
   find your session number (if should be an integer number, with your
   username and seat assigned). Then look at the session type (`x11` or
   `wayland`):
 +
-....
+[source, console]
+----
 $ loginctl show-session <YOUR_NUMBER> -p Type
 Type=x11
-....
+----
 
 If you're running an X11 session, not a Wayland session, your problems
 are not related to Wayland. It's a bug either in that particular
@@ -106,9 +108,10 @@ Wayland or XWayland:
 
 * Select the window using `xwininfo` or `xprop`. Run:
 +
-....
+[source, console]
+----
 $ xwininfo
-....
+----
 +
 Your mouse pointer should change to a cross under X11, it doesn't seem
 to change under Wayland. Now click anywhere inside the app window you
@@ -120,25 +123,28 @@ until you select a window), the app under test is running under Wayland
 You can also use `xprop` command using the same instructions.
 * XWayland applications are listed in `xlsclients` output. Run:
 +
-....
+[source, console]
+----
 $ xlsclients
-....
+----
 +
 However, this list of not always entirely reliable, some apps might be
 missing.
 * You can try to run the app while unsetting `DISPLAY` environment
   variable:
 +
-....
+[source, console]
+----
 $ DISPLAY='' command
-....
+----
 +
 If the application runs OK, it should be using Wayland natively.
 * You can run the app with `WAYLAND_DEBUG=1` environment variable:
 +
-....
+[source, console]
+----
 $ WAYLAND_DEBUG=1 command
-....
+----
 +
 If you see loads of output (when compared to a standard run), the app is
 using Wayland natively.
@@ -146,9 +152,10 @@ using Wayland natively.
   http://blog.bodhizazen.net/linux/how-to-determine-if-an-application-is-using-wayland-or-xwayland/[integrated
   Looking Glass tool]. Hit `Alt+F2`, run:
 +
-....
+[source, ]
+----
 lg
-....
+----
 +
 click on _Windows_ in the upper right corner of the tool and select
 desired window by clicking on its name. If you see `MetaWindowWayland`
@@ -204,7 +211,10 @@ reproduce the issue. You can either run Weston as a nested window, or as
 a full session. First, install package (you can read many useful
 information in its man page):
 
-`$ sudo dnf install weston`
+[source, console]
+----
+$ sudo dnf install weston
+----
 
 Then create a config file which will specify that you want to have
 XWayland support enabled in your weston sessions. Create
@@ -217,9 +227,10 @@ Now you can start weston either as nested window or as a full session.
 
 * To start a nested Weston window, run this from a terminal:
 +
-....
+[source, console]
+----
 $ weston
-....
+----
 +
 A Weston window should open and you should see and a terminal icon in
 its top left corner. Use that icon to launch a terminal and from that
@@ -228,9 +239,10 @@ simply closing the window or killing the `weston` process.
 * To start a full Weston session (not nested inside another X11 or
   Wayland session), switch to a free VT (Ctrl+Alt+Fx) and run:
 +
-....
+[source, console]
+----
 $ weston-launch
-....
+----
 +
 You can exit the session by pressing Control+Alt+Backspace shortcut.
 
@@ -250,7 +262,10 @@ Before reporting the bug, please make sure you use the latest available
 software.
 Make sure there are no system updates waiting:
 
-`$ sudo dnf update`
+[source, console]
+----
+$ sudo dnf update
+----
 
 If there are (and the available updates look plausibly related to the
 components you're seeing issues with), please update the system and
@@ -316,9 +331,10 @@ of these trackers, depending where you reported the bug:
     compositor and the apps. All of that should be in system journal
     nowadays. You can save a full journal since last boot like this:
 +
-....
+[source, console]
+----
 $ journalctl -ab > journal.log
-....
+----
 +
 You can also edit the file and according to the timestamps remove
 everything long prior to when the issue occurred, in order to make the
@@ -329,9 +345,10 @@ log more succinct.
 2.  Wayland debug output. If you can reproduce the issue, please run the
     problematic app like this:
 +
-....
+[source, console]
+----
 $ WAYLAND_DEBUG=1 command |& tee debug.out
-....
+----
 +
 You should see loads of output being printed out. It will involve all
 communication between the app and the compositor.
@@ -339,35 +356,40 @@ communication between the app and the compositor.
     using XWayland instead of Wayland. For GTK+ 3 apps, you can force a
     native Wayland app to run using XWayland like this:
 +
-....
+[source, console]
+----
 $ GDK_BACKEND=x11 command
-....
+----
 +
 Vice versa, you can also force a XWayland app to run using Wayland (in
 case it has just experimental support):
 +
-....
+[source, console]
+----
 $ GDK_BACKEND=wayland command
-....
+----
 +
 QT 5 apps run with XWayland by default. You can force Wayland backend:
 +
-....
+[source, console]
+----
 $ QT_QPA_PLATFORM=wayland-egl command
-....
+----
 +
 All of this applies to just GTK+ 3 and QT 5 apps.
 4.  Hardware description is useful for some hardware-related bugs:
 +
-....
+[source, console]
+----
 $ lspci -nn > lspci.out
-....
+----
 5.  Package versions. You can collect the list and versions of all your
     packages installed using:
 +
-....
+[source, console]
+----
 $ rpm -qa | sort > packages.out
-....
+----
 6.  The
     link:Bugs_and_feature_requests#Things_Every_Bug_Should_Have[usual
     information] that every bug report should have.
@@ -380,20 +402,22 @@ a backtrace from its process and attach it to the report. If this
 happens, switch to a different VT if possible (`Ctrl+Alt+F3` through
 `F7`), or log in using ssh. First install debug symbols:
 
-....
+[source, console]
+----
 $ sudo dnf debuginfo-install `rpm -q gnome-shell`
-....
+----
 
 Then attach gdb debugger to your gnome-shell process:
 
-....
+[source, console]
+----
 $ gdb -p `pgrep -U $(id -un) -x gnome-shell`
 ...
 (gdb) set logging on
 (gdb) thread apply all backtrace full
 ... press Enter until the whole backtrace is displayed ...
 (gdb) quit
-....
+----
 
 You should have the backtrace saved in `gdb.txt` file.
 
