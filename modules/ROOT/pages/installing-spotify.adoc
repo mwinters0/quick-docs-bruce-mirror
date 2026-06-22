@@ -28,14 +28,16 @@ To install Spotify using link:https://flatpak.org/index.html[Flatpak]:
 
 . Install Flatpak using DNF:
 +
+[source, console]
 ----
-sudo dnf install -y flatpak
+$ sudo dnf install -y flatpak
 ----
 
 . Enable the Flathub remote:
 +
+[source, console]
 ----
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 ----
 
 . Install Spotify:
@@ -47,16 +49,18 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 
 .. Using the command line:
 +
+[source, console]
 ----
-flatpak install flathub com.spotify.Client
+$ flatpak install flathub com.spotify.Client
 ----
 
 . Run Spotify:
 .. Click on the Spotify icon in the applications list,
 .. or use the following command in the terminal:
 +
+[source, console]
 ----
-flatpak run com.spotify.Client
+$ flatpak run com.spotify.Client
 ----
 
 [install-spotify-using-snap]
@@ -66,20 +70,23 @@ To install Spotify using link:https://snapcraft.io/spotify[Snap]:
 
 . Install Snap using DNF:
 +
+[source, console]
 ----
-sudo dnf install snapd
+$ sudo dnf install snapd
 ----
 
 . Either log out and back in again, or restart your system, to ensure snap's paths are updated correctly.
 . To enable classic snap support, enter the following to create a symbolic link between `/var/lib/snapd/snap` and `/snap`:
 +
+[source, console]
 ----
-sudo ln -s /var/lib/snapd/snap /snap
+$ sudo ln -s /var/lib/snapd/snap /snap
 ----
 . Install Spotify with the following command:
 +
+[source, console]
 ----
-snap install spotify
+$ snap install spotify
 ----
 . Click on the Spotify icon in the applications list.
 
@@ -94,16 +101,18 @@ requirements.
 . xref:rpmfusion-setup.adoc[Enable the RPMFusion repositories].
 . Install the `lpf-spotify-client` package:
 +
+[source, console]
 ----
-sudo dnf install lpf-spotify-client
+$ sudo dnf install lpf-spotify-client
 ----
 
 . Install Spotify:
 .. Click the "lpf-spotify-client" icon in the application list.
 .. or use the following command in a terminal:
 +
+[source, console]
 ----
-lpf update
+$ lpf update
 ----
 
 == References
@@ -113,4 +122,3 @@ lpf update
 . https://github.com/rpmfusion/lpf-spotify-client
 . https://github.com/leamas/lpf
 . https://www.spotify.com/us/download/linux/
-
