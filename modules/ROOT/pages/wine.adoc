@@ -23,9 +23,9 @@ The current versions of the Wine packages can also be seen on the https://packag
 
 The default wine configuration files is stored in your `$HOME` directory:
 
-[,console]
+[source, console]
 ----
-$HOME/.wine
+$ ls $HOME/.wine
 ----
 
 TIP: Different prefixes can be used as described in the
@@ -71,9 +71,9 @@ source libraries.
 
 It is provided by the https://packages.fedoraproject.org/pkgs/winetricks/winetricks/[`winetricks` package]:
 
-[,console]
+[source, console]
 ----
-sudo dnf install winetricks
+$ sudo dnf install winetricks
 ----
 
 It can download and install applications and libraries
@@ -92,9 +92,9 @@ following way:
 - Create a clean wine32/64 prefix:
 
 
-[,console]
+[source, console]
 ----
-WINEPREFIX="$HOME/<directory>" WINEARCH=winxx wine wineboot
+$ WINEPREFIX="$HOME/<directory>" WINEARCH=winxx wine wineboot
 ----
 
 * Where `xx` is 32 or 64 bits
@@ -102,9 +102,9 @@ WINEPREFIX="$HOME/<directory>" WINEARCH=winxx wine wineboot
 
 To use a wine prefix created before:
 
-[,console]
+[source, console]
 ----
-export WINEPREFIX=$HOME/<directory>
+$ export WINEPREFIX=$HOME/<directory>
 ----
 
 [[install-basic-applications]]
@@ -131,16 +131,16 @@ version
 Before reporting bugs against Wine please make sure your system is fully
 up to date.
 
-[,console]
+[source, console]
 ----
-dnf upgrade
+$ sudo dnf upgrade
 ----
 
 Also check if a newer version is available in the https://fedoraproject.org/wiki/QA:Updates_Testing[updates-testing] repository.
 
-[,console]
+[source, console]
 ----
-dnf --enablerepo=updates-testing update wine
+$ sudo dnf --enablerepo=updates-testing update wine
 ----
 
 If you are using the proprietary graphics drivers please remove them
@@ -157,17 +157,17 @@ functionality.
 The next step is to see if the problem persists with a clean ~/.wine
 folder. To try this without losing your old configuration:
 
-[,console]
+[source, console]
 ----
-mv ~/.wine ~/.wine-save
+$ mv ~/.wine ~/.wine-save
 ----
 
 Afterwards try to trigger the bug again. Your original wine folder can
 be restored with:
 
-[,console]
+[source, console]
 ----
-rm -fr ~/.wine; mv ~/.wine-save ~/.wine
+$ rm -fr ~/.wine; mv ~/.wine-save ~/.wine
 ----
 
 If your application still does not work but has been working in a
