@@ -14,8 +14,9 @@ For database management, it is more user-friendly to use graphical tools:
 
 ** phpMyAdmin.noarch : A web interface for MySQL and MariaDB
 
+[source, console]
 ----
-sudo dnf install phpMyAdmin
+$ sudo dnf install phpMyAdmin
 ----
 
 - MySQL Specific:
@@ -26,36 +27,41 @@ sudo dnf install phpMyAdmin
 
 ** DBeaver Community   Universal Database Manager.
 
+[source, console]
 ----
-flatpak install io.dbeaver.DBeaverCommunity
-----
-
-** PostgreSQL client for DBeaver Community  
-
-----
-flatpak install io.dbeaver.DBeaverCommunity.Client.pgsql
+$ flatpak install io.dbeaver.DBeaverCommunity
 ----
 
-** MariaDB client for DBeaver Community     
+** PostgreSQL client for DBeaver Community
 
+[source, console]
 ----
-flatpak install io.dbeaver.DBeaverCommunity.Client.mariadb
+$ flatpak install io.dbeaver.DBeaverCommunity.Client.pgsql
+----
+
+** MariaDB client for DBeaver Community
+
+[source, console]
+----
+$ flatpak install io.dbeaver.DBeaverCommunity.Client.mariadb
 ----
 
 - PostgreSQL:
 
 ** pgadmin3 Graphical client for PostgreSQL
 
+[source, console]
 ----
-sudo dnf install pgadmin3
+$ sudo dnf install pgadmin3
 ----
 
 ** phpPgAdmin - A web interface for PostgreSQL
 
 for Fedora <= 32
 
+[source, console]
 ----
-sudo dnf install phpPgAdmin
+$ sudo dnf install phpPgAdmin
 ----
 
 for Fedora >= 33
@@ -72,35 +78,40 @@ in comparison to older Fedora because the package is out of the repo.
 
 https://github.com/phppgadmin/phppgadmin/releases
 
+[source, console]
 ----
-sudo tar xf phpPgAdmin-x.y.z.tar.bz2 -C /var/www/phpPgadmin
+$ sudo tar xf phpPgAdmin-x.y.z.tar.bz2 -C /var/www/phpPgadmin
 ----
 
 In order to make phpPgAdmin navigable, we create a configuration file for the web service (Apache in this case):
 
+[source, console]
 ----
-sudo nano /etc/httpd/conf.d/phpPgAdmin.conf
+$ sudo nano /etc/httpd/conf.d/phpPgAdmin.conf
 ----
 
-The content will be an alias that will point to the installation path of 
+The content will be an alias that will point to the installation path of
 the application:
 
+[source, conf]
 ----
 Alias /phppgadmin /var/www/phpPgAdmin
 ----
 
 Save the file and Reload the Web Service:
 
+[source, console]
 ----
-sudo systemctl reload httpd
+$ sudo systemctl reload httpd
 ----
 
-phpPgAdmin requires the presence in Fedora 31 of certain PHP extensions, 
-mainly the one that allows the connection with the database service, which 
+phpPgAdmin requires the presence in Fedora 31 of certain PHP extensions,
+mainly the one that allows the connection with the database service, which
 we will install from the system repositories:
 
+[source, console]
 ----
-sudo dnf install -y php-pgsql
+$ sudo dnf install -y php-pgsql
 ----
 
 To access the web installer of phpPgAdmin in Fedora from a browser we will
