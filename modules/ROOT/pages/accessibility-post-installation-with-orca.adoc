@@ -40,7 +40,7 @@ Now, in the terminal, type
 
 [source, console]
 ----
-pluma .bash_profile
+$ pluma .bash_profile
 ----
 
 and press Enter.
