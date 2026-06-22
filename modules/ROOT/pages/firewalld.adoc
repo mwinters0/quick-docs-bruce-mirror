@@ -35,12 +35,13 @@ All Fedora Editions install, configure and activate the firewall by default. No 
 Some third party variations and redistributions may differ. In this case, it is up to the administrator to install and activate the firewall afterwards.
 
 You check if firewalld is set up in a terminal by issuing
-[source,bash]
+[source, console]
 ----
-systemctl status firewalld 
+$ systemctl status firewalld
 ----
 
 You should get soemething like
+[source, ]
 ----
 ● firewalld.service - firewalld - dynamic firewall daemon
      Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; preset>
@@ -54,11 +55,12 @@ You should get soemething like
 === Installing and activating firewalld
 
 In case you get by the command above something like
+[source, ]
 ----
 Unit firewalld.service could not be found.
 ----
 you have to install it. Run on the command line:
-[source,bash]
+[source, console]
 ----
 $ sudo dnf install firewalld
 $ sudo systemctl unmask firewalld
@@ -74,31 +76,33 @@ This sequence installs, starts and ensures an automatic restart after a system b
 Sometimes a system administrator has to stop or restart firewalld during system maintenance tasks.
 
 .Stop firewalld 
-[source,bash]
+[source, console]
 ----
 $ sudo systemctl stop firewalld
 ----
 .Prevent autostart at system boot
-[source,bash]
+[source, console]
 ----
 $ sudo systemctl disable firewalld
 ----
 
 .Start firewalld 
-[source,bash]
+[source, console]
 ----
 $ sudo systemctl start firewalld
 ----
 .Activate autostart at system boot
-[source,bash]
+[source, console]
 ----
 $ sudo systemctl enable firewalld
 ----
 .Disconnecting the firewall from the d-bus controller
+[source, console]
 ----
 $ sudo systemctl mask firewalld
 ----
 .(Re.)Connect the firewall to the d-bus controller
+[source, console]
 ----
 $ sudo systemctl unmask firewalld
 ----
@@ -107,7 +111,7 @@ $ sudo systemctl unmask firewalld
 === Installing the [application]*firewall-config* GUI configuration tool
 
 To use the [application]*firewall-config* GUI configuration tool, install the [package]*firewall-config* package as `root`:
-[source,bash]
+[source, console]
 ----
 $ sudo dnf install firewall-config
 ----
@@ -123,13 +127,13 @@ To run [application]*firewall-config*, use either the [command]`firewall-config`
 === Viewing the current status of `firewalld`
 
 The firewall service, `firewalld`, is installed on the system by default. Use the `firewalld` CLI interface to check that the service is running.
-[source,bash]
+[source, console]
 ----
 $ sudo firewall-cmd --state
 ----
 
 For more information about the service status, use the [command]`systemctl` command
-[source,bash]
+[source, console]
 ----
 $ sudo systemctl status firewalld
 firewalld.service - firewalld - dynamic firewall daemon
@@ -154,7 +158,7 @@ To view the list of services using the graphical [application]*firewall-config* 
 
 Alternatively, to start the graphical firewall configuration tool using the command-line, enter the following command:
 
-[subs="quotes, macros"]
+[source, console]
 ----
 $ firewall-config
 ----
@@ -175,6 +179,7 @@ With the CLI client, it is possible to get different views of the current firewa
 
 To list all the relevant information for the default zone:
 
+[source, console]
 ----
 $ firewall-cmd --list-all
 public
@@ -195,8 +200,9 @@ public
 [NOTE]
 ====
 To specify the zone for which to display the settings, add the [option]`--zone=pass:attributes[{blank}]_zone-name_pass:attributes[{blank}]` argument to the [command]`firewall-cmd --list-all` command, for example:
+[source, console]
 ----
-~]# firewall-cmd --list-all --zone=home
+$ sudo firewall-cmd --list-all --zone=home
 home
   target: default
   icmp-block-inversion: no
@@ -210,6 +216,7 @@ home
 
 To see the settings for particular information, such as services or ports, use a specific option. See the `firewalld` manual pages or get a list of the options using the command help:
 
+[source, console]
 ----
 $ firewall-cmd --help
 
@@ -228,6 +235,7 @@ Status Options
 
 For example, to see which services are allowed in the current zone:
 
+[source, console]
 ----
 $ firewall-cmd --list-services
 samba-client ssh dhcpv6-client
@@ -256,6 +264,7 @@ If you make changes while firewalld is running using only the `--permanent` opti
 
 Using the CLI, you can only modify either runtime or permanent mode. To modify the firewall settings in permanent mode, use the `--permanent` option with the `firewall-cmd` command.
 
+[source, console]
 ----
 $ sudo firewall-cmd --permanent <other options>
 ----
@@ -291,6 +300,7 @@ It is possible that an incorrect setting will result in a user locking themselve
 You can not use the `--permanent` option with the `--timeout` option.
 
 For example, to add the SSH service for 15 minutes use this command:
+[source, console]
 ----
 $ sudo firewall-cmd --add-service=ssh --timeout 15m
 ----
@@ -316,18 +326,21 @@ Through open ports, the system is accessible from the outside, which represents 
 
 . Get a list of allowed ports in the current zone:
 +
+[source, console]
 ----
 $ firewall-cmd --list-ports
 ----
 +
 . Add a port to the allowed ports to open it for incoming traffic:
 +
+[source, console]
 ----
 $ sudo firewall-cmd --add-port=port-number/port-type
 ----
 +
 . Make the new settings persistent:
 +
+[source, console]
 ----
 $ sudo firewall-cmd --runtime-to-permanent
 ----
@@ -346,6 +359,7 @@ To close a port, remove it from the list of allowed ports:
 
 . List all allowed ports:
 +
+[source, console]
 ----
 $ firewall-cmd --list-ports
 ----
@@ -357,12 +371,14 @@ This command will only give you a list of ports that have been opened as ports. 
 +
 . Remove the port from the allowed ports to close it for the incoming traffic:
 +
+[source, console]
 ----
 $ sudo firewall-cmd --remove-port=port-number/port-type
 ----
 +
 . Make the new settings persistent:
 +
+[source, console]
 ----
 $ sudo firewall-cmd --runtime-to-permanent
 ----
