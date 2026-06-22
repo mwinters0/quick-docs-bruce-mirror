@@ -15,20 +15,21 @@ This section describes how to add, enable, or disable a software repository with
 
 This section describes how to add software repositories with the `dnf config-manager` command.
 
-To add a new repository, as `*root*`, use one of the following methods.
+To add a new repository, use one of the following methods.
 
 * Define a new repository by creating a new file with the `.repo` suffix in a temporary location, such as the [filename]`/tmp` directory.
 * Add the repository with `addrepo`, where *_repository_* is the file path:
 +
-[literal,subs="+quotes,attributes"]
+[source, console]
 ----
-dnf config-manager addrepo --from-repofile=`*_repository_*`
+$ sudo dnf config-manager addrepo --from-repofile=_repository_
 ----
 +
 For example:
 +
+[source, console]
 ----
-dnf config-manager addrepo --from-repofile=/tmp/fedora_extras.repo
+$ sudo dnf config-manager addrepo --from-repofile=/tmp/fedora_extras.repo
 ----
 
 
@@ -37,17 +38,18 @@ dnf config-manager addrepo --from-repofile=/tmp/fedora_extras.repo
 
 This section shows how to enable a particular software repository by using the `dnf config-manager` command.
 
-* To enable a particular repository, run the following command as `*root*`.
+* To enable a particular repository, run the following command:
 +
-[literal,subs="+quotes,attributes"]
+[source, console]
 ----
-dnf config-manager setopt *_repository_*.enabled=1
+$ sudo dnf config-manager setopt _repository_.enabled=1
 ----
 +
 Where *_repository_* is the unique repository ID, for example:
 +
+[source, console]
 ----
-dnf config-manager setopt fedora-extras.enabled=1
+$ sudo dnf config-manager setopt fedora-extras.enabled=1
 ----
 
 
@@ -56,18 +58,18 @@ dnf config-manager setopt fedora-extras.enabled=1
 
 This section shows how to disable a particular software repository by using the `dnf config-manager` command.
 
-* To disable a particular repository, run the following command as `*root*`.
+* To disable a particular repository, run the following command:
 +
-[literal,subs="+quotes,attributes"]
+[source, console]
 ----
-dnf config-manager setopt *_repository_*.enabled=0
-
+$ sudo dnf config-manager setopt _repository_.enabled=0
 ----
 +
 Where *_repository_* is the unique repository ID, for example:
 +
+[source, console]
 ----
-dnf config-manager setopt fedora-extras.enabled=0
+$ sudo dnf config-manager setopt fedora-extras.enabled=0
 ----
 
 
@@ -83,11 +85,11 @@ you can run the following command [red]#`pass:[grep -E "^\[.*\]" /etc/yum.repos.
 This will print a list of the repository IDs that are associated with each repository.
 ====
 
-* To remove a repository, run the following command as `*root*`.
+* To remove a repository, run the following command:
 +
-[literal,subs="+quotes,attributes"]
+[source, console]
 ----
-rm /etc/yum.repos.d/*_file_name_*.repo
+$ sudo rm /etc/yum.repos.d/_file_name_.repo
 ----
 +
 Where *_file_name_* is the name of the `.repo` file.
