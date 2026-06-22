@@ -15,6 +15,7 @@ Here are several known issues, which arise with certain circumstances, and there
 
 cups-browsed sometimes loses connection to print server (usually with old ones, like cups-1.4.2) when laptop changes network connection (change of WiFi network or after hibernate/suspend). You can make printing working again with cancelling your jobs and restarting cups-browsed by
 
+[source, console]
 ----
 $ cancel -a
 $ sudo systemctl restart cups-browsed
@@ -24,6 +25,7 @@ $ sudo systemctl restart cups-browsed
 
 Creating local printer queues takes long time for some printers with larger PPD file, so timeout of http connection will time out and it creates infinite loop of creating local printer queues. To solve this issue, please add
 
+[source, ]
 ----
 HttpLocalTimeout N
 HttpRemoteTimeout N
@@ -35,6 +37,7 @@ into [filename]`/etc/cups/cups-browsed.conf`, where `N` is number of seconds aft
 
 This issue is connected to remote cups queues, which are advertised by older CUPS version (usually below cups-1.5, e.g. RHEL 6). Cups-browsed creates local print queues named by printer's DNS-SD ID by default and naming by remote cups queue is enabled again by adding:
 
+[source, ]
 ----
 LocalQueueNamingRemoteCUPS RemoteName
 ----
@@ -49,8 +52,9 @@ When your printer needs a lot of time to do printing (from your POV) or doesn't 
 
 Other available renderer setups are gs (from Ghostscript), pdftops and pdftocairo (from Poppler), mupdf (from mupdf) and acroread (from adobe reader, not in Fedora official repositories), then you can set different default renderer for your print queue like this:
 
+[source, console]
 ----
-# lpadmin -p <printer-name> -o pdftops-renderer-default=gs/pdftops/pdftocairo/mudpf/acroread/hybrid
+$ sudo lpadmin -p <printer-name> -o pdftops-renderer-default=gs/pdftops/pdftocairo/mudpf/acroread/hybrid
 ----
 
 *BEWARE:* Most 'slow' printing issues are caused by PDF creating applications, which generates bad PDF file - and that bad generated PDF file is mostly the core of problem. To sum it up, slow printing issue can rise again with different PDF file, then it is on user's decision: if he wants to print fast and probably sometimes change the default renderer, or slow printing is not such critical issue.
@@ -67,6 +71,7 @@ The feature which GTK is trying to do here is called CUPS temporary queues - GTK
 
 CUPS sometimes has problems with some kinds of FQDN - that means when you use FQDN in [option]`BrowsePoll` directive in [filename]`/etc/cups/cups-browsed.conf`, CUPS doesn't recognize it as valid hostname - it is solved by adding:
 
+[source, conf]
 ----
 ServerAlias your.own.fully.qualified.hostname.com
 ----
@@ -77,6 +82,7 @@ into [filename]`/etc/cups/client.conf` and restarting cups service.
 
 The similar situation can happen with *sane-airscan* supported scanners. Some devices declare less options via protocols - f.e. IPP 2.0+, WSD, eSCL - which support driverless solutions than via classic drivers. Usually it is an issue with device's firmware, which can be verify by checking the output of the following command:
 
+[source, console]
 ----
 $ ipptool -tv <ipp_device_uri> get-printer-attributes.test
 ----
@@ -87,6 +93,7 @@ The commands does the same IPP request which is done when a temporary queue appe
 
 Fedora 33 came up with a raised bar regarding crypto-policies, so SSL and older TLS protocols are disabled on system level. The change breaks printing via IPPS to devices which don't support newer protocols. You can set back legacy crypto support in crypto-policies via:
 
+[source, console]
 ----
 $ sudo update-crypto-policies --set DEFAULT:FEDORA32
 ----
@@ -99,18 +106,21 @@ Sometimes, PDF support does not work correctly with certain printers, which can 
 
 If the printer driver supports rasterization as well, one could reinstall the printer with IPP Everywhere driver (the default driverless driver doesn't work with print as raster option):
 
+[source, console]
 ----
 $ lpadmin -p <printer> -m everywhere -E
 ----
 
 One can now force rasterization for a new print job with:
 
+[source, console]
 ----
 $ lp -d <printer> -o print-as-raster <file>
 ----
 
 or set the rasterization for this printer by default with:
 
+[source, console]
 ----
 $ lpadmin -p <printer> -o print-as-raster-default=true
 ----
@@ -125,6 +135,7 @@ First I would like to mention that we are not responsible for support HPLIP, whi
 
 This common error is mostly caused by external causes (server outage, network outage), when wget tries to download plugin, but it returns only error message. It is connected with message:
 
+[source,]
 ----
 Plugin download failed with error code = N
 ----
@@ -141,6 +152,7 @@ GUI tools and GUI parts of HP commands are moved to hplip-gui subpackage, becaus
 
 Tools, which need to be run with `-i` option for CLI or need to have hplip-gui installed for GUI:
 
+[source,]
 ----
 hp-align
 hp-clean
@@ -158,6 +170,7 @@ hp-unload
 
 Tools, which are in hplip-gui:
 
+[source,]
 ----
 hp-check
 hp-print
@@ -175,14 +188,16 @@ hp-wificonfig
 
 Some HP printers don't work well with URIs provided by CUPS (dnssd, usb, ipp) or they need proprietary plugin from HP, which cannot be in Fedora because of licensing issues. For such printers please try to run:
 
+[source, console]
 ----
-hp-setup -i -g
+$ hp-setup -i -g
 ----
 
 for interactive mode, or:
 
+[source, console]
 ----
-hp-setup -g
+$ hp-setup -g
 ----
 
 for graphic mode. This command installs HP printers and HP scanners. If you have issue about HP printer/HP scanner, which isn't discovered, doesn't print or doesn't print well, please try to install it by [command]`hp-setup`, if it helps. If it doesn't help, please file a bugzilla, attach output of hp-setup and mention that you tried [command]`hp-setup`.
@@ -191,6 +206,7 @@ for graphic mode. This command installs HP printers and HP scanners. If you have
 
 Devices which need plugin can stop to work after update to newer HPLIP version - it is due the check for plugin version in the code. The check is necessary to prevent inconsistencies when new features in open sourced HPLIP need new proprietary libraries from plugin. To make your printer work again, just download and install plugin again with:
 
+[source, console]
 ----
 $ hp-plugin -i
 ----
@@ -207,6 +223,7 @@ Devices which require a HP close source binary plugin need to have plugin instal
 
 For printers the solution is to _uninstall the queue with the driver_ by:
 
+[source, console]
 ----
 $ lpadmin -x <queue_name>
 ----
@@ -217,6 +234,7 @@ In case of scanners *sane-airscan* automatically picks up the virtual device fro
 
 The scanner device discovered by classic SANE backends can be disabled from showing it among available scanners by commenting out its entry in backend's configuration file located in [filename]`/etc/sane.d` or the whole backend name in [filename]`/etc/sane.d/dll.conf`/[filename]`/etc/sane.d/dll.d`, f.e. Canon MF440 Series is reported by `pixma` and `airscan` backends, but only `airscan` works because it is a backend based on network protocol and USB interface is claimed by `ipp-usb`, so we will disable the `pixma` backend by commenting its line in [filename]`/etc/sane.d/dll.conf`:
 
+[source, console]
 ----
 $ cat /etc/sane.d/dll.conf
 ...
@@ -230,6 +248,7 @@ If *ipp-usb* created device doesn't match your use case (the options you use are
 
 - get the device model name f.e. Canon MF440 Series:
 
+[source, console]
 ----
 $ sudo ipp-usb check
 Configuration files: OK
@@ -240,6 +259,7 @@ IPP over USB devices:
 
 - create a quirk file in [filename]`/etc/ipp-usb/quirks` directory in the format below:
 
+[source, console]
 ----
 $ cat /etc/ipp-usb/quirks/canon.conf
 [Canon MF440 Series]
@@ -248,6 +268,7 @@ $ cat /etc/ipp-usb/quirks/canon.conf
 
 - restart the `ipp-usb` service:
 
+[source, console]
 ----
 $ sudo systemctl restart ipp-usb
 ----
