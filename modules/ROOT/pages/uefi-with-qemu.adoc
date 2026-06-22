@@ -23,11 +23,11 @@ Gerd Hoffmann, Red Hatter and QEMU developer, has a dnf repo on his personal sit
 
 Here's how to pull down the nightly builds for x86:
 
-[source,bash]
+[source, console]
 ----
-[…]# sudo dnf install dnf-plugins-core
-[…]# sudo dnf config-manager addrepo --from-repofile=http://www.kraxel.org/repos/firmware.repo
-[…]# sudo dnf install edk2.git-ovmf-x64
+$ sudo dnf install dnf-plugins-core
+$ sudo dnf config-manager addrepo --from-repofile=http://www.kraxel.org/repos/firmware.repo
+$ sudo dnf install edk2.git-ovmf-x64
 ----
 
 Note, these are nightly builds, and may occasionally be broken.
@@ -60,9 +60,9 @@ Create a new VM in virt-manager. When you get to the final page of the
 
 Add `--boot uefi` to your `virt-install` command. Example:
 
-[source,bash]
+[source, console]
 ----
-sudo virt-install --name f20-uefi \
+$ sudo virt-install --name f20-uefi \
 +   --ram 2048 --disk size=20 \
 +   --boot uefi \
 +   --location https://dl.fedoraproject.org/pub/fedora/linux/releases/22/Workstation/x86_64/os/
