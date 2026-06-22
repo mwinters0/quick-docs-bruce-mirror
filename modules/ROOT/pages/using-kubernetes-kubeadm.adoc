@@ -25,9 +25,9 @@ Kubernetes 1.29 is no longer supported by the Kubernetes community.
 . Update system with DNF.
 Reboot if necessary, although a reboot can be deferred until after the next step.
 +
-[source,bash]
+[source, console]
 ----
-sudo dnf update
+$ sudo dnf update
 ----
 
 . Disable swap.
@@ -37,11 +37,11 @@ Swap can be left enabled if desired and the kubeadm is configured to not stop if
 Modern Fedora systems use zram by default.
 Reboot after disabling swap.
 +
-[source,bash]
+[source, console]
 ----
-sudo systemctl stop swap-create@zram0
-sudo dnf remove zram-generator-defaults
-sudo reboot now
+$ sudo systemctl stop swap-create@zram0
+$ sudo dnf remove zram-generator-defaults
+$ sudo reboot now
 ----
 
 . SELinux.
@@ -55,9 +55,9 @@ Kubeadm will generate an installation warning if the firewall is running.
 Disabling the firewall removes one source of complexity in a learning environment.
 Modern Fedora systems use firewalld.
 +
-[source,bash]
+[source, console]
 ----
-sudo systemctl disable --now firewalld
+$ sudo systemctl disable --now firewalld
 ----
 +
 See the Firewall Rules section in Roman Gherta's article link:https://fedoramagazine.org/kubernetes-with-cri-o-on-fedora-linux-39/[Kubernetes with CRI-O on Fedora 39] for the proper way to configure the Fedora firewall to work with Kubernetes,
@@ -67,17 +67,17 @@ The current list of ports and protocols used by a Kubernetes cluster can be foun
 . Install `iptables` and `iproute-tc.`
 Newer Kubernetes rpms include these packages by default.
 +
-[source,bash]
+[source, console]
 ----
-sudo dnf install iptables iproute-tc
+$ sudo dnf install iptables iproute-tc
 ----
 
 . Configure IPv4 forwarding and bridge filters.
 Below copied from link:https://kubernetes.io/docs/setup/production-environment/container-runtimes/[https://kubernetes.io/docs/setup/production-environment/container-runtimes/]
 +
-[source,bash]
+[source, console]
 ----
-sudo cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+$ sudo cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
 br_netfilter
 EOF
@@ -85,18 +85,18 @@ EOF
 
 . Load the overlay and bridge filter modules.
 +
-[source,bash]
+[source, console]
 ----
-sudo modprobe overlay
-sudo modprobe br_netfilter
+$ sudo modprobe overlay
+$ sudo modprobe br_netfilter
 ----
 
 . Add required `sysctl` parameters and persist.
 +
-[source,bash]
+[source, console]
 ----
 # sysctl params required by setup, params persist across reboots
-sudo cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+$ sudo cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
@@ -105,24 +105,24 @@ EOF
 
 . Apply `sysctl` parameters without a reboot.
 +
-[source,bash]
+[source, console]
 ----
-sudo sysctl --system
+$ sudo sysctl --system
 ----
 
 . Verify `br_filter` and overlay modules are loaded.
 +
-[source,bash]
+[source, console]
 ----
-lsmod | grep br_netfilter
-lsmod | grep overlay
+$ lsmod | grep br_netfilter
+$ lsmod | grep overlay
 ----
 
 . Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, and `net.ipv4.ip_forward` system variables are set to `1` in your sysctl configuration by running the following command:
 +
-[source,bash]
+[source, console]
 ----
-sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+$ sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
 ----
 
 . Install a link:https://kubernetes.io/docs/setup/production-environment/container-runtimes/[container runtime].
@@ -132,9 +132,9 @@ Note: If using CRI-O, verify that the major:minor version of cri-o is the same a
 CRI-O rpms are versioned like Kubernetes rpms.
 Install the CRI-O version that matches the target Kubernetes version.
 +
-[source,bash]
+[source, console]
 ----
-sudo dnf install cri-o1.31 containernetworking-plugins
+$ sudo dnf install cri-o1.31 containernetworking-plugins
 ----
 
 . Check for available Kubernetes versions.
@@ -142,14 +142,14 @@ If uncertain about what versions of Kubernetes are currently available in Fedora
 In the example below, Kubernetes 1.29, 1.30, 1.31, and 1.32 versioned rpms are available in Fedora 41.
 Current information on supported releases and end-of-life dates can be found on the link:https://kubernetes.io/releases/[Release History] page maintained by the Kubernetes team.
 +
-[source,bash]
+[source, console]
 ----
-sudo dnf list kubernetes1.??
+$ sudo dnf list kubernetes1.??
 ----
 +
 Output will look like:
 +
-[source]
+[source, ]
 ----
 > sudo dnf list kubernetes1.??
 Updating and loading repositories:
@@ -165,40 +165,40 @@ kubernetes1.32.x86_64 1.32.0-1.fc41  updates
 In this example, all three Kubernetes applications (`kubectl`, `kubelet`, and `kubeadm`) are installed on this single node machine.
 Please see the notes above on recommended packages for control plane or worker nodes if the cluster will have both types of machines.
 +
-[source,bash]
+[source, console]
 ----
-sudo dnf install kubernetes1.31 kubernetes1.31-kubeadm kubernetes1.31-client
+$ sudo dnf install kubernetes1.31 kubernetes1.31-kubeadm kubernetes1.31-client
 ----
 
 . Start and enable cri-o.
 +
-[source,bash]
+[source, console]
 ----
-sudo systemctl enable --now crio
+$ sudo systemctl enable --now crio
 ----
 
 . Pull needed system container images for Kubernetes.
 This is strictly optional.
 The ```kubeadm init``` command below will pull images, if needed.
 +
-[source,bash]
+[source, console]
 ----
-sudo kubeadm config images pull
+$ sudo kubeadm config images pull
 ----
 
 . Start and enable `kubelet`.
 Kubelet will be in a crash loop until the cluster is initialized in the next step.
 +
-[source,bash]
+[source, console]
 ----
-sudo systemctl enable --now kubelet
+$ sudo systemctl enable --now kubelet
 ----
 
 . Initialize the cluster.
 +
-[source,bash]
+[source, console]
 ----
-sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+$ sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 ----
 
 . kubeadm will generate output to the terminal tracking initialization steps.
@@ -206,6 +206,7 @@ If successful, the output below is displayed.
 At this point there is a cluster running on this single machine.
 After kubeadm finishes you should see:
 +
+[source, ]
 ----
 Your Kubernetes control-plane has initialized successfully!
 
@@ -223,28 +224,28 @@ Alternatively, if you are the root user, you can run:
 . The steps listed above allow a non-root user to use `kubectl`, the Kubernetes command line tool.
 Run these commands now.
 +
-[source,bash]
+[source, console]
 ----
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+$ mkdir -p $HOME/.kube
+$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ----
 
 . Allow the control plane machine to also run pods for applications.
 Otherwise more than one machine is needed in the cluster.
 +
-[source,bash]
+[source, console]
 ----
-kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+$ kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 ----
 
 . Install flannel into the cluster to provide cluster networking.
 There are many other networking solutions besides flannel.
 Flannel is straightforward and suitable for this guide.
 +
-[source,bash]
+[source, console]
 ----
-kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml
+$ kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml
 ----
 
 . Display list of running pods in the cluster.
@@ -253,9 +254,9 @@ A status of CrashLoopBackOff may show up for the coredns pod.
 This happens commonly when installing Kubernetes on a virtual machine and the DNS service in the cluster may not select the proper network.
 Use your favorite internet search engine to find possible solutions. See also the troubleshooting section below for two possible solutions.
 +
-[source,bash]
+[source, console]
 ----
-kubectl get pods --all-namespaces
+$ kubectl get pods --all-namespaces
 ----
 
 At this point there is a single machine in the cluster running the control plane and available for work as a node.
@@ -267,9 +268,9 @@ The xref:dnf.adoc#sect-using-dnf-plugin[DNF Versionlock plugin] is useful in blo
 Occasionally, the Kubernetes version in a Fedora release reaches end-of-life and a new version of Kubernetes is added to the repositories.
 Or, an upgrade to Fedora on a cluster machine will also result in a different version of Kubernetes.
 Once DNF Versionlock is installed, the following command will hold kubernetes rpms and the cri-o rpm at the 1.31 major:minor version but still allow patch updates to occur:
-[source,bash]
+[source, console]
 ----
-sudo dnf versionlock add kubernetes*-1.31.* cri-o-1.31.*
+$ sudo dnf versionlock add kubernetes*-1.31.* cri-o-1.31.*
 ----
 
 [cluster-creation-troubleshooting]
@@ -279,19 +280,19 @@ The CoreDNS team provides a guide to link:https://coredns.io/plugins/loop/#troub
 
 A "quick and dirty" option, as described by the CoreDNS team, is to edit the CoreDNS configmap using `kubectl`. In the configmap, replace `forward . /etc/resolv.conf` with the IP address of the DNS server for your network. If the DNS server has an IP address of `192.168.110.201` then the result would look like `forward . 192.168.110.201`. To edit the CoreDNS configmap use:
 
-[source,bash]
+[source, console]
 ----
-kubectl edit configmap coredns -n kube-system
+$ kubectl edit configmap coredns -n kube-system
 ----
 
 `kubectl` will launch the editor for your instance of Fedora. The Fedora default is `nano` which can be easily changed.
 
 Another option is to disable the systemd-resolved stub resolving on the machine hosting the cluster using the code below. Many thanks for @jasonbrooks (https://pagure.io/user/jasonbrooks) for his review and recommendations.
 
-[source,bash]
+[source, console]
 ----
-sudo mkdir -p /etc/systemd/resolved.conf.d/
-sudo cat <<EOF | sudo tee /etc/systemd/resolved.conf.d/stub-listener.conf
+$ sudo mkdir -p /etc/systemd/resolved.conf.d/
+$ sudo cat <<EOF | sudo tee /etc/systemd/resolved.conf.d/stub-listener.conf
 [Resolve]
 DNSStubListener=no
 EOF
