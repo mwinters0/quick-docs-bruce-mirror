@@ -28,18 +28,21 @@ and you need access to emergency mode, the solution is simple.
 
 . Unlock root account by supplying password for it:
 +
+[source, console]
 ----
-passwd root
+$ passwd root
 ----
 
 . Exit chroot environment with [Ctrl-d] or
 +
+[source, console]
 ----
-exit
+$ exit
 ----
 
 . Reboot your computer with GUI or with
 +
+[source, console]
 ----
-systemctl reboot
+$ sudo systemctl reboot
 ----
