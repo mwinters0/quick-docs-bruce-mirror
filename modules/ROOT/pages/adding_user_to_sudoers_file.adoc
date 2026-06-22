@@ -11,13 +11,14 @@ One of the most common operations that administrators want to accomplish when ma
 [discrete]
 == Giving a user `sudo` privileges
 On Fedora, it is the `wheel` group the user has to be added to, as this group has full admin privileges. Add a user to the group using the following command:
-[subs=+quotes]
+[source, console]
 ----
 $ sudo usermod -aG wheel _username_
 ----
 
 If adding the user to the group does not work immediately, you may have to edit the `/etc/sudoers` file to uncomment the line with the group name:
 
+[source, console]
 ----
 $ sudo visudo
 ...
