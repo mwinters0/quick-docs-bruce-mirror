@@ -15,14 +15,14 @@ Advanced Intrusion Detection Environment (AIDE) is a utility that creates a data
 
 . To install the _aide_ package:
 +
-[source,shell,subs="attributes"]
+[source, console]
 ----
 $ sudo dnf install aide
 ----
 
 . To generate an initial database:
 +
-[source,shell,subs="attributes"]
+[source, console]
 ----
 $ sudo aide --init
 Start timestamp: 2018-07-11 12:35:47 +0200 (AIDE 0.16)
@@ -54,7 +54,7 @@ NOTE: In the default configuration, the *aide --init* command checks just a set 
 
 . To start using the database, remove the `.new` substring from the initial database file name:
 +
-[source,shell,subs="attributes"]
+[source, console]
 ----
 $ sudo mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
 ----
@@ -70,7 +70,7 @@ IMPORTANT: To avoid SELinux denials after the AIDE database location change, upd
 
 To initiate a manual check:
 
-[source,shell,subs="attributes"]
+[source, console]
 ----
 $ sudo aide --check
 Start timestamp: 2018-07-11 12:41:20 +0200 (AIDE 0.16)
@@ -95,7 +95,7 @@ At a minimum, *AIDE* should be configured to run a weekly scan. At most, *AIDE* 
 
 Add the following line to the `/etc/crontab` file:
 
-[source,shell,subs="attributes"]
+[source, console]
 ----
  05 4 * * * root /usr/sbin/aide --check
 ----
@@ -104,7 +104,7 @@ Add the following line to the `/etc/crontab` file:
 
 After verifying the changes of your system such as, package updates or configuration files adjustments, update your baseline *AIDE* database:
 
-[source,shell,subs="attributes"]
+[source, console]
 ----
 $ sudo aide --update
 ----
