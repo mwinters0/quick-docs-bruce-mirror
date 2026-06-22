@@ -45,30 +45,40 @@ Most applications require many files or even directories, packaged together into
 In some cases the files will use a variation of the Zip archive format, such as `.zip` or `.gz`. Depending on the size of the download the application developer might use both `tar` and `gzip` together, so that the file will have a `.tar.gz` extension.
 
 To extract files from a `.tar` archive:
-[source, bash]
+[source, console]
+----
 $ tar -xf archive.tar
+----
 
 `-xf` extracts the files from the `tar` archive.
 
 To extract files from a `tar.gz` archive:
-[source, bash]
+[source, console]
+----
 $ tar -zxf archive.tar.gz
+----
 
 `-zxf` decompresses the archive and extracts its files.
 
 To extract files from a `.gz` archive:
-[source, bash]
+[source, console]
+----
 $ gzip -d archive.gz
+----
 
 `-d` decompresses the archive.
 
-You can also use `gunzip`, which is an alias for `gzip -d`. 
-[source, bash]
-$ gunzip archive.gz 
+You can also use `gunzip`, which is an alias for `gzip -d`.
+[source, console]
+----
+$ gunzip archive.gz
+----
 
 To extract files from a `.zip` archive:
-[source, bash]
+[source, console]
+----
 $ unzip archive.zip
+----
 
 Use the `man` command to learn more about `tar`, `gzip`, and `unzip`: `man tar`, `man gzip`, or `man unzip`. You can also find their `man` pages online: https://linux.die.net/man/[Linux man pages]. Search for the command you want to look up. 
 
@@ -94,12 +104,14 @@ After you understand what options are available, you can install the application
 
 Here is an example of the entire process, from extracting the files from a `.tar.gz` archive to building the application: 
 
-[source,bash]
+[source, console]
+----
 $ tar -zxf archive.tar.gz
 $ cd archive/
-$ ./configure 
-$ make 
-$ sudo make install 
+$ ./configure
+$ make
+$ sudo make install
+----
 
 Your application is now installed. The README file or the application website will have more information about how to use the application.
 
