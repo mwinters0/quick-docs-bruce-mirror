@@ -129,6 +129,7 @@ This ordering is defined by the sg3_utils rules (`63-scsi-sg3_symlink.rules`); t
 
 The resulting symlink looks like:
 
+[source, ]
 ----
 /dev/disk/by-id/scsi-<type_prefix><id>
 ----
@@ -139,6 +140,7 @@ When a NAA identifier is available, udev also creates a `wwn-` symlink using the
 
 For example, the `scsi-` and `wwn-` symlinks for the same device:
 
+[source, ]
 ----
 /dev/disk/by-id/scsi-36001405d27e27d30e2e4f35a08a1c7f0
 /dev/disk/by-id/wwn-0x6001405d27e27d30e2e4f35a08a1c7f0
@@ -175,6 +177,7 @@ SAS adopted the same format, and the SCSI standard SPC references NAA as designa
 
 *NAA Registered Extended (`36`):* 128 bits. The best SCSI identifier available. Common on enterprise SAS drives and storage arrays.
 
+[source, ]
 ----
 scsi-36ooooooxxxxxxxxxxxxxxxxxxxxxxxxx
      ││└────┘└───────────────────────┘
@@ -186,6 +189,7 @@ scsi-36ooooooxxxxxxxxxxxxxxxxxxxxxxxxx
 
 *NAA Registered (`35`):* 64 bits. Contains the same OUI-based structure but with less room for the device-specific portion.
 
+[source, ]
 ----
 scsi-35ooooooxxxxxxxxx
      ││└────┘└───────┘
@@ -197,6 +201,7 @@ scsi-35ooooooxxxxxxxxx
 
 *NAA Extended (`32`):* 64 bits. An older format, still OUI-based.
 
+[source, ]
 ----
 scsi-32vvvoooooobbbbbb
      ││└─┘└────┘└────┘
@@ -210,6 +215,7 @@ scsi-32vvvoooooobbbbbb
 *NAA Local (`33`):* 64 bits. *Not globally unique*: these are locally assigned and can collide between different organizations.
 Not created as a symlink by default; must be explicitly enabled.
 
+[source, ]
 ----
 scsi-33xxxxxxxxxxxxxxx
      ││└─────────────┘
@@ -234,6 +240,7 @@ Unlike IEEE OUI registration, T10 registration is free.
 The identifier is variable-length and composed of the vendor string plus vendor-defined data.
 It is less reliable than NAA for global uniqueness.
 
+[source, ]
 ----
 scsi-1cccccccc<vendor_specific_data>
      │└──────┘└────────────────────┘
@@ -251,6 +258,7 @@ In the SCSI context it appears as a VPD page 0x83 designator type 2.
 Less common than NAA on modern SCSI devices, but used by some hardware RAID controllers.
 FireWire (SBP-2) devices also use EUI-64 for identification, but expose it via sysfs rather than through SCSI VPD 0x83 descriptors.
 
+[source, ]
 ----
 scsi-2ooooooxxxxxxxxxx
      │└────┘└────────┘
@@ -266,6 +274,7 @@ The SCSI Name String (type prefix `8`) is a variable-length UTF-8 string that wr
 The string starts with a prefix that indicates the format: `naa.` (NAA identifier), `eui.` (EUI-64), `iqn.` (iSCSI Qualified Name), or `uuid.` (UUID).
 It acts as a text-based envelope for structured identifiers.
 
+[source, ]
 ----
 scsi-8<format_prefix>.<identifier>
      │└─────────────┘ └──────────┘
@@ -280,6 +289,7 @@ scsi-8<format_prefix>.<identifier>
 The Vendor-Specific identifier (type prefix `0`) has no standard format. Its contents are entirely defined by the device vendor.
 Because there is no structure to validate or guarantee uniqueness, it is considered ambiguous and is not created as a symlink by default.
 
+[source, ]
 ----
 scsi-0<vendor_specific_data>
      │└────────────────────┘
@@ -295,6 +305,7 @@ It is a free-form ASCII string assigned by the manufacturer.
 It is the lowest-priority identifier because serial number formats vary widely between vendors and there is no formal uniqueness guarantee.
 Not created as a symlink by default.
 
+[source, ]
 ----
 scsi-S<vendor>_<serial>
      │└──────┘ └──────┘
@@ -327,6 +338,7 @@ NAA Local, Vendor-Specific, and Serial Number are disabled because they lack rel
 *`ENV{.SCSI_SYMLINK_SRC}`* (`63-scsi-sg3_symlink.rules`): Creates additional per-identifier-type symlinks independently of `scsi_id`.
 You may see multiple `by-id` symlinks for the same device, each using a different identifier type:
 
+[source, ]
 ----
 /dev/disk/by-id/scsi-36<naa_regext_id>     # NAA Registered Extended
 /dev/disk/by-id/scsi-35<naa_reg_id>        # NAA Registered
@@ -387,17 +399,26 @@ The `wwn-` symlink is the most portable reference.
 Don't rely on these for critical identification.
 . *Check what your device actually provides:*
 +
-[source,bash]
+Show the scsi_id identifier for a device:
++
+[source, console]
 ----
-# Show the scsi_id identifier for a device
-/usr/lib/udev/scsi_id --allowlisted --device=/dev/sda
-
-# Show raw VPD pages (requires sg3_utils)
-sg_vpd --page=0x80 /dev/sda    # Unit Serial Number
-sg_vpd --page=0x83 /dev/sda    # Device Identification
-
-# List by-id symlinks
-ls -la /dev/disk/by-id/scsi-* /dev/disk/by-id/wwn-*
+$ /usr/lib/udev/scsi_id --allowlisted --device=/dev/sda
+----
++
+Show raw VPD pages — page 0x80 is Unit Serial Number, page 0x83 is Device Identification (requires sg3_utils):
++
+[source, console]
+----
+$ sudo sg_vpd --page=0x80 /dev/sda
+$ sudo sg_vpd --page=0x83 /dev/sda
+----
++
+List by-id symlinks:
++
+[source, console]
+----
+$ ls -la /dev/disk/by-id/scsi-* /dev/disk/by-id/wwn-*
 ----
 . *For multipath environments, verify all paths report the same identifier.* The NAA/WWN should be identical across all paths to the same LUN. If it differs, your multipath configuration will treat them as separate devices.
 . *Storage array LUNs vary widely.* The identifier type depends on the array vendor and controller model.
@@ -454,6 +475,7 @@ The kernel chooses the best available identifier in the following priority order
 
 The resulting symlink looks like:
 
+[source, ]
 ----
 /dev/disk/by-id/nvme-<wwid>
 ----
@@ -462,6 +484,7 @@ For example: `/dev/disk/by-id/nvme-eui.0000000000000000707c189d7f388728`
 
 In addition to the primary `by-id` symlink based on the wwid, udev also creates a secondary symlink based on model, serial number, and namespace ID:
 
+[source, ]
 ----
 /dev/disk/by-id/nvme-<model>_<serial>_<nsid>
 ----
@@ -470,6 +493,7 @@ For example: `/dev/disk/by-id/nvme-ACME_X1000_A1B2C3D4E5F6_1`
 
 NVMe devices also get a `by-path` symlink based on the PCI slot address (DBDF) and namespace ID:
 
+[source, ]
 ----
 /dev/disk/by-path/pci-<DBDF>-nvme-<nsid>
 ----
@@ -493,6 +517,7 @@ Defined by RFC 4122 (and its successor RFC 9562), 128 bits, and globally unique 
 Introduced in NVMe 1.3 as part of the Namespace Identifier Descriptor list.
 Exposed in sysfs as `/sys/block/nvme*n*/uuid`.
 
+[source, ]
 ----
 nvme-uuid.xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
      └───┘└──────────────────────────────────┘
@@ -505,6 +530,7 @@ The spec requires it to be globally unique, but there is no external enforcement
 Vendors typically embed an IEEE OUI (Organizationally Unique Identifier) prefix.
 Exposed in sysfs as `/sys/block/nvme*n*/nguid`.
 
+[source, ]
 ----
 nvme-eui.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
      └──┘└──────────────────────────────┘
@@ -517,6 +543,7 @@ The 64 bits are split into a 24-bit OUI prefix (assigned by IEEE to the manufact
 Introduced in NVMe 1.1.
 Exposed in sysfs as `/sys/block/nvme*n*/eui`.
 
+[source, ]
 ----
 nvme-eui.ooooooxxxxxxxxxx
      └──┘└──────────────┘
@@ -530,6 +557,7 @@ nvme-eui.ooooooxxxxxxxxxx
 *Fallback (Model+Serial).* When none of the above identifiers are available or when they are flagged as bogus, udev falls back to constructing a symlink from the drive's model, serial number, and namespace ID.
 This fallback is the least reliable because serial numbers and model strings are free-form ASCII fields with no formal uniqueness guarantee, but it does at least give you _something_.
 
+[source, ]
 ----
 nvme-<model>_<serial>_<nsid>
      └─────┘ └──────┘ └───┘
@@ -549,6 +577,7 @@ Here are real issues that have affected production systems:
 *Duplicate identifiers across namespaces.* Some NVMe SSDs that support namespace management are not able to properly generate unique IDs for each namespace.
 When the kernel detects this, it logs:
 
+[source, ]
 ----
 nvme nvme0: duplicate IDs in subsystem for nsid 2
 ----
@@ -557,6 +586,7 @@ The affected namespace is not registered and becomes invisible to the system.
 
 *Identifiers changing unexpectedly.* Some controllers momentarily present stale identifiers during namespace operations like `nvme attach-ns`, triggering:
 
+[source, ]
 ----
 nvme nvme0: identifiers changed for nsid 2
 ----
@@ -586,15 +616,16 @@ Quirking an entire device ID as bogus can unnecessarily degrade the identifier q
 This is especially useful for situations where the built-in quirk table does not cover a specific drive or where a quirk needs to be disabled for a drive that is incorrectly listed.
 The parameter format is:
 
+[source, ]
 ----
 nvme.quirks=<VID>:<DID>:<quirk_names>[-<VID>:<DID>:<quirk_names>...]
 ----
 
 For example, to enable the `bogus_nid` quirk for a specific vendor and device ID:
 
-[source,bash]
+[source, console]
 ----
-modprobe nvme quirks=7170:2210:bogus_nid
+$ sudo modprobe nvme quirks=7170:2210:bogus_nid
 ----
 
 Prefixing a quirk name with `^` disables it, which allows overriding a built-in quirk that is causing problems on a particular system.
@@ -615,22 +646,35 @@ In such cases, the upper layer needs to refresh its device ID records to match t
 Since NVMe 1.3, a controller must support at least one of UUID, NGUID, or EUI-64, so the fallback should only appear on pre-1.3 drives or drives with the `NVME_QUIRK_BOGUS_NID` quirk.
 . *Check your identifiers proactively:*
 +
-[source,bash]
+Show the wwid (best available identifier) for an NVMe namespace:
++
+[source, console]
 ----
-# Show the wwid (best available identifier) for an NVMe namespace
-cat /sys/block/nvme0n1/wwid
-
-# Show all available identifiers
-cat /sys/block/nvme0n1/uuid
-cat /sys/block/nvme0n1/nguid
-cat /sys/block/nvme0n1/eui
-
-# Check what the kernel chose via nvme-cli
-sudo nvme id-ns /dev/nvme0n1 | grep -E 'nguid|eui64'
-sudo nvme id-ns /dev/nvme0n1 -H  # human-readable, including UUID
-
-# List the by-id symlinks for the device
-ls -la /dev/disk/by-id/nvme-*
+$ cat /sys/block/nvme0n1/wwid
+----
++
+Show all available identifiers:
++
+[source, console]
+----
+$ cat /sys/block/nvme0n1/uuid
+$ cat /sys/block/nvme0n1/nguid
+$ cat /sys/block/nvme0n1/eui
+----
++
+Check what the kernel chose via nvme-cli (the `-H` flag gives human-readable output including UUID):
++
+[source, console]
+----
+$ sudo nvme id-ns /dev/nvme0n1 | grep -E 'nguid|eui64'
+$ sudo nvme id-ns /dev/nvme0n1 -H
+----
++
+List the by-id symlinks for the device:
++
+[source, console]
+----
+$ ls -la /dev/disk/by-id/nvme-*
 ----
 . *Don't trust the `uuid` sysfs attribute blindly.* If the drive does not report a true UUID but does report a non-zero NGUID, the kernel will still populate the `uuid` sysfs attribute with the NGUID value formatted with UUID-style dashes (logging a one-time warning: `"No UUID available providing old NGUID"`).
 The resulting value is not a valid RFC 4122 UUID (the version and variant bits will be wrong).
@@ -647,6 +691,7 @@ In userspace, the `ata_id` helper program sends the ATA IDENTIFY DEVICE command 
 
 ATA uses the simplest identifier model:
 
+[source, ]
 ----
 /dev/disk/by-id/ata-<model>_<serial>
 ----
@@ -658,12 +703,14 @@ If the drive reports a WWN (World Wide Name), an additional symlink is created.
 WWN support was introduced in the ATA8-ACS (AT Attachment 8 - ATA/ATAPI Command Set) standard, maintained by the INCITS T13 committee.
 Older drives will not report one:
 
+[source, ]
 ----
 /dev/disk/by-id/wwn-0x5002538f41234567
 ----
 
 ATA devices also get a transport-specific `by-path` symlink:
 
+[source, ]
 ----
 /dev/disk/by-path/pci-<DBDF>-ata-<port>.<target>
 ----
@@ -687,6 +734,7 @@ At the hardware level, the serial is retrieved via the `VIRTIO_BLK_T_GET_ID` com
 The kernel exposes it as `/sys/block/vd*/serial`, and udev rules read it directly to create the symlink.
 Its reliability depends entirely on the hypervisor configuration. If no serial is assigned, no symlink is created.
 
+[source, ]
 ----
 /dev/disk/by-id/virtio-<serial>
 /dev/disk/by-path/virtio-pci-<DBDF>    # legacy, deprecated
@@ -700,6 +748,7 @@ The parsed CID fields `name`, `serial`, `date`, `manfid`, `oemid`, `hwrev`, `fwr
 Udev rules read `name` and `serial` directly to create the symlink.
 Typically reliable for the lifetime of the embedded device, though cheap SD cards may have non-unique serials.
 
+[source, ]
 ----
 /dev/disk/by-id/mmc-<name>_<serial>
 /dev/disk/by-path/<path>               # varies by controller
@@ -715,6 +764,7 @@ Both formats store a UUID per namespace; the kernel handles either transparently
 The kernel exposes it as a `uuid` sysfs attribute, and udev rules read it directly to create the symlink.
 Generally reliable.
 
+[source, ]
 ----
 /dev/disk/by-id/pmem-<uuid>
 ----
@@ -726,6 +776,7 @@ The old `cciss` driver presented logical volumes as `/dev/cciss/c*d*` with its o
 (The newer `hpsa` driver, which replaced `cciss` for newer controllers, presents devices as SCSI `/dev/sd*` instead.)
 Despite not being a SCSI device, `60-persistent-storage.rules` invokes `scsi_id` to query the controller for identification:
 
+[source, ]
 ----
 /dev/disk/by-id/cciss-<id>
 /dev/disk/by-path/pci-<DBDF>-cciss-disk<num>
@@ -751,6 +802,7 @@ To inspect a device-mapper device's name, UUID, and state, use `dmsetup info`.
 
 Generic DM symlinks (created for all DM devices):
 
+[source, ]
 ----
 /dev/mapper/<dm_name>                    # always present
 /dev/disk/by-id/dm-name-<dm_name>
@@ -764,6 +816,7 @@ LVM UUIDs are not RFC 4122 UUIDs. They use the format `xxxxxx-xxxx-xxxx-xxxx-xxx
 Note that `lvs` displays them with these dashes, but the DM UUID concatenates them without dashes.
 The `pv_uuid` can be found with `pvs -o+pv_uuid` (and here the dashes are present in the symlink as reported by `pvs`):
 
+[source, ]
 ----
 /dev/<vg_name>/<lv_name>                          # logical volumes
 /dev/disk/by-id/dm-uuid-LVM-<vg_uuid><lv_uuid>   # logical volumes
@@ -772,6 +825,7 @@ The `pv_uuid` can be found with `pvs -o+pv_uuid` (and here the dashes are presen
 
 For example:
 
+[source, ]
 ----
 /dev/myvg/mylv
 /dev/disk/by-id/dm-uuid-LVM-hm9SlSFtFFF319xCFH8NW6ZeOks2BZfk\
@@ -781,12 +835,14 @@ For example:
 
 *LUKS:* cryptsetup sets the `<dm_uuid>` to `CRYPT-LUKS<ver>-<luks_uuid>-<dm_name>`, where `<ver>` is `1` or `2` (depending on the LUKS version used) and `<luks_uuid>` is the RFC 4122 UUID stored in the LUKS header:
 
+[source, ]
 ----
 /dev/disk/by-id/dm-uuid-CRYPT-LUKS<ver>-<luks_uuid>-<dm_name>
 ----
 
 For example:
 
+[source, ]
 ----
 /dev/disk/by-id/dm-uuid-CRYPT-LUKS2-a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4-mydata
 ----
@@ -794,6 +850,7 @@ For example:
 *dm-multipath:* multipathd sets the `<dm_uuid>` to `mpath-<wwid>`, where `<wwid>` is the SCSI identifier (from `scsi_id`) of the underlying paths.
 When the wwid is NAA-based, a `wwn-` symlink is also created using the same identifier in WWN format:
 
+[source, ]
 ----
 /dev/disk/by-id/dm-uuid-mpath-<wwid>
 /dev/disk/by-id/wwn-<wwn>             # only for NAA identifiers
@@ -801,6 +858,7 @@ When the wwid is NAA-based, a `wwn-` symlink is also created using the same iden
 
 For example:
 
+[source, ]
 ----
 /dev/disk/by-id/dm-uuid-mpath-36001405d27e27d30e2e4f35a08a1c7f0
 /dev/disk/by-id/wwn-0x6001405d27e27d30e2e4f35a08a1c7f0
@@ -824,6 +882,7 @@ To examine the metadata on an underlying member device, use `mdadm --examine`.
 
 Symlinks created by udev:
 
+[source, ]
 ----
 /dev/md/<devname>
 /dev/disk/by-id/md-name-<name>       # metadata version >= 1
@@ -832,6 +891,7 @@ Symlinks created by udev:
 
 For example:
 
+[source, ]
 ----
 /dev/md/0
 /dev/disk/by-id/md-name-server1:0
@@ -843,6 +903,7 @@ For example:
 
 Partitions on any device type gain additional identifiers:
 
+[source, ]
 ----
 /dev/disk/by-partuuid/<uuid>        # from GPT/MBR
 /dev/disk/by-partlabel/<label>      # GPT only
@@ -860,6 +921,7 @@ A filesystem is not a device, but filesystems sit at the top of the storage hier
 
 Symlinks created by udev:
 
+[source, ]
 ----
 /dev/disk/by-uuid/<uuid>            # filesystem UUID
 /dev/disk/by-label/<label>          # filesystem label
