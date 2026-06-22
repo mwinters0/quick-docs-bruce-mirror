@@ -38,7 +38,7 @@ Open a Run dialog with Alt + F2, type mate-terminal, which has a dash between th
 Now, in the terminal, type
 
 
-[source, bash]
+[source, console]
 ----
 pluma .bash_profile
 ----
@@ -48,7 +48,7 @@ You'll be in a text area.
 Press Control + End to go to the bottom of the file, and add the following lines.
 
 
-[source, bash]
+[source, console]
 ----
 export ACCESSIBILITY_ENABLED=1
 export GTK_MODULES=gail:atk-bridge
