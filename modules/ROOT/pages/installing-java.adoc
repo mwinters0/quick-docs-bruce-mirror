@@ -4,7 +4,7 @@ Héctor Louzao; Ankur Sinha ; alciregi; Nico Shetty; chris-r
 :revdate: 2025-10-14
 :category: Software installation
 :tags: How-to, Programming languages, Java
-//:page-aliases: 
+//:page-aliases:
 
 
 Java is a popular programming language that allows you run programs on many platforms, including Fedora.
@@ -34,7 +34,7 @@ To install OpenJDK from the Fedora repository:
 
 * Run the following command to list available versions:
 
-[source,bash,console]
+[source, console]
 ----
 $ dnf search openjdk
 ----
@@ -46,24 +46,24 @@ Various flavors of OpenJDK are available. For information about these options, s
 
 * Run the following command to install OpenJDK:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install <openjdk-package-name>
 ----
 
 Examples:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install java-21-openjdk
 ----
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install java-25-openjdk
 ----
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install java-latest-openjdk
 ----
@@ -72,24 +72,24 @@ $ sudo dnf install java-latest-openjdk
 
 In order to install the Java Development Kit, runtime environment and associated development tools.
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install <openjdk-package-name>-devel
 ----
 
 Examples:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install java-21-openjdk-devel
 ----
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install java-25-openjdk-devel
 ----
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install java-latest-openjdk-devel
 ----
@@ -101,21 +101,21 @@ To install an older version of Java:
 
 * Install the Adoptium Temurin Java Repository:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install adoptium-temurin-java-repository
 ----
 
 Then, enable the third party repos:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo fedora-third-party enable
 ----
 
 * Run the following command to list available versions:
 
-[source,bash,console]
+[source, console]
 ----
 $ dnf search temurin
 ----
@@ -125,19 +125,19 @@ $ dnf search temurin
 
 * Run the following command to install Temurin JDK:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install <temurin-package-name>
 ----
 
 Examples:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install temurin-8-jdk
 ----
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install temurin-17-jdk
 ----
@@ -151,14 +151,22 @@ To install Oracle Java SE:
 
 . Navigate to link:https://www.oracle.com/java/technologies/javase-downloads.html[Oracle Java SE downloads page], and choose the version of Java you want to use.
 
-. Accept the license agreement and download the appropriate tar.gz file for your systems architecture. 
+. Accept the license agreement and download the appropriate tar.gz file for your systems architecture.
 
 . Unpack the tar.gz file somewhere.
 For example, to extract it to the _/opt_ directory:
-`sudo tar xf Downloads/jdk-25_linux-x64_bin.tar.gz -C /opt`
-
++
+[source, console]
+----
+$ sudo tar xf Downloads/jdk-25_linux-x64_bin.tar.gz -C /opt
+----
 . Set the _JAVA_HOME_ environment variable to that directory.
-For example: `export JAVA_HOME=/opt/jdk-25.0.1.1`
+For example:
++
+[source, console]
+----
+$ export JAVA_HOME=/opt/jdk-25.0.1.1
+----
 
 NOTE: Always make sure to download the latest version available.
 
@@ -170,7 +178,7 @@ You might have installed several versions of Java on your system, you can switch
 
 After running this command, you will see a list of all installed Java versions, select:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo alternatives --config java
 ----
@@ -179,7 +187,7 @@ Simply enter a selection number to choose which java executable should be used b
 
 * verify:
 
-[source,bash,console]
+[source, console]
 ----
 $ java -version
 ----
@@ -253,4 +261,3 @@ To develop Java applications, consider the following open-source IDEs:
 * link:https://netbeans.org/[NetBeans]
 * link:https://eclipse.org/[Eclipse]
 * link:https://www.jetbrains.com/idea/[IntelliJ IDEA]
-
