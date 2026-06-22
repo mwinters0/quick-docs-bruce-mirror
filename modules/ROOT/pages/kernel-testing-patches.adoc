@@ -25,43 +25,67 @@ requires only minimal understanding of the associated tooling.
 First if not already installed, you're going to install fedpkg (Fedora's RPM
 packaging utility):
 
-  sudo dnf install fedpkg
+[source, console]
+----
+$ sudo dnf install fedpkg
+----
 
 Next, you're going to get ahold of the source (this will create a new
 subdirectory "kernel" and place all necessary files there):
 
-  fedpkg clone --anonymous kernel
+[source, console]
+----
+$ fedpkg clone --anonymous kernel
+----
 
 Then, enter the created directory "kernel":
 
-  cd kernel
+[source, console]
+----
+$ cd kernel
+----
 
 After entering the kernel directory, you need to switch to the branch for your
 current version of Fedora using the following command where "<fedora version>"
 is your version of Fedora:
 
-  fedpkg switch-branch f<fedora version>
+[source, console]
+----
+$ fedpkg switch-branch f<fedora version>
+----
 
 For instance, if you're running Fedora 34, you'd run:
 
-  fedpkg switch-branch f34
+[source, console]
+----
+$ fedpkg switch-branch f34
+----
 
 Finally, you need to add yourself to the "mock" group using the following
 command where "<username>" is your Fedora username:
 
-  usermod -a -G mock <username>
+[source, console]
+----
+$ sudo usermod -a -G mock <username>
+----
 
 For this change to take effect you can either logout and log back in,
 or you can run the following command:
 
-  newgrp -
+[source, console]
+----
+$ newgrp -
+----
 
 == Applying The Patch
 
 To apply the patch, take the .patch file you've been requested to apply,
 and save it in the "kernel" directory the previous step created as:
 
-  linux-kernel-test.patch
+[source, ]
+----
+linux-kernel-test.patch
+----
 
 == Building The Packages
 
@@ -72,7 +96,10 @@ where you can let your computer work.
 
 Then, run the following command:
 
-  fedpkg mockbuild
+[source, console]
+----
+$ fedpkg mockbuild
+----
 
 Finally, go enjoy a hot beverage, take a walk, play with your dog, or otherwise
 relax and come back later.
@@ -82,81 +109,103 @@ relax and come back later.
 To install the packages, first make sure you're in the "kernel" directory. From
 there you're going to enter the "results_kernel" directory:
 
-  cd results_kernel
+[source, console]
+----
+$ cd results_kernel
+----
 
 This directory will contain a single subdirectory that's the kernel version
 number. Use the ls command to find its name, for example:
 
-  ls
-  5.13.9
+[source, console]
+----
+$ ls
+5.13.9
+----
 
 Enter this directory:
 
-  cd 5.13.9
+[source, console]
+----
+$ cd 5.13.9
+----
 
 Repeat this process once more:
 
-  ls
-  200.fc34
-  cd 200.fc34
+[source, console]
+----
+$ ls
+200.fc34
+$ cd 200.fc34
+----
 
 Finally, if you run ls one more time, you'll see a number of ".rpm" files.
 As an example:
 
-  ls -1
-  build.log
-  hw_info.log
-  installed_pkgs.log
-  kernel-5.13.9-200.fc34.x86_64.src.rpm
-  kernel-5.13.9-200.fc34.x86_64.rpm
-  kernel-core-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-core-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-debuginfo-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-devel-5.13.9-200.fc34.x86_64.rpm
-  kernel-debuginfo-5.13.9-200.fc34.x86_64.rpm
-  kernel-debuginfo-common-x86_64-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-modules-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-modules-extra-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-modules-internal-5.13.9-200.fc34.x86_64.rpm
-  kernel-devel-5.13.9-200.fc34.x86_64.rpm
-  kernel-modules-5.13.9-200.fc34.x86_64.rpm
-  kernel-modules-extra-5.13.9-200.fc34.x86_64.rpm
-  kernel-modules-internal-5.13.9-200.fc34.x86_64.rpm
-  root.log
-  state.log
+[source, ]
+----
+build.log
+hw_info.log
+installed_pkgs.log
+kernel-5.13.9-200.fc34.x86_64.src.rpm
+kernel-5.13.9-200.fc34.x86_64.rpm
+kernel-core-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-core-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-debuginfo-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-devel-5.13.9-200.fc34.x86_64.rpm
+kernel-debuginfo-5.13.9-200.fc34.x86_64.rpm
+kernel-debuginfo-common-x86_64-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-modules-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-modules-extra-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-modules-internal-5.13.9-200.fc34.x86_64.rpm
+kernel-devel-5.13.9-200.fc34.x86_64.rpm
+kernel-modules-5.13.9-200.fc34.x86_64.rpm
+kernel-modules-extra-5.13.9-200.fc34.x86_64.rpm
+kernel-modules-internal-5.13.9-200.fc34.x86_64.rpm
+root.log
+state.log
+----
 
 Remove all .src.rpm files with the following command:
 
-  rm *.src.rpm
+[source, console]
+----
+$ rm *.src.rpm
+----
 
 The list now should now look something like this:
 
-  ls -1
-  build.log
-  hw_info.log
-  installed_pkgs.log
-  kernel-5.13.9-200.fc34.x86_64.rpm
-  kernel-core-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-core-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-debuginfo-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-devel-5.13.9-200.fc34.x86_64.rpm
-  kernel-debuginfo-5.13.9-200.fc34.x86_64.rpm
-  kernel-debuginfo-common-x86_64-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-modules-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-modules-extra-5.13.9-200.fc34.x86_64.rpm
-  kernel-debug-modules-internal-5.13.9-200.fc34.x86_64.rpm
-  kernel-devel-5.13.9-200.fc34.x86_64.rpm
-  kernel-modules-5.13.9-200.fc34.x86_64.rpm
-  kernel-modules-extra-5.13.9-200.fc34.x86_64.rpm
-  kernel-modules-internal-5.13.9-200.fc34.x86_64.rpm
-  root.log
-  state.log
+[source, ]
+----
+build.log
+hw_info.log
+installed_pkgs.log
+kernel-5.13.9-200.fc34.x86_64.rpm
+kernel-core-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-core-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-debuginfo-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-devel-5.13.9-200.fc34.x86_64.rpm
+kernel-debuginfo-5.13.9-200.fc34.x86_64.rpm
+kernel-debuginfo-common-x86_64-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-modules-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-modules-extra-5.13.9-200.fc34.x86_64.rpm
+kernel-debug-modules-internal-5.13.9-200.fc34.x86_64.rpm
+kernel-devel-5.13.9-200.fc34.x86_64.rpm
+kernel-modules-5.13.9-200.fc34.x86_64.rpm
+kernel-modules-extra-5.13.9-200.fc34.x86_64.rpm
+kernel-modules-internal-5.13.9-200.fc34.x86_64.rpm
+root.log
+state.log
+----
 
 Finally, install all the rpm packages in this directory using dnf:
 
-  dnf install ./*.rpm
+[source, console]
+----
+$ sudo dnf install ./*.rpm
+----
 
 == Testing The Kernel
 
@@ -174,21 +223,30 @@ an older kernel (for example, in this case we built 5.13.9, so we'd select
 Once you've booted back, use the following command to undo installing
 the kernel:
 
-  sudo dnf history undo last
+[source, console]
+----
+$ sudo dnf history undo last
+----
 
 You should then be prompted to remove the kernel packages you just installed.
 If you see other packages, use dnf history to find the transaction to undo.
 You're looking for the number at the start of a line that includes
 the kernel version that was installed:
 
-  dnf history --reverse
-  ...
-  24 | install ./kernel-5.13.9-200.fc34.x86_64.rpm ...
-  ...
+[source, console]
+----
+$ dnf history --reverse
+...
+24 | install ./kernel-5.13.9-200.fc34.x86_64.rpm ...
+...
+----
 
 This number "24" can then be used to undo via the following command:
 
-  sudo dnf history undo 24
+[source, console]
+----
+$ sudo dnf history undo 24
+----
 
 Finally if you reboot, the new kernel (e.g., 5.13.9) should no longer appear in
 GRUB, and your previous kernel should be automatically selected (e.g., 5.13.8).
