@@ -44,7 +44,7 @@ selecting *Virtualization* in the *Base Group* in the installer.
 
 For existing Fedora installations, you can install the virtualization tools via the command line using the Virtualization Package Group. To view the packages, run:
 
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ dnf group info virtualization
 
@@ -66,35 +66,35 @@ Group: Virtualization
 
 . Run the following command to install the mandatory and default packages in the virtualization group:
 +
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ sudo dnf install @virtualization
 ----
 +
 Alternatively, to install the mandatory, default, and optional packages, run:
 +
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ sudo dnf group install --with-optional virtualization
 ----
 +
 . After the packages install, start the `libvirtd` service:
 +
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ sudo systemctl start libvirtd
 ----
 +
 To start the service on boot, run:
 +
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ sudo systemctl enable libvirtd
 ----
 +
 . To verify that the KVM kernel modules are properly loaded:
 +
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ lsmod | grep kvm
 kvm_amd               114688  0
@@ -130,19 +130,19 @@ Adjust the ram, vcpus, and disk size parameters according to the resources you h
 
 * Storage: An easy way to check your disk size from a bash shell is using the `df(1)`` utility from the shell:
 +
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ df -h
 ----
 * Memory: You can check your available memory from the shell using free(1):
 +
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ free -m
 ----
 * VCPU: You can check your processor information using `lscpu(1)`:
 +
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ lscpu
 ----
@@ -164,14 +164,14 @@ Again, you do not need to manually allocate storage using the example options sh
 
 To create a fully allocated (non-sparse) raw file:
 
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ sudo dd if=/dev/zero of=/var/lib/libvirt/images/guest.img bs=1M count=20480
 ----
 
 you can also use fallocate(1):
 
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ sudo fallocate -l 20480M /var/lib/libvirt/images/guest.img
 ----
@@ -180,7 +180,7 @@ $ sudo fallocate -l 20480M /var/lib/libvirt/images/guest.img
 
 To create a dynamically allocated (sparse) raw file:
 
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ sudo rm -f /var/lib/libvirt/images/guest.img
 $ sudo truncate --size=20480M /var/lib/libvirt/images/guest.img
@@ -190,7 +190,7 @@ $ sudo truncate --size=20480M /var/lib/libvirt/images/guest.img
 ====== QCOW2
 To create a new qcow2-formatted disk separately, you can use qemu-img (the example below specifies a disk size of 20G):
 
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ sudo qemu-img create -f qcow2 /var/lib/libvirt/images/guest.qcow2 20480
 ----
@@ -226,7 +226,7 @@ If graphics were enabled, a VNC window will open and present the graphical insta
 
 . Start Virtual Machine Manager by navigating to menu:Applications[System Tools], or by running the following command:
 +
-[source, console, subs="attributes"]
+[source, console]
 ----
 $ sudo virt-manager
 ----
