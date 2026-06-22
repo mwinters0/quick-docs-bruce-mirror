@@ -25,8 +25,9 @@ For Intel processors, check the `/sys/module/kvm_intel/parameters/nested` file. 
 
 For example:
 
+[source, console]
 ----
-cat /sys/module/kvm_intel/parameters/nested
+$ cat /sys/module/kvm_intel/parameters/nested
 Y
 ----
 
@@ -37,17 +38,20 @@ To enable nested virtualization for Intel processors:
 
 . Shut down all running VMs and unload the `kvm_probe` module:
 +
-----                                
-sudo modprobe -r kvm_intel
+[source, console]
+----
+$ sudo modprobe -r kvm_intel
 ----
 . Activate the nesting feature:
 +
+[source, console]
 ----
-sudo modprobe kvm_intel nested=1
+$ sudo modprobe kvm_intel nested=1
 ----
 +
 . Nested virtualization is enabled until the host is rebooted. To enable it permanently, add the following line to the `/etc/modprobe.d/kvm.conf` file:
 +
+[source, conf]
 ----
 options kvm_intel nested=1
 ----
@@ -56,16 +60,19 @@ To enable nested virtualization for AMD processors:
 
 . Shut down all running VMs and unload the `kvm_amd` module:
 +
-----                                
-sudo modprobe -r kvm_amd
+[source, console]
+----
+$ sudo modprobe -r kvm_amd
 ----
 . Activate the nesting feature:
 +
+[source, console]
 ----
-sudo modprobe kvm_amd nested=1
-----    
-. Nested virtualization is enabled until the host is rebooted. To enable it permanently, add the following line to the `/etc/modprobe.d/kvm.conf` file:                        
+$ sudo modprobe kvm_amd nested=1
+----
+. Nested virtualization is enabled until the host is rebooted. To enable it permanently, add the following line to the `/etc/modprobe.d/kvm.conf` file:
 +
+[source, conf]
 ----
 options kvm_amd nested=1
 ----
@@ -97,14 +104,16 @@ NOTE: Using host-passthrough is not recommended for general usage. It should onl
 . Start the virtual machine.
 . On the virtual machine, run:
 +
+[source, console]
 ----
-sudo dnf group install virtualization
+$ sudo dnf group install virtualization
 ----
 +
 . Verify that the virtual machine has virtualization correctly set up:
 +
+[source, console]
 ----
-sudo virt-host-validate
+$ sudo virt-host-validate
   QEMU: Checking for hardware virtualization                                 : PASS
   QEMU: Checking if device /dev/kvm exists                                   : PASS
   QEMU: Checking if device /dev/kvm is accessible                            : PASS
