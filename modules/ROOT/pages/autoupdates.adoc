@@ -38,7 +38,7 @@ That said, keeping a system up-to-date is an important part of security, and aut
 
 `dnf-automatic` is not installed by default. Install it with:
 
-[source,bash,console]
+[source,console]
 ----
 $ sudo dnf install dnf-automatic
 ----
@@ -49,14 +49,14 @@ $ sudo dnf install dnf-automatic
 By default it downloads updates but does not install them.
 Open the file to adjust this:
 
-[source,bash,console]
+[source,console]
 ----
 $ sudo nano /etc/dnf/automatic.conf
 ----
 
 To download, install, and reboot when needed:
 
-[source]
+[source,conf]
 ----
 [commands]
 apply_updates=True
@@ -70,14 +70,14 @@ See the https://dnf5.readthedocs.io/en/latest/dnf5_plugins/automatic.8.html[dnf-
 
 Once configured, enable and start the systemd timer:
 
-[source,bash,console]
+[source,console]
 ----
 $ sudo systemctl enable --now dnf-automatic.timer
 ----
 
 Check that it is running:
 
-[source,bash,console]
+[source,console]
 ----
 $ systemctl status dnf-automatic.timer
 ----
@@ -90,7 +90,7 @@ Check what `dnf-automatic` has installed by monitoring its log file `/var/log/dn
 
 To receive email notifications after each run, add the following to `/etc/dnf/automatic.conf`:
 
-[source]
+[source,conf]
 ----
 [emitters]
 emit_via = email
@@ -130,7 +130,7 @@ If you pause or delay automatic updates, consider additional precautions: a host
 
 https://github.com/rackerlabs/auter[auter] is an alternative to `dnf-automatic` that offers more flexibility in scheduling and supports running custom scripts before and after updates, including automatic reboots.
 
-[source,bash,console]
+[source,console]
 ----
 $ sudo dnf install auter
 ----
@@ -140,14 +140,14 @@ Edit `/etc/auter/auter.conf` to configure it.
 
 To run auter immediately for testing:
 
-[source,bash,console]
+[source,console]
 ----
 $ auter --apply
 ----
 
 To disable auter from running, including from any cron job:
 
-[source,bash,console]
+[source,console]
 ----
 $ auter --disable
 ----
