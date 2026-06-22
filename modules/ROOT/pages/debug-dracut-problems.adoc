@@ -30,12 +30,13 @@ uncompressed, with MIME type set as text/plain.
 .  Add `rd.shell rd.debug log_buf_len=1M` to the kernel command line so
     that dracut shell commands are printed as they are executed
 .  Inspect the system logs:
-....
- # less /run/initramfs/rdsosreport.txt
- # journalctl -a
- # dmesg
- # less /run/initramfs/init.log
-....
+[source, console]
+----
+$ sudo less /run/initramfs/rdsosreport.txt
+$ sudo journalctl -a
+$ sudo dmesg
+$ sudo less /run/initramfs/init.log
+----
 
 [[information-to-include-in-your-report]]
 == Information to include in your report
@@ -104,20 +105,23 @@ below.
 
 .  Open the file `/etc/grub.conf` for editing. Below the line _timeout=5_, add the following:
 +
-....
+[source, conf]
+----
 serial --unit=0 --speed=9600
 terminal --timeout=5 serial console
-....
+----
 
 .  Also in `/etc/grub.conf`, add the following boot arguments to the _kernel_ line:
 +
-....
+[source, conf]
+----
 console=tty0 console=ttyS0,9600
-....
+----
 
 .  When finished, `/etc/grub.conf` should look similar to the example below:
-
-....
++
+[source, conf]
+----
 default=0
 timeout=5
 serial --unit=0 --speed=9600
@@ -126,7 +130,7 @@ title Fedora (2.6.29.5-191.fc11.x86_64)
    root (hd0,0)
    kernel /vmlinuz-2.6.29.5-191.fc11.x86_64 ro root=/dev/mapper/vg_uc1-lv_root console=tty0 console=ttyS0,9600
    initrd /dracut-2.6.29.5-191.fc11.x86_64.img
-....
+----
 
 More detailed information on how to configure the kernel for console
 output can be found at
@@ -144,7 +148,8 @@ fails to locate your root filesystem. To enable the shell:
 
 A sample `/etc/grub.conf` bootloader configuration file is listed below:
 
-....
+[source, conf]
+----
 default=0
 timeout=5
 serial --unit=0 --speed=9600
@@ -153,18 +158,19 @@ title Fedora (2.6.29.5-191.fc11.x86_64)
         root (hd0,0)
         kernel /vmlinuz-2.6.29.5-191.fc11.x86_64 ro root=/dev/mapper/vg_uc1-lv_root console=tty0 rd.shell
         initrd /dracut-2.6.29.5-191.fc11.x86_64.img
-....
+----
 
 If system boot fails, you will be dropped into a shell as seen in the
 example below:
 
-....
+[source,]
+----
 No root device found
 Dropping to debug shell.
 
 sh: can't access tty; job control turned off
 #
-....
+----
 
 Use this shell prompt to gather the information requested above (see
 link:#all-bug-reports[the 'all bug reports'
@@ -189,8 +195,9 @@ volume and create a symlink `/dev/root` which points to the file system. For exa
 
 .  Inspect your partitions using `parted`:
 +
-....
-# parted /dev/sda -s p
+[source, console]
+----
+$ sudo parted /dev/sda -s p
 Model: ATA HTS541060G9AT00 (scsi)
 Disk /dev/sda: 60.0GB
 Sector size (logical/physical): 512B/512B
@@ -199,49 +206,54 @@ Partition Table: msdos
 Number  Start   End     Size    Type      File system  Flags
  1      32.3kB  10.8GB  107MB   primary   ext4         boot
  2      10.8GB  55.6GB  44.7GB  logical                lvm
-....
+----
 
 .  You recall that your root volume was a LVM logical volume. Scan and
     activate any logical volumes:
 +
-....
-# lvm vgscan
-# lvm vgchange -ay
-....
+[source, console]
+----
+$ sudo lvm vgscan
+$ sudo lvm vgchange -ay
+----
 
 .  You should see any logical volumes now using the command `blkid`:
 +
-....
-# blkid
+[source, console]
+----
+$ sudo blkid
 /dev/sda1: UUID="3de247f3-5de4-4a44-afc5-1fe179750cf7" TYPE="ext4"
 /dev/sda2: UUID="Ek4dQw-cOtq-5MJu-OGRF-xz5k-O2l8-wdDj0I" TYPE="LVM2_member"
 /dev/mapper/linux-root: UUID="def0269e-424b-4752-acf3-1077bf96ad2c" TYPE="crypto_LUKS"
 /dev/mapper/linux-home: UUID="c69127c1-f153-4ea2-b58e-4cbfa9257c5e" TYPE="ext3"
 /dev/mapper/linux-swap: UUID="47b4d329-975c-4c08-b218-f9c9bf3635f1" TYPE="swap"
-....
+----
 
 .  From the output above, you recall that your root volume exists on an 
 encrypted block device. Unlock your encrypted root volume.
 +
-....
-UUID=$(cryptsetup luksUUID /dev/mapper/linux-root)
-cryptsetup luksOpen /dev/mapper/linux-root luks-$UUID
+[source, console]
+----
+$ UUID=$(sudo cryptsetup luksUUID /dev/mapper/linux-root)
+$ sudo cryptsetup luksOpen /dev/mapper/linux-root luks-$UUID
 Enter passphrase for /dev/mapper/linux-root:
 Key slot 0 unlocked.
-....
+----
 
 .  Next, make a symbolic link to the unlocked root volume
 +
-....
-ln -s /dev/mapper/luks-$UUID /dev/root
-....
+[source, console]
+----
+$ sudo ln -s /dev/mapper/luks-$UUID /dev/root
+----
 
 .  With the root volume available, you may continue booting the system 
 by exiting the dracut shell
 +
-....
+[source, ]
+----
 exit
-....
+----
 
 [[summary-of-dracut-kernel-command-line-options]]
 === Summary of dracut kernel command line options
