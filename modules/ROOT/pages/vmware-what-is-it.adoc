@@ -35,6 +35,7 @@ To download any Product::
 
 ==== Player
 
+[source, console]
 ----
 $ sudo chmod +x ./VMware-Player-x.y.z-nn.x86_64.bundle
 $ sudo ./VMware-Player-x.y.z-nn.x86_64.bundle
@@ -42,6 +43,7 @@ $ sudo ./VMware-Player-x.y.z-nn.x86_64.bundle
 
 ==== Workstation
 
+[source, console]
 ----
 $ sudo chmod +x ./VMware-Workstation-Full-x.y.z-nn.x86_64.bundle
 $ sudo ./VMware-Workstation-Full-x.y.z-nn.x86_64.bundle
@@ -61,6 +63,7 @@ NOTE: This guide try to help with all this boring stuff.
 
 === Prerequisite
 
+[source, console]
 ----
 $ sudo dnf install kernel-devel kernel-headers gcc gcc-c++ make git
 ----
@@ -71,12 +74,13 @@ This repository tracks patches needed to build VMware (Player and Workstation) h
 
 For Example, I would like to Patch Workstation:
 
+[source, console]
 ----
-wget https://github.com/mkubecek/vmware-host-modules/archive/workstation-x.y.z.tar.gz
-tar -xzf workstation-x.y.z.tar.gz
-cd vmware-host-modules-workstation-x.y.z
-make
-sudo make install
+$ wget https://github.com/mkubecek/vmware-host-modules/archive/workstation-x.y.z.tar.gz
+$ tar -xzf workstation-x.y.z.tar.gz
+$ cd vmware-host-modules-workstation-x.y.z
+$ make
+$ sudo make install
 ----
 
 [IMPORTANT]
@@ -91,6 +95,7 @@ Options are available but for the moment __Disable Secure Boot__ is the best opt
 
 You can create a script to take of this after a kernel update. Save it as `/etc/kernel/install.d/99-vmmodules.install`:
 
+[source, ]
 ----
 #!/usr/bin/bash
 
