@@ -18,22 +18,25 @@ This procedure describes the steps to install Apache *HTTPD* on Fedora.
 
 . Install *HTTPD* packages.
 +
+[source, console]
 ----
-sudo dnf install httpd -y
+$ sudo dnf install httpd -y
 ----
 
 . Start the *HTTPD* service.
 +
+[source, console]
 ----
-sudo systemctl start httpd.service
+$ sudo systemctl start httpd.service
 ----
 
 [NOTE]
 ====
 To enable auto start of *HTTPD* service at boot, execute the following command:
 
+[source, console]
 ----
-sudo systemctl enable httpd.service
+$ sudo systemctl enable httpd.service
 ----
 ====
 
@@ -64,8 +67,9 @@ To enable TLS/SSL support, download and install one of the following packages:
 
 The https://packages.fedoraproject.org/pkgs/httpd/mod_ssl/[mod_ssl] package will be automatically enabled post installation. Install the https://packages.fedoraproject.org/pkgs/httpd/mod_ssl/[mod_ssl] package using the following command:
 
+[source, console]
 ----
-sudo dnf install mod_ssl -y
+$ sudo dnf install mod_ssl -y
 ----
 
 
@@ -83,32 +87,36 @@ If you already have a certificate generated on another computer, do the followin
 
 . Move the certificate and the key file to the correct folder
 +
+[source, console]
 ----
-sudo mv key_file.key /etc/pki/tls/private/myhost.com.key
-sudo mv certificate.crt /etc/pki/tls/certs/myhost.com.crt
+$ sudo mv key_file.key /etc/pki/tls/private/myhost.com.key
+$ sudo mv certificate.crt /etc/pki/tls/certs/myhost.com.crt
 ----
 +
 . Ensure that the following parameters are correct:
 +
 .. SELinux contexts
 +
+[source, console]
 ----
-restorecon /etc/pki/tls/private/myhost.com.key
-restorecon /etc/pki/tls/certs/myhost.com.crt
+$ sudo restorecon /etc/pki/tls/private/myhost.com.key
+$ sudo restorecon /etc/pki/tls/certs/myhost.com.crt
 ----
 +
 .. Ownership
 +
+[source, console]
 ----
-sudo chown root:root /etc/pki/tls/private/myhost.com.key
-sudo chown root:root /etc/pki/tls/certs/myhost.com.crt
+$ sudo chown root:root /etc/pki/tls/private/myhost.com.key
+$ sudo chown root:root /etc/pki/tls/certs/myhost.com.crt
 ----
 +
 .. Permissions
 +
+[source, console]
 ----
-sudo chmod 0600 /etc/pki/tls/private/myhost.com.key
-sudo chmod 0600 /etc/pki/tls/certs/myhost.com.crt
+$ sudo chmod 0600 /etc/pki/tls/private/myhost.com.key
+$ sudo chmod 0600 /etc/pki/tls/certs/myhost.com.crt
 ----
 
 After installing the existing certificate, set up the certificate using <<mod_ssl configuration>>.
@@ -119,6 +127,7 @@ After installing the existing certificate, set up the certificate using <<mod_ss
 
 The default TLS/SSL configuration is contained in the file `/etc/httpd/conf.d/ssl.conf`. In the `ssl.conf` file, following are the directives that specify where the TLS/SSL certificate and key are located:
 
+[source, conf]
 ----
 SSLCertificateFile /etc/pki/tls/certs/localhost.crt
 SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
@@ -126,6 +135,7 @@ SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
 
 These directives are enclosed in a block defining a https://httpd.apache.org/docs/current/vhosts/[virtual host]:
 
+[source, conf]
 ----
 <VirtualHost _default_:443>
 ...
@@ -142,6 +152,7 @@ To define a different location for these files, do the following:
 +
 . Edit the following lines in the `z-ssl-local.conf` file:
 
+[source, conf]
 ----
 <VirtualHost _default_:443>
 SSLCertificateFile /etc/pki/tls/certs/www.myhost.org.crt
@@ -161,6 +172,7 @@ To use SSL/TLS for a specific virtual host with a different certificate as defau
 +
 . Insert these lines between `<VirtualHost hostname:port>` and `</VirtualHost>`:
 +
+[source, conf]
 ----
 SSLEngine on
 SSLCertificateFile /etc/pki/tls/certs/hostname.crt
@@ -191,8 +203,9 @@ They will also often have the default configuration tweaked according to Fedora'
 
 Most web applications are simply packaged according to their name. For instance, you can install Wordpress by executing the following command:
 
+[source, console]
 ----
-sudo dnf install wordpress
+$ sudo dnf install wordpress
 ----
 
 Packaged web applications will usually provide Fedora-specific instructions in a documentation file. For instance, Wordpress provides the files `/usr/share/doc/wordpress/README.fedora` and `/usr/share/doc/wordpress/README.fedora-multiuser`.
@@ -222,14 +235,16 @@ It is recommended to create a new file in `/etc/httpd/conf.d/` which will take p
 ====
 After making any changes to your server configuration, execute the following command:
 
+[source, console]
 ----
-sudo systemctl reload httpd.service
+$ sudo systemctl reload httpd.service
 ----
 
 Certain changes may require Apache to be fully restarted. To fully restart Apache, execute the following command:
 
+[source, console]
 ----
-sudo systemctl restart httpd.service
+$ sudo systemctl restart httpd.service
 ----
 ====
 
@@ -238,6 +253,7 @@ sudo systemctl restart httpd.service
 
 By default Fedora-packaged web applications are usually configured such that, access is allowed only from the localhost. This is defined by the file `/etc/httpd/conf.d/webapp.conf` which contains the following settings:
 
+[source, conf]
 ----
 <Directory /usr/share/webapp>
     <IfModule mod_authz_core.c>
@@ -262,6 +278,7 @@ Before allowing general access to the webapp, ensure to do the following:
 
 To broaden access to the application, create a file `/etc/httpd/conf.d/z-webapp-allow.conf`. To allow access to all systems on a typical local network, add the following lines into the file:
 
+[source, conf]
 ----
 <Directory /usr/share/webapp>
     <IfModule mod_authz_core.c>
@@ -282,6 +299,7 @@ To broaden access to the application, create a file `/etc/httpd/conf.d/z-webapp-
 
 Once the application is correctly configured, add the following configuration to allow access from any host:
 
+[source, conf]
 ----
 <Directory /usr/share/webapp>
     <IfModule mod_authz_core.c>
@@ -307,28 +325,32 @@ To allow Apache through the firewall at each boot:
 
 * For plain HTTP connections:
 +
+[source, console]
 ----
-sudo firewall-cmd --permanent --add-service=http
+$ sudo firewall-cmd --permanent --add-service=http
 ----
 
 * For TLS/SSL connections:
 +
+[source, console]
 ----
-sudo firewall-cmd --permanent --add-service=https
+$ sudo firewall-cmd --permanent --add-service=https
 ----
 
 To allow Apache through the firewall instantly:
 
 * For plain HTTP connections:
 +
+[source, console]
 ----
-sudo firewall-cmd --add-service=http
+$ sudo firewall-cmd --add-service=http
 ----
 
 * For TLS/SSL connections:
 +
+[source, console]
 ----
-sudo firewall-cmd --add-service=https
+$ sudo firewall-cmd --add-service=https
 ----
 
 NOTE: If your server is running in a network with a NAT router, you will also need to configure your router to forward the HTTP and HTTPS ports to your server, if you wish to allow access from outside your local network.
@@ -339,6 +361,7 @@ NOTE: If your server is running in a network with a NAT router, you will also ne
 
 To disable the test page, comment out all the lines in the file `/etc/httpd/conf.d/welcome.conf` using `pass:[#]` as follows:
 
+[source, conf]
 ----
 # <LocationMatch "^/+$">
 #    Options -Indexes
