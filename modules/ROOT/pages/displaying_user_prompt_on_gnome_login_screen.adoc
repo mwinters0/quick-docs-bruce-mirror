@@ -1,5 +1,5 @@
 = Displaying a User Prompt on the GNOME Login Screen
-Harsh Jain 
+Harsh Jain
 :revnumber: all
 :revdate: 2020
 :category: Customization
@@ -10,16 +10,19 @@ To show a user prompt instead of a list of users on the GNOME login screen, open
 
 . Create a file for the GNOME Display Manager (GDM) configuration.
 +
+[source, console]
 ----
 $ sudo mkdir /etc/dconf/db/gdm.d
 ----
 +
+[source, console]
 ----
 $ sudo vim /etc/dconf/db/gdm.d/01-hide-users
 ----
 
 . In a text editor of your choice, `vim` in this example, insert the following content to the `/etc/dconf/db/gdm.d/01-hide-users` file:
 +
+[source, conf]
 ----
 [org/gnome/login-screen]
 banner-message-enable=true
@@ -37,25 +40,28 @@ Save the file and return to the terminal.
 
 . Enter the following command:
 +
+[source, console]
 ----
 $ sudo dconf update
 ----
 
 . Check if the command was executed correctly:
 +
+[source, console]
 ----
 $ ls /etc/dconf/db
 ----
 +
 The output should contain the following:
 +
+[source, ]
 ----
 gdm gdm.d ... [output truncated]
 ----
 
 . Restart GDM for the changes to take effect.
 +
+[source, console]
 ----
 $ sudo systemctl restart gdm
 ----
-
