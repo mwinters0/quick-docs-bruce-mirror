@@ -31,12 +31,12 @@ The following is needed:
 
 . Our program's source in a _publicly available git repository_ somewhere. This tutorial uses a simple example program - hellocopr - to demonstrate the process. The program and all files referenced in this guide can be found in the link:https://pagure.io/copr-tito-quickdoc[project's git repository]. It's a very simple (& pointless) python program with a setuptools installer:
 +
-[source,]
+[source, console]
 ----
-user@host ~/copr-tito-quickdoc % ls
+$ ls
 doc  LICENSE  README.md  requirements.txt  setup.py  src
 
-user@host ~/copr-tito-quickdoc % ls src/hellocopr
+$ ls src/hellocopr
 colors.py  hellocopr.py  __init__.py
 ----
 
@@ -60,8 +60,9 @@ Copy link:https://pagure.io/copr-tito-quickdoc/c/00963ac9339a13eefd2ab1ca42b1f72
 
 . The changelog can be left empty.
 +
-```
-user@host ~/copr-tito-quickdoc % cat hellocopr.spec
+[source, console]
+----
+$ cat hellocopr.spec
 ...
 Version: 0.0.0
 Release: 0%{?dist}
@@ -73,14 +74,15 @@ Release: 0%{?dist}
 Source0: %{name}-%{version}.tar.gz
 ...
 %changelog
-```
+----
 
 Commit the changes.
 
 Next, we initialize the project for use with tito.
 
-```
-user@host ~/copr-tito-quickdoc % tito init
+[source, console]
+----
+$ tito init
 Creating tito metadata in: ~/copr-tito-quickdoc/.tito
    - created ~/copr-tito-quickdoc/.tito
    - wrote tito.props
@@ -88,15 +90,15 @@ Creating tito metadata in: ~/copr-tito-quickdoc/.tito
    - wrote ~/copr-tito-quickdoc/.tito/packages/.readme
    - committed to git
 Done!
-```
+----
 
 This creates link:https://pagure.io/copr-tito-quickdoc/c/7a6919d3dd56943bb988a755f8233157965aa9bb?branch=master[a subdirectory `.tito` with some default configuration], which can be left unchanged for now.
 
 We can now do a test build of the package using `tito build`. Usually, tito will build from a tag, which we haven't created yet. However, using the `--test` flag, we can build from the most recent commit instead, which will be written to `/tmp/tito`:
 
-[source,]
+[source, console]
 ----
-user@host ~/copr-tito-quickdoc % tito build --rpm --test
+$ tito build --rpm --test
 Creating output directory: /tmp/tito
 WARNING: unable to lookup latest package tag, building untagged test project
 WARNING: .tito/packages/hellocopr doesn't exist in git, using current directory
@@ -110,9 +112,9 @@ Successfully built: /tmp/tito/hellocopr-0.0.0-0.git.11.7a6919d.fc32.src.rpm
 
 Once we've fixed any issues with the package that might crop up, we can let _tito_ create a package release using `tito tag`. Since we haven't set a proper version yet, we need to pass it to tito for the first tag:
 
-[source,]
+[source, console]
 ----
-user@host ~/copr-tito-quickdoc % tito tag --use-version 1.0.0
+$ tito tag --use-version 1.0.0
 ----
 
 This will open the editor & display a pre-formatted changelog entry build up from all commits since the last release, which we can edit as needed. Since there have been none so far, the entry will just contain "- new package built with tito". Save the file, link:https://pagure.io/copr-tito-quickdoc/c/f44e81d695df669bcdb7237612baf41b80da98e0?branch=master[and tito will]
@@ -125,9 +127,9 @@ This will open the editor & display a pre-formatted changelog entry build up fro
 
 . commit the result and tag it with `<name>-<version>-<release>`, i.e. `hellocopr-1.0.0-1`
 +
-[source,]
+[source, console]
 ----
-user@host ~/copr-tito-quickdoc % tito tag --use-version 1.0.0
+$ tito tag --use-version 1.0.0
 Creating output directory: /tmp/tito
 Tagging new version of hellocopr: untagged -> 1.0.0-1
 Created tag: hellocopr-1.0.0-1
@@ -160,11 +162,11 @@ Push to the commits & tags to the remote using `git push --follow-tags`, and we'
 . Your package will appear in the list of packages. Hit _Rebuild_ to trigger a build. The following page lets you change any build options if necessary, we'll just use the defaults, i.e. the options we set in the previous step. Hit _Submit_ and Copr will build the package from the tito tag we created in Step 1.
 
 Once the build has finished, you can test installing the package from Copr by activating your repository.
-[source,]
+[source, console]
 ----
-user@host ~/copr-tito-quickdoc % sudo dnf copr enable <username>/hellocopr
+$ sudo dnf copr enable <username>/hellocopr
 
-user@host ~/copr-tito-quickdoc % sudo dnf install hellocopr
+$ sudo dnf install hellocopr
 ----
 
 == Step 3: Automate package (re)-builds
@@ -181,9 +183,9 @@ Currently, the example program has its version hardcoded at multiple places. lin
 
 Commit the changes, and create a new release with tito
 
-[source,]
+[source, console]
 ----
-user@host ~/copr-tito-quickdoc % tito tag
+$ tito tag
 Creating output directory: /tmp/tito
 Tagging new version of hellocopr: 1.0.0-1 -> 1.0.1-1
 Created tag: hellocopr-1.0.1-1
@@ -206,9 +208,9 @@ Push the resulting commit & tag, and if you now check your projects page on Copr
 If you check the git log, you'll find that I actually forgot to update hellocopr's version variable to 1.0.1. We don't want that to happen again. Luckily, since we single-source our version, we can let tito automatically generate this file from a template.
 
 First, copy the version source file `src/hellocopr/pass:[__]initpass:[__].py` to `.tito/templates/pass:[__]initpass:[__].py.template`. Then, open the template file and replace the version string with `$version`. It also makes sense to add a note that the file is managed by tito and should not be edited manually.
-[source,]
+[source, console]
 ----
-user@host ~/copr-tito-quickdoc % cat .tito/templates/__init__.py.template
+$ cat .tito/templates/__init__.py.template
 ...
 # This file is automatically created from a template by tito. Do not edit it manually.
 
@@ -216,7 +218,7 @@ __version__ = '$version'
 ----
 
 Next, add the following to `.tito/tito.props`
-[source,]
+[source, conf]
 ----
 [version_template]
 destination_file = src/hellocopr/__init__.py
@@ -226,9 +228,9 @@ template_file = .tito/templates/__init__.py.template
 https://pagure.io/copr-tito-quickdoc/c/28600f6e41d5a4b60f2e47cf077f2fe2d9224e1d?branch=master[Commit the changes]. Now, when we tag a new release, tito will take the template, replace `$version` with whatever version was tagged, and copy the resulting file to `src/hellocopr/pass:[__]initpass:[__].py` before updating the spec file and committing the changes.
 
 We can test this by tagging a new release:
-[source,]
+[source, console]
 ----
-user@host ~/copr-tito-quickdoc % % tito tag
+$ tito tag
 Creating output directory: /tmp/tito
 Tagging new version of hellocopr: 1.0.1-1 -> 1.0.2-1
 Created tag: hellocopr-1.0.2-1
@@ -236,7 +238,7 @@ Created tag: hellocopr-1.0.2-1
    Undo: tito tag -u
    Push: git push --follow-tags origin
 
-user@host ~/copr-tito-quickdoc % cat src/hellocopr/__init__.py
+$ cat src/hellocopr/__init__.py
 ...
 # This file is automatically created from a template by tito. Do not edit it manually.
 
@@ -266,7 +268,7 @@ To do so, the following changes need to be made to the procedure described above
 . Also in the spec file, set the `Version:` back to whatever version the program is at and `Source0:` back to the tarball URL. You can use macros like `%\{version}` for the latter to automatically follow version changes.
 . Modify tito's `.tito/tito.props` to, one, not try to build a source tarball and two, bump the `Release:` instead of the `Version:` when tagging
 +
-[source,]
+[source, conf]
 ----
 [buildconfig]
 builder = tito.builder.NoTgzBuilder
