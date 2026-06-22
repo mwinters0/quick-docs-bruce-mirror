@@ -88,14 +88,14 @@ $ lsblk
 +
 [source, console]
 ----
-$ umount /dev/sdX
+$ sudo umount /dev/sdX
 ----
 
 2. Carefully construct the `+dd+` command. Example with breakdown listed:
 +
 [source, console]
 ----
-$ dd if=/path/to/Fedora-Workstation-Live.iso of=/dev/sdX bs=4M status=progress && sync
+$ sudo dd if=/path/to/Fedora-Workstation-Live.iso of=/dev/sdX bs=4M status=progress && sync
 ----
 +
 * `+if=/path/...+` -	Input file. Enter the exact path and file name.
@@ -160,7 +160,7 @@ Most of the writing methods will require you to know the `/dev` name for your US
 . Open a terminal and run `dmesg`.
 . Near the end of the output, you will see something like:
 +
-[source,options="nowrap"]
+[source]
 ----
 [32656.573467] sd 8:0:0:0: [sdX] Attached SCSI removable disk
 ----
@@ -185,7 +185,7 @@ This is the name of the disk you will use. We'll call it `sdX` from now on. If y
 
 Partition isn't marked bootable:: If you get the message `Partition isn't marked bootable!`, you need to mark the partition bootable. To do this, run `parted /dev/sdX`, and use the `toggle N` boot command, where `_X_` is the appropriate letter, and `_N_` is the partition number. For example:
 +
-[source,console,subs="attributes"]
+[source,console]
 ----
 $ parted /dev/sdb
 GNU Parted 1.8.6
@@ -227,10 +227,10 @@ livecd-iso-to-disk on other Linux distributions:: `livecd-iso-to-disk` is not me
 
 You can test your stick using QEMU.
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ sudo umount /dev/sdX1
-$ qemu -hda /dev/sdX -m 1024 -vga std
+$ sudo qemu -hda /dev/sdX -m 1024 -vga std
 ----
 
 
@@ -256,7 +256,7 @@ To create a live image, the `livecd-creator` and `mock` packages are used. For t
 
 The `livecd-creator` tool is part of the _livecd-tools_package. If it is not installed on your system, add it and all other tools like mock, lorax, git, pykickstart and a text editor with DNF:
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ sudo dnf install livecd-tools mock
 ----
@@ -270,21 +270,21 @@ We need to add you current user to the mock group, or you need to do anything as
 
 Let's create the mock group:
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ sudo newgrp mock
 ----
 
 If you now enter:
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ sudo groups
 ----
 
 it shall output your username together with the old groups and the new group "mock". If this is not the case, you did something wrong.
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ sudo usermod -aG mock $(whoami)
 ----
@@ -298,7 +298,7 @@ A relogin to make the change effective, would be wise, or you switch to root now
 
 Now we can init the build environment. In this example we use the most likely x86_64, but if you build it for ARM or PowerPC, you can just use a different config by changing the ARCH-Type to the desired platform!
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ sudo mock -r /etc/mock/fedora-42_x86_64.cfg --init
 ----
@@ -307,7 +307,7 @@ Mock creates us an empty toolbox for this, so we need to fill it with packages, 
 
 Make sure you have enough free disk space for all these files and the ones, the livemedia-creator will download later. We suggest at least 10 GB free diskspace for this.
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ sudo mock -r /etc/mock/fedora-42_x86_64.cfg --install lorax anaconda git pykickstart vim lorax anaconda git pykickstart vim libblockdev-lvm libblockdev-btrfs libblockdev-swap libblockdev-loop libblockdev-crypto libblockdev-dm libblockdev-mdraid libblockdev-part libblockdev-fs libblockdev-nvme libblockdev-mpath
 ----
@@ -316,7 +316,7 @@ If you wanne use a different texteditor then "vim", you need to install it now, 
 
 Now we enter the toolbox for the first time ...
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ mock -r /etc/mock/fedora-42_x86_64.cfg --shell --isolation=simple --enable-network
 ----
@@ -325,7 +325,7 @@ This gives us a shell and networksupport, so the scripts inside the toolbox can 
 
 You will see something like this output:
 
-[source, options="nowrap"]
+[source]
 ----
 INFO: mock.py version 6.3 starting (python version = 3.13.7, NVR = mock-6.3-1.fc42), args: /usr/libexec/mock/mock -r fedora-42-x86_64 --shell --isolation=simple --enable-network
 Start(bootstrap): init plugins
@@ -359,7 +359,7 @@ Start: shell
 
 Now we need to download the kickstart files, which previous Fedora releases had as a package, from the Fedora Servers:
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ git clone https://pagure.io/fedora-kickstarts -b f42
 ----
@@ -372,7 +372,7 @@ What we now need is a kickstart file. Never heard of it, don't panic :D
 
 A kickstart file contains information about the size of the tmp drive in the later started live image, it mounts, its packages and so on. You will not need to reinvent the wheel, relax. Here is an example:
 
-[source, options="nowrap"]
+[source]
 ----
 %include fedora-live-workstation.ks
 %packages
@@ -410,7 +410,7 @@ The above file will remove packages and groups of packages from the later create
 
 You see this:
 
-[source, options="nowrap"]
+[source]
 ----
 %include fedora-live-workstation.ks
 ----
@@ -424,7 +424,7 @@ In this example, we removed some gnome-apps and end up what you know as "Fedora-
 
 Take that example and save it to a file you can name i.E. "example-START.ks". Make sure you can distinguish your file later as the starting point of your work. Because now, we will "join" aka. "flatten" the included files to one big kickstart.cfg file, that we will need for livemedia-creator later.
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ ksflatten -c as-you-like-START.ks -o kickstart.cfg
 ----
@@ -442,14 +442,14 @@ From now on, you should only edit the created kickstart.cfg file for changes, ot
 
 Either way, you end up with a defective cfg file, because the used include files define the mountpoint "/" two times, which lead to an error. That's easily fixed:
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ sudo vim kickstart.cfg
 ----
 
 search for "# Disk partitioning information" and change the two lines, that start with "part /" to this ONE line:
 
-[source, options="nowrap"]
+[source]
 ----
 part / --fstype="ext4" --size=8576
 ----
@@ -462,7 +462,7 @@ We will try to fix this, but it could take until Fedora 45.
 
 Now the part you are waiting for: Let's create the iso image.
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ livemedia-creator --ks kickstart.cfg --no-virt --resultdir /var/lmc --project MYPROJECTNAME --make-iso --volid MY_ID --iso-only --iso-name <FILENAME>.iso --releasever 42 --macboot
 ----
@@ -477,14 +477,14 @@ In approximately 15 minutes, if everything works, you have a created <filename>.
 
 To get it out there, you enter ...
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ exit
 ----
 
 and copy it to the desired place. In example:
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ cp /var/lib/mock/fedora-42-x86_64/root/var/lmc/<filename>.iso /home/themasteruser/Downloads/Images/
 ----
@@ -511,7 +511,7 @@ image:qemu_gtk3.png[QEMU running Fedora 17,title="QEMU running Fedora 17"]
 
 Run:
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ sudo qemu-kvm -m 2048 -vga qxl -cdrom filename.iso
 ----
@@ -522,7 +522,7 @@ $ sudo qemu-kvm -m 2048 -vga qxl -cdrom filename.iso
 
 If you do not have https://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine[KVM] support, you have to use qemu instead.
 
-[source, console, options="nowrap"]
+[source, console]
 ----
 $ sudo qemu-system-x86_64 -m 2048 -vga qxl -cdrom filename.iso
 ----
