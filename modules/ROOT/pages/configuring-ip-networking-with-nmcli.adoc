@@ -23,10 +23,10 @@ The [application]*nmcli* utility can be used by both users and scripts for contr
 
 The basic format of a [application]*nmcli* command is as follows:
 
-[literal,subs="+quotes,verbatim"]
-....
-nmcli [OPTIONS] OBJECT { COMMAND | help }
-....
+[source, console, subs="+quotes,verbatim"]
+----
+$ nmcli [OPTIONS] OBJECT { COMMAND | help }
+----
 
 where OBJECT can be one of the following options: `general`, `networking`, `radio`, `connection`, `device`, `agent`, and `monitor`. You can use any prefix of these options in your commands. For example, [command]`nmcli con help`, [command]`nmcli c help`, [command]`nmcli connection help` generate the same output.
 
@@ -39,12 +39,12 @@ This mode can be used for computer script processing as you can see a terse outp
 [[ex-Viewing_a_terse_output_for_scripts]]
 .Viewing a terse output
 ====
-[literal,subs="+quotes,verbatim,macros"]
-....
-~]$ pass:attributes[{blank}][command]`nmcli -t device`
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ [command]`nmcli -t device`
 ens3:ethernet:connected:Profile 1
 lo:loopback:unmanaged:
-....
+----
 ====
 
 -f, field::
@@ -55,23 +55,23 @@ This option specifies what fields can be displayed in output. For example, NAME,
 .Specifying Fields in the output
 ====
 
-[literal,subs="+quotes,verbatim,macros"]
-....
-~]$ pass:attributes[{blank}][command]`nmcli -f DEVICE,TYPE device`
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ [command]`nmcli -f DEVICE,TYPE device`
 DEVICE  TYPE
 ens3    ethernet
 lo      loopback
-....
+----
 
 or even better for scripting:
 
-[literal,subs="+quotes,verbatim,macros"]
-....
-~]$ pass:attributes[{blank}][command]`nmcli -t -f DEVICE,TYPE device`
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ [command]`nmcli -t -f DEVICE,TYPE device`
 ens3:ethernet
 lo:loopback
 
-....
+----
 
 ====
 
@@ -83,9 +83,9 @@ This option causes [application]*nmcli* to produce human-readable output. For ex
 .Viewing an output in pretty mode
 ====
 
-[literal,subs="+quotes,verbatim,macros"]
-....
-~]$ pass:attributes[{blank}][command]`nmcli -p device`
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ [command]`nmcli -p device`
 =====================
   Status of devices
 =====================
@@ -94,7 +94,7 @@ DEVICE  TYPE      STATE      CONNECTION
 ens3    ethernet  connected  Profile 1
 lo      loopback  unmanaged  --
 
-....
+----
 
 ====
 
@@ -103,22 +103,22 @@ lo      loopback  unmanaged  --
 Prints help information.
 
 The [application]*nmcli* tool has some built-in context-sensitive help. To list the available options and object names:
-[literal,subs="+quotes,verbatim,macros"]
-....
-~]$ [command]`nmcli help`
-....
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ [command]`nmcli help`
+----
 
 To list available actions related to a specified object:
-[literal,subs="+quotes,verbatim,macros"]
-....
-~]$ [command]`nmcli _object_ help`
-....
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ [command]`nmcli _object_ help`
+----
 
 For example,
-[literal,subs="+quotes,verbatim,macros"]
-....
-~]$ [command]`nmcli c help`
-....
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ [command]`nmcli c help`
+----
 
 [discrete]
 === Additional resources
@@ -138,73 +138,73 @@ This section provides a brief selection of [application]*nmcli* examples.
 .Checking the overall status of NetworkManager
 ====
 
-[literal,subs="+quotes,verbatim,macros"]
-....
-~]$ pass:attributes[{blank}][command]`nmcli general status`
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ [command]`nmcli general status`
 STATE      CONNECTIVITY  WIFI-HW  WIFI     WWAN-HW  WWAN
 connected  full          enabled  enabled  enabled  enabled
-....
+----
 
 In terse mode:
 
-[literal,subs="+quotes,verbatim,macros"]
-....
-~]$ pass:attributes[{blank}][command]`nmcli -t -f STATE general`
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ [command]`nmcli -t -f STATE general`
 connected
-....
+----
 
 ====
 
 .Viewing NetworkManager logging status
 ====
 
-[literal,subs="+quotes,verbatim"]
-....
-~]$ [command]`nmcli general logging`
+[source, console, subs="+quotes,verbatim"]
+----
+$ [command]`nmcli general logging`
   LEVEL  DOMAINS
   INFO   PLATFORM,RFKILL,ETHER,WIFI,BT,MB,DHCP4,DHCP6,PPP,WIFI_SCAN,IP4,IP6,A
 UTOIP4,DNS,VPN,SHARING,SUPPLICANT,AGENTS,SETTINGS,SUSPEND,CORE,DEVICE,OLPC,
 WIMAX,INFINIBAND,FIREWALL,ADSL,BOND,VLAN,BRIDGE,DBUS_PROPS,TEAM,CONCHECK,DC
 B,DISPATCH
-....
+----
 
 ====
 
 .Viewing all connections
 ====
 
-[literal,subs="+quotes,verbatim,macros"]
-....
-~]$ pass:attributes[{blank}][command]`nmcli connection show`
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ [command]`nmcli connection show`
   NAME       UUID                                  TYPE      DEVICE
 Profile 1  db1060e9-c164-476f-b2b5-caec62dc1b05  ethernet    ens3
 ens3       aaf6eb56-73e5-4746-9037-eed42caa8a65  ethernet    --
-....
+----
 
 ====
 
 .Viewing only currently active connections
 ====
 
-[literal,subs="+quotes,verbatim,macros"]
-....
-~]$ pass:attributes[{blank}][command]`nmcli connection show --active`
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ [command]`nmcli connection show --active`
   NAME       UUID                                  TYPE      DEVICE
 Profile 1  db1060e9-c164-476f-b2b5-caec62dc1b05  ethernet     ens3
-....
+----
 
 ====
 
 .Viewing only devices recognized by [application]*NetworkManager* and their state
 ====
 
-[literal,subs="+quotes,verbatim,macros"]
-....
-~]$ pass:attributes[{blank}][command]`nmcli device status`
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ [command]`nmcli device status`
 DEVICE  TYPE      STATE      CONNECTION
 ens3    ethernet  connected  Profile 1
 lo      loopback  unmanaged  --
-....
+----
 
 ====
 
@@ -227,7 +227,7 @@ You can also use the following abbreviations of the [application]*nmcli* command
 === Additional resources
 
 * For more examples, see the
-  [citetitle]_pass:attributes[{blank}]*nmcli-examples*(5)_
+  [citetitle]_*nmcli-examples*(5)_
   man page.
 
 
@@ -244,38 +244,37 @@ A connection type. Allowed values are: adsl, bond, bond-slave, bridge, bridge-sl
 +
 ** A `gsm` connection requires the access point name specified in an [option]`apn`.
 +
-[literal,subs="+quotes,verbatim,macros"]
-....
-nmcli c add connection.type gsm apn pass:quotes[_access_point_name_]
-....
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ nmcli c add connection.type gsm apn pass:quotes[_access_point_name_]
+----
 +
 ** A `wifi` device requires the service set identifier specified in a [option]`ssid`.
 +
-[literal,subs="+quotes,verbatim,macros"]
-....
-nmcli c add connection.type wifi ssid
-_My identifier_
-....
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ nmcli c add connection.type wifi ssid _My identifier_
+----
 
-You can see the `TYPE_SPECIFIC_OPTIONS` list in the [citetitle]_pass:attributes[{blank}]*nmcli*(1)_ man page.
+You can see the `TYPE_SPECIFIC_OPTIONS` list in the [citetitle]_*nmcli*(1)_ man page.
 
 [option]`connection.interface-name`::
 +
 A device name relevant for the connection.
 +
-[literal,subs="+quotes,verbatim,macros"]
-....
-nmcli con add connection.interface-name _eth0_ type _ethernet_
-....
+[source, console, subs="+quotes,verbatim,macros"]
+----
+$ nmcli con add connection.interface-name _eth0_ type _ethernet_
+----
 
 [option]`connection.id`::
 +
 A name used for the connection profile. If you do not specify a connection name, one will be generated as follows:
 +
-[literal,subs="+quotes,verbatim,macros"]
-....
+[source, console, subs="+quotes,verbatim,macros"]
+----
 _connection.type -connection.interface-name_
-....
+----
 +
 The [option]`connection.id` is the name of a _connection profile_ and should not be confused with the interface name which denotes a device (`wlan0`, `ens3`, `em1`). However, users can name the connections after interfaces, but they are not the same thing. There can be multiple connection profiles available for a device. This is particularly useful for mobile devices or when switching a network cable back and forth between different devices. Rather than edit the configuration, create different profiles and apply them to the interface as needed. The [option]`id` option also refers to the connection profile name.
 
@@ -292,4 +291,4 @@ A unique identification string assigned by the system to a connection profile. T
 [discrete]
 === Additional resources
 
-*  See the comprehensive list in the [citetitle]_pass:attributes[{blank}]*nmcli*(1)_ man page.
+*  See the comprehensive list in the [citetitle]_*nmcli*(1)_ man page.
