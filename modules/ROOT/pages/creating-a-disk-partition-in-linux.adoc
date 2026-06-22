@@ -20,8 +20,9 @@ This procedure describes how to partition a storage disk in Linux using the `par
 
 . List the partitions using the `parted -l` command to identify the storage device you want to partition. Typically, the first hard disk (`/dev/sda` or `/dev/vda`) will contain the operating system, so look for another disk to find the one you want. For example:
 +
+[source, console]
 ----
-sudo parted -l
+$ sudo parted -l
 Model: ATA RevuAhn_850X1TU5 (scsi)
 Disk /dev/vdc: 512GB
 Sector size (logical/physical): 512B/512B
@@ -35,8 +36,9 @@ Number  Start   End    Size   Type     File system  Flags
 +
 . Open the storage device. Use the `parted` command to begin working with the selected storage device. For example:
 +
+[source, console]
 ----
-sudo parted /dev/vdc
+$ sudo parted /dev/vdc
 GNU Parted 3.3
 Using /dev/vdc
 Welcome to GNU Parted! Type 'help' to view a list of commands.
@@ -50,6 +52,7 @@ Be sure to indicate the specific device you want to partition. If you just enter
 +
 . Set the partition table type to `gpt`, then enter `Yes` to accept it.
 +
+[source,]
 ----
 (parted) mklabel gpt
 Warning: the existing disk label on /dev/vdc will be destroyed
@@ -63,6 +66,7 @@ The `mklabel` and `mktable` commands are both used for making a partition table 
 ====
 . Review the partition table of the storage device.
 +
+[source,]
 ----
 (parted) print
 Model: Virtio Block Device (virtblk)
@@ -75,6 +79,7 @@ Number Start End Size File system Name Flags
 +
 . Create a new partition using the following command. For example, 1396 MB on partition 0:
 +
+[source,]
 ----
 (parted) mkpart primary 0 1396MB
 
@@ -98,6 +103,7 @@ Providing a partition name under GPT is a must; in the above example, primary is
 +
 . Quit using the `quit` command. Changes are automatically saved when you quit `parted`.
 +
+[source,]
 ----
 (parted) quit
 Information: You may need to update /etc/fstab. 
@@ -109,6 +115,7 @@ Information: You may need to update /etc/fstab.
 
 To get help on how to make a new partition, type: `help mkpart`.
 
+[source,]
 ----
 (parted) help mkpart
   mkpart PART-TYPE [FS-TYPE] START END     make a partition
