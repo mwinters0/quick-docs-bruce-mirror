@@ -13,7 +13,7 @@ As a Fedora user and system administrator, you can use these steps to install ad
 
 * Use the `dnf` utility to install packages that provide multimedia libraries:
 +
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf group install multimedia
 ----
@@ -43,7 +43,7 @@ NOTE: OpenH264 only enables H.264 in WebRTC contexts such as video calls. It doe
 
 The `fedora-cisco-openh264` repository is enabled by default. To install the plugins:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install gstreamer1-plugin-openh264 mozilla-openh264
 ----
