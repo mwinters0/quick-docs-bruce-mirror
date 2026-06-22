@@ -115,81 +115,92 @@ WARNING: The commands below will destroy any existing data on the device.
  
 * The best way, which provides high quality random data but takes a long time (several minutes per gigabyte on most systems)
 +
+[source, console]
 ----
-dd if=/dev/urandom of=<device>
+$ sudo dd if=/dev/urandom of=<device>
 ----
 * The Fastest way, which provides lower quality random data
 +
+[source, console]
 ----
-badblocks -c 10240 -s -w -t random -v <device>
+$ sudo badblocks -c 10240 -s -w -t random -v <device>
 ----
  
 === Format the device as a dm-crypt/LUKS encrypted device
 
 WARNING: The commands below will destroy any existing data on the device.
- 
+
+[source, console]
 ----
-cryptsetup luksFormat <device>
+$ sudo cryptsetup luksFormat <device>
 ----
  
 TIP: For more information, read the `cryptsetup(8)` man page.
  
 After supplying the passphrase twice the device will be formatted for use. To verify, use the following command:
- 
+
+[source, console]
 ----
-cryptsetup isLuks <device> && echo Success
+$ cryptsetup isLuks <device> && echo Success
 ----
  
 To see a summary of the encryption information for the device, use the following command:
- 
+
+[source, console]
 ----
-cryptsetup luksDump <device>
+$ cryptsetup luksDump <device>
 ----
  
 === Create a mapping to allow access to the device's decrypted contents
 To access the device's decrypted contents, a mapping must be established using the kernel `device-mapper`.
  
 It is useful to choose a meaningful name for this mapping. LUKS provides a UUID (Universally Unique Identifier) for each device. This, unlike the device name (eg: `/dev/sda3`), is guaranteed to remain constant as long as the LUKS header remains intact. To find a LUKS device's UUID, run the following command:
- 
+
+[source, console]
 ----
-cryptsetup luksUUID <device>
+$ cryptsetup luksUUID <device>
 ----
  
 An example of a reliable, informative and unique mapping name would be `luks-<uuid>`, where <uuid> is replaced with the device's LUKS UUID (eg: `luks-50ec957a-5b5a-47ee-85e6-f8085bbc97a8`). This naming convention might seem unwieldy but is it not necessary to type it often.
- 
+
+[source, console]
 ----
-cryptsetup luksOpen <device> <name>
+$ cryptsetup luksOpen <device> <name>
 ----
  
 There should now be a device node, `/dev/mapper/<name>`, which represents the decrypted device. This block device can be read from and written to like any other unencrypted block device.
  
 To see some information about the mapped device, use the following command:
- 
+
+[source, console]
 ----
-dmsetup info <name>
+$ dmsetup info <name>
 ----
  
 TIP: For more information, read the `dmsetup(8)` man page.
  
 === Create filesystems on the mapped device, or continue to build complex storage structures using the mapped device
 Use the mapped device node (`/dev/mapper/<name>`) as any other block device. To create an `ext2` filesystem on the mapped device, use the following command:
- 
+
+[source, console]
 ----
-mke2fs /dev/mapper/<name>
+sudo mke2fs /dev/mapper/<name>
 ----
  
 To mount this filesystem on `/mnt/test`, use the following command:
  
 IMPORTANT: The directory `/mnt/test` must exist before executing this command.
  
+[source, console]
 ----
-mount /dev/mapper/<name> /mnt/test
+sudo mount /dev/mapper/<name> /mnt/test
 ----
  
 === Add the mapping information to /etc/crypttab
  
 In order for the system to set up a mapping for the device, an entry must be present in the `/etc/crypttab` file. If the file doesn't exist, create it and change the owner and group to root (`root:root`) and change the mode to `0744`. Add a line to the file with the following format:
- 
+
+[source, conf]
 ----
 <name>  <device>  none
 ----
@@ -211,17 +222,19 @@ TIP: For details on the format of the /etc/fstab file, read the fstab(5) man pag
 If the sectors containing the LUKS headers are damaged - by user error or HW failure - all data in the encrypted block device is lost. Backing up the headers can help recovering data in such cases.
  
 To backup the LUKS headers, use the following command:
- 
+
+[source, console]
 ----
-cryptsetup luksHeaderBackup --header-backup-file <file> <device>
+$ sudo cryptsetup luksHeaderBackup --header-backup-file <file> <device>
 ----
  
 To restore the LUKS headers, use the following command:
  
 WARNING: The command below can destroy data, if wrong headers are applied or wrong device is selected! Be sure to backup headers from recovering device first.
- 
+
+[source, console]
 ----
-cryptsetup luksHeaderRestore --header-backup-file <file> <device>
+$ sudo cryptsetup luksHeaderRestore --header-backup-file <file> <device>
 ----
  
 See also https://gitlab.com/cryptsetup/cryptsetup/wikis/FrequentlyAskedQuestions#6-backup-and-data-recovery
@@ -232,29 +245,33 @@ a. Generate a key
 + 
 This will generate a 256-bit key in the file `$HOME/keyfile`.
 + 
+[source, console]
 ----
-dd if=/dev/urandom of=$HOME/keyfile bs=32 count=1
-chmod 600 $HOME/keyfile
+$ dd if=/dev/urandom of=$HOME/keyfile bs=32 count=1
+$ chmod 600 $HOME/keyfile
 ----
  
 b. Add the key to an available keyslot on the encrypted device
 + 
+[source, console]
 ----
-cryptsetup luksAddKey <device> ~/keyfile
+$ sudo cryptsetup luksAddKey <device> ~/keyfile
 ----
  
 c. Add a new passphrase to an existing device
 + 
+[source, console]
 ----
-cryptsetup luksAddKey <device>
+$ sudo cryptsetup luksAddKey <device>
 ----
 + 
 After being prompted for any one of the existing passprases for authentication, you will be prompted to enter the new passphrase.
  
 === Remove a passphrase or key from a device
- 
+
+[source, console]
 ----
-cryptsetup luksRemoveKey <device>
+$ sudo cryptsetup luksRemoveKey <device>
 ----
  
 You will be prompted for the passphrase you wish to remove and then for any one of the remaining passphrases for authentication.
