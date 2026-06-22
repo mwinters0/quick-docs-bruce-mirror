@@ -41,14 +41,14 @@ Once the repository is enabled, Chrome can be installed through GNOME Software o
 
 ==== Using the command line
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install chromium
 ----
 
 To upgrade Chromium:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf upgrade chromium
 ----
@@ -81,21 +81,21 @@ You can now search for *Google Chrome* in Discover and install it.
 
 . Install the third-party repositories package:
 +
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install fedora-workstation-repositories
 ----
 +
 . Enable the Google Chrome repository:
 +
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf config-manager setopt google-chrome.enabled=1
 ----
 +
 . Install Google Chrome:
 +
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install google-chrome-stable
 ----
