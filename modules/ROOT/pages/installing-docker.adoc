@@ -75,27 +75,27 @@ Mixing rpms from Docker with Fedora provided rpms is not recommended and may be 
 In order to get `docker` on the command line, use the command below.
 This will also install appropriate dependencies.
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install docker-cli containerd
+$ sudo dnf install docker-cli containerd
 ----
 
 In order to get Compose as a plug-in use the command below.
 This will also install appropriate dependencies.
 This provides Compose v2 features and capabilities.
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install docker-compose
+$ sudo dnf install docker-compose
 ----
 
 In order to get `docker-compose` on the command line, use the command below.
 This will also install appropriate dependencies.
 This provides Compose v2 features and capabilities.
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install docker-compose-switch
+$ sudo dnf install docker-compose-switch
 ----
 
 === Podman Alternatives
@@ -108,27 +108,27 @@ In order to get `docker` on the command line, use the command below.
 This will also install appropriate dependencies.
 This will conflict with `docker-cli`.
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install podman-docker
+$ sudo dnf install podman-docker
 ----
 
 In order to get Compose as a plug-in use the command below.
 This will also install appropriate dependencies.
 This provides Compose v2 features and capabilities.
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install podman docker-compose
+$ sudo dnf install podman docker-compose
 ----
 
 In order to get `docker-compose` on the command line, use the command below.
 This will also install appropriate dependencies.
 This provides Compose v2 features and capabilities.
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install podman docker-switch
+$ sudo dnf install podman docker-switch
 ----
 
 [[sect-fedora-40]]
@@ -169,18 +169,18 @@ Mixing rpms from Docker with Fedora provided rpms is not recommended and may be 
 In order to get `docker` on the command line, use the command below.
 This will also install appropriate dependencies.
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install moby-engine containerd
+$ sudo dnf install moby-engine containerd
 ----
 
 In order to get `docker-compose` on the command line, use the command below.
 This will also install appropriate dependencies.
 This provides Compose v1 features and capabilities.
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install docker-compose
+$ sudo dnf install docker-compose
 ----
 
 === Podman Alternatives
@@ -193,16 +193,16 @@ In order to get `docker` on the command line, use the command below.
 This will also install appropriate dependencies.
 This will conflict with `docker-cli`.
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install podman-docker
+$ sudo dnf install podman-docker
 ----
 
 In order to get `docker-compose` on the command line, use the command below.
 This will also install appropriate dependencies.
 This provides Compose v1 features and capabilities.
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install podman docker-compose
+$ sudo dnf install podman docker-compose
 ----
