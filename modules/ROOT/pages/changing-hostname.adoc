@@ -24,7 +24,8 @@ image::displaying-current-hostname-1.png[GNOME Settings - About]
 
 To see the hostname from the command line, use the command `hostnamectl` with no options. The example output below shows the static and transient hostnames. Your output may be slightly different depending on which hostname types have been set.
 
-....
+[source, ]
+----
    Static hostname: localhost.localdomain 
 Transient hostname: fedora
          Icon name: computer-laptop
@@ -35,15 +36,16 @@ Transient hostname: fedora
        CPE OS Name: cpe:/o:fedoraproject:fedora:33
             Kernel: Linux 5.10.10-200.fc33.x86_64
       Architecture: x86-64
-....
+----
 
 To see the current static, transient or pretty hostname, you can use the `hostnamectl` command with options, such as: 
 
-....
-hostnamectl --static
-hostnamectl --transient
-hostnamectl --pretty
-....
+[source, console]
+----
+$ hostnamectl --static
+$ hostnamectl --transient
+$ hostnamectl --pretty
+----
 
 
 
@@ -60,7 +62,8 @@ You can replace the value in the Device name field with the name of your choosin
 
 You can see the effect of the change by using the `hostnamectl` command again:
 
-....
+[source,]
+----
    Static hostname: emilys-2nd-dev-laptop
    Pretty hostname: Emily's 2nd dev laptop
          Icon name: computer-laptop
@@ -71,14 +74,15 @@ You can see the effect of the change by using the `hostnamectl` command again:
        CPE OS Name: cpe:/o:fedoraproject:fedora:33
             Kernel: Linux 5.10.10-200.fc33.x86_64
       Architecture: x86-64
-....
+----
 
 In the previous example, "Emily's 2nd dev laptop" was entered via the Settings app, and the static hostname "emilys-2nd-dev-laptop" was set automatically.
 
 Hostnames can also be set at the command line with the `hostnamectl set-hostname` command. For example:
 
-....
-sudo hostnamectl set-hostname --pretty "Emily's 2nd dev laptop"
-sudo hostnamectl set-hostname --static emily-dev-2
-....
+[source, console]
+----
+$ sudo hostnamectl set-hostname --pretty "Emily's 2nd dev laptop"
+$ sudo hostnamectl set-hostname --static emily-dev-2
+----
 
