@@ -42,7 +42,7 @@ Note that the enrolled machine owner key will be used to sign any future updates
 
 To delete the machine owner key, perform the following command in the terminal:
 +
-[subs="quotes"]
+[source, console]
 ----
-$ *sudo mokutil --delete /etc/pki/akmods/certs/public_key.der*
+$ sudo mokutil --delete /etc/pki/akmods/certs/public_key.der
 ----
