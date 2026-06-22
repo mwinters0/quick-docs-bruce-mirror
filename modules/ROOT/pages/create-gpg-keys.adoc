@@ -64,8 +64,9 @@ Now see <<backup-gpg-keys-kde>>.
 
 . Use the following shell command:
 +
+[source, console]
 ----
-gpg --full-generate-key
+$ gpg --full-generate-key
 ----
 +
 This command generates a key pair that consists of a public and a private key.
@@ -75,6 +76,7 @@ Distribute your *public* key as widely as possible, especially to people who you
 . Press the kbd:[Enter] key to assign a default value if desired.
   The first prompt asks you to select what kind of key you prefer:
 +
+[source,]
 ----
 Please select what kind of key you want:
    (1) RSA and RSA (default)
@@ -90,6 +92,7 @@ A RSA/RSA key allows you not only to sign communications, but also to encrypt fi
 
 . Choose the key size:
 +
+[source,]
 ----
 RSA keys may be between 1024 and 4096 bits long.
 What keysize do you want? (3072) 
@@ -101,6 +104,7 @@ Again, the default is sufficient for almost all users, and represents an _extrem
   It is a good idea to choose an expiration date instead of using the default, which is _none._
   If, for example, the email address on the key becomes invalid, an expiration date will remind others to stop using that public key.
 +
+[source,]
 ----
 Please specify how long the key should be valid.
          0 = key does not expire
@@ -115,6 +119,7 @@ Entering a value of `1y`, for example, makes the key valid for one year.
 (You may change this expiration date after the key is generated, if you change your mind.)
 Before the `gpg` program asks for signature information, the following prompt appears:
 +
+[source,]
 ----
 Is this correct (y/N)?
 ----
@@ -143,6 +148,7 @@ Finally, `gpg` generates random data to make your key as unique as possible.
 Move your mouse, type random keys, or perform other tasks on the system during this step to speed up the process.
 Once this step is finished, your keys are complete and ready to use:
 
+[source,]
 ----
 pub   rsa3072 2021-02-09 [SC] [expires: 2022-02-09]
       3782CBB60147010B330523DD26FBCC7836BF353A
@@ -155,8 +161,9 @@ It allows you to confirm to others that they have received your actual public ke
 You do not need to write this fingerprint down.
 To display the fingerprint at any time, use this command, substituting your email address:
 
+[source, console]
 ----
-gpg --fingerprint johndoe@example.com
+$ gpg --fingerprint johndoe@example.com
 ----
 
 Your key fingerprint is actually a 160 bit SHA-1 hash of the key, represented as a 40 character string of hexadecimal digits.
@@ -170,13 +177,15 @@ For this reason, it's preferred to use the "long" GPG key ID, which consists of 
 This represents the 64 lower-order bits of your fingerprint, which is sufficient to be collision-resistant.
 The `gpg` program makes it easy for you to find your key's long GPG key ID:
 
+[source, console]
 ----
-gpg --list-keys --fingerprint --keyid-format 0xlong johndoe@example.com
+$ gpg --list-keys --fingerprint --keyid-format 0xlong johndoe@example.com
 ----
 
 The `0xlong` format prepends "0x" to the key ID to make it clear that this is a series of hexadecimal digits; it is considered good practice to do this.
 The output from the above command looks like this:
 
+[source,]
 ----
 pub   rsa3072/0x26FBCC7836BF353A 2021-02-09 [SC] [expires: 2022-02-09]
       Key fingerprint = 3782 CBB6 0147 010B 3305  23DD 26FB CC78 36BF 353A
@@ -232,8 +241,9 @@ Now see <<exporting-gpg-keys-kde>>.
 
 Use the following command to make the backup, which you can then copy to a destination of your choice:
 
+[source, console]
 ----
-gpg --export-secret-keys --armor johndoe@example.com > johndoe-privkey.asc
+$ gpg --export-secret-keys --armor johndoe@example.com > johndoe-privkey.asc
 ----
 
 Store the copy in a secure place, such as a locked container.
@@ -288,15 +298,17 @@ Now see <<safeguarding-your-secret-key>>.
 
 Use the following command to send your key to a public keyserver:
 
+[source, console]
 ----
-gpg --send-key KEYNAME
+$ gpg --send-key KEYNAME
 ----
 
 For `KEYNAME`, substitute the key ID or fingerprint of your primary keypair.
 This will send your key to the gnupg default key server. If you prefer another one use:
 
+[source, console]
 ----
-gpg --keyserver hkp://pgp.mit.edu --send-key KEYNAME
+$ gpg --keyserver hkp://pgp.mit.edu --send-key KEYNAME
 ----
 
 Replacing `pgp.mit.edu` with your server of choice.
@@ -309,8 +321,9 @@ Now see <<safeguarding-your-secret-key>>.
 
 If you want to give or send a file copy of your key to someone, use this command to write it to an ASCII text file:
 
+[source, console]
 ----
-gpg --export --armor johndoe@example.com > johndoe-pubkey.asc
+$ gpg --export --armor johndoe@example.com > johndoe-pubkey.asc
 ----
 
 Now see <<safeguarding-your-secret-key>>.
@@ -349,8 +362,9 @@ Users may still use a revoked public key to verify old signatures, but not encry
 As long as you still have access to the private key, messages received previously may still be decrypted.
 If you forget the passphrase, you will not be able to decrypt messages encrypted to that key.
 
+[source, console]
 ----
-gpg --output revoke.asc --gen-revoke KEYNAME
+$ gpg --output revoke.asc --gen-revoke KEYNAME
 ----
 
 If you do not use the `--output` flag, the certificate will print to standard output.
@@ -365,8 +379,9 @@ It is a good idea to write the revocation certificate to secure removable media 
 
 . Revoke the key locally:
 +
+[source, console]
 ----
-gpg --import revoke.asc
+$ gpg --import revoke.asc
 ----
 +
 Once you locally revoke the key, you must send the revoked certificate to a keyserver, regardless of whether the key was originally issued in this way.
@@ -374,8 +389,9 @@ Distribution through a server helps other users to quickly become aware the key 
 
 . Export to a keyserver with the following command:
 +
+[source, console]
 ----
-gpg --keyserver hkp://pgp.mit.edu --send-keys KEYNAME
+$ gpg --keyserver hkp://pgp.mit.edu --send-keys KEYNAME
 ----
 +
 For `KEYNAME`, substitute either the key ID of your primary keypair or any part of a user ID that identifies your keypair.
