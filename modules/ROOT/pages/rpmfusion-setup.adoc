@@ -53,7 +53,7 @@ This procedure describes how to enable the RPM Fusion software repositories with
 
 . To enable the _Free_ repository, use:
 +
-[subs=+quotes]
+[source, console]
 ----
 $ sudo dnf install \
  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
@@ -61,7 +61,7 @@ $ sudo dnf install \
 
 . Optionally, enable the _Nonfree_ repository:
 +
-[subs=+quotes]
+[source, console]
 ----
 $ sudo dnf install \
  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
@@ -112,7 +112,7 @@ This procedure describes how to install the Appstream data provided by the RPM F
 [discrete]
 === Procedure
 
-[subs=+quotes]
+[source, console]
 ----
 $ sudo dnf group upgrade core
 ----
@@ -142,7 +142,7 @@ For more information about this process and the problem it solves, refer to the 
 
 . To install the versioned _Free_ and _Nonfree_ RPM Fusion repos:
 +
-[subs=+quotes]
+[source, console]
 ----
 $ rpm-ostree install \
  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
@@ -152,7 +152,7 @@ $ systemctl reboot
 
 . To replace the versioned RPM Fusion repos that were previously installed with the unversioned repos:
 +
-[subs=+quotes]
+[source, console]
 ----
 $ rpm-ostree update \
  --uninstall rpmfusion-free-release \
