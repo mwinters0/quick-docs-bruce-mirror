@@ -57,7 +57,8 @@ Create a new file named `/etc/X11/xorg.conf.d/99-synaptics-overrides.conf`.
 
 Then, in your favourite text editor, modify this file as such:
 
-....
+[source, conf]
+----
 Section  "InputClass"
     Identifier  "touchpad overrides"
     # This makes this snippet apply to any device with the "synaptics" driver
@@ -75,10 +76,11 @@ Section  "InputClass"
     ####################################
 
 EndSection
-....
+----
 
 For more information on tweaking `xorg.conf.d` files, please read the man page:
-[source,bash]
-[…]$ man xorg.conf
-
+[source, console]
+----
+$ man xorg.conf
+----
 
