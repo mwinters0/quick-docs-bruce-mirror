@@ -30,19 +30,19 @@ Some common reasons to build a custom kernel are:
 The easiest way to install all the build dependencies for the kernel is to use
 the Fedora kernel spec file:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install fedpkg
-fedpkg clone -a kernel
-cd kernel
-sudo dnf builddep kernel.spec
+$ sudo dnf install fedpkg
+$ fedpkg clone -a kernel
+$ cd kernel
+$ sudo dnf builddep kernel.spec
 ----
 
 If you want to use `make xconfig`, you'll need some additional packages:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install qt3-devel libXi-devel gcc-c++
+$ sudo dnf install qt3-devel libXi-devel gcc-c++
 ----
 
 === Secure boot
@@ -50,16 +50,16 @@ sudo dnf install qt3-devel libXi-devel gcc-c++
 Make sure you add the user doing the build to `/etc/pesign/users` and run the
 authorize user script:
 
-[source,bash]
+[source, console]
 ----
-sudo /usr/libexec/pesign/pesign-authorize
+$ sudo /usr/libexec/pesign/pesign-authorize
 ----
 
 Create a new Machine Owner Key (MOK) to import to UEFI:
 
-[source,bash]
+[source, console]
 ----
-openssl req -new -x509 -newkey rsa:2048 -keyout "key.pem" \
+$ openssl req -new -x509 -newkey rsa:2048 -keyout "key.pem" \
         -outform DER -out "cert.der" -nodes -days 36500 \
         -subj "/CN=<your name>/"
 ----
@@ -68,24 +68,24 @@ Import the new certificate into your UEFI database:
 
 NOTE: You will be asked to authorize the import at next boot.
 
-[source,bash]
+[source, console]
 ----
-mokutil --import "cert.der"
+$ sudo mokutil --import "cert.der"
 ----
 
 Create a PKCS #12 key file:
 
-[source,bash]
+[source, console]
 ----
-openssl pkcs12 -export -out key.p12 -inkey key.pem -in cert.der
+$ openssl pkcs12 -export -out key.p12 -inkey key.pem -in cert.der
 ----
 
 You can then import the certificate and key into the nss database:
 
-[source,bash]
+[source, console]
 ----
-certutil -A -i cert.der -n "<MOK certificate nickname>" -d /etc/pki/pesign/ -t "Pu,Pu,Pu"
-pk12util -i key.p12 -d /etc/pki/pesign
+$ sudo certutil -A -i cert.der -n "<MOK certificate nickname>" -d /etc/pki/pesign/ -t "Pu,Pu,Pu"
+$ sudo pk12util -i key.p12 -d /etc/pki/pesign
 ----
 
 Once the certificate and key are imported into your nss database, you can build the kernel
@@ -100,18 +100,18 @@ it with `+pesign -c %{pe_signing_cert} --certdir /etc/pki/pesign/ -s -i $KernelI
 It's also recommended that you install `ccache`, which can help speed up
 rebuilds:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install ccache
+$ sudo dnf install ccache
 ----
 
 == Building a Kernel from the Fedora dist-git
 
 First, a checkout from the https://src.fedoraproject.org/rpms/kernel[Fedora kernel dist-git] is required:
 
-[source,bash]
+[source, console]
 ----
-git clone https://src.fedoraproject.org/rpms/kernel.git
+$ git clone https://src.fedoraproject.org/rpms/kernel.git
 ----
 
 The kernel, like any other Fedora package, has a branch per Fedora release.
@@ -121,9 +121,9 @@ The kernel, like any other Fedora package, has a branch per Fedora release.
 . For example, to build a Fedora 28 kernel, you would first need
 to switch to that branch with:
 +
-[source,bash]
+[source, console]
 ----
-git switch f28
+$ git switch f28
 ----
 
 . To avoid conflicts with existing kernels, you can set a custom buildid by
@@ -150,16 +150,16 @@ The patch can then be added to `linux-kernel-test.patch` or the specfile.
 
 . Build the RPMs:
 +
-[source,bash]
+[source, console]
 ----
-fedpkg local
+$ fedpkg local
 ----
 
 . Install the new kernel:
 +
-[source,bash]
+[source, console]
 ----
-sudo dnf install --nogpgcheck ./x86_64/kernel-$version.rpm
+$ sudo dnf install --nogpgcheck ./x86_64/kernel-$version.rpm
 ----
 
 
@@ -182,26 +182,26 @@ your needs first]
 Clone the kernel tree from kernel.org. If you don't know what tree you need,
 you should get Linus' tree:
 
-[source,bash]
+[source, console]
 ----
-git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-cd linux
+$ git clone git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+$ cd linux
 ----
 
 You may also want the stable tree (4.y.z releases), which you can add with:
 
-[source,bash]
+[source, console]
 ----
-git remote add -f stable git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+$ git remote add -f stable git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 ----
 
 === Applying patches
 
 To apply patch files, you can use git-am:
 
-[source,bash]
+[source, console]
 ----
-git am -3 <patch file>
+$ git am -3 <patch file>
 ----
 
 === Configuring the kernel
@@ -219,9 +219,9 @@ If you want to tweak the configuration of a kernel you already have installed,
 you can start with its configuration which is stored in /boot/. For example,
 to start with the configuration of the currently running kernel:
 
-[source,bash]
+[source, console]
 ----
-cp /boot/config-`uname -r`* .config
+$ cp /boot/config-`uname -r`* .config
 ----
 
 ==== Starting from dist-git
@@ -230,12 +230,12 @@ If you want to use the configuration for a kernel you do not have installed,
 you can get the configuration from the Fedora dist-git repository. For example,
 to start with the latest Rawhide configuration:
 
-[source,bash]
+[source, console]
 ----
-cd <dist-git directory>
-git checkout rawhide
-./generate_all_configs.sh # Ensure the latest configuration files are generated
-cp kernel-<arch>.config <linux kernel directory>.config
+$ cd <dist-git directory>
+$ git checkout rawhide
+$ ./generate_all_configs.sh # Ensure the latest configuration files are generated
+$ cp kernel-<arch>.config <linux kernel directory>.config
 ----
 
 The debug versions of the configuration files are in
@@ -265,28 +265,28 @@ you'll want to change the `EXTRAVERSION` in the `Makefile` to something you'll
 recognize later. For example, if it reads `EXTRAVERSION = -rc5` change it to
 `EXTRAVERSION = -rc5-dave`:
 
-[source,bash]
+[source, console]
 ----
-$EDITOR Makefile
+$ $EDITOR Makefile
 ----
 
 Now you're ready to build the kernel:
 
-[source,bash]
+[source, console]
 ----
-make oldconfig
-make bzImage
-make modules
+$ make oldconfig
+$ make bzImage
+$ make modules
 ----
 
 === Installing the kernel
 
 Installing the kernel is as simple as:
 
-[source,bash]
+[source, console]
 ----
-sudo make modules_install
-sudo make install
+$ sudo make modules_install
+$ sudo make install
 ----
 
 === Rebuilding
@@ -315,18 +315,18 @@ files it installed will have this as part of the filename. So you should be
 able to use wildcards to delete them safely using commands similar to those
 below (just replace 'dave' with whatever tag you chose):
 
-[source,bash]
+[source, console]
 ----
-rm -f /boot/config-*dave* /boot/initramfs-*dave* /boot/vmlinuz-*dave* /boot/System.map-*dave*
-rm -rf /lib/modules/*dave*
+$ sudo rm -f /boot/config-*dave* /boot/initramfs-*dave* /boot/vmlinuz-*dave* /boot/System.map-*dave*
+$ sudo rm -rf /lib/modules/*dave*
 ----
 
 Finally, you will need to remove the kernel as an option in your bootloader.
 Assuming your system is running grub2, this can be done by removing the
 bootloader specification entries and rebuilding the grub config:
 
-[source,bash]
+[source, console]
 ----
-rm -f /boot/loader/entries/*dave*
-grub2-mkconfig -o /boot/grub2/grub.cfg
+$ sudo rm -f /boot/loader/entries/*dave*
+$ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ----
