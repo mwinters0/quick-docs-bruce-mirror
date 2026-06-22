@@ -16,17 +16,17 @@ With Fedora 42, PyTorch is now available directly through the system package man
 
 You can install PyTorch using the Fedora package manager:
 
-[source, bash]
+[source, console]
 ----
-sudo dnf install python3-torch
+$ sudo dnf install python3-torch
 ----
 
 This installs the core `torch` package and dependencies required to start developing with PyTorch.
 
 You can also use pip to install Pytorch:
-[source, bash]
+[source, console]
 ----
-pip install torch
+$ pip install torch
 ----
 
 Setting up local development with CUDA is very well documented here https://pytorch.org/get-started/locally/
