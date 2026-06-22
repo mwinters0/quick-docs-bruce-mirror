@@ -16,9 +16,9 @@ Ollama is officially available only on Fedora 42 and above. Attempting to instal
 
 Installing Ollama is straightforward using Fedora’s native package manager. Open a terminal and run:
 
-[source, bash]
+[source, console]
 ----
-sudo dnf install ollama
+$ sudo dnf install ollama
 ----
 
 This command installs the Ollama CLI and its supporting components.
@@ -31,36 +31,36 @@ Once installed, you can start using Ollama immediately. Below are a few basic co
 
 To download and run a supported LLM (e.g., `llama2`):
 
-[source, bash]
+[source, console]
 ----
-ollama run llama2
+$ ollama run llama2
 ----
 
 This command pulls the model if it's not already downloaded, and starts a local session.
 
 === Pull a Model Without Running
 
-[source, bash]
+[source, console]
 ----
-ollama pull mistral
+$ ollama pull mistral
 ----
 
 This will download the `mistral` model without starting it.
 
 === List Installed Models
 
-[source, bash]
+[source, console]
 ----
-ollama list
+$ ollama list
 ----
 
 Shows all models currently available on your system.
 
 === Remove a Model
 
-[source, bash]
+[source, console]
 ----
-ollama rm llama2
+$ ollama rm llama2
 ----
 
 Cleans up disk space by removing a previously downloaded model.
