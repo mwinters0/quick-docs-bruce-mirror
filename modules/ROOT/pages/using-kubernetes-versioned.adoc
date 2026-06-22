@@ -68,18 +68,18 @@ Use systemctl to enable kube-proxy on all nodes. Enable kube-apiserver, kube-con
 For most modern kubernetes clusters install kubernetes, kubernetes-kubeadm, and kubernetes-client on each machine in the cluster.
 If disk space is a constraint only install kubernetes-client on control-plane machines.
 
-[source,bash]
+[source, console]
 ----
 # using kubernetes 1.34 as an example
-sudo dnf install kubernetes1.34 kubernetes1.34-kubeadm kubernetes1.34-client
+$ sudo dnf install kubernetes1.34 kubernetes1.34-kubeadm kubernetes1.34-client
 ----
 
 If conducting a manual installation of Kubernetes (see link:https://github.com/kelseyhightower/kubernetes-the-hard-way[Kubernetes The Hard Way]) then install all kubernetes rpms except kubernetes-kubeadm.
 
-[source,bash]
+[source, console]
 ----
 # using kubernetes 1.34 as an example
-sudo dnf install kubernetes1.34 kubernetes1.34-client kubernetes1.34-systemd
+$ sudo dnf install kubernetes1.34 kubernetes1.34-client kubernetes1.34-systemd
 ----
 
 [[sect-update]]
@@ -92,21 +92,21 @@ The remove and install sequence using normal ```dnf``` commands to first remove 
 
 *Important Note* - this is only needed when changing minor versions, that is replacing v1.34 with v1.31. Updates at the patch level such as v1.34.2 to v1.34.3 use the normal ```dnf update``` command.
 
-[source,bash]
+[source, console]
 ----
 # Remove and replace with kubernetes 1.34 and 1.31 as an example
-sudo dnf remove kubernetes1.34 kubernetes1.34-kubeadm kubernetes1.34-client
-sudo dnf install kubernetes1.31 kubernetes1.31-kubeadm kubernetes1.31-client
+$ sudo dnf remove kubernetes1.34 kubernetes1.34-kubeadm kubernetes1.34-client
+$ sudo dnf install kubernetes1.31 kubernetes1.31-kubeadm kubernetes1.31-client
 ----
 
 The ```dnf swap``` command can also be used to change from one Kubernetes release to the next.
 Using swap avoids re-installation of dependencies but the ```kubernetes1.31*``` dnf package specification will install all matching rpms from the repository and not just the rpms removed by the initial ```kubernetes1.34*``` package specification.
 
 
-[source,bash]
+[source, console]
 ----
 # Remove and replace with kubernetes 1.34 and 1.31 as an example
-sudo dnf swap kubernetes1.34* kubernetes1.31*
+$ sudo dnf swap kubernetes1.34* kubernetes1.31*
 ----
 
 [[sect-retirement]]
