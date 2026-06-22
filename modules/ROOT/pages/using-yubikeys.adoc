@@ -52,15 +52,19 @@ Note that one difference between both PAM modules is that with pam_yubico you do
 
 Install the PAM yubico module from the official repositories:
 
-[source, bash]
-[…]$ sudo dnf install pam_yubico
+[source, console]
+----
+$ sudo dnf install pam_yubico
+----
 
 ==== For pam_u2f
 
 Install the PAM u2f module and the CLI tool from the official repositories:
 
-[source, bash]
-[…]$ sudo dnf install pam-u2f pamu2fcfg
+[source, console]
+----
+$ sudo dnf install pam-u2f pamu2fcfg
+----
 
 === Base configuration files
 
@@ -72,13 +76,17 @@ Create two base configuration files in /etc/pam.d/yubikey-required and yubikey-s
 
 For YubiCloud, use the following:
 
-[source]
+[source, conf]
+----
 #%PAM-1.0
 auth       required     pam_yubico.so id=[Your API Client ID] key=[Your API Client Key]
+----
 
-[source]
+[source, conf]
+----
 #%PAM-1.0
 auth       sufficient     pam_yubico.so id=[Your API Client ID] key=[Your API Client Key]
+----
 
 [CAUTION]
 ====
@@ -94,19 +102,25 @@ Note that the online auth method won't work if the device is offline and can't r
 ====
 If you have SELinux on the enforcing mode (the default mode), you should flip on the allow_ypbind boolean first, because pam_yubico needs to be able to connect to Yubico's online authentication servers.
 
-[source, bash]
-[…]$ sudo setsebool -P allow_ypbind=1
+[source, console]
+----
+$ sudo setsebool -P allow_ypbind=1
+----
 ====
 
 For challenge-response, use the following:
 
-[source]
+[source, conf]
+----
 #%PAM-1.0
 auth       required     pam_yubico.so mode=challenge-response
+----
 
-[source]
+[source, conf]
+----
 #%PAM-1.0
 auth       sufficient     pam_yubico.so mode=challenge-response
+----
 
 [NOTE]
 ====
@@ -130,38 +144,38 @@ Keep an existing root shell or an additional login session open while changing a
 
 ==== Check the current authselect profile:
 
-[source,bash]
+[source, console]
 ----
-sudo authselect current
+$ sudo authselect current
 ----
 
 ==== Enable U2F support on the current profile by adding the `with-pam-u2f` feature. Use the same `Profile ID` that is shown by `authselect current`. For example:
 
-[source,bash]
+[source, console]
 ----
-sudo authselect select sssd with-pam-u2f
+$ sudo authselect select sssd with-pam-u2f
 ----
 
 or:
 
-[source,bash]
+[source, console]
 ----
-sudo authselect select local with-pam-u2f
+$ sudo authselect select local with-pam-u2f
 ----
 
 ==== Apply the changes (if needed):
 
-[source,bash]
+[source, console]
 ----
-sudo authselect apply-changes
+$ sudo authselect apply-changes
 ----
 
 ==== Test authentication in a new terminal session (for example with `sudo`) before logging out:
 
-[source,bash]
+[source, console]
 ----
-sudo -k
-sudo true
+$ sudo -k
+$ sudo true
 ----
 
 
@@ -178,13 +192,17 @@ The files `/etc/pam.d/u2f-required` and `/etc/pam.d/u2f-sufficient` are *PAM inc
 To actually use them, you must include one of these files in the PAM configuration of the desired service (e.g. `login`, `sudo`, `sshd`, `gdm`/`sddm`) as described in the next section.
 ====
 
-[source]
+[source, conf]
+----
 #%PAM-1.0
 auth       required     pam_u2f.so
+----
 
-[source]
+[source, conf]
+----
 #%PAM-1.0
 auth       sufficient     pam_u2f.so
+----
 
 [NOTE]
 ====
@@ -197,51 +215,67 @@ You may add the debug option at the end of these lines right after the mode opti
 
 If you are using the online YubiCloud method, you need the ID of your YubiKey. For this, just enter the key and retrieve an OTP code with a short press on the button and extract the first 12 characters - this is your key ID.
 
-[source]
+[source, ]
+----
 cccccbcgebif | bclbtjihhbfbduejkuhgvhkehnicrfdj
+----
 
 Create a configuration file ~/.yubico/authorized_yubikeys with your user account, followed by key IDs separated by colons.
 
-[source]
+[source, conf]
+----
 fedora-user:cccccbcgebif[:<another-key-id>]
+----
 
 Alternatively, activate challenge-response in slot 2 and register with your user account.
 The first command (ykman) can be skipped if you already have a challenge-response credential stored in slot 2 on your YubiKey. (Verify with 'ykman otp info')
 Repeat both or only the last step if you have a backup key (strongly recommended).
 
-[source, bash]
-[…]$ ykman otp chalresp --generate --touch 2
-[…]$ ykpamcfg -2
+[source, console]
+----
+$ ykman otp chalresp --generate --touch 2
+$ ykpamcfg -2
+----
 
-[source]
+[source, ]
+----
 Stored initial challenge and expected response in '/home/<username>/.yubico/challenge-1...5'.
+----
 
 Or for any other system user using sudo.
 
-[source, bash]
-[…]$ sudo -u someuser ykpamcfg -2
+[source, console]
+----
+$ sudo -u someuser ykpamcfg -2
+----
 
 ==== For pam_u2f
 
 Use the tool pamu2fcfg to retrieve a configuration line that goes into ~/.config/Yubico/u2f_keys. This configuration line consists of a username and a part tied to a key separated by a colon.
 
-[source]
+[source, ]
+----
 fedora-user:owBYtPIH2yzjlSQaRrVcxB...Pg==,es256,+presence
+----
 
 If the key is PIN protected, you'll be asked to enter the PIN for this operation.
 
 Insert your key and run:
 
-[source, bash]
-[…]$ mkdir -p ~/.config/Yubico
-[…]$ pamu2fcfg > ~/.config/Yubico/u2f_keys
+[source, console]
+----
+$ mkdir -p ~/.config/Yubico
+$ pamu2fcfg > ~/.config/Yubico/u2f_keys
+----
 
 If you have a backup key, add it with the --nouser option and append it to the existing key (line). (All output should end up in the same line.)
 
 Insert your backup key and run:
 
-[source, bash]
-[…]$ pamu2fcfg -n >> ~/.config/Yubico/u2f_keys
+[source, console]
+----
+$ pamu2fcfg -n >> ~/.config/Yubico/u2f_keys
+----
 
 
 === Configure desired PAM modules
@@ -276,21 +310,28 @@ NOTE: If you enabled pam_u2f via authselect (recommended), you usually do not ne
 
 Examples:
 
-[source]
+[source, conf]
+----
 auth include yubikey-sufficient
+----
 
-[source]
+[source, conf]
+----
 auth include u2f-sufficient
+----
 
 The following example sets a YubiKey OTP (pam_yubico) as a 'sufficient' factor for terminal login. This means that a YubiKey alone is enough to authenticate a user when logging in on a terminal.
 
 Open /etc/pam.d/login with your editor of choice. Find the line that reads "auth substack system-auth". Above that, insert:
 
-[source]
+[source, conf]
+----
 auth include yubikey-sufficient
+----
 
 The result looks similar to this:
-[source]
+[source, conf]
+----
 #%PAM-1.0
 auth       include      yubikey-sufficient
 auth       substack     system-auth
@@ -308,6 +349,7 @@ session    optional     pam_keyinit.so force revoke
 session    include      system-auth
 session    include      postlogin
 -session   optional     pam_ck_connector.so
+----
 
 Next time you open a console (local, not an SSH session) and attempt to log in, you should be prompted `YubiKey for '<user>':`. Tap your YubiKey to input an OTP, and you will be logged in without entering a password.
 
@@ -324,23 +366,31 @@ A YubiKey comes pre-configured for Yubico OTP, but apart from that it uses defau
 
 There are essentially two tools to use together with their respective GUI variants. 'yubikey-manager' and 'ykpersonalize'. The former is newer but supports less options than the latter. For all available options, install both.
 
-[source, bash]
-[…]$ sudo dnf install ykpers
+[source, console]
+----
+$ sudo dnf install ykpers
+----
 
 There is a gui for this command:
 
-[source, bash]
-[…]$ sudo dnf install yubikey-personalization-gui
+[source, console]
+----
+$ sudo dnf install yubikey-personalization-gui
+----
 
 There is a more recent, simpler tool, ykman:
 
-[source, bash]
-[…]$ sudo dnf install yubikey-manager
+[source, console]
+----
+$ sudo dnf install yubikey-manager
+----
 
 YubiKey manager also has a gui:
 
-[source, bash]
-[…]$ sudo dnf install yubikey-manager-qt
+[source, console]
+----
+$ sudo dnf install yubikey-manager-qt
+----
 
 === Writing a new static password to the second slot of the key
 
@@ -348,13 +398,17 @@ Newer YubiKeys (YubiKey 2+) have the ability to store two separate configuration
 
 Write a static key using ykman otp static.
 
-[source, bash]
-[…]$ ykman otp static 2 cbdefghijklnrtuv
+[source, console]
+----
+$ ykman otp static 2 cbdefghijklnrtuv
+----
 
 A more elaborate example: write a new static key to the second configuration slot using a specific AES key.
 
-[source, bash]
-[…]$ ykpersonalize -2 -o append-cr -a 123456deadcafebeef65432112345678 -o -man-update
+[source, console]
+----
+$ ykpersonalize -2 -o append-cr -a 123456deadcafebeef65432112345678 -o -man-update
+----
 
 This writes a static key to the YubiKey based on the 32-byte AES key specified with the -a option. The -2 option sets the second slot as the target. The other two options are a matter of personal taste. The append-cr option sends a carriage return as the last character of the key. That way you do not have to press <ENTER> yourself. The -man-update option disables easy updating of the static key in the YubiKey. Enabling this will allow for altering the static password without the use of ykpersonalize.
 
@@ -367,8 +421,10 @@ Slot 1 is special as it contains a factory credential already uploaded to YubiCl
 
 If we want to write a new configuration to the first slot of the key, we need to specify some more options. If you want to be able to upload you key to Yubico, in order to authenticate against their servers, remember what the values are that you use below. You will need them later on.
 
-[source, bash]
-[…]$ ykpersonalize -1 -o fixed=vvhhhrhkhgidic -o uid=deadbeefcafe -a 123456deadcfaebeef65432112345678 -o append-cr
+[source, console]
+----
+$ ykpersonalize -1 -o fixed=vvhhhrhkhgidic -o uid=deadbeefcafe -a 123456deadcfaebeef65432112345678 -o append-cr
+----
 
 The -1 option tells ykpersonalize to use the first configuration. The fixed option specifies the public ID of the YubiKey. This is referred to as the 'prefix' later on, when we are uploading it. The value you use here has to start with 'ff' in hex or 'vv' in modhex (xref:#_what_is_modhex[see below]). Yubico enforces this when you try to upload your key to their servers. The value for the fixed option can be up to 16 characters in length.
 
@@ -409,28 +465,34 @@ The https://www.yubico.com/authentication-standards/smart-card/[Personal Identit
 
 Set the PIN.
 
-[source, bash]
-[…]$ ykman piv access change-pin
+[source, console]
+----
+$ ykman piv access change-pin
 Enter the current PIN: 123456
 Enter the new PIN: ********
 Repeat for confirmation: ********
 New PIN set.
+----
 
 Set the PUK.
 
-[source, bash]
-[…]$ ykman piv access change-puk
+[source, console]
+----
+$ ykman piv access change-puk
 Enter the current PUK: 12345678
 Enter the new PUK: ********
 Repeat for confirmation: ********
 New PUK set.
+----
 
 Update the Management Key.
 
-[source, bash]
-[…]$ ykman piv access change-management-key --generate --protect
+[source, console]
+----
+$ ykman piv access change-management-key --generate --protect
 Enter the current management key [blank to use default key]:
 Enter PIN: ********
+----
 
 You can now safely use the PIV module to generate private keys and store certificates.
 
@@ -442,12 +504,14 @@ One interesting use case of the FIDO module to note is storing OpenSSH public-ke
 
 If your key supports FIDO, change its PIN with ykman fido access like this:
 
-[source, bash]
-[…]$ ykman piv access change-pin
+[source, console]
+----
+$ ykman piv access change-pin
 Enter the current PIN: 123456
 Enter the new PIN: ********
 Repeat for confirmation: ********
 New PIN set.
+----
 
 === Configure a password for OATH
 
@@ -455,15 +519,19 @@ The OATH feature provides TOTP and HOTP authentication protocols. It can be prot
 
 Change the OATH password with:
 
-[source, bash]
-[…]$ ykman oath access change
+[source, console]
+----
+$ ykman oath access change
 Enter the new password:
 Repeat for confirmation:
+----
 
 Configure your device to remember this password so you don't have to re-enter it anymore.
 
-[source, bash]
-[…]$ ykman oath access remember
+[source, console]
+----
+$ ykman oath access remember
+----
 
 == Using the YubiKey to authenticate against OpenSSH servers
 
@@ -471,13 +539,17 @@ Using FIDO2 and OpenSSH 8.2+, you can generate OpenSSH keys that are only usable
 
 Generate a public key on every host you intend to use the private key, so an OpenSSH agent may discover it:
 
-[source, bash]
-[…]$ ssh-keygen -t ed25519-sk
+[source, console]
+----
+$ ssh-keygen -t ed25519-sk
+----
 
 Generate the public key and store its identity in the FIDO2 module to make the private-public key-pair portable:
 
-[source, bash]
-[…]$ ssh-keygen -t ed25519-sk -O resident -O application=ssh:fedora -O verify-required
+[source, console]
+----
+$ ssh-keygen -t ed25519-sk -O resident -O application=ssh:fedora -O verify-required
+----
 
 [NOTE]
 So-called resident keys require that the private key be protected by a PIN.
@@ -488,33 +560,43 @@ If the key does not support FIDO2, you have to use an alternative method via the
 
 Create an ED25519 private key inside the PIV module, requiring pin entry upon use and always require a touch of the YubiKey button:
 
-[source, bash]
-[…]$ ykman piv keys generate --algorithm ED25519 --pin-policy ONCE --touch-policy ALWAYS 9a public.pem
+[source, console]
+----
+$ ykman piv keys generate --algorithm ED25519 --pin-policy ONCE --touch-policy ALWAYS 9a public.pem
 Enter PIN: ********
+----
 
 The slot 9a on the key is dedicated to authentication. There are https://docs.yubico.com/yesdk/users-manual/application-piv/slots.html[more slots] for features like encryption or signing.
 
 Create a certificate in this same slot for the PIV/PKCS#11 library:
 
-[source, bash]
-[…]$ ykman piv certificates generate --subject "CN=OpenSSH" --hash-algorithm SHA384 9a pubkey.pem
+[source, console]
+----
+$ ykman piv certificates generate --subject "CN=OpenSSH" --hash-algorithm SHA384 9a pubkey.pem
 Enter PIN: ********
 Touch your YubiKey…
+----
 
 Now generate a public key from the X.509 certificate stored on the YubiKey. Other features like resident keys work the same as with the FIDO2 approach, but you have to add the additional option as shown below.
 
-[source, bash]
-[…]$ ssh-keygen -D /usr/lib/libykcs11.so -e
+[source, console]
+----
+$ ssh-keygen -D /usr/lib/libykcs11.so -e
+----
 
 Log in to systems using this public key:
 
-[source, bash]
-[…]$ ssh -I /usr/lib/libykcs11.so user@remote.example.org
+[source, console]
+----
+$ ssh -I /usr/lib/libykcs11.so user@remote.example.org
+----
 
 The ssh-agent may also load keys from the YubiKey with:
 
-[source, bash]
-[…]$ ssh -s /usr/lib/libykcs11.so
+[source, console]
+----
+$ ssh -s /usr/lib/libykcs11.so
+----
 
 == Using the YubiKey to authenticate to websites
 
@@ -524,15 +606,21 @@ As an alternative to Yubico OTP or WebAuthn, neither of which require storage of
 
 Install the desktop application from the official repositories:
 
-[source, bash]
-[…]$ sudo dnf install -y yubioath-desktop
+[source, console]
+----
+$ sudo dnf install -y yubioath-desktop
+----
 
 Add an TOTP account with ykman like this:
 
-[source, bash]
-[…]$ ykman oath accounts add google <TOTP secret>
+[source, console]
+----
+$ ykman oath accounts add google <TOTP secret>
+----
 
 Retrieve a TOTP code like this:
 
-[source, bash]
-[…]$ ykman oath accounts code google
+[source, console]
+----
+$ ykman oath accounts code google
+----
