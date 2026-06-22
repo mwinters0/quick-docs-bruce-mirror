@@ -17,6 +17,7 @@ The configuration GUI (See above) is either https://bugzilla.redhat.com/enter_bu
 
 Most GTK+ applications use the GTK+ print dialog. If the problem occurs when using GTK+ applications but not when printing from the command line or from another non-GTK+ application, the problem should probably be reported against the GTK+ version which the application uses. You can find out the version by the following query (*thunderbird* is used as an example of RPM package):
 
+[source, console]
 ----
 $ rpm -q thunderbird | grep gtk
 libgtk-3.so.0
@@ -60,6 +61,7 @@ Be prepared to include some information about your system as well.
 * cupsd journal logs when debug level 2 is turned on. See the xref:how-to-debug-printing-problems.adoc#_enable_cups_debug_logging[how-to for turning debug2 on and for getting logs from systemd-journald].
 * if the issue is connected to a print job, attach journal logs for this specific job too. How-to get logs xref:how-to-debug-printing-problems.adoc#_get_a_job_log_for_a_specific_job_id[here], example with JID. You can find out JID value by command:
 
+[source, console]
 ----
 $ lpstat -W all
 ----
