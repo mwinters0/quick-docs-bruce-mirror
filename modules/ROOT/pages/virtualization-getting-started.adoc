@@ -26,6 +26,7 @@ To run virtualization on Fedora, you need:
 
 KVM requires a CPU with virtualization extensions, found on most consumer CPUs. These extensions are called Intel VT or AMD-V. To check whether you have CPU support, run the following command:
 
+[source, console]
 ----
 $ grep -E '^flags.*(vmx|svm)' /proc/cpuinfo
 ----
@@ -43,7 +44,7 @@ selecting *Virtualization* in the *Base Group* in the installer.
 
 For existing Fedora installations, you can install the virtualization tools via the command line using the Virtualization Package Group. To view the packages, run:
 
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ dnf group info virtualization
 
@@ -65,35 +66,35 @@ Group: Virtualization
 
 . Run the following command to install the mandatory and default packages in the virtualization group:
 +
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ sudo dnf install @virtualization
 ----
 +
 Alternatively, to install the mandatory, default, and optional packages, run:
 +
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ sudo dnf group install --with-optional virtualization
 ----
 +
 . After the packages install, start the `libvirtd` service:
 +
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ sudo systemctl start libvirtd
 ----
 +
 To start the service on boot, run:
 +
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ sudo systemctl enable libvirtd
 ----
 +
 . To verify that the KVM kernel modules are properly loaded:
 +
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ lsmod | grep kvm
 kvm_amd               114688  0
@@ -129,19 +130,19 @@ Adjust the ram, vcpus, and disk size parameters according to the resources you h
 
 * Storage: An easy way to check your disk size from a bash shell is using the `df(1)`` utility from the shell:
 +
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ df -h
 ----
 * Memory: You can check your available memory from the shell using free(1):
 +
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ free -m
 ----
 * VCPU: You can check your processor information using `lscpu(1)`:
 +
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ lscpu
 ----
@@ -163,14 +164,14 @@ Again, you do not need to manually allocate storage using the example options sh
 
 To create a fully allocated (non-sparse) raw file:
 
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ sudo dd if=/dev/zero of=/var/lib/libvirt/images/guest.img bs=1M count=20480
 ----
 
 you can also use fallocate(1):
 
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ sudo fallocate -l 20480M /var/lib/libvirt/images/guest.img
 ----
@@ -179,7 +180,7 @@ $ sudo fallocate -l 20480M /var/lib/libvirt/images/guest.img
 
 To create a dynamically allocated (sparse) raw file:
 
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ sudo rm -f /var/lib/libvirt/images/guest.img
 $ sudo truncate --size=20480M /var/lib/libvirt/images/guest.img
@@ -189,16 +190,16 @@ $ sudo truncate --size=20480M /var/lib/libvirt/images/guest.img
 ====== QCOW2
 To create a new qcow2-formatted disk separately, you can use qemu-img (the example below specifies a disk size of 20G):
 
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
-# sudo qemu-img create -f qcow2 /var/lib/libvirt/images/guest.qcow2 20480
+$ sudo qemu-img create -f qcow2 /var/lib/libvirt/images/guest.qcow2 20480
 ----
 
 More information about libvirt storage options can be found at https://libvirt.org/storage.html.
 
 Finally, run the virt-install command using the following format (adjusting parameters as needed):
 
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ sudo virt-install --name Fedora{MAJOROSVER} \
 --description 'Fedora {MAJOROSVER} Workstation' \
@@ -225,7 +226,7 @@ If graphics were enabled, a VNC window will open and present the graphical insta
 
 . Start Virtual Machine Manager by navigating to menu:Applications[System Tools], or by running the following command:
 +
-[source,shell,subs="attributes"]
+[source, console, subs="attributes"]
 ----
 $ sudo virt-manager
 ----
@@ -247,6 +248,7 @@ When the installation of the guest operating system is complete, it can be manag
 
 . Start the Virtual Machine Manager by navigating to menu:[Applications]System Tools, or run:
 +
+[source, console]
 ----
 $ virt-manager
 ----
@@ -272,54 +274,63 @@ The `virsh` command-line utility allows you to manage virtual machines on the co
 
 To start a virtual machine:
 
+[source, console]
 ----
 $ virsh create <name of virtual machine>
 ----
 
 To list the virtual machines currently running:
 
+[source, console]
 ----
 $ virsh list
 ----
 
 To list all virtual machines, running or not:
 
+[source, console]
 ----
 $ virsh list --all
 ----
 
 To gracefully power off a guest:
 
+[source, console]
 ----
 $ virsh shutdown <virtual machine (name | id | uuid)>
 ----
 
 To non gracefully power off a guest:
 
+[source, console]
 ----
 $ virsh destroy <virtual machine (name | id | uuid)>
 ----
 
 To save a snapshot of the machine to a file:
 
+[source, console]
 ----
 $ virsh save <virtual machine (name | id | uuid)> <filename>
 ----
 
 To restore a previously saved snapshot:
 
+[source, console]
 ----
 $ virsh restore <filename>
 ----
 
 To export the configuration file of a virtual machine:
 
+[source, console]
 ----
 $ virsh dumpxml <virtual machine (name | id | uuid)
 ----
 
 For a complete list of commands available for use with `virsh`:
 
+[source, console]
 ----
 $ virsh help
 ----
