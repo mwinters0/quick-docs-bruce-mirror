@@ -43,9 +43,9 @@ As a precaution, download the link:++https://getfedora.org/en/workstation/downlo
 
 . To update your Fedora Linux release from the command-line do:
 +
-[source,bash]
+[source, console]
 ----
-sudo dnf upgrade --refresh
+$ sudo dnf upgrade --refresh
 ----
 +
 and reboot your computer.
@@ -54,9 +54,9 @@ and reboot your computer.
 
 . Download the updated packages:
 +
-[source,bash,subs="attributes"]
+[source,console,subs="attributes"]
 ----
-sudo dnf system-upgrade download --releasever={MAJOROSVER}
+$ sudo dnf system-upgrade download --releasever={MAJOROSVER}
 ----
 +
 Change the `--releasever=` number if you want to upgrade to a different release.
@@ -78,25 +78,25 @@ You can also use `{NEXTVER}` to upgrade to a link:https://fedoraproject.org/wiki
 
 . Trigger the **offline** upgrade process during next boot:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf offline reboot
+$ sudo dnf offline reboot
 ----
 
 To cancel the upgrade and delete downloaded files:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf offline clean
+$ sudo dnf offline clean
 ----
 
 Once the upgrade process completes, your system will reboot a second time into the updated Fedora Linux release.
 
 If `dnf` reports that `dnf offline` is not a valid command, typical on **Fedora 40 and earlier with DNF 4**, run
 
-[source,bash]
+[source, console]
 ----
-sudo dnf system-upgrade reboot
+$ sudo dnf system-upgrade reboot
 ----
 
 Note: This will reboot your machine **immediately** into a special upgrade environment.
@@ -118,16 +118,16 @@ Most configuration files are stored in the `/etc` folder.
 If you have changed the package's configuration files, RPM creates new files with either `.rpmnew` (the new default config file), or `.rpmsave` (your old config file backed up).
 You can search for these files, or use the `rpmconf` tool that simplifies this process. To install rpmconf, enter:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install rpmconf
+$ sudo dnf install rpmconf
 ----
 
 Once the install is complete enter:
 
-[source,bash]
+[source, console]
 ----
-sudo rpmconf -a
+$ sudo rpmconf -a
 ----
 
 [NOTE]
@@ -147,22 +147,22 @@ Systems with the link:++https://docs.fedoraproject.org/en-US/quick-docs/installi
 
 Find the device node the `/boot/` directory is located on:
 
-[source,bash]
+[source, console]
 ----
-sudo mount | grep "/boot "
+$ sudo mount | grep "/boot "
 /dev/sda4 on /boot type ext4 (rw,relatime,seclabel)
 ----
 
 The device node is `/dev/sda4`. Reinstall the bootloader while specifying the device node without the number:
 
-[source,bash]
+[source, console]
 ----
-sudo grub2-install /dev/sda
+$ sudo grub2-install /dev/sda
 ----
 
 The correct output should be:
 
-[source,bash]
+[source,]
 ----
 Installing for i386-pc platform.
 Installation finished. No error reported.
@@ -179,18 +179,18 @@ recommended to remove them.
 
 If you upgrade across one release (e.g. Fedora Linux {PREVVER} to {MAJOROSVER}), run the following commands:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install remove-retired-packages
-remove-retired-packages
+$ sudo dnf install remove-retired-packages
+$ remove-retired-packages
 ----
 
 If you upgrade across two releases (e.g. Fedora Linux {PREVPREVVER} to {MAJOROSVER}), you must supply the old release version to `remove-retired-packages`:
 
-[source,bash,subs="attributes"]
+[source, console, subs="attributes"]
 ----
-sudo dnf install remove-retired-packages
-remove-retired-packages {PREVPREVVER}
+$ sudo dnf install remove-retired-packages
+$ remove-retired-packages {PREVPREVVER}
 ----
 
 NOTE: Upgrades across *more* than two releases are not supported.
@@ -200,23 +200,23 @@ NOTE: Upgrades across *more* than two releases are not supported.
 
 You can see duplicate packages (packages with multiple versions installed) with:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf repoquery --duplicates
+$ sudo dnf repoquery --duplicates
 ----
 
 And you can remove them with:
 
 ===== Fedora 38 and older (DNF4):
-[source,bash]
+[source, console]
 ----
-sudo dnf remove --duplicates
+$ sudo dnf remove --duplicates
 ----
 
 ===== Fedora 39+ (DNF5)
-[source,bash]
+[source, console]
 ----
-sudo dnf4 remove --duplicates
+$ sudo dnf4 remove --duplicates
 ----
 
 [NOTE]
@@ -235,23 +235,23 @@ For packages from the official repositories, the latest version should be instal
 However, some packages that are still on your system may no longer be in the repositories.
 To see a list of these packages do:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf list --extras
+$ sudo dnf list --extras
 ----
 
 If you see a package you do not need, or use, you can remove it with:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf remove $(sudo dnf repoquery --extras --exclude=kernel,kernel-\*,kmod-\*)
+$ sudo dnf remove $(sudo dnf repoquery --extras --exclude=kernel,kernel-\*,kmod-\*)
 ----
 
 You can safely remove packages no longer in use with:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf autoremove
+$ sudo dnf autoremove
 ----
 
 [WARNING]
@@ -268,7 +268,7 @@ After you boot into the latest kernel and test the system you can remove previou
 
 One of the easier ways to remove old kernels is with a script that retains the latest kernel. The script below works whenever Fedora updates a kernel, and does not depend upon a system upgrade.
 
-[source,bash]
+[source, bash]
 ----
 #!/usr/bin/env bash
 
@@ -292,10 +292,10 @@ exit 0
 
 Keys from older Fedora releases and third-party repositories will accumulate in the RPM database over time.  You can remove keys no-longer referenced from `/etc/yum.repos.d/` with:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install clean-rpm-gpg-pubkey
-sudo clean-rpm-gpg-pubkey
+$ sudo dnf install clean-rpm-gpg-pubkey
+$ sudo clean-rpm-gpg-pubkey
 ----
 
 [[sect-clean-up-old-symlinks]]
@@ -303,22 +303,22 @@ sudo clean-rpm-gpg-pubkey
 
 There may be some dangling symlinks in the filesystem after an upgrade. You can clean the dangling links by installing the symlinks utility and deleting the old links.
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install symlinks
+$ sudo dnf install symlinks
 ----
 
 Once the utility is installed you can audit for broken symlinks like shown below. `-r` means recursive.
 
-[source,bash]
+[source, console]
 ----
-sudo symlinks -r /usr | grep dangling
+$ sudo symlinks -r /usr | grep dangling
 ----
 
 After you verify the list of broken symlinks you can delete them like shown below. `-d` means delete.
-[source,bash]
+[source, console]
 ----
-sudo symlinks -r -d /usr
+$ sudo symlinks -r -d /usr
 ----
 
 [[sect-update-rescue-kernel]]
@@ -330,15 +330,15 @@ Whether the rescue kernel is updated depends on the system configuration.
 
 If the rescue kernel is out-of-date, then issue the following commands to regenerate it.
 
-[source,bash]
+[source, console]
 ----
-sudo rm /boot/*rescue*
-sudo kernel-install add "$(uname -r)" "/lib/modules/$(uname -r)/vmlinuz"
+$ sudo rm /boot/*rescue*
+$ sudo kernel-install add "$(uname -r)" "/lib/modules/$(uname -r)/vmlinuz"
 ----
 
 The rescue kernel regeneration process can be automated by installing the `dracut-config-rescue` package.
 
-[source,bash]
+[source, console]
 ----
 sudo dnf install dracut-config-rescue
 ----
@@ -361,9 +361,9 @@ If you see warnings when working with RPM/DNF tools, your database might be corr
 It is possible to rebuild it to see if resolves your issues. Always back up `/usr/lib/sysimage/rpm` first.
 To rebuild the database, run:
 
-[source,bash]
+[source, console]
 ----
-sudo rpm --rebuilddb
+$ sudo rpm --rebuilddb
 ----
 
 [[sect-using-distro-sync-to-resolve-dependency-issues]]
@@ -373,17 +373,17 @@ The system upgrade tool uses `dnf distro-sync` by default.
 If your system is partly upgraded or you see some package dependency issues, try running another distro-sync manually to see if this fixes the problem.
 This will attempt to make your installed packages the same version in your currently enabled repositories, even if it must downgrade some packages:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf distro-sync
+$ sudo dnf distro-sync
 ----
 
 You can also use the `--allowerasing` option will remove packages with dependencies that can not be satisfied.
 Always review which packages will be removed before confirming this:
 
-[source,bash]
+[source, console]
 ----
-sudo dnf distro-sync --allowerasing
+$ sudo dnf distro-sync --allowerasing
 ----
 
 [[sect-relabel-files-with-the-latest-selinux-policy]]
@@ -393,9 +393,9 @@ If you encounter any warnings regarding policies with SELinux, some files may ha
 This may happen if SELinux was disabled in the past.
 To relabel SELinux on the system, run the following command and then reboot:
 
-[source,bash]
+[source, console]
 ----
-sudo fixfiles -B onboot
+$ sudo fixfiles -B onboot
 ----
 
 The boot process will likely take a long time, as it checks and fixes SELinux permission labels on all files in your system.
@@ -450,9 +450,9 @@ Upgrades across more than two releases are *not supported*, and issues encounter
 
 When upgrading across more than two releases, you may need to import the GPG key for the release you want to update to. You can do this with:
 
-[source,bash]
+[source, console]
 ----
-sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-N-primary
+$ sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-N-primary
 ----
 
 (where `N` is the Fedora Linux version.)
