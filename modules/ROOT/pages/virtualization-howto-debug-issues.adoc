@@ -49,16 +49,16 @@ See xref:bugzilla-file-a-bug.adoc[how to file a bug report] for generic informat
 Once you've ensured you have the latest updates installed
 //for the [[Virtualization#Relevant_Packages|relevant packages]]
 , gather details of the version numbers of those packages e.g.
-[source,]
+[source, console]
 ----
-[…]$ rpm -q qemu-kvm qemu-common python-virtinst virt-viewer virt-manager
+$ rpm -q qemu-kvm qemu-common python-virtinst virt-viewer virt-manager
 ----
 
 To find out what kernel version you are currently running, and what machine architecture you're using:
 
-[source,]
+[source, console]
 ----
-[…]$ uname -a
+$ uname -a
 ----
 
 Of course, you should also make sure to file the bug using the appropriate version of Fedora. Rawhide users should file bugs using the "rawhide" version.
@@ -67,18 +67,18 @@ Of course, you should also make sure to file the bug using the appropriate versi
 
 Fedora's virtualization capabilities rely heavily on hardware capabilities, so when filing bugs please include copious information on your hardware platform including:
 
-[source,]
+[source, console]
 ----
-[…]$ cat /proc/cpuinfo
-[…]$ lspci -vvv
-[…]$ virt-host-validate
+$ cat /proc/cpuinfo
+$ lspci -vvv
+$ virt-host-validate
 ----
 
 You can also check what virtualization capabilities are available on your machine by running:
 
-[source,]
+[source, console]
 ----
-[…]$ virsh capabilities
+$ virsh capabilities
 ----
 
 == Guest Configuration
@@ -104,17 +104,17 @@ In order to gain access to a serial console during the install, you can use `-x 
 == libvirt
 
 Any program using libvirt can be debugged using the `LIBVIRT_DEBUG=1` environment variable e.g.
-[source,]
+[source, console]
 ----
-[…]$ LIBVIRT_DEBUG=1 virt-manager --no-fork
-[…]$ LIBVIRT_DEBUG=1 virsh list --all
+$ LIBVIRT_DEBUG=1 virt-manager --no-fork
+$ LIBVIRT_DEBUG=1 virsh list --all
 ----
 
 If your issue looks like it might be related to `libvirtd` try looking in `/var/log/messages` for any error messages.
 
 You can also use  link:http://libvirt.org/logging.html[/etc/libvirt/libvirtd.conf logging configuration] to e.g. log debug spew to a file:
 
-[source,]
+[source, conf]
 ----
 log_level = 1
 log_outputs = 0:file:/tmp/libvirtd.log
@@ -122,19 +122,19 @@ log_outputs = 0:file:/tmp/libvirtd.log
 
 Alternatively, you could try running `libvirtd` from the command line with debugging options enabled:
 
-[source,]
+[source, console]
 ----
-[…]# systemctl stop libvirtd
-[…]# LIBVIRT_DEBUG=1 libvirtd --verbose
+$ sudo systemctl stop libvirtd
+$ sudo LIBVIRT_DEBUG=1 libvirtd --verbose
 ----
 
 == libguestfs
 
 If link:https://libguestfs.org/[libguestfs], link:https://libguestfs.org/guestfish.1.html[guestfish], link:https://libguestfs.org/virt-df.1.html[virt-df] etc. are causing problems, run:
 
-[source,]
+[source, console]
 ----
-[…]# libguestfs-test-tool
+$ sudo libguestfs-test-tool
 ----
 
 If everything is working, near the end of the output you will see
@@ -147,27 +147,27 @@ If things are not working, post the __complete, unedited__ output of that comman
 
 If you are having trouble with guests connected to a libvirt link:https://libvirt.org/formatnetwork.html[virtual network], link:https://wiki.libvirt.org/page/Networking[shared physical interface] or bridge, try these commands:
 
-[source,]
+[source, console]
 ----
-[…]# virsh net-list --all
-[…]# brctl show
-[…]# sysctl net.bridge.bridge-nf-call-iptables
-[…]# iptables -L -v -n
-[…]# ps -ef | grep dnsmasq
-[…]# ifconfig -a
-[…]# cat /proc/sys/net/ipv4/ip_forward
-[…]# service libvirtd reload
+$ sudo virsh net-list --all
+$ sudo brctl show
+$ sudo sysctl net.bridge.bridge-nf-call-iptables
+$ sudo iptables -L -v -n
+$ sudo ps -ef | grep dnsmasq
+$ sudo ifconfig -a
+$ sudo cat /proc/sys/net/ipv4/ip_forward
+$ sudo service libvirtd reload
 ----
 
 If you find that `/proc/sys/net/ipv4/ip_forward` is not being set to `1` at boot time, try looking at the ordering of the libvirtd and NetworkManager services:
 
-[source,]
+[source, console]
 ----
-[…]# find /etc/rc.d -regex '.*rc[35].d/S.*\(libvirtd\|NetworkManager\)'
-[…]# rm -f /etc/chkconfig.d/libvirtd /etc/chkconfig.d/NetworkManager
-[…]# chkconfig libvirtd resetpriorities
-[…]# chkconfig NetworkManager resetpriorities
-[…]# find /etc/rc.d -regex '.*rc[35].d/S.*\(libvirtd\|NetworkManager\)'
+$ sudo find /etc/rc.d -regex '.*rc[35].d/S.*\(libvirtd\|NetworkManager\)'
+$ sudo rm -f /etc/chkconfig.d/libvirtd /etc/chkconfig.d/NetworkManager
+$ sudo chkconfig libvirtd resetpriorities
+$ sudo chkconfig NetworkManager resetpriorities
+$ sudo find /etc/rc.d -regex '.*rc[35].d/S.*\(libvirtd\|NetworkManager\)'
 ----
 
 
