@@ -53,6 +53,7 @@ Mostly information about users and groups created during dnf's package installat
 === Log format
 In files the format of the log messages is as follows:
 
+[source, ]
 ----
  H:M:S,ms LOGLEVEL facility:message
 ----
@@ -76,6 +77,7 @@ where:
 
 For the logs running in terminals, the format simply is:
 
+[source, ]
 ----
  LOGLEVEL facility:message
 ----
@@ -137,6 +139,7 @@ It's then possible to read the logs from there directly, or make an rsyslog inst
 See the ascii chart below for the whole ensemble:
 
 
+[source, ]
 ----
 Anaconda--->rsyslog(guest)--->virtio(guest char device)--->kvm hypervisor--->virtio(TCP socket)
                                                                                 |
@@ -150,7 +153,7 @@ Step by step instructions to set everything up follow:
 . Add the virtio-serial port to your virtual machine, direct it to the TCP port 6080 on the host.
   Start by editing the guest configuration:`virsh edit <machine name>`
 . In the guest editor, add following information into the `<devices>` section:
-[source,xml]
+[source, ]
 ----
 <channel type='tcp'>
   <source mode='connect' host='127.0.0.1' service='6080'/>
@@ -158,8 +161,9 @@ Step by step instructions to set everything up follow:
 </channel>
 ----
 . Start the listening rsyslogd process on the host, using the `analog` script described [[#Remote_logging_via_TCP|above]]:
+[source, console]
 ----
-eval `analog -p 6080 -o rsyslogd.conf -s /home/akozumpl/remote_inst`
+$ eval `analog -p 6080 -o rsyslogd.conf -s /home/akozumpl/remote_inst`
 ----
 . Start the virtual machine.
 . Continue with the installation.
@@ -169,6 +173,7 @@ eval `analog -p 6080 -o rsyslogd.conf -s /home/akozumpl/remote_inst`
 
 If you are using virt-install you can configure it with the --channel option:
 
+[source, ]
 ----
 --channel tcp,host=127.0.0.1:6080,mode=connect,target_type=virtio,name=org.fedoraproject.anaconda.log.0
 ----
@@ -204,7 +209,7 @@ To avoid name clashes with other log files there, the anaconda logs are renamed:
 
 If you are asked to provide logs for a bugzilla, your best option is switching from the anaconda GUI to tty2 and then use scp to copy the files to your computer, e.g.:
 
-[source,bash]
+[source, console]
 ----
 $ cd /tmp
 $ scp anaconda.log aklap:/home/akozumpl/
@@ -213,23 +218,23 @@ $ scp anaconda.log aklap:/home/akozumpl/
 It is also possible to make a complete dump of a state of running anaconda process (the same dump that is compiled automatically if an unhandled exception occurs).
 To do this send the main anaconda process SIGUSR2:
 
-[source,bash]
+[source, console]
 ----
-$ kill -USR2 `cat /var/run/anaconda.pid``
+$ kill -USR2 `cat /var/run/anaconda.pid`
 ----
 
 This builds a file `/tmp/anaconda-tb-?????` that also contains `anaconda.log`, `storage.log` and `syslog`.
 
 If you are on a KVM virtual machine and there's no scp available (stage1), you can (after setting up the network if not up already) redirect to a special tcp file, on host:
 
-[source,bash]
+[source, console]
 ----
 $ nc -l 4444 > syslog.log
 ----
 
 on guest:
 
-[source,bash]
+[source, console]
 ----
 $ ifconfig eth0 10.0.2.10/24 up
 $ grep "" /tmp/syslog > /dev/tcp/10.0.2.2/4444
