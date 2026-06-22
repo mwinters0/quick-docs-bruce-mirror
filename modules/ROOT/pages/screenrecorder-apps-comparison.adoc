@@ -15,9 +15,9 @@ Gnome3 has already a screen recording functionality. Pressing Alt+Ctrl+Shift+R r
 === Increase the duration of screencast videos
 
 At just 30 seconds long the default length of screencast using this method isn’t ideal, particularly if you plan on making a lengthy video or need to demo a particular workflow or feature. It is possible to increase the duration of screencasts manually, by modifying the following gsettings string using the Terminal application:
-[,console]
+[source, console]
 ----
-gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 60
+$ gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 60
 ----
 Replace the ’60’ value with the length you want in seconds, e.g., 300 for 5 minutes, 600 for 10 minutes, and so on. If you set the value to ‘0’ there will be no time limit.
 
@@ -34,9 +34,9 @@ Press 'Finish recording' to stop the recording. Recorded footage will be saved a
 == Byzanz
 
 Byzanz is a desktop recorder striving for ease of use. It can record to GIF images, Ogg Theora video - optionally with sound – and other formats. It is available in Fedora. To install execute
-[,console]
+[source, console]
 ----
-% sudo dnf install byzanz
+$ sudo dnf install byzanz
 ----
 
 It is similar to former Istanbul, but can also produce:
@@ -67,15 +67,15 @@ Features
 * Tooltips for almost everything: no need to read the documentation to find out what something does.
 
 SimpleScreenRecorder is available in the RPM Fusion repository. RPM Fusion can be activated with this command:
-[source,]
+[source, console]
 ----
-rpm -Uvh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm
+$ sudo rpm -Uvh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm
 ----
 
 After that, SimpleScreenRecorder can be installed with this command:
-[source,]
+[source, console]
 ----
-sudo dnf install simplescreenrecorder
+$ sudo dnf install simplescreenrecorder
 ----
 
 
@@ -107,18 +107,18 @@ Additional Software Needed: libannodex in Fedora
 
 * Create a 10 second timestamp test pattern video with gstreamer
 +
-[source,]
+[source, console]
 ----
-gst-launch-0.8 videotestsrc num-buffers=250 ! video/x-raw-yuv,framerate=25.0 ! timeoverlay ! theoraenc ! oggmux ! filesink location=test.ogg
+$ gst-launch-0.8 videotestsrc num-buffers=250 ! video/x-raw-yuv,framerate=25.0 ! timeoverlay ! theoraenc ! oggmux ! filesink location=test.ogg
 ----
 // This file could not be found on the WIKI
 //+
 //Or use the provided https://fedoraproject.org/w/index.php?title=Special:Upload&wpDestFile=ScreenCasting_test.ogg[File:ScreenCasting test.ogg]
 
 * chain the two videos together to produce a video with 10 second lead-in
-[source,]
+[source, console]
 ----
-cat test.ogg desktop-recording.ogg > edit-video.ogg
+$ cat test.ogg desktop-recording.ogg > edit-video.ogg
 ----
 * begin playing video with totem edit-video.ogg
 * begin recording new audio track at the end of the 10 second lead in.
