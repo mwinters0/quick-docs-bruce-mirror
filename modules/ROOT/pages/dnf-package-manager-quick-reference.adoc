@@ -9,9 +9,9 @@ This sections lists the most useful commands provided by the *dnf* utility. For 
 
 *dnf help _command_*:: Displays detailed information about a command.
 +
-[source, console, subs="+quotes,attributes"]
+[source, console]
 ----
-$ *dnf help _upgrade_*
+$ dnf help upgrade
 upgrade [PACKAGE...]
 
 upgrade a package or packages on your system
@@ -20,133 +20,157 @@ alias: update
 
 *dnf upgrade*:: Upgrades all packages on the system to the latest version available.
 +
-[source, console, subs="+quotes,attributes"]
+[source, console]
 ----
-$ *sudo dnf upgrade*
-Last metadata expiration check: 1:09:32 ago on Thu Dec 14 09:20:48 2017.
-Dependencies resolved.
-Nothing to do.
-Complete!
+$ sudo dnf upgrade
+Updating and loading repositories:
+Repositories loaded.
+ Package                              Arch        Version            Repository    Size
+Upgrading:
+ exfatprogs                           x86_64      0:1.4.2-2.fc44     updates       376.7 KiB
+   replacing exfatprogs               x86_64      0:1.4.1-1.fc44     updates       376.6 KiB
+ xdg-desktop-portal                   x86_64      0:1.22.1-1.fc44    updates       1.9 MiB
+   replacing xdg-desktop-portal       x86_64      0:1.22.0-1.fc44    updates       1.9 MiB
+
+Transaction Summary:
+ Upgrading:          2 packages
+ Replacing:          2 packages
+
+Total size of inbound packages is 677 KiB. Need to download 677 KiB.
+After this operation, 31 B extra will be used (install 2 MiB, remove 2 MiB).
+Is this ok [y/N]: *y*
+[... output truncated ...]
 ----
 
 *dnf upgrade _package_name_*:: Upgrades a package to the latest version available.
 +
-[source, console, subs="+quotes,attributes"]
+[source, console]
 ----
-$ *sudo dnf upgrade _dia_*
-Last metadata expiration check: 1:11:26 ago on Thu Dec 14 09:20:48 2017.
-Dependencies resolved.
-Nothing to do.
-Complete!
+$ sudo dnf upgrade thunderbird
+Updating and loading repositories:
+Repositories loaded.
+Package                              Arch     Version                         Repository          Size
+Upgrading:
+ thunderbird                         x86_64   0:151.0.1-3.fc44                updates        348.1 MiB
+   replacing thunderbird             x86_64   0:148.0-2.fc44                  fedora         343.6 MiB
+ thunderbird-librnp-rnp              x86_64   0:151.0.1-3.fc44                updates          5.0 MiB
+   replacing thunderbird-librnp-rnp  x86_64   0:148.0-2.fc44                  fedora           5.0 MiB
+
+Transaction Summary:
+ Upgrading:          2 packages
+ Replacing:          2 packages
+
+Total size of inbound packages is 121 MiB. Need to download 121 MiB.
+After this operation, 5 MiB extra will be used (install 353 MiB, remove 349 MiB).
+Is this ok [y/N]: *y*
+[... output truncated ...]
 ----
 
 *dnf install _package_name_*:: Installs a package.
 
-[source, console, subs="+quotes,attributes"]
+[source, console]
 ----
-$ *sudo dnf install _dia_*
-Last metadata expiration check: 1:07:19 ago on Thu Dec 14 09:20:48 2017.
-Dependencies resolved.
-=============================================================================
- Package          Arch           Version           Repository           Size
-=============================================================================
+$ sudo dnf install thunderbird
+Updating and loading repositories:
+Repositories loaded.
+Package                          Arch      Version                          Repository            Size
 Installing:
- dia              x86_64         1:0.97.3-5.fc24   fedora               4.2 M
- libart_lgpl      x86_64         2.3.21-15.fc25    fedora               71 k
+ thunderbird                     x86_64    0:151.0.1-3.fc44                 updates          348.1 MiB
+Installing dependencies:
+ thunderbird-librnp-rnp          x86_64    0:151.0.1-3.fc44                 updates            5.0 MiB
 
-Transaction Summary
-=============================================================================
-Install  2 Packages
+Transaction Summary:
+ Installing:         2 packages
 
-Total download size: 4.2 M
-Installed size: 18 M
+Total size of inbound packages is 121 MiB. Need to download 121 MiB.
+After this operation, 353 MiB extra will be used (install 353 MiB, remove 0 B).
+
 Is this ok [y/N]: *y*
 [... output truncated ...]
-Installed:
-  dia.x86_64 1:0.97.3-5.fc24          libart_lgpl.x86_64 2.3.21-15.fc25
-
 Complete!
 ----
 
 *dnf remove _package_name_*:: Uninstalls a package.
 +
-[source, console, subs="+quotes,attributes"]
+[source, console]
 ----
-$ *sudo dnf remove _dia_*
-Dependencies resolved.
-=============================================================================
- Package          Arch           Version           Repository           Size
-=============================================================================
+$ sudo dnf remove thunderbird
+Package                          Arch      Version                          Repository            Size
 Removing:
- dia              x86_64         1:0.97.3-5.fc24   @fedora              18 M
- libart_lgpl      x86_64         2.3.21-15.fc25    @fedora              126 k
+ thunderbird                     x86_64    0:148.0-2.fc44                   fedora           343.6 MiB
+Removing unused dependencies:
+ thunderbird-librnp-rnp          x86_64    0:148.0-2.fc44                   fedora             5.0 MiB
 
-Transaction Summary
-=============================================================================
-Remove  2 Packages
+Transaction Summary:
+ Removing:           2 packages
 
-Installed size: 18 M
+After this operation, 349 MiB will be freed (install 0 B, remove 349 MiB).
 Is this ok [y/N]: *y*
 [... output truncated ...]
-Removed:
-  dia.x86_64 1:0.97.3-5.fc24           libart_lgpl.x86_64 2.3.21-15.fc25
-
 Complete!
 ----
 
 *dnf check-update*:: Checks if any updates are available for all packages in the enabled repositories.
 +
-[source, console, subs="+quotes,attributes"]
+[source, console]
 ----
-389-ds-base.x86_64                    1.3.7.5-11.el7           @updates
-389-ds-base-libs.x86_64               1.3.7.5-11.el7           @updates
-NetworkManager.x86_64                 1:1.10.2-3.el7           @updates
-NetworkManager-config-server.noarch   1:1.10.2-3.el7           @updates
-[... output truncated ...]
+$ dnf check-update
+Updating and loading repositories:
+Repositories loaded.
+Upgrades (available for reinstall, available for upgrade)
+podman.x86_64 5:5.8.3-1.fc44 updates
 ----
 
 *dnf search _keyword_*:: Search package metadata in the enabled repositories for the specified keyword. By default, the commands searches only in package names and summaries.
 +
-[source, console, subs="+quotes,attributes"]
+[source, console]
 ----
-$ *sudo dnf search _freeipa_*
-Last metadata expiration check: 1:12:31 ago on Thu Dec 14 09:20:48 2017.
-========================================================================
-freeipa-client.x86_64 : IPA authentication for use on clients
-freeipa-common.noarch : Common files used by IPA
-freeipa-server.x86_64 : The IPA authentication server
-freeipa-server-dns.noarch : IPA integrated DNS server with support for automatic DNSSEC signing
-freeipa-client-common.noarch : Common files used by IPA client
-freeipa-python-compat.noarch : Compatibility package for Python libraries used by IPA
-freeipa-server-common.noarch : Common files used by IPA server
-freeipa-server-trust-ad.x86_64 : Virtual package to install packages required for Active Directory trusts
-libsss_idmap.x86_64 : FreeIPA Idmap library
+$ dnf search freeipa
+Repositories loaded.
+Matched fields: name, summary
+ ansible-freeipa.noarch Roles and playbooks to deploy FreeIPA servers, replicas and clients
+ freeipa-desktop-profile.noarch FleetCommander integration with FreeIPA
+ freeipa-desktop-profile-common.noarch  Common package for client side FleetCommander integration with FreeIPA
+ freeipa-fas.noarch     Fedora Account System extension for FreeIPA
+ freeipa-healthcheck.noarch     Health check tool for FreeIPA
+ freeipa-selinux.noarch FreeIPA SELinux policy
+ freeipa-selinux-luna.noarch    FreeIPA SELinux policy for Thales Luna HSMs
+ freeipa-selinux-nfast.noarch   FreeIPA SELinux policy for nCipher nfast HSMs
+ python3-freeipa.noarch Lightweight FreeIPA client for Python 3.14
+Matched fields: name
+ freeipa-client.x86_64  IPA authentication for use on clients
+ freeipa-client-common.noarch   Common files used by IPA client
+ freeipa-client-encrypted-dns.x86_64    Enable encrypted DNS support for clients
 [... output truncated ...]
 ----
 
 *dnf info _package_name_*:: Shows details for a package.
 +
-[source, console, subs="+quotes,attributes"]
+[source, console]
 ----
-[root@localhost ~]$ *sudo dnf info _freeipa-server_*
-Last metadata expiration check: 1:13:14 ago on Thu Dec 14 09:20:48 2017.
-Available Packages
-Name        : freeipa-server
-Arch        : x86_64
-Epoch       : 0
-Version     : 4.4.4
-Release     : 1.fc25
-Size        : 380 k
-Repo        : updates
-Summary     : The IPA authentication server
-URL         : https://www.freeipa.org/
-License     : GPLv3+
-Description : IPA is an integrated solution to provide centrally managed Identity (users,
-            : hosts, services), Authentication (SSO, 2FA), and Authorization
-            : (host access control, SELinux user roles, services). The solution provides
-            : features for further integration with Linux based clients (SUDO, automount)
-            : and integration with Active Directory based infrastructures (Trusts).
-            : If you are installing an IPA server, you need to install this package.
+$ dnf info freeipa-server
+Updating and loading repositories:
+Repositories loaded.
+Available packages
+Name           : freeipa-server
+Epoch          : 0
+Version        : 4.13.1
+Release        : 12.fc44
+Architecture   : x86_64
+Download size  : 425.3 KiB
+Installed size : 1.1 MiB
+Source         : freeipa-4.13.1-12.fc44.src.rpm
+Repository     : updates
+Summary        : The IPA authentication server
+URL            : http://www.freeipa.org/
+License        : GPL-3.0-or-later
+Description    : IPA is an integrated solution to provide centrally managed Identity (users,
+               : hosts, services), Authentication (SSO, 2FA), and Authorization
+               : (host access control, SELinux user roles, services). The solution provides
+               : features for further integration with Linux based clients (SUDO, automount)
+               : and integration with Active Directory based infrastructures (Trusts).
+               : If you are installing an IPA server, you need to install this package.
+Vendor         : Fedora Project
 ----
 
 
@@ -154,69 +178,75 @@ Description : IPA is an integrated solution to provide centrally managed Identit
 +
 To specify a command:
 +
-[source, console, subs="+quotes,attributes"]
+[source, console]
 ----
-$ *sudo dnf provides */_ipa-server-install_*
-Last metadata expiration check: 1:14:12 ago on Thu Dec 14 09:20:48 2017.
-freeipa-server-4.4.1-1.fc25.x86_64 : The IPA authentication server
-Repo        : fedora
+$ dnf provides ipa-server-install
+dnf provides ipa-server-install
+Updating and loading repositories:
+Repositories loaded.
+freeipa-server-4.13.1-12.fc44.x86_64 : The IPA authentication server
+Repo         : updates
+Matched From : 
+Filename     : /usr/bin/ipa-server-install
 
-freeipa-server-4.4.4-1.fc25.x86_64 : The IPA authentication server
-Repo        : updates
+freeipa-server-4.13.1-9.fc44.x86_64 : The IPA authentication server
+Repo         : fedora
+Matched From : 
+Filename     : /usr/bin/ipa-server-install
 ----
 +
 To specify a file:
 +
-[source, console, subs="+quotes,attributes"]
+[source, console]
 ----
-$ *sudo dnf provides _/etc/sssd/sssd.conf_*
-Last metadata expiration check: 1:14:58 ago on Thu Dec 14 09:20:48 2017.
-sssd-common-1.16.0-4.fc25.x86_64 : Common files for the SSSD
-Repo        : @System
+$ dnf provides /etc/sssd/sssd.conf
+Updating and loading repositories:
+Repositories loaded.
+sssd-common-2.13.1-1.fc44.x86_64 : Common files for the SSSD
+Repo         : @System
+Matched From : 
+Filename     : /etc/sssd/sssd.conf
 
-sssd-common-1.16.0-4.fc25.x86_64 : Common files for the SSSD
-Repo        : updates
+sssd-common-2.12.0-4.fc44.x86_64 : Common files for the SSSD
+Repo         : fedora
+Matched From : 
+Filename     : /etc/sssd/sssd.conf
 
-sssd-common-1.14.2-1.fc25.i686 : Common files for the SSSD
-Repo        : fedora
-
-sssd-common-1.14.2-1.fc25.x86_64 : Common files for the SSSD
-Repo        : fedora
+sssd-common-2.13.1-1.fc44.x86_64 : Common files for the SSSD
+Repo         : updates
+Matched From : 
+Filename     : /etc/sssd/sssd.conf
 ----
 
-*dnf history*:: Displays a report of the past transactions.
+*dnf history list*:: Displays a report of the past transactions.
++
+[source, console]
+----
+$ dnf history list
+ID Command line                                                  Date and time       Action(s) Altered
+ 9 dnf remove thunderbird                                        2026-06-22 11:44:03                 2
+ 8 dnf install thunderbird                                       2026-06-22 11:40:13                 2
+ 7 dnf update                                                    2026-06-22 11:37:12               331
+ 6 dnf install vim                                               2026-06-22 11:35:55                10
+[... output truncated ...]
+----
+
+*dnf list --installed*:: Lists all packages installed on the system.
 +
 [source, console, subs="+quotes,attributes"]
 ----
-$ *sudo dnf history*
-ID     | Command line             | Date and time    | Action(s)      | Altered
- -------------------------------------------------------------------------------
-     9 | update -y                | 2017-10-17 12:35 | I, U           |   17 EE
-     8 | install midori           | 2017-10-13 10:44 | Install        |    3 >
-     7 | update -y                | 2017-10-12 15:59 | Update         |    7
-     6 | install keepass          | 2017-10-11 13:40 | Install        |   13  <
-     5 | install thunderbird      | 2017-10-10 16:33 | Install        |    1 >
-     4 | install sssd krb5-workst | 2017-10-10 15:30 | Install        |    3 >
-     3 | install xchat            | 2017-10-10 15:19 | Install        |    4
-     2 | update                   | 2017-10-10 13:44 | I, O, U        |  752 EE
-     1 |                          | 2017-10-10 13:34 | Install        | 1373 EE
-----
-
-*dnf list installed*:: Lists all packages installed on the system.
-+
-[source, console, subs="+quotes,attributes"]
-----
-$ *sudo dnf list installed*
-Last metadata expiration check: 1:17:33 ago on Thu Dec 14 09:20:48 2017.
-Installed Packages
-GConf2.x86_64                                                                                         3.2.6-16.fc24                                                                             @anaconda
-GeoIP.x86_64                                                                                          1.6.11-1.fc25                                                                             @updates
-GeoIP-GeoLite-data.noarch                                                                             2017.10-1.fc25                                                                            @updates
-ImageMagick.x86_64                                                                                    6.9.9.19-1.fc25                                                                           @updates
-ImageMagick-libs.x86_64                                                                               6.9.9.19-1.fc25                                                                           @updates
-LibRaw.x86_64                                                                                         0.17.2-2.fc25                                                                             @updates
-ModemManager.x86_64                                                                                   1.6.4-1.fc25                                                                              @updates
-ModemManager-glib.x86_64                                                                              1.6.4-1.fc25                                                                              @updates
-NetworkManager.x86_64                                                                                 1:1.4.6-1.fc25                                                                            @updates
+$ dnf list --installed
+Installed packages (available for reinstall, available for upgrade)
+7zip.x86_64                                    26.01-1.fc44               updates
+NetworkManager.x86_64                          1:1.56.1-2.fc44            updates
+NetworkManager-libnm.x86_64                    1:1.56.1-2.fc44            updates
+aardvark-dns.x86_64                            2:1.17.1-1.fc44            updates
+abattis-cantarell-vf-fonts.noarch              0.301-17.fc44              fedora
+abseil-cpp.x86_64                              20260107.1-1.fc44          fedora
+adwaita-cursor-theme.noarch                    50.0-1.fc44                fedora
+adwaita-icon-theme.noarch                      50.0-1.fc44                fedora
+adwaita-icon-theme-legacy.noarch               46.2-7.fc44                fedora
+adwaita-mono-fonts.noarch                      50.0-1.fc44                fedora
+adwaita-sans-fonts.noarch                      50.0-1.fc44                fedora                                                                            @updates
 [... output truncated ...]
 ----
