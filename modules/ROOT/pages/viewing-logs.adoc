@@ -33,23 +33,26 @@ Please note that you may require `sudo` access to view these files.
 
 * To view all collected journal entries, simply use:
 
-[source,bash]
+[source, console]
 ----
-journalctl
+$ journalctl
 ----
 
 * To view a logs related to a specific file, you can provide the `journalctl` command with a filepath.
   The example shown below shows all logs of the kernel device node `/dev/sda`:
+[source, console]
 ----
 $ journalctl /dev/sda
 ----
 
 * To view log for the current boot use the `-b` option :
+[source, console]
 ----
 $ journalctl -b
 ----
 
 * To view kernel logs for the previous boot, you can add the `-k` option:
+[source, console]
 ----
 $ journalctl -k -b -1
 ----
@@ -58,24 +61,28 @@ $ journalctl -k -b -1
 === Using journalctl to view log information for a specific service
 
 * To filter logs to only see ones matching the "foo" systemd service:
+[source, console]
 ----
 $ journalctl -b _SYSTEMD_UNIT=foo
 ----
 
 * Matches can be combined.
   For example, to view logs for systemd-units that match `foo`, and the PID `number`:
+[source, console]
 ----
 $ journalctl -b _SYSTEMD_UNIT=foo _PID=number
 ----
 
 * If the separator "+" is used, two expressions may be combined in a logical OR.
   For example, to view all messages from the `foo` service process with the `PID` plus all messages from the `foo1` service (from any of its processes):
+[source, console]
 ----
 $ journalctl -b _SYSTEMD_UNIT=foo _PID=number + _SYSTEMD_UNIT=foo1
 ----
 
 * If two matches refer to the same field, all entries matching either expression are shown.
   For example, this command will show logs matching a systemd-unit `foo` or a systemd-unit `foo1`:
+[source, console]
 ----
 $ journalctl -b _SYSTEMD_UNIT=foo _SYSTEMD_UNIT=foo1
 ----
@@ -90,6 +97,7 @@ NOTE: The files for service modification are stored in a directory within `*/etc
 
 This will show a tabular list of boot numbers, their IDs, and the timestamps of the first and last message pertaining to the boot:
 
+[source, console]
 ----
 $ journalctl --list-boots
 -8 42cdeac65d494e938b9cb92f315b08a4 Mon 2018-11-12 10:36:42 CET—Mon 2018-11-12 20:08:24 CET
@@ -98,11 +106,13 @@ $ journalctl --list-boots
 
 with this ID you can use `journalctl` as usual :
 
+[source, console]
 ----
 $ journalctl --boot=ID _SYSTEMD_UNIT=foo
 ----
 
 * To know more about `journalctl`, read the man page:
+[source, console]
 ----
 $ man journalctl
 ----
@@ -124,6 +134,7 @@ The `GNOME Logs` application provides a convenient GUI tool to view the systemd 
 
 * You can also install `GNOME Logs` using the command line with `dnf`:
 
+[source, console]
 ----
 $ sudo dnf install gnome-logs
 ----
