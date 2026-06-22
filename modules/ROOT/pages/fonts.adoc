@@ -30,21 +30,21 @@ To install fonts from the command line, use `dnf`.
 
 List all available font packages from enabled repositories:
 
-[source,bash,console]
+[source, console]
 ----
 $ dnf search fonts
 ----
 
 Install the font package you need:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install <font-package-name>
 ----
 
 For example:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install google-roboto-fonts
 ----
@@ -70,7 +70,7 @@ System fonts are installed for all users on the system.
 
 Create a directory in the system fonts path and copy the font files there:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo mkdir -p /usr/local/share/fonts/robofont
 $ sudo cp ~/Downloads/robofont.ttf /usr/local/share/fonts/robofont/
@@ -78,7 +78,7 @@ $ sudo cp ~/Downloads/robofont.ttf /usr/local/share/fonts/robofont/
 
 Set permissions and update SELinux labels:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo chown -R root: /usr/local/share/fonts/robofont
 $ sudo chmod 644 /usr/local/share/fonts/robofont/*
@@ -87,7 +87,7 @@ $ sudo restorecon -vFr /usr/local/share/fonts/robofont
 
 Update the font cache:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo fc-cache -v
 ----
@@ -103,7 +103,7 @@ This approach does not require superuser access.
 
 Install GNOME Font Viewer if it is not already present:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install gnome-font-viewer
 ----
@@ -131,7 +131,7 @@ KDE Plasma includes a font management tool in System Settings.
 
 Create a directory for the new font family in your local fonts path and copy the font files there:
 
-[source,bash,console]
+[source, console]
 ----
 $ mkdir -p ~/.local/share/fonts/robofont
 $ cp ~/Downloads/robofont.ttf ~/.local/share/fonts/robofont/
@@ -139,7 +139,7 @@ $ cp ~/Downloads/robofont.ttf ~/.local/share/fonts/robofont/
 
 Update the font cache:
 
-[source,bash,console]
+[source, console]
 ----
 $ fc-cache -v
 ----
