@@ -12,16 +12,16 @@ Powertop2tuned is a command-line utility used in Linux to create custom tuned po
 
 === Install required packages
 
-[source,bash]
+[source, console]
 ----
-sudo dnf install powertop tuned-utils
+$ sudo dnf install powertop tuned-utils
 ----
 
 or
 
-[source]
+[source, console]
 ----
-rpm-ostree install powertop tuned-utils
+$ rpm-ostree install powertop tuned-utils
 ----
 [NOTE]
 ====
@@ -34,9 +34,9 @@ By default it creates the profile in the `/etc/tuned` directory based on the cur
 
 I recommend to run the following command three times, once for the balanced profile (while plugged to the AC), once for the powersaver profile and once again for the balanced profile (while on battery, for the laptop users)
 
-[source]
+[source, console]
 ----
-powertop2tuned profile_name --enable
+$ powertop2tuned profile_name --enable
 ----
 
 For example we created: `balanced_powertop`, `balanced-battery_powertop`, `powersave_powertop`
@@ -47,7 +47,7 @@ After that, just change the name of the profiles to the ones you created in `/et
 
 Before the changes the file should look like this:
 
-[source]
+[source, conf]
 ----
 [main]
 # The default PPD profile
@@ -68,7 +68,7 @@ balanced=balanced-battery
 
 After the changes:
 
-[source]
+[source, conf]
 ----
 [main]
 # The default PPD profile
@@ -93,28 +93,32 @@ After generating a tuned profile with `powertop2tuned`, enable it using `tuned-a
 
 === List available profiles 
 
-[source,bash]
+[source, console]
 ----
-tuned-adm list
+$ tuned-adm list
 ----
 
 === Switch to your generated profile
 
-[source,bash]
+[source, console]
 ----
-sudo tuned-adm profile balanced_powertop
+$ sudo tuned-adm profile balanced_powertop
 ----
 
 === Verify which profile is currently active
 
-[source,bash]
+[source, console]
 ----
-tuned-adm active
+$ tuned-adm active
 ----
 
 [NOTE]
 ====
 After switching to your new profile, restart the tuned-ppd service to ensure all tools recognize the change:
 
-`sudo systemctl restart tuned-ppd.service`
+[source, console]
+----
+$ sudo systemctl restart tuned-ppd.service
+----
+
 ====
