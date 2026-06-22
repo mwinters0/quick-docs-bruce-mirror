@@ -29,9 +29,10 @@ QEMU has two operating modes:
 
 QEMU is available on Fedora repository. It can be installed by using xref:dnf.adoc[DNF]:
 
-....
-$ su -c "dnf install qemu"
-....
+[source, console]
+----
+$ sudo dnf install qemu
+----
 
 
 [[qemu-commands]]
@@ -39,21 +40,24 @@ $ su -c "dnf install qemu"
 
 To discover the qemu commands that are installed perform the following:
 
-....
+[source, console]
+----
 $ ls /usr/bin/qemu-*
-....
+----
 
 In the following examples where "qemu" is, substitute your command for executing qemu. E.g.
 
-....
+[source, ]
+----
 qemu-system-i386
-....
+----
 
 or
 
-....
+[source, ]
+----
 qemu-i386
-....
+----
 
 Of course, this does not apply to "qemu-img".
 
@@ -62,9 +66,10 @@ Of course, this does not apply to "qemu-img".
 
 Create the virtual image for the system:
 
-....
+[source, console]
+----
 $ qemu-img create fedora.qcow 5G
-....
+----
 
 Of course you are not obliged to take 5GB.
 
@@ -72,9 +77,10 @@ Note: Even if you take 10GB this does NOT mean that the image does really HAVE t
 
 Now let's install the OS. Put in the install CD and type into your konsole (all in one line without break):
 
-....
+[source, console]
+----
 $ qemu -cdrom /dev/cdrom -hda fedora.qcow -boot d -net nic -net user -m 196 -rtc base=localtime
-....
+----
 
 "-user -net" is important to have internet access within your new system.
 "-m 196" is the Set virtual RAM size (megabytes), default is 128 MB, I chose 196.
@@ -83,18 +89,20 @@ The install may take some time. After the install, qemu will try to boot the new
 Maybe this may fail (was the case for me) - but don't worry.
 If that happens: just close the qemu window and type the following command into your konsole to launch your new OS:
 
-....
-$qemu fedora.qcow -boot c -net nic -net user -m 196 -rtc base=localtime
-....
+[source, console]
+----
+$ qemu fedora.qcow -boot c -net nic -net user -m 196 -rtc base=localtime
+----
 
 [[testing-iso-images]]
 == Testing ISO Images
 
 Type, in the proper directory
 
-....
+[source, console]
+----
 $ qemu -m 512M -cdrom <isoname>.iso
-....
+----
 
 [[debugging]]
 == Debugging
