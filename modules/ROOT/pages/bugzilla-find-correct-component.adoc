@@ -28,22 +28,31 @@ If you want to find out exactly what command a specific menu item will run, in G
 
 If you know which command was run, but don't know the exact file name this corresponds to, try this on the command line:
 
-    which <command-name>
+[source, console]
+----
+$ which <command-name>
+----
 
 The first line in the results is the one you want.
 
 For example:
 
-    $ which ssh
-    /usr/bin/ssh
+[source, console]
+----
+$ which ssh
+/usr/bin/ssh
+----
 
 == Which package is it?
 
 Once you have the name of a file or directory, you can determine which package owns it using "rpm -qf".
 For example:
 
-    $ rpm -qf /usr/bin/nautilus-file-management-properties
-    nautilus-2.25.91-2.fc11.x86_64
+[source, console]
+----
+$ rpm -qf /usr/bin/nautilus-file-management-properties
+nautilus-2.25.91-2.fc11.x86_64
+----
 
 You should include the full name and version number of this package in your bug report.
 
@@ -56,10 +65,13 @@ Once you have the RPM name, you can get the "source" RPM name (which might be di
 For example, run `rpm -qi glibc-common` and then look for the line that says "Source RPM:"
 In this case, it's "glibc-2.9.90-7.src.rpm", which means the component name to use in Bugzilla is "glibc" (everything before the dash before the version number).
 
-    $ rpm -qi glibc-common
-    ...
-    Group       : System Environment/Base
-    Source RPM: glibc-2.11-2.src.rpm
+[source, console]
+----
+$ rpm -qi glibc-common
+...
+Group       : System Environment/Base
+Source RPM: glibc-2.11-2.src.rpm
+----
 
 NOTE: If the "Vendor:" line does not say "Fedora Project", you may need to report the bug to a different project's bug tracker.
 
@@ -67,12 +79,18 @@ NOTE: If the "Vendor:" line does not say "Fedora Project", you may need to repor
 
 For packages which you have NOT installed you can use dnf's repoquery command:
 
-    repoquery -f /usr/bin/kdm
+[source, console]
+----
+$ repoquery -f /usr/bin/kdm
+----
 
 will find you which binary package contains the kdm executable.
 To find the component that provides the binary package you found above, run:
 
-    repoquery -q --qf="%{sourcerpm}\n" kdm
+[source, console]
+----
+$ repoquery -q --qf="%{sourcerpm}\n" kdm
+----
 
 == Embedded components
 
