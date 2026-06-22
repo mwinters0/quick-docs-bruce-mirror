@@ -96,6 +96,7 @@ Network printers have the prerequisites - enablement of IPP port on the printer 
 
 * [command]`ipptool` command which sends IPP Get-Printer-Attributes request to the network printer passes:
 
+[source, console]
 ----
 $ ipptool -tv ipp://printer.example.com:631/ipp/print get-printer-attributes.test
 "/usr/share/cups/ipptool/get-printer-attributes.test":
@@ -119,6 +120,7 @@ $ ipptool -tv ipp://printer.example.com:631/ipp/print get-printer-attributes.tes
 
 Check whether your USB device has a following text in [command]`lsusb -v` output:
 
+[source, console]
 ----
 ...
       bInterfaceClass         7 Printer
@@ -150,6 +152,7 @@ After this the temporary queue will appear in the print dialog and you don't nee
 
 You can check if your printer is seen in mDNS messages by (*avahi-tools* must be installed):
 
+[source, console]
 ----
 $ avahi-browse -avrt
 ...
@@ -165,6 +168,7 @@ and if CUPS or its backends see the printer by commands:
 
 (lists all existing print queues - permanent or temporary - temporary ones contain *network* as the second string on a line)
 
+[source, console]
 ----
 $ lpstat -l -e
 HP_LaserJet_M1536dnf_MFP_42307C network none ipp://HP%20LaserJet%20M1536dnf%20MFP%20(42307C)._ipp._tcp.local/
@@ -175,6 +179,7 @@ or
 
 (lists all devices, which CUPS sees in the local network or USB)
 
+[source, console]
 ----
 $ lpinfo -l -v
 ...
@@ -192,6 +197,7 @@ Device: uri = ipp://HP%20LaserJet%20M1536dnf%20MFP%20(42307C)._ipp._tcp.local/
 * additional requirements:
 ** install *ipp-usb*,  which will transform IPP over USB devices to network printer on localhost:
 
+[source, console]
 ----
 $ sudo dnf -y install ipp-usb
 ----
@@ -206,6 +212,7 @@ Prerequisites for permanent driverless printers: enable IPP in your firewall, en
 
 * start cups.service
 
+[source, console]
 ----
 $ sudo systemctl start cups
 ----
@@ -217,6 +224,7 @@ $ sudo systemctl start cups
 * choose the found device or the connection you prefer - for driverless permanent queue choose *Internet Printing Protocol (ipp)*
 * in case you didn't choose a found device, enter the device uri at the next page - for driverless printers they usually are:
 
+[source, ]
 ----
 Network printers:
 ipp://<printer_IP_or_printer_hostname>:631/ipp/print
@@ -245,6 +253,7 @@ If there are more devices via *ipp-usb* or printer applications, they listen on 
 
 * you will need a device uri - `<device_uri>`, which you can find by `lpinfo -v`:
 
+[source, console]
 ----
 $ lpinfo -v
 direct usb://HP/Officejet%20Pro%208500%20A909a?serial=NNNNNNNNN&interface=1
@@ -254,13 +263,14 @@ network dnssd://Officejet%20Pro%208500%20A909a%20%5B43FD8E%5D._pdl-datastream._t
 ----
 
 or construct it manually - f.e. for IPP printers:
-
+[source,]
 ----
 ipp://<IP/hostname>:631/ipp/print
 ----
 
 and a driver name - `<driver>`, f.e.:
 
+[source, console]
 ----
 $ lpinfo -m
 ....
@@ -269,6 +279,7 @@ everywhere IPP Everywhere
 ...
 ----
 
+[source, console]
 ----
 $ lpadmin -p <name> -v <device_uri> -m <driver> -E
 ----
@@ -283,6 +294,7 @@ Currently printer applications are available in SNAPs on Fedora. I'm planning to
 
 First we have to install snapd for testing purposes:
 
+[source, console]
 ----
 $ sudo dnf -y install snapd
 $ sudo ln -s /var/lib/snapd/snap /snap
@@ -295,6 +307,7 @@ If the installation had been successful, the last command will show snapd's vers
 
 First the SNAP with printer application has to be installed and started by the commands below. All printer applications are available in SNAP Store under the same names as they are at https://github.com/orgs/OpenPrinting/repositories[OpenPrinting repositories]. We will use [filename]`ps-printer-app` printer application in the next steps.
 
+[source, console]
 ----
 $ sudo snapd install --edge ps-printer-app
 $ sudo snapd run ps-printer-app
@@ -311,6 +324,7 @@ After starting the printer application its web interface becomes available at ht
 * click on `Add Printer`,
 * now the printer should be available at least on localhost via mDNS (if [filename]`avahi-daemon` is running and `nss-mdns` is installed)- check it by [filename]`avahi-browse`(`avahi-tools` has to be installed):
 
+[source, console]
 ----
 $ avahi-browse -avrt
 ...
@@ -324,6 +338,7 @@ $ avahi-browse -avrt
 
 * and by `lpstat -e`:
 
+[source, console]
 ----
 $ lpstat -e
 ...
@@ -333,6 +348,7 @@ HP_Laserjet_M1536
 
 The available printing options for the printer installed via printer application can be checked with [filename]`lpoptions` command:
 
+[source, console]
 ----
 $ lpoptions -p HP_Laserjet_M1536 -l
 PageSize/Media Size: 184.15x260mm 195.09x269.88mm A4 A5 B5 DoublePostcardRotated Env10 EnvC5 EnvDL EnvMonarch Executive FanFoldGermanLegal ISOB5 Legal *Letter Postcard roc16k Custom.WIDTHxHEIGHT
@@ -362,6 +378,7 @@ For LAN located and USB devices:
 
 * have *avahi-daemon* enabled and running
 
+[source, console]
 ----
 $ sudo systemctl enable avahi-daemon
 $ sudo systemctl start avahi-daemon
@@ -374,8 +391,9 @@ For network scanners in a different network:
 
 * set the scanner device uri in [filename]`/etc/sane.d/airscan.conf` - see:
 
+[source, console]
 ----
-man sane-airscan
+$ man sane-airscan
 ----
 
 == How to setup mDNS with systemd-resolved
@@ -384,6 +402,7 @@ systemd-resolved is enabled and running by default since F33 and can be setup to
 
 * put [option]`MulticastDNS=resolve` into [filename]`/etc/systemd/resolved.conf`
 
+[source, console]
 ----
 $ sudo systemctl restart systemd-resolved
 $ sudo nmcli connection modify <connection_name> connection.mdns yes connection.llmnr yes
@@ -394,6 +413,7 @@ $ sudo systemctl restart NetworkManager
 
 Example:
 
+[source, console]
 ----
 $ tar -czvf cups-information.tar.gz /etc/cups cups.logs troubleshoot.txt lpinfo.log
 ----
@@ -402,6 +422,7 @@ $ tar -czvf cups-information.tar.gz /etc/cups cups.logs troubleshoot.txt lpinfo.
 
 You restart cups service with:
 
+[source, console]
 ----
-su -c 'systemctl restart cups.service'
+$ sudo systemctl restart cups.service
 ----
