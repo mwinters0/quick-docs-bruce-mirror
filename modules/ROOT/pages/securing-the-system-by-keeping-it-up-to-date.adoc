@@ -69,7 +69,7 @@ This avoids conflicts caused by updating libraries or services that are actively
 
 . Download available updates:
 +
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf offline-upgrade download
 ----
@@ -78,7 +78,7 @@ Confirm to download the available packages.
 
 . Reboot to apply the updates:
 +
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf offline-upgrade reboot
 ----
@@ -88,7 +88,7 @@ The system reboots, applies the downloaded updates, then starts normally.
 . Optionally, use the `rpmconf` command to merge any configuration file changes
  introduced by the package updates:
 +
-[source,bash,console]
+[source, console]
 ----
 $ sudo rpmconf -a
 ----
@@ -104,7 +104,7 @@ See the man page for details.
 If you install the rpmconf DNF plugin,
 `rpmconf` runs automatically at the end of each upgrade:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install python3-dnf-plugin-rpmconf
 ----
