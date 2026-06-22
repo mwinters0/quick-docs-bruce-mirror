@@ -46,6 +46,7 @@ The installation instructions are similar to the official Debian/Ubuntu instruct
 
 . Enable the `jitsi` repository:
 +
+[source, console]
 ----
 $ sudo dnf copr enable lcts/jitsi
 ----
@@ -53,6 +54,7 @@ $ sudo dnf copr enable lcts/jitsi
 
 . Install the `jitsi` meta package to be able to configure a Jitsi server:
 +
+[source, console]
 ----
 $ sudo dnf install jitsi
 ----
@@ -100,6 +102,7 @@ You can find Prosody configuration for Jitsi in the `/etc/prosody/conf.d/jitsi-m
 
 . Generate the SSL/TLS certificate for the Jitsi domain:
 +
+[source, console]
 ----
 $ prosodyctl cert generate __jitsiFQDN__
 ----
@@ -109,6 +112,7 @@ You need to replace `\___jitsiFQDN___` with the actual domain name of your Jitsi
 
 . Generate the SSL/TLS certificate for the auth subdomain:
 +
+[source, console]
 ----
 $ prosodyctl cert generate auth.__jitsiFQDN__
 ----
@@ -118,6 +122,7 @@ The `auth` subdomain is typically used for authentication purposes in Jitsi Meet
 
 . Add the Jitsi domain certificate as a trusted anchor to ensure that it is recognized as a valid certificate by the system:
 +
+[source, console]
 ----
 $ trust anchor /var/lib/prosody/__jitsiFQDN__
 ----
@@ -127,6 +132,7 @@ The certificate file is typically located at `/var/lib/prosody/\___jitsiFQDN___`
 
 . Add the auth subdomain certificate as a trusted anchor:
 +
+[source, console]
 ----
 $ trust anchor /var/lib/prosody/auth.__jitsiFQDN__
 ----
@@ -136,6 +142,7 @@ The certificate file is expected to be located at `/var/lib/prosody/auth.\___jit
 
 . Register a user with the username `focus` in the Prosody XMPP server:
 +
+[source, console]
 ----
 $ prosodyctl register focus auth.__jitsiFQDN__ __focusUserSecret__
 ----
@@ -147,6 +154,7 @@ Replace `\___jitsiFQDN___` with your Jitsi domain name. The `\___focusUserSecret
 
 . Register a user with the username `jvb` in the Prosody XMPP server:
 +
+[source, console]
 ----
 $ prosodyctl register jvb auth.__jitsiFQDN__ __jvbUserSecret__
 ----
@@ -158,6 +166,7 @@ Replace `\___jitsiFQDN___` with your Jitsi domain name. The `\___jvbUserSecret__
 
 . Enable and start the prosody service:
 +
+[source, console]
 ----
 $ sudo systemctl enable --now prosody
 ----
@@ -185,6 +194,7 @@ $ sudo systemctl enable --now prosody
 
 ** Restart the `httpd` service:
 +
+[source, console]
 ----
 $ sudo systemctl restart httpd
 ----
@@ -195,6 +205,7 @@ $ sudo systemctl restart httpd
 
 ** Restart the `nginx` service:
 +
+[source, console]
 ----
 $ sudo systemctl restart nginx
 ----
@@ -210,6 +221,7 @@ $ sudo systemctl restart nginx
 
 . Enable and start `jicofo.service`:
 +
+[source, console]
 ----
 $ sudo systemctl enable --now jicofo.service
 ----
@@ -231,6 +243,7 @@ $ sudo systemctl enable --now jicofo.service
 
 . Enable and start `jitsi-videobridge.service`:
 +
+[source, console]
 ----
 $ sudo systemctl enable --now jitsi-videobridge.service
 ----
