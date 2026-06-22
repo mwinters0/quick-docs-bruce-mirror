@@ -26,12 +26,14 @@ If you don't see your scanner in scanning application, then debugging of discove
 
 You will need to use environment variables when you start a scanning application ([command]`scanimage` in this case). The environment variables used with [command]`scanimage` command depends on how your scanner is connected and which backend suppose to support it. So for getting debug logs for HP LaserJet device, *connected via Ethernet/Wifi and supported by HPAIO backend*, use command:
 
+[source, console]
 ----
 $ SANE_DEBUG_DLL=255 SANE_DEBUG_HPAIO=255 SANE_DEBUG_SANEI_TCP=255 scanimage -L &> discovery_output
 ----
 
 or, f.e. if you have CanoScan 8600F, connected by USB and supported by genesys backend, use command:
 
+[source, console]
 ----
 $ SANE_DEBUG_DLL=255 SANE_DEBUG_GENESYS=255 SANE_DEBUG_SANEI_USB=255 scanimage -L &> discovery_output
 ----
@@ -44,12 +46,14 @@ If the scanner is found, but an issue happens during scanning itself, we need to
 
 The debugging scanning itself looks similar as discovery - setup the environment variables before running the command/scanning application and catch logs into a file. The possible command can be (f.e. if you have *network scanner supported by HPAIO backend*):
 
+[source, console]
 ----
 $ SANE_DEBUG_DLL=255 SANE_DEBUG_HPAIO=255 SANE_DEBUG_SANEI_TCP=255 xsane &> debug_log
 ----
 
 or (once you find out device uri from [command]`scanimage -L` - see the xref:_getting_a_scanner_device_uri[next section]):
 
+[source, console]
 ----
 $ SANE_DEBUG_DLL=255 SANE_DEBUG_HPAIO=255 SANE_DEBUG_SANEI_TCP=255 scanimage -d <device_uri> > out.pnm 2> debug_log
 ----
@@ -64,6 +68,7 @@ This point is basically a manual how to get a scanner uri for debugging scanning
 
 The [command]`scanimage -L` command returns an output where device uri of the device is shown, f.e.:
 
+[source, console]
 ----
 $ scanimage -L
 device `v4l:/dev/video0' is a Noname Integrated Camera: Integrated C virtual device
@@ -80,13 +85,15 @@ It can be done this way:
 
 * start capturing journal logs at background:
 
+[source, console]
 ----
 $ journalctl -f > journal_logs &
 ----
 
 * trigger an action (xref:_debugging_scanner_discovery[discovery] or xref:_debugging_scanning_process[scanning])
-* kill the journalctl process, f.e. this way (if there is only one journactl process)
+* kill the journalctl process, f.e. this way (if there is only one journalctl process)
 
+[source, console]
 ----
 $ kill `pidof journalctl`
 ----
@@ -99,6 +106,7 @@ If your device supports eSCL or WSD (you can find it out from device specificati
 
 sane-airscan debugging can be enabled in [filename]`/etc/sane.d/airscan.conf` by setting: 
 
+[source, conf]
 ----
 [debug]
 trace = /path/to/dir/where/debugfiles/will/be/saved
@@ -111,6 +119,7 @@ Then do trigger your issue (xref:_debugging_scanner_discovery[discovery] or xref
 
 In case your debug log is too big for bugzilla to attach (because your issue doesn't happen with the lowest settings or logs are big even with the lowest settings), do divide the logs to three files like this:
 
+[source, console]
 ----
 $ grep dll debug_log > debug_log_dll
 $ grep <connection> debug_log > debug_log_connection
