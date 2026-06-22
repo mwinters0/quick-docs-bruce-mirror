@@ -82,50 +82,58 @@ The following commands control the `foo` service:
 
 * Activate a service immediately:
 +
+[source, console]
 ----
-# systemctl start foo 
+$ sudo systemctl start foo
 ----
 
 * Deactivate a service immediately:
 +
+[source, console]
 ----
-# systemctl stop foo 
+$ sudo systemctl stop foo
 ----
 
 * Restart a service:
 +
+[source, console]
 ----
-# systemctl restart foo 
+$ sudo systemctl restart foo
 ----
 
 * Show the status of a service including, whether it is running or not:
 +
+[source, console]
 ----
-# systemctl status foo 
+$ systemctl status foo
 ----
 
 * Enable a service to be started on boot:
 +
+[source, console]
 ----
-# systemctl enable foo 
+$ sudo systemctl enable foo
 ----
 
 * Disable a service to not start during boot:
 +
+[source, console]
 ----
-# systemctl disable foo 
+$ sudo systemctl disable foo
 ----
 
 * Prevent a service from starting dynamically or even manually unless unmasked:
 +
+[source, console]
 ----
-# systemctl mask foo 
+$ sudo systemctl mask foo
 ----
 
 * Check if a service is enabled or not:
 +
+[source, console]
 ----
-# systemctl is-enabled foo
+$ systemctl is-enabled foo
 ----
 
 [discrete]
@@ -150,14 +158,16 @@ This example shows how to modify an existing service. Service modification are s
 
 . _Systemd_ services can be modified using the `systemctl edit` command.
 +
+[source, console]
 ----
-# systemctl edit httpd.service
+$ sudo systemctl edit httpd.service
 ----
 +
 This creates an override file `/etc/systemd/system/httpd.service.d/override.conf` and opens it in your text editor. Anything you put into this file will be *added* to the existing service file.
 
 . Add your custom configuration. For example:
 +
+[source, conf]
 ----
 [Service]
 Restart=always
@@ -166,6 +176,7 @@ RestartSec=30
 +
 To replace an option that can be set multiple times, it must cleared first, otherwise the override file will add the option a second time.
 +
+[source, conf]
 ----
 [Service]
 ExecStart=
@@ -176,8 +187,9 @@ ExecStart=<new command>
 
 . Restart the `httpd` service:
 +
+[source, console]
 ----
-# systemctl restart httpd
+$ sudo systemctl restart httpd
 ----
 
 To completely replace (instead of just add to/modify) an existing service file, use `systemctl edit --full`, e.g.  `systemctl edit --full httpd.service`. This will create `/etc/systemctl/system/httpd.service`, which will be used instead of the existing service file.
@@ -205,8 +217,9 @@ This procedure creates a basic configuration file to control the `foo` service.
 
 . Create and edit the new configuration file:
 +
+[source, console]
 ----
-# nano /etc/systemd/system/foo.service
+$ sudo nano /etc/systemd/system/foo.service
 ----
 
 . The next few steps describe each section its parameters to add to the file:
@@ -220,6 +233,7 @@ This procedure creates a basic configuration file to control the `foo` service.
 +
 The resulting `[Unit]` section looks like this:
 +
+[source, conf]
 ----
 [Unit]
 Description=My custom service
@@ -235,6 +249,7 @@ After=network.target
 +
 The resulting `[Service]` section looks like this:
 +
+[source, conf]
 ----
 [Service]
 Type=simple
@@ -248,6 +263,7 @@ ExecStart=/usr/bin/sleep infinity
 
 . The full `foo.service` file contains the following contents:
 +
+[source, conf]
 ----
 [Unit]
 Description=My custom service
@@ -265,19 +281,22 @@ Save the file.
 
 . To make _systemd_ aware of the new service, reload its service files
 +
+[source, console]
 ----
-# systemctl daemon-reload
+$ sudo systemctl daemon-reload
 ----
 
 
 . Start the custom `foo` service:
 +
+[source, console]
 ----
-# systemctl start foo
+$ sudo systemctl start foo
 ----
 
 . Check the status of the service to ensure the service is running:
 +
+[source, console]
 ----
 $ systemctl status foo
 ● foo.service - My custom service
@@ -314,12 +333,14 @@ Older versions of Fedora use SysVinit scripts to manage services. This section p
 
 . Identify the runlevels in your SysVinit script. This is usually defined with `chkconfig` directive in the commented section at the beginning of the script. For example, the following indicates the service is using runlevels 3, 4, and 5:
 +
+[source, ]
 ----
 # chkconfig: 235 20 80
 ----
 +
 systemd uses targets instead of runlevels. Use the table in <<#converting-sysvinit-services>> to map the runlevels to targets. In this example, runlevels 2, 3, and 5 are all multi-user runlevels, so the _systemd_ service can use the following:
 +
+[source, conf]
 ----
 [Install]
 WantedBy=multi-user.target
@@ -329,6 +350,7 @@ If you enable the custom _systemd_ service to start at boot (`systemctl enable f
 
 . Identify the dependent services and targets. For example, if the custom service requires network connectivity, specify the `network.target` as a dependency:
 +
+[source, conf]
 ----
 [Unit]
 Description=My custom service
@@ -337,7 +359,7 @@ After=network.target
 
 . Identify the command used to start the service in the SysVinit script and convert this to the _systemd_ equivalent. For example, the script might contain a `start` function in the following format:
 +
-[source,bash]
+[source, ]
 ----
 start() {
   echo "Starting My Custom Service..."
@@ -347,6 +369,7 @@ start() {
 +
 In this example, the `/usr/bin/myservice` command is the custom service command set to daemonize with the `-D` option. Set the `ExecStart` parameter to use this command:
 +
+[source, conf]
 ----
 [Service]
 ExecStart=/usr/bin/myservice -D
@@ -354,7 +377,7 @@ ExecStart=/usr/bin/myservice -D
 
 . Check the SysVinit script to see if the service uses a special command to restart the service. For example, the script might contain a `reboot` function that reloads the service:
 +
-[source,bash]
+[source, ]
 ----
 reboot() {
   echo "Reloading My Custom Service..."
@@ -364,6 +387,7 @@ reboot() {
 +
 In this example, the `/usr/bin/myservice` command is the custom service command and reloads the service using the `reload` subcommand. Set the `ExecReload` parameter to use this command:
 +
+[source, conf]
 ----
 [Service]
 ExecReload=/usr/bin/myservice reload
@@ -373,7 +397,7 @@ Alternatively, you can omit `ExecReload` and use the default behavior, which kil
 
 . Check the SysVinit script to see if the service uses a special command to stop the service. For example, the script might contain a `stop` function that reloads the service:
 +
-[source,bash]
+[source, ]
 ----
 reboot() {
   echo "Stopping My Custom Service..."
@@ -383,6 +407,7 @@ reboot() {
 +
 In this example, the `/usr/bin/myservice` command is the custom service command and stop the service gracefully using the `shutdown` subcommand. Set the `ExecStop` parameter to use this command:
 +
+[source, conf]
 ----
 [Service]
 ExecStop=/usr/bin/myservice shutdown
