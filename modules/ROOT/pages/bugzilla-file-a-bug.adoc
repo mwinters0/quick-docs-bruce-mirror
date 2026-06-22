@@ -69,7 +69,10 @@ These periodically check for updates and notify users.
 You can also use the default package manager `dnf` to check and update your system.
 Only users with administrator privileges can do so:
 
-    $ sudo dnf upgrade --refresh
+[source, console]
+----
+$ sudo dnf upgrade --refresh
+----
 
 === Step 2: Check for already filed bugs
 
@@ -148,13 +151,18 @@ Explain the issue in more detail here.
 The version of the package should be specified here.
 Once the package name is known, the version can be obtained by using the `rpm` command:
 
-    $ rpm -q <packagename>
+[source, console]
+----
+$ rpm -q <packagename>
+----
 
 For example:
 
-    $ rpm -q gnome-software
-    gnome-software-3.28.2-1.fc28.x86_64
-
+[source, console]
+----
+$ rpm -q gnome-software
+gnome-software-3.28.2-1.fc28.x86_64
+----
 
 *How reproducible:*
 
