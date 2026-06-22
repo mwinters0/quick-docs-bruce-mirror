@@ -102,27 +102,31 @@ Enforcing mode is the default, and recommended, mode of operation; in enforcing 
 
 Use the [command]`setenforce` utility to change between enforcing and permissive mode. Changes made with [command]`setenforce` do not persist across reboots. To change to enforcing mode, enter the [command]`setenforce 1` command as the Linux root user. To change to permissive mode, enter the [command]`setenforce 0` command. Use the [command]`getenforce` utility to view the current SELinux mode:
 
+[source, console]
 ----
-[~]# getenforce
+$ getenforce
 Enforcing
 ----
 
+[source, console]
 ----
-[~]# setenforce 0
-[~]# getenforce
+$ sudo setenforce 0
+$ getenforce
 Permissive
 ----
 
+[source, console]
 ----
-[~]# setenforce 1
-[~]# getenforce
+$ sudo setenforce 1
+$ getenforce
 Enforcing
 ----
 
 In Fedora, you can set individual domains to permissive mode while the system runs in enforcing mode. For example, to make the `httpd_t` domain permissive:
 
+[source, console]
 ----
-[~]# semanage permissive -a httpd_t
+$ sudo semanage permissive -a httpd_t
 ----
 
 
