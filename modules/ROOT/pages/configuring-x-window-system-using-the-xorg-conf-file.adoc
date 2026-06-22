@@ -20,12 +20,14 @@ If you need to make manual changes to your X configuration for any reason, you w
 
 You can create a basic file using the `X` executable. It will contain sections and entries that you can edit to suit your needs. To create the file, enter this command as *root*:
 
+[source, console]
 ----
 # Xorg :1 -configure
 ----
 
 Next, copy the file to the correct location:
 
+[source, console]
 ----
 # cp /root/xorg.conf.new /etc/X11/xorg.conf
 ----
