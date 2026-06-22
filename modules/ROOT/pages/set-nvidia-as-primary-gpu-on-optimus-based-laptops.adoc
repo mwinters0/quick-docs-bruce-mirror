@@ -48,8 +48,9 @@ First, consider the following points:
 
 == Step #1: Update from the existing repositories
 Execute
+[source, console]
 ----
-sudo dnf upgrade
+$ sudo dnf upgrade
 ----
 Once to update all your packages first.
 
@@ -64,8 +65,9 @@ Select *RPM Fusion for Fedora 32 - Nonfree - NVIDIA Driver* and *ENABLE* it. It 
 
 == Step #3: Update from the newly added repositories
 Execute
+[source, console]
 ----
-sudo dnf upgrade --refresh
+$ sudo dnf upgrade --refresh
 ----
 to fetch all available updates from the newly added repository.
 
@@ -73,8 +75,9 @@ image:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops-2.png[]
 
 == Step #4: Install the driver and its dependencies
 Execute
+[source, console]
 ----
-sudo dnf install gcc kernel-headers kernel-devel akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-libs xorg-x11-drv-nvidia-libs.i686
+$ sudo dnf install gcc kernel-headers kernel-devel akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-libs xorg-x11-drv-nvidia-libs.i686
 ----
 to get the driver and all necessary dependencies.
 
@@ -85,9 +88,10 @@ You **must** wait 5-10 minutes for the kernel modules to load. Please do not pro
 
 == Step #6: Read from the updated kernel modules
 Execute
+[source, console]
 ----
-sudo akmods --force
-sudo dracut --force
+$ sudo akmods --force
+$ sudo dracut --force
 ----
 This would force the configuration to be read from the updated kernel modules which now have the NVIDIA drivers in them.
 
@@ -105,25 +109,29 @@ This means that the driver installation was successful leading to the detection 
 == Step #8: Edit the X11 configuration
 Please ensure that the [application]`xrandr` package is installed before proceeding with this step:
 
+[source, console]
 ----
-sudo dnf install xrandr
+$ sudo dnf install xrandr
 ----
 
 Execute the following command to copy the display render details for the X11.
 
+[source, console]
 ----
-sudo cp -p /usr/share/X11/xorg.conf.d/nvidia.conf /etc/X11/xorg.conf.d/nvidia.conf
+$ sudo cp -p /usr/share/X11/xorg.conf.d/nvidia.conf /etc/X11/xorg.conf.d/nvidia.conf
 ----
 
 Once done, open up the `nvidia.conf` from the copy destination and edit it to add
+[source, conf]
 ----
 Option "PrimaryGPU" "yes"
 ----
 to the `OutputClass` section of it.
 
 For example, use `nano`
+[source, console]
 ----
-sudo nano /etc/X11/xorg.conf.d/nvidia.conf
+$ sudo nano /etc/X11/xorg.conf.d/nvidia.conf
 ----
 and make changes.
 
@@ -142,16 +150,18 @@ Reboot your system and proceed to the next steps to verify the change in configu
 
 == Step #10: Verify the configuration
 Open a terminal and type in
+[source, console]
 ----
-glxinfo | egrep "OpenGL vendor|OpenGL renderer"
+$ glxinfo | egrep "OpenGL vendor|OpenGL renderer"
 ----
 It should show your NVIDIA GPU.
 
 image:how-to-set-nvidia-as-primary-gpu-on-optimus-based-laptops-6.png[]
 
 Check on `screenfetch`.
+[source, console]
 ----
-screenfetch
+$ screenfetch
 ----
 It should show your NVIDIA GPU under the GPU name.
 
