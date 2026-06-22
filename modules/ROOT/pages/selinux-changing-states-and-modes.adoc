@@ -19,9 +19,9 @@ Use the [command]`getenforce` or [command]`sestatus` commands to check in which 
 
 The [command]`sestatus` command returns the SELinux status and the SELinux policy being used:
 
-[source,bash]
+[source, console]
 ----
-[~]$ sestatus
+$ sestatus
 SELinux status:                 enabled
 SELinuxfs mount:                /sys/fs/selinux
 SELinux root directory:         /etc/selinux
@@ -52,51 +52,51 @@ While enabling SELinux on systems that previously had it disabled, to avoid prob
 
 * The [package]`selinux-policy-targeted`, [package]`selinux-policy`, [package]`libselinux-utils`, and [package]`grubby` packages are installed. To check that a particular package is installed:
 +
-[subs="quotes"]
+[source, console]
 ----
-$ *rpm -q _package_name_*
+$ rpm -q _package_name_
 ----
 
 .Procedure
 
 . If your system has SELinux disabled at the kernel level (this is the recommended way, see xref:changing-selinux-states-and-modes.adoc#_disabling_selinux[]), change this first. Check if you have the `selinux=0` option in your kernel command line:
 +
-[subs="quotes"]
+[source, console]
 ----
-$ *cat /proc/cmdline*
+$ cat /proc/cmdline
 BOOT_IMAGE=... ... selinux=0
 ----
 
 .. Remove the `selinux=0` option from the bootloader configuration using [command]`grubby`:
 +
-[subs="quotes"]
+[source, console]
 ----
-$ *sudo grubby --update-kernel ALL --remove-args selinux*
+$ sudo grubby --update-kernel ALL --remove-args selinux
 ----
 
 .. The change applies after you restart the system in one of the following steps.
 
 . Ensure the file system is relabeled on the next boot:
 +
-[subs="quotes"]
+[source, console]
 ----
-$ *sudo fixfiles onboot*
+$ sudo fixfiles onboot
 ----
 
 . Enable SELinux in permissive mode. For more information, see xref:changing-selinux-states-and-modes.adoc#_changing_to_permissive_mode[].
 
 . Restart your system:
 +
-[subs="quotes"]
+[source, console]
 ----
-$ *reboot*
+$ sudo reboot
 ----
 
 . Check for SELinux denial messages.
 +
-[subs="quotes"]
+[source, console]
 ----
-$ *sudo ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts recent*
+$ sudo ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts recent
 ----
 
 . If there are no denials, switch to enforcing mode. For more information, see xref:changing-selinux-states-and-modes.adoc#_changing_to_enforcing_mode[].
@@ -122,19 +122,20 @@ Use the following procedure to permanently change SELinux mode to permissive. Wh
 
 . Open the `/etc/selinux/config` file in a text editor of your choice, for example:
 
+[source, console]
 ----
-# vi /etc/selinux/config
+$ sudo vi /etc/selinux/config
 ----
 
 . Configure the `SELINUX=permissive` option:
-[subs="quotes"]
+[source, conf]
 ----
 # This file controls the state of SELinux on the system.
 # SELINUX= can take one of these three values:
 #       enforcing - SELinux security policy is enforced.
 #       permissive - SELinux prints warnings instead of enforcing.
 #       disabled - No SELinux policy is loaded.
-SELINUX=*permissive*
+SELINUX=permissive
 # SELINUXTYPE= can take one of these two values:
 #       targeted - Targeted processes are protected,
 #       mls - Multi Level Security protection.
@@ -143,9 +144,9 @@ SELINUXTYPE=targeted
 
 . Restart the system:
 +
-[subs="quotes"]
+[source, console]
 ----
-# *reboot*
+$ sudo reboot
 ----
 
 
@@ -163,20 +164,21 @@ Use the following procedure to switch SELinux to enforcing mode. When SELinux is
 
 . Open the `/etc/selinux/config` file in a text editor of your choice, for example:
 +
+[source, console]
 ----
-# vi /etc/selinux/config
+$ sudo vi /etc/selinux/config
 ----
 
 . Configure the `SELINUX=enforcing` option:
 +
-[subs="quotes"]
+[source, conf]
 ----
 # This file controls the state of SELinux on the system.
 # SELINUX= can take one of these three values:
 #       enforcing - SELinux security policy is enforced.
 #       permissive - SELinux prints warnings instead of enforcing.
 #       disabled - No SELinux policy is loaded.
-SELINUX=*enforcing*
+SELINUX=enforcing
 # SELINUXTYPE= can take one of these two values:
 #       targeted - Targeted processes are protected,
 #       mls - Multi Level Security protection.
@@ -185,9 +187,9 @@ SELINUXTYPE=targeted
 
 . Save the change, and restart the system:
 +
-[subs="quotes"]
+[source, console]
 ----
-# reboot
+$ sudo reboot
 ----
 +
 On the next boot, SELinux relabels all the files and directories within the system and adds SELinux context for files and directories that were created when SELinux was disabled.
@@ -196,6 +198,7 @@ On the next boot, SELinux relabels all the files and directories within the syst
 
 . After the system restarts, confirm that the `getenforce` command returns `Enforcing`:
 +
+[source, console]
 ----
 $ getenforce
 Enforcing
@@ -204,21 +207,22 @@ Enforcing
 [NOTE]
 ====
 After changing to enforcing mode, SELinux may deny some actions because of incorrect or missing SELinux policy rules. To view what actions SELinux denies, enter the following command as root:
-[subs="quotes"]
+[source, console]
 ----
-# ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts today
+$ sudo ausearch -m AVC,USER_AVC,SELINUX_ERR,USER_SELINUX_ERR -ts today
 ----
 Alternatively, with the [package]`setroubleshoot-server` package installed, enter:
-[subs="quotes"]
+[source, console]
 ----
-# grep "SELinux is preventing" /var/log/messages
+$ sudo grep "SELinux is preventing" /var/log/messages
 ----
 
 Standard users can use the GUI `setroubleshoot` to file bugs directly to Bugzilla. 
 
 If SELinux is active and the Audit daemon (auditd) is not running on your system, then search for certain SELinux messages in the output of the dmesg command:
+[source, console]
 ----
-# dmesg | grep -i -e type=1300 -e type=1400
+$ sudo dmesg | grep -i -e type=1300 -e type=1400
 ----
 
 If SELinux denies some actions, see the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/troubleshooting-problems-related-to-selinux_using-selinux[Troubleshooting problems related to SELinux] chapter in the link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/index[RHEL 8 Using SELinux] document for information about troubleshooting.
@@ -245,9 +249,9 @@ Disabling SELinux using the SELINUX=disabled option in the /etc/selinux/config r
 
 * The [package]`grubby` package is installed:
 +
-[subs="quotes"]
+[source, console]
 ----
-$ *rpm -q grubby*
+$ rpm -q grubby
 grubby-_version_
 ----
 
@@ -255,14 +259,14 @@ grubby-_version_
 
 . Open the `/etc/selinux/config` file in a text editor of your choice, for example:
 +
-[subs="quotes"]
+[source, console]
 ----
-# vi /etc/selinux/config
+$ sudo vi /etc/selinux/config
 ----
 
 . Configure the SELINUX=disabled option:
 +
-[subs="quotes"]
+[source, conf]
 ----
 # This file controls the state of SELinux on the system.
 # SELINUX= can take one of these three values:
@@ -277,17 +281,18 @@ SELINUXTYPE=targeted
 ----
 
 . Save the change, and restart your system:
+[source, console]
 ----
-# reboot
+$ sudo reboot
 ----
 
 .Verification 
 
 * After reboot, confirm that the [command]`getenforce` command returns `Disabled`:
 +
-[subs="quotes"]
+[source, console]
 ----
-$ *getenforce*
+$ getenforce
 Disabled
 ----
 
@@ -309,14 +314,16 @@ Using the [option]`selinux=0` parameter is not recommended. To debug your system
 
 autorelabel=1::  This parameter forces the system to relabel similarly to the following commands:
 +
+[source, console]
 ----
-# touch /.autorelabel
-# reboot
+$ sudo touch /.autorelabel
+$ sudo reboot
 ----
 +
 If a file system contains a large amount of mislabeled objects, start the system in permissive mode to make the autorelabel process successful.
 
 For additional SELinux-related kernel boot parameters, such as [option]`checkreqprot`, see the `kernel-parameters.txt` file. This file is available in the source package of your Linux kernel (.src.rpm). To download the source package containing the currently used kernel:
+[source, console]
 ----
-[~]# dnf download --source kernel
+$ sudo dnf download --source kernel
 ----
