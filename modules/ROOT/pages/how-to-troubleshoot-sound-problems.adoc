@@ -70,14 +70,14 @@ $ sudo dnf install alsa-firmware
 
 If any other firmware is installed, put them on blocklist on configuration directory for modprobe.
 
-[source, console]
+[source, ]
 ----
 /etc/modprobe.d/*.conf
 ----
 
 Add the line on configuration file.
 
-[source, console]
+[source, conf]
 ----
 blacklist <the module to blocklist>
 ----
@@ -217,7 +217,7 @@ $ sudo usermod -aG audio $USER
 If the audio configuration is corrupted, you can reset it by moving the old config folders:
 
 [source, console]
----- 
+----
 $ mv ~/.config/pulse ~/.config/pulse_backup
 $ mv ~/.config/pipewire ~/.config/pipewire_backup
 ----
@@ -295,7 +295,7 @@ NOTE: If there is a problem, the output of `bluetoothctl show` or `btmon` may re
 
 To continue, start the Bluetooth control tool to list Bluetooth devices and their statuses.
 
-[source, bash]
+[source, console]
 ----
 $ bluetoothctl
   Agent registered
@@ -360,7 +360,7 @@ $ bluetoothctl
 ----
 
 Example `bluetoothctl` prompt commands:
-[source, console]    
+[source, ]
 ----
   power on
   agent on
@@ -407,7 +407,7 @@ $ pactl info | grep Server
 
 Example Output:
 
-[source, console]
+[source, ]
 ----
 Server String: /run/user/1000/pulse/native
 Server Protocol Version: 35
@@ -424,7 +424,7 @@ $ pactl list cards short
 
 Example Output:
 
-[source, console]
+[source, ]
 ----
 42 alsa_card.pci-0000_00_1f.3 alsa
 1092 bluez_card.14_06_A7_04_73_78 module-bluez5-device.c
@@ -441,7 +441,7 @@ $ pactl list cards | grep -i 'profile\|name:'
 
 Example Output:
 
-[source, console]
+[source, ]
 ----
 Name: alsa_card.pci-0000_00_1f.3
 api.acp.auto-profile = "false"
