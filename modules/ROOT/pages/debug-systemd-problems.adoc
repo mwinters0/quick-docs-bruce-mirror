@@ -19,65 +19,65 @@ Have a look at the upstream project's  link:http://freedesktop.org/wiki/Software
 
 * List all jobs that are "running" or "waiting". This command can be used to identify causes of a slow boot. The boot process waits for "running" jobs to complete. Jobs listed as "waiting" will only be executed after "running" jobs have completed.
 +
-[source,bash]
+[source, console]
 ----
-[…]# systemctl list-jobs
+$ sudo  systemctl list-jobs
 ----
 
 * List all available services and their current status
 +
-[source,bash]
+[source, console]
 ----
-[…]# systemctl list-units -t service --all
+$ sudo  systemctl list-units -t service --all
 ----
 
 
 * Show all active services
 +
-[source,bash]
+[source, console]
 ----
-[…]# systemctl list-units -t service
+$ sudo  systemctl list-units -t service
 ----
 
 
 * Examine the current runtime status of a service. (In this example the ssh service)
 +
-[source,bash]
+[source, console]
 ----
-[…]# systemctl status sshd.service
+$ sudo  systemctl status sshd.service
 ----
 
 
 * Show all available targets.
 +
-[source,bash]
+[source, console]
 ----
-[…]# systemctl list-units -t target --all
+$ sudo  systemctl list-units -t target --all
 ----
 
 
 * Show all active targets.
 +
-[source,bash]
+[source, console]
 ----
-[…]# systemctl list-units -t target
+$ sudo  systemctl list-units -t target
 ----
 
 
 * Display which services a target pulls in. ( In this example the
 multi-user.target )
 +
-[source,bash]
+[source, console]
 ----
-[…]# systemctl show -p "Wants" multi-user.target
+$ sudo  systemctl show -p "Wants" multi-user.target
 ----
 
 
 * Examine what gets started when booted into a specific target. (in this example the multi-user.target)
 +
-[source,bash]
+[source, console]
 ----
-[…]# /usr/lib/systemd/systemd --test --system --unit=multi-user.target
+$ sudo  /usr/lib/systemd/systemd --test --system --unit=multi-user.target
 ----
 
 
