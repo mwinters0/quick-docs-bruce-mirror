@@ -39,9 +39,9 @@ This mode can be used for computer script processing as you can see a terse outp
 [[ex-Viewing_a_terse_output_for_scripts]]
 .Viewing a terse output
 ====
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
-$ [command]`nmcli -t device`
+$ nmcli -t device
 ens3:ethernet:connected:Profile 1
 lo:loopback:unmanaged:
 ----
@@ -55,9 +55,9 @@ This option specifies what fields can be displayed in output. For example, NAME,
 .Specifying Fields in the output
 ====
 
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
-$ [command]`nmcli -f DEVICE,TYPE device`
+$ nmcli -f DEVICE,TYPE device
 DEVICE  TYPE
 ens3    ethernet
 lo      loopback
@@ -65,9 +65,9 @@ lo      loopback
 
 or even better for scripting:
 
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
-$ [command]`nmcli -t -f DEVICE,TYPE device`
+$ nmcli -t -f DEVICE,TYPE device
 ens3:ethernet
 lo:loopback
 
@@ -83,9 +83,9 @@ This option causes [application]*nmcli* to produce human-readable output. For ex
 .Viewing an output in pretty mode
 ====
 
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
-$ [command]`nmcli -p device`
+$ nmcli -p device
 =====================
   Status of devices
 =====================
@@ -103,21 +103,21 @@ lo      loopback  unmanaged  --
 Prints help information.
 
 The [application]*nmcli* tool has some built-in context-sensitive help. To list the available options and object names:
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
-$ [command]`nmcli help`
+$ nmcli help
 ----
 
 To list available actions related to a specified object:
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
-$ [command]`nmcli _object_ help`
+$ nmcli _object_ help
 ----
 
 For example,
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
-$ [command]`nmcli c help`
+$ nmcli c help
 ----
 
 [discrete]
@@ -138,18 +138,18 @@ This section provides a brief selection of [application]*nmcli* examples.
 .Checking the overall status of NetworkManager
 ====
 
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
-$ [command]`nmcli general status`
+$ nmcli general status
 STATE      CONNECTIVITY  WIFI-HW  WIFI     WWAN-HW  WWAN
 connected  full          enabled  enabled  enabled  enabled
 ----
 
 In terse mode:
 
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
-$ [command]`nmcli -t -f STATE general`
+$ nmcli -t -f STATE general
 connected
 ----
 
@@ -158,9 +158,9 @@ connected
 .Viewing NetworkManager logging status
 ====
 
-[source, console, subs="+quotes,verbatim"]
+[source, console]
 ----
-$ [command]`nmcli general logging`
+$ nmcli general logging
   LEVEL  DOMAINS
   INFO   PLATFORM,RFKILL,ETHER,WIFI,BT,MB,DHCP4,DHCP6,PPP,WIFI_SCAN,IP4,IP6,A
 UTOIP4,DNS,VPN,SHARING,SUPPLICANT,AGENTS,SETTINGS,SUSPEND,CORE,DEVICE,OLPC,
@@ -173,9 +173,9 @@ B,DISPATCH
 .Viewing all connections
 ====
 
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
-$ [command]`nmcli connection show`
+$ nmcli connection show
   NAME       UUID                                  TYPE      DEVICE
 Profile 1  db1060e9-c164-476f-b2b5-caec62dc1b05  ethernet    ens3
 ens3       aaf6eb56-73e5-4746-9037-eed42caa8a65  ethernet    --
@@ -186,9 +186,9 @@ ens3       aaf6eb56-73e5-4746-9037-eed42caa8a65  ethernet    --
 .Viewing only currently active connections
 ====
 
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
-$ [command]`nmcli connection show --active`
+$ nmcli connection show --active
   NAME       UUID                                  TYPE      DEVICE
 Profile 1  db1060e9-c164-476f-b2b5-caec62dc1b05  ethernet     ens3
 ----
@@ -198,9 +198,9 @@ Profile 1  db1060e9-c164-476f-b2b5-caec62dc1b05  ethernet     ens3
 .Viewing only devices recognized by [application]*NetworkManager* and their state
 ====
 
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
-$ [command]`nmcli device status`
+$ nmcli device status
 DEVICE  TYPE      STATE      CONNECTION
 ens3    ethernet  connected  Profile 1
 lo      loopback  unmanaged  --
@@ -244,14 +244,14 @@ A connection type. Allowed values are: adsl, bond, bond-slave, bridge, bridge-sl
 +
 ** A `gsm` connection requires the access point name specified in an [option]`apn`.
 +
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
 $ nmcli c add connection.type gsm apn pass:quotes[_access_point_name_]
 ----
 +
 ** A `wifi` device requires the service set identifier specified in a [option]`ssid`.
 +
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
 $ nmcli c add connection.type wifi ssid _My identifier_
 ----
@@ -262,7 +262,7 @@ You can see the `TYPE_SPECIFIC_OPTIONS` list in the [citetitle]_*nmcli*(1)_ man 
 +
 A device name relevant for the connection.
 +
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
 $ nmcli con add connection.interface-name _eth0_ type _ethernet_
 ----
@@ -271,7 +271,7 @@ $ nmcli con add connection.interface-name _eth0_ type _ethernet_
 +
 A name used for the connection profile. If you do not specify a connection name, one will be generated as follows:
 +
-[source, console, subs="+quotes,verbatim,macros"]
+[source, console]
 ----
 _connection.type -connection.interface-name_
 ----
