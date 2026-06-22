@@ -44,55 +44,73 @@ Application crash can occur during runtime. Application window simply disappear 
 
 Debug info packages which contains source files are required to create meaningful bug report (unless you use Mozilla crash reporter). To install them you need to execute following command as root:
 
-[source,]
-dnf debuginfo-install firefox
+[source, console]
+----
+$ sudo dnf debuginfo-install firefox
+----
 
 for Firefox,
-[source,]
-dnf debuginfo-install thunderbird
+[source, console]
+----
+$ sudo dnf debuginfo-install thunderbird
+----
 
 for Thunderbird.
 
 === Using coredumpctl to get backtrace
 You can use coredumpctl to get backtrace. Run on terminal:
 
-[source,]
-coredumpctl list
+[source, console]
+----
+$ coredumpctl list
+----
 
 and find Firefox crash there and get crash ID. Then launch gdb on it by
 
-[source,]
-coredumpctl debug ID
+[source, console]
+----
+$ coredumpctl debug ID
+----
 
 you should get a gdb session and you should be able to get backtrace by
 
-[source,]
+[source, ]
+----
 thread apply all bt full
+----
 
 gdb command.
 
 === Running application in debugger
 
 To run application in gnu debugger you need to run command:
-[source,]
-firefox -g -d gdb
+[source, console]
+----
+$ firefox -g -d gdb
+----
 
 for Firefox,
-[source,]
-thunderbird -g -d gdb
+[source, console]
+----
+$ thunderbird -g -d gdb
+----
 
 After debugger is started which is indicated by line:
-[source,]
+[source, ]
+----
 (gdb)
+----
 
 To run program use command:
-[source,]
+[source, ]
+----
 run
+----
 
 [id=optaincrashstacktrace]
 === Obtain crash stack trace
 Then bring application to crash. This should be indicated by (gdb) prompt. Type:
-[source,]
+[source, ]
 ----
 set logging on crash_bt.log
 thread apply all bt full
@@ -110,8 +128,10 @@ You can kill running application by kill signal and then obtain and submit Mozil
 
 To terminate all firefox instances run on terminal:
 
-[source,]
-kill -s 11 ${pid_of_firefox}
+[source, console]
+----
+$ kill -s 11 ${pid_of_firefox}
+----
 
 This should terminate all Firefox instances and produce Mozilla crash report dialog. In next Firefox run you should see crash ID at `about:crashes` page. Please submit the crash to Mozilla and paste crash ID to bugreport.
 
@@ -119,13 +139,17 @@ This should terminate all Firefox instances and produce Mozilla crash report dia
 Before you can attach to running application you need to have [[#Installing debug info packages|debug symbols installed]].
 
 When the freeze occurs randomly and/or difficult to predict you can attach to running application when it freezes by:
-[source,bash]
-gdb firefox `ps ax|grep firefox/firefox|grep -v grep|grep -v "contentproc"|cut -d ' ' -f3`
+[source, console]
+----
+$ gdb firefox `ps ax|grep firefox/firefox|grep -v grep|grep -v "contentproc"|cut -d ' ' -f3`
+----
 
 for Firefox.
 
-[source,bash]
-gdb thunderbird `ps ax|grep thunderbird/thunderbird|grep -v grep|grep -v "contentproc"|cut -d ' ' -f3`
+[source, console]
+----
+$ gdb thunderbird `ps ax|grep thunderbird/thunderbird|grep -v grep|grep -v "contentproc"|cut -d ' ' -f3`
+----
 
 for Thunderbird.
 
@@ -133,12 +157,16 @@ Then you can continue by <<obtaincrashstacktrace,Obtain crash stack trace>>.
 
 == Figuring out what is responsible for crash
 Some crashes and problems come from installed addons or 3rd party plugins. To determine if that's the case run application with ''-safe-mode'' parameter:
-[source,bash]
-firefox -safe-mode
+[source, console]
+----
+$ firefox -safe-mode
+----
 
 or
-[source,bash]
-thunderbird -safe-mode
+[source, console]
+----
+$ thunderbird -safe-mode
+----
 
 
 Then `Disable all add-ons` needs to be checked and `Make Changes and Restart` pressed.
@@ -163,33 +191,37 @@ For _Firefox_ set your location to `about:plugins` page. This page contains info
 For _Thunderbird_ make screenshot of `Tools/Addons/Extensions` and `Tools/Addons/Plugins` dialogs and attach images to bugzilla.
 
 Attach also output of following commands:
-[source,bash]
+[source, console]
 ----
 $ rpm -q firefox xulrunner thunderbird flash-plugin gnash google-talkplugin nspluginwrapper thunderbird-lightning thunderbird-enigmail flash-plugin
-ls -l /usr/lib64/mozilla/plugins/
-ls -l /usr/lib/mozilla/plugins/
-ls -l /usr/share/mozilla/extensions
+$ ls -l /usr/lib64/mozilla/plugins/
+$ ls -l /usr/lib/mozilla/plugins/
+$ ls -l /usr/share/mozilla/extensions
 ----
 
 You may also run Firefox or Thunderbird by `strace`. This help us to track which dynamic libraries are loaded during startup. Strace usage:
-[source,bash]
-strace firefox &> strace_output
+[source, console]
+----
+$ strace firefox &> strace_output
+----
 
 or in case of Thunderbird:
-[source,bash]
-strace thunderbird &> strace_output
+[source, console]
+----
+$ strace thunderbird &> strace_output
+----
 
 and don't forget to attach created _strace_output_ file to bug report. If application crash or freeze stack trace is also very useful, for instructions see [[#Application crash]] section.
 
 == Bug report attachment in a nutshell
 To make long story short, execute following commands and attach _~/bug-report_ file to bugzilla:
 
-[source,bash]
+[source, console]
 ----
-rpm -q firefox xulrunner thunderbird flash-plugin gnash google-talkplugin nspluginwrapper thunderbird-lightning thunderbird-enigmail flash-plugin > ~/bug-report
-ls -l /usr/lib64/mozilla/plugins/   >> ~/bug-report
-ls -l /usr/lib/mozilla/plugins/     >> ~/bug-report
-ls -l /usr/share/mozilla/extensions >> ~/bug-report
+$ rpm -q firefox xulrunner thunderbird flash-plugin gnash google-talkplugin nspluginwrapper thunderbird-lightning thunderbird-enigmail flash-plugin > ~/bug-report
+$ ls -l /usr/lib64/mozilla/plugins/   >> ~/bug-report
+$ ls -l /usr/lib/mozilla/plugins/     >> ~/bug-report
+$ ls -l /usr/share/mozilla/extensions >> ~/bug-report
 ----
 
 For _Firefox_ go to `about:support` and `about:plugins` pages, save them and attach to bug report.
