@@ -70,7 +70,7 @@ First you will need to read the StackTraces page, up to the point of starting gd
 
 Because libgcj uses several signals internally, you need to tell gdb first of all to ignore some of them, by typing or pasting the following commands into gdb:
 
-[source,]
+[source, ]
 ----
 handle SIGHUP nostop print
 handle SIGPWR nostop noprint
@@ -81,22 +81,28 @@ handle SIG33 nostop noprint
 
 gdb can also be quite slow at loading the debugging information for various libraries (which can drastically affect the startup time of programs), so, to get nice friendly progress indications, you might want to also specify:
 
-[source,]
+[source, ]
+----
 set verbose on
+----
 
 Now type `run` or `r` for short and continue reading the instructions on the StackTraces page.
 
-=== Ignoring "Null Pointer Exceptions" of the harmless variety in gdb 
+=== Ignoring "Null Pointer Exceptions" of the harmless variety in gdb
 
 Sometimes code generates one or more `Null Pointer Exceptions` which are in fact harmless - or at least, irrelevant to the bug you are trying to trace. (Not all `Null Pointer Exceptions` are harmless or irrelevant, but some are.) Because gcj uses SIGSEGV to detect `Null Pointer Exceptions`, you can also specify
 
-[source,]
+[source, ]
+----
 handle SIGSEGV nostop noprint
+----
 
 to tell gdb to ignore SIGSEGVs, or
 
-[source,]
+[source, ]
+----
 handle SIGSEGV nostop print
+----
 
 to tell gdb to inform you of SIGSEGVs, but otherwise ignore them.
 
