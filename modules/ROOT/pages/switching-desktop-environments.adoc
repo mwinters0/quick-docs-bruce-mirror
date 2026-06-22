@@ -13,7 +13,7 @@ Different Fedora Linux variants (Spins/Labs) have different default environments
 
 You can list available desktop environments using `dnf environment list`.
 
-[source,bash,console]
+[source, console]
 ----
 $ dnf environment list --available | grep -i desktop
 ----
@@ -21,7 +21,7 @@ $ dnf environment list --available | grep -i desktop
 Install the required desktop environment using the `dnf install` command.
 Ensure to prefix with the `@` sign, for example:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install @kde-desktop-environment
 ----
@@ -49,7 +49,7 @@ It also allows you to change default desktop environment for individual users, a
 
 . Install the `switchdesk` and `switchdesk-gui` packages:
 +
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install switchdesk switchdesk-gui
 ----
@@ -67,14 +67,14 @@ First, install the desired desktop environment as described in link:#installing-
 
 Install the `switchdesk` package:
 
-[source,bash,console]
+[source, console]
 ----
 $ sudo dnf install switchdesk
 ----
 
 Pass the selected desktop environment as the only argument to the `switchdesk` command, for example:
 
-[source,bash,console]
+[source, console]
 ----
 $ switchdesk kde
 ----
