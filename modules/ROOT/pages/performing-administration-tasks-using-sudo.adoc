@@ -20,12 +20,12 @@ Only users listed in the [filename]`/etc/sudoers` configuration file are allowed
 
 The syntax for the sudo command is as follows:
 
-[subs=quotes]
+[source, console]
 ----
-sudo _COMMAND_
+$ sudo <COMMAND>
 ----
 
-Replace `_COMMAND_` with the command to run as the root user.
+Replace `<COMMAND>` with the command to run as the root user.
 
 
 
@@ -39,23 +39,23 @@ Add users to the [directory]`/etc/sudoers` configuration file to allow them to u
 
 The administrator can also allow different users access to specific commands using the sudo configuration. Administrators must use the [command]`visudo` command to edit the [directory]`/etc/sudoers` configuration file.
 
-To assign full administrative privileges to a user, type [command]`visudo` and add the following line to the user privilege section after replacing `_USERNAME_` with the target user name:
+To assign full administrative privileges to a user, type [command]`visudo` and add the following line to the user privilege section after replacing `<USERNAME>` with the target user name:
 
-[subs=quotes]
+[source, conf]
 ----
-_USERNAME_ ALL=(ALL) ALL
+<USERNAME> ALL=(ALL) ALL
 ----
 
 This line allows the specified user to use [command]`sudo` from any host and execute any command.
 
-To allow a user access to specific commands, use the following example after replacing `_USERS_` with a target system group:
+To allow a user access to specific commands, use the following example after replacing `<USERS>` with a target system group:
 
-[subs=quotes]
+[source, conf]
 ----
-_%USERS_ localhost=/usr/sbin/shutdown -h now
+%<USERS> localhost=/usr/sbin/shutdown -h now
 ----
 
-This command allows all members of the `_USERS_` system group to issue the [command]`/sbin/shutdown -h` as long as the command is issued from the console.
+This command allows all members of the `<USERS>` system group to issue the [command]`/sbin/shutdown -h` as long as the command is issued from the console.
 
 The man page for [command]`sudoers` has a detailed listing of options for this file.
 
@@ -66,6 +66,7 @@ If you use a single user desktop, you might find it convenient to configure [com
 
 . Become the *root* user:
 +
+[source, console]
 ----
 $ su -
 ----
@@ -74,12 +75,12 @@ $ su -
 
 . To use your regular password for the root access, run:
 +
-[subs=quotes]
+[source, console]
 ----
-# usermod _USERNAME_ -a -G groupname
+$ sudo usermod <USERNAME> -a -G groupname
 ----
 +
-Replace `_USERNAME_` with your account name
+Replace `<USERNAME>` with your account name
 
 . Log off and back on in order to have access to the group.
 
@@ -92,15 +93,16 @@ Each successful authentication using the [command]`sudo` command is logged to th
 
 For additional logging, use the `pam_tty_audit` module to enable TTY auditing for specific users. TTY auditing prints the file name of the terminal connected to the standard I/O. To enable TTY auditing, add the following line to your [filename]`/etc/pam.d/system-auth` file:
 
-[subs=quotes]
+[source, conf]
 ----
-session required pam_tty_audit.so disable=pattern enable=_PATTERN_
+session required pam_tty_audit.so disable=pattern enable=<PATTERN>
 ----
 
-Replace `_PATTERN_` with a comma-separated list of users (and globs, if needed).
+Replace `<PATTERN>` with a comma-separated list of users (and globs, if needed).
 
 For example, the following command enables TTY auditing for the root user and disables it for all other users:
 
+[source, conf]
 ----
 session required pam_tty_audit.so disable=* enable=root
 ----
@@ -120,12 +122,12 @@ There are several potential risks to keep in mind when using the [command]`sudo`
 
 By default, [command]`sudo` stores the password for a five minute timeout period. Any subsequent uses of the command during this period will not prompt you for a password. This could be exploited by an attacker if you leave your workstation unattended and unlocked while still being logged in. You can change this behavior by adding the following line to the `/etc/sudoers` configuration file:
 
-[subs=quotes]
-------------
-Defaults    timestamp_timeout=_VALUE_
-------------
+[source, conf]
+----
+Defaults    timestamp_timeout=<VALUE>
+----
 
-Here, `_VALUE_` is the desired timeout length in minutes. Setting the value to 0 causes [command]`sudo` to require a password every time.
+Here, `<VALUE>` is the desired timeout length in minutes. Setting the value to 0 causes [command]`sudo` to require a password every time.
 
 If an account is compromised, an attacker can use [command]`sudo` to open a new shell with administrative privileges.
 
@@ -146,6 +148,7 @@ It is recommended that sudo rules are implemented to permit access to the Docker
 . Set up [command]`sudo` as shown in xref:performing-administration-tasks-using-sudo.adoc#_using_sudo_assign_admin_privileges[Using sudo to assign administrator privileges].
 . Create an alias for running the docker command by adding the following line to your `~/.bashrc` file:
 +
+[source, conf]
 ----
 alias docker="sudo /usr/bin/docker"
 ----
@@ -157,11 +160,11 @@ When the user executes the docker command as non-root, sudo will be used to mana
 
 You can enable `root` access without a password specified, allowing any process on your system to become `root`. Add the following line to your `/etc/sudoers` file:
 
-[subs=quotes]
-------------
-_user_        ALL=(ALL)       NOPASSWD: /usr/bin/docker
-------------
+[source, conf]
+----
+<user>        ALL=(ALL)       NOPASSWD: /usr/bin/docker
+----
 
-This will allow `_user_` to access docker without a password.
+This will allow `<user>` to access docker without a password.
 
 IMPORTANT: For security reasons, it is recommended that you always use [command]`sudo` with a password.
