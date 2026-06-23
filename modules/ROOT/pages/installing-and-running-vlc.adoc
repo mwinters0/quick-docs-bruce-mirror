@@ -14,7 +14,7 @@ Lyle Corman ; Ankur Sinha
 
 * Install VLC:
 +
-[source,]
+[source, console]
 ----
 $ sudo dnf install vlc
 ----
@@ -34,10 +34,10 @@ $ sudo dnf install vlc
 
 * To run VLC from the command line:
 +
-[subs="quotes"]
+[source, console]
 ----
-$ vlc _source_
+$ vlc <source>
 ----
 +
-Replace _source_ with path to the file to be played, URL, or other data source. For more details, see link:https://wiki.videolan.org/Documentation:Command_line/#Opening_streams[Opening streams] on VideoLAN wiki.
+Replace <source> with path to the file to be played, URL, or other data source. For more details, see link:https://wiki.videolan.org/Documentation:Command_line/#Opening_streams[Opening streams] on VideoLAN wiki.
 
