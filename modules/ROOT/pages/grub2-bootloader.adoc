@@ -435,6 +435,7 @@ $ sudo mount -o bind /dev /mnt/dev
 $ sudo mount -o bind /proc /mnt/proc
 $ sudo mount -o bind /sys /mnt/sys
 $ sudo mount -o bind /run /mnt/run
+$ sudo mount -o bind /dev/pts /mnt/dev/pts
 ----
 +
 . On UEFI systems, bind the `efivars` directory and mount the EFI system partition (e.g. `/dev/sda1`).
