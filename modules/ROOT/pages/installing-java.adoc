@@ -142,6 +142,10 @@ $ sudo dnf install temurin-8-jdk
 $ sudo dnf install temurin-17-jdk
 ----
 
+[NOTE]
+A Temurin `-jdk` package already includes the JRE.
+Do not install both the `-jdk` and `-jre` of the same version, or you will end up with duplicate `java` entries in `alternatives`.
+
 
 == Installing Oracle Java SE
 
