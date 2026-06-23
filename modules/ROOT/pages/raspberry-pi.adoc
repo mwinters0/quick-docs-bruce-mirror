@@ -74,44 +74,44 @@ This procedure shows Fedora users how to add Fedora ARM to a microSD for use wit
 
 . Install the `arm-image-installer`:
 +
-[source,shell,subs="attributes"]
+[source, console]
 ----
 $ sudo dnf install -y arm-image-installer
 ----
 +
 . As the root user, write the Fedora ARM image to the microSD card:
 +
-[source,shell,subs="quotes,attributes"]
+[source, console]
 ----
 $ sudo arm-image-installer \
---image=__&#60;/path/to/fedora_image&#62 \
---target=__&#60;RPi_Version&#62 \
---media=/dev/__&#60;sd_card_device&#62 \
+--image=</path/to/fedora_image> \
+--target=<RPi_Version> \
+--media=/dev/<sd_card_device> \
 --resizefs
 ----
 +
 Where:
 +
-* The `__&#60;/path/to/fedora_image&#62;__` has the format `Fedora-__&#60;spin&#62;__&#60;fedora_version__&#62;__.aarch64.raw.xz`.
+* The `</path/to/fedora_image>` has the format `Fedora-_spin_-_version_.aarch64.raw.xz`.
 ** For example: `/home/user/Downloads/Fedora-Server-38-1.6.raw.xz`.
-* `__&#60;RPi_Version&#62;__` is:
+* `<RPi_Version>` is:
 ** `rpi2` for a Raspberry Pi 2.
 ** `rpi3` for a Raspberry Pi 3.
-* `/dev/__&#60;sd_card_device&#62;__` is the microSD card 'device' on your system, such as `/dev/sdX` or `/dev/mmcblkX`. The `lsblk` command may help you identify your micro-SD card.
+* `/dev/<sd_card_device>` is the microSD card 'device' on your system, such as `/dev/sdX` or `/dev/mmcblkX`. The `lsblk` command may help you identify your micro-SD card.
 * --resizefs: Resize the filesystem to occupy the entire SD card
 +
 [NOTE]
 ====
 * To see usage options for the `arm-image-installer`, run:
 +
-[source,shell,subs="attributes"]
+[source, console]
 ----
 $ arm-image-installer --help
 ----
 
 * For list of supported boards please check SUPPORTED-BOARDS file.
 +
-[source,shell,subs="attributes"]
+[source, console]
 ----
 $ cat /usr/share/doc/arm-image-installer/SUPPORTED-BOARDS
 ----
@@ -154,19 +154,21 @@ This procedure shows Linux users how to add Fedora ARM to a microSD for use with
 [NOTE]
 The location of your microSD card will be /dev/sdX or /dev/mmcblkX depending on your computer hardware.
 +
-[subs="quotes"]
+[source, console]
 ----
-$ xzcat *Fedora-IMAGE-NAME.aarch64.raw.xz* | sudo dd status=progress bs=4M of=*/dev/XXX*
+$ xzcat Fedora-IMAGE-NAME.aarch64.raw.xz | sudo dd status=progress bs=4M of=/dev/XXX
 ----
 +
 . To resize the main partition, run `parted` and select the device.
 +
+[source, ]
 ----
 (parted) select /dev/sdX
 ----
 +
 . Inspect the amount of unallocated space at the end and resize the root partition.
 +
+[source, ]
 ----
 (parted) print free
 (parted) resizepart <partition_number> <target_size>
@@ -174,24 +176,28 @@ $ xzcat *Fedora-IMAGE-NAME.aarch64.raw.xz* | sudo dd status=progress bs=4M of=*/
 +
 . Resize the LVM physical volume so it takes up all the available space. For this to work you must deactivate any logical volumes within.
 +
+[source, console]
 ----
-# pvresize /dev/sdaX
+$ sudo pvresize /dev/sdaX
 ----
 +
 . Then extend the logical volume that corresponds to the root directory (`/dev/fedora_fedora/root` in this example).
 +
+[source, console]
 ----
-# lvextend -l +100%FREE /dev/fedora_fedora/root
+$ sudo lvextend -l +100%FREE /dev/fedora_fedora/root
 ----
 +
 . Finally, resize the XFS filesystem in the logical volume (`/dev/mapper/fedora_fedora-root` in this example).
 +
+[source, console]
 ----
-# xfs_growfs -d /dev/mapper/fedora_fedora-root
+$ sudo xfs_growfs -d /dev/mapper/fedora_fedora-root
 ----
 +
 . Alternatively, you can use gparted to resize the Root Partition on the microSD:
 +
+[source, console]
 ----
 $ gparted /dev/XXX
 ----
@@ -240,7 +246,7 @@ This procedure shows Microsoft Windows users how to add Fedora ARM to a microSD 
 +
 For example:
 +
-[source,shell,subs="attributes"]
+[source, ]
 ----
 > "C:\Program Files\7-Zip\7z.exe" x -y "C:\Users\admin\Downloads\Fedora-Server-38-1.6.aarch64.raw.xz"
 ----
@@ -287,7 +293,7 @@ This procedure shows macOS users how to add Fedora ARM to a microSD for use with
 +
 For example:
 +
-[source,shell,subs="attributes"]
+[source, console]
 ----
 $ unrar Fedora-Server-38-1.6.aarch64.raw.xz
 ----
@@ -348,24 +354,28 @@ Follow these steps to resize the partitions for Fedora ARM on Raspberry Pi:
 
 . Enlarge the 4th partition (this example uses mmcblk0).
 +
+[source, console]
 ----
 $ growpart /dev/mmcblk0p4
 ----
 +
 . `growpart` may not be sufficient in the case of server image which uses LVM. Use `vgs` to determine the volume group name.
 +
+[source, console]
 ----
 $ vgs
 ----
 +
 . Use `lvextend` to extend the logical volume. Assuming `vgs` lists _systemVG-LVRoot_ as the volume group name, it looks like:
 +
+[source, console]
 ----
 $ lvextend -r -l +100%FREE /dev/mapper/systemVG-LVRoot
 ----
 +
 . Resize root partition for the server image (which uses xfs).
 +
+[source, console]
 ----
 $ xfs_growfs -d /
 ----
@@ -442,15 +452,16 @@ To use Wi-Fi on minimal and server images you can configure the device using com
 
 * To list available networks:
 +
+[source, console]
 ----
 $ nmcli device wifi list
 ----
 
 * To connect to a network:
 +
-[subs="quotes"]
+[source, console]
 ----
-nmcli device wifi connect __$SSID__ --ask
+$ nmcli device wifi connect __$SSID__ --ask
 ----
 +
 Where: `_$SSID_` is the network identifier (or name).
@@ -545,14 +556,16 @@ To enable the serial console follow the specific steps for the Raspberry Pi 2 or
 . Insert the microSD card into a PC
 . On the VFAT partition edit the `config.txt` file and uncomment the `enable_uart` line:
 +
+[source, conf]
 ----
-$ enable_uart=1
+enable_uart=1
 ----
 +
 . On the boot partition edit the `extlinux/extlinux.conf` file adding `console=tty0 console=ttyAMA0,115200` to the end of the append line so it looks similar to:
 +
+[source, conf]
 ----
-$ append ro root=UUID="LARGE UUID STRING OF TEXT" console=tty0 console=ttyAMA0,115200
+append ro root=UUID="LARGE UUID STRING OF TEXT" console=tty0 console=ttyAMA0,115200
 ----
 +
 . Safely unmount the microSD card
@@ -563,14 +576,16 @@ $ append ro root=UUID="LARGE UUID STRING OF TEXT" console=tty0 console=ttyAMA0,1
 . Insert the microSD card into a PC
 . On the VFAT partition edit the `config.txt` file and uncomment the `enable_uart` line:
 +
+[source, conf]
 ----
-$ enable_uart=1
+enable_uart=1
 ----
 +
 . On the boot partition edit the `extlinux/extlinux.conf` file adding: `console=tty0 console=ttyS0,115200` to the end of the append line so it looks similar to:
 +
+[source, conf]
 ----
-$ append ro root=UUID="LARGE UUID STRING OF TEXT" console=tty0 console=ttyS0,115200
+append ro root=UUID="LARGE UUID STRING OF TEXT" console=tty0 console=ttyS0,115200
 ----
 +
 . Safely unmount the microSD card
