@@ -5,6 +5,7 @@
 :category: Administration
 :tags: How-to,  Upgrade
 //:page-aliases:
+:experimental:
 
 [abstract]
 This page contains information explaining how to upgrade Fedora Linux online using `dnf` (without the xref:dnf-system-upgrade.adoc[DNF system upgrade plugin]).
@@ -74,10 +75,11 @@ Log out of your graphical desktop and then
 A small script named fedora-upgrade is available which aims to automate
 the process outlined below. To run it, do the following
 
-....
+[source, console]
+----
 $ sudo dnf install fedora-upgrade
 $ sudo fedora-upgrade
-....
+----
 
 When performing upgrade via remote shell, it is a good idea to use screen
 or tmux utility to be able to get back to running transaction in case
@@ -88,24 +90,24 @@ Alternatively, follow the manual steps:
 [[go-to-a-text-console]]
 ==== Go to a text console
 
-....
-ctrl + alt + F2
-....
+kbd:[Ctrl+Alt+F2]
 
 (or)
 
 log in as root, and go into multi-user.target
 
-....
-systemctl isolate multi-user.target
-....
+[source, console]
+----
+$ sudo systemctl isolate multi-user.target
+----
 
 [[fully-update-your-current-fedora-install]]
 ==== Fully update your current Fedora Linux install
 
-....
-# dnf upgrade
-....
+[source, console]
+----
+$ sudo dnf upgrade
+----
 
 [[install-the-package-signing-key-for-the-release-you-are-upgrading-to]]
 ==== Install the package signing key for the release you are upgrading to
@@ -117,9 +119,10 @@ import the signing key for the target release.
 
 If it turns out not to be, you should be able to import keys like so:
 
-....
- # rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-23-x86_64
-....
+[source, console]
+----
+$ sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-23-x86_64
+----
 
 , replacing "23" and "x86_64" with the new Fedora Linux version and your
 architecture, respectively.
@@ -131,9 +134,10 @@ _Secondary_, if you are using a secondary architecture), and you will
 see _Get it from: Fedora Project_, where _Fedora Project_ is a link.
 Copy that URL, and run:
 
-....
- # rpm --import (url)
-....
+[source, console]
+----
+$ sudo rpm --import (url)
+----
 
 to install the key. On old releases, `rpm` may have trouble doing this; if
 that happens, download the file with `curl -o` or `wget` and import the downloaded file.
@@ -144,9 +148,10 @@ that happens, download the file with `curl -o` or `wget` and import the download
 Then remove all traces of the version you are leaving from the dnf cache
 in `/var/cache/dnf`.
 
-....
-# dnf clean all
-....
+[source, console]
+----
+$ sudo dnf clean all
+----
 
 ==== Upgrade all packages
 
@@ -156,9 +161,10 @@ CAUTION: *Do not interrupt an upgrade for any reason* + Once a live upgrade is s
 
 Run the upgrade command:
 
-....
-# dnf --releasever=<target_release_number> --setopt=deltarpm=false distro-sync
-....
+[source, console]
+----
+$ sudo dnf --releasever=<target_release_number> --setopt=deltarpm=false distro-sync
+----
 
 NOTE: *Dependency issues* + If you experience any dependency problems, you have to solve them manually. These are often caused by packages being retired in the newer release, but not properly obsoleted. Often it is enough to remove several problematic package(s).
 You may find that a package you care about depends on a package that must be removed for the upgrade to proceed. Usually you will be able to reinstall the important package once the upgrade is complete.
@@ -181,33 +187,37 @@ they are essential.
 Ensure that all (new) essential packages from the new version are
 installed with
 
-....
-# dnf group upgrade 'Minimal Install'
-....
+[source, console]
+----
+$ sudo dnf group upgrade 'Minimal Install'
+----
 
 You might want to update other groups too, see
 
-....
-# dnf group list -v
-....
+[source, console]
+----
+$ sudo dnf group list -v
+----
 
 For example
 
-....
-# dnf group upgrade "GNOME Desktop" \
+[source, console]
+----
+$ sudo dnf group upgrade "GNOME Desktop" \
     "Development Tools" "Sound and Video" \
     "Games and Entertainment" "Administration Tools" \
     "Office/Productivity" "System Tools"
-....
+----
 
 === 6. Preparing for reboot
 
 Before booting you should usually install the bootloader from your new
 grub by running
 
-....
-/usr/sbin/grub2-install BOOTDEVICE
-....
+[source, console]
+----
+$ sudo /usr/sbin/grub2-install BOOTDEVICE
+----
 
 - where BOOTDEVICE is often `/dev/sda` or `/dev/vda` for some virtual machine installs. If
   you have more than one hard disk, make sure you use the correct device!
@@ -216,10 +226,11 @@ If you get an error (e.g. `/dev/sda does not have any corresponding BIOS drive`)
 
 It might also be necessary to update the grub config file:
 
-....
-cp --backup=numbered -a /boot/grub2/grub.cfg{,.bak} # create backup copy
-/usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg # update config file
-....
+[source, console]
+----
+$ sudo cp --backup=numbered -a /boot/grub2/grub.cfg{,.bak} # create backup copy
+$ sudo /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg # update config file
+----
 
 === 7. Cleanup your system
 
@@ -244,30 +255,33 @@ If you are upgrading to a final release from an Alpha, Beta, or release candidat
 
 See the link:Releases/Rawhide[Rawhide] release page for more information on Rawhide.
 
-....
-# dnf upgrade
-# dnf install dnf-plugins-core fedora-repos-rawhide
-# dnf config-manager --set-disabled fedora updates updates-testing
-# dnf config-manager --set-enabled rawhide
-# dnf clean -q dbcache packages metadata
-# dnf --releasever=rawhide --setopt=deltarpm=false distro-sync --nogpgcheck
+[source, console]
+----
+$ sudo dnf upgrade
+$ sudo dnf install dnf-plugins-core fedora-repos-rawhide
+$ sudo dnf config-manager --set-disabled fedora updates updates-testing
+$ sudo dnf config-manager --set-enabled rawhide
+$ sudo dnf clean -q dbcache packages metadata
+$ sudo dnf --releasever=rawhide --setopt=deltarpm=false distro-sync --nogpgcheck
 
 ## Optional: it is generally advised to do a selinux autorelabel and reboot
-# touch /.autorelabel
-....
+$ sudo touch /.autorelabel
+----
 
 === Fedora Linux 31
 Before running
 
-....
-dnf distro-sync
-....
+[source, console]
+----
+$ sudo dnf distro-sync
+----
 
 you must run
 
-....
-dnf module reset libgit2 exa bat
-....
+[source, console]
+----
+$ sudo dnf module reset libgit2 exa bat
+----
 
 See link:https://bugzilla.redhat.com/show_bug.cgi?id=1747408[Bug 1747408].
 
