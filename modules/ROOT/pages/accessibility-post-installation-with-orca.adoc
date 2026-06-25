@@ -15,11 +15,11 @@ This keyboard command is the usual command for turning on Orca.
 Orca will say "screen reader on." Now, enter your password, and press Enter.
 
 Nothing will happen, but you've been logged in.
-To start Orca here, you'll need to press Alt + F2, type in "orca" all lowercase, and press Enter.
+To start Orca here, you'll need to press Alt + F2, type in `orca` all lowercase, and press Enter.
 You'll hear "screen reader on" again.
 Now, you won't have to turn on Orca again during logging in, and we'll set Orca to turn up automatically after log in as well.
 
-Now, Mate has an applications menu, which lists all applications in a menu, sorted into categories.
+Now, MATE has an applications menu, which lists all applications in a menu, sorted into categories.
 To get to it, press Alt + F1.
 Now, arrow to the left to the System menu.
 Then, arrow down to Preferences, and then right arrow.
@@ -33,8 +33,8 @@ In this dialog, tab to the Orca combo box, and one more time to the Turn on at S
 Now, you can close the dialogs.
 
 Now, let's turn on a few more accessibility options.
-The text editor on the Mate desktop is Pluma.
-Open a Run dialog with Alt + F2, type mate-terminal, which has a dash between the two words, and press Enter.
+The text editor on the MATE desktop is Pluma.
+Open a Run dialog with Alt + F2, type `mate-terminal`, which has a dash between the two words, and press Enter.
 Now, in the terminal, type
 
 
