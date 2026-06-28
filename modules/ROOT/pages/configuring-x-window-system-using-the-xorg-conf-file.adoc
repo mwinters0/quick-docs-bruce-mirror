@@ -1,11 +1,11 @@
 = Configuring X Window System using the xorg.conf file
 Peter Lilley
-:revnumber: F35 onwards
-:revdate: 2021-01-03
+:revnumber: F44 onwards
+:revdate: 2026-06-28
 :category: Administration
 :tags: How-to, Workstation, Gnome, Customization, Xorg
 //:page-aliases: 
-
+// last reviewed by: pboy
 
 == About xorg.conf
 
