@@ -37,8 +37,3 @@ Now you may edit the file according to your needs.
 See the `xorg.conf(5)` man page for more information.
 
 
-
-[discrete]
-== Additional Resources
-. xref:configuring-xorg-as-default-gnome-session.adoc[Configuring Xorg as the default GNOME session]
-
