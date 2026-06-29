@@ -64,7 +64,6 @@
 ** xref:aide-checking-file-integrity.adoc[Checking file integrity with AIDE]
 ** xref:configuring-ip-networking-with-nmcli.adoc[Configuring IP networking with nmcli]
 ** xref:configuring-x-window-system-using-the-xorg-conf-file.adoc[Configuring X Window System using the xorg.conf file]
-** xref:configuring-xorg-as-default-gnome-session.adoc[Configuring Xorg as the default GNOME session]
 ** xref:firewalld.adoc[Control of System Accessibility by firewalld]
 ** xref:creating-a-disk-partition-in-linux.adoc[Creating Disk Partitions]
 ** xref:create-gpg-keys.adoc[Creating GPG Keys]
