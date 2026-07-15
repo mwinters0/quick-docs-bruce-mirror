@@ -187,9 +187,9 @@ $ sudo dnf reinstall grub2-common
 
 When you power on your system, your firmware will look for EFI variables that tell it how to boot. On running systems, which have booted into the EFI mode and their EFI runtime services are working correctly, you can configure your boot menu with `efibootmgr`. 
 
-If not, `shim` can help you bootstrap. The EFI program `/boot/efi/EFI/BOOT/fallback.efi` will look for files called `BOOT.CSV` in your ESP and will add boot entries corresponding to them. The `shim` command provides its own `BOOT.CSV` file that will add an entry for `grub2-efi`. 
+If not, `shim` can help you bootstrap. The EFI fallback program at `/boot/efi/EFI/BOOT/fbx64.efi` will look for files called `BOOT.CSV` in your ESP and will add boot entries corresponding to them. The `shim` command provides its own `BOOT.CSV` file that will add an entry for `grub2-efi`. 
 
-During the boot process, you can use the *EFI Shell* to invoke the `fallback.efi` profile to boot the system: 
+During the boot process, you can use the *EFI Shell* to invoke the `fbx64.efi` profile to boot the system: 
 
 . Enter the boot partition.
 +
@@ -205,16 +205,16 @@ During the boot process, you can use the *EFI Shell* to invoke the `fallback.efi
 > cd EFI\BOOT
 ----
 
-. Invoke the `fallback.efi` profile.
+. Invoke the `fbx64.efi` profile.
 +
 [source, ]
 ----
-> fallback.efi
+> fbx64.efi
 ----
 
 .More information
 
-* If you have no boot entries at all, then just booting off your disk in UEFI mode should automatically invoke `/boot/efi/EFI/BOOT/BOOTX64.EFI`, which will, in turn, invoke `fallback.efi`.
+* If you have no boot entries at all, then just booting off your disk in UEFI mode should automatically invoke `/boot/efi/EFI/BOOT/BOOTX64.EFI`, which will, in turn, invoke `fbx64.efi`.
 
 * If you already have incorrect boot entries, you'll either need to delete them or to modify `BOOT.CSV` to create new entries with different names.
 
