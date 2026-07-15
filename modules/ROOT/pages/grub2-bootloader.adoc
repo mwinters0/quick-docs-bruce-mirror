@@ -189,6 +189,11 @@ When you power on your system, your firmware will look for EFI variables that te
 
 If not, `shim` can help you bootstrap. The EFI fallback program at `/boot/efi/EFI/BOOT/fbx64.efi` will look for files called `BOOT.CSV` in your ESP and will add boot entries corresponding to them. The `shim` command provides its own `BOOT.CSV` file that will add an entry for `grub2-efi`. 
 
+[NOTE]
+====
+The EFI fallback program was originally named `fallback.efi`, but was refactored into separate architecture-specific variants of the original fallback bootloader. While `fbx64.efi` is typically used in most cases, a 32-bit variant called `fbia32.efi` is also available for 32-bit UEFI systems. Although Fedora is only supported as a 64-bit operating system, the UEFI firmware of the system can still run as a 32-bit environment. In these cases, `fbia32.efi` is used instead of `fbx64.efi` to boot a 64-bit kernel. If your system has a 32-bit UEFI, you can substitute `fbx64.efi` with `fbia32.efi` in the instructions that follow. 
+====
+
 During the boot process, you can use the *EFI Shell* to invoke the `fbx64.efi` profile to boot the system: 
 
 . Enter the boot partition.
