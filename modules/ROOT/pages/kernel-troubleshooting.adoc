@@ -1,13 +1,32 @@
 = Troubleshooting
-Brandon Nielsen;  Jibec
+Brandon Nielsen;  Jibec; Rowan Puttergill
 :revnumber: unknown
-:revdate: 2021-02-22
+:revdate: 2026-07-20
 :category: Kernel
 :tags: How-to,  Kernel, Troubleshooting 
 :page-aliases: kernel/troubleshooting.adoc 
 
 
 The kernel, like any software, has bugs. It's a large, complex project and can be difficult to troubleshoot problems. This document covers some basic troubleshooting techniques to help narrow down the root cause of an issue.
+
+== Editing Kernel Command Line Boot Options
+
+Many of the issues described here might require you to add, change, or remove particular kernel command line boot options.
+
+Use the `grubby` command to update kernel boot configuration.
+
+Use the `grubby --update-kernel` command to update a kernel entry with `--args` to add new arguments or to change existing argument values, or `--remove-args` to remove existing arguments.
+
+You can specify multiple arguments in a quoted space-separated list. You can add and remove arguments in the same operation. When using the `--args option`, if an argument already exists the new value replaces the old values.
+
+To update a specific kernel, run the `grubby --update-kernel` command with the full path to the kernel that you want to update. To update all kernel entries to use a specific kernel boot argument, you can use `grubby --update-kernel=ALL`.
+
+For example, to update all kernels on the system to remove the `rhgb` option which would disable graphical boot and display boot output to screen, and to remove the `quiet` option to display more output, you could run:
+
+[source,console]
+----
+$ sudo grubby --update-kernel=ALL --remove-args='rhgb quiet'
+----
 
 == Boot failures
 
@@ -20,7 +39,7 @@ boot process, there may or may not be any output. Some good first steps are:
   between printk during boot). You can use a camera to take pictures of the
   output.
 
-* Booting with vga=791 (or even just vga=1 if the video card won't support 791)
+* Booting with `vga=791` (or even just `vga=1` if the video card won't support 791)
   will put the framebuffer into high resolution mode to get more lines of text
   on screen, allowing more context for bug analysis.
 
