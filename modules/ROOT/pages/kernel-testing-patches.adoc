@@ -1,7 +1,7 @@
 = Testing Patches
-wchilders@nearce.com
-:revnumber: F38
-:revdate: 2021-08-11
+wchilders@nearce.com, Rowan Puttergill
+:revnumber: F44
+:revdate: 2026-07-15
 :category: Kernel
 :tags: How-to,  Kernel, Testing
 :page-aliases: kernel/testing-patches.adoc
@@ -38,6 +38,16 @@ subdirectory "kernel" and place all necessary files there):
 $ fedpkg clone --anonymous kernel
 ----
 
+The mock utility is used to build the packages from the kernel source.
+On a system where SELinux is enforcing, you must ensure that the file contexts are properly set on the directory where your kernel sources will be located.
+
+[source, console]
+----
+$ sudo semanage fcontext -a -t mock_var_lib_t kernel
+$ sudo restorecon -R kernel
+----
+
+
 Then, enter the created directory "kernel":
 
 [source, console]
@@ -54,11 +64,11 @@ is your version of Fedora:
 $ fedpkg switch-branch f<fedora version>
 ----
 
-For instance, if you're running Fedora 34, you'd run:
+For instance, if you're running Fedora 44, you'd run:
 
 [source, console]
 ----
-$ fedpkg switch-branch f34
+$ fedpkg switch-branch f44
 ----
 
 Finally, you need to add yourself to the "mock" group using the following
@@ -70,7 +80,7 @@ $ sudo usermod -a -G mock <username>
 ----
 
 For this change to take effect you can either logout and log back in,
-or you can run the following command:
+or you can run the following command and then open a new shell session or terminal:
 
 [source, console]
 ----
@@ -85,6 +95,21 @@ and save it in the "kernel" directory the previous step created as:
 [source, ]
 ----
 linux-kernel-test.patch
+----
+
+== Set the Kernel Buildid
+
+To avoid conflicts with existing kernels, set a custom buildid by editing the `kernel.spec` file in the "kernel" directory. 
+
+Find the line that matches `# define buildid .local` and change it to `%define buildid .<your_custom_id>`.
+
+Note that <your_custom_id> should be a numeric build ID and is used to identify your kernel build, against other Fedora-built kernels, and can help prevent conflicts when switching between kernels or doing package installation.
+
+You can use sed to make this change directly, for example:
+
+[source, console]
+----
+$ sed -i 's/# define buildid .local/%define buildid .1000/' kernel.spec
 ----
 
 == Building The Packages
@@ -120,14 +145,14 @@ number. Use the ls command to find its name, for example:
 [source, console]
 ----
 $ ls
-5.13.9
+7.1.3
 ----
 
 Enter this directory:
 
 [source, console]
 ----
-$ cd 5.13.9
+$ cd 7.1.3
 ----
 
 Repeat this process once more:
@@ -135,11 +160,11 @@ Repeat this process once more:
 [source, console]
 ----
 $ ls
-200.fc34
-$ cd 200.fc34
+201.1000.fc44
+$ cd 201.1000.fc44
 ----
 
-Finally, if you run ls one more time, you'll see a number of ".rpm" files.
+Finally, if you run ls one more time, you'll see several ".rpm" files.
 As an example:
 
 [source, ]
@@ -147,31 +172,60 @@ As an example:
 build.log
 hw_info.log
 installed_pkgs.log
-kernel-5.13.9-200.fc34.x86_64.src.rpm
-kernel-5.13.9-200.fc34.x86_64.rpm
-kernel-core-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-core-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-debuginfo-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-devel-5.13.9-200.fc34.x86_64.rpm
-kernel-debuginfo-5.13.9-200.fc34.x86_64.rpm
-kernel-debuginfo-common-x86_64-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-modules-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-modules-extra-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-modules-internal-5.13.9-200.fc34.x86_64.rpm
-kernel-devel-5.13.9-200.fc34.x86_64.rpm
-kernel-modules-5.13.9-200.fc34.x86_64.rpm
-kernel-modules-extra-5.13.9-200.fc34.x86_64.rpm
-kernel-modules-internal-5.13.9-200.fc34.x86_64.rpm
+kernel-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-core-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debug-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debug-core-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debug-debuginfo-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debug-devel-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debug-devel-matched-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debuginfo-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debuginfo-common-x86_64-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debug-modules-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debug-modules-core-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debug-modules-extra-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debug-modules-internal-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debug-uki-virt-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-debug-uki-virt-addons-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-devel-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-devel-matched-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-modules-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-modules-core-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-modules-extra-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-modules-extra-matched-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-modules-internal-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-selftests-internal-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-tools-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-tools-debuginfo-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-tools-libs-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-tools-libs-devel-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-uki-virt-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-uki-virt-addons-7.1.3-201.1000.fc44.x86_64.rpm
+libperf-7.1.3-201.1000.fc44.x86_64.rpm
+libperf-debuginfo-7.1.3-201.1000.fc44.x86_64.rpm
+libperf-devel-7.1.3-201.1000.fc44.x86_64.rpm
+perf-7.1.3-201.1000.fc44.x86_64.rpm
+perf-debuginfo-7.1.3-201.1000.fc44.x86_64.rpm
+python3-kernel-tools-7.1.3-201.1000.fc44.x86_64.rpm
+python3-perf-7.1.3-201.1000.fc44.x86_64.rpm
+python3-perf-debuginfo-7.1.3-201.1000.fc44.x86_64.rpm
 root.log
+rtla-7.1.3-201.1000.fc44.x86_64.rpm
+rtla-debuginfo-7.1.3-201.1000.fc44.x86_64.rpm
+rv-7.1.3-201.1000.fc44.x86_64.rpm
+rv-debuginfo-7.1.3-201.1000.fc44.x86_64.rpm
 state.log
 ----
 
-Remove all .src.rpm files with the following command:
+Make a directory to store the RPM files that you don't intend to use, such as the `*.src.rpm` and `*devel*` files, and move these files into the directory with the following commands:
 
 [source, console]
 ----
-$ rm *.src.rpm
+$ mkdir dev 
+$ mv *.src.rpm dev
+$ mv *devel*.rpm dev
+$ mv *debug*.rpm dev
 ----
 
 The list now should now look something like this:
@@ -179,24 +233,28 @@ The list now should now look something like this:
 [source, ]
 ----
 build.log
+dev
 hw_info.log
 installed_pkgs.log
-kernel-5.13.9-200.fc34.x86_64.rpm
-kernel-core-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-core-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-debuginfo-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-devel-5.13.9-200.fc34.x86_64.rpm
-kernel-debuginfo-5.13.9-200.fc34.x86_64.rpm
-kernel-debuginfo-common-x86_64-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-modules-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-modules-extra-5.13.9-200.fc34.x86_64.rpm
-kernel-debug-modules-internal-5.13.9-200.fc34.x86_64.rpm
-kernel-devel-5.13.9-200.fc34.x86_64.rpm
-kernel-modules-5.13.9-200.fc34.x86_64.rpm
-kernel-modules-extra-5.13.9-200.fc34.x86_64.rpm
-kernel-modules-internal-5.13.9-200.fc34.x86_64.rpm
+kernel-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-core-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-modules-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-modules-core-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-modules-extra-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-modules-extra-matched-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-modules-internal-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-selftests-internal-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-tools-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-tools-libs-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-uki-virt-7.1.3-201.1000.fc44.x86_64.rpm
+kernel-uki-virt-addons-7.1.3-201.1000.fc44.x86_64.rpm
+libperf-7.1.3-201.1000.fc44.x86_64.rpm
+perf-7.1.3-201.1000.fc44.x86_64.rpm
+python3-kernel-tools-7.1.3-201.1000.fc44.x86_64.rpm
+python3-perf-7.1.3-201.1000.fc44.x86_64.rpm
 root.log
+rtla-7.1.3-201.1000.fc44.x86_64.rpm
+rv-7.1.3-201.1000.fc44.x86_64.rpm
 state.log
 ----
 
@@ -216,11 +274,51 @@ computer to boot, and check to see if your issue has been resolved.
 === Going Back
 
 If you've finished testing, and you'd like to revert to the previous kernel
-you'll want to reboot again. This time when GRUB starts, you'll want to select
-an older kernel (for example, in this case we built 5.13.9, so we'd select
-5.13.8 from the list) using the arrow keys.
+you can change the default kernel in grub by using grubby.
 
-Once you've booted back, use the following command to undo installing
+It is important to remove your test kernel to avoid future conflicts and to allow your system to update easily in future.
+
+Check which kernels are available on the system:
+
+[source, console]
+----
+$ sudo grubby --info=ALL
+
+index=0
+kernel="/boot/boot/vmlinuz-6.19.10-300.fc44.x86_64"
+args="no_timer_check console=tty1 console=ttyS0,115200n8 systemd.firstboot=off rootflags=subvol=root"
+root="UUID=15c26993-ac30-424a-9c4b-faec4434d234"
+initrd="/boot/boot/initramfs-6.19.10-300.fc44.x86_64.img"
+title="Fedora Linux (6.19.10-300.fc44.x86_64) 44 (Cloud Edition)"
+id="b208e0c02ac84ca1a2150fc5ec1fa60e-6.19.10-300.fc44.x86_64"
+index=1
+kernel="/boot/boot/vmlinuz-7.1.3-201.1000.fc44.x86_64"
+args="ro rootflags=subvol=root no_timer_check console=tty1 console=ttyS0,115200n8 systemd.firstboot=off rootflags=subvol=root"
+root="UUID=15c26993-ac30-424a-9c4b-faec4434d234"
+initrd="/boot/boot/initramfs-7.1.3-201.1000.fc44.x86_64.img"
+title="Fedora Linux (7.1.3-201.1000.fc44.x86_64) 44 (Cloud Edition)"
+id="4d3467c7ecab402cbe8242a1413beb27-7.1.3-201.1000.fc44.x86_64"
+---- 
+
+Use the index to identify the kernel that you want as default, and set it as follows:
+
+[source, console]
+----
+$ sudo grubby --set-default-index=0
+The default is /boot/loader/entries/b208e0c02ac84ca1a2150fc5ec1fa60e-6.19.10-300.fc44.x86_64.conf with index 0 and kernel /boot/boot/vmlinuz-6.19.10-300.fc44.x86_64
+----
+
+Reboot the system.
+
+Check that the system is running the intended kernel:
+
+[source, console]
+----
+$ uname -r
+6.19.10-300.fc44.x86_64
+----
+
+If you're using the kernel you intended, use the following command to undo installing
 the kernel:
 
 [source, console]
@@ -237,16 +335,29 @@ the kernel version that was installed:
 ----
 $ dnf history --reverse
 ...
-24 | install ./kernel-5.13.9-200.fc34.x86_64.rpm ...
-...
+7 dnf install ./kernel-7.1.3-201.1000.fc44.x86_64.rpm ./kernel-core-7.1.3-201.1000.fc44.x86_64.rpm ...
 ----
 
-This number "24" can then be used to undo via the following command:
+This number "7" can then be used to undo via the following command:
 
 [source, console]
 ----
-$ sudo dnf history undo 24
+$ sudo dnf history undo 7
 ----
 
-Finally if you reboot, the new kernel (e.g., 5.13.9) should no longer appear in
-GRUB, and your previous kernel should be automatically selected (e.g., 5.13.8).
+Check that the kernel that you created with the patch has been removed from grub:
+
+[source, console]
+----
+$ sudo grubby --info=ALL
+index=0
+kernel="/boot/boot/vmlinuz-6.19.10-300.fc44.x86_64"
+args="no_timer_check console=tty1 console=ttyS0,115200n8 systemd.firstboot=off rootflags=subvol=root"
+root="UUID=15c26993-ac30-424a-9c4b-faec4434d234"
+initrd="/boot/boot/initramfs-6.19.10-300.fc44.x86_64.img"
+title="Fedora Linux (6.19.10-300.fc44.x86_64) 44 (Cloud Edition)"
+id="b208e0c02ac84ca1a2150fc5ec1fa60e-6.19.10-300.fc44.x86_64"
+----
+
+Finally if you reboot, the new kernel (e.g., 7.1.3-201.1000) should no longer appear in
+GRUB.
