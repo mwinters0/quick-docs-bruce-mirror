@@ -14,8 +14,10 @@ Gnome3 has already a screen recording functionality. Pressing Alt+Ctrl+Shift+R r
 
 === Increase the duration of screencast videos
 
-At just 30 seconds long the default length of screencast using this method isn’t ideal, particularly if you plan on making a lengthy video or need to demo a particular workflow or feature. It is possible to increase the duration of screencasts manually, by modifying the following gsettings string using the Terminal application:
-[source, console]
+NOTE: This applies to GNOME 49 and earlier. As of GNOME 50, the `max-screencast-length` gsettings key no longer exists, and screencast recording is no longer limited to 30 seconds by default.
+
+On older versions of GNOME, the default length of screencast using this method isn't ideal, particularly if you plan on making a lengthy video or need to demo a particular workflow or feature. It is possible to increase the duration of screencasts manually, by modifying the following gsettings string using the Terminal application:
+[,console]
 ----
 $ gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 60
 ----
