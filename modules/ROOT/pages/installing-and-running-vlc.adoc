@@ -1,7 +1,7 @@
 = Installing and Running VLC
 Lyle Corman ; Ankur Sinha
 :revnumber: unspecified
-:revdate: 2019
+:revdate: 2026-08-03
 :category: Software installation
 :tags: How-to, Multimedia, VLC
 //:page-aliases: 
@@ -11,15 +11,21 @@ Lyle Corman ; Ankur Sinha
 
 == Installing VLC
 
+VLC depends on codecs that Fedora cannot ship by default due to licensing restrictions. Enable the RPM Fusion repositories first:
 
-* Install VLC:
-+
+[source, console]
+----
+$ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+$ sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+----
+
+Then install VLC:
 [source, console]
 ----
 $ sudo dnf install vlc
 ----
 
-
+NOTE: Without RPM Fusion enabled, VLC still installs and runs, but many common video formats (H.264, HEVC, and others) will fail to play due to missing codec plugins.
 
 == Running VLC
 
