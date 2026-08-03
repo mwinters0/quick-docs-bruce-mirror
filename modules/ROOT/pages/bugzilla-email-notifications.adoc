@@ -42,7 +42,7 @@ The release engineering automation will add you automatically.
 
 == Watch specific bugs
 
-If you want to track a specific but,
+If you want to track a specific bug,
 you can add yourself to the _CC_ list.
 
 . On the bug you want to watch,

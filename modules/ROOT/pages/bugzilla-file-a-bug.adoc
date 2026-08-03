@@ -78,7 +78,7 @@ $ sudo dnf upgrade --refresh
 
 If you are using the latest version of the software available in Fedora, then it is likely that the bug has either not been reported, or has been reported but a fix has not yet been released.
 So, it is useful to search the list of already reported bugs before filing a new report.
-The https://packages.fedoraproject.org/[Fedora Packages Web application] provides a link the open bugs for a package.
+The https://packages.fedoraproject.org/[Fedora Packages Web application] provides a link to the open bugs for a package.
 There is also a convenient shortcut that can be used.
 
     https://bugz.fedoraproject.org/<package name>
