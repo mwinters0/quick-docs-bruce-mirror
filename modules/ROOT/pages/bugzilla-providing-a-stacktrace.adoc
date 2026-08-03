@@ -303,7 +303,7 @@ If you do not get any output from gdb after typing `thread apply all bt` or `bt`
 [id=firefox]
 === Firefox
 
-* Install Firefox and Xulrunner debug info packages - run `ebuginfo-install firefox xulrunner` as root on the command line.
+* Install Firefox and Xulrunner debug info packages - run `debuginfo-install firefox xulrunner` as root on the command line.
 * Run `firefox -g` on the command line.  That will start firefox running inside of gdb debugger.
 * In gdb, you should see gdb prompt `(gdb)`. Issue the command `run -safe-mode`. A dialog window will pop up, disable all add-ons here and continue in safe mode.
 * Do whatever is necessary to make firefox crash and follow the instructions above for gdb usage.
