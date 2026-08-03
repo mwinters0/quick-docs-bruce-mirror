@@ -19,8 +19,6 @@ It is available in the Fedora repositories.
 
 Fedora's Chromium package includes only free and open source software, so it does not include features of Google Chrome that rely on proprietary software — including support for proprietary media codecs such as H.264 and AAC.
 
-NOTE: If you need full codec support in Chromium, install `chromium-freeworld` from RPM Fusion instead. See xref:rpmfusion-setup.adoc[Enabling the RPM Fusion repositories].
-
 === Google Chrome
 
 Google Chrome is a popular web browser developed by Google, built on top of the Chromium project.
