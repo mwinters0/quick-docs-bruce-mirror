@@ -40,7 +40,7 @@ That said, keeping a system up-to-date is an important part of security, and aut
 
 [source,console]
 ----
-$ sudo dnf install dnf-automatic
+$ sudo dnf install dnf5-plugin-automatic
 ----
 
 === Configuring automatic.conf
