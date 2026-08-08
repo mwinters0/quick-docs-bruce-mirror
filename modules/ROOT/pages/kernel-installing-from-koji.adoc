@@ -31,7 +31,7 @@ Download the following package rpms for a specific kernel version into a directo
 kernel-<version>.<release>.<arch>.rpm
 kernel-core-<version>.<release>.<arch>.rpm
 kernel-modules-<version>.<release>.<arch>.rpm
-kernel-modules-core<version>.<release>.<arch>.rpm
+kernel-modules-core-<version>.<release>.<arch>.rpm
 ----
 
 then, open a command prompt and change to this directory.
