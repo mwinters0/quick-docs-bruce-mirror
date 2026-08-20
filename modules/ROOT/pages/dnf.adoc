@@ -165,3 +165,11 @@ The `list` command can be used to list all locked packages, while the `clear` co
 . https://dnf.readthedocs.io/en/latest/command_ref.html[DNF Command Reference]
 . https://github.com/rpm-software-management/dnf/wiki[DNF wiki]
 . https://dnf-plugins-core.readthedocs.io/en/latest/versionlock.html[DNF VersionLock]
+
+Current Fedora releases (since 41) use DNF5 by default, 
+its documentation is in a different repository to that linked above:
+
+. https://dnf5.readthedocs.io/en/latest/[DNF5 Documentation (Main page)]
+. https://dnf5.readthedocs.io/en/latest/commands/index.html[DNF5 Command Reference]
+. https://github.com/rpm-software-management/dnf5[DNF5 GitHub Repository]
+
