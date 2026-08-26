@@ -461,3 +461,15 @@ $ sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-N-primary
 === Can I use DNF System Upgrade to upgrade to a pre-release (e.g. a Beta)?
 
 Yes, but this is subject to temporary breakage as with any other aspect of a pre-release.
+
+[[sect-why-does-offline-upgrade-fail-on-systems-that-lack-hardware-real-time-clock]]
+=== Why does offline upgrade fail on systems that lack hardware Real-Time Clock (RTC)?
+
+Some systems, like Raspberry Pi, lack a hardware Real-Time Clock (RTC). This causes the system to be on an incorrect year during early boot, especially before network has been loaded. GPG signature verification fails when the time is incorrect. This causes the upgrade to fail after `sudo dnf offline reboot` is run.
+
+The suggested fix is to enable systemd-timesyncd _before_ starting the upgrade process (`dnf system-upgrade download`).
+
+[source, console]
+----
+$ sudo systemctl enable --now systemd-timesyncd
+----
