@@ -1,4 +1,4 @@
-= *VMware* – What is it and How use it?
+= *VMware* - What is it and How use it?
 Héctor Louzao; The Fedora Docs team
 :revnumber: unknown
 :revdate: 2025-03-31
@@ -7,7 +7,9 @@ Héctor Louzao; The Fedora Docs team
 :page-aliases: how-to-use-vmware.adoc
 
 
-VMware provides cloud computing and virtualization software and services, their most important products are:
+VMware provides cloud computing, virtualization software, and services. 
+
+Their most important products are:
 
 ** VMware Workstation Player, is a virtualization software package and can run existing virtual appliances and create its own virtual machines (which require an operating system to be installed to be functional). VMware Player is available for personal non-commercial use.
 
@@ -17,7 +19,9 @@ VMware provides cloud computing and virtualization software and services, their 
 
 [IMPORTANT]
 
-Wmware is now free for commercial, educational, and personal use!, the free version includes all the features from the former paid versions.
+VMware is now free for commercial, educational, and personal use. 
+
+The free version includes all the features from the former paid versions.
 
 == How to Download VMware
 
@@ -51,15 +55,17 @@ $ sudo ./VMware-Workstation-Full-x.y.z-nn.x86_64.bundle
 
 === Resolving Conflict with Kernel
 
-The problem here is always the same `vmnet` and `vmmon` doesn’t start well or doesn’t start at all, You should find a PATCH deal with changes in vmmon.c and vmnet.c because something breaks or add some parameters to these files, you can found the following:
+The problem here is always the same `vmnet` and `vmmon` doesn't start well or doesn't start at all. 
+
+You should find a PATCH to deal with changes in vmmon.c and vmnet.c because something breaks or add some parameters to these files, you can find the following:
 
 ** know what is your kernel version?: `uname -r`.
-** know your Vmware version or install the latest. `/usr/bin/vmware -v`
+** know your VMware version or install the latest. `/usr/bin/vmware -v`
 ** Try to find the PATCH for a specific KERNEL version and Vmware.
 ** You have to deal with sources ( **vmnet** and **vmmon** ) and apply fixed in both of them.
-** Try to find the fix for the specific product Vmware and Kernel version.
+** Try to find the fix for the specific product VMware and Kernel version.
 
-NOTE: This guide try to help with all this boring stuff.
+NOTE: This guide assists with the boring stuff.
 
 === Prerequisite
 
@@ -93,7 +99,9 @@ Options are available but for the moment __Disable Secure Boot__ is the best opt
 
 === Deal with Kernel Updates
 
-You can create a script to take of this after a kernel update. Save it as `/etc/kernel/install.d/99-vmmodules.install`:
+You can create a script to take care of this after a kernel update. 
+
+Save the script as `/etc/kernel/install.d/99-vmmodules.install`:
 
 [source, ]
 ----
