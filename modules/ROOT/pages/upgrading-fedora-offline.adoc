@@ -207,22 +207,10 @@ $ sudo dnf repoquery --duplicates
 
 And you can remove them with:
 
-===== Fedora 38 and older (DNF4):
 [source, console]
 ----
 $ sudo dnf remove --duplicates
 ----
-
-===== Fedora 39+ (DNF5)
-[source, console]
-----
-$ sudo dnf4 remove --duplicates
-----
-
-[NOTE]
-====
-`--duplicates` is a DNF4-only option and is not supported in DNF5.
-====
 
 [NOTE]
 ====
