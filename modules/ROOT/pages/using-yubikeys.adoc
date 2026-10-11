@@ -506,7 +506,7 @@ If your key supports FIDO, change its PIN with ykman fido access like this:
 
 [source, console]
 ----
-$ ykman piv access change-pin
+$ ykman fido access change-pin
 Enter the current PIN: 123456
 Enter the new PIN: ********
 Repeat for confirmation: ********
