@@ -10,7 +10,7 @@ This procedure shows the steps to install *GRUB2* on your _Master Boot Record_ (
 * Make sure you have the the *GRUB2* packages and the _os-prober_ package installed in your system.
 +   
 ----
-$ dnf list installed | grep grub
+$ dnf list --installed | grep grub
 ----
 
 * To automatically collect information about your disks and operating systems installed on them, the `os-prober` package needs to be installed on your system.

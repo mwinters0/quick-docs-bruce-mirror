@@ -198,11 +198,11 @@ ID     | Command line             | Date and time    | Action(s)      | Altered
      1 |                          | 2017-10-10 13:34 | Install        | 1373 EE
 ----
 
-*dnf list installed*:: Lists all packages installed on the system.
+*dnf list --installed*:: Lists all packages installed on the system.
 +
 [literal,subs="+quotes,attributes"]
 ----
-# *dnf list installed*
+# *dnf list --installed*
 Last metadata expiration check: 1:17:33 ago on Thu Dec 14 09:20:48 2017.
 Installed Packages
 GConf2.x86_64                                                                                         3.2.6-16.fc24                                                                             @anaconda

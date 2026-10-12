@@ -337,7 +337,7 @@ $ mysql -u myuser -h <server-ip> -p
 
 [source, console]
 ----
-$ dnf list installed | grep -i -e maria -e mysql
+$ dnf list --installed | grep -i -e maria -e mysql
 ----
 
 === Check active configuration

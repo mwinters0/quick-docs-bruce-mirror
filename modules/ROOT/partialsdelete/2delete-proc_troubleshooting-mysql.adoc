@@ -4,7 +4,7 @@
 Version:
 
 ----
-dnf list installed | grep -i -e maria -e mysql -e galera
+dnf list --installed | grep -i -e maria -e mysql -e galera
 ----
 
 Check parameters in configuration file:
