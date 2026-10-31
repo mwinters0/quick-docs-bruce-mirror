@@ -1,7 +1,7 @@
 = Enabling the RPM Fusion repositories
 Micah Abbott
 :revnumber: F36 and newer
-:revdate: 2023-09-17
+:revdate: 2026-10-23
 :category: Managing Software
 :tags: How-to, Repositories
 :page-aliases: setup-rpmfusion.adoc
@@ -11,12 +11,8 @@ include::{partialsdir}/3rdparty-message.adoc[]
 
 == Third party repositories
 
-There are several third-party software repositories for Fedora. They have more liberal licensing policies and provide software packages that Fedora excludes for various reasons. These software repositories are not officially affiliated or endorsed by the Fedora Project. Use them at your own discretion. For complete list, see https://rpmfusion.org/FedoraThirdPartyRepos[FedoraThirdPartyRepos]
-The following repositories are commonly used by end users and do not conflict with each other:
-
-* https://rpmfusion.org
-
-* rpm.livna.org (Obsoleted! Replaced by RPM Fusion free tainted)
+There are several third-party software repositories for Fedora. They have more liberal licensing policies and provide software packages that Fedora excludes for various reasons. These software repositories are not officially affiliated or endorsed by the Fedora Project. Use them at your own discretion. For complete list, see https://rpmfusion.org/FedoraThirdPartyRepos[FedoraThirdPartyRepos].
+The most commonly used third-party repository is link:https://rpmfusion.org[RPM Fusion].
 
 === Mixing third party software repositories
 
@@ -32,7 +28,7 @@ The RPM Fusion project is a community-maintained software repository providing a
 === Additional resources
 
 * RPM Fusion home page: link:https://rpmfusion.org/[]
-* For more information on what packages are allowed to be distributed with Fedora, see the following wiki page: link:https://fedoraproject.org/wiki/Forbidden_items[]
+* For more information on what packages are allowed to be distributed with Fedora, see: link:https://docs.fedoraproject.org/en-US/legal/[]
 * You can buy multimedia codecs from Fluendo. This is a legal solution for users from countries where software patents apply. For more information, see: link:https://fluendo.com/en/products/enterprise/fluendo-codec-pack/[].
 
 
