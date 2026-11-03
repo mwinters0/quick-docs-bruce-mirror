@@ -1,0 +1,78 @@
+name: links
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    container: registry.fedoraproject.org/fedora-minimal:44
+    env:
+      PUB_URL: https://mwinters0.github.io/bruce-fedora-docs-ci
+      PREFIX: https://docs.fedoraproject.org/en-US/
+      PLAYBOOK: site.yml
+      SITE_DIR: public
+      ANTORA_VERSION: 3.1.15
+      ANTORA_DIR: /opt/antora
+    steps:
+      - name: Install the tools
+        run: |
+          microdnf -y install --setopt=install_weak_deps=False nodejs-npm git tar gzip
+
+      - name: Check out the change
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git init -q .
+          git fetch -q --depth 1 "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" "$GITHUB_SHA"
+          git checkout -q FETCH_HEAD
+
+      - name: Install Antora
+        run: |
+          npm install --no-audit --no-fund --prefix "$ANTORA_DIR" \
+            "@antora/cli@$ANTORA_VERSION" "@antora/site-generator@$ANTORA_VERSION"
+
+      - name: Build the site
+        run: |
+          CI=true "$ANTORA_DIR/node_modules/.bin/antora" --html-url-extension-style=indexify "$PLAYBOOK"
+
+      - name: Fetch what the deployment published
+        run: |
+          fail() {
+            echo "bruce: $1; the job could not run, which says nothing of the change" >&2
+            exit 2
+          }
+          mkdir bruce-ci
+          cd bruce-ci
+          curl -fsS --retry 3 -o SHA256SUMS "$PUB_URL/SHA256SUMS" || fail "no SHA256SUMS at $PUB_URL"
+          # The one file of a kind that SHA256SUMS lists, named by its content.
+          pick() {
+            found=$(grep -E "^[0-9a-f]{64} [ *]$1\$" SHA256SUMS | cut -c67-)
+            [ -n "$found" ] && [ "$(echo "$found" | wc -l)" -eq 1 ] || fail "SHA256SUMS lists no single $1"
+            echo "$found"
+          }
+          archive=$(pick 'bruce-[0-9a-f]{16}\.tar\.gz')
+          config=$(pick 'config-[0-9a-f]{16}\.toml')
+          baseline=$(pick 'baseline-[0-9a-f]{16}\.duckdb\.gz')
+          for name in "$archive" "$config" "$baseline"; do
+            curl -fsS --retry 3 -O "$PUB_URL/$name" || fail "cannot fetch $name"
+          done
+          sha256sum -c --quiet --ignore-missing SHA256SUMS || fail "a file fails its sum in SHA256SUMS"
+          mv "$config" bruce.toml
+          mv "$baseline" baseline.duckdb.gz
+          mkdir bin
+          tar -xzf "$archive" --strip-components=1 -C bin
+
+      - name: Check the build
+        run: |
+          export PATH="$GITHUB_WORKSPACE/bruce-ci/bin:$PATH"
+          bruce check-dir "$SITE_DIR" --prefix "$PREFIX" \
+            --baseline bruce-ci/baseline.duckdb.gz --config bruce-ci/bruce.toml \
+            --db bruce-ci/ci.duckdb && status=0 || status=$?
+          case $status in
+            0) echo "This change breaks no link." ;;
+            1) echo "This change breaks the links listed above." >&2; exit 1 ;;
+            *) echo "bruce could not check the build (exit $status): the job failed, not the change" >&2; exit "$status" ;;
+          esac
